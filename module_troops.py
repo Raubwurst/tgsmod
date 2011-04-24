@@ -2897,7 +2897,7 @@ troops = [
   ["kingdom_6_lord",  "Clan Chief Rhuarc",  "Rhuarc",  tf_hero, 0,reserved,  fac_kingdom_6,[itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(325)|wp(300),knight_skills_5|knows_trainer_5, 0x0000000db304100536d38db6e46dcae500000000001e492b0000000000000000],
   ["kingdom_7_lord",  "Empress Fortuona Athaem Kore Paendrag",  "Fortuona",  tf_hero|tf_female, 0,reserved,  fac_kingdom_7,[itm_lord_warhorse_7, itm_sarranid_lady_dress, itm_novice_accepted_damane_shoes, itm_seanchan_sword], knight_attrib_4,wp_two_handed(260)|wp(250),knight_skills_4|knows_trainer_5, 0x00000000050c40003325c5331dc8b5a300000000001e44a40000000000000000],
   ["kingdom_8_lord",  "Shaidar Haran",  "Shaidar Haran",  tf_hero, 0,reserved,  fac_kingdom_8,[itm_myrddraal_horse, itm_myrddraal_armor, itm_black_leather_boots, itm_myrddraal_hood_helmet, itm_black_mail_gauntlets, itm_myrddraal_blade], knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_5, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
-# V: New faces for Rand, Semaradrid, Lan, Rhuarc #
+# V: New faces for Rand, Semaradrid, Lan, Rhuarc
 
 #    Imbrea   Belinda Ruby Qaelmas Rose    Willow 
 #  Alin  Ganzo            Zelka Rabugti
@@ -2929,7 +2929,7 @@ troops = [
   ["knight_1_18", "Chel Vanin", "Chel Vanin", tf_hero, 0, reserved,  fac_kingdom_1, [itm_charger, itm_red_hand_plate, itm_red_hand_greaves, itm_red_hand_plate_gauntlets, itm_red_hand_kettle_helm, itm_great_sword],   knight_attrib_3|knows_trainer_4,wp_two_handed(250)|wp(130),knight_skills_3|knows_trainer_3, 0x0000000bfc04425348e45236e3d24b2400000000001f375b0000000000000000],
   ["knight_1_19", "Macoll", "Macoll", tf_hero, 0, reserved,  fac_kingdom_1, [itm_charger, itm_red_hand_plate, itm_red_hand_greaves, itm_red_hand_plate_gauntlets, itm_red_hand_kettle_helm, itm_great_sword],   knight_attrib_3|knows_trainer_4,wp_two_handed(250)|wp(130),knight_skills_3|knows_trainer_3, arad_doman_man_face_middle],
   ["knight_1_20", "Elyas Machera", "Elyas", tf_hero, 0, reserved,  fac_kingdom_1, [itm_pelt_coat, itm_hide_boots, itm_mail_boots, itm_leather_gloves, itm_aiel_knife], knight_attrib_5,wp_one_handed(275)|wp(240),knight_skills_5|knows_trainer_5, 0x0000000d870861c738db71c924cdcb2400000000001f49230000000000000000],
-# V: New faces for Mat, Perrin, Elyas, Tam, Talmanes, Logain, Bran, Vanin #
+# V: New faces for Mat, Perrin, Elyas, Tam, Talmanes, Logain, Bran, Vanin
 
   
 #  ["knight_1_21", "Lord Swadian 21", "knight_1_7", tf_hero, 0, reserved,  fac_kingdom_1, [itm_saddle_horse,      itm_ragged_outfit,      itm_heraldic_mail_with_surcoat,           itm_nomad_boots,            itm_splinted_greaves,                itm_great_helmet, itm_gauntlets,           itm_sword_medieval_c,   itm_sword_two_handed_a,   itm_tab_shield_heater_cav_a],   knight_attrib_2,wp(150),knight_skills_2, 0x0000000c4d0840d24a9b2ab4ac2a332400000000001d34db0000000000000000, swadian_face_young_2],
