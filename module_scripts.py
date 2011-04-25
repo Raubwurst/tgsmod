@@ -8023,9 +8023,9 @@ scripts = [
 	(troop_set_slot, "trp_knight_1_7", slot_troop_age,38),   # Logain
 	(troop_set_slot, "trp_knight_1_8", slot_troop_age,22),   # Jahar
 	(troop_set_slot, "trp_knight_1_9", slot_troop_age,18),   # Bran
-	(troop_set_slot, "trp_knight_1_10", slot_troop_age,35),  # Abel
+	(troop_set_slot, "trp_knight_1_10", slot_troop_age,35),  # Abell
 	(troop_set_slot, "trp_knight_1_11", slot_troop_age,35),  # Min
-	(troop_set_slot, "trp_knight_1_12", slot_troop_age,65),  # Donaldo
+	(troop_set_slot, "trp_knight_1_12", slot_troop_age,65),  # Donalo
 	(troop_set_slot, "trp_knight_1_13", slot_troop_age,41),  # Fager
 	(troop_set_slot, "trp_knight_1_14", slot_troop_age,41),  # Jur
 	(troop_set_slot, "trp_knight_1_15", slot_troop_age,39),  # Daerid
@@ -8223,9 +8223,214 @@ scripts = [
 	(troop_set_slot, "trp_knight_8_19", slot_troop_age,56),  # High Lord Weiramon
 	(troop_set_slot, "trp_knight_8_20", slot_troop_age,41),  # Lady Darkfriend
 
+	(assign, ":reputation" "trp_knight_1_1"),  # Mat   
+	(assign, ":reputation" "trp_knight_1_2"),  # Perrin   
+	(assign, ":reputation" "trp_knight_1_3"),  # Tam   
+	(assign, ":reputation" "trp_knight_1_4"),  # Damer   
+	(assign, ":reputation" "trp_knight_1_5"),  # Davram   
+	(assign, ":reputation" "trp_knight_1_6"),  # Talmanes   
+	(assign, ":reputation" "trp_knight_1_7"),  # Logain   
+	(assign, ":reputation" "trp_knight_1_8"),  # Jahar   
+	(assign, ":reputation" "trp_knight_1_9"),  # Bran   
+	(assign, ":reputation" "trp_knight_1_10"),  # Abell
+	(assign, ":reputation" "trp_knight_1_11"),  # Min   
+	(assign, ":reputation" "trp_knight_1_12"),  # Donalo   
+	(assign, ":reputation" "trp_knight_1_13"),  # Fager   
+	(assign, ":reputation" "trp_knight_1_14"),  # Jur   
+	(assign, ":reputation" "trp_knight_1_15"),  # Daerid   
+	(assign, ":reputation" "trp_knight_1_16"),  # Ban   
+	(assign, ":reputation" "trp_knight_1_17"),  # Harnan   
+	(assign, ":reputation" "trp_knight_1_18"),  # Vanin   
+	(assign, ":reputation" "trp_knight_1_19"),  # Macoll   
+	(assign, ":reputation" "trp_knight_1_20"),  # Elyas   
 
-### V/TODO: Make a 'reputation' definition as below for every knight	
-#	(assign, ":reputation", "trp_knight_1_1"),
+	(assign, ":reputation" "trp_knight_2_1"),  # Mattin Stepanos  
+	(assign, ":reputation" "trp_knight_2_2"),  # Berelain   
+	(assign, ":reputation" "trp_knight_2_3"),  # Jeordwyn   
+	(assign, ":reputation" "trp_knight_2_4"),  # Bertain   
+	(assign, ":reputation" "trp_knight_2_5"),  # Rodel   
+	(assign, ":reputation" "trp_knight_2_6"),  # Roedran   
+	(assign, ":reputation" "trp_knight_2_7"),  # Beslan   
+	(assign, ":reputation" "trp_knight_2_8"),  # Alsalam   
+	(assign, ":reputation" "trp_knight_2_9"),  # Eshin   
+	(assign, ":reputation" "trp_knight_2_10"),  # Spiron   
+	(assign, ":reputation" "trp_knight_2_11"),  # Ballin   
+	(assign, ":reputation" "trp_knight_2_12"),  # Dalthanes   
+	(assign, ":reputation" "trp_knight_2_13"),  # Barmanes   
+	(assign, ":reputation" "trp_knight_2_14"),  # Dobraine   
+	(assign, ":reputation" "trp_knight_2_15"),  # Segan   
+	(assign, ":reputation" "trp_knight_2_16"),  # Havien   
+	(assign, ":reputation" "trp_knight_2_17"),  # Paitr   
+	(assign, ":reputation" "trp_knight_2_18"),  # Sedrin   
+	(assign, ":reputation" "trp_knight_2_19"),  # Nathin   
+	(assign, ":reputation" "trp_knight_2_20"),  # Malalin   
+	(assign, ":reputation" "trp_knight_2_21"),  # Selande   
+	(assign, ":reputation" "trp_knight_2_22"),  # Alamindra   
+	(assign, ":reputation" "trp_knight_2_23"),  # Aethelaine   
+	(assign, ":reputation" "trp_knight_2_24"),  # Cairhien Lord  
+	(assign, ":reputation" "trp_knight_2_25"),  # Cairhien Lady  
+	(assign, ":reputation" "trp_knight_2_26"),  # Cairhien Lesser Lord 
+	(assign, ":reputation" "trp_knight_2_27"),  # Cairhien Lesser Lady 
+	(assign, ":reputation" "trp_knight_2_28"),  # Illian Councel of Nine
+	(assign, ":reputation" "trp_knight_2_29"),  # Illian Lord  
+	(assign, ":reputation" "trp_knight_2_30"),  # Illian Lady  
+	(assign, ":reputation" "trp_knight_2_31"),  # Murandy Lord  
+	(assign, ":reputation" "trp_knight_2_32"),  # Murandy Lady  
+	(assign, ":reputation" "trp_knight_2_33"),  # Murandy Lesser Lord 
+	(assign, ":reputation" "trp_knight_2_34"),  # Murandy Lesser Lady 
+	(assign, ":reputation" "trp_knight_2_35"),  # Altara Lord  
+	(assign, ":reputation" "trp_knight_2_36"),  # Altara Lady  
+	(assign, ":reputation" "trp_knight_2_37"),  # Altara Lesser Lord 
+	(assign, ":reputation" "trp_knight_2_38"),  # Altara Lesser Lady 
+	(assign, ":reputation" "trp_knight_2_39"),  # Arad Doman Lord 
+	(assign, ":reputation" "trp_knight_2_40"),  # Arad Doman Lesser Lord
+
+	(assign, ":reputation" "trp_knight_3_1"),  # Aleis   
+	(assign, ":reputation" "trp_knight_3_2"),  # Birgitte   
+	(assign, ":reputation" "trp_knight_3_3"),  # Charlz   
+	(assign, ":reputation" "trp_knight_3_4"),  # Amathera   
+	(assign, ":reputation" "trp_knight_3_5"),  # Alliandre   
+	(assign, ":reputation" "trp_knight_3_6"),  # Torean   
+	(assign, ":reputation" "trp_knight_3_7"),  # Galad   
+	(assign, ":reputation" "trp_knight_3_8"),  # Darlin   
+	(assign, ":reputation" "trp_knight_3_9"),  # Gawyn   
+	(assign, ":reputation" "trp_knight_3_10"),  # Narvais   
+	(assign, ":reputation" "trp_knight_3_11"),  # Ellorien   
+	(assign, ":reputation" "trp_knight_3_12"),  # Dyelin   
+	(assign, ":reputation" "trp_knight_3_13"),  # Tallanvor   
+	(assign, ":reputation" "trp_knight_3_14"),  # Eram   
+	(assign, ":reputation" "trp_knight_3_15"),  # Jarid   
+	(assign, ":reputation" "trp_knight_3_16"),  # Hanshelle   
+	(assign, ":reputation" "trp_knight_3_17"),  # Aubrem   
+	(assign, ":reputation" "trp_knight_3_18"),  # Luan   
+	(assign, ":reputation" "trp_knight_3_19"),  # Perival   
+	(assign, ":reputation" "trp_knight_3_20"),  # Ailron   
+	(assign, ":reputation" "trp_knight_3_21"),  # Cumere   
+	(assign, ":reputation" "trp_knight_3_22"),  # Baryn   
+	(assign, ":reputation" "trp_knight_3_23"),  # Ademun   
+	(assign, ":reputation" "trp_knight_3_24"),  # Danine   
+	(assign, ":reputation" "trp_knight_3_25"),  # Sylvase   
+	(assign, ":reputation" "trp_knight_3_26"),  # Arendor   
+	(assign, ":reputation" "trp_knight_3_27"),  # Arganda   
+	(assign, ":reputation" "trp_knight_3_28"),  # Kireyin   
+	(assign, ":reputation" "trp_knight_3_29"),  # Asunawa   
+	(assign, ":reputation" "trp_knight_3_30"),  # Dain   
+	(assign, ":reputation" "trp_knight_3_31"),  # Byar   
+	(assign, ":reputation" "trp_knight_3_32"),  # Hearne   
+	(assign, ":reputation" "trp_knight_3_33"),  # Sunamon   
+	(assign, ":reputation" "trp_knight_3_34"),  # Tedosian   
+	(assign, ":reputation" "trp_knight_3_35"),  # Tarabon Lord  
+	(assign, ":reputation" "trp_knight_3_36"),  # Tarabon Lesser Lord 
+	(assign, ":reputation" "trp_knight_3_37"),  # Estean   
+	(assign, ":reputation" "trp_knight_3_38"),  # Tolmeran   
+	(assign, ":reputation" "trp_knight_3_39"),  # Tear Lord  
+	(assign, ":reputation" "trp_knight_3_40"),  # Aracome   
+
+	(assign, ":reputation" "trp_knight_4_1"),  # Easar   
+	(assign, ":reputation" "trp_knight_4_2"),  # Paitar   
+	(assign, ":reputation" "trp_knight_4_3"),  # Ethenielle   
+	(assign, ":reputation" "trp_knight_4_4"),  # Tenobia   
+	(assign, ":reputation" "trp_knight_4_5"),  # Jagad   
+	(assign, ":reputation" "trp_knight_4_6"),  # Terasian   
+	(assign, ":reputation" "trp_knight_4_7"),  # Baldhere   
+	(assign, ":reputation" "trp_knight_4_8"),  # Maedin   
+	(assign, ":reputation" "trp_knight_4_9"),  # Kayen   
+	(assign, ":reputation" "trp_knight_4_10"),  # Ismic   
+	(assign, ":reputation" "trp_knight_4_11"),  # Kyril   
+	(assign, ":reputation" "trp_knight_4_12"),  # Serialla   
+	(assign, ":reputation" "trp_knight_4_13"),  # Nazelle   
+	(assign, ":reputation" "trp_knight_4_14"),  # Ingtar   
+	(assign, ":reputation" "trp_knight_4_15"),  # Antol   
+	(assign, ":reputation" "trp_knight_4_16"),  # Kalyan   
+	(assign, ":reputation" "trp_knight_4_17"),  # Tumad   
+	(assign, ":reputation" "trp_knight_4_18"),  # Hurin   
+	(assign, ":reputation" "trp_knight_4_19"),  # Uno   
+	(assign, ":reputation" "trp_knight_4_20"),  # Ragan   
+
+	(assign, ":reputation" "trp_knight_5_1"),  # Silviana   
+	(assign, ":reputation" "trp_knight_5_2"),  # Bryne   
+	(assign, ":reputation" "trp_knight_5_3"),  # Cadsuane   
+	(assign, ":reputation" "trp_knight_5_4"),  # Nynaeve   
+	(assign, ":reputation" "trp_knight_5_5"),  # Siun   
+	(assign, ":reputation" "trp_knight_5_6"),  # Leana   
+	(assign, ":reputation" "trp_knight_5_7"),  # Lelaine   
+	(assign, ":reputation" "trp_knight_5_8"),  # Romanda   
+	(assign, ":reputation" "trp_knight_5_9"),  # Pevara   
+	(assign, ":reputation" "trp_knight_5_10"),  # Yukiri   
+	(assign, ":reputation" "trp_knight_5_11"),  # Saerin   
+	(assign, ":reputation" "trp_knight_5_12"),  # Doesine   
+	(assign, ":reputation" "trp_knight_5_13"),  # Seaine   
+	(assign, ":reputation" "trp_knight_5_14"),  # Myrelle   
+	(assign, ":reputation" "trp_knight_5_15"),  # Kiruna   
+	(assign, ":reputation" "trp_knight_5_16"),  # Bera   
+	(assign, ":reputation" "trp_knight_5_17"),  # Tiana   
+	(assign, ":reputation" "trp_knight_5_18"),  # Takima   
+	(assign, ":reputation" "trp_knight_5_19"),  # Masuri   
+	(assign, ":reputation" "trp_knight_5_20"),  # Chubain   
+
+	(assign, ":reputation" "trp_knight_6_1"),  # Han   
+	(assign, ":reputation" "trp_knight_6_2"),  # Dhearic   
+	(assign, ":reputation" "trp_knight_6_3"),  # Timolan   
+	(assign, ":reputation" "trp_knight_6_4"),  # Bruan   
+	(assign, ":reputation" "trp_knight_6_5"),  # Indirian   
+	(assign, ":reputation" "trp_knight_6_6"),  # Bael   
+	(assign, ":reputation" "trp_knight_6_7"),  # Mandelain   
+	(assign, ":reputation" "trp_knight_6_8"),  # Erim   
+	(assign, ":reputation" "trp_knight_6_9"),  # Jheran   
+	(assign, ":reputation" "trp_knight_6_10"),  # Janwin   
+	(assign, ":reputation" "trp_knight_6_11"),  # Nandera   
+	(assign, ":reputation" "trp_knight_6_12"),  # Sorilea   
+	(assign, ":reputation" "trp_knight_6_13"),  # Amys   
+	(assign, ":reputation" "trp_knight_6_14"),  # Bain   
+	(assign, ":reputation" "trp_knight_6_15"),  # Melaine   
+	(assign, ":reputation" "trp_knight_6_16"),  # Bair   
+	(assign, ":reputation" "trp_knight_6_17"),  # Gaul   
+	(assign, ":reputation" "trp_knight_6_18"),  # Aviendha   
+	(assign, ":reputation" "trp_knight_6_19"),  # Heirn   
+	(assign, ":reputation" "trp_knight_6_20"),  # Sulin   
+
+	(assign, ":reputation" "trp_knight_7_1"),  # Galgan   
+	(assign, ":reputation" "trp_knight_7_2"),  # Karede   
+	(assign, ":reputation" "trp_knight_7_3"),  # Tylee   
+	(assign, ":reputation" "trp_knight_7_4"),  # Gamel   
+	(assign, ":reputation" "trp_knight_7_5"),  # Mikhel   
+	(assign, ":reputation" "trp_knight_7_6"),  # Lisaine   
+	(assign, ":reputation" "trp_knight_7_7"),  # Efraim   
+	(assign, ":reputation" "trp_knight_7_8"),  # Abaldar   
+	(assign, ":reputation" "trp_knight_7_9"),  # Jadranka   
+	(assign, ":reputation" "trp_knight_7_10"),  # Gueye   
+	(assign, ":reputation" "trp_knight_7_11"),  # Assid   
+	(assign, ":reputation" "trp_knight_7_12"),  # Blasic   
+	(assign, ":reputation" "trp_knight_7_13"),  # Musenge   
+	(assign, ":reputation" "trp_knight_7_14"),  # Mishima   
+	(assign, ":reputation" "trp_knight_7_15"),  # Faverde   
+	(assign, ":reputation" "trp_knight_7_16"),  # Amenar   
+	(assign, ":reputation" "trp_knight_7_17"),  # Egeanin   
+	(assign, ":reputation" "trp_knight_7_18"),  # Yuril   
+	(assign, ":reputation" "trp_knight_7_19"),  # Selucia   
+	(assign, ":reputation" "trp_knight_7_20"),  # Malahavana  
+	 
+	(assign, ":reputation" "trp_knight_8_1"),  # Moridin   
+	(assign, ":reputation" "trp_knight_8_2"),  # Demandred   
+	(assign, ":reputation" "trp_knight_8_3"),  # Moghedien   
+	(assign, ":reputation" "trp_knight_8_4"),  # Mesaana   
+	(assign, ":reputation" "trp_knight_8_5"),  # Graendal   
+	(assign, ":reputation" "trp_knight_8_6"),  # Cyndane   
+	(assign, ":reputation" "trp_knight_8_7"),  # Alviarin   
+	(assign, ":reputation" "trp_knight_8_8"),  # Katerine   
+	(assign, ":reputation" "trp_knight_8_9"),  # Delana   
+	(assign, ":reputation" "trp_knight_8_10"),  # Chesmal   
+	(assign, ":reputation" "trp_knight_8_11"),  # Rianna   
+	(assign, ":reputation" "trp_knight_8_12"),  # Falion   
+	(assign, ":reputation" "trp_knight_8_13"),  # Marillin   
+	(assign, ":reputation" "trp_knight_8_14"),  # Temaile   
+	(assign, ":reputation" "trp_knight_8_15"),  # Mili   
+	(assign, ":reputation" "trp_knight_8_16"),  # Hanlon   
+	(assign, ":reputation" "trp_knight_8_17"),  # Trolloc Clan Chief 
+	(assign, ":reputation" "trp_knight_8_18"),  # Darkfriend Lord  
+	(assign, ":reputation" "trp_knight_8_19"),  # High Lord Weiramon 
+	(assign, ":reputation" "trp_knight_8_20"),  # Lady Darkfriend  
+
 	
 # V: END CODEBLOCK FOR TGS KNIGHT AGES AND REPUTATION
 ## V: BEGIN COMMENTED OUT FOR TGS
