@@ -7922,10 +7922,24 @@ scripts = [
 	  #King ages
 	  (try_for_range, ":cur_troop", kings_begin, kings_end),
 		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-		(store_random_in_range, ":age", 50, 60),
-		(troop_set_slot, ":cur_troop", slot_troop_age, ":age"),
-		(eq, ":cur_troop", "trp_kingdom_5_lord"),
-		(troop_set_slot, ":cur_troop", slot_troop_age, 47),
+## V: BEGIN COMMENTED OUT FOR TGS
+#		(store_random_in_range, ":age", 50, 60),
+#		(troop_set_slot, ":cur_troop", slot_troop_age, ":age"),
+#		(eq, ":cur_troop", "trp_kingdom_5_lord"),
+#		(troop_set_slot, ":cur_troop", slot_troop_age, 47),
+## V: END COMMENTED OUT FOR TGS
+#### V: NOTE: Possible FIXME, setting ages to current age in 998, year that TEoTW begins. May not be appropriate to scripted events?
+#### V: NOTE: Possible TODO, pretenders can presumably be defined here, too - needs testing
+## V: BEGIN CODEBLOCK FOR TGS LORD AGES
+     (troop_set_slot, "trp_kingdom_1_lord", slot_troop_age, 20), # Rand, Born 978   
+     (troop_set_slot, "trp_kingdom_2_lord", slot_troop_age, 54), # Semaradrid, Guess
+     (troop_set_slot, "trp_kingdom_3_lord", slot_troop_age, 17), # Elayne, Born 981 
+     (troop_set_slot, "trp_kingdom_4_lord", slot_troop_age, 45), # Lan, Born 953
+     (troop_set_slot, "trp_kingdom_5_lord", slot_troop_age, 17), # Egwene, Born 981
+     (troop_set_slot, "trp_kingdom_6_lord", slot_troop_age, 45), # Rhuarc, Guess ~953
+     (troop_set_slot, "trp_kingdom_7_lord", slot_troop_age, 16), # Fortuona, Born 980
+     (troop_set_slot, "trp_kingdom_8_lord", slot_troop_age, 20), # Shaidar Haran, unknown and impossible to estimate, let's call it 20 to avoid attrition.
+## V: END CODEBLOCK FOR TGS LORD AGES
 	  (try_end),
 
 	  #The first thing - family structure
@@ -7942,89 +7956,340 @@ scripts = [
 
 	  (try_for_range, ":cur_troop", lords_begin, lords_end),
 		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-
-		(store_random_in_range, ":father_age_at_birth", 23, 26),
-#		(store_random_in_range, ":mother_age_at_birth", 19, 22),
-
-		(try_begin),
-			(is_between, ":cur_troop", "trp_knight_1_1", "trp_knight_2_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_1_1"),
-			(assign, ":ancestor_seed", 1),
-
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_2_1", "trp_knight_3_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_2_1"),
-			(assign, ":ancestor_seed", 7),
-
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_3_1", "trp_knight_4_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_3_1"),
-			(assign, ":ancestor_seed", 13),
-
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_4_1", "trp_knight_5_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_4_1"),
-			(assign, ":ancestor_seed", 19),
-
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_5_1", "trp_knight_6_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_5_1"),
-			(assign, ":ancestor_seed", 25),
-
-		(else_try),
-      #edited for wheel of time
+## V: BEGIN COMMENTED OUT FOR TGS
+#		(store_random_in_range, ":father_age_at_birth", 23, 26),
+##		(store_random_in_range, ":mother_age_at_birth", 19, 22),
+#
+#		(try_begin),
+#			(is_between, ":cur_troop", "trp_knight_1_1", "trp_knight_2_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_1_1"),
+#			(assign, ":ancestor_seed", 1),
+#
+#		(else_try),
+#			(is_between, ":cur_troop", "trp_knight_2_1", "trp_knight_3_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_2_1"),
+#			(assign, ":ancestor_seed", 7),
+#
+#		(else_try),
+#			(is_between, ":cur_troop", "trp_knight_3_1", "trp_knight_4_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_3_1"),
+#			(assign, ":ancestor_seed", 13),
+#
+#		(else_try),
+#			(is_between, ":cur_troop", "trp_knight_4_1", "trp_knight_5_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_4_1"),
+#			(assign, ":ancestor_seed", 19),
+#
+#		(else_try),
+#			(is_between, ":cur_troop", "trp_knight_5_1", "trp_knight_6_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_5_1"),
+#			(assign, ":ancestor_seed", 25),
+#
+#		(else_try),
+#     #edited for wheel of time
 #			(is_between, ":cur_troop", "trp_knight_6_1", "trp_kingdom_1_pretender"),
-            (is_between, ":cur_troop", "trp_knight_6_1", "trp_knight_7_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_6_1"),
-			(assign, ":ancestor_seed", 31),
-
-        (else_try),
-            (is_between, ":cur_troop", "trp_knight_7_1", "trp_knight_8_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_7_1"),
-			(assign, ":ancestor_seed", 37),
-      
-        (else_try),
-            (is_between, ":cur_troop", "trp_knight_8_1", "trp_kingdom_1_pretender"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_8_1"),
-			(assign, ":ancestor_seed", 43),      
-      #end edited for wheel of time
-      
-		(try_end),
-
+#           (is_between, ":cur_troop", "trp_knight_6_1", "trp_knight_7_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_6_1"),
+#			(assign, ":ancestor_seed", 31),
+#
+#        (else_try),
+#           (is_between, ":cur_troop", "trp_knight_7_1", "trp_knight_8_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_7_1"),
+#			(assign, ":ancestor_seed", 37),
+#      
+#        (else_try),
+#           (is_between, ":cur_troop", "trp_knight_8_1", "trp_kingdom_1_pretender"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_8_1"),
+#			(assign, ":ancestor_seed", 43),      
+#      #end edited for wheel of time
+#      
+#		(try_end),
+## V: END COMMENTED OUT FOR TGS
 
 		(try_begin),
-			(lt, ":npc_seed", 8), #NPC seed is the order in the faction
-			(assign, ":reputation", ":npc_seed"),
-			(store_random_in_range, ":age", 45, 64),
+## V: BEGIN COMMENTED OUT FOR TGS
+#			(lt, ":npc_seed", 8), #NPC seed is the order in the faction
+#			(assign, ":reputation", ":npc_seed"),
+#			(store_random_in_range, ":age", 45, 64),
+## V: END COMMENTED OUT FOR TGS
+## V: BEGIN CODEBLOCK FOR TGS KNIGHT AGES AND REPUTATION
+### TODO: Set all ages below this line to the correct values
+	(troop_set_slot, "trp_knight_1_1", slot_troop_age, 42),  # Mat 
+	(troop_set_slot, "trp_knight_1_2", slot_troop_age,46),   # Perrin
+	(troop_set_slot, "trp_knight_1_3", slot_troop_age, 41),  # Tam
+	(troop_set_slot, "trp_knight_1_4", slot_troop_age,40),   # Damer
+	(troop_set_slot, "trp_knight_1_5", slot_troop_age,40),   # Davram
+	(troop_set_slot, "trp_knight_1_6", slot_troop_age,39),   # Talmanes
+	(troop_set_slot, "trp_knight_1_7", slot_troop_age,38),   # Logain
+	(troop_set_slot, "trp_knight_1_8", slot_troop_age,22),   # Jahar
+	(troop_set_slot, "trp_knight_1_9", slot_troop_age,18),   # Bran
+	(troop_set_slot, "trp_knight_1_10", slot_troop_age,35),  # Abel
+	(troop_set_slot, "trp_knight_1_11", slot_troop_age,35),  # Min
+	(troop_set_slot, "trp_knight_1_12", slot_troop_age,65),  # Donaldo
+	(troop_set_slot, "trp_knight_1_13", slot_troop_age,41),  # Fager
+	(troop_set_slot, "trp_knight_1_14", slot_troop_age,41),  # Jur
+	(troop_set_slot, "trp_knight_1_15", slot_troop_age,39),  # Daerid
+	(troop_set_slot, "trp_knight_1_16", slot_troop_age,38),  # Ban
+	(troop_set_slot, "trp_knight_1_17", slot_troop_age,30),  # Harnan
+	(troop_set_slot, "trp_knight_1_18", slot_troop_age,44),  # Vanin
+	(troop_set_slot, "trp_knight_1_19", slot_troop_age,26),  # Macoll
+	(troop_set_slot, "trp_knight_1_20", slot_troop_age,34),  # Elyas
+	 
+	 
+	(troop_set_slot, "trp_knight_2_1", slot_troop_age,56),   # Mattin Stepanos
+	(troop_set_slot, "trp_knight_2_2", slot_troop_age,48),   # Berelain
+	(troop_set_slot, "trp_knight_2_3", slot_troop_age,23),   # Jeordwyn
+	(troop_set_slot, "trp_knight_2_4", slot_troop_age,41),   # Bertain
+	(troop_set_slot, "trp_knight_2_5", slot_troop_age,46),   # Rodel
+	(troop_set_slot, "trp_knight_2_6", slot_troop_age,51),   # Roedran
+	(troop_set_slot, "trp_knight_2_7", slot_troop_age,44),   # Beslan
+	(troop_set_slot, "trp_knight_2_8", slot_troop_age,36),   # Alsalam
+	(troop_set_slot, "trp_knight_2_9", slot_troop_age,38),   # Eshin
+	(troop_set_slot, "trp_knight_2_10", slot_troop_age,46),  # Spiron
+	(troop_set_slot, "trp_knight_2_11", slot_troop_age,36),  # Ballin
+	(troop_set_slot, "trp_knight_2_12", slot_troop_age,46),  # Dalthanes
+	(troop_set_slot, "trp_knight_2_13", slot_troop_age,68),  # Barmanes
+	(troop_set_slot, "trp_knight_2_14", slot_troop_age,36),  # Dobraine
+	(troop_set_slot, "trp_knight_2_15", slot_troop_age,66),  # Segan
+	(troop_set_slot, "trp_knight_2_16", slot_troop_age,46),  # Havien
+	(troop_set_slot, "trp_knight_2_17", slot_troop_age,58),  # Paitr
+	(troop_set_slot, "trp_knight_2_18", slot_troop_age,46),  # Sedrin
+	(troop_set_slot, "trp_knight_2_19", slot_troop_age,45),  # Nathin
+	(troop_set_slot, "trp_knight_2_20", slot_troop_age,66),  # Malalin
+	(troop_set_slot, "trp_knight_2_21", slot_troop_age,20),  # Selande
+	(troop_set_slot, "trp_knight_2_22", slot_troop_age,18),  # Alamindra
+	(troop_set_slot, "trp_knight_2_23", slot_troop_age,37),  # Aethelaine
+	(troop_set_slot, "trp_knight_2_24", slot_troop_age,37),  # Cairhien Lord
+	(troop_set_slot, "trp_knight_2_25", slot_troop_age,41),  # Cairhien Lady
+	(troop_set_slot, "trp_knight_2_26", slot_troop_age,44),  # Cairhien Lesser Lord
+	(troop_set_slot, "trp_knight_2_27", slot_troop_age,36),  # Cairhien Lesser Lady
+	(troop_set_slot, "trp_knight_2_28", slot_troop_age,38),  # Illian Councel of Nine Member
+	(troop_set_slot, "trp_knight_2_29", slot_troop_age,28),  # Illian Lord
+	(troop_set_slot, "trp_knight_2_30", slot_troop_age,48),  # Illian Lady
+	(troop_set_slot, "trp_knight_2_31", slot_troop_age,36),  # Murandy Lord
+	(troop_set_slot, "trp_knight_2_32", slot_troop_age,18),  # Murandy Lady
+	(troop_set_slot, "trp_knight_2_33", slot_troop_age,37),  # Murandy Lesser Lord
+	(troop_set_slot, "trp_knight_2_34", slot_troop_age,37),  # Murandy Lesser Lady
+	(troop_set_slot, "trp_knight_2_35", slot_troop_age,41),  # Altara Lord
+	(troop_set_slot, "trp_knight_2_36", slot_troop_age,44),  # Altara Lady
+	(troop_set_slot, "trp_knight_2_37", slot_troop_age,36),  # Altara Lesser Lord
+	(troop_set_slot, "trp_knight_2_38", slot_troop_age,38),  # Altara Lesser Lady
+	(troop_set_slot, "trp_knight_2_39", slot_troop_age,28),  # Arad Doman Lord
+	(troop_set_slot, "trp_knight_2_40", slot_troop_age,48),  # Arad Doman Lesser Lord
+	
+	(troop_set_slot, "trp_knight_3_1", slot_troop_age,44),   # Aleis
+	(troop_set_slot, "trp_knight_3_2", slot_troop_age,34),   # Birgitte
+	(troop_set_slot, "trp_knight_3_3", slot_troop_age,32),   # Charlz
+	(troop_set_slot, "trp_knight_3_4", slot_troop_age,42),   # Amathera
+	(troop_set_slot, "trp_knight_3_5", slot_troop_age,31),   # Alliandre
+	(troop_set_slot, "trp_knight_3_6", slot_troop_age,36),   # Torean
+	(troop_set_slot, "trp_knight_3_7", slot_troop_age,42),   # Galad
+	(troop_set_slot, "trp_knight_3_8", slot_troop_age,43),   # Darlin
+	(troop_set_slot, "trp_knight_3_9", slot_troop_age,41),   # Gawyn
+	(troop_set_slot, "trp_knight_3_10", slot_troop_age,53),  # Narvais
+	(troop_set_slot, "trp_knight_3_11", slot_troop_age,44),  # Ellorien
+	(troop_set_slot, "trp_knight_3_12", slot_troop_age,38),  # Dyelin
+	(troop_set_slot, "trp_knight_3_13", slot_troop_age,26),  # Tallanvor
+	(troop_set_slot, "trp_knight_3_14", slot_troop_age,50),  # Eram
+	(troop_set_slot, "trp_knight_3_15", slot_troop_age,51),  # Jarid
+	(troop_set_slot, "trp_knight_3_16", slot_troop_age,26),  # Hanshelle
+	(troop_set_slot, "trp_knight_3_17", slot_troop_age,42),  # Aubrem
+	(troop_set_slot, "trp_knight_3_18", slot_troop_age,56),  # Luan
+	(troop_set_slot, "trp_knight_3_19", slot_troop_age,41),  # Perival
+	(troop_set_slot, "trp_knight_3_20", slot_troop_age,53),  # Ailron
+	(troop_set_slot, "trp_knight_3_21", slot_troop_age,44),  # Cumere
+	(troop_set_slot, "trp_knight_3_22", slot_troop_age,38),  # Baryn
+	(troop_set_slot, "trp_knight_3_23", slot_troop_age,26),  # Ademun
+	(troop_set_slot, "trp_knight_3_24", slot_troop_age,50),  # Danine
+	(troop_set_slot, "trp_knight_3_25", slot_troop_age,51),  # Sylvase
+	(troop_set_slot, "trp_knight_3_26", slot_troop_age,26),  # Arendor
+	(troop_set_slot, "trp_knight_3_27", slot_troop_age,42),  # Arganda
+	(troop_set_slot, "trp_knight_3_28", slot_troop_age,56),  # Kireyin
+	(troop_set_slot, "trp_knight_3_29", slot_troop_age,41),  # Asunawa
+	(troop_set_slot, "trp_knight_3_30", slot_troop_age,53),  # Dain
+	(troop_set_slot, "trp_knight_3_31", slot_troop_age,44),  # Byar
+	(troop_set_slot, "trp_knight_3_32", slot_troop_age,38),  # Hearne
+	(troop_set_slot, "trp_knight_3_33", slot_troop_age,26),  # Sunamon
+	(troop_set_slot, "trp_knight_3_34", slot_troop_age,50),  # Tedosian
+	(troop_set_slot, "trp_knight_3_35", slot_troop_age,51),  # Tarabon Lord
+	(troop_set_slot, "trp_knight_3_36", slot_troop_age,26),  # Tarabon Lesser Lord
+	(troop_set_slot, "trp_knight_3_37", slot_troop_age,42),  # Estean
+	(troop_set_slot, "trp_knight_3_38", slot_troop_age,56),  # Tolmeran
+	(troop_set_slot, "trp_knight_3_39", slot_troop_age,42),  # Tear Lord
+	(troop_set_slot, "trp_knight_3_40", slot_troop_age,56),  # Aracome
+	
+	(troop_set_slot, "trp_knight_4_1", slot_troop_age,44),   # Easar
+	(troop_set_slot, "trp_knight_4_2", slot_troop_age,34),   # Paitar
+	(troop_set_slot, "trp_knight_4_3", slot_troop_age,32),   # Ethenielle
+	(troop_set_slot, "trp_knight_4_4", slot_troop_age,42),   # Tenobia
+	(troop_set_slot, "trp_knight_4_5", slot_troop_age,31),   # Jagad
+	(troop_set_slot, "trp_knight_4_6", slot_troop_age,36),   # Terasian
+	(troop_set_slot, "trp_knight_4_7", slot_troop_age,42),   # Baldhere
+	(troop_set_slot, "trp_knight_4_8", slot_troop_age,43),   # Maedin
+	(troop_set_slot, "trp_knight_4_9", slot_troop_age,41),   # Kayen
+	(troop_set_slot, "trp_knight_4_10", slot_troop_age,53),  # Ismic
+	(troop_set_slot, "trp_knight_4_11", slot_troop_age,44),  # Kyril
+	(troop_set_slot, "trp_knight_4_12", slot_troop_age,38),  # Serialla
+	(troop_set_slot, "trp_knight_4_13", slot_troop_age,26),  # Nazelle
+	(troop_set_slot, "trp_knight_4_14", slot_troop_age,50),  # Ingtar
+	(troop_set_slot, "trp_knight_4_15", slot_troop_age,51),  # Antol
+	(troop_set_slot, "trp_knight_4_16", slot_troop_age,26),  # Kalyan
+	(troop_set_slot, "trp_knight_4_17", slot_troop_age,42),  # Tumad
+	(troop_set_slot, "trp_knight_4_18", slot_troop_age,56),  # Hurin
+	(troop_set_slot, "trp_knight_4_19", slot_troop_age,41),  # Uno
+	(troop_set_slot, "trp_knight_4_20", slot_troop_age,53),  # Ragan
 
-			(store_random_in_range, ":father", 0, 6), #six possible fathers
-			(val_add, ":father", ":ancestor_seed"),
-			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
+	(troop_set_slot, "trp_knight_5_1", slot_troop_age,44),   # Silviana
+	(troop_set_slot, "trp_knight_5_2", slot_troop_age,34),   # Bryne
+	(troop_set_slot, "trp_knight_5_3", slot_troop_age,32),   # Cadsuane
+	(troop_set_slot, "trp_knight_5_4", slot_troop_age,42),   # Nynaeve
+	(troop_set_slot, "trp_knight_5_5", slot_troop_age,31),   # Siun
+	(troop_set_slot, "trp_knight_5_6", slot_troop_age,36),   # Leana
+	(troop_set_slot, "trp_knight_5_7", slot_troop_age,42),   # Lelaine
+	(troop_set_slot, "trp_knight_5_8", slot_troop_age,43),   # Romanda
+	(troop_set_slot, "trp_knight_5_9", slot_troop_age,41),   # Pevara
+	(troop_set_slot, "trp_knight_5_10", slot_troop_age,53),  # Yukiri
+	(troop_set_slot, "trp_knight_5_11", slot_troop_age,44),  # Saerin
+	(troop_set_slot, "trp_knight_5_12", slot_troop_age,38),  # Doesine
+	(troop_set_slot, "trp_knight_5_13", slot_troop_age,26),  # Seaine
+	(troop_set_slot, "trp_knight_5_14", slot_troop_age,50),  # Myrelle
+	(troop_set_slot, "trp_knight_5_15", slot_troop_age,51),  # Kiruna
+	(troop_set_slot, "trp_knight_5_16", slot_troop_age,26),  # Bera
+	(troop_set_slot, "trp_knight_5_17", slot_troop_age,42),  # Tiana
+	(troop_set_slot, "trp_knight_5_18", slot_troop_age,56),  # Takima
+	(troop_set_slot, "trp_knight_5_19", slot_troop_age,41),  # Masuri
+	(troop_set_slot, "trp_knight_5_20", slot_troop_age,53),  # Chubain
 
-			#wife
-			(troop_set_slot, ":cur_troop", slot_troop_spouse, ":cur_lady"),
-			(troop_set_slot, ":cur_lady", slot_troop_spouse, ":cur_troop"),
+	(troop_set_slot, "trp_knight_6_1", slot_troop_age,44),   # Han
+	(troop_set_slot, "trp_knight_6_2", slot_troop_age,34),   # Dhearic
+	(troop_set_slot, "trp_knight_6_3", slot_troop_age,32),   # Timolan
+	(troop_set_slot, "trp_knight_6_4", slot_troop_age,42),   # Bruan
+	(troop_set_slot, "trp_knight_6_5", slot_troop_age,31),   # Indirian
+	(troop_set_slot, "trp_knight_6_6", slot_troop_age,36),   # Bael
+	(troop_set_slot, "trp_knight_6_7", slot_troop_age,42),   # Mandelain 
+	(troop_set_slot, "trp_knight_6_8", slot_troop_age,43),   # Erim
+	(troop_set_slot, "trp_knight_6_9", slot_troop_age,41),   # Jheran
+	(troop_set_slot, "trp_knight_6_10", slot_troop_age,53),  # Janwin
+	(troop_set_slot, "trp_knight_6_11", slot_troop_age,44),  # Nandera
+	(troop_set_slot, "trp_knight_6_12", slot_troop_age,38),  # Sorilea
+	(troop_set_slot, "trp_knight_6_13", slot_troop_age,26),  # Amys
+	(troop_set_slot, "trp_knight_6_14", slot_troop_age,50),  # Bain
+	(troop_set_slot, "trp_knight_6_15", slot_troop_age,51),  # Melaine
+	(troop_set_slot, "trp_knight_6_16", slot_troop_age,26),  # Bair
+	(troop_set_slot, "trp_knight_6_17", slot_troop_age,42),  # Gaul
+	(troop_set_slot, "trp_knight_6_18", slot_troop_age,56),  # Aviendha
+	(troop_set_slot, "trp_knight_6_19", slot_troop_age,41),  # Heirn
+	(troop_set_slot, "trp_knight_6_20", slot_troop_age,53),  # Sulin
+
+	(troop_set_slot, "trp_knight_7_1", slot_troop_age,44),   # Galgan
+	(troop_set_slot, "trp_knight_7_2", slot_troop_age,34),   # Karede
+	(troop_set_slot, "trp_knight_7_3", slot_troop_age,32),   # Tylee
+	(troop_set_slot, "trp_knight_7_4", slot_troop_age,42),   # Gamel
+	(troop_set_slot, "trp_knight_7_5", slot_troop_age,31),   # Mikhel
+	(troop_set_slot, "trp_knight_7_6", slot_troop_age,36),   # Lisaine
+	(troop_set_slot, "trp_knight_7_7", slot_troop_age,42),   # Efraim
+	(troop_set_slot, "trp_knight_7_8", slot_troop_age,43),   # Abaldar
+	(troop_set_slot, "trp_knight_7_9", slot_troop_age,41),   # Jadranka
+	(troop_set_slot, "trp_knight_7_10", slot_troop_age,53),  # Gueye
+	(troop_set_slot, "trp_knight_7_11", slot_troop_age,44),  # Assid
+	(troop_set_slot, "trp_knight_7_12", slot_troop_age,38),  # Blasic
+	(troop_set_slot, "trp_knight_7_13", slot_troop_age,26),  # Musenge
+	(troop_set_slot, "trp_knight_7_14", slot_troop_age,50),  # Mishima
+	(troop_set_slot, "trp_knight_7_15", slot_troop_age,51),  # Faverde
+	(troop_set_slot, "trp_knight_7_16", slot_troop_age,26),  # Amenar
+	(troop_set_slot, "trp_knight_7_17", slot_troop_age,42),  # Egeanin
+	(troop_set_slot, "trp_knight_7_18", slot_troop_age,56),  # Yuril
+	(troop_set_slot, "trp_knight_7_19", slot_troop_age,41),  # Selucia
+	(troop_set_slot, "trp_knight_7_20", slot_troop_age,53),  # Malahavana
+
+	(troop_set_slot, "trp_knight_8_1", slot_troop_age,44),   # Moridin
+	(troop_set_slot, "trp_knight_8_2", slot_troop_age,34),   # Demandred
+	(troop_set_slot, "trp_knight_8_3", slot_troop_age,32),   # Moghedien
+	(troop_set_slot, "trp_knight_8_4", slot_troop_age,42),   # Mesaana
+	(troop_set_slot, "trp_knight_8_5", slot_troop_age,31),   # Graendal
+	(troop_set_slot, "trp_knight_8_6", slot_troop_age,36),   # Cyndane
+	(troop_set_slot, "trp_knight_8_7", slot_troop_age,42),   # Alviarin
+	(troop_set_slot, "trp_knight_8_8", slot_troop_age,43),   # Katerine
+	(troop_set_slot, "trp_knight_8_9", slot_troop_age,41),   # Delana
+	(troop_set_slot, "trp_knight_8_10", slot_troop_age,53),  # Chesmal
+	(troop_set_slot, "trp_knight_8_11", slot_troop_age,53),  # Rianna
+	(troop_set_slot, "trp_knight_8_12", slot_troop_age,44),  # Falion
+	(troop_set_slot, "trp_knight_8_13", slot_troop_age,38),  # Marillin
+	(troop_set_slot, "trp_knight_8_14", slot_troop_age,26),  # Temaile
+	(troop_set_slot, "trp_knight_8_15", slot_troop_age,50),  # Mili
+	(troop_set_slot, "trp_knight_8_16", slot_troop_age,51),  # Hanlon
+	(troop_set_slot, "trp_knight_8_17", slot_troop_age,26),  # Trolloc Clan Chief
+	(troop_set_slot, "trp_knight_8_18", slot_troop_age,42),  # Darkfriend Lord
+	(troop_set_slot, "trp_knight_8_19", slot_troop_age,56),  # High Lord Weiramon
+	(troop_set_slot, "trp_knight_8_20", slot_troop_age,41),  # Lady Darkfriend
+
+
+### V/TODO: Make a 'reputation' definition as below for every knight	
+#	(assign, ":reputation", "trp_knight_1_1"),
+	
+# V: END CODEBLOCK FOR TGS KNIGHT AGES AND REPUTATION
+## V: BEGIN COMMENTED OUT FOR TGS
+#			(store_random_in_range, ":father", 0, 6), #six possible fathers
+#			(val_add, ":father", ":ancestor_seed"),
+#			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
+
+#			#wife
+#			(troop_set_slot, ":cur_troop", slot_troop_spouse, ":cur_lady"),
+#			(troop_set_slot, ":cur_lady", slot_troop_spouse, ":cur_troop"),
+## V: END COMMENTED OUT FOR TGS
+
+### V/TODO: Make spouse definitions as below for every appropriate knight and lady
+# (troop_set_slot, "trp_knight_1_1", slot_troop_spouse, "trp_kingdom_1_lady_1"),
+# (troop_set_slot, "trp_kingdom_1_lady_1", slot_troop_spouse, "trp_knight_1_1"),
+
 			(store_random_in_range, ":wife_reputation", 20, 26),
 			(try_begin),
 				(eq, ":wife_reputation", 20),
+### V/TODO: May change reputation later
 				(assign, ":wife_reputation", lrep_conventional),
 			(try_end),
-			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":wife_reputation"),
+## V: BEGIN COMMENTED OUT FOR TGS
+#			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":wife_reputation"),
+## V: END COMMENTED OUT FOR TGS
 
+### V/TODO: Make reputation definitions as below for every wife
+# (troop_set_slot, "trp_kingdom_1_lady_1", slot_lord_reputation_type, ":wife_reputation"),
 
+### V/TODO: May change lady age or items later
 			(call_script, "script_init_troop_age", ":cur_lady", 49),
 			(call_script, "script_add_lady_items", ":cur_lady"),
 
 			(val_add, ":cur_lady", 1),
+			
+## V: BEGIN COMMENTED OUT FOR TGS
+#			#daughter
+#			(troop_set_slot, ":cur_lady", slot_troop_father, ":cur_troop"),
+## V: END COMMENTED OUT FOR TGS
 
-			#daughter
-			(troop_set_slot, ":cur_lady", slot_troop_father, ":cur_troop"),
-			(store_sub, ":mother", ":cur_lady", 1),
+### V/TODO: Make daughter definitions as below for every daughter
+# (troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_father, "trp_knight_1_1"),
+# (troop_set_slot, "trp_kingdom_1_lady_3", slot_troop_father, "trp_knight_1_1"),
+
+## V: BEGIN COMMENTED OUT FOR TGS
+#			(store_sub, ":mother", ":cur_lady", 1),
+## V: END COMMENTED OUT FOR TGS
+
+### V/TODO: May change lady age later, until then leave this.
 			(call_script, "script_init_troop_age", ":cur_lady", 19),
-            ##diplomacy start+ fix native bug (daughters are their own mothers)
-            #(troop_set_slot, ":cur_lady", slot_troop_mother, ":cur_lady"),
-            (troop_set_slot, ":cur_lady", slot_troop_mother, ":mother"),
-            ##diplomacy end+
+			
+## V: BEGIN COMMENTED OUT FOR TGS
+#            ##diplomacy start+ fix native bug (daughters are their own mothers)
+#            #(troop_set_slot, ":cur_lady", slot_troop_mother, ":cur_lady"),
+#            (troop_set_slot, ":cur_lady", slot_troop_mother, ":mother"),
+#            ##diplomacy end+
+## V: END COMMENTED OUT FOR TGS
+
+### V/TODO: Define mother for every lady as below
+# (troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_mother, "trp_kingdom_1_lady_1"),
+# (troop_set_slot, "trp_kingdom_1_lady_3", slot_troop_mother, "trp_kingdom_1_lady_1"),
+
+### V/TODO: Line of code below may be useful here
+(try_for_range, ":cur_lady", kingdom_ladies_begin, kingdom_ladies_end),
 			(store_random_in_range, ":lady_reputation", lrep_conventional, 34), #33% chance of father-derived
 			(try_begin),
 				(le, ":lady_reputation", 25),
@@ -8067,9 +8332,15 @@ scripts = [
 			#high renown
 
 		(else_try),	#Older unmarried lords
-			(is_between, ":npc_seed", 8, 12),
+## V: BEGIN COMMENTED OUT FOR TGS
+#			(is_between, ":npc_seed", 8, 12),
 
-			(store_random_in_range, ":age", 25, 36),
+#			(store_random_in_range, ":age", 25, 36),
+## V: END COMMENTED OUT FOR TGS
+
+### V/TODO: Define ages for all fathers(?) like below
+# (troop_set_slot, "trp_knight_1_2", slot_troop_age,16), 
+
 			(store_random_in_range, ":reputation", 0, 8),
 
 			(store_random_in_range, ":sister_reputation", 20, 26),
@@ -8078,7 +8349,6 @@ scripts = [
 				(assign, ":sister_reputation", lrep_conventional),
 			(try_end),
 			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":sister_reputation"),
-
 			(troop_set_slot, ":cur_lady", slot_troop_guardian, ":cur_troop"),
 
 			(call_script, "script_init_troop_age", ":cur_lady", 21),
@@ -8087,20 +8357,37 @@ scripts = [
 			(val_add, ":cur_lady", 1),
 
 		(else_try),	#Younger unmarried lords
-			#age is father's minus 20 to 25
-			(store_sub, ":father", ":cur_troop", 12),
-			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
-			(troop_get_slot, ":mother", ":father", slot_troop_spouse),
-			(troop_set_slot, ":cur_troop", slot_troop_mother, ":mother"),
+## V: BEGIN COMMENTED OUT FOR TGS
+#			#age is father's minus 20 to 25
+#			(store_sub, ":father", ":cur_troop", 12),
+#			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
+#			(troop_get_slot, ":mother", ":father", slot_troop_spouse),
+#			(troop_set_slot, ":cur_troop", slot_troop_mother, ":mother"),
+## V: END COMMENTED OUT FOR TGS
 
-			(troop_get_slot, ":father_age", ":father", slot_troop_age),
-			(store_sub, ":age", ":father_age", ":father_age_at_birth"),
+### V/TODO: Define relation for all sons(?) like below
+# (troop_set_slot, "trp_knight_4_6", slot_troop_father, "trp_knight_4_3"),
+# (troop_set_slot, "trp_knight_4_6", slot_troop_mother, "trp_kingdom_4_lady_4"),
+
+## V: BEGIN COMMENTED OUT FOR TGS
+#			(troop_get_slot, ":father_age", ":father", slot_troop_age),
+#			(store_sub, ":age", ":father_age", ":father_age_at_birth"),
+## V: END COMMENTED OUT FOR TGS
+
+### V/TODO: Define ages for all sons(?) like below
+# (troop_set_slot, "trp_knight_4_6", slot_troop_age,16),   
 
 			(try_begin), #50% chance of having father's rep
 				(store_random_in_range, ":reputation", 0, 16),
 
 				(gt, ":reputation", 7),
-				(troop_get_slot, ":reputation", ":father", slot_lord_reputation_type),
+## V: BEGIN COMMENTED OUT FOR TGS
+#				(troop_get_slot, ":reputation", ":father", slot_lord_reputation_type),
+## V: END COMMENTED OUT FOR TGS
+
+### V/TODO: Define all sons(?) below
+# (troop_get_slot, ":reputation", "trp_knight_4_3", slot_lord_reputation_type),
+
 			(try_end),
 		(try_end),
 
@@ -8109,9 +8396,16 @@ scripts = [
 			(assign, ":reputation", 1),
 		(try_end),
 
-        (troop_set_slot, ":cur_troop", slot_lord_reputation_type, ":reputation"),
+## V: BEGIN COMMENTED OUT FOR TGS
+#        (troop_set_slot, ":cur_troop", slot_lord_reputation_type, ":reputation"),
+## V: END COMMENTED OUT FOR TGS
 
-		(call_script, "script_init_troop_age", ":cur_troop", ":age"),
+### V/TODO: Define sons(?) below
+# (troop_set_slot, "trp_knight_4_6", slot_lord_reputation_type, ":reputation"),
+
+## V: BEGIN COMMENTED OUT FOR TGS
+#		(call_script, "script_init_troop_age", ":cur_troop", ":age"),
+## V: END COMMENTED OUT FOR TGS
 	  (try_end),
 
 	  (try_begin),
@@ -8121,7 +8415,7 @@ scripts = [
 
 #	    (display_message, "str_assigned_lord_reputation_and_relations_cheat_mode_reg3"), #This string can be removed
 	  (try_end),
-
+### V/TODO: Put pretenders stuff here after all?
 	  (try_for_range, ":cur_troop", pretenders_begin, pretenders_end),
 		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_inactive_pretender),
 		(store_random_in_range, ":age", 25, 30),
