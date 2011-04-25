@@ -105,27 +105,90 @@ Beslan
 Unmarried
 18
 
-Alsalam
+Alsalam Saeed Almadar
+Has at least a brother, a sister-in-law, a sister and a daughter
+46?
+
 Eshin
-Spiron
+?
+
+Spiron Narettin
+Illian Council of Nine
+Unmarried
+35?
+
 Ballin
-Dalthanes
-Barmanes
-Dobraine
-Segan
-Havien
-Paitr
+?
+
+Dalthanes Annallin
+Cairhien Nobleman
+Unmarried
+32?
+
+Barmanes Nolaisen
+Cairhien Nobleman, Cha Faile
+Brother to Camaille Nolaisen
+Unmarried
+20
+
+Dobraine Taborwin
+High-ranking Cairhien Lord, High Seat of house Taborwin
+Unmarried
+59?
+
+Segan do Avharin a'Roos
+Murandian noblewoman
+Unmarried
+36?
+
+Havien Nurelle
+Lord Lt of Mayne Winged Guards
+Unmarried
+20
+
+Paitar Neramovni Nachiman
+King of Arafel
+Brother to Kiruna Nachiman, husband to Menuki
+54?
+
 Sedrin
-Nathin
+Son of Meri do Ahlan a'Conlin
+Unmarried
+Murandian Nobleman
+20
+
+Nathin Sarmain Vendare
+Lord of Maderin in Altara
+Seanchan sympathy
+Unmarried
+36?
+
 Malalin
-Selande
-Alamindra
+Ebou Dari nobleman
+Unmarried
+24?
+
+Selande Darengi
+Cairhien minor noble
+Leader of Cha Faile
+21?
+
+Alamindra Cutren
+Bandar Eban Merchant
+Member of Domani Council of Merchants
+Unmarried
+37?
+
 Aethelaine
+Lady of Jurandor in Altara
+Seanchan symphathies
+28?
+
 Cairhien Lord
 Cairhien Lady
 Cairhien Lesser Lord
 Cairhien Lesser Lady
-Illian Councel of Nine Memb
+Illian Councel of Nine Member
 Illian Lord
 Illian Lady
 Murandy Lord
