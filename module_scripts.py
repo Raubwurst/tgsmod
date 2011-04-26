@@ -7918,20 +7918,24 @@ scripts = [
 	("initialize_aristocracy",
 	[
 	  #LORD OCCUPATIONS, BLOOD RELATIONSHIPS, RENOWN AND REPUTATIONS
-
-	  #King ages
-	  (try_for_range, ":cur_troop", kings_begin, kings_end),
-		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
 ## V: BEGIN COMMENTED OUT FOR TGS
+#	  #King ages
+#	  (try_for_range, ":cur_troop", kings_begin, kings_end),
+#		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+#
 #		(store_random_in_range, ":age", 50, 60),
 #		(troop_set_slot, ":cur_troop", slot_troop_age, ":age"),
 #		(eq, ":cur_troop", "trp_kingdom_5_lord"),
 #		(troop_set_slot, ":cur_troop", slot_troop_age, 47),
+# 	    (try_end),
 ## V: END COMMENTED OUT FOR TGS
 #### V: NOTE: Possible FIXME, setting ages to current age in 998, year that TEoTW begins. May not be appropriate to scripted events?
 #### V: NOTE: Possible TODO, pretenders can presumably be defined here, too - needs testing
 ## V: BEGIN CODEBLOCK FOR TGS LORD AGES
      (troop_set_slot, "trp_kingdom_1_lord", slot_troop_age, 20), # Rand, Born 978   
+	 (troop_set_slot, "trp_knight_4_6", slot_troop_father, "trp_knight_4_3"),
+	 (troop_set_slot, "trp_knight_4_6", slot_troop_mother, "trp_kingdom_4_lady_4"),
+	 
      (troop_set_slot, "trp_kingdom_2_lord", slot_troop_age, 54), # Semaradrid, Guess
      (troop_set_slot, "trp_kingdom_3_lord", slot_troop_age, 17), # Elayne, Born 981 
      (troop_set_slot, "trp_kingdom_4_lord", slot_troop_age, 45), # Lan, Born 953
@@ -7940,7 +7944,6 @@ scripts = [
      (troop_set_slot, "trp_kingdom_7_lord", slot_troop_age, 16), # Fortuona, Born 980
      (troop_set_slot, "trp_kingdom_8_lord", slot_troop_age, 20), # Shaidar Haran, unknown and impossible to estimate, let's call it 20 to avoid attrition.
 ## V: END CODEBLOCK FOR TGS LORD AGES
-	  (try_end),
 
 	  #The first thing - family structure
 	  #lords 1 to 8 are patriarchs with one live-at-home son and one daughter. They come from one of six possible ancestors, thus making it likely that there will be two sets of siblings
@@ -7951,9 +7954,9 @@ scripts = [
 	  (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
 		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_lady),
 	  (try_end),
-
-	  (assign, ":cur_lady", "trp_kingdom_1_lady_1"),
-
+## V: BEGIN COMMENTED OUT FOR TGS
+#	  (assign, ":cur_lady", "trp_kingdom_1_lady_1"),
+## V: END COMMENTED OUT FOR TGS
 	  (try_for_range, ":cur_troop", lords_begin, lords_end),
 		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
 ## V: BEGIN COMMENTED OUT FOR TGS
@@ -8002,9 +8005,9 @@ scripts = [
 #			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_8_1"),
 #			(assign, ":ancestor_seed", 43),      
 #      #end edited for wheel of time
-#      
-#		(try_end),
-## V: END COMMENTED OUT FOR TGS
+## V: END COMMENTED OUT FOR TGS     
+		(try_end),
+
 
 		(try_begin),
 ## V: BEGIN COMMENTED OUT FOR TGS
@@ -8013,423 +8016,420 @@ scripts = [
 #			(store_random_in_range, ":age", 45, 64),
 ## V: END COMMENTED OUT FOR TGS
 ## V: BEGIN CODEBLOCK FOR TGS KNIGHT AGES AND REPUTATION
-### TODO: Set all ages below this line to the correct values
-	(troop_set_slot, "trp_knight_1_1", slot_troop_age, 42),  # Mat 
-	(troop_set_slot, "trp_knight_1_2", slot_troop_age,46),   # Perrin
-	(troop_set_slot, "trp_knight_1_3", slot_troop_age, 41),  # Tam
-	(troop_set_slot, "trp_knight_1_4", slot_troop_age,40),   # Damer
-	(troop_set_slot, "trp_knight_1_5", slot_troop_age,40),   # Davram
-	(troop_set_slot, "trp_knight_1_6", slot_troop_age,39),   # Talmanes
-	(troop_set_slot, "trp_knight_1_7", slot_troop_age,38),   # Logain
-	(troop_set_slot, "trp_knight_1_8", slot_troop_age,22),   # Jahar
-	(troop_set_slot, "trp_knight_1_9", slot_troop_age,18),   # Bran
-	(troop_set_slot, "trp_knight_1_10", slot_troop_age,35),  # Abell
-	(troop_set_slot, "trp_knight_1_11", slot_troop_age,35),  # Min
-	(troop_set_slot, "trp_knight_1_12", slot_troop_age,65),  # Donalo
-	(troop_set_slot, "trp_knight_1_13", slot_troop_age,41),  # Fager
-	(troop_set_slot, "trp_knight_1_14", slot_troop_age,41),  # Jur
-	(troop_set_slot, "trp_knight_1_15", slot_troop_age,39),  # Daerid
-	(troop_set_slot, "trp_knight_1_16", slot_troop_age,38),  # Ban
-	(troop_set_slot, "trp_knight_1_17", slot_troop_age,30),  # Harnan
-	(troop_set_slot, "trp_knight_1_18", slot_troop_age,44),  # Vanin
-	(troop_set_slot, "trp_knight_1_19", slot_troop_age,26),  # Macoll
-	(troop_set_slot, "trp_knight_1_20", slot_troop_age,34),  # Elyas
-	 
-	 
-	(troop_set_slot, "trp_knight_2_1", slot_troop_age,56),   # Mattin Stepanos
-	(troop_set_slot, "trp_knight_2_2", slot_troop_age,48),   # Berelain
-	(troop_set_slot, "trp_knight_2_3", slot_troop_age,23),   # Jeordwyn
-	(troop_set_slot, "trp_knight_2_4", slot_troop_age,41),   # Bertain
-	(troop_set_slot, "trp_knight_2_5", slot_troop_age,46),   # Rodel
-	(troop_set_slot, "trp_knight_2_6", slot_troop_age,51),   # Roedran
-	(troop_set_slot, "trp_knight_2_7", slot_troop_age,44),   # Beslan
-	(troop_set_slot, "trp_knight_2_8", slot_troop_age,36),   # Alsalam
-	(troop_set_slot, "trp_knight_2_9", slot_troop_age,38),   # Eshin
-	(troop_set_slot, "trp_knight_2_10", slot_troop_age,46),  # Spiron
-	(troop_set_slot, "trp_knight_2_11", slot_troop_age,36),  # Ballin
-	(troop_set_slot, "trp_knight_2_12", slot_troop_age,46),  # Dalthanes
-	(troop_set_slot, "trp_knight_2_13", slot_troop_age,68),  # Barmanes
-	(troop_set_slot, "trp_knight_2_14", slot_troop_age,36),  # Dobraine
-	(troop_set_slot, "trp_knight_2_15", slot_troop_age,66),  # Segan
-	(troop_set_slot, "trp_knight_2_16", slot_troop_age,46),  # Havien
-	(troop_set_slot, "trp_knight_2_17", slot_troop_age,58),  # Paitr
-	(troop_set_slot, "trp_knight_2_18", slot_troop_age,46),  # Sedrin
-	(troop_set_slot, "trp_knight_2_19", slot_troop_age,45),  # Nathin
-	(troop_set_slot, "trp_knight_2_20", slot_troop_age,66),  # Malalin
-	(troop_set_slot, "trp_knight_2_21", slot_troop_age,20),  # Selande
-	(troop_set_slot, "trp_knight_2_22", slot_troop_age,18),  # Alamindra
-	(troop_set_slot, "trp_knight_2_23", slot_troop_age,37),  # Aethelaine
-	(troop_set_slot, "trp_knight_2_24", slot_troop_age,37),  # Cairhien Lord
-	(troop_set_slot, "trp_knight_2_25", slot_troop_age,41),  # Cairhien Lady
-	(troop_set_slot, "trp_knight_2_26", slot_troop_age,44),  # Cairhien Lesser Lord
-	(troop_set_slot, "trp_knight_2_27", slot_troop_age,36),  # Cairhien Lesser Lady
-	(troop_set_slot, "trp_knight_2_28", slot_troop_age,38),  # Illian Councel of Nine Member
-	(troop_set_slot, "trp_knight_2_29", slot_troop_age,28),  # Illian Lord
-	(troop_set_slot, "trp_knight_2_30", slot_troop_age,48),  # Illian Lady
-	(troop_set_slot, "trp_knight_2_31", slot_troop_age,36),  # Murandy Lord
-	(troop_set_slot, "trp_knight_2_32", slot_troop_age,18),  # Murandy Lady
-	(troop_set_slot, "trp_knight_2_33", slot_troop_age,37),  # Murandy Lesser Lord
-	(troop_set_slot, "trp_knight_2_34", slot_troop_age,37),  # Murandy Lesser Lady
-	(troop_set_slot, "trp_knight_2_35", slot_troop_age,41),  # Altara Lord
-	(troop_set_slot, "trp_knight_2_36", slot_troop_age,44),  # Altara Lady
-	(troop_set_slot, "trp_knight_2_37", slot_troop_age,36),  # Altara Lesser Lord
-	(troop_set_slot, "trp_knight_2_38", slot_troop_age,38),  # Altara Lesser Lady
-	(troop_set_slot, "trp_knight_2_39", slot_troop_age,28),  # Arad Doman Lord
-	(troop_set_slot, "trp_knight_2_40", slot_troop_age,48),  # Arad Doman Lesser Lord
+### TODO: Set all family stuff below this line to the correct values
+
+	(troop_set_slot, "trp_knight_1_1", slot_troop_age,20),  # Mat    
+	(troop_set_slot, "trp_knight_1_1", slot_lord_reputation_type, ":reputation"),
+	(troop_set_slot, "trp_knight_1_1", slot_troop_father, "trp_knight_4_3"),
+	(troop_set_slot, "trp_knight_1_1", slot_troop_mother, "trp_kingdom_4_lady_4"),
+	(troop_set_slot, ":cur_troop", slot_troop_spouse, ":cur_lady"),
+	(assign, ":reputation" "trp_knight_1_1"),
 	
-	(troop_set_slot, "trp_knight_3_1", slot_troop_age,44),   # Aleis
-	(troop_set_slot, "trp_knight_3_2", slot_troop_age,34),   # Birgitte
-	(troop_set_slot, "trp_knight_3_3", slot_troop_age,32),   # Charlz
-	(troop_set_slot, "trp_knight_3_4", slot_troop_age,42),   # Amathera
-	(troop_set_slot, "trp_knight_3_5", slot_troop_age,31),   # Alliandre
-	(troop_set_slot, "trp_knight_3_6", slot_troop_age,36),   # Torean
-	(troop_set_slot, "trp_knight_3_7", slot_troop_age,42),   # Galad
-	(troop_set_slot, "trp_knight_3_8", slot_troop_age,43),   # Darlin
-	(troop_set_slot, "trp_knight_3_9", slot_troop_age,41),   # Gawyn
-	(troop_set_slot, "trp_knight_3_10", slot_troop_age,53),  # Narvais
-	(troop_set_slot, "trp_knight_3_11", slot_troop_age,44),  # Ellorien
-	(troop_set_slot, "trp_knight_3_12", slot_troop_age,38),  # Dyelin
-	(troop_set_slot, "trp_knight_3_13", slot_troop_age,26),  # Tallanvor
-	(troop_set_slot, "trp_knight_3_14", slot_troop_age,50),  # Eram
-	(troop_set_slot, "trp_knight_3_15", slot_troop_age,51),  # Jarid
-	(troop_set_slot, "trp_knight_3_16", slot_troop_age,26),  # Hanshelle
-	(troop_set_slot, "trp_knight_3_17", slot_troop_age,42),  # Aubrem
-	(troop_set_slot, "trp_knight_3_18", slot_troop_age,56),  # Luan
-	(troop_set_slot, "trp_knight_3_19", slot_troop_age,41),  # Perival
-	(troop_set_slot, "trp_knight_3_20", slot_troop_age,53),  # Ailron
-	(troop_set_slot, "trp_knight_3_21", slot_troop_age,44),  # Cumere
-	(troop_set_slot, "trp_knight_3_22", slot_troop_age,38),  # Baryn
-	(troop_set_slot, "trp_knight_3_23", slot_troop_age,26),  # Ademun
-	(troop_set_slot, "trp_knight_3_24", slot_troop_age,50),  # Danine
-	(troop_set_slot, "trp_knight_3_25", slot_troop_age,51),  # Sylvase
-	(troop_set_slot, "trp_knight_3_26", slot_troop_age,26),  # Arendor
-	(troop_set_slot, "trp_knight_3_27", slot_troop_age,42),  # Arganda
-	(troop_set_slot, "trp_knight_3_28", slot_troop_age,56),  # Kireyin
-	(troop_set_slot, "trp_knight_3_29", slot_troop_age,41),  # Asunawa
-	(troop_set_slot, "trp_knight_3_30", slot_troop_age,53),  # Dain
-	(troop_set_slot, "trp_knight_3_31", slot_troop_age,44),  # Byar
-	(troop_set_slot, "trp_knight_3_32", slot_troop_age,38),  # Hearne
-	(troop_set_slot, "trp_knight_3_33", slot_troop_age,26),  # Sunamon
-	(troop_set_slot, "trp_knight_3_34", slot_troop_age,50),  # Tedosian
-	(troop_set_slot, "trp_knight_3_35", slot_troop_age,51),  # Tarabon Lord
-	(troop_set_slot, "trp_knight_3_36", slot_troop_age,26),  # Tarabon Lesser Lord
-	(troop_set_slot, "trp_knight_3_37", slot_troop_age,42),  # Estean
-	(troop_set_slot, "trp_knight_3_38", slot_troop_age,56),  # Tolmeran
-	(troop_set_slot, "trp_knight_3_39", slot_troop_age,42),  # Tear Lord
-	(troop_set_slot, "trp_knight_3_40", slot_troop_age,56),  # Aracome
+	(troop_set_slot, "trp_knight_1_2", slot_troop_age,20),  # Perrin    
+	(assign, ":reputation" "trp_knight_1_2"),
+	(troop_set_slot, "trp_knight_1_3", slot_troop_age,20),  # Tam    
+	(assign, ":reputation" "trp_knight_1_3"),
+	(troop_set_slot, "trp_knight_1_4", slot_troop_age,20),  # Damer    
+	(assign, ":reputation" "trp_knight_1_4"),
+	(troop_set_slot, "trp_knight_1_5", slot_troop_age,20),  # Davram    
+	(assign, ":reputation" "trp_knight_1_5"),
+	(troop_set_slot, "trp_knight_1_6", slot_troop_age,20),  # Talmanes    
+	(assign, ":reputation" "trp_knight_1_6"),
+	(troop_set_slot, "trp_knight_1_7", slot_troop_age,20),  # Logain    
+	(assign, ":reputation" "trp_knight_1_7"),
+	(troop_set_slot, "trp_knight_1_8", slot_troop_age,20),  # Jahar    
+	(assign, ":reputation" "trp_knight_1_8"),
+	(troop_set_slot, "trp_knight_1_9", slot_troop_age,20),  # Bran    
+	(assign, ":reputation" "trp_knight_1_9"),
+	(troop_set_slot, "trp_knight_1_10", slot_troop_age,20),  # Abel    
+	(assign, ":reputation" "trp_knight_1_10"),
+	(troop_set_slot, "trp_knight_1_11", slot_troop_age,20),  # Min    
+	(assign, ":reputation" "trp_knight_1_11"),
+	(troop_set_slot, "trp_knight_1_12", slot_troop_age,20),  # Donaldo    
+	(assign, ":reputation" "trp_knight_1_12"),
+	(troop_set_slot, "trp_knight_1_13", slot_troop_age,20),  # Fager    
+	(assign, ":reputation" "trp_knight_1_13"),
+	(troop_set_slot, "trp_knight_1_14", slot_troop_age,20),  # Jur    
+	(assign, ":reputation" "trp_knight_1_14"),
+	(troop_set_slot, "trp_knight_1_15", slot_troop_age,20),  # Daerid    
+	(assign, ":reputation" "trp_knight_1_15"),
+	(troop_set_slot, "trp_knight_1_16", slot_troop_age,20),  # Ban    
+	(assign, ":reputation" "trp_knight_1_16"),
+	(troop_set_slot, "trp_knight_1_17", slot_troop_age,20),  # Harnan    
+	(assign, ":reputation" "trp_knight_1_17"),
+	(troop_set_slot, "trp_knight_1_18", slot_troop_age,20),  # Vanin    
+	(assign, ":reputation" "trp_knight_1_18"),
+	(troop_set_slot, "trp_knight_1_19", slot_troop_age,20),  # Macoll    
+	(assign, ":reputation" "trp_knight_1_19"),
+	(troop_set_slot, "trp_knight_1_20", slot_troop_age,20),  # Elyas    
+	(assign, ":reputation" "trp_knight_1_20"),
+	(troop_set_slot, "trp_knight_2_1", slot_troop_age,20),  # Mattin Stepanos  
 	
-	(troop_set_slot, "trp_knight_4_1", slot_troop_age,44),   # Easar
-	(troop_set_slot, "trp_knight_4_2", slot_troop_age,34),   # Paitar
-	(troop_set_slot, "trp_knight_4_3", slot_troop_age,32),   # Ethenielle
-	(troop_set_slot, "trp_knight_4_4", slot_troop_age,42),   # Tenobia
-	(troop_set_slot, "trp_knight_4_5", slot_troop_age,31),   # Jagad
-	(troop_set_slot, "trp_knight_4_6", slot_troop_age,36),   # Terasian
-	(troop_set_slot, "trp_knight_4_7", slot_troop_age,42),   # Baldhere
-	(troop_set_slot, "trp_knight_4_8", slot_troop_age,43),   # Maedin
-	(troop_set_slot, "trp_knight_4_9", slot_troop_age,41),   # Kayen
-	(troop_set_slot, "trp_knight_4_10", slot_troop_age,53),  # Ismic
-	(troop_set_slot, "trp_knight_4_11", slot_troop_age,44),  # Kyril
-	(troop_set_slot, "trp_knight_4_12", slot_troop_age,38),  # Serialla
-	(troop_set_slot, "trp_knight_4_13", slot_troop_age,26),  # Nazelle
-	(troop_set_slot, "trp_knight_4_14", slot_troop_age,50),  # Ingtar
-	(troop_set_slot, "trp_knight_4_15", slot_troop_age,51),  # Antol
-	(troop_set_slot, "trp_knight_4_16", slot_troop_age,26),  # Kalyan
-	(troop_set_slot, "trp_knight_4_17", slot_troop_age,42),  # Tumad
-	(troop_set_slot, "trp_knight_4_18", slot_troop_age,56),  # Hurin
-	(troop_set_slot, "trp_knight_4_19", slot_troop_age,41),  # Uno
-	(troop_set_slot, "trp_knight_4_20", slot_troop_age,53),  # Ragan
+	(assign, ":reputation" "trp_knight_2_1"),
+	(troop_set_slot, "trp_knight_2_2", slot_troop_age,20),  # Berelain    
+	(assign, ":reputation" "trp_knight_2_2"),
+	(troop_set_slot, "trp_knight_2_3", slot_troop_age,20),  # Jeordwyn    
+	(assign, ":reputation" "trp_knight_2_3"),
+	(troop_set_slot, "trp_knight_2_4", slot_troop_age,20),  # Bertain    
+	(assign, ":reputation" "trp_knight_2_4"),
+	(troop_set_slot, "trp_knight_2_5", slot_troop_age,20),  # Rodel    
+	(assign, ":reputation" "trp_knight_2_5"),
+	(troop_set_slot, "trp_knight_2_6", slot_troop_age,20),  # Roedran    
+	(assign, ":reputation" "trp_knight_2_6"),
+	(troop_set_slot, "trp_knight_2_7", slot_troop_age,20),  # Beslan    
+	(assign, ":reputation" "trp_knight_2_7"),
+	(troop_set_slot, "trp_knight_2_8", slot_troop_age,20),  # Alsalam    
+	(assign, ":reputation" "trp_knight_2_8"),
+	(troop_set_slot, "trp_knight_2_9", slot_troop_age,20),  # Eshin    
+	(assign, ":reputation" "trp_knight_2_9"),
+	(troop_set_slot, "trp_knight_2_10", slot_troop_age,20),  # Spiron    
+	(assign, ":reputation" "trp_knight_2_10"),
+	(troop_set_slot, "trp_knight_2_11", slot_troop_age,20),  # Ballin    
+	(assign, ":reputation" "trp_knight_2_11"),
+	(troop_set_slot, "trp_knight_2_12", slot_troop_age,20),  # Dalthanes    
+	(assign, ":reputation" "trp_knight_2_12"),
+	(troop_set_slot, "trp_knight_2_13", slot_troop_age,20),  # Barmanes    
+	(assign, ":reputation" "trp_knight_2_13"),
+	(troop_set_slot, "trp_knight_2_14", slot_troop_age,20),  # Dobraine    
+	(assign, ":reputation" "trp_knight_2_14"),
+	(troop_set_slot, "trp_knight_2_15", slot_troop_age,20),  # Segan    
+	(assign, ":reputation" "trp_knight_2_15"),
+	(troop_set_slot, "trp_knight_2_16", slot_troop_age,20),  # Havien    
+	(assign, ":reputation" "trp_knight_2_16"),
+	(troop_set_slot, "trp_knight_2_17", slot_troop_age,20),  # Paitr    
+	(assign, ":reputation" "trp_knight_2_17"),
+	(troop_set_slot, "trp_knight_2_18", slot_troop_age,20),  # Sedrin    
+	(assign, ":reputation" "trp_knight_2_18"),
+	(troop_set_slot, "trp_knight_2_19", slot_troop_age,20),  # Nathin    
+	(assign, ":reputation" "trp_knight_2_19"),
+	(troop_set_slot, "trp_knight_2_20", slot_troop_age,20),  # Malalin    
+	(assign, ":reputation" "trp_knight_2_20"),
+	(troop_set_slot, "trp_knight_2_21", slot_troop_age,20),  # Selande    
+	(assign, ":reputation" "trp_knight_2_21"),
+	(troop_set_slot, "trp_knight_2_22", slot_troop_age,20),  # Alamindra    
+	(assign, ":reputation" "trp_knight_2_22"),
+	(troop_set_slot, "trp_knight_2_23", slot_troop_age,20),  # Aethelaine    
+	(assign, ":reputation" "trp_knight_2_23"),
+	(troop_set_slot, "trp_knight_2_24", slot_troop_age,20),  # Cairhien Lord   
+	(assign, ":reputation" "trp_knight_2_24"),
+	(troop_set_slot, "trp_knight_2_25", slot_troop_age,20),  # Cairhien Lady   
+	(assign, ":reputation" "trp_knight_2_25"),
+	(troop_set_slot, "trp_knight_2_26", slot_troop_age,20),  # Cairhien Lesser Lord  
+	(assign, ":reputation" "trp_knight_2_26"),
+	(troop_set_slot, "trp_knight_2_27", slot_troop_age,20),  # Cairhien Lesser Lady  
+	(assign, ":reputation" "trp_knight_2_27"),
+	(troop_set_slot, "trp_knight_2_28", slot_troop_age,20),  # Illian Councel of Nine 
+	(assign, ":reputation" "trp_knight_2_28"),
+	(troop_set_slot, "trp_knight_2_29", slot_troop_age,20),  # Illian Lord   
+	(assign, ":reputation" "trp_knight_2_29"),
+	(troop_set_slot, "trp_knight_2_30", slot_troop_age,20),  # Illian Lady   
+	(assign, ":reputation" "trp_knight_2_30"),
+	(troop_set_slot, "trp_knight_2_31", slot_troop_age,20),  # Murandy Lord   
+	(assign, ":reputation" "trp_knight_2_31"),
+	(troop_set_slot, "trp_knight_2_32", slot_troop_age,20),  # Murandy Lady   
+	(assign, ":reputation" "trp_knight_2_32"),
+	(troop_set_slot, "trp_knight_2_33", slot_troop_age,20),  # Murandy Lesser Lord  
+	(assign, ":reputation" "trp_knight_2_33"),
+	(troop_set_slot, "trp_knight_2_34", slot_troop_age,20),  # Murandy Lesser Lady  
+	(assign, ":reputation" "trp_knight_2_34"),
+	(troop_set_slot, "trp_knight_2_35", slot_troop_age,20),  # Altara Lord   
+	(assign, ":reputation" "trp_knight_2_35"),
+	(troop_set_slot, "trp_knight_2_36", slot_troop_age,20),  # Altara Lady   
+	(assign, ":reputation" "trp_knight_2_36"),
+	(troop_set_slot, "trp_knight_2_37", slot_troop_age,20),  # Altara Lesser Lord  
+	(assign, ":reputation" "trp_knight_2_37"),
+	(troop_set_slot, "trp_knight_2_38", slot_troop_age,20),  # Altara Lesser Lady  
+	(assign, ":reputation" "trp_knight_2_38"),
+	(troop_set_slot, "trp_knight_2_39", slot_troop_age,20),  # Arad Doman Lord  
+	(assign, ":reputation" "trp_knight_2_39"),
+	(troop_set_slot, "trp_knight_2_40", slot_troop_age,20),  # Arad Doman Lesser Lord 
+	(assign, ":reputation" "trp_knight_2_40"),
+	
+	(troop_set_slot, "trp_knight_3_1", slot_troop_age,20),  # Aleis    
+	(assign, ":reputation" "trp_knight_3_1"),
+	(troop_set_slot, "trp_knight_3_2", slot_troop_age,20),  # Birgitte    
+	(assign, ":reputation" "trp_knight_3_2"),
+	(troop_set_slot, "trp_knight_3_3", slot_troop_age,20),  # Charlz    
+	(assign, ":reputation" "trp_knight_3_3"),
+	(troop_set_slot, "trp_knight_3_4", slot_troop_age,20),  # Amathera    
+	(assign, ":reputation" "trp_knight_3_4"),
+	(troop_set_slot, "trp_knight_3_5", slot_troop_age,20),  # Alliandre    
+	(assign, ":reputation" "trp_knight_3_5"),
+	(troop_set_slot, "trp_knight_3_6", slot_troop_age,20),  # Torean    
+	(assign, ":reputation" "trp_knight_3_6"),
+	(troop_set_slot, "trp_knight_3_7", slot_troop_age,20),  # Galad    
+	(assign, ":reputation" "trp_knight_3_7"),
+	(troop_set_slot, "trp_knight_3_8", slot_troop_age,20),  # Darlin    
+	(assign, ":reputation" "trp_knight_3_8"),
+	(troop_set_slot, "trp_knight_3_9", slot_troop_age,20),  # Gawyn    
+	(assign, ":reputation" "trp_knight_3_9"),
+	(troop_set_slot, "trp_knight_3_10", slot_troop_age,20),  # Narvais    
+	(assign, ":reputation" "trp_knight_3_10"),
+	(troop_set_slot, "trp_knight_3_11", slot_troop_age,20),  # Ellorien    
+	(assign, ":reputation" "trp_knight_3_11"),
+	(troop_set_slot, "trp_knight_3_12", slot_troop_age,20),  # Dyelin    
+	(assign, ":reputation" "trp_knight_3_12"),
+	(troop_set_slot, "trp_knight_3_13", slot_troop_age,20),  # Tallanvor    
+	(assign, ":reputation" "trp_knight_3_13"),
+	(troop_set_slot, "trp_knight_3_14", slot_troop_age,20),  # Eram    
+	(assign, ":reputation" "trp_knight_3_14"),
+	(troop_set_slot, "trp_knight_3_15", slot_troop_age,20),  # Jarid    
+	(assign, ":reputation" "trp_knight_3_15"),
+	(troop_set_slot, "trp_knight_3_16", slot_troop_age,20),  # Hanshelle    
+	(assign, ":reputation" "trp_knight_3_16"),
+	(troop_set_slot, "trp_knight_3_17", slot_troop_age,20),  # Aubrem    
+	(assign, ":reputation" "trp_knight_3_17"),
+	(troop_set_slot, "trp_knight_3_18", slot_troop_age,20),  # Luan    
+	(assign, ":reputation" "trp_knight_3_18"),
+	(troop_set_slot, "trp_knight_3_19", slot_troop_age,20),  # Perival    
+	(assign, ":reputation" "trp_knight_3_19"),
+	(troop_set_slot, "trp_knight_3_20", slot_troop_age,20),  # Ailron    
+	(assign, ":reputation" "trp_knight_3_20"),
+	(troop_set_slot, "trp_knight_3_21", slot_troop_age,20),  # Cumere    
+	(assign, ":reputation" "trp_knight_3_21"),
+	(troop_set_slot, "trp_knight_3_22", slot_troop_age,20),  # Baryn    
+	(assign, ":reputation" "trp_knight_3_22"),
+	(troop_set_slot, "trp_knight_3_23", slot_troop_age,20),  # Ademun    
+	(assign, ":reputation" "trp_knight_3_23"),
+	(troop_set_slot, "trp_knight_3_24", slot_troop_age,20),  # Danine    
+	(assign, ":reputation" "trp_knight_3_24"),
+	(troop_set_slot, "trp_knight_3_25", slot_troop_age,20),  # Sylvase    
+	(assign, ":reputation" "trp_knight_3_25"),
+	(troop_set_slot, "trp_knight_3_26", slot_troop_age,20),  # Arendor    
+	(assign, ":reputation" "trp_knight_3_26"),
+	(troop_set_slot, "trp_knight_3_27", slot_troop_age,20),  # Arganda    
+	(assign, ":reputation" "trp_knight_3_27"),
+	(troop_set_slot, "trp_knight_3_28", slot_troop_age,20),  # Kireyin    
+	(assign, ":reputation" "trp_knight_3_28"),
+	(troop_set_slot, "trp_knight_3_29", slot_troop_age,20),  # Asunawa    
+	(assign, ":reputation" "trp_knight_3_29"),
+	(troop_set_slot, "trp_knight_3_30", slot_troop_age,20),  # Dain    
+	(assign, ":reputation" "trp_knight_3_30"),
+	(troop_set_slot, "trp_knight_3_31", slot_troop_age,20),  # Byar    
+	(assign, ":reputation" "trp_knight_3_31"),
+	(troop_set_slot, "trp_knight_3_32", slot_troop_age,20),  # Hearne    
+	(assign, ":reputation" "trp_knight_3_32"),
+	(troop_set_slot, "trp_knight_3_33", slot_troop_age,20),  # Sunamon    
+	(assign, ":reputation" "trp_knight_3_33"),
+	(troop_set_slot, "trp_knight_3_34", slot_troop_age,20),  # Tedosian    
+	(assign, ":reputation" "trp_knight_3_34"),
+	(troop_set_slot, "trp_knight_3_35", slot_troop_age,20),  # Tarabon Lord   
+	(assign, ":reputation" "trp_knight_3_35"),
+	(troop_set_slot, "trp_knight_3_36", slot_troop_age,20),  # Tarabon Lesser Lord  
+	(assign, ":reputation" "trp_knight_3_36"),
+	(troop_set_slot, "trp_knight_3_37", slot_troop_age,20),  # Estean    
+	(assign, ":reputation" "trp_knight_3_37"),
+	(troop_set_slot, "trp_knight_3_38", slot_troop_age,20),  # Tolmeran    
+	(assign, ":reputation" "trp_knight_3_38"),
+	(troop_set_slot, "trp_knight_3_39", slot_troop_age,20),  # Tear Lord   
+	(assign, ":reputation" "trp_knight_3_39"),
+	(troop_set_slot, "trp_knight_3_40", slot_troop_age,20),  # Aracome    
+	(assign, ":reputation" "trp_knight_3_40"),
+	
+	(troop_set_slot, "trp_knight_4_1", slot_troop_age,20),  # Easar    
+	(assign, ":reputation" "trp_knight_4_1"),
+	(troop_set_slot, "trp_knight_4_2", slot_troop_age,20),  # Paitar    
+	(assign, ":reputation" "trp_knight_4_2"),
+	(troop_set_slot, "trp_knight_4_3", slot_troop_age,20),  # Ethenielle    
+	(assign, ":reputation" "trp_knight_4_3"),
+	(troop_set_slot, "trp_knight_4_4", slot_troop_age,20),  # Tenobia    
+	(assign, ":reputation" "trp_knight_4_4"),
+	(troop_set_slot, "trp_knight_4_5", slot_troop_age,20),  # Jagad    
+	(assign, ":reputation" "trp_knight_4_5"),
+	(troop_set_slot, "trp_knight_4_6", slot_troop_age,20),  # Terasian    
+	(assign, ":reputation" "trp_knight_4_6"),
+	(troop_set_slot, "trp_knight_4_7", slot_troop_age,20),  # Baldhere    
+	(assign, ":reputation" "trp_knight_4_7"),
+	(troop_set_slot, "trp_knight_4_8", slot_troop_age,20),  # Maedin    
+	(assign, ":reputation" "trp_knight_4_8"),
+	(troop_set_slot, "trp_knight_4_9", slot_troop_age,20),  # Kayen    
+	(assign, ":reputation" "trp_knight_4_9"),
+	(troop_set_slot, "trp_knight_4_10", slot_troop_age,20),  # Ismic    
+	(assign, ":reputation" "trp_knight_4_10"),
+	(troop_set_slot, "trp_knight_4_11", slot_troop_age,20),  # Kyril    
+	(assign, ":reputation" "trp_knight_4_11"),
+	(troop_set_slot, "trp_knight_4_12", slot_troop_age,20),  # Serialla    
+	(assign, ":reputation" "trp_knight_4_12"),
+	(troop_set_slot, "trp_knight_4_13", slot_troop_age,20),  # Nazelle    
+	(assign, ":reputation" "trp_knight_4_13"),
+	(troop_set_slot, "trp_knight_4_14", slot_troop_age,20),  # Ingtar    
+	(assign, ":reputation" "trp_knight_4_14"),
+	(troop_set_slot, "trp_knight_4_15", slot_troop_age,20),  # Antol    
+	(assign, ":reputation" "trp_knight_4_15"),
+	(troop_set_slot, "trp_knight_4_16", slot_troop_age,20),  # Kalyan    
+	(assign, ":reputation" "trp_knight_4_16"),
+	(troop_set_slot, "trp_knight_4_17", slot_troop_age,20),  # Tumad    
+	(assign, ":reputation" "trp_knight_4_17"),
+	(troop_set_slot, "trp_knight_4_18", slot_troop_age,20),  # Hurin    
+	(assign, ":reputation" "trp_knight_4_18"),
+	(troop_set_slot, "trp_knight_4_19", slot_troop_age,20),  # Uno    
+	(assign, ":reputation" "trp_knight_4_19"),
+	(troop_set_slot, "trp_knight_4_20", slot_troop_age,20),  # Ragan    
+	(assign, ":reputation" "trp_knight_4_20"),
+	(troop_set_slot, "trp_knight_5_1", slot_troop_age,20),  # Silviana    
+	(assign, ":reputation" "trp_knight_5_1"),
+	(troop_set_slot, "trp_knight_5_2", slot_troop_age,20),  # Bryne    
+	(assign, ":reputation" "trp_knight_5_2"),
+	(troop_set_slot, "trp_knight_5_3", slot_troop_age,20),  # Cadsuane    
+	(assign, ":reputation" "trp_knight_5_3"),
+	(troop_set_slot, "trp_knight_5_4", slot_troop_age,20),  # Nynaeve    
+	(assign, ":reputation" "trp_knight_5_4"),
+	(troop_set_slot, "trp_knight_5_5", slot_troop_age,20),  # Siun    
+	(assign, ":reputation" "trp_knight_5_5"),
+	(troop_set_slot, "trp_knight_5_6", slot_troop_age,20),  # Leana    
+	(assign, ":reputation" "trp_knight_5_6"),
+	(troop_set_slot, "trp_knight_5_7", slot_troop_age,20),  # Lelaine    
+	(assign, ":reputation" "trp_knight_5_7"),
+	(troop_set_slot, "trp_knight_5_8", slot_troop_age,20),  # Romanda    
+	(assign, ":reputation" "trp_knight_5_8"),
+	(troop_set_slot, "trp_knight_5_9", slot_troop_age,20),  # Pevara    
+	(assign, ":reputation" "trp_knight_5_9"),
+	(troop_set_slot, "trp_knight_5_10", slot_troop_age,20),  # Yukiri    
+	(assign, ":reputation" "trp_knight_5_10"),
+	(troop_set_slot, "trp_knight_5_11", slot_troop_age,20),  # Saerin    
+	(assign, ":reputation" "trp_knight_5_11"),
+	(troop_set_slot, "trp_knight_5_12", slot_troop_age,20),  # Doesine    
+	(assign, ":reputation" "trp_knight_5_12"),
+	(troop_set_slot, "trp_knight_5_13", slot_troop_age,20),  # Seaine    
+	(assign, ":reputation" "trp_knight_5_13"),
+	(troop_set_slot, "trp_knight_5_14", slot_troop_age,20),  # Myrelle    
+	(assign, ":reputation" "trp_knight_5_14"),
+	(troop_set_slot, "trp_knight_5_15", slot_troop_age,20),  # Kiruna    
+	(assign, ":reputation" "trp_knight_5_15"),
+	(troop_set_slot, "trp_knight_5_16", slot_troop_age,20),  # Bera    
+	(assign, ":reputation" "trp_knight_5_16"),
+	(troop_set_slot, "trp_knight_5_17", slot_troop_age,20),  # Tiana    
+	(assign, ":reputation" "trp_knight_5_17"),
+	(troop_set_slot, "trp_knight_5_18", slot_troop_age,20),  # Takima    
+	(assign, ":reputation" "trp_knight_5_18"),
+	(troop_set_slot, "trp_knight_5_19", slot_troop_age,20),  # Masuri    
+	(assign, ":reputation" "trp_knight_5_19"),
+	(troop_set_slot, "trp_knight_5_20", slot_troop_age,20),  # Chubain    
+	(assign, ":reputation" "trp_knight_5_20"),
+	
+	(troop_set_slot, "trp_knight_6_1", slot_troop_age,20),  # Han    
+	(assign, ":reputation" "trp_knight_6_1"),
+	(troop_set_slot, "trp_knight_6_2", slot_troop_age,20),  # Dhearic    
+	(assign, ":reputation" "trp_knight_6_2"),
+	(troop_set_slot, "trp_knight_6_3", slot_troop_age,20),  # Timolan    
+	(assign, ":reputation" "trp_knight_6_3"),
+	(troop_set_slot, "trp_knight_6_4", slot_troop_age,20),  # Bruan    
+	(assign, ":reputation" "trp_knight_6_4"),
+	(troop_set_slot, "trp_knight_6_5", slot_troop_age,20),  # Indirian    
+	(assign, ":reputation" "trp_knight_6_5"),
+	(troop_set_slot, "trp_knight_6_6", slot_troop_age,20),  # Bael    
+	(assign, ":reputation" "trp_knight_6_6"),
+	(troop_set_slot, "trp_knight_6_7", slot_troop_age,20),  # Mandelain    
+	(assign, ":reputation" "trp_knight_6_7"),
+	(troop_set_slot, "trp_knight_6_8", slot_troop_age,20),  # Erim    
+	(assign, ":reputation" "trp_knight_6_8"),
+	(troop_set_slot, "trp_knight_6_9", slot_troop_age,20),  # Jheran    
+	(assign, ":reputation" "trp_knight_6_9"),
+	(troop_set_slot, "trp_knight_6_10", slot_troop_age,20),  # Janwin    
+	(assign, ":reputation" "trp_knight_6_10"),
+	(troop_set_slot, "trp_knight_6_11", slot_troop_age,20),  # Nandera    
+	(assign, ":reputation" "trp_knight_6_11"),
+	(troop_set_slot, "trp_knight_6_12", slot_troop_age,20),  # Sorilea    
+	(assign, ":reputation" "trp_knight_6_12"),
+	(troop_set_slot, "trp_knight_6_13", slot_troop_age,20),  # Amys    
+	(assign, ":reputation" "trp_knight_6_13"),
+	(troop_set_slot, "trp_knight_6_14", slot_troop_age,20),  # Bain    
+	(assign, ":reputation" "trp_knight_6_14"),
+	(troop_set_slot, "trp_knight_6_15", slot_troop_age,20),  # Melaine    
+	(assign, ":reputation" "trp_knight_6_15"),
+	(troop_set_slot, "trp_knight_6_16", slot_troop_age,20),  # Bair    
+	(assign, ":reputation" "trp_knight_6_16"),
+	(troop_set_slot, "trp_knight_6_17", slot_troop_age,20),  # Gaul    
+	(assign, ":reputation" "trp_knight_6_17"),
+	(troop_set_slot, "trp_knight_6_18", slot_troop_age,20),  # Aviendha    
+	(assign, ":reputation" "trp_knight_6_18"),
+	(troop_set_slot, "trp_knight_6_19", slot_troop_age,20),  # Heirn    
+	(assign, ":reputation" "trp_knight_6_19"),
+	(troop_set_slot, "trp_knight_6_20", slot_troop_age,20),  # Sulin    
+	(assign, ":reputation" "trp_knight_6_20"),
+	
+	(troop_set_slot, "trp_knight_7_1", slot_troop_age,20),  # Galgan    
+	(assign, ":reputation" "trp_knight_7_1"),
+	(troop_set_slot, "trp_knight_7_2", slot_troop_age,20),  # Karede    
+	(assign, ":reputation" "trp_knight_7_2"),
+	(troop_set_slot, "trp_knight_7_3", slot_troop_age,20),  # Tylee    
+	(assign, ":reputation" "trp_knight_7_3"),
+	(troop_set_slot, "trp_knight_7_4", slot_troop_age,20),  # Gamel    
+	(assign, ":reputation" "trp_knight_7_4"),
+	(troop_set_slot, "trp_knight_7_5", slot_troop_age,20),  # Mikhel    
+	(assign, ":reputation" "trp_knight_7_5"),
+	(troop_set_slot, "trp_knight_7_6", slot_troop_age,20),  # Lisaine    
+	(assign, ":reputation" "trp_knight_7_6"),
+	(troop_set_slot, "trp_knight_7_7", slot_troop_age,20),  # Efraim    
+	(assign, ":reputation" "trp_knight_7_7"),
+	(troop_set_slot, "trp_knight_7_8", slot_troop_age,20),  # Abaldar    
+	(assign, ":reputation" "trp_knight_7_8"),
+	(troop_set_slot, "trp_knight_7_9", slot_troop_age,20),  # Jadranka    
+	(assign, ":reputation" "trp_knight_7_9"),
+	(troop_set_slot, "trp_knight_7_10", slot_troop_age,20),  # Gueye    
+	(assign, ":reputation" "trp_knight_7_10"),
+	(troop_set_slot, "trp_knight_7_11", slot_troop_age,20),  # Assid    
+	(assign, ":reputation" "trp_knight_7_11"),
+	(troop_set_slot, "trp_knight_7_12", slot_troop_age,20),  # Blasic    
+	(assign, ":reputation" "trp_knight_7_12"),
+	(troop_set_slot, "trp_knight_7_13", slot_troop_age,20),  # Musenge    
+	(assign, ":reputation" "trp_knight_7_13"),
+	(troop_set_slot, "trp_knight_7_14", slot_troop_age,20),  # Mishima    
+	(assign, ":reputation" "trp_knight_7_14"),
+	(troop_set_slot, "trp_knight_7_15", slot_troop_age,20),  # Faverde    
+	(assign, ":reputation" "trp_knight_7_15"),
+	(troop_set_slot, "trp_knight_7_16", slot_troop_age,20),  # Amenar    
+	(assign, ":reputation" "trp_knight_7_16"),
+	(troop_set_slot, "trp_knight_7_17", slot_troop_age,20),  # Egeanin    
+	(assign, ":reputation" "trp_knight_7_17"),
+	(troop_set_slot, "trp_knight_7_18", slot_troop_age,20),  # Yuril    
+	(assign, ":reputation" "trp_knight_7_18"),
+	(troop_set_slot, "trp_knight_7_19", slot_troop_age,20),  # Selucia    
+	(assign, ":reputation" "trp_knight_7_19"),
+	(troop_set_slot, "trp_knight_7_20", slot_troop_age,20),  # Malahavana    
+	(assign, ":reputation" "trp_knight_7_20"),
+	
+	(troop_set_slot, "trp_knight_8_1", slot_troop_age,20),  # Moridin    
+	(assign, ":reputation" "trp_knight_8_1"),
+	(troop_set_slot, "trp_knight_8_2", slot_troop_age,20),  # Demandred    
+	(assign, ":reputation" "trp_knight_8_2"),
+	(troop_set_slot, "trp_knight_8_3", slot_troop_age,20),  # Moghedien    
+	(assign, ":reputation" "trp_knight_8_3"),
+	(troop_set_slot, "trp_knight_8_4", slot_troop_age,20),  # Mesaana    
+	(assign, ":reputation" "trp_knight_8_4"),
+	(troop_set_slot, "trp_knight_8_5", slot_troop_age,20),  # Graendal    
+	(assign, ":reputation" "trp_knight_8_5"),
+	(troop_set_slot, "trp_knight_8_6", slot_troop_age,20),  # Cyndane    
+	(assign, ":reputation" "trp_knight_8_6"),
+	(troop_set_slot, "trp_knight_8_7", slot_troop_age,20),  # Alviarin    
+	(assign, ":reputation" "trp_knight_8_7"),
+	(troop_set_slot, "trp_knight_8_8", slot_troop_age,20),  # Katerine    
+	(assign, ":reputation" "trp_knight_8_8"),
+	(troop_set_slot, "trp_knight_8_9", slot_troop_age,20),  # Delana    
+	(assign, ":reputation" "trp_knight_8_9"),
+	(troop_set_slot, "trp_knight_8_10", slot_troop_age,20),  # Chesmal    
+	(assign, ":reputation" "trp_knight_8_10"),
+	(troop_set_slot, "trp_knight_8_11", slot_troop_age,20),  # Rianna    
+	(assign, ":reputation" "trp_knight_8_11"),
+	(troop_set_slot, "trp_knight_8_12", slot_troop_age,20),  # Falion    
+	(assign, ":reputation" "trp_knight_8_12"),
+	(troop_set_slot, "trp_knight_8_13", slot_troop_age,20),  # Marillin    
+	(assign, ":reputation" "trp_knight_8_13"),
+	(troop_set_slot, "trp_knight_8_14", slot_troop_age,20),  # Temaile    
+	(assign, ":reputation" "trp_knight_8_14"),
+	(troop_set_slot, "trp_knight_8_15", slot_troop_age,20),  # Mili    
+	(assign, ":reputation" "trp_knight_8_15"),
+	(troop_set_slot, "trp_knight_8_16", slot_troop_age,20),  # Hanlon    
+	(assign, ":reputation" "trp_knight_8_16"),
+	(troop_set_slot, "trp_knight_8_17", slot_troop_age,20),  # Trolloc Clan Chief  
+	(assign, ":reputation" "trp_knight_8_17"),
+	(troop_set_slot, "trp_knight_8_18", slot_troop_age,20),  # Darkfriend Lord   
+	(assign, ":reputation" "trp_knight_8_18"),
+	(troop_set_slot, "trp_knight_8_19", slot_troop_age,20),  # High Lord Weiramon  
+	(assign, ":reputation" "trp_knight_8_19"),
+	(troop_set_slot, "trp_knight_8_20", slot_troop_age,20),  # Lady Darkfriend   
+	(assign, ":reputation" "trp_knight_8_20"),
 
-	(troop_set_slot, "trp_knight_5_1", slot_troop_age,44),   # Silviana
-	(troop_set_slot, "trp_knight_5_2", slot_troop_age,34),   # Bryne
-	(troop_set_slot, "trp_knight_5_3", slot_troop_age,32),   # Cadsuane
-	(troop_set_slot, "trp_knight_5_4", slot_troop_age,42),   # Nynaeve
-	(troop_set_slot, "trp_knight_5_5", slot_troop_age,31),   # Siun
-	(troop_set_slot, "trp_knight_5_6", slot_troop_age,36),   # Leana
-	(troop_set_slot, "trp_knight_5_7", slot_troop_age,42),   # Lelaine
-	(troop_set_slot, "trp_knight_5_8", slot_troop_age,43),   # Romanda
-	(troop_set_slot, "trp_knight_5_9", slot_troop_age,41),   # Pevara
-	(troop_set_slot, "trp_knight_5_10", slot_troop_age,53),  # Yukiri
-	(troop_set_slot, "trp_knight_5_11", slot_troop_age,44),  # Saerin
-	(troop_set_slot, "trp_knight_5_12", slot_troop_age,38),  # Doesine
-	(troop_set_slot, "trp_knight_5_13", slot_troop_age,26),  # Seaine
-	(troop_set_slot, "trp_knight_5_14", slot_troop_age,50),  # Myrelle
-	(troop_set_slot, "trp_knight_5_15", slot_troop_age,51),  # Kiruna
-	(troop_set_slot, "trp_knight_5_16", slot_troop_age,26),  # Bera
-	(troop_set_slot, "trp_knight_5_17", slot_troop_age,42),  # Tiana
-	(troop_set_slot, "trp_knight_5_18", slot_troop_age,56),  # Takima
-	(troop_set_slot, "trp_knight_5_19", slot_troop_age,41),  # Masuri
-	(troop_set_slot, "trp_knight_5_20", slot_troop_age,53),  # Chubain
-
-	(troop_set_slot, "trp_knight_6_1", slot_troop_age,44),   # Han
-	(troop_set_slot, "trp_knight_6_2", slot_troop_age,34),   # Dhearic
-	(troop_set_slot, "trp_knight_6_3", slot_troop_age,32),   # Timolan
-	(troop_set_slot, "trp_knight_6_4", slot_troop_age,42),   # Bruan
-	(troop_set_slot, "trp_knight_6_5", slot_troop_age,31),   # Indirian
-	(troop_set_slot, "trp_knight_6_6", slot_troop_age,36),   # Bael
-	(troop_set_slot, "trp_knight_6_7", slot_troop_age,42),   # Mandelain 
-	(troop_set_slot, "trp_knight_6_8", slot_troop_age,43),   # Erim
-	(troop_set_slot, "trp_knight_6_9", slot_troop_age,41),   # Jheran
-	(troop_set_slot, "trp_knight_6_10", slot_troop_age,53),  # Janwin
-	(troop_set_slot, "trp_knight_6_11", slot_troop_age,44),  # Nandera
-	(troop_set_slot, "trp_knight_6_12", slot_troop_age,38),  # Sorilea
-	(troop_set_slot, "trp_knight_6_13", slot_troop_age,26),  # Amys
-	(troop_set_slot, "trp_knight_6_14", slot_troop_age,50),  # Bain
-	(troop_set_slot, "trp_knight_6_15", slot_troop_age,51),  # Melaine
-	(troop_set_slot, "trp_knight_6_16", slot_troop_age,26),  # Bair
-	(troop_set_slot, "trp_knight_6_17", slot_troop_age,42),  # Gaul
-	(troop_set_slot, "trp_knight_6_18", slot_troop_age,56),  # Aviendha
-	(troop_set_slot, "trp_knight_6_19", slot_troop_age,41),  # Heirn
-	(troop_set_slot, "trp_knight_6_20", slot_troop_age,53),  # Sulin
-
-	(troop_set_slot, "trp_knight_7_1", slot_troop_age,44),   # Galgan
-	(troop_set_slot, "trp_knight_7_2", slot_troop_age,34),   # Karede
-	(troop_set_slot, "trp_knight_7_3", slot_troop_age,32),   # Tylee
-	(troop_set_slot, "trp_knight_7_4", slot_troop_age,42),   # Gamel
-	(troop_set_slot, "trp_knight_7_5", slot_troop_age,31),   # Mikhel
-	(troop_set_slot, "trp_knight_7_6", slot_troop_age,36),   # Lisaine
-	(troop_set_slot, "trp_knight_7_7", slot_troop_age,42),   # Efraim
-	(troop_set_slot, "trp_knight_7_8", slot_troop_age,43),   # Abaldar
-	(troop_set_slot, "trp_knight_7_9", slot_troop_age,41),   # Jadranka
-	(troop_set_slot, "trp_knight_7_10", slot_troop_age,53),  # Gueye
-	(troop_set_slot, "trp_knight_7_11", slot_troop_age,44),  # Assid
-	(troop_set_slot, "trp_knight_7_12", slot_troop_age,38),  # Blasic
-	(troop_set_slot, "trp_knight_7_13", slot_troop_age,26),  # Musenge
-	(troop_set_slot, "trp_knight_7_14", slot_troop_age,50),  # Mishima
-	(troop_set_slot, "trp_knight_7_15", slot_troop_age,51),  # Faverde
-	(troop_set_slot, "trp_knight_7_16", slot_troop_age,26),  # Amenar
-	(troop_set_slot, "trp_knight_7_17", slot_troop_age,42),  # Egeanin
-	(troop_set_slot, "trp_knight_7_18", slot_troop_age,56),  # Yuril
-	(troop_set_slot, "trp_knight_7_19", slot_troop_age,41),  # Selucia
-	(troop_set_slot, "trp_knight_7_20", slot_troop_age,53),  # Malahavana
-
-	(troop_set_slot, "trp_knight_8_1", slot_troop_age,44),   # Moridin
-	(troop_set_slot, "trp_knight_8_2", slot_troop_age,34),   # Demandred
-	(troop_set_slot, "trp_knight_8_3", slot_troop_age,32),   # Moghedien
-	(troop_set_slot, "trp_knight_8_4", slot_troop_age,42),   # Mesaana
-	(troop_set_slot, "trp_knight_8_5", slot_troop_age,31),   # Graendal
-	(troop_set_slot, "trp_knight_8_6", slot_troop_age,36),   # Cyndane
-	(troop_set_slot, "trp_knight_8_7", slot_troop_age,42),   # Alviarin
-	(troop_set_slot, "trp_knight_8_8", slot_troop_age,43),   # Katerine
-	(troop_set_slot, "trp_knight_8_9", slot_troop_age,41),   # Delana
-	(troop_set_slot, "trp_knight_8_10", slot_troop_age,53),  # Chesmal
-	(troop_set_slot, "trp_knight_8_11", slot_troop_age,53),  # Rianna
-	(troop_set_slot, "trp_knight_8_12", slot_troop_age,44),  # Falion
-	(troop_set_slot, "trp_knight_8_13", slot_troop_age,38),  # Marillin
-	(troop_set_slot, "trp_knight_8_14", slot_troop_age,26),  # Temaile
-	(troop_set_slot, "trp_knight_8_15", slot_troop_age,50),  # Mili
-	(troop_set_slot, "trp_knight_8_16", slot_troop_age,51),  # Hanlon
-	(troop_set_slot, "trp_knight_8_17", slot_troop_age,26),  # Trolloc Clan Chief
-	(troop_set_slot, "trp_knight_8_18", slot_troop_age,42),  # Darkfriend Lord
-	(troop_set_slot, "trp_knight_8_19", slot_troop_age,56),  # High Lord Weiramon
-	(troop_set_slot, "trp_knight_8_20", slot_troop_age,41),  # Lady Darkfriend
-
-	(assign, ":reputation" "trp_knight_1_1"),  # Mat   
-	(assign, ":reputation" "trp_knight_1_2"),  # Perrin   
-	(assign, ":reputation" "trp_knight_1_3"),  # Tam   
-	(assign, ":reputation" "trp_knight_1_4"),  # Damer   
-	(assign, ":reputation" "trp_knight_1_5"),  # Davram   
-	(assign, ":reputation" "trp_knight_1_6"),  # Talmanes   
-	(assign, ":reputation" "trp_knight_1_7"),  # Logain   
-	(assign, ":reputation" "trp_knight_1_8"),  # Jahar   
-	(assign, ":reputation" "trp_knight_1_9"),  # Bran   
-	(assign, ":reputation" "trp_knight_1_10"),  # Abell
-	(assign, ":reputation" "trp_knight_1_11"),  # Min   
-	(assign, ":reputation" "trp_knight_1_12"),  # Donalo   
-	(assign, ":reputation" "trp_knight_1_13"),  # Fager   
-	(assign, ":reputation" "trp_knight_1_14"),  # Jur   
-	(assign, ":reputation" "trp_knight_1_15"),  # Daerid   
-	(assign, ":reputation" "trp_knight_1_16"),  # Ban   
-	(assign, ":reputation" "trp_knight_1_17"),  # Harnan   
-	(assign, ":reputation" "trp_knight_1_18"),  # Vanin   
-	(assign, ":reputation" "trp_knight_1_19"),  # Macoll   
-	(assign, ":reputation" "trp_knight_1_20"),  # Elyas   
-
-	(assign, ":reputation" "trp_knight_2_1"),  # Mattin Stepanos  
-	(assign, ":reputation" "trp_knight_2_2"),  # Berelain   
-	(assign, ":reputation" "trp_knight_2_3"),  # Jeordwyn   
-	(assign, ":reputation" "trp_knight_2_4"),  # Bertain   
-	(assign, ":reputation" "trp_knight_2_5"),  # Rodel   
-	(assign, ":reputation" "trp_knight_2_6"),  # Roedran   
-	(assign, ":reputation" "trp_knight_2_7"),  # Beslan   
-	(assign, ":reputation" "trp_knight_2_8"),  # Alsalam   
-	(assign, ":reputation" "trp_knight_2_9"),  # Eshin   
-	(assign, ":reputation" "trp_knight_2_10"),  # Spiron   
-	(assign, ":reputation" "trp_knight_2_11"),  # Ballin   
-	(assign, ":reputation" "trp_knight_2_12"),  # Dalthanes   
-	(assign, ":reputation" "trp_knight_2_13"),  # Barmanes   
-	(assign, ":reputation" "trp_knight_2_14"),  # Dobraine   
-	(assign, ":reputation" "trp_knight_2_15"),  # Segan   
-	(assign, ":reputation" "trp_knight_2_16"),  # Havien   
-	(assign, ":reputation" "trp_knight_2_17"),  # Paitr   
-	(assign, ":reputation" "trp_knight_2_18"),  # Sedrin   
-	(assign, ":reputation" "trp_knight_2_19"),  # Nathin   
-	(assign, ":reputation" "trp_knight_2_20"),  # Malalin   
-	(assign, ":reputation" "trp_knight_2_21"),  # Selande   
-	(assign, ":reputation" "trp_knight_2_22"),  # Alamindra   
-	(assign, ":reputation" "trp_knight_2_23"),  # Aethelaine   
-	(assign, ":reputation" "trp_knight_2_24"),  # Cairhien Lord  
-	(assign, ":reputation" "trp_knight_2_25"),  # Cairhien Lady  
-	(assign, ":reputation" "trp_knight_2_26"),  # Cairhien Lesser Lord 
-	(assign, ":reputation" "trp_knight_2_27"),  # Cairhien Lesser Lady 
-	(assign, ":reputation" "trp_knight_2_28"),  # Illian Councel of Nine
-	(assign, ":reputation" "trp_knight_2_29"),  # Illian Lord  
-	(assign, ":reputation" "trp_knight_2_30"),  # Illian Lady  
-	(assign, ":reputation" "trp_knight_2_31"),  # Murandy Lord  
-	(assign, ":reputation" "trp_knight_2_32"),  # Murandy Lady  
-	(assign, ":reputation" "trp_knight_2_33"),  # Murandy Lesser Lord 
-	(assign, ":reputation" "trp_knight_2_34"),  # Murandy Lesser Lady 
-	(assign, ":reputation" "trp_knight_2_35"),  # Altara Lord  
-	(assign, ":reputation" "trp_knight_2_36"),  # Altara Lady  
-	(assign, ":reputation" "trp_knight_2_37"),  # Altara Lesser Lord 
-	(assign, ":reputation" "trp_knight_2_38"),  # Altara Lesser Lady 
-	(assign, ":reputation" "trp_knight_2_39"),  # Arad Doman Lord 
-	(assign, ":reputation" "trp_knight_2_40"),  # Arad Doman Lesser Lord
-
-	(assign, ":reputation" "trp_knight_3_1"),  # Aleis   
-	(assign, ":reputation" "trp_knight_3_2"),  # Birgitte   
-	(assign, ":reputation" "trp_knight_3_3"),  # Charlz   
-	(assign, ":reputation" "trp_knight_3_4"),  # Amathera   
-	(assign, ":reputation" "trp_knight_3_5"),  # Alliandre   
-	(assign, ":reputation" "trp_knight_3_6"),  # Torean   
-	(assign, ":reputation" "trp_knight_3_7"),  # Galad   
-	(assign, ":reputation" "trp_knight_3_8"),  # Darlin   
-	(assign, ":reputation" "trp_knight_3_9"),  # Gawyn   
-	(assign, ":reputation" "trp_knight_3_10"),  # Narvais   
-	(assign, ":reputation" "trp_knight_3_11"),  # Ellorien   
-	(assign, ":reputation" "trp_knight_3_12"),  # Dyelin   
-	(assign, ":reputation" "trp_knight_3_13"),  # Tallanvor   
-	(assign, ":reputation" "trp_knight_3_14"),  # Eram   
-	(assign, ":reputation" "trp_knight_3_15"),  # Jarid   
-	(assign, ":reputation" "trp_knight_3_16"),  # Hanshelle   
-	(assign, ":reputation" "trp_knight_3_17"),  # Aubrem   
-	(assign, ":reputation" "trp_knight_3_18"),  # Luan   
-	(assign, ":reputation" "trp_knight_3_19"),  # Perival   
-	(assign, ":reputation" "trp_knight_3_20"),  # Ailron   
-	(assign, ":reputation" "trp_knight_3_21"),  # Cumere   
-	(assign, ":reputation" "trp_knight_3_22"),  # Baryn   
-	(assign, ":reputation" "trp_knight_3_23"),  # Ademun   
-	(assign, ":reputation" "trp_knight_3_24"),  # Danine   
-	(assign, ":reputation" "trp_knight_3_25"),  # Sylvase   
-	(assign, ":reputation" "trp_knight_3_26"),  # Arendor   
-	(assign, ":reputation" "trp_knight_3_27"),  # Arganda   
-	(assign, ":reputation" "trp_knight_3_28"),  # Kireyin   
-	(assign, ":reputation" "trp_knight_3_29"),  # Asunawa   
-	(assign, ":reputation" "trp_knight_3_30"),  # Dain   
-	(assign, ":reputation" "trp_knight_3_31"),  # Byar   
-	(assign, ":reputation" "trp_knight_3_32"),  # Hearne   
-	(assign, ":reputation" "trp_knight_3_33"),  # Sunamon   
-	(assign, ":reputation" "trp_knight_3_34"),  # Tedosian   
-	(assign, ":reputation" "trp_knight_3_35"),  # Tarabon Lord  
-	(assign, ":reputation" "trp_knight_3_36"),  # Tarabon Lesser Lord 
-	(assign, ":reputation" "trp_knight_3_37"),  # Estean   
-	(assign, ":reputation" "trp_knight_3_38"),  # Tolmeran   
-	(assign, ":reputation" "trp_knight_3_39"),  # Tear Lord  
-	(assign, ":reputation" "trp_knight_3_40"),  # Aracome   
-
-	(assign, ":reputation" "trp_knight_4_1"),  # Easar   
-	(assign, ":reputation" "trp_knight_4_2"),  # Paitar   
-	(assign, ":reputation" "trp_knight_4_3"),  # Ethenielle   
-	(assign, ":reputation" "trp_knight_4_4"),  # Tenobia   
-	(assign, ":reputation" "trp_knight_4_5"),  # Jagad   
-	(assign, ":reputation" "trp_knight_4_6"),  # Terasian   
-	(assign, ":reputation" "trp_knight_4_7"),  # Baldhere   
-	(assign, ":reputation" "trp_knight_4_8"),  # Maedin   
-	(assign, ":reputation" "trp_knight_4_9"),  # Kayen   
-	(assign, ":reputation" "trp_knight_4_10"),  # Ismic   
-	(assign, ":reputation" "trp_knight_4_11"),  # Kyril   
-	(assign, ":reputation" "trp_knight_4_12"),  # Serialla   
-	(assign, ":reputation" "trp_knight_4_13"),  # Nazelle   
-	(assign, ":reputation" "trp_knight_4_14"),  # Ingtar   
-	(assign, ":reputation" "trp_knight_4_15"),  # Antol   
-	(assign, ":reputation" "trp_knight_4_16"),  # Kalyan   
-	(assign, ":reputation" "trp_knight_4_17"),  # Tumad   
-	(assign, ":reputation" "trp_knight_4_18"),  # Hurin   
-	(assign, ":reputation" "trp_knight_4_19"),  # Uno   
-	(assign, ":reputation" "trp_knight_4_20"),  # Ragan   
-
-	(assign, ":reputation" "trp_knight_5_1"),  # Silviana   
-	(assign, ":reputation" "trp_knight_5_2"),  # Bryne   
-	(assign, ":reputation" "trp_knight_5_3"),  # Cadsuane   
-	(assign, ":reputation" "trp_knight_5_4"),  # Nynaeve   
-	(assign, ":reputation" "trp_knight_5_5"),  # Siun   
-	(assign, ":reputation" "trp_knight_5_6"),  # Leana   
-	(assign, ":reputation" "trp_knight_5_7"),  # Lelaine   
-	(assign, ":reputation" "trp_knight_5_8"),  # Romanda   
-	(assign, ":reputation" "trp_knight_5_9"),  # Pevara   
-	(assign, ":reputation" "trp_knight_5_10"),  # Yukiri   
-	(assign, ":reputation" "trp_knight_5_11"),  # Saerin   
-	(assign, ":reputation" "trp_knight_5_12"),  # Doesine   
-	(assign, ":reputation" "trp_knight_5_13"),  # Seaine   
-	(assign, ":reputation" "trp_knight_5_14"),  # Myrelle   
-	(assign, ":reputation" "trp_knight_5_15"),  # Kiruna   
-	(assign, ":reputation" "trp_knight_5_16"),  # Bera   
-	(assign, ":reputation" "trp_knight_5_17"),  # Tiana   
-	(assign, ":reputation" "trp_knight_5_18"),  # Takima   
-	(assign, ":reputation" "trp_knight_5_19"),  # Masuri   
-	(assign, ":reputation" "trp_knight_5_20"),  # Chubain   
-
-	(assign, ":reputation" "trp_knight_6_1"),  # Han   
-	(assign, ":reputation" "trp_knight_6_2"),  # Dhearic   
-	(assign, ":reputation" "trp_knight_6_3"),  # Timolan   
-	(assign, ":reputation" "trp_knight_6_4"),  # Bruan   
-	(assign, ":reputation" "trp_knight_6_5"),  # Indirian   
-	(assign, ":reputation" "trp_knight_6_6"),  # Bael   
-	(assign, ":reputation" "trp_knight_6_7"),  # Mandelain   
-	(assign, ":reputation" "trp_knight_6_8"),  # Erim   
-	(assign, ":reputation" "trp_knight_6_9"),  # Jheran   
-	(assign, ":reputation" "trp_knight_6_10"),  # Janwin   
-	(assign, ":reputation" "trp_knight_6_11"),  # Nandera   
-	(assign, ":reputation" "trp_knight_6_12"),  # Sorilea   
-	(assign, ":reputation" "trp_knight_6_13"),  # Amys   
-	(assign, ":reputation" "trp_knight_6_14"),  # Bain   
-	(assign, ":reputation" "trp_knight_6_15"),  # Melaine   
-	(assign, ":reputation" "trp_knight_6_16"),  # Bair   
-	(assign, ":reputation" "trp_knight_6_17"),  # Gaul   
-	(assign, ":reputation" "trp_knight_6_18"),  # Aviendha   
-	(assign, ":reputation" "trp_knight_6_19"),  # Heirn   
-	(assign, ":reputation" "trp_knight_6_20"),  # Sulin   
-
-	(assign, ":reputation" "trp_knight_7_1"),  # Galgan   
-	(assign, ":reputation" "trp_knight_7_2"),  # Karede   
-	(assign, ":reputation" "trp_knight_7_3"),  # Tylee   
-	(assign, ":reputation" "trp_knight_7_4"),  # Gamel   
-	(assign, ":reputation" "trp_knight_7_5"),  # Mikhel   
-	(assign, ":reputation" "trp_knight_7_6"),  # Lisaine   
-	(assign, ":reputation" "trp_knight_7_7"),  # Efraim   
-	(assign, ":reputation" "trp_knight_7_8"),  # Abaldar   
-	(assign, ":reputation" "trp_knight_7_9"),  # Jadranka   
-	(assign, ":reputation" "trp_knight_7_10"),  # Gueye   
-	(assign, ":reputation" "trp_knight_7_11"),  # Assid   
-	(assign, ":reputation" "trp_knight_7_12"),  # Blasic   
-	(assign, ":reputation" "trp_knight_7_13"),  # Musenge   
-	(assign, ":reputation" "trp_knight_7_14"),  # Mishima   
-	(assign, ":reputation" "trp_knight_7_15"),  # Faverde   
-	(assign, ":reputation" "trp_knight_7_16"),  # Amenar   
-	(assign, ":reputation" "trp_knight_7_17"),  # Egeanin   
-	(assign, ":reputation" "trp_knight_7_18"),  # Yuril   
-	(assign, ":reputation" "trp_knight_7_19"),  # Selucia   
-	(assign, ":reputation" "trp_knight_7_20"),  # Malahavana  
-	 
-	(assign, ":reputation" "trp_knight_8_1"),  # Moridin   
-	(assign, ":reputation" "trp_knight_8_2"),  # Demandred   
-	(assign, ":reputation" "trp_knight_8_3"),  # Moghedien   
-	(assign, ":reputation" "trp_knight_8_4"),  # Mesaana   
-	(assign, ":reputation" "trp_knight_8_5"),  # Graendal   
-	(assign, ":reputation" "trp_knight_8_6"),  # Cyndane   
-	(assign, ":reputation" "trp_knight_8_7"),  # Alviarin   
-	(assign, ":reputation" "trp_knight_8_8"),  # Katerine   
-	(assign, ":reputation" "trp_knight_8_9"),  # Delana   
-	(assign, ":reputation" "trp_knight_8_10"),  # Chesmal   
-	(assign, ":reputation" "trp_knight_8_11"),  # Rianna   
-	(assign, ":reputation" "trp_knight_8_12"),  # Falion   
-	(assign, ":reputation" "trp_knight_8_13"),  # Marillin   
-	(assign, ":reputation" "trp_knight_8_14"),  # Temaile   
-	(assign, ":reputation" "trp_knight_8_15"),  # Mili   
-	(assign, ":reputation" "trp_knight_8_16"),  # Hanlon   
-	(assign, ":reputation" "trp_knight_8_17"),  # Trolloc Clan Chief 
-	(assign, ":reputation" "trp_knight_8_18"),  # Darkfriend Lord  
-	(assign, ":reputation" "trp_knight_8_19"),  # High Lord Weiramon 
-	(assign, ":reputation" "trp_knight_8_20"),  # Lady Darkfriend  
 
 	
 # V: END CODEBLOCK FOR TGS KNIGHT AGES AND REPUTATION
@@ -8471,16 +8471,12 @@ scripts = [
 #			(troop_set_slot, ":cur_lady", slot_troop_father, ":cur_troop"),
 ## V: END COMMENTED OUT FOR TGS
 
-### V/TODO: Make daughter definitions as below for every daughter
-# (troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_father, "trp_knight_1_1"),
-# (troop_set_slot, "trp_kingdom_1_lady_3", slot_troop_father, "trp_knight_1_1"),
-
 ## V: BEGIN COMMENTED OUT FOR TGS
 #			(store_sub, ":mother", ":cur_lady", 1),
 ## V: END COMMENTED OUT FOR TGS
 
 ### V/TODO: May change lady age later, until then leave this.
-			(call_script, "script_init_troop_age", ":cur_lady", 19),
+#			(call_script, "script_init_troop_age", ":cur_lady", 19),
 			
 ## V: BEGIN COMMENTED OUT FOR TGS
 #            ##diplomacy start+ fix native bug (daughters are their own mothers)
@@ -8560,32 +8556,25 @@ scripts = [
 			(call_script, "script_add_lady_items", ":cur_lady"),
 
 			(val_add, ":cur_lady", 1),
-
-		(else_try),	#Younger unmarried lords
 ## V: BEGIN COMMENTED OUT FOR TGS
+		(else_try),	#Younger unmarried lords
+#
 #			#age is father's minus 20 to 25
 #			(store_sub, ":father", ":cur_troop", 12),
 #			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
 #			(troop_get_slot, ":mother", ":father", slot_troop_spouse),
 #			(troop_set_slot, ":cur_troop", slot_troop_mother, ":mother"),
-## V: END COMMENTED OUT FOR TGS
-
-### V/TODO: Define relation for all sons(?) like below
-# (troop_set_slot, "trp_knight_4_6", slot_troop_father, "trp_knight_4_3"),
-# (troop_set_slot, "trp_knight_4_6", slot_troop_mother, "trp_kingdom_4_lady_4"),
-
-## V: BEGIN COMMENTED OUT FOR TGS
+#
+#
 #			(troop_get_slot, ":father_age", ":father", slot_troop_age),
 #			(store_sub, ":age", ":father_age", ":father_age_at_birth"),
 ## V: END COMMENTED OUT FOR TGS
-
-### V/TODO: Define ages for all sons(?) like below
-# (troop_set_slot, "trp_knight_4_6", slot_troop_age,16),   
 
 			(try_begin), #50% chance of having father's rep
 				(store_random_in_range, ":reputation", 0, 16),
 
 				(gt, ":reputation", 7),
+				
 ## V: BEGIN COMMENTED OUT FOR TGS
 #				(troop_get_slot, ":reputation", ":father", slot_lord_reputation_type),
 ## V: END COMMENTED OUT FOR TGS

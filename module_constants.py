@@ -1523,11 +1523,18 @@ kingdom_ladies_end = "trp_heroes_end"
 pretenders_begin = "trp_kingdom_1_pretender"
 pretenders_end = kingdom_ladies_begin
 
-lords_begin = "trp_knight_1_1"
+## V: BEGIN EDITED OUT FOR WOT MOD
+# lords_begin = "trp_knight_1_1"
+## V: END EDITED OUT FOR WOT MOD
+lords_begin = "trp_kingdom_1_lord"
+
 lords_end = pretenders_begin
 
 kings_begin = "trp_kingdom_1_lord"
-kings_end = lords_begin
+## V: BEGIN EDITED OUT FOR WOT MOD
+#kings_end = lords_begin
+## V: END EDITED OUT FOR WOT MOD
+kings_end = "trp_knight_1_1"
 
 companions_begin = "trp_npc1"
 companions_end = kings_begin
