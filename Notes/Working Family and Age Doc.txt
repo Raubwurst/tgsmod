@@ -146,10 +146,10 @@ Lord Lt of Mayne Winged Guards
 Unmarried
 20
 
-Paitar Neramovni Nachiman
-King of Arafel
-Brother to Kiruna Nachiman, husband to Menuki
-54?
+Paitr do Fearna a'Conn
+Murandian Nobleman
+Unmarried
+28?
 
 Sedrin
 Son of Meri do Ahlan a'Conlin
@@ -218,11 +218,12 @@ Unmarried
 Amathera Aelfdene Casmir Lounault
 Panarch of Tarabon
 Unmarried
+24?
 
 Alliandre Maritha Kigarin
 Queen of Ghealdan
 Unmarried
-24?
+27?
 
 Torean of House Andiama
 High Lord of Tear
@@ -251,39 +252,182 @@ One of the 13 Counsels of Far Madding
 Unmarried
 36?
 
-Ellorien
-Dyelin
-Tallanvor
-Eram
-Jarid
-Hanshelle
-Aubrem
-Luan
-Perival
+Ellorien Traemane
+High Seat of House Traemane
+Andoran
+Unmarried
+38?
+
+Dyelin Taravin
+High Seat of House Taravin
+Andoran
+Unmarried
+44?
+
+Martyn Tallanvor
+Andoran Queen's Guardsman-Lieutenant
+24?
+Unmarried
+
+Eram Talkend
+Andoran Nobleman
+Loyal to Elenia Sarand
+35?
+Unmarried
+
+Jarid Sarand
+Andoran Nobleman
+High Seat of House Sarand
+Husband of Elenia Sarand
+38?
+
+Hanselle Renshar
+Andoran Nobleman
+House Renshar
+Grandson of Lady Arathelle Renshar
+Unmarried
+20?
+
+Aubrem Pensenor
+Andoran Nobleman
+House Pensenor
+Unmarried
+64?
+
+Luan Norwelyn
+Andoran Nobleman
+High Seat of House Norwelyn
+Unmarried
+Has granddaughters
+52?
+
+Perival Mantear
+Andoran Nobleman
+High Seat of House Mantear
+12
+Unmarried
+
 Ailron
-Cumere
-Baryn
-Ademun
-Danine
-Sylvase
-Arendor
-Arganda
+King of Amadicia
+Puppet of the Whitecloaks
+Unmarried
+Dead in CoT
+42?
+
+Cumere Powys
+One of the 13 Counsels of Far Madding
+26?
+Unmarried
+
+Baryn (Baran that died in TFoH?)
+24?
+Tairen Lord
+Unmarried
+
+Aedmun Matherin
+Lord of House Matherin
+Supports Elayne
+Andoran Lord
+Unmarried
+28?
+
+Danine Candraed
+Andoran Lady
+High Seat of House Candraed
+Indecisive
+Unmarried
+29?
+
+Sylvase Caeren
+Andoran Lady
+Granddaughter and heir of Nasin Caeren
+Unmarried
+No emotion or personality
+20?
+
+Arendor Haevin
+Andoran Lord
+Guardian to Lady Catalyn,
+High Seat of House Haevin
+28?
+
+Gerard Arganda
+First Captain of Ghealdan
+Unmarried
+45?
+
 Kireyin
-Asunawa
-Dain
-Byar
+Ghealdanin Officer
+Unmarried
+28?
+
+Rhadam Asunawa
+High Inquisitor to the Children of the Light
+Unmarried
+Dead as of TGS
+60?
+
+Dain Bornhald
+Officer of the Children of the Light
+Son of Geofram Bornhald
+Unmarried
+24?
+
+Jaret Byar
+Officer of the Children of the Light
+Unmarried
+31?
+
 Hearne
-Sunamon
+A High Lord of Tear
+Unmarried
+36?
+
+Sunamon Haellin
+A High Lord of Tear
+Unmarried
+35?
+
 Tedosian
+High Lord of Tear
+Husband of Lady Alteima
+38?
+
 Tarabon Lord
 Tarabon Lesser Lord
-Estean
+
+Estean Andiama
+Eldest son of High Lord Torean
+Unmarried
+25?
+
 Tolmeran
+High Lord of Tear
+Unmarried
+53?
+
 Tear Lord
+
 Aracome
-Easar
-Paitar
+High Lord of Tear
+Unmarried
+Killed in TPoD
+50?
+
+Easar Togita
+King of Shienar
+Unmarried
+Has at least 3 sons
+49?
+
+Paitar Neramovni Nachiman
+King of Arafel
+Brother to Kiruna Nachiman, husband to Menuki
+54?
+
 Ethenielle
+
+
 Tenobia
 Jagad
 Terasian
