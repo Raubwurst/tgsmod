@@ -1656,6 +1656,20 @@ scripts = [
     (party_set_slot, "p_town_20", slot_center_trollocs_available_target, 10), # Shayol Ghul
 
 
+# added for npc companion one power item
+    (try_for_range, ":troop_no", companions_begin, companions_end),
+          (troop_set_slot, ":troop_no", slot_troop_npc_companion_primary_weave, 0),
+          (troop_set_slot, ":troop_no", slot_troop_npc_companion_secondary_weave, 0),
+    (try_end),
+
+    # FIXME: later, modify this to only include the actual companions who will be channelers
+    (try_for_range, ":troop_no", companions_begin, companions_end),
+          (troop_set_slot, ":troop_no", slot_troop_npc_companion_is_channeler, 1),
+          (troop_set_slot, ":troop_no", slot_troop_npc_companion_known_weaves, 1),
+    (try_end),
+# end added for npc companion one power item      
+
+
   
   #### End added for wheel of time
 

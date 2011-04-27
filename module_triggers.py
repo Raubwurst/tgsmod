@@ -2292,7 +2292,50 @@ triggers = [
 
         ]),
 
-  ## New main map testing hotkeys
+  ## Trigger to update channeling proficiency slot for npc companions
+        (0, 0.1, 0, [(eq, "$g_tutorial_complete", 1)],
+         [
+             (try_for_range, ":troop_no", companions_begin, companions_end),
+                 (store_proficiency_level,":channeling_proficiency",":troop_no",wpt_firearm),
+                 (try_begin),
+                    (lt, ":channeling_proficiency", 15),
+                        (assign, ":known_weaves", 1),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 30),
+                        (assign, ":known_weaves", 2),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 45),
+                        (assign, ":known_weaves", 3),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 60),
+                        (assign, ":known_weaves", 4),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 75),
+                        (assign, ":known_weaves", 5),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 90),
+                        (assign, ":known_weaves", 6),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 105),
+                        (assign, ":known_weaves", 7),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 125),
+                        (assign, ":known_weaves", 8),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 150),
+                        (assign, ":known_weaves", 9),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 170),
+                        (assign, ":known_weaves", 10),
+                    (else_try),
+                    (lt, ":channeling_proficiency", 200),
+                        (assign, ":known_weaves", 11),
+                    (try_end),
+                 (troop_set_slot, ":troop_no", slot_troop_npc_companion_known_weaves, ":known_weaves"),
+             (try_end),
+        ]),  
+
+  ## New main map testing hotkeys HACK: make sure this doesn't work in non-development versions
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1), #  to enable cheats, remove the second line in the condition
                    #(eq, "$g_tutorial_complete", 0),
                    ],
@@ -2350,6 +2393,10 @@ triggers = [
 #                            (party_add_members, ":party", "trp_two_rivers_halberdier", 10),
 #                            (party_add_members, ":party", "trp_two_rivers_scout", 10),
 #                            (party_add_members, ":party", "trp_two_rivers_marksman", 10),
+            # HACK for npc companions
+            (party_add_members, ":party", "trp_npc1",1),
+            (party_add_members, ":party", "trp_npc2",1),
+            (party_add_members, ":party", "trp_npc3",1),
                         (else_try),
                         (eq, "$g_cheat_recruit_add", 2),
             

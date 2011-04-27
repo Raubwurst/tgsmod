@@ -1906,6 +1906,11 @@ common_wot_check_for_channelers_in_the_scene = (
                  (else_try),
                  (agent_has_item_equipped, ":agent", "itm_power_kinswoman_ranged"),
                      (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+             # added for npc companions
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_npc_companion_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+             # end added for npc companions
              # added for multiplayer
                  (else_try),
                  (agent_has_item_equipped, ":agent", "itm_power_player_multiplayer"),

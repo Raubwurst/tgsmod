@@ -3414,5 +3414,16 @@ str_sedai_recruit = 3412
 str_aiel_recruit = 3413
 str_seanchan_recruit = 3414
 str_shadowspawn_recruit = 3415
+str_companion_weave_1 = 3416
+str_companion_weave_2 = 3417
+str_companion_weave_3 = 3418
+str_companion_weave_4 = 3419
+str_companion_weave_5 = 3420
+str_companion_weave_6 = 3421
+str_companion_weave_7 = 3422
+str_companion_weave_8 = 3423
+str_companion_weave_9 = 3424
+str_companion_weave_10 = 3425
+str_companion_weave_11 = 3426
 
 

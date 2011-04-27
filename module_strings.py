@@ -4440,6 +4440,19 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("aiel_recruit", "Aiel Soldier"),
   ("seanchan_recruit", "Seanchan Armsman"),
   ("shadowspawn_recruit", "Darkfriend Soldier"),
+
+  # npc companion weaves
+  ("companion_weave_1", "Freeze"),
+  ("companion_weave_2", "Heal"),
+  ("companion_weave_3", "Fireball"),
+  ("companion_weave_4", "Unravel"),
+  ("companion_weave_5", "Ranged Earth Blast"),
+  ("companion_weave_6", "Bind"),
+  ("companion_weave_7", "Chain Lightning"),
+  ("companion_weave_8", "Shield"),
+  ("companion_weave_9", "Seeker"),
+  ("companion_weave_10", "Compulsion"),
+  ("companion_weave_11", "Balefire"),  
   
 
 ######################
