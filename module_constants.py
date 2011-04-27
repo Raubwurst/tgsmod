@@ -1036,7 +1036,13 @@ slot_troop_will_join_prison_break      = 161
 # added for wheel of time
 slot_troop_recruit_primary             = 163  # this will be a number from 1 to 8 which will determine what recruitment option a lord will use.
 slot_troop_recruit_secondary           = 164
-slot_troop_darkfriend_buff             = 165  # (0 if false, 1 if true)
+
+slot_troop_darkfriend_buff             = 170  # (0 if false, 1 if true)# was 165
+
+slot_troop_npc_companion_primary_weave    = 171  # (0, or the number of one of the ranged/support/advanced weaves)
+slot_troop_npc_companion_secondary_weave  = 172  # (0, or the number of one of the ranged/support/advanced weaves)
+slot_troop_npc_companion_known_weaves     = 173  # number of weaves the companion knows. (1 to 11, since short range weaves aren't an option)
+slot_troop_npc_companion_is_channeler     = 174  # (0 if false, 1 if true) Added because I could not look up firearm (channeling) proficiency within the module_item.py file.
 
 # end added for wheel of time
 
