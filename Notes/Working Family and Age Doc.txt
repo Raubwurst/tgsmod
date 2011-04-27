@@ -1,23 +1,72 @@
-Mat 
-Married to Tuon, but single ingame. Cause marriage through event if possible?
+Rand al'Thor
+Dragon Reborn
+Half-brother to Galad
+Unmarried (Min, Elayne & Avidenha)
+20
+
+Semaradrid Maravin
+Cairhienen Lord
+Unmarried
+44?
+
+Elayne Trakand
+Queen of Andor
+Daughter to Morgase
+Sister to Aviendha and Gawyn
+20
+
+al'Lan Mandragoran
+Uncrowned King of Malkier
+Married to Nynaeve al'Miera
+Lord of the Seven Towers
+45
+
+Egwene al'Vere
+Daughter of Bran and Marin al'Vere
+Four sisters, Berowyn, Alene, Elisa and Loise
+Unmarried (Gawyn)
+17
+
+Rhuarc
+Chief of the Taraad Aiel
+Married to Lian and Amys
+47?
+
+Fortuona Athaem Devi Paendrig (formerly Tuon Athaem Kore Paendrig)
+Empress of Seanchan (formerly Daughter of the Nine Moons)
+Married to Mat Cauthon
+19
+
+
+Shaidar Haran
+Hand of the Shadow
+Unmarried
+30?
+
+Matrim Cauthon
+Leader of the Band of the Red Hand
+Married to Fortuona
+Son to Abell Cauthon and Natti Cauthon, brother to Bodewhin and Eldrin.
 20
 
 Perrin
+Lord of the Two Rivers
 Married to Faile
+Son to Con Aybara and Joslyn Aybara, brother to Adora, Deselle and Paet. All deceased.
 20
 
-Tam
+Tam al'Thor
 'Father' to Rand, not married
 (56?)
 
-Damer
+Damer Flinn
 No family, old man (63?)
 
-Davram
-Married to Deira, Father to Faile and Maedin, Uncle of Tenobia
+Davram Bashere
+Married to Deira ni'Ghaline t'Bashere, Father to Faile and Maedin, Uncle of Tenobia
 (50?)
 
-Talmanes
+Talmanes Delovinde
 Member of house Delovinde
 22
 
@@ -25,28 +74,28 @@ Logain
 No family
 26
 
-Jahar
+Jahar Narishma
 No family, 22
 
 
-Bran
+Brandelwyn al'Vere
 Married to Marin, father of Egwene and her sisters
 56?
 
-Abell
+Abell Cauthon
 Married to Natti, father of Mat, Eldrin, Bodewhin and two other daughters.
 54?
 
 
-Min
+Elmindreda Farshaw
 'Married' to Rand?
 23
 
-Donalo
+Donalo Sandomere
 No family
 44
 
-Fager
+Fager Neald
 No family
 17
 
@@ -54,7 +103,8 @@ Jur Grady
 Married to Sora Grady
 27
 
-Daerid
+Daerid Ondin
+No family
 37
 
 Ban al'Seen
@@ -73,7 +123,7 @@ Macoll
 Unmarried
 23?
 
-Elyas
+Elyas Machera
 Unmarried
 59?
 
@@ -81,7 +131,7 @@ Mattin Stepanos
 Unmarried
 63?
 
-Berelain
+Berelain sur Paendrag Paeron
 Unmarried
 23?
 
@@ -94,14 +144,16 @@ Unmarried
 58?
 
 Rodel Itarude
+Domani General
 Married to ?
 41?
 
-Roedran
+Roedran Almaric do Arreloa a'Naloy
 Unmarried
 48?
 
-Beslan
+Beslan Mitsobar
+King of Altara
 Unmarried
 18
 
@@ -110,7 +162,7 @@ Has at least a brother, a sister-in-law, a sister and a daughter
 46?
 
 Eshin
-?
+FIXME
 
 Spiron Narettin
 Illian Council of Nine
@@ -118,7 +170,7 @@ Unmarried
 35?
 
 Ballin
-?
+FIXME
 
 Dalthanes Annallin
 Cairhien Nobleman
@@ -184,6 +236,7 @@ Lady of Jurandor in Altara
 Seanchan symphathies
 28?
 
+FIXME
 Cairhien Lord
 Cairhien Lady
 Cairhien Lesser Lord
@@ -393,6 +446,7 @@ High Lord of Tear
 Husband of Lady Alteima
 38?
 
+FIXME
 Tarabon Lord
 Tarabon Lesser Lord
 
@@ -406,6 +460,7 @@ High Lord of Tear
 Unmarried
 53?
 
+FIXME
 Tear Lord
 
 Aracome
@@ -425,106 +480,512 @@ King of Arafel
 Brother to Kiruna Nachiman, husband to Menuki
 54?
 
-Ethenielle
+Ethenielle Cosaru Noramaga
+Queen of Kandor
+Married to Prince Consort Brys
+Mother to Antol, Diryk and Jarene
+46?
 
+Tenobia si Bashere Kazadi
+Queen of Saldea
+Neice of Davram Bashere
+Unmarried
+24?
 
-Tenobia
-Jagad
+Agelmar Jagad
+Shienaran Lord
+Lord of Fal Dara
+Unmarried
+55?
+
 Terasian
+FIXME
+
 Baldhere
-Maedin
-Kayen
+Swordbearer to Queen Ethenielle of Kandor
+Unmarried
+46?
+
+Maedin Bashere
+Unmarried
+Younger brother of Faile Bashere
+20
+
+Kayen Yokata
+Shienaran Lord
+Lord of Fal Eisen
+Unmarried
+28?
+
 Ismic
-Kyril
+Kandoran Lord
+Married to Nazelle
+38?
+
+Kyril Shianri
+Counciler to King Paitar of Arafel
+Unmarried
+38?
+
 Serialla
+FIXME
+
 Nazelle
-Ingtar
+Kandoran Lady
+Sister to Queen Ethenielle
+Married to Lord Ismic
+36?
+
+Ingtar Shinowa
+Shienaran Lord
+Dead as of TGH
+Unmarried
+38?
+
 Antol
-Kalyan
-Tumad
+Eldest son of Ethenielle and Brys
+Brother to Diryk and Jarene
+25?
+
+Kalyan Ramsin
+Uncle to Queen Tenobia
+General of Saldaea
+Unmarried
+52?
+
+Tumad Ahzkan
+Lieutenant in Saldaean Army
+Unmarried
+Dead as of KoD
+23?
+
 Hurin
-Uno
+Sniffer of Fal Dara
+Unmarried
+48?
+
+Uno Nomesta
+Shienaran Soldier
+Unmarried
+36?
+
 Ragan
-Silviana
-Bryne
-Cadsuane
-Nynaeve
-Siun
-Leana
-Lelaine
-Romanda
-Pevara
+Shienaran Soldier
+Unmarried
+29?
+
+# NOTE: Aes Sedai ages are not real because 300-year-olds will be considerably weakened by the engine
+
+Silviana Brehon
+Aes Sedai of the Red Ajah
+Mistress of Novices from TFoH
+Unmarried
+38?
+
+Gareth Bryne
+Captain-General of the Queen's Guard in Andor
+First Prince of the Sword to Queen Morgase
+Unmarried (Will marry Siuan)
+47?
+
+Cadsuane Melaidhrin
+Aes Sedai of the Green Ajah
+Unmarried
+52?
+
+Nynaeve al'Meara
+Aes Sedai of the Green Ajah
+Married to Lan Mandragoran (as of ACoS)
+24
+
+Siuan Sanche
+Aes Sedai of the Blue Ajah (Previous Amyrlin Seat)
+Unmarried (Will marry Gareth Bryne)
+36?
+
+Leane Sharif
+Aes Sedai of the Green Ajah (Previously Blue)
+Niece to Resara
+Unmarried
+30?
+
+Lelaine Akashi
+Sitter of the Blue Ajah
+Warder is Burin Shaeren
+Unmarried
+46?
+
+Romanda Cassin
+Sitter of the Yellow Ajah
+Unmarried
+50?
+
+Pevara Tazanovni
+Sitter of the Red Ajah
+Unmarried
+36?
+
 Yukiri
-Saerin
-Doesine
-Seaine
-Myrelle
-Kiruna
-Bera
-Tiana
+Sitter of the Grey Ajah
+Unmarried
+40?
+
+Saerin Asnobar
+Sitter of the Brown Ajah
+Unmarried
+47?
+
+Doesine Alwain
+Sitter of the Yellow Ajah
+Unmarried
+38?
+
+Seaine Herimon
+Sitter of the White Ajah
+34?
+
+Myrelle Berengari
+Aes Sedai of the Green Ajah
+Warders are Avar Hachami, Croi Makin and Nuhel Dromand
+Unmarried
+33?
+
+Kiruna Nachiman
+Aes Sedai of the Green Ajah
+Sister to King Paitar of Arafel
+Four warders
+Unmarried
+35?
+
+Bera Harkin
+Aes Sedai of the Green Ajah
+Three Warders
+Unmarried
+37?
+
+Tiana Noselle
+Aes Sedai of the Grey Ajah
+(Mistress of Novices in Salidar)
+Unmarried
+32?
+
 Takima
-Masuri
-Chubain
+Sitter of the Brown Ajah
+Unmarried
+34?
+
+Masuri Sokawa
+Aes Sedai of the Brown Ajah
+Warder is Rovair Kirklin
+30?
+
+Jimar Chubain
+High Captain of the Tower Guard in Tar Valon
+Unmarried
+36?
+
 Han
+Chief of the Tomanelle Aiel
+Married to ?
+46?
+
 Dhearic
+Chief of the Reyn Aiel
+Married to ?
+38?
+
 Timolan
+Chief of the Miagoma Aiel
+Unmarried
+42?
+
 Bruan
+Chief of the Nakai Aiel
+Married to ?
+34?
+
 Indirian
+Chief of the Codarra Aiel
+Married to ?
+45?
+
 Bael
-Mandelain 
+Chief of the Goshien Aiel
+Married to Melaine and Dorindha
+Has 3 sons with Dorindha
+47?
+
+Mandelain
+Chief of the Daryne Aiel
+Married to Jair and Corehuin
+50?
+
 Erim
+Chief of the Chareen Aiel
+Married to ?
+45?
+
 Jheran
+Chief of the Shaarad Aiel
+Married to ?
+41?
+
 Janwin
+Chief of the Shiande Aiel
+Married to ?
+52?
+
 Nandera
+Maiden of the Spear
+Unmarried
+49?
+
 Sorilea
+Wise One of Shende Hold
+Unmarried
+54?
+
 Amys
+Wise One of Cold Rocks Hold
+Wife of Rhurac
+Sister-wife to Lain
+36?
+
 Bain
+Maiden of the Spear
+Sister to Chiad
+Unmarried (Gaul?)
+24?
+
 Melaine
+Wise One
+Married to Bael
+Sister to Dorindha
+32?
+
 Bair
+Wise One
+Unmarried
+52?
+
 Gaul
+Sharaad Stone Dog
+Unmarried (Bain and Chiad)
+26?
+
 Aviendha
+Wise One
+Unmarried (Rand)
+18
+
 Heirn
+Chief of the Jindo Sept of the Taraad Aiel
+Unmarried
+34?
+
 Sulin
-Galgan
-Karede
-Tylee
-Gamel
-Mikhel
-Lisaine
-Efraim
-Abaldar
+Maiden of the Spear
+Unmarried
+50?
+
+Lunal Galgan
+Captain-General of the Corenne
+Seanchan Army
+Unmarried
+43?
+
+Furyk Karede
+Banner-General of the Seanchan Deathwatch Guard
+Unmarried
+40
+
+Tylee Khirgan
+Banner-General of the Seanchan Army
+Unmarried
+43?
+
+Gamel Loune
+Banner-General of the Seanchan Army
+Unmarried
+39?
+
+Mikhel Najirah
+Seanchan Army General
+Unmarried
+49?
+
+Lisaine Jarath
+Senior Der'Sul'Dam under Miraj's command
+Unmarried
+47?
+
+Efraim Yamada
+Banner-General in Seanchan Army
+Low Blood
+Married to Riselle
+45?
+
+Abaldar Yulan
+Lieutenant-General in Seanchan Army
+Unmarried
+40?
+
 Jadranka
-Gueye
-Assid
-Blasic
+Seanchan Army commander
+Killed in TPoD by Karede
+Unmarried
+31?
+
+Gueye Arabah
+Seanchan Officer
+Unmarried
+25?
+
+Assid Bakuun
+Seanchan Commander
+Unmarried
+36?
+
+Blasic Faloun
+Seanchan Captain of raken
+Unmarried
+41?
+
 Musenge
-Mishima
-Faverde
-Amenar
-Egeanin
+Captain of the Deathwatch Guard
+Unmarried
+43?
+
+Bakayar Mishima
+Captain in the Seanchan Army
+Unmarried
+Killed in KoD
+32?
+
+Faverde Nothish
+Seanchan Blood
+38?
+
+Amenar Shumada
+Seanchan Blood
+32?
+
+Egeanin Tamarath (Leilwin Shipless)
+Seanchan Captain of the Green
+Unmarried as Egeanin - Married to Bayle Domon post-Leilwin
+34?
+
 Yuril
+Hand of the Seekers and Fortuona's secretary
+Unmarried
+43?
+
 Selucia
+So'jhin to Fortuona
+Unmarried
+45
+
 Malahavana
+Seanchan Sul'dam
+Unmarried
+36?
+
 Moridin
+Nae'blis
+Unmarried
+25
+
 Demandred
+Forsaken
+Unmarried
+36?
+
 Moghedien
+Forsaken
+Unmarried
+34?
+
 Mesaana
+Forsaken
+Unmarried
+41?
+
 Graendal
+Forsaken
+Unmarried
+39?
+
 Cyndane
-Alviarin
-Katerine
-Delana
-Chesmal
-Rianna
-Falion
-Marillin
-Temaile
-Mili
-Hanlon
+Forsaken
+Unmarried
+25?
+
+Alviarin Freidhen
+Black Ajah
+Unmarried
+33?
+
+Katerine Alruddin
+Black Ajah
+Killed in TGS
+Unmarried
+36?
+
+Delana Mosalaine
+Black Ajah
+Killed in KoD
+Unmarried
+34?
+
+Chesmal Emry
+Black Ajah
+Killed in TGS
+Unmarried
+43?
+
+Rianna Andomeran
+Black Ajah
+Unmarried
+46?
+
+Falion Bhoda
+Black Ajah
+Unmarried
+36?
+
+Marillin Gemalphin
+Black Ajah
+Unmarried
+38?
+
+Temaile Kinderode
+Black Ajah
+Unmarried
+34?
+
+Mili Skane
+Darkfriend Assassin
+Unmarried
+21
+
+Daved Hanlon
+Darkfriend ex-Captain of the Queen's Guard
+Unmarried
+38?
+
+FIXME
 Trolloc Clan Chief
 Darkfriend Lord
-High Lord Weiramon
-Lady Darkfriend
+
+Weiramon Saniago
+Darkfriend High Lord of Tear
+Unmarried
+41?
+
+Anaiyella Narencelona
+Darkfriend High Lady of Tear
+Unmarried
+37?
 
 SOURCES:
 
