@@ -49,7 +49,7 @@ Married to Fortuona
 Son to Abell Cauthon and Natti Cauthon, brother to Bodewhin and Eldrin.
 20
 
-Perrin
+Perrin Aybara
 Lord of the Two Rivers
 Married to Faile
 Son to Con Aybara and Joslyn Aybara, brother to Adora, Deselle and Paet. All deceased.
@@ -70,7 +70,7 @@ Talmanes Delovinde
 Member of house Delovinde
 22
 
-Logain
+Logain Albar
 No family
 26
 
@@ -208,7 +208,7 @@ Murandian Nobleman
 Unmarried
 28?
 
-Sedrin
+Sedrin do Meri a'Conlin
 Son of Meri do Ahlan a'Conlin
 Unmarried
 Murandian Nobleman
@@ -253,19 +253,23 @@ Cairhienen Noblewoman
 Unmarried (will marry Darlin Sisnera)
 28?
 
-Alil Riatin
-Cairhienen Noblewoman
-Sister to Toram Riatin
-33?
-
 Ballin Elamri
 Illian Counsel of Nine
 Married to Aisha Elmari
 36?
 
+Alil Riatin
+Cairhienen Noblewoman
+Sister to Toram Riatin
+33?
+
 Gregorin den Lushenos
 Illian Counsel of Nine
 34?
+
+Kiril Drapeneos
+Illian Counsel of Nine
+37?
 
 Aisha Elmari
 [Not canon]
@@ -305,7 +309,7 @@ Altaran Noblewoman
 Married to Entin Contar
 40
 
-Bran Llewys
+Brand Llewys
 [Not canon]
 Altaran Nobleman
 Married to Alania Llewys
@@ -444,7 +448,7 @@ One of the 13 Counsels of Far Madding
 26?
 Unmarried
 
-Baryn (Baran that died in TFoH?)
+Lil Baryn (Baran that died in TFoH?)
 24?
 Tairen Lord
 Unmarried
@@ -579,8 +583,9 @@ Lord of Fal Dara
 Unmarried
 55?
 
-Kareil
-Kandoran Lady
+Ishigari Terasian
+[Non-canon?]
+Shienaran Lord
 Unmarried
 35?
 
