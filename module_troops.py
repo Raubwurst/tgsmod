@@ -2823,55 +2823,55 @@ troops = [
 
 # FIXME: I gave channeling items and high fireams proficiency to all companions for testing purposes.
   ["npc1","Borcha","Borcha",tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_khergit_armor,itm_nomad_boots,itm_knife],
-   str_8|agi_7|int_12|cha_7|level(3),wp(60)|wp_firearm(200),knows_tracker_npc|
+   str_8|agi_7|int_12|cha_7|level(3),wp(60)|wp_firearm(95),knows_tracker_npc|
    knows_ironflesh_1|knows_power_strike_1|knows_pathfinding_3|knows_athletics_2|knows_tracking_1|knows_riding_2, #skills 2/3 player at that level
    0x00000004bf086143259d061a9046e23500000000001db52c0000000000000000],
   ["npc2","Marnid","Marnid", tf_hero|tf_unmoveable_in_party_window, 0,reserved, fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_linen_tunic,itm_hide_boots,itm_club],
-   str_7|agi_7|int_11|cha_6|level(1),wp(40)|wp_firearm(100),knows_merchant_npc|
+   str_7|agi_7|int_11|cha_6|level(1),wp(40)|wp_firearm(130),knows_merchant_npc|
    knows_trade_2|knows_weapon_master_1|knows_ironflesh_1|knows_wound_treatment_1|knows_athletics_2|knows_first_aid_1|knows_leadership_1,
    0x000000019d004001570b893712c8d28d00000000001dc8990000000000000000],
   ["npc3","Ymira","Ymira",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_dress,itm_woolen_hose,itm_knife],
-   str_6|agi_9|int_11|cha_6|level(1),wp(20)|wp_firearm(150),knows_merchant_npc|
+   str_6|agi_9|int_11|cha_6|level(1),wp(20)|wp_firearm(210),knows_merchant_npc|
    knows_wound_treatment_1|knows_trade_1|knows_first_aid_3|knows_surgery_1|knows_athletics_1|knows_riding_1,
    0x0000000083040001583b6db8dec5925b00000000001d80980000000000000000],
   ["npc4","Rolf","Rolf",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_leather_jerkin,itm_nomad_boots, itm_sword_medieval_a],
-   str_10|agi_9|int_13|cha_10|level(10),wp(110)|wp_firearm(200),knows_warrior_npc|
+   str_10|agi_9|int_13|cha_10|level(10),wp(110)|wp_firearm(40),knows_warrior_npc|
    knows_weapon_master_2|knows_power_strike_2|knows_riding_2|knows_athletics_2|knows_power_throw_2|knows_first_aid_1|knows_surgery_1|knows_tactics_2|knows_leadership_2,
    0x000000057f1074002c75c6a8a58ad72e00000000001e1a890000000000000000],
   ["npc5","Baheshtur","Baheshtur",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_nomad_vest,itm_nomad_boots, itm_sword_khergit_1],
-   str_9|agi_9|int_12|cha_7|level(5),wp(90)|wp_firearm(200),knows_warrior_npc|
+   str_9|agi_9|int_12|cha_7|level(5),wp(90)|wp_firearm(50),knows_warrior_npc|
    knows_riding_2|knows_horse_archery_3|knows_power_draw_3|knows_leadership_2|knows_weapon_master_1,
    0x000000088910318b5c6f972328324a6200000000001cd3310000000000000000],
   ["npc6","Firentis","Firentis",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_tabard,itm_nomad_boots, itm_sword_medieval_a],
-   str_10|agi_12|int_10|cha_5|level(6),wp(105)|wp_firearm(200),knows_warrior_npc|
+   str_10|agi_12|int_10|cha_5|level(6),wp(105)|wp_firearm(60),knows_warrior_npc|
    knows_riding_2|knows_weapon_master_2|knows_power_strike_2|knows_athletics_3|knows_trainer_1|knows_leadership_1,
   0x00000002050052036a1895d0748f3ca30000000000000f0b0000000000000000],
   ["npc7","Deshavi","Deshavi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_ragged_outfit,itm_wrapping_boots, itm_hunting_bow, itm_arrows, itm_quarter_staff],
-   str_8|agi_9|int_10|cha_6|level(2),wp(80)|wp_firearm(200),knows_tracker_npc|
+   str_8|agi_9|int_10|cha_6|level(2),wp(80)|wp_firearm(70),knows_tracker_npc|
    knows_tracking_2|knows_athletics_2|knows_spotting_1|knows_pathfinding_1|knows_power_draw_2,
    0x00000001fc08400533a15297634d44f400000000001e02db0000000000000000],
   ["npc8","Matheld","Matheld",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_tribal_warrior_outfit,itm_nomad_boots, itm_sword_viking_1],
-   str_9|agi_10|int_9|cha_10|level(7),wp(90)|wp_firearm(200),knows_warrior_npc|
+   str_9|agi_10|int_9|cha_10|level(7),wp(90)|wp_firearm(80),knows_warrior_npc|
    knows_weapon_master_3|knows_power_strike_2|knows_athletics_2|knows_leadership_3|knows_tactics_1,
    0x00000005800c000637db8314e331e76e00000000001c46db0000000000000000],
   ["npc9","Alayen","Alayen",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_tabard,itm_nomad_boots, itm_sword_medieval_b_small],
-   str_11|agi_8|int_7|cha_8|level(2),wp(100)|wp_firearm(200),knows_warrior_npc|
+   str_11|agi_8|int_7|cha_8|level(2),wp(100)|wp_firearm(90),knows_warrior_npc|
    knows_weapon_master_1|knows_riding_1|knows_athletics_1|knows_leadership_1|knows_tactics_1|knows_power_strike_1,
    0x000000030100300f499d5b391b6db8d300000000001dc2e10000000000000000],
   ["npc10","Bunduk","Bunduk",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_padded_leather,itm_nomad_boots, itm_crossbow, itm_bolts, itm_pickaxe],
-   str_12|agi_8|int_9|cha_11|level(9),wp(105)|wp_firearm(200),knows_warrior_npc|
+   str_12|agi_8|int_9|cha_11|level(9),wp(105)|wp_firearm(100),knows_warrior_npc|
    knows_weapon_master_3|knows_tactics_1|knows_leadership_1|knows_ironflesh_3|knows_trainer_2|knows_first_aid_2,
    0x0000000a3f081006572c91c71c8d46cb00000000001e468a0000000000000000],
   ["npc11","Katrin","Katrin",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_leather_apron, itm_falchion, itm_wrapping_boots],
-   str_8|agi_11|int_10|cha_10|level(8),wp(70)|wp_firearm(200),knows_merchant_npc|
+   str_8|agi_11|int_10|cha_10|level(8),wp(70)|wp_firearm(125),knows_merchant_npc|
    knows_weapon_master_1|knows_first_aid_1|knows_wound_treatment_2|knows_ironflesh_3|knows_inventory_management_5,
    0x0000000d7f0400035915aa226b4d975200000000001ea49e0000000000000000],
   ["npc12","Jeremus","Jeremus",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_pilgrim_disguise,itm_nomad_boots, itm_staff],
-   str_8|agi_7|int_13|cha_7|level(4),wp(30)|wp_firearm(200),   knows_merchant_npc|
+   str_8|agi_7|int_13|cha_7|level(4),wp(30)|wp_firearm(150),   knows_merchant_npc|
    knows_ironflesh_1|knows_power_strike_1|knows_surgery_4|knows_wound_treatment_3|knows_first_aid_3,
    0x000000078000500e4f8ba62a9cd5d36d00000000001e36250000000000000000],
   ["npc13","Nizar","Nizar",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_nomad_robe,itm_nomad_boots, itm_scimitar, itm_courser],
-   str_7|agi_7|int_12|cha_8|level(3),wp(80)|wp_firearm(200),knows_warrior_npc|
+   str_7|agi_7|int_12|cha_8|level(3),wp(80)|wp_firearm(175),knows_warrior_npc|
    knows_riding_2|knows_leadership_2|knows_athletics_2|knows_ironflesh_2|knows_power_strike_1|knows_weapon_master_1,
    0x00000004bf0475c85f4e9592de4e574c00000000001e369c0000000000000000],
   ["npc14","Lezalit","Lezalit",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_nobleman_outfit,itm_nomad_boots, itm_sword_medieval_b_small],
@@ -2879,11 +2879,11 @@ troops = [
    knows_trainer_4|knows_weapon_master_3|knows_leadership_2|knows_power_strike_1,
    0x00000001a410259144d5d1d6eb55e96a00000000001db0db0000000000000000],
   ["npc15","Artimenner","Artimenner",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_rich_outfit,itm_nomad_boots, itm_sword_medieval_b_small],
-   str_9|agi_9|int_12|cha_8|level(7),wp(80)|wp_firearm(200),knows_warrior_npc|
+   str_9|agi_9|int_12|cha_8|level(7),wp(80)|wp_firearm(210),knows_warrior_npc|
    knows_tactics_2|knows_engineer_4|knows_trade_3|knows_tracking_1|knows_spotting_1,
    0x0000000f2e1021862b4b9123594eab5300000000001d55360000000000000000],
   ["npc16","Klethi","Klethi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_peasant_dress,itm_nomad_boots, itm_dagger, itm_throwing_knives],
-   str_7|agi_11|int_8|cha_7|level(2),wp(80)|wp_firearm(200),knows_tracker_npc|
+   str_7|agi_11|int_8|cha_7|level(2),wp(80)|wp_firearm(250),knows_tracker_npc|
    knows_power_throw_3|knows_athletics_2|knows_power_strike_1,
    0x00000000000c100739ce9c805d2f381300000000001cc7ad0000000000000000],
 #NPC system changes end
