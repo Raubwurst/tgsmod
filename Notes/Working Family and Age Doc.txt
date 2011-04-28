@@ -136,6 +136,7 @@ Unmarried
 23?
 
 Jeordwyn Semaris
+Illian Counsel of Nine
 Unmarried
 29?
 
@@ -143,9 +144,9 @@ Bertain Gallenne
 Unmarried
 58?
 
-Rodel Itarude
+Rodel Ituralde
 Domani General
-Married to ?
+Married to Tamsin Ituralde
 41?
 
 Roedran Almaric do Arreloa a'Naloy
@@ -161,16 +162,20 @@ Alsalam Saeed Almadar
 Has at least a brother, a sister-in-law, a sister and a daughter
 46?
 
-Eshin
-FIXME
+Lidrin
+Officer of Domani Army
+Unmarried
+24?
 
 Spiron Narettin
 Illian Council of Nine
 Unmarried
 35?
 
-Ballin
-FIXME
+Vivian
+Domani Nobleman
+Unmarried
+35
 
 Dalthanes Annallin
 Cairhien Nobleman
@@ -236,24 +241,91 @@ Lady of Jurandor in Altara
 Seanchan symphathies
 28?
 
-FIXME
-Cairhien Lord
-Cairhien Lady
-Cairhien Lesser Lord
-Cairhien Lesser Lady
-Illian Councel of Nine Member
-Illian Lord
-Illian Lady
-Murandy Lord
-Murandy Lady
-Murandy Lesser Lord
-Murandy Lesser Lady
-Altara Lord
-Altara Lady
-Altara Lesser Lord
-Altara Lesser Lady
-Arad Doman Lord
-Arad Doman Lesser Lord
+Bertome Saighan
+High Seat of House Saighan
+Cairhienen nobleman
+Unmarried
+33?
+
+Caraline Damodred
+High Seat of House Damodred
+Cairhienen Noblewoman
+Unmarried (will marry Darlin Sisnera)
+28?
+
+Alil Riatin
+Cairhienen Noblewoman
+Sister to Toram Riatin
+33?
+
+Ballin Elamri
+Illian Counsel of Nine
+Married to Aisha Elmari
+36?
+
+Gregorin den Lushenos
+Illian Counsel of Nine
+34?
+
+Aisha Elmari
+[Not canon]
+Illian noblewoman
+Married to Ballin Elmari
+34
+
+Donel do Morny a'Lordeine
+Murandian Nobleman
+Unmarried
+35?
+
+Cian do Mehon a'Macansa
+Murandian Noblewoman
+Unmarried
+43?
+
+Conran do Dantin a'Moredar
+[Not canon]
+Murandian Nobleman
+31
+
+Corele do Arman a'Llys
+[Not canon]
+Murandian Noblewoman
+26
+
+Entin Contar
+[Not canon]
+Altaran Nobleman
+Married to Glydis Contar
+43
+
+Glydis Contar
+[Not canon]
+Altaran Noblewoman
+Married to Entin Contar
+40
+
+Bran Llewys
+[Not canon]
+Altaran Nobleman
+Married to Alania Llewys
+21
+
+Alania Llewys
+[Not canon]
+Altaran Noblewoman
+Married to Bran Llewys
+19
+
+Callswell
+Domani Nobleman
+Unmarried
+36?
+
+Tellaen
+Domani Nobleman
+Unmarried
+31?
 
 Aleis Barsalla
 First Counsel of Far Madding
@@ -446,9 +518,16 @@ High Lord of Tear
 Husband of Lady Alteima
 38?
 
-FIXME
-Tarabon Lord
-Tarabon Lesser Lord
+Brys
+Tarabon Nobleman
+Unmarried
+32?
+
+Tanric Gelbin
+[Non canon]
+Tarabon Nobleman
+Unmarried
+43?
 
 Estean Andiama
 Eldest son of High Lord Torean
@@ -460,8 +539,10 @@ High Lord of Tear
 Unmarried
 53?
 
-FIXME
-Tear Lord
+Carlomin
+Tear Nobleman
+Unmarried
+23?
 
 Aracome
 High Lord of Tear
@@ -498,8 +579,10 @@ Lord of Fal Dara
 Unmarried
 55?
 
-Terasian
-FIXME
+Kareil
+Kandoran Lady
+Unmarried
+35?
 
 Baldhere
 Swordbearer to Queen Ethenielle of Kandor
@@ -527,8 +610,11 @@ Counciler to King Paitar of Arafel
 Unmarried
 38?
 
-Serialla
-FIXME
+Serailla
+Arafel Lady Ethenielle's First Councilor
+Unmarried
+36?
+
 
 Nazelle
 Kandoran Lady
@@ -973,9 +1059,15 @@ Darkfriend ex-Captain of the Queen's Guard
 Unmarried
 38?
 
-FIXME
-Trolloc Clan Chief
-Darkfriend Lord
+K'vor'chag Vlja Djevik
+Trolloc Commander
+Unmarried
+32?
+
+Old Cully
+High-ranking Darkfriend
+Unmarried
+48?
 
 Weiramon Saniago
 Darkfriend High Lord of Tear
@@ -992,3 +1084,4 @@ SOURCES:
 http://www.encyclopaedia-wot.org/
 http://wot.wikia.com
 http://www.stevenac.net/wot/wotchron.htm
+http://www.wotdb.com
