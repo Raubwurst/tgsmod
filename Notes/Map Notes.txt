@@ -1,15 +1,35 @@
-Every town, city or castle is colour-coded by faction, though not necessarily labeled. Small, soft circles are villages, the slightly bigger soft circles are towns and the hard circles are castles.
+1. Every town, city or castle is colour-coded by faction, though not necessarily labeled. Small, soft circles are villages, the slightly bigger soft circles are towns and the hard circles are castles.
 
-The map is not to scale - I've had to move continents closer together to get them all in to one map, as I don't think Warband could take a full scale one. 
+2. The map is not to scale - I've had to move continents closer together to get them all in to one map, as I don't think Warband could take a full scale one. 
 
-I've tried to squeeze as many towns, cities and castles into Seanchan as feasibly possible. It'd be great for them to stage their invasion as part of the game script from those areas, and shows just how big Seanchan is. The Sea Folk/Amayar islands are kind of superflous, but I thought they'd be a nice addition to try to get some sea battles between Seanchan/Sea Folk in there. 
+3. I've tried to squeeze as many towns, cities and castles into Seanchan as feasibly possible. It'd be great for them to stage their invasion as part of the game script from those areas, and shows just how big Seanchan is. The Sea Folk/Amayar islands are kind of superflous, but I thought they'd be a nice addition to try to get some sea battles between Seanchan/Sea Folk in there. 
 
-The Isle of Madmen is a good superflous area to have, providing a combat challenge to the higher-level players (with patrols of random rabble and rogue channeler armies but all lack boats.). A high-level or skilled player could board the Isle, work their way through the towns and cities and found their own kingdom while causing minimum effect to the story, with pretty much everybody thanking them for getting rid of a hostile (albiet not seaworthy so quite useless on the attack) kingdom.
+4. The Isle of Madmen is a good superflous area to have, providing a combat challenge to the higher-level players (with patrols of random rabble and rogue channeler armies but all lack boats.). A high-level or skilled player could board the Isle, work their way through the towns and cities and found their own kingdom while causing minimum effect to the story, with pretty much everybody thanking them for getting rid of a hostile (albiet not seaworthy so quite useless on the attack) kingdom.
 
-I've added borders so we can examine the kingdoms in a birds-eye way, which will hopefully help us make sure that everything remains fairly balanced without detracting from the story too much. I'd love to hear your opinion on the faction splits. 
+5. I've added borders so we can examine the kingdoms in a birds-eye way, which will hopefully help us make sure that everything remains fairly balanced without detracting from the story too much. I'd love to hear your opinion on the faction splits. 
 
-I'm thinking the Waste could do with a few more 'towns' and 'castles', especially since they now have Shara breathing down their necks.
+6. I'm thinking the Waste could do with a few more 'towns' and 'castles', especially since they now have Shara breathing down their necks.
 
-If you can't think of enough good town names, I'll happily make some up or adapt exisiting ones for you!
+7. If you can't think of enough good town names, I'll happily make some up or adapt exisiting ones for you!
 
-And the red border around Shara would be great if you could implement it as an invisible (or visible) border blocking the player unless they go through one of the castle areas. Even better if you could trigger an attack ('war') on the player if they do. The cneter town and villages are supposed to be the channeler towns, that are isolated from everywhere else and a place nobody can leave or enter, especially not foreigners. 
+8. And the red border around Shara would be great if you could implement it as an invisible (or visible) border blocking the player unless they go through one of the castle areas. Even better if you could trigger an attack ('war') on the player if they do. The cneter town and villages are supposed to be the channeler towns, that are isolated from everywhere else and a place nobody can leave or enter, especially not foreigners. 
+
+
+mat2rivs- Responses:
+--------------------
+
+1. Town, castle, village layout looks good.  I'm assuming that the layout of the portions of the map that already exist will be almost the same.
+
+2. Seanchan and the Isle of Madmen will be partial, (ie. they will touch the edge of the map?  Or is the image more of a reference for where those landmasses should be?
+
+3. Naval battles/transport will not be absolutely necessary. Also, we will need to be careful with trade routes to make sure land based caravans aren't trying to reach towns that are across the sea.
+
+4. I like this.
+
+5. The claimed borders are good.  I still think that having some empty space in the world map helps show how Rand's land is slowly losing the fight against the Shadow.  (Caralain, Haddon Mirk, and other such lands dying out.)
+
+6. The Waste could use some bolstering.  They were able to field large enough armies to make the wetlanders quake.
+
+7. Hmmm, creating name making is not my specialty.  But, give me a task to make up 10 town names that sound like they could be in the southlands... I could probably do that.  We should probably make a point of getting rid of the remaining Calradia villages and castles.  I left a few when I ran out of towns in the wiki.
+
+8. Could implement most of the border with mountains.  And where there are actual openings, might be able to code it so only Shara faction parties or caravans can get within say 5 'unit's of the town that's in the pass.  I'd have to look into that some more.

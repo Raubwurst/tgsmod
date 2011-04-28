@@ -1,0 +1,87 @@
+30 days:
+
+-Stone of Tear, Tear, Mayene, and several castles surrounding Tear change to the Legion of the Dragon.
+-Also, the lords of these towns/castles join the Legion of the Dragon
+-Rand is set as lord of the Stone of Tear.
+-play message: "The Stone of Tear has Fallen!!  Callandor has been wielded by the Dragon!!"
+-play message: "Rand al'Thor has proclaimed himself the Dragon Reborn!!"
+
+
+45 days:
+
+-play message: "Rand al'Thor is the Car-acarn...  The Aiel Nation are recognized as the People of the Dragon..."
+
+
+55 days:
+
+-Tanchico and surrounding castles fall to the Seanchan
+-Also, the lords of the towns/castles join the Seanchan
+-play message: "The Seanchan invade Tarabon..."
+
+-replace Siuan Sedai with one of the Tower allied Sisters as the ruler of Tar Valon
+-play message: "Siuan Sanche has been deposed..."
+
+
+60 days:
+
+-Cairhien, Caemlyn, and several surrounding castles change to the Legion of the Dragon
+-Also, the lords of these towns/castles join the Legion of the Dragon
+-play message: "The Shaido assault on Cairhien was repelled and the Dragon Reborn claims the capital city..."
+-play message: "Rand al'Thor battles Rhavin in Caemlyn and liberates the city..."
+
+-Salidar changes to the White Tower faction.
+-Set one of the rebel Aes Sedai leaders as the Lord of Salidar.
+-play message: "The rebel Aes Sedai flee to the villiage of Salidar..."
+
+
+70 days:
+
+-Amador, the Fortress of the Light and several surrounding castles are taken by the Seanchan
+-Also, the lords of these towns/castles join the Seanchan
+-play message: "The Seanchan invade Amadicia..."
+
+
+75 days:
+
+-Ebou Dar, and several surrounding castles are taken by the Seanchan
+-Also, the lords of these towns/castles join the Seanchan
+-Ebou Dar is set as Tuon's town
+-Some other Altaran town goes to King Beslain
+-play message: "The Seanchan invade Altara..."
+
+-Illian, and several surrounding castles are taken by the Legion of the Dragon
+-Also, the lords of these towns/castles join the Legion of the Dragon
+-play message: "Rand al'Thor battles Sammael and liberates the city of Illian..."
+
+
+80 days:
+
+-Caemlyn goes back to the control of the Southland Alliance
+-set Elayne as lord of Caemlyn
+-play message: "Elayne Trakand places her claim to the Lion Throne of Andor..."
+
+-The queen of Ghealdan swears fealty to Lord Perrin Aybara
+-force truce between Southland Alliance and the Legion of the Dragon
+-play message: "Queen Alliandre of Ghealdan swears fealty to Lord Perrin Aybara..."
+
+90 days:
+
+-Bandar Eban and surrounding territory changes to Legion of the Dragon
+-Lords also go to Legion of the Dragon
+-play message: "Bandar Eban is seized by the forces of the Dragon Reborn..."
+
+
+100 days:
+
+-set Egwene al'Vere as the lord of Tar Valon
+-play message: "Egwene al'Vere unites the White Tower sisters and prepares for the Last Battle..."
+
+-play message: "Rand al'Thor prepares the armies of the land for the Last Battle..."
+
+
+120 days:
+
+-the towns/castles of Kandor and Arafel fall to the Shadowspawn armies.
+-the lords remain in the borderland armies.
+-assign Shadowspawn lords to their new towns.
+-play message: "Shadowspawn and Darkfriends pour from the Blight...  The Last Battle Begins!!"
