@@ -1,0 +1,148 @@
+Start 998?
+More towns and cities!
+
+Check for possible mods to add!
+
+change companion and generic/wrong names!
+
+Torm
+
+Earthquake weave
+
+Wards for camping
+
+Male channeler insanity (random weaves on random people)
+
+Angreal, Sa'Angreal, Ter'angreal
+
+Stedding
+
+Fix poet talk etc so it no longer references Caladria
+
+(Find a way to get damage to show up in chatbar)
+
+Can never find bandit hideout?
+
+maybe add random chance of prisoner breakout during battle if reserve troops <= 1/2 prisoners?
+
+RP way to get channeling?
+
+Trolloc/Fade link
+
+Add Fain as wildcard?
+
+Masema's Dragonsworn?
+
+Make sure appropriate factions help each other out
+
+Duel to win heron mark?
+
+Aes Sedai constrained by the 3 oaths.
+
+Long hair for low-down Seanchan, shorter as the ranks are climbed
+
+Tutha'an - selling food and horses
+
+Travelling merchants and travelling peddlers
+
+True Power?
+
+
+==============
+
+Apparently random 'would not be happy if we married' people
+
+'as king...' even if queen on marriage select
+
+sex change on upgrade - > aes sedai black to dreadlord?
+
+usurper dialogue
+
+after defeating armies with large amounts of prisoners, only 1 of each is offered for hire
+
+Bribe bandits - instead of paying up, talk them into joining your army for a fee
+
+character creation fix. there were no soldiers before book 5 or so, something like 'many things happened in your life, but you remember one specific event very clearly...' 'waking up to find your whole villiage destroyed around your bed.' etc
+
+
+after engaging then failing or cancelling the quest, it's impossible to ask a Lady to marry again
+
+intro screen needed
+
+Shaido
+
+Marauding trollocs need to become part of Shadowspawn
+
+When create own kingdom, allow channelers to be recruited etc
+
+Trom
+
+Ways through random Trolloc spawns in the Wetlands
+
+Playable trolloc/Myrdraal with gender flag as http://forums.taleworlds.com/index.php/topic,160229.msg3868607.html#msg3868607
+
+Seanchan Gardeners
+
+No animations in DX7?
+
+Channeller 'madness', more total OP used = more chance of casting wrong weave, teams apparently switching or being hurt, random voices behind you
+
+OP in prisoner breaks and town sneak, add to pilgrim equip if channelling > 50 or so. 
+
+New types of quests
+
+Food giving 0 morale?
+
+Screen under camp menu to bind weaves to keys or mouse buttons (for eg 4-8 button mice) and rebind other channeling keys
+
+Better animation for weaves
+
+Inbuilt custom group for channelers
+
+Add Shadar Logoth
+
+13 Myrdraal/13 Black Ajah ability. Maybe circles too? Linking with another player with a weave that lets you share OP?
+
+Extra damage with higher skill levels in channelling
+
+Use a hook to chat to indicate damage caused by weaves, can disable in camp menu
+
+More aggressive factions
+
+Dual wielding for Arafellin with 1x shield 'sword' and custom anims?
+
+Darkhounds (Bite is corrosive, causes degen), Grey Men (Allies ignore until they attack?) and Gholam (Invulnerable to chanelling, fast and strong but very rare)!
+
+Hi Mat,
+
+As I promised, here are some fresh ideas:
+
+1. Random events called "Bubble of Evil"(this is a translation of translation but I hope that you know what am I talking about). Every now and then you get a pop-up message telling you that you encountered a "Bubble of Evil". That is always a negative event, sometimes a earthquake, blizzard (you don't have to make it, just make a pop-up message with a result), or trolloc attack.
+If natural disaster strike you, you will lose some of your men, and your companions some of their equipment (helmets, shields, arrows...) and horses, so you'll have to buy new ones (help the economy). You will also suffer some troop moral drop. If trollocs attack you, you will have to fight them, but no matter how the battle ended, they will capture some of your men (about 20%). But fleeing trolloc party (with your men) will become visible on the world map, so you can chase them and free your men (which will result with troop moral increase).
+
+2. Whitecloak patrols that will ask you to surrender all of your channeling units (if you have any of
+them in your army). These patrols should be made of elite whitecoat soldiers (50 - 80 men). In the dialog, they will order you to surrender all "darkfriends" (channelers). You'll have options to give them Aes Sedai units, Ashaman units, Aiel units all channeling units or to refuse to give anyone. If you choose to surrender Aes Sedai units, your relationship with High Inquisitor Rhadam Asunawa will rise (5%?), but your relationship with Egwene alVere will drop for same percentage. Same thing with Ashaman units and relationship with Rand, or Aiel units and relationship with Rhuarc. If you give up your troops, your army moral will fall down. If you refuse to surrender your units, your relationship with Asunawa will fall down, but relationship with Rand, Egwene or Rhuarc will rise. Army moral will rise too. And of course there will be a battle. 
+I can make dialogs if you wish. Maybe something similar can be made with Seanchan patrols, but I'm still not sure what would they want from you.
+
+About Shaidar Logoth scenario, yes, items are tainted (according to the book), but sai'din is making men go crazy too. And in this mod that doesn't happen.
+
+I've been thinking, and came to the conclusion that search of the Shaidar Logoth ruins could be divided into a few stages (for example):
+1. Search the Marketplace: you'll find some gold.
+2. Search the Pallace: you'll find an ancient set of armor (some good armor).
+3. Search the Library: you'll find data for a rich historian.  
+4. Search the Barracks: you'll find trolloc patrol (like I described previously). You don't need to
+    make any scenery for the battle against them. Just use any castle interior.
+5. Search the Armory: you'll find Arthur Hawkwing's old sword (some good sword).
+6. Search the Great Square: you'll find nothing. 
+
+If you are short of inspirations, try the "Wedding Dance" mod for M&B v1.011 (the old M&B). You can
+find some interesting textures (including full frontal nudity) of locations and game concepts. Pay attention on side quests, dating concept and storyline (yes this mode have a storyline to follow).
+Maybe you can make something similar. It would be interesting and refreshing.
+
+I have some ideas about stedings but I still have to work on them. 
+
+Oh yes, one more thing. I Disco Ninja hereby officially grant you, Mat2rivs, right to use, exploit and
+modify my ideas for the purpose of making this mode (The Gathering Storm - A Wheel of Time) even
+better. Make me proud young one.  In nomine patris, et filii, et spiritus sancti. 
+
+D.N.
