@@ -10897,7 +10897,7 @@ presentations = [
         (try_end),
 
         (assign, reg0, ":wealth"),
-        (create_text_overlay, reg1, "@Wealth: {reg0} denars", 0),
+        (create_text_overlay, reg1, "@Wealth: {reg0} crowns", 0),
         (position_set_x, pos1, 750),
         (position_set_y, pos1, 750),
         (overlay_set_size, reg1, pos1),
@@ -10918,7 +10918,7 @@ presentations = [
         (try_end),
 
         (assign, reg0, ":total_item_value"),
-        (create_text_overlay, reg1, "@Inventory: {reg0} denars", 0),
+        (create_text_overlay, reg1, "@Inventory: {reg0} crowns", 0),
         (position_set_x, pos1, 750),
         (position_set_y, pos1, 750),
         (overlay_set_size, reg1, pos1),
@@ -12600,7 +12600,7 @@ presentations = [
         (assign, "$demanded_money", 1000),
         (assign, "$diplomacy_var", 1),
 
-        (create_text_overlay, "$g_presentation_obj_sliders_2", "@1000 denars"),
+        (create_text_overlay, "$g_presentation_obj_sliders_2", "@1000 crowns"),
         (position_set_x, pos1, 500),
         (overlay_set_position, "$g_presentation_obj_sliders_2", pos1),
         
@@ -12664,7 +12664,7 @@ presentations = [
           (eq, ":object", "$g_presentation_obj_sliders_1"),
           (store_mul, "$demanded_money",":value", 1000),
           (assign, reg0, "$demanded_money"),
-          (overlay_set_text, "$g_presentation_obj_sliders_2", "@{reg0} denars"),
+          (overlay_set_text, "$g_presentation_obj_sliders_2", "@{reg0} crowns"),
                    
         (else_try),    
           (eq, ":object", "$g_presentation_obj_9"),
