@@ -2929,7 +2929,7 @@ troops = [
   ["knight_1_17", "Harnan", "Harnan", tf_hero, 0, reserved,  fac_kingdom_1, [itm_charger, itm_red_hand_plate, itm_red_hand_greaves, itm_red_hand_plate_gauntlets, itm_red_hand_kettle_helm, itm_great_sword],   knight_attrib_3,wp_two_handed(250)|wp(130),knight_skills_3|knows_trainer_3, illian_man_face_middle],
   ["knight_1_18", "Chel Vanin", "Chel Vanin", tf_hero, 0, reserved,  fac_kingdom_1, [itm_charger, itm_red_hand_plate, itm_red_hand_greaves, itm_red_hand_plate_gauntlets, itm_red_hand_kettle_helm, itm_great_sword],   knight_attrib_3|knows_trainer_4,wp_two_handed(250)|wp(130),knight_skills_3|knows_trainer_3, 0x0000000bfc04425348e45236e3d24b2400000000001f375b0000000000000000],
   ["knight_1_19", "Macoll", "Macoll", tf_hero, 0, reserved,  fac_kingdom_1, [itm_charger, itm_red_hand_plate, itm_red_hand_greaves, itm_red_hand_plate_gauntlets, itm_red_hand_kettle_helm, itm_great_sword],   knight_attrib_3|knows_trainer_4,wp_two_handed(250)|wp(130),knight_skills_3|knows_trainer_3, arad_doman_man_face_middle],
-  ["knight_1_20", "Elyas Machera", "Elyas", tf_hero, 0, reserved,  fac_kingdom_1, [itm_pelt_coat, itm_hide_boots, itm_mail_boots, itm_leather_gloves, itm_aiel_knife], knight_attrib_5,wp_one_handed(275)|wp(240),knight_skills_5|knows_trainer_5, 0x0000000d870861c738db71c924cdcb2400000000001f49230000000000000000],
+  ["knight_1_20", "Elyas Machera", "Elyas", tf_hero, 0, reserved,  fac_kingdom_1, [itm_pelt_coat, itm_hide_boots, itm_leather_gloves, itm_aiel_knife], knight_attrib_5,wp_one_handed(275)|wp(240),knight_skills_5|knows_trainer_5, 0x0000000d870861c738db71c924cdcb2400000000001f49230000000000000000],
 # V: New faces for Mat, Perrin, Elyas, Tam, Talmanes, Logain, Bran, Vanin, Min (also fixed name)
 
   
