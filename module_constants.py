@@ -2064,3 +2064,12 @@ dplmc_slot_faction_patrol_time                = 205
 dplmc_slot_faction_attitude                   = 206
 dplmc_slot_faction_attitude_begin             = 160
 ##diplomacy end 
+
+### spt_gateway for gateway parties BEGIN
+spt_gateway					= 401
+### spt_gateway for gateway parties END
+
+### WAYS parties list BEGIN
+party_list_begin = "p_malkier_gate"
+party_list_end = "p_salt_mine" 
+### WAYS parties list END

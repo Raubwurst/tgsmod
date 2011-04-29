@@ -475,7 +475,32 @@ scripts = [
         (party_set_slot, ":center_no", slot_center_is_besieged_by, -1),
         (party_set_slot, ":center_no", slot_center_last_taken_by_troop, -1),
       (try_end),
+	  
+# Waygates
 
+### WAYS global_variables BEGIN 
+	(assign, "$g_ways_point", 5), #To avoid having a 0 (= no entry). Could be activated through a quest that gives you a valid value for this. Value of this = entry point inside scn_ways, so quest could set it to specific gate if wanted.
+	(assign, "$g_show_all_ways", 0),
+	(assign, "$g_ways_entered", 0),
+### WAYS global_variables END
+	
+	
+### WAYS parties (gates on map,entry-points) BEGIN
+	(party_set_slot,"p_malkier_gate", slot_party_type, spt_gateway), 	# This is first party. ENTRYPOINT and MENU inside scn_ways should be 2 for this one
+	(party_set_slot,"p_maradon_gate", slot_party_type, spt_gateway),	# 3 for this
+	(party_set_slot,"p_fal_dara_gate", slot_party_type, spt_gateway),	# 4 for this
+	(party_set_slot,"p_katar_gate", slot_party_type, spt_gateway),		# 5... and so on
+	(party_set_slot,"p_emonds_field_gate", slot_party_type, spt_gateway),
+	(party_set_slot,"p_aridhol_gate", slot_party_type, spt_gateway), 
+	(party_set_slot,"p_new_braem_gate", slot_party_type, spt_gateway),	
+	(party_set_slot,"p_stedding_handu_gate", slot_party_type, spt_gateway),	
+	(party_set_slot,"p_karindi_gate", slot_party_type, spt_gateway),	
+	(party_set_slot,"p_so_eban_gate", slot_party_type, spt_gateway),
+	(party_set_slot,"p_illian_gate", slot_party_type, spt_gateway),
+	(party_set_slot,"p_tear_gate", slot_party_type, spt_gateway),	
+	(party_set_slot,"p_stedding_shangtai_gate", slot_party_type, spt_gateway),
+### WAYS parties (gates on map,entry-points) END
+	  
 # Troops:
 
 # Assign banners and renown.
@@ -5150,6 +5175,11 @@ scripts = [
        (try_begin),
          (lt, "$g_encountered_party_2",0), #Normal encounter. Not battle or siege.
          (try_begin),
+		 # BEGIN WAYGATE CODE
+   		   (party_slot_eq, "$g_encountered_party", slot_party_type, spt_gateway), 	# If the party has spt_gateway set, then do...
+		   (jump_to_menu, "mnu_gateway_menu"),									# Jump to gateway ENTER/LEAVE menu.
+		(else_try),
+		 # END WAYGATE CODE
            (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
            (jump_to_menu, "mnu_castle_outside"),
          (else_try),

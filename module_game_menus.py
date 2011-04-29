@@ -16424,4 +16424,57 @@ game_menus = [
   ),
 ##diplomacy end+  
   
+#########################
+#### Ways Menu Begin ####
+#########################
+
+  (
+    "gateway_menu",mnf_enable_hot_keys|mnf_scale_picture,
+    "Ways: Base Menu.",
+    "none",
+    [],
+    [
+		("ways_enter",[],"Enter...", 		#### This is where we would add check for items, quest or other stuff when trying to enter the ways.
+			[	
+				(store_sub, ":party_index", "$g_encountered_party", party_list_begin), 	#Could probably change var to global var used, but I'm lazy and it works. Uses the list assigned in constants.
+				(val_add, ":party_index", 2),											# Add to set correct number for entry/menu for enc_party
+				(assign, "$g_ways_point", ":party_index"), 								# Convert it into the global var used for remembering last portal left in the ways (may use in future update of script)
+				(assign, "$g_ways_entered", 1),											# May use in future update
+				(assign, "$pin_player_fallen", 0),										# Needed for the mission template, to not get stuck if you die. 
+				(set_jump_mission, "mt_the_ways"),		
+				(set_jump_entry, "$g_ways_point"),
+				(jump_to_scene, "scn_ways"),
+				(change_screen_mission)
+			],"ERROR: WAYS.1ntr"
+		),
+		
+		("ways_leave",[],"Leave...",
+			[
+				(assign, "$g_ways_entered", 0),
+				(assign, "$pin_player_fallen", 0),
+				(change_screen_map)
+			],"ERROR: WAYS.2lv"
+		),
+		#("menuXX" which menu/entry nr to set for entry/exit in scn_ways--------$g_ways_point is the var containing current enc_party's entry/menu number--$g_ways_entered may be used in an update I've been thinking about --- party relocate near party: whereever you are supposed to end up after you activate a portal inside scn_ways
+		("menu02",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 2),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_malkier_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu03",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 3),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_maradon_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu04",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 4),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_fal_dara_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu05",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 5),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_katar_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu06",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 6),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_emonds_field_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu07",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 7),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_aridhol_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu08",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 8),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_new_braem_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu09",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 9),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_stedding_handu_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu10",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 10),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_karindi_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu11",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 11),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_so_eban_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu12",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 12),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_illian_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu13",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 13),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_tear_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+		("menu14",[(eq, "$g_show_all_ways", 1)],"ERROR: WAYS.CODE.{$g_ways_point}",[(assign, "$g_ways_point", 14),(assign, "$g_ways_entered", 1),(party_relocate_near_party, 0, "p_stedding_shangtai_gate"),(finish_mission),(leave_encounter),(change_screen_return,0),(jump_to_menu, "mnu_gateway_menu")],"Ways Portal."),
+	]
+  ),
+
+
+#######################
+#### Ways Menu End ####
+#######################
+  
  ]

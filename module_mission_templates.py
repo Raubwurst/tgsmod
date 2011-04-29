@@ -32949,5 +32949,53 @@ mission_templates = [
       ],
   ),
 
+	# WAYS - FIXME: CHANGE OR REMOVE FOR RELEASE
+  	### Ways mission_template BEGIN
+		(
+		"the_ways",0,-1,
+		"You enter the ways.",
+			[
+				(100,mtef_team_0,af_override_horse,0,7,[]),		# Entry_point 100 set as default, if the player for some reason doesn't have a correct $g_ways_point set.
+				#(1,mtef_visitor_source|mtef_team_1,af_override_horse,0,20,[]),
+				#(2,mtef_visitor_source|mtef_team_1,af_override_horse,0,20,[]),	#Haven' added other parties inside ways yet
+				#(3,mtef_visitor_source|mtef_team_1,af_override_horse,0,20,[]),
+			],
+    	
+			[	
+			
+				(ti_tab_pressed, 0, 0,			# Exit with tab. Needed when building. ;)
+					[],
+					[
+						(finish_mission,0),
+						(change_screen_return,0),
+					]
+				),
+			
+				(ti_on_agent_spawn, 0, 0, 		# Teleport at spawn. May be needed, maybe not. Try commenting it out and see if the entry points work as they should or not. Could be nice to have for update of script. Or just to move agent around.
+					[
+						(eq, slot_troop_occupation, slto_kingdom_hero), #player should have this troop slot, no?
+					],
+					
+					[
+						(entry_point_get_position, pos2, "$g_ways_point"),
+						(get_player_agent_no, ":player_agent"),
+						(agent_set_position, ":player_agent", pos2),
+					]
+				),
+				
+				(1, 4, ti_once, [(main_hero_fallen)], 		# Player dies
+					[
+						(assign, "$pin_player_fallen", 1),
+						(str_store_string, s5, "str_retreat"),
+						(call_script, "script_simulate_retreat", 5, 20, 0),
+						(assign, "$g_battle_result", -1),
+						(set_mission_result,-1),
+						(call_script, "script_count_mission_casualties_from_agents"),
+						(finish_mission,0)
+					]
+				),
+			],
+		), 
+	### Ways mission_template END
 
 ]

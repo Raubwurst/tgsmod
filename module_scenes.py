@@ -130,6 +130,8 @@ scenes = [
   ("tutorial_5",sf_generate,"none", "none", (0,0),(120,120),-100,"0x3a06dca80005715c0000537400001377000011fe",
     [],[], "outer_terrain_plain"),
 
+  # The Ways
+  ("ways",sf_generate, "none", "none", (0,0),(400,400),-100,"0", [],[]), #sf_generate is optional for the ways, since we don't need the ground while inside. But it's nice when scening. I use terrain height set to different levels (20m,25m,15m for the test map I think) to easily see that the "bridges" don't get a bad x, z or y.
 
   ("training_ground_horse_track_1",sf_generate,"none", "none", (0,0),(120,120),-100,"0x00000000337553240004d53700000c0500002a0f80006267",
     [],[], "outer_terrain_plain"),
