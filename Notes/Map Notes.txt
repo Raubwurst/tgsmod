@@ -33,3 +33,22 @@ mat2rivs- Responses:
 7. Hmmm, creating name making is not my specialty.  But, give me a task to make up 10 town names that sound like they could be in the southlands... I could probably do that.  We should probably make a point of getting rid of the remaining Calradia villages and castles.  I left a few when I ran out of towns in the wiki.
 
 8. Could implement most of the border with mountains.  And where there are actual openings, might be able to code it so only Shara faction parties or caravans can get within say 5 'unit's of the town that's in the pass.  I'd have to look into that some more.
+
+V - Responses:
+-------------------
+
+1. It's pretty much the same map, just expanded :)
+
+2. Yes, partial - there'd really be no point in adding the full continents, not yet, anyway. Plus I'm not sure if the engine could even take it?
+
+3. True about the caravans, but I don't see how we could get around naval transport? I think boats are a pretty good feature to add, as it would give something for the Atha'an Miere to specialize in.
+
+4. :)
+
+5. That's true, but the kingdoms all claim the empty areas, anyway. I guess it's more for political purposes than anything else, it's a good reflection of a kingdom's power, how much they claim.
+
+6. It could, at that. You could convert the current villages to holds and add some new ones?
+
+7. Yes, otherwise the Native players would probably get quite irritated. There's plenty references for new towns, check the character age notes for the reference sites at the bottom.
+
+8. Plenty time, so I wouldn't worry about it too much :) nobody really knows that much about what goes on in Shara, anyway.
