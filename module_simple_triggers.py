@@ -2862,7 +2862,7 @@ simple_triggers = [
   #  (try_end),
     ]),
 
-  # Taking denars from player while resting in not owned centers
+  # Taking crowns from player while resting in not owned centers
   (1,
    [(neg|map_free),
     (is_currently_night),
@@ -4696,7 +4696,7 @@ simple_triggers = [
 
       (try_begin),
         (eq, "$g_constable_training_improved", 1),
-        (val_add, ":upgrade_cost", 10), #+10 denars during improved training
+        (val_add, ":upgrade_cost", 10), #+10 crowns during improved training
       (try_end),
 
       (store_troop_gold, ":gold", "trp_household_possessions"),
