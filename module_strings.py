@@ -4319,7 +4319,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("dplmc_fief_exchange_refuse_s14_attack", "Speak of this to me later when {s14} is not under attack."),
   
   ("dplmc_fief_exchange_accept", "That exchange is acceptable to me."),
-  ("dplmc_fief_exchange_accept_reg3_crowns", "That exchange is acceptable to me, if you are willing to provide {reg3} crowns to cover my expenses from the relocation."),
+  ("dplmc_fief_exchange_accept_reg3_denars", "That exchange is acceptable to me, if you are willing to provide {reg3} crowns to cover my expenses from the relocation."),
 
   ("dplmc_fief_exchange_confirm","It is settled then."),
   ("dplmc_fief_exchange_confirm_reg3_denars","It is settled then.  Here are your {reg3} crowns."),

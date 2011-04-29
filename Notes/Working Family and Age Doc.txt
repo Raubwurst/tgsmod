@@ -91,7 +91,7 @@ Elmindreda Farshaw
 23
 
 Donalo Sandomere
-No family
+[Daughter Junitha Sandomere]
 44
 
 Fager Neald
@@ -103,7 +103,7 @@ Married to Sora Grady
 27
 
 Daerid Ondin
-No family
+[Daughter Katia Ondin]
 37
 
 Ban al'Seen
@@ -127,7 +127,7 @@ Unmarried
 59?
 
 Mattin Stepanos
-Unmarried
+[Daughter Seomis Stepanos]
 63?
 
 Berelain sur Paendrag Paeron
@@ -140,12 +140,13 @@ Unmarried
 29?
 
 Bertain Gallenne
-Unmarried
+[Daughter Drina Gallenne]
 58?
 
 Rodel Ituralde
 Domani General
 Married to Tamsin Ituralde
+[Daughter Nesha Ituralde]
 41?
 
 Roedran Almaric do Arreloa a'Naloy
@@ -189,7 +190,7 @@ Unmarried
 
 Dobraine Taborwin
 High-ranking Cairhien Lord, High Seat of house Taborwin
-Unmarried
+[Daughter Pelaeka Taborwin]
 59?
 
 Segan do Avharin a'Roos
@@ -268,6 +269,7 @@ Illian Counsel of Nine
 
 Kiril Drapeneos
 Illian Counsel of Nine
+[Daughter Tabath Drapeneos]
 37?
 
 Aisha Elmari
@@ -283,7 +285,7 @@ Unmarried
 
 Cian do Mehon a'Macansa
 Murandian Noblewoman
-Unmarried
+[Daughter Haris do Cian a'Macansa]
 43?
 
 Conran do Dantin a'Moredar
@@ -299,6 +301,7 @@ Murandian Noblewoman
 Entin Contar
 [Not canon]
 Altaran Nobleman
+[Daughter Vayen Contar]
 Married to Glydis Contar
 43
 
@@ -322,7 +325,7 @@ Married to Bran Llewys
 
 Callswell
 Domani Nobleman
-Unmarried
+[Daughter Joaka Callswell]
 36?
 
 Tellaen
@@ -332,7 +335,7 @@ Unmarried
 
 Aleis Barsalla
 First Counsel of Far Madding
-Unmarried?
+[Daughter Borge Barsalla]
 38?
 
 Birgitte Trahelion
@@ -356,6 +359,7 @@ Unmarried
 Torean of House Andiama
 High Lord of Tear
 Father of Estean
+[Daughter Tuan Andiama]
 48?
 
 Galadedrid of House Damodred
@@ -377,13 +381,13 @@ Unmarried
 
 Narvais Maslin
 One of the 13 Counsels of Far Madding
-Unmarried
+[Daughter Mahraz Maslin]
 36?
 
 Ellorien Traemane
 High Seat of House Traemane
 Andoran
-Unmarried
+[Daughter Ayasu Traemane]
 38?
 
 Dyelin Taravin
@@ -407,6 +411,7 @@ Jarid Sarand
 Andoran Nobleman
 High Seat of House Sarand
 Husband of Elenia Sarand
+[Daughter Ravina Sarand]
 38?
 
 Hanselle Renshar
@@ -420,6 +425,7 @@ Aubrem Pensenor
 Andoran Nobleman
 House Pensenor
 Unmarried
+[Daughter Ruha Pensenor]
 64?
 
 Luan Norwelyn
