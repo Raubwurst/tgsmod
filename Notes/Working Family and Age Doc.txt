@@ -141,7 +141,7 @@ Unmarried
 
 Bertain Gallenne
 [Daughter Drina Gallenne]
-58?
+52?
 
 Rodel Ituralde
 Domani General
@@ -426,14 +426,14 @@ Andoran Nobleman
 House Pensenor
 Unmarried
 [Daughter Ruha Pensenor]
-64?
+52?
 
 Luan Norwelyn
 Andoran Nobleman
 High Seat of House Norwelyn
 Unmarried
 Has granddaughters
-52?
+62?
 
 Perival Mantear
 Andoran Nobleman
@@ -591,7 +591,8 @@ Unmarried
 Ishigari Terasian
 [Non-canon?]
 Shienaran Lord
-Unmarried
+[Married to Kawisu Terasian
+[Daughter is Intowa Terasian]
 35?
 
 Baldhere
@@ -602,7 +603,7 @@ Unmarried
 Maedin Bashere
 Unmarried
 Younger brother of Faile Bashere
-20
+17
 
 Kayen Yokata
 Shienaran Lord
@@ -613,16 +614,19 @@ Unmarried
 Ismic
 Kandoran Lord
 Married to Nazelle
+[Daughter is Lady Pascha]
 38?
 
 Kyril Shianri
 Counciler to King Paitar of Arafel
 Unmarried
+[Daughter is Bryn Shianri]
 38?
 
 Serailla
 Arafel Lady Ethenielle's First Councilor
 Unmarried
+[Daughter is Rialla]
 36?
 
 
@@ -778,6 +782,7 @@ Warder is Rovair Kirklin
 Jimar Chubain
 High Captain of the Tower Guard in Tar Valon
 Unmarried
+[Daughter is Brina Chubain]
 36?
 
 Han
@@ -788,6 +793,7 @@ Married to ?
 Dhearic
 Chief of the Reyn Aiel
 Married to ?
+[Daughter is Safiya]
 38?
 
 Timolan
@@ -798,6 +804,7 @@ Unmarried
 Bruan
 Chief of the Nakai Aiel
 Married to ?
+[Daughter is Lulya]
 34?
 
 Indirian
@@ -819,6 +826,7 @@ Married to Jair and Corehuin
 Erim
 Chief of the Chareen Aiel
 Married to ?
+[Daughter is Zahara]
 45?
 
 Jheran
@@ -902,7 +910,7 @@ Unmarried
 
 Gamel Loune
 Banner-General of the Seanchan Army
-Unmarried
+[Married to Essin Loune]
 39?
 
 Mikhel Najirah

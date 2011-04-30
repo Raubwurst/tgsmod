@@ -8049,6 +8049,7 @@ scripts = [
 ## V: BEGIN CODEBLOCK FOR TGS KNIGHT AGES, FAMILY AND REPUTATION
 ### TODO: Set all family stuff below this line to the correct values
 
+#-##-###-####-#####-- MONARCHS FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_1_lord", slot_troop_age,20),  # Rand    
 	(troop_set_slot, "trp_kingdom_1_lord", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_kingdom_1_lord", slot_troop_father, "trp_knight_1_3"), # Tam
@@ -8067,12 +8068,14 @@ scripts = [
 	
 	(troop_set_slot, "trp_kingdom_3_lord", slot_troop_age,20),  # Elayne    
 	(troop_set_slot, "trp_kingdom_3_lord", slot_lord_reputation_type, ":reputation"),
-	
+	(troop_set_slot, "trp_kingdom_3_lord", slot_troop_spouse, "trp_kingdom_1_lord"),
+		
 	(troop_set_slot, "trp_kingdom_4_lord", slot_troop_age,45),  # Lan    
 	(troop_set_slot, "trp_kingdom_4_lord", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_kingdom_4_lord", slot_troop_spouse, "trp_knight_5_4"), # Nynaeve
 	
 	(troop_set_slot, "trp_kingdom_5_lord", slot_troop_age,17),  # Egwene    
+	(troop_set_slot, "trp_kingdom_5_lord", slot_lord_reputation_type, ":reputation"),
 	#(troop_set_slot, "kingdom_5_lord", slot_troop_spouse, ":cur_lady"),
 	(troop_set_slot, "trp_kingdom_5_lord", slot_troop_father, "trp_knight_1_9"), # Bran
 	(troop_set_slot, "trp_kingdom_5_lord", slot_troop_mother, "trp_kingdom_1_lady_6"), # Marin
@@ -8091,7 +8094,7 @@ scripts = [
 	(troop_set_slot, "trp_kingdom_8_lord", slot_troop_age,30),  # Shaidar Haran    
 	(troop_set_slot, "trp_kingdom_8_lord", slot_lord_reputation_type, ":reputation"),
 	
-
+#-##-###-####-#####-- DRAGON LEGION FACTION FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_knight_1_1", slot_troop_age,20),  # Mat    
 	#(troop_set_slot, ":cur_troop", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_knight_1_1", slot_troop_father, "trp_knight_1_10"), # Abell
@@ -8135,9 +8138,12 @@ scripts = [
 	(troop_set_slot, "trp_knight_1_10", slot_troop_spouse, "trp_kingdom_1_lady_1"),
 	
 	(troop_set_slot, "trp_knight_1_11", slot_troop_age,23),  # Min  
-	#(troop_set_slot, "trp_knight_1_1", slot_troop_spouse, ":cur_lady"),	
+	(troop_set_slot, "trp_knight_1_11", slot_troop_spouse, "trp_kingdom_1_lord"),
 	
-	(troop_set_slot, "trp_knight_1_12", slot_troop_age,44),  # Donaldo    
+	(troop_set_slot, "trp_knight_1_12", slot_troop_age,44),  # Donaldo   
+	
+	(troop_set_slot, "trp_kingdom_1_lady_8", slot_troop_age,23),
+	(troop_set_slot, "trp_kingdom_1_lady_8", slot_troop_father, "trp_knight_1_12"), 
 	
 	(troop_set_slot, "trp_knight_1_13", slot_troop_age,17),  # Fager    
 	
@@ -8145,6 +8151,9 @@ scripts = [
 	(troop_set_slot, "trp_knight_1_14", slot_troop_spouse, "trp_kingdom_1_lady_7"),
 	
 	(troop_set_slot, "trp_knight_1_15", slot_troop_age,37),  # Daerid    
+	
+	(troop_set_slot, "trp_kingdom_1_lady_9", slot_troop_age,17),
+	(troop_set_slot, "trp_kingdom_1_lady_9", slot_troop_father, "trp_knight_1_15"), 
 	
 	(troop_set_slot, "trp_knight_1_16", slot_troop_age,23),  # Ban    
 	
@@ -8156,23 +8165,40 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_1_20", slot_troop_age,59),  # Elyas    
 	
+#-##-###-####-#####-- SOUTHERN COALITION FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_knight_2_1", slot_troop_age,63),  # Mattin Stepanos  
 	
+	(troop_set_slot, "trp_kingdom_2_lady_3", slot_troop_age,32),
+	(troop_set_slot, "trp_kingdom_2_lady_3", slot_troop_father, "trp_knight_2_1"), 
 	
 	(troop_set_slot, "trp_knight_2_2", slot_troop_age,23),  # Berelain    
 	
 	(troop_set_slot, "trp_knight_2_3", slot_troop_age,29),  # Jeordwyn    
 	
-	(troop_set_slot, "trp_knight_2_4", slot_troop_age,29),  # Bertain    
+	(troop_set_slot, "trp_knight_2_4", slot_troop_age,52),  # Bertain    
+	
+	(troop_set_slot, "trp_kingdom_2_lady_4", slot_troop_age,24),
+	(troop_set_slot, "trp_kingdom_2_lady_4", slot_troop_father, "trp_knight_2_4"), 
 	
 	(troop_set_slot, "trp_knight_2_5", slot_troop_age,41),  # Rodel    
+	(troop_set_slot, "trp_knight_2_5", slot_troop_spouse, "trp_kingdom_2_lady_11"), 
+		
+	(troop_set_slot, "trp_kingdom_2_lady_11", slot_troop_age,38),
+	(troop_set_slot, "trp_kingdom_2_lady_11", slot_troop_spouse, "trp_knight_2_5"), 
+		
+	(troop_set_slot, "trp_kingdom_2_lady_5", slot_troop_age,21),
+	(troop_set_slot, "trp_kingdom_2_lady_5", slot_troop_father, "trp_knight_2_5"), 
+	(troop_set_slot, "trp_kingdom_2_lady_5", slot_troop_mother, "trp_kingdom_2_lady_11"), 
 	
 	(troop_set_slot, "trp_knight_2_6", slot_troop_age,48),  # Roedran    
 	
 	(troop_set_slot, "trp_knight_2_7", slot_troop_age,18),  # Beslan    
 	
 	(troop_set_slot, "trp_knight_2_8", slot_troop_age,46),  # Alsalam    
-	
+
+	(troop_set_slot, "trp_kingdom_2_lady_12", slot_troop_age,25),
+	(troop_set_slot, "trp_kingdom_2_lady_12", slot_troop_father, "trp_knight_2_8"), 
+
 	(troop_set_slot, "trp_knight_2_9", slot_troop_age,24),  # Lidrin    
 	
 	(troop_set_slot, "trp_knight_2_10", slot_troop_age,35),  # Spiron    
@@ -8184,6 +8210,9 @@ scripts = [
 	(troop_set_slot, "trp_knight_2_13", slot_troop_age,20),  # Barmanes    
 	
 	(troop_set_slot, "trp_knight_2_14", slot_troop_age,59),  # Dobraine    
+
+	(troop_set_slot, "trp_kingdom_2_lady_7", slot_troop_age,27),
+	(troop_set_slot, "trp_kingdom_2_lady_7", slot_troop_father, "trp_knight_2_14"), 
 	
 	(troop_set_slot, "trp_knight_2_15", slot_troop_age,36),  # Segan    
 	
@@ -8217,6 +8246,9 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_2_29", slot_troop_age,37),  # Kiril 
 	
+	(troop_set_slot, "trp_kingdom_2_lady_6", slot_troop_age,16),
+	(troop_set_slot, "trp_kingdom_2_lady_6", slot_troop_father, "trp_knight_2_29"), 
+	
 	(troop_set_slot, "trp_knight_2_30", slot_troop_age,34),  # Aisha  
 	(troop_set_slot, "trp_knight_2_30", slot_troop_spouse, "trp_knight_2_26"),	
 	
@@ -8224,12 +8256,19 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_2_32", slot_troop_age,43),  # Cian   
 	
-	(troop_set_slot, "trp_knight_2_33", slot_troop_age,31),  # Conran
+	(troop_set_slot, "trp_kingdom_2_lady_8", slot_troop_age,21),
+	(troop_set_slot, "trp_kingdom_2_lady_8", slot_troop_mother, "trp_knight_2_32"), 
 	
+	(troop_set_slot, "trp_knight_2_33", slot_troop_age,31),  # Conran
+
 	(troop_set_slot, "trp_knight_2_34", slot_troop_age,26),  # Corele  
 	
 	(troop_set_slot, "trp_knight_2_35", slot_troop_age,43),  # Entin   
 	(troop_set_slot, "trp_knight_2_35", slot_troop_spouse, "trp_knight_2_36"),
+	
+	(troop_set_slot, "trp_kingdom_2_lady_9", slot_troop_age,20),
+	(troop_set_slot, "trp_kingdom_2_lady_9", slot_troop_mother, "trp_knight_2_36"), 
+	(troop_set_slot, "trp_kingdom_2_lady_9", slot_troop_father, "trp_knight_2_35"), 
 	
 	(troop_set_slot, "trp_knight_2_36", slot_troop_age,40),  # Glydis   
 	(troop_set_slot, "trp_knight_2_36", slot_troop_spouse, "trp_knight_2_35"),
@@ -8241,11 +8280,18 @@ scripts = [
 	(troop_set_slot, "trp_knight_2_38", slot_troop_spouse, "trp_knight_2_37"),
 	
 	(troop_set_slot, "trp_knight_2_39", slot_troop_age,36),  # Callswell 
+
+	(troop_set_slot, "trp_kingdom_2_lady_10", slot_troop_age,17),
+	(troop_set_slot, "trp_kingdom_2_lady_10", slot_troop_father, "trp_knight_2_39"), 
 	
 	(troop_set_slot, "trp_knight_2_40", slot_troop_age,31),  # Tellaen 
 	
+#-##-###-####-#####-- SOUTHERN ALLIANCE FAMILY STRUCTRE --#####-####-###-##-#
 	
 	(troop_set_slot, "trp_knight_3_1", slot_troop_age,38),  # Aleis    
+
+	(troop_set_slot, "trp_kingdom_3_lady_1", slot_troop_age,26),
+	(troop_set_slot, "trp_kingdom_3_lady_1", slot_troop_mother, "trp_knight_3_1"), 
 	
 	(troop_set_slot, "trp_knight_3_2", slot_troop_age,26),  # Birgitte    
 	
@@ -8256,6 +8302,9 @@ scripts = [
 	(troop_set_slot, "trp_knight_3_5", slot_troop_age,27),  # Alliandre    
 	
 	(troop_set_slot, "trp_knight_3_6", slot_troop_age,48),  # Torean    
+
+	(troop_set_slot, "trp_kingdom_3_lady_2", slot_troop_age,25),
+	(troop_set_slot, "trp_kingdom_3_lady_2", slot_troop_father, "trp_knight_3_6"), 
 	
 	(troop_set_slot, "trp_knight_3_7", slot_troop_age,25),  # Galad    
 	
@@ -8264,8 +8313,14 @@ scripts = [
 	(troop_set_slot, "trp_knight_3_9", slot_troop_age,20),  # Gawyn    
 	
 	(troop_set_slot, "trp_knight_3_10", slot_troop_age,36),  # Narvais    
+
+	(troop_set_slot, "trp_kingdom_3_lady_3", slot_troop_age,16),
+	(troop_set_slot, "trp_kingdom_3_lady_3", slot_troop_mother, "trp_knight_3_10"), 
 	
 	(troop_set_slot, "trp_knight_3_11", slot_troop_age,38),  # Ellorien    
+
+	(troop_set_slot, "trp_kingdom_3_lady_4", slot_troop_age,19),
+	(troop_set_slot, "trp_kingdom_3_lady_4", slot_troop_mother, "trp_knight_3_11"), 
 	
 	(troop_set_slot, "trp_knight_3_12", slot_troop_age,44),  # Dyelin    
 	
@@ -8274,12 +8329,23 @@ scripts = [
 	(troop_set_slot, "trp_knight_3_14", slot_troop_age,35),  # Eram    
 	
 	(troop_set_slot, "trp_knight_3_15", slot_troop_age,38),  # Jarid    
+	(troop_set_slot, "trp_knight_3_15", slot_troop_spouse, "trp_kingdom_3_lady_7"),
+
+	(troop_set_slot, "trp_kingdom_3_lady_7", slot_troop_age,36),
+	(troop_set_slot, "trp_kingdom_3_lady_7", slot_troop_spouse, "trp_knight_3_15"),
+
+	(troop_set_slot, "trp_kingdom_3_lady_5", slot_troop_age,21),
+	(troop_set_slot, "trp_kingdom_3_lady_5", slot_troop_father, "trp_knight_3_15"), 
+	(troop_set_slot, "trp_kingdom_3_lady_5", slot_troop_mother, "trp_kingdom_3_lady_7"), 
 	
 	(troop_set_slot, "trp_knight_3_16", slot_troop_age,20),  # Hanshelle    
 	
-	(troop_set_slot, "trp_knight_3_17", slot_troop_age,64),  # Aubrem    
+	(troop_set_slot, "trp_knight_3_17", slot_troop_age,52),  # Aubrem    
+
+	(troop_set_slot, "trp_kingdom_3_lady_6", slot_troop_age,24),
+	(troop_set_slot, "trp_kingdom_3_lady_6", slot_troop_father, "trp_knight_3_17"), 
 	
-	(troop_set_slot, "trp_knight_3_18", slot_troop_age,52),  # Luan    
+	(troop_set_slot, "trp_knight_3_18", slot_troop_age,62),  # Luan    
 	
 	(troop_set_slot, "trp_knight_3_19", slot_troop_age,12),  # Perival    
 	
@@ -8325,6 +8391,7 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_3_40", slot_troop_age,50),  # Aracome    
 	
+#-##-###-####-#####-- BORDERLANDS FAMILY STRUCTRE --#####-####-###-##-#
 	
 	(troop_set_slot, "trp_knight_4_1", slot_troop_age,49),  # Easar    
 	
@@ -8332,25 +8399,49 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_4_3", slot_troop_age,46),  # Ethenielle   
 	#(troop_set_slot, "trp_knight_1_1", slot_troop_spouse, ":cur_lady"),	
+
+	(troop_set_slot, "trp_kingdom_4_lady_1", slot_troop_age,25),
+	(troop_set_slot, "trp_kingdom_4_lady_1", slot_troop_mother, "trp_knight_4_3"), 
 	
 	(troop_set_slot, "trp_knight_4_4", slot_troop_age,24),  # Tenobia    
 	
 	(troop_set_slot, "trp_knight_4_5", slot_troop_age,55),  # Jagad    
 	
 	(troop_set_slot, "trp_knight_4_6", slot_troop_age,35),  # Terasian    
+	(troop_set_slot, "trp_knight_4_6", slot_troop_spouse, "trp_kingdom_4_lady_2"),
+	
+	(troop_set_slot, "trp_kingdom_4_lady_2", slot_troop_age,34),
+	(troop_set_slot, "trp_kingdom_4_lady_2", slot_troop_spouse, "trp_knight_4_6"),
+	
+	(troop_set_slot, "trp_kingdom_4_lady_3", slot_troop_age,16),
+	(troop_set_slot, "trp_kingdom_4_lady_3", slot_troop_father, "trp_knight_4_6"), 
+	(troop_set_slot, "trp_kingdom_4_lady_3", slot_troop_mother, "trp_kingdom_4_lady_2"), 
 	
 	(troop_set_slot, "trp_knight_4_7", slot_troop_age,46),  # Baldhere    
 	
-	(troop_set_slot, "trp_knight_4_8", slot_troop_age,20),  # Maedin    
+	(troop_set_slot, "trp_knight_4_8", slot_troop_age,17),  # Maedin    
+	(troop_set_slot, "trp_knight_4_8", slot_troop_father, "trp_knight_1_5"), 
+	(troop_set_slot, "trp_knight_4_8", slot_troop_mother, "trp_kingdom_1_lady_5"), 
 	
 	(troop_set_slot, "trp_knight_4_9", slot_troop_age,28),  # Kayen    
 	
 	(troop_set_slot, "trp_knight_4_10", slot_troop_age,38),  # Ismic    
-		(troop_set_slot, "trp_knight_4_10", slot_troop_spouse, "trp_knight_4_13"),	
-		
+	(troop_set_slot, "trp_knight_4_10", slot_troop_spouse, "trp_knight_4_13"),	
+
+	(troop_set_slot, "trp_kingdom_4_lady_4", slot_troop_age,16),
+	(troop_set_slot, "trp_kingdom_4_lady_4", slot_troop_father, "trp_knight_4_10"), 
+	(troop_set_slot, "trp_kingdom_4_lady_4", slot_troop_mother, "trp_knight_4_13"), 
+	
 	(troop_set_slot, "trp_knight_4_11", slot_troop_age,38),  # Kyril    
 	
+	(troop_set_slot, "trp_kingdom_4_lady_6", slot_troop_age,18),
+	(troop_set_slot, "trp_kingdom_4_lady_6", slot_troop_father, "trp_knight_4_11"), 
+	
 	(troop_set_slot, "trp_knight_4_12", slot_troop_age,36),  # Serialla    
+	
+	(troop_set_slot, "trp_kingdom_4_lady_5", slot_troop_age,17),
+	(troop_set_slot, "trp_kingdom_4_lady_5", slot_troop_mother, "trp_knight_4_12"), 
+	
 	
 	(troop_set_slot, "trp_knight_4_13", slot_troop_age,36),  # Nazelle 
 	(troop_set_slot, "trp_knight_4_13", slot_troop_spouse, "trp_knight_4_10"),	
@@ -8370,6 +8461,8 @@ scripts = [
 	(troop_set_slot, "trp_knight_4_19", slot_troop_age,36),  # Uno    
 	
 	(troop_set_slot, "trp_knight_4_20", slot_troop_age,29),  # Ragan    
+	
+#-##-###-####-#####-- WHITE TOWER FAMILY STRUCTRE --#####-####-###-##-#
 	
 	(troop_set_slot, "trp_knight_5_1", slot_troop_age,38),  # Silviana    
 	
@@ -8413,34 +8506,75 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_5_20", slot_troop_age,36),  # Chubain    
 	
+	(troop_set_slot, "trp_kingdom_5_lady_1", slot_troop_age,19),
+	(troop_set_slot, "trp_kingdom_5_lady_1", slot_troop_father, "trp_knight_5_20"), 
+	
+#-##-###-####-#####-- AIEL NATION FAMILY STRUCTRE --#####-####-###-##-#
+	
 	(troop_set_slot, "trp_knight_6_1", slot_troop_age,46),  # Han    
 	(troop_set_slot, "trp_knight_6_1", slot_troop_spouse, "trp_kingdom_6_lady_5"),
 	
+	(troop_set_slot, "trp_kingdom_6_lady_5", slot_troop_age,43),    
+	(troop_set_slot, "trp_kingdom_6_lady_5", slot_troop_spouse, "trp_knight_6_1"),
+	
 	(troop_set_slot, "trp_knight_6_2", slot_troop_age,38),  # Dhearic    
 	(troop_set_slot, "trp_knight_6_2", slot_troop_spouse, "trp_kingdom_6_lady_7"),
+	
+	(troop_set_slot, "trp_kingdom_6_lady_7", slot_troop_age,38),    
+	(troop_set_slot, "trp_kingdom_6_lady_7", slot_troop_spouse, "trp_knight_6_2"),
+	
+	(troop_set_slot, "trp_kingdom_6_lady_17", slot_troop_age,20),
+	(troop_set_slot, "trp_kingdom_6_lady_17", slot_troop_father, "trp_knight_6_2"), 
+	(troop_set_slot, "trp_kingdom_6_lady_17", slot_troop_mother, "trp_kingdom_6_lady_7"), 
 	
 	(troop_set_slot, "trp_knight_6_3", slot_troop_age,42),  # Timolan    
 	
 	(troop_set_slot, "trp_knight_6_4", slot_troop_age,34),  # Bruan 
 	(troop_set_slot, "trp_knight_6_4", slot_troop_spouse, "trp_kingdom_6_lady_10"),	
+
+	(troop_set_slot, "trp_kingdom_6_lady_10", slot_troop_age,33),    
+	(troop_set_slot, "trp_kingdom_6_lady_10", slot_troop_spouse, "trp_knight_6_4"),
+
+	(troop_set_slot, "trp_kingdom_6_lady_15", slot_troop_age,24),
+	(troop_set_slot, "trp_kingdom_6_lady_15", slot_troop_father, "trp_knight_6_4"), 
+	(troop_set_slot, "trp_kingdom_6_lady_15", slot_troop_mother, "trp_kingdom_6_lady_10"), 
 	
 	(troop_set_slot, "trp_knight_6_5", slot_troop_age,45),  # Indirian
 	(troop_set_slot, "trp_knight_6_5", slot_troop_spouse, "trp_kingdom_6_lady_20"),    
 	
+	(troop_set_slot, "trp_kingdom_6_lady_20", slot_troop_age,42),    
+	(troop_set_slot, "trp_kingdom_6_lady_20", slot_troop_spouse, "trp_knight_6_5"),
+	
 	(troop_set_slot, "trp_knight_6_6", slot_troop_age,47),  # Bael
 	(troop_set_slot, "trp_knight_6_6", slot_troop_spouse, "trp_knight_6_15"),	
-	
+
 	(troop_set_slot, "trp_knight_6_7", slot_troop_age,50),  # Mandelain  
 	(troop_set_slot, "trp_knight_6_7", slot_troop_spouse, "trp_kingdom_6_lady_19"),	
+	
+	(troop_set_slot, "trp_kingdom_6_lady_19", slot_troop_age,46),    
+	(troop_set_slot, "trp_kingdom_6_lady_19", slot_troop_spouse, "trp_knight_6_7"),
 	
 	(troop_set_slot, "trp_knight_6_8", slot_troop_age,45),  # Erim  
 	(troop_set_slot, "trp_knight_6_8", slot_troop_spouse, "trp_kingdom_6_lady_18"),	
 	
+	(troop_set_slot, "trp_kingdom_6_lady_18", slot_troop_age,40),    
+	(troop_set_slot, "trp_kingdom_6_lady_18", slot_troop_spouse, "trp_knight_6_8"),
+	
+	(troop_set_slot, "trp_kingdom_6_lady_16", slot_troop_age,16),
+	(troop_set_slot, "trp_kingdom_6_lady_16", slot_troop_father, "trp_knight_6_8"), 
+	(troop_set_slot, "trp_kingdom_6_lady_16", slot_troop_mother, "trp_kingdom_6_lady_18"), 
+	
 	(troop_set_slot, "trp_knight_6_9", slot_troop_age,41),  # Jheran
 	(troop_set_slot, "trp_knight_6_9", slot_troop_spouse, "trp_kingdom_6_lady_14"),    
 	
+	(troop_set_slot, "trp_kingdom_6_lady_14", slot_troop_age,41),    
+	(troop_set_slot, "trp_kingdom_6_lady_14", slot_troop_spouse, "trp_knight_6_9"),
+	
 	(troop_set_slot, "trp_knight_6_10", slot_troop_age,52),  # Janwin
 	(troop_set_slot, "trp_knight_6_10", slot_troop_spouse, "trp_kingdom_6_lady_13"),    
+
+	(troop_set_slot, "trp_kingdom_6_lady_13", slot_troop_age,50),    
+	(troop_set_slot, "trp_kingdom_6_lady_13", slot_troop_spouse, "trp_knight_6_10"),
 	
 	(troop_set_slot, "trp_knight_6_11", slot_troop_age,49),  # Nandera    
 	
@@ -8460,12 +8594,13 @@ scripts = [
 	#(troop_set_slot, "kingdom_5_lord", slot_troop_spouse, ":cur_lady"),
 	
 	(troop_set_slot, "trp_knight_6_18", slot_troop_age,18),  # Aviendha    
-	#(troop_set_slot, "kingdom_5_lord", slot_troop_spouse, ":cur_lady"),
+	(troop_set_slot, "trp_knight_6_18", slot_troop_spouse, "trp_kingdom_1_lord"),
 	
 	(troop_set_slot, "trp_knight_6_19", slot_troop_age,34),  # Heirn    
 	
 	(troop_set_slot, "trp_knight_6_20", slot_troop_age,50),  # Sulin    
 	
+#-##-###-####-#####-- SEANCHAN EMPIRE FAMILY STRUCTRE --#####-####-###-##-#
 	
 	(troop_set_slot, "trp_knight_7_1", slot_troop_age,43),  # Galgan    
 	
@@ -8508,6 +8643,7 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_7_20", slot_troop_age,36),  # Malahavana    
 	
+#-##-###-####-#####-- SHADOWSPAWN AND DARKFRIEND FAMILY STRUCTRE --#####-####-###-##-#
 	
 	(troop_set_slot, "trp_knight_8_1", slot_troop_age,25),  # Moridin    
 	

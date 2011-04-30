@@ -1317,7 +1317,7 @@ Come back when you feel confident as a rider and I'll give you some tougher exer
 
 [anyone, "fistfight_response_3", [
 ],
-"However, we can't organize this like one of those nice arena bouts, where everyone places their bets beforehand. People will walk in, drawn by the noise, and put a denar or two on whichever one of your two they think is winning. I'll give 'em even odds -- anything else is going to be too tricky for someone who's already on his third flagon of ale.", "fistfight_response_4", [
+"However, we can't organize this like one of those nice arena bouts, where everyone places their bets beforehand. People will walk in, drawn by the noise, and put a crown or two on whichever one of your two they think is winning. I'll give 'em even odds -- anything else is going to be too tricky for someone who's already on his third flagon of ale.", "fistfight_response_4", [
 ]],
 
 [anyone, "fistfight_response_4", [
@@ -13512,7 +13512,7 @@ Please accept my sincere thanks.", "lord_pretalk",[
 
 [anyone|plyr,"lord_collect_debt_completed", [], "I am afraid I don't have the money with me sir.", "lord_collect_debt_no_pay",[]],
 [anyone,"lord_collect_debt_no_pay", [], "Is this a joke?\
-I know full well that {s7} gave you the money, and I want every denar owed to me, {sir/madam}.\
+I know full well that {s7} gave you the money, and I want every crown owed to me, {sir/madam}.\
 As far as I'm concerned, I hold you personally in my debt until I see that silver.", "close_window",[
 (call_script, "script_change_debt_to_troop", "$g_talk_troop", reg4),
 (call_script, "script_end_quest", "qst_collect_debt"),
@@ -14109,7 +14109,7 @@ I want you to go to {s13}, {s14} and {s15} and report back whatever you find.", 
 [anyone|plyr, "lord_pay_debt_2", [(troop_get_slot, ":cur_debt", "$g_talk_troop", slot_troop_player_debt),
                               (store_troop_gold, ":cur_gold", "trp_player"),
                               (le, ":cur_debt", ":cur_gold")],
-"That is why I came, {s65}. Here it is, every denar I owe you.", "lord_pay_debt_3_1", [(troop_get_slot, ":cur_debt", "$g_talk_troop", slot_troop_player_debt),
+"That is why I came, {s65}. Here it is, every crown I owe you.", "lord_pay_debt_3_1", [(troop_get_slot, ":cur_debt", "$g_talk_troop", slot_troop_player_debt),
                                              (troop_remove_gold, "trp_player", ":cur_debt"),
                               ##diplomacy start+ actually give gold to lord
                               (troop_add_gold, "$g_talk_troop", ":cur_debt"),
