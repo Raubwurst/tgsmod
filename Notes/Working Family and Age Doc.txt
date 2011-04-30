@@ -910,11 +910,14 @@ Unmarried
 
 Gamel Loune
 Banner-General of the Seanchan Army
-[Married to Essin Loune]
+Unmarried
+[Daughter Essin Loune]
 39?
 
 Mikhel Najirah
 Seanchan Army General
+[Married to Forsal Najirah]
+[Daughter Busein Najirah]
 Unmarried
 49?
 
@@ -952,7 +955,8 @@ Unmarried
 
 Blasic Faloun
 Seanchan Captain of raken
-Unmarried
+[Married to Darsaen Faloun]
+[Daughter Femela Faloun]
 41?
 
 Musenge
@@ -968,10 +972,12 @@ Killed in KoD
 
 Faverde Nothish
 Seanchan Blood
+[Married to Eluvine Nothish]
 38?
 
 Amenar Shumada
 Seanchan Blood
+[Married to Yin Shumada]
 32?
 
 Egeanin Tamarath (Leilwin Shipless)
