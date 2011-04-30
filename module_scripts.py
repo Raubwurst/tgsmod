@@ -7962,6 +7962,7 @@ scripts = [
 	("initialize_aristocracy",
 	[
 	  #LORD OCCUPATIONS, BLOOD RELATIONSHIPS, RENOWN AND REPUTATIONS
+	  
 ## V: BEGIN COMMENTED OUT FOR TGS
 #	  #King ages
 #	  (try_for_range, ":cur_troop", kings_begin, kings_end),
@@ -7976,76 +7977,6 @@ scripts = [
 #### V: NOTE: Possible FIXME, setting ages to current age in 998, year that TEoTW begins. May not be appropriate to scripted events?
 #### V: NOTE: Possible TODO, pretenders can presumably be defined here, too - needs testing
 
-	  #The first thing - family structure
-	  #lords 1 to 8 are patriarchs with one live-at-home son and one daughter. They come from one of six possible ancestors, thus making it likely that there will be two sets of siblings
-	  #lords 9 to 12 are unmarried landowners with sisters
-	  #lords 13 to 20 are sons who still live in their fathers' houses
-	  #For the sake of simplicity, we can assume that all male aristocrats in prior generations either married commoners or procured their brides from the Old Country, thus discounting intermarriage
-
-	  (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
-		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_lady),
-	  (try_end),
-## V: BEGIN COMMENTED OUT FOR TGS
-#	  (assign, ":cur_lady", "trp_kingdom_1_lady_1"),
-## V: END COMMENTED OUT FOR TGS
-	  (try_for_range, ":cur_troop", lords_begin, lords_end),
-		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-## V: BEGIN COMMENTED OUT FOR TGS
-#		(store_random_in_range, ":father_age_at_birth", 23, 26),
-#		(store_random_in_range, ":mother_age_at_birth", 19, 22),
-#
-		(try_begin),
-			(is_between, ":cur_troop", "trp_knight_1_1", "trp_knight_2_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_1_1"),
-#			(assign, ":ancestor_seed", 1),
-#
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_2_1", "trp_knight_3_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_2_1"),
-#			(assign, ":ancestor_seed", 7),
-#
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_3_1", "trp_knight_4_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_3_1"),
-#			(assign, ":ancestor_seed", 13),
-#
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_4_1", "trp_knight_5_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_4_1"),
-#			(assign, ":ancestor_seed", 19),
-#
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_5_1", "trp_knight_6_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_5_1"),
-#			(assign, ":ancestor_seed", 25),
-#
-		(else_try),
-#     #edited for wheel of time
-			(is_between, ":cur_troop", "trp_knight_6_1", "trp_kingdom_1_pretender"),
-            (is_between, ":cur_troop", "trp_knight_6_1", "trp_knight_7_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_6_1"),
-#			(assign, ":ancestor_seed", 31),
-#
-        (else_try),
-           (is_between, ":cur_troop", "trp_knight_7_1", "trp_knight_8_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_7_1"),
-#			(assign, ":ancestor_seed", 37),
-#      
-#        (else_try),
-          (is_between, ":cur_troop", "trp_knight_8_1", "trp_kingdom_1_pretender"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_8_1"),
-#			(assign, ":ancestor_seed", 43),      
-#      #end edited for wheel of time
-## V: END COMMENTED OUT FOR TGS     
-#		(try_end),?
-
-		(try_begin),
-## V: BEGIN COMMENTED OUT FOR TGS
-			(lt, ":npc_seed", 8), #NPC seed is the order in the faction
-			(assign, ":reputation", ":npc_seed"),
-		(try_end),
-#			(store_random_in_range, ":age", 45, 64),
-## V: END COMMENTED OUT FOR TGS
 ## V: BEGIN CODEBLOCK FOR TGS KNIGHT AGES, FAMILY AND REPUTATION
 ### TODO: Set all family stuff below this line to the correct values
 
@@ -8685,8 +8616,76 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_8_20", slot_troop_age,37),  # Anaiyella   
 	
-# V: END CODEBLOCK FOR TGS KNIGHT AGES AND REPUTATION
-## V: BEGIN COMMENTED OUT FOR TGS
+
+	  #The first thing - family structure
+	  #lords 1 to 8 are patriarchs with one live-at-home son and one daughter. They come from one of six possible ancestors, thus making it likely that there will be two sets of siblings
+	  #lords 9 to 12 are unmarried landowners with sisters
+	  #lords 13 to 20 are sons who still live in their fathers' houses
+	  #For the sake of simplicity, we can assume that all male aristocrats in prior generations either married commoners or procured their brides from the Old Country, thus discounting intermarriage
+
+
+	  (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
+	  		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_lady),
+	  (try_end),
+
+	  (assign, ":cur_lady", "trp_kingdom_1_lady_1"),
+	  
+	  (try_for_range, ":cur_troop", lords_begin, lords_end),
+		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+
+#		(store_random_in_range, ":father_age_at_birth", 23, 26),
+#		(store_random_in_range, ":mother_age_at_birth", 19, 22),
+#
+#		(try_begin),
+#			(is_between, ":cur_troop", "trp_knight_1_1", "trp_knight_2_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_1_1"),
+#			(assign, ":ancestor_seed", 1),
+#
+#		(else_try),
+#			(is_between, ":cur_troop", "trp_knight_2_1", "trp_knight_3_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_2_1"),
+#			(assign, ":ancestor_seed", 7),
+#
+#		(else_try),
+#			(is_between, ":cur_troop", "trp_knight_3_1", "trp_knight_4_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_3_1"),
+#			(assign, ":ancestor_seed", 13),
+#
+#		(else_try),
+#			(is_between, ":cur_troop", "trp_knight_4_1", "trp_knight_5_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_4_1"),
+#			(assign, ":ancestor_seed", 19),
+#
+#		(else_try),
+#			(is_between, ":cur_troop", "trp_knight_5_1", "trp_knight_6_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_5_1"),
+#			(assign, ":ancestor_seed", 25),
+#
+#		(else_try),
+##edited for wheel of time
+#			(is_between, ":cur_troop", "trp_knight_6_1", "trp_kingdom_1_pretender"),
+#            (is_between, ":cur_troop", "trp_knight_6_1", "trp_knight_7_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_6_1"),
+#			(assign, ":ancestor_seed", 31),
+#
+#        (else_try),
+#           (is_between, ":cur_troop", "trp_knight_7_1", "trp_knight_8_1"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_7_1"),
+#			(assign, ":ancestor_seed", 37),
+#    	 (else_try),
+#          (is_between, ":cur_troop", "trp_knight_8_1", "trp_kingdom_1_pretender"),
+#			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_8_1"),
+#			(assign, ":ancestor_seed", 43),      
+##end edited for wheel of time    
+#		(try_end),
+#		
+#		
+		(try_begin),
+#			(lt, ":npc_seed", 8), #NPC seed is the order in the faction
+#			(assign, ":reputation", ":npc_seed"),
+			(assign, ":reputation", 1), ## Added for TGS
+#			(store_random_in_range, ":age", 45, 64),
+#
 #			(store_random_in_range, ":father", 0, 6), #six possible fathers
 #			(val_add, ":father", ":ancestor_seed"),
 #			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
@@ -8694,54 +8693,32 @@ scripts = [
 #			#wife
 #			(troop_set_slot, ":cur_troop", slot_troop_spouse, ":cur_lady"),
 #			(troop_set_slot, ":cur_lady", slot_troop_spouse, ":cur_troop"),
-## V: END COMMENTED OUT FOR TGS
-
-### V/TODO: Make spouse definitions as below for every appropriate knight and lady
-# (troop_set_slot, "trp_knight_1_1", slot_troop_spouse, "trp_kingdom_1_lady_1"),
-# (troop_set_slot, "trp_kingdom_1_lady_1", slot_troop_spouse, "trp_knight_1_1"),
-
 			(store_random_in_range, ":wife_reputation", 20, 26),
 			(try_begin),
 				(eq, ":wife_reputation", 20),
-### V/TODO: May change reputation later
-				(assign, ":wife_reputation", lrep_conventional),
+				(assign, ":wife_reputation", lrep_conventional),	
+			(try_end),
+			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":wife_reputation"),
 	
-#			(try_end),
-#	(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":wife_reputation"),
-	
-### V/TODO: Fix this area
-# (troop_set_slot, "trp_kingdom_1_lady_1", slot_lord_reputation_type, ":wife_reputation"),
+#?			(troop_set_slot, "trp_kingdom_1_lady_1", slot_lord_reputation_type, ":wife_reputation"),
 
 #			(call_script, "script_init_troop_age", ":cur_lady", 49),
-#			(call_script, "script_add_lady_items", ":cur_lady"),
+			(call_script, "script_add_lady_items", ":cur_lady"),
 
-#			(val_add, ":cur_lady", 1),
+			(val_add, ":cur_lady", 1),
 			
-## V: BEGIN COMMENTED OUT FOR TGS
-#			#daughter
+
+			#daughter
 #			(troop_set_slot, ":cur_lady", slot_troop_father, ":cur_troop"),
-## V: END COMMENTED OUT FOR TGS
-
-## V: BEGIN COMMENTED OUT FOR TGS
-#			(store_sub, ":mother", ":cur_lady", 1),
-## V: END COMMENTED OUT FOR TGS
-
-### V/TODO: May change lady age later, until then leave this.
+			(store_sub, ":mother", ":cur_lady", 1),
 #			(call_script, "script_init_troop_age", ":cur_lady", 19),
 			
-## V: BEGIN COMMENTED OUT FOR TGS
-#            ##diplomacy start+ fix native bug (daughters are their own mothers)
-#            #(troop_set_slot, ":cur_lady", slot_troop_mother, ":cur_lady"),
-#            (troop_set_slot, ":cur_lady", slot_troop_mother, ":mother"),
-#            ##diplomacy end+
-## V: END COMMENTED OUT FOR TGS
+            ##diplomacy start+ fix native bug (daughters are their own mothers)
+            #(troop_set_slot, ":cur_lady", slot_troop_mother, ":cur_lady"),
+            (troop_set_slot, ":cur_lady", slot_troop_mother, ":mother"),
+            ##diplomacy end+
 
-### V/TODO: Define mother for ladies as below
-# (troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_mother, "trp_kingdom_1_lady_1"),
-# (troop_set_slot, "trp_kingdom_1_lady_3", slot_troop_mother, "trp_kingdom_1_lady_1"),
-
-## V: Begin commented out for TGS ? 
-(try_for_range, ":cur_lady", kingdom_ladies_begin, kingdom_ladies_end),
+## ?(try_for_range, ":cur_lady", kingdom_ladies_begin, kingdom_ladies_end),
 			(store_random_in_range, ":lady_reputation", lrep_conventional, 34), #33% chance of father-derived
 			(try_begin),
 				(le, ":lady_reputation", 25),
@@ -8781,14 +8758,12 @@ scripts = [
 
 			(call_script, "script_add_lady_items", ":cur_lady"),
 			(val_add, ":cur_lady", 1),
-#			#high renown
-#
+			#high renown
+
 		(else_try),	#Older unmarried lords
 #			(is_between, ":npc_seed", 8, 12),
-
+#
 #			(store_random_in_range, ":age", 25, 36),
-## V: END COMMENTED OUT FOR TGS
-
 			(store_random_in_range, ":reputation", 0, 8),
 
 			(store_random_in_range, ":sister_reputation", 20, 26),
@@ -8803,29 +8778,20 @@ scripts = [
 			(call_script, "script_add_lady_items", ":cur_lady"),
 
 			(val_add, ":cur_lady", 1),
-## V: BEGIN COMMENTED OUT FOR TGS
 		(else_try),	#Younger unmarried lords
-#
-#			#age is father's minus 20 to 25
-#			(store_sub, ":father", ":cur_troop", 12),
+
+#		#age is father's minus 20 to 25
+			(store_sub, ":father", ":cur_troop", 12),
 #			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
 #			(troop_get_slot, ":mother", ":father", slot_troop_spouse),
 #			(troop_set_slot, ":cur_troop", slot_troop_mother, ":mother"),
-#
-#
 #			(troop_get_slot, ":father_age", ":father", slot_troop_age),
 #			(store_sub, ":age", ":father_age", ":father_age_at_birth"),
-## V: END COMMENTED OUT FOR TGS
-
+#
 			(try_begin), #50% chance of having father's rep
 				(store_random_in_range, ":reputation", 0, 16),
-
-				(gt, ":reputation", 7),
-				
-## V: BEGIN COMMENTED OUT FOR TGS
-#				(troop_get_slot, ":reputation", ":father", slot_lord_reputation_type),
-## V: END COMMENTED OUT FOR TGS
-
+				(gt, ":reputation", 7),	
+				(troop_get_slot, ":reputation", ":father", slot_lord_reputation_type),
 			(try_end),
 		(try_end),
 
@@ -8834,12 +8800,10 @@ scripts = [
 			(assign, ":reputation", 1),
 		(try_end),
 
-## V: BEGIN COMMENTED OUT FOR TGS
-       (troop_set_slot, ":cur_troop", slot_lord_reputation_type, ":reputation"),
+      (troop_set_slot, ":cur_troop", slot_lord_reputation_type, ":reputation"),
 #		(call_script, "script_init_troop_age", ":cur_troop", ":age"),
-## V: END COMMENTED OUT FOR TGS
 	  (try_end),
-
+	  
 	  (try_begin),
 	    (eq, "$cheat_mode", 1),
 	    (assign, reg3, "$cheat_mode"),
