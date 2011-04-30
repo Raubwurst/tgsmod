@@ -131,7 +131,7 @@ scenes = [
     [],[], "outer_terrain_plain"),
 
   # The Ways
-  ("ways",sf_generate, "none", "none", (0,0),(400,400),-100,"0", [],[]), #sf_generate is optional for the ways, since we don't need the ground while inside. But it's nice when scening. I use terrain height set to different levels (20m,25m,15m for the test map I think) to easily see that the "bridges" don't get a bad x, z or y.
+  ("ways",sf_no_horses, "none", "none", (0,0),(400,400),-100,"0", [],[]), #sf_generate is optional for the ways, since we don't need the ground while inside. But it's nice when scening. I use terrain height set to different levels (20m,25m,15m for the test map I think) to easily see that the "bridges" don't get a bad x, z or y.
 
   ("training_ground_horse_track_1",sf_generate,"none", "none", (0,0),(120,120),-100,"0x00000000337553240004d53700000c0500002a0f80006267",
     [],[], "outer_terrain_plain"),
@@ -1220,6 +1220,10 @@ scenes = [
     [],[],"outer_terrain_steppe"),
   ("multi_malden",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000003003c780000d174700002c1d00000fec00001707",
     [],[],"outer_terrain_plain"),
+  #ways
+  ("multi_ways",sf_generate, "none", "none", (0,0),(400,400),-100,"0x000000003003c780000d174700002c1d00000fec00001707", [],[], "outer_terrain_plain"),
+  #ways
+  
   #("multi_town_6_walls",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000002300015e300063d8800002757000055df00001b08",
   #  [],[],"sea_outer_terrain_1"),
   #("multi_town_7_walls",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000013002491600055157000000d20000152a0000611a",

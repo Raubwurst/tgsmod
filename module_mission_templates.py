@@ -32961,7 +32961,20 @@ mission_templates = [
 				#(3,mtef_visitor_source|mtef_team_1,af_override_horse,0,20,[]),
 			],
     	
-			[	
+			[
+                (ti_before_mission_start, 0, 0,  # set ways to night
+                   [],
+                     [
+                         (scene_set_day_time, 4),
+                    ]
+                 ),
+                
+               (1, 0, 10, # create dark fog in the ways
+                   [],
+                    [
+                        (set_fog_distance, 7, 0xbfbfbf), #fog distance between 20-250, color is grey 0xbfbfbf
+                    ]
+                ),
 			
 				(ti_tab_pressed, 0, 0,			# Exit with tab. Needed when building. ;)
 					[],

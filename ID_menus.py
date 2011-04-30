@@ -251,3 +251,4 @@ menu_dplmc_affiliate_end = 249
 menu_dplmc_preferences = 250
 menu_dplmc_affiliated_family_report = 251
 menu_dplmc_lord_relations_2 = 252
+menu_gateway_menu = 253

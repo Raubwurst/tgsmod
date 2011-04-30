@@ -2450,6 +2450,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("multi_emonds_field", "Battle of Emond's Field"),
   ("multi_shienaran_border_tower", "Shienaran Border Tower"),
   ("multi_malden", "Malden"),
+  ("multi_ways", "The Ways"),
   #("multi_town_6_walls", "Town 6 Walls"),
   #("multi_town_7_walls", "Town 7 Walls"),
 #  ("multi_temp", "Emond's Field Villiage"),
