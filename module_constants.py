@@ -2070,6 +2070,6 @@ spt_gateway					= 401
 ### spt_gateway for gateway parties END
 
 ### WAYS parties list BEGIN
-party_list_begin = "p_malkier_gate"
-party_list_end = "p_salt_mine" 
+waygates_begin = "p_karindi_gate"
+waygates_end = "p_salt_mine" 
 ### WAYS parties list END

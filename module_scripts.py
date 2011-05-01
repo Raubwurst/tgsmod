@@ -486,19 +486,24 @@ scripts = [
 	
 	
 ### WAYS parties (gates on map,entry-points) BEGIN
-	(party_set_slot,"p_malkier_gate", slot_party_type, spt_gateway), 	# This is first party. ENTRYPOINT and MENU inside scn_ways should be 2 for this one
-	(party_set_slot,"p_maradon_gate", slot_party_type, spt_gateway),	# 3 for this
-	(party_set_slot,"p_fal_dara_gate", slot_party_type, spt_gateway),	# 4 for this
-	(party_set_slot,"p_katar_gate", slot_party_type, spt_gateway),		# 5... and so on
-	(party_set_slot,"p_emonds_field_gate", slot_party_type, spt_gateway),
-	(party_set_slot,"p_aridhol_gate", slot_party_type, spt_gateway), 
-	(party_set_slot,"p_new_braem_gate", slot_party_type, spt_gateway),	
-	(party_set_slot,"p_stedding_handu_gate", slot_party_type, spt_gateway),	
-	(party_set_slot,"p_karindi_gate", slot_party_type, spt_gateway),	
-	(party_set_slot,"p_so_eban_gate", slot_party_type, spt_gateway),
-	(party_set_slot,"p_illian_gate", slot_party_type, spt_gateway),
-	(party_set_slot,"p_tear_gate", slot_party_type, spt_gateway),	
-	(party_set_slot,"p_stedding_shangtai_gate", slot_party_type, spt_gateway),
+#	(party_set_slot,"p_malkier_gate", slot_party_type, spt_gateway), 	# This is first party. ENTRYPOINT and MENU inside scn_ways should be 2 for this one
+#	(party_set_slot,"p_maradon_gate", slot_party_type, spt_gateway),	# 3 for this
+#	(party_set_slot,"p_fal_dara_gate", slot_party_type, spt_gateway),	# 4 for this
+#	(party_set_slot,"p_katar_gate", slot_party_type, spt_gateway),		# 5... and so on
+#	(party_set_slot,"p_emonds_field_gate", slot_party_type, spt_gateway),
+#	(party_set_slot,"p_aridhol_gate", slot_party_type, spt_gateway), 
+#	(party_set_slot,"p_new_braem_gate", slot_party_type, spt_gateway),	
+#	(party_set_slot,"p_stedding_handu_gate", slot_party_type, spt_gateway),	
+#	(party_set_slot,"p_karindi_gate", slot_party_type, spt_gateway),	
+#	(party_set_slot,"p_so_eban_gate", slot_party_type, spt_gateway),
+#	(party_set_slot,"p_illian_gate", slot_party_type, spt_gateway),
+#	(party_set_slot,"p_tear_gate", slot_party_type, spt_gateway),	
+#	(party_set_slot,"p_stedding_shangtai_gate", slot_party_type, spt_gateway),
+      
+      (try_for_range, ":party_no", waygates_begin, waygates_end),
+          (party_set_slot, ":party_no", slot_party_type, spt_gateway),
+      (try_end),
+      
 ### WAYS parties (gates on map,entry-points) END
 	  
 # Troops:
