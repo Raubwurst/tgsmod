@@ -7981,11 +7981,9 @@ scripts = [
 
 #-##-###-####-#####-- DRAGON LEGION FACTION FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_1_lord", slot_troop_age,20),  # Rand    
-	(troop_set_slot, "trp_kingdom_1_lord", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_kingdom_1_lord", slot_troop_father, "trp_knight_1_3"), # Tam
 
 	(troop_set_slot, "trp_knight_1_1", slot_troop_age,20),  # Mat    
-	#(troop_set_slot, ":cur_troop", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_knight_1_1", slot_troop_father, "trp_knight_1_10"), # Abell
 	(troop_set_slot, "trp_knight_1_1", slot_troop_mother, "trp_kingdom_1_lady_1"), # Natti
 	(troop_set_slot, "trp_knight_1_1", slot_troop_spouse, "trp_kingdom_7_lord"), # Fortuona
@@ -8059,7 +8057,6 @@ scripts = [
 	
 #-##-###-####-#####-- SOUTHERN COALITION FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_2_lord", slot_troop_age,44),  # Semaradrid    
-	(troop_set_slot, "trp_kingdom_2_lord", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_kingdom_2_lord", slot_troop_spouse, "trp_kingdom_2_lady_1"),
 	
 	(troop_set_slot, "trp_kingdom_2_lady_1", slot_troop_age,41),
@@ -8191,7 +8188,6 @@ scripts = [
 	
 #-##-###-####-#####-- SOUTHERN ALLIANCE FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_3_lord", slot_troop_age,20),  # Elayne    
-	(troop_set_slot, "trp_kingdom_3_lord", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_kingdom_3_lord", slot_troop_spouse, "trp_kingdom_1_lord"),
 			
 	(troop_set_slot, "trp_knight_3_1", slot_troop_age,38),  # Aleis    
@@ -8299,7 +8295,6 @@ scripts = [
 	
 #-##-###-####-#####-- BORDERLANDS FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_4_lord", slot_troop_age,45),  # Lan    
-	(troop_set_slot, "trp_kingdom_4_lord", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_kingdom_4_lord", slot_troop_spouse, "trp_knight_5_4"), # Nynaeve
 	
 	(troop_set_slot, "trp_knight_4_1", slot_troop_age,49),  # Easar    
@@ -8373,7 +8368,6 @@ scripts = [
 	
 #-##-###-####-#####-- WHITE TOWER FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_5_lord", slot_troop_age,17),  # Egwene    
-	(troop_set_slot, "trp_kingdom_5_lord", slot_lord_reputation_type, ":reputation"),
 	#(troop_set_slot, "kingdom_5_lord", slot_troop_spouse, ":cur_lady"),
 	(troop_set_slot, "trp_kingdom_5_lord", slot_troop_father, "trp_knight_1_9"), # Bran
 	(troop_set_slot, "trp_kingdom_5_lord", slot_troop_mother, "trp_kingdom_1_lady_6"), # Marin
@@ -8428,11 +8422,10 @@ scripts = [
 	
 #-##-###-####-#####-- AIEL NATION FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_6_lord", slot_troop_age,47),  # Rhuarc    
-	(troop_set_slot, "trp_kingdom_6_lord", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_kingdom_6_lord", slot_troop_spouse, "trp_knight_6_13"), # Amys
 	
-	(troop_set_slot, "kingdom_6_lady_8", slot_troop_age,45),
-	(troop_set_slot, "kingdom_6_lady_8", slot_troop_spouse, "trp_kingdom_6_lord"),
+	(troop_set_slot, "trp_kingdom_6_lady_8", slot_troop_age,45),
+	(troop_set_slot, "trp_kingdom_6_lady_8", slot_troop_spouse, "trp_kingdom_6_lord"),
 		
 	(troop_set_slot, "trp_knight_6_1", slot_troop_age,46),  # Han    
 	(troop_set_slot, "trp_knight_6_1", slot_troop_spouse, "trp_kingdom_6_lady_5"),
@@ -8525,7 +8518,6 @@ scripts = [
 	
 #-##-###-####-#####-- SEANCHAN EMPIRE FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_7_lord", slot_troop_age,19),  # Fortuona    
-	(troop_set_slot, "trp_kingdom_7_lord", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_kingdom_7_lord", slot_troop_spouse, "trp_knight_1_1"), # Mat
 		
 	(troop_set_slot, "trp_knight_7_1", slot_troop_age,43),  # Galgan    
@@ -8597,7 +8589,6 @@ scripts = [
 	
 #-##-###-####-#####-- SHADOWSPAWN AND DARKFRIEND FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_8_lord", slot_troop_age,30),  # Shaidar Haran    
-	(troop_set_slot, "trp_kingdom_8_lord", slot_lord_reputation_type, ":reputation"),
 		
 	(troop_set_slot, "trp_knight_8_1", slot_troop_age,25),  # Moridin    
 	
