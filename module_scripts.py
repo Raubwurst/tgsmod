@@ -8004,6 +8004,9 @@ scripts = [
 	(troop_set_slot, "trp_knight_1_2", slot_troop_age,20),  # Perrin    
 	(troop_set_slot, "trp_knight_1_2", slot_troop_spouse, "trp_knight_1_lady_4"), # Faile
 	
+	(troop_set_slot, "trp_knight_1_lady_4", slot_troop_age,21), 
+	(troop_set_slot, "trp_knight_1_lady_4", slot_troop_spouse, "trp_knight_1_2"),
+	
 	(troop_set_slot, "trp_knight_1_3", slot_troop_age,52),  # Tam    
 	
 	(troop_set_slot, "trp_knight_1_4", slot_troop_age,63),  # Damer    
@@ -8062,9 +8065,9 @@ scripts = [
 	(troop_set_slot, "trp_kingdom_2_lady_1", slot_troop_age,41),
 	(troop_set_slot, "trp_kingdom_2_lady_1", slot_troop_spouse, "trp_kingdom_2_lord"),
 	
-	(troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_age,20),
-	(troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_father, "trp_kingdom_2_lord"), 
-	(troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_mother, "trp_kingdom_2_lady_1"),
+	(troop_set_slot, "trp_kingdom_2_lady_2", slot_troop_age,20),
+	(troop_set_slot, "trp_kingdom_2_lady_2", slot_troop_father, "trp_kingdom_2_lord"), 
+	(troop_set_slot, "trp_kingdom_2_lady_2", slot_troop_mother, "trp_kingdom_2_lady_1"),
 	
 	(troop_set_slot, "trp_knight_2_1", slot_troop_age,63),  # Mattin Stepanos  
 	
@@ -8427,6 +8430,9 @@ scripts = [
 	(troop_set_slot, "trp_kingdom_6_lord", slot_troop_age,47),  # Rhuarc    
 	(troop_set_slot, "trp_kingdom_6_lord", slot_lord_reputation_type, ":reputation"),
 	(troop_set_slot, "trp_kingdom_6_lord", slot_troop_spouse, "trp_knight_6_13"), # Amys
+	
+	(troop_set_slot, "kingdom_6_lady_8", slot_troop_age,45),
+	(troop_set_slot, "kingdom_6_lady_8", slot_troop_spouse, "trp_kingdom_6_lord"),
 		
 	(troop_set_slot, "trp_knight_6_1", slot_troop_age,46),  # Han    
 	(troop_set_slot, "trp_knight_6_1", slot_troop_spouse, "trp_kingdom_6_lady_5"),
