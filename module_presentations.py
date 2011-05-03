@@ -13531,40 +13531,40 @@ presentations = [
 
         ### ADDED THIS FOR WHEEL OF TIME CHANNELING STAMINA BAR
 
-        (assign, ":player_count_WOT", 0),
-        (assign, ":ally_count_WOT", "$g_current_channeling_stamina"),
+        (assign, ":zero", 0),
+        (assign, ":current_channeling_stamina", "$g_current_channeling_stamina"),
 #        (store_sub, ":enemy_count_WOT", "$g_maximum_channeling_stamina", "$g_current_channeling_stamina"),
-        (assign, ":total_count_WOT", "$g_maximum_channeling_stamina"),
+        (assign, ":maximum_channeling_stamina", "$g_maximum_channeling_stamina"),
 
         (position_set_x, pos1, 12000), # 12000
         (position_set_y, pos1, 300), # 300
         (overlay_set_size, "$g_presentation_obj_12", pos1),
         
-        (store_add, ":ally_percent_WOT", ":player_count_WOT", ":ally_count_WOT"),
-        (val_mul, ":ally_percent_WOT", 12000), # 12000
-        (val_div, ":ally_percent_WOT", ":total_count_WOT"),
-        (position_set_x, pos1, ":ally_percent_WOT"),
+        (store_add, ":channeling_stamina_percent", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent", 12000), # 12000
+        (val_div, ":channeling_stamina_percent", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent"),
         (position_set_y, pos1, 300), # 300
         (overlay_set_size, "$g_presentation_obj_13", pos1),
         
-        (store_mul, ":player_percent_WOT", ":player_count_WOT", 12000), # 12000
-        (val_div, ":player_percent_WOT", ":total_count_WOT"),
-        (position_set_x, pos1, ":player_percent_WOT"),
+        (store_mul, ":channeling_stamina_percent_2", ":zero", 12000), # 12000
+        (val_div, ":channeling_stamina_percent_2", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent_2"),
         (position_set_y, pos1, 300), #300
         (overlay_set_size, "$g_presentation_obj_14", pos1),
         
-        (store_add, ":ally_percent_2_WOT", ":player_count_WOT", ":ally_count_WOT"),
-        (val_mul, ":ally_percent_2_WOT", 132), #240 ################(width of bar)
-        (val_div, ":ally_percent_2_WOT", ":total_count_WOT"),
-        (val_add, ":ally_percent_2_WOT", 845), # 35
-        (position_set_x, pos1, ":ally_percent_2_WOT"),
+        (store_add, ":channeling_stamina_percent_3", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent_3", 132), #240 ################(width of bar)
+        (val_div, ":channeling_stamina_percent_3", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_3", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_3"),
         (position_set_y, pos1, 170), # 700
         (overlay_set_position, "$g_presentation_obj_17", pos1),
         
-        (store_mul, ":player_percent_2_WOT", ":player_count_WOT", 132), # 240 #################(width of bar)
-        (val_div, ":player_percent_2_WOT", ":total_count_WOT"),
-        (val_add, ":player_percent_2_WOT", 845), # 35
-        (position_set_x, pos1, ":player_percent_2_WOT"),
+        (store_mul, ":channeling_stamina_percent_4", ":zero", 132), # 240 #################(width of bar)
+        (val_div, ":channeling_stamina_percent_4", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_4", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_4"),
         (position_set_y, pos1, 170), # 700
         (overlay_set_position, "$g_presentation_obj_18", pos1), 
 
@@ -14050,43 +14050,67 @@ presentations = [
 
         ### ADDED THIS FOR WHEEL OF TIME CHANNELING STAMINA BAR
 
-        (assign, ":player_count_WOT", 0),
+        (assign, ":zero", 0),
         (multiplayer_get_my_player, ":player"),
         (player_get_slot, ":current_channeling_stamina", ":player", slot_player_current_channeling_stamina),
         (player_get_slot, ":maximum_channeling_stamina", ":player", slot_player_maximum_channeling_stamina),
-        (assign, ":ally_count_WOT", ":current_channeling_stamina"),
+#        (assign, ":ally_count_WOT", ":current_channeling_stamina"),
 #        (store_sub, ":enemy_count_WOT", "$g_maximum_channeling_stamina", "$g_current_channeling_stamina"),
-        (assign, ":total_count_WOT", ":maximum_channeling_stamina"),
+#        (assign, ":total_count_WOT", ":maximum_channeling_stamina"),
 
         (position_set_x, pos1, 1200), # 12000
         (position_set_y, pos1, 30), # 300
         (overlay_set_size, "$g_presentation_obj_112", pos1),
         
-        (store_add, ":ally_percent_WOT", ":player_count_WOT", ":ally_count_WOT"),
-        (val_mul, ":ally_percent_WOT", 1200), # 12000
-        (val_div, ":ally_percent_WOT", ":total_count_WOT"),
-        (position_set_x, pos1, ":ally_percent_WOT"),
+        (store_add, ":channeling_stamina_percent", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent", 1200), # 12000
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent"),
         (position_set_y, pos1, 30), # 300
         (overlay_set_size, "$g_presentation_obj_113", pos1),
         
-        (store_mul, ":player_percent_WOT", ":player_count_WOT", 1200), # 12000
-        (val_div, ":player_percent_WOT", ":total_count_WOT"),
-        (position_set_x, pos1, ":player_percent_WOT"),
+        (store_mul, ":channeling_stamina_percent_2", ":zero", 1200), # 12000
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_2", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent_2"),
         (position_set_y, pos1, 30), #300
         (overlay_set_size, "$g_presentation_obj_114", pos1),
         
-        (store_add, ":ally_percent_2_WOT", ":player_count_WOT", ":ally_count_WOT"),
-        (val_mul, ":ally_percent_2_WOT", 13), #240 ################(width of bar) 132
-        (val_div, ":ally_percent_2_WOT", ":total_count_WOT"),
-        (val_add, ":ally_percent_2_WOT", 845), # 35
-        (position_set_x, pos1, ":ally_percent_2_WOT"),
+        (store_add, ":channeling_stamina_percent_3", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent_3", 13), #240 ################(width of bar) 132
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_3", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_3", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_3"),
         (position_set_y, pos1, 170), # 700
         (overlay_set_position, "$g_presentation_obj_117", pos1),
         
-        (store_mul, ":player_percent_2_WOT", ":player_count_WOT", 13), # 240 #################(width of bar) 132
-        (val_div, ":player_percent_2_WOT", ":total_count_WOT"),
-        (val_add, ":player_percent_2_WOT", 845), # 35
-        (position_set_x, pos1, ":player_percent_2_WOT"),
+        (store_mul, ":channeling_stamina_percent_4", ":zero", 13), # 240 #################(width of bar) 132
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_4", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_4", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_4"),
         (position_set_y, pos1, 170), # 700
         (overlay_set_position, "$g_presentation_obj_118", pos1), 
 
@@ -14574,43 +14598,67 @@ presentations = [
 
         ### ADDED THIS FOR WHEEL OF TIME CHANNELING STAMINA BAR
 
-        (assign, ":player_count_WOT", 0),
+        (assign, ":zero", 0),
         (multiplayer_get_my_player, ":player"),
         (player_get_slot, ":current_channeling_stamina", ":player", slot_player_current_channeling_stamina),
         (player_get_slot, ":maximum_channeling_stamina", ":player", slot_player_maximum_channeling_stamina),
-        (assign, ":ally_count_WOT", ":current_channeling_stamina"),
+#        (assign, ":ally_count_WOT", ":current_channeling_stamina"),
 #        (store_sub, ":enemy_count_WOT", "$g_maximum_channeling_stamina", "$g_current_channeling_stamina"),
-        (assign, ":total_count_WOT", ":maximum_channeling_stamina"),
+#        (assign, ":total_count_WOT", ":maximum_channeling_stamina"),
 
         (position_set_x, pos1, 12000), # 12000
         (position_set_y, pos1, 300), # 300
         (overlay_set_size, "$g_presentation_obj_112", pos1),
         
-        (store_add, ":ally_percent_WOT", ":player_count_WOT", ":ally_count_WOT"),
-        (val_mul, ":ally_percent_WOT", 12000), # 12000
-        (val_div, ":ally_percent_WOT", ":total_count_WOT"),
-        (position_set_x, pos1, ":ally_percent_WOT"),
+        (store_add, ":channeling_stamina_percent", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent", 12000), # 12000
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent"),
         (position_set_y, pos1, 300), # 300
         (overlay_set_size, "$g_presentation_obj_113", pos1),
         
-        (store_mul, ":player_percent_WOT", ":player_count_WOT", 12000), # 12000
-        (val_div, ":player_percent_WOT", ":total_count_WOT"),
-        (position_set_x, pos1, ":player_percent_WOT"),
+        (store_mul, ":channeling_stamina_percent_2", ":zero", 12000), # 12000
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_2", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent_2"),
         (position_set_y, pos1, 300), #300
         (overlay_set_size, "$g_presentation_obj_114", pos1),
         
-        (store_add, ":ally_percent_2_WOT", ":player_count_WOT", ":ally_count_WOT"),
-        (val_mul, ":ally_percent_2_WOT", 132), #240 ################(width of bar) 132
-        (val_div, ":ally_percent_2_WOT", ":total_count_WOT"),
-        (val_add, ":ally_percent_2_WOT", 845), # 35
-        (position_set_x, pos1, ":ally_percent_2_WOT"),
+        (store_add, ":channeling_stamina_percent_3", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent_3", 132), #240 ################(width of bar) 132
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_3", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_3", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_3"),
         (position_set_y, pos1, 170), # 700
         (overlay_set_position, "$g_presentation_obj_117", pos1),
         
-        (store_mul, ":player_percent_2_WOT", ":player_count_WOT", 132), # 240 #################(width of bar) 132
-        (val_div, ":player_percent_2_WOT", ":total_count_WOT"),
-        (val_add, ":player_percent_2_WOT", 845), # 35
-        (position_set_x, pos1, ":player_percent_2_WOT"),
+        (store_mul, ":channeling_stamina_percent_4", ":zero", 132), # 240 #################(width of bar) 132
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_4", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_4", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_4"),
         (position_set_y, pos1, 170), # 700
         (overlay_set_position, "$g_presentation_obj_118", pos1), 
 

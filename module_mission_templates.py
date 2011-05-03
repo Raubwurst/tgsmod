@@ -1597,98 +1597,103 @@ common_wot_initialize_channeling_weave_variables_multi = (
              #(assign, "$g_toggle_weave_long", 0),
              #(assign, "$g_toggle_weave_support", 0),
              #(assign, "$g_toggle_weave_advanced", 0),
-
+             
              (multiplayer_get_my_player, ":player"),
              (player_set_slot, ":player", slot_player_current_weave_toggle_mode, 0),
              (player_set_slot, ":player", slot_player_current_weave, 1),
-
-             # initialize slot variables for agents
-             (try_for_agents, ":agent"),
-#                 (agent_is_human, ":agent"),
-                 (agent_is_alive, ":agent"),
              
-                 (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
+             (try_begin),
+             (neq,multiplayer_is_server), # server only
              
-                 (agent_set_slot, ":agent", slot_agent_on_fire, 0),
-                 (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
+                 # initialize slot variables for agents
+                 (try_for_agents, ":agent"),
+    #                 (agent_is_human, ":agent"),
+                     (agent_is_alive, ":agent"),
+                 
+                     (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
+                 
+                     (agent_set_slot, ":agent", slot_agent_on_fire, 0),
+                     (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
+                 
+                     (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
+                     (agent_set_slot, ":agent", slot_agent_airborne_x_movement, 0),
+                     (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
+                     (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 0),
+    
+                     (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
+    
+                     (agent_set_slot, ":agent", slot_agent_is_bound, 0),
+                     (agent_set_slot, ":agent", slot_agent_bound_x, 0),
+                     (agent_set_slot, ":agent", slot_agent_bound_y, 0),
+    
+                     (agent_set_slot, ":agent", slot_agent_is_shielded, 0),
+    
+                     (agent_set_slot, ":agent", slot_agent_under_compulsion, 0),
+    
+                     (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 0),
+    
+                     (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 0),
+                     (agent_set_slot, ":agent", slot_agent_is_warder_for_agent, 0),
+                     (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, -1),
+                     (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -1),
+                     (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -1),
+                     (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -1),
+                     (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
+    
+                     (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 0),
+                     (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, 0),
+    
+                     (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
+                     (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
+                 (try_end),
              
-                 (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_x_movement, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 0),
+                 # seeker variables
+                 (assign, "$g_number_seekers_active", 0),
+                 
+                 (assign, "$g_seeker_slot_1", 0),
+                 (assign, "$g_seeker_slot_2", 0),
+                 (assign, "$g_seeker_slot_3", 0),
+                 (assign, "$g_seeker_slot_4", 0),
+                 (assign, "$g_seeker_slot_5", 0),
+                 (assign, "$g_seeker_slot_6", 0),
+                 (assign, "$g_seeker_slot_7", 0),
+                 (assign, "$g_seeker_slot_8", 0),
+                 (assign, "$g_seeker_slot_9", 0),
+                 (assign, "$g_seeker_slot_10", 0),
+                 (assign, "$g_seeker_slot_11", 0),
+                 (assign, "$g_seeker_slot_12", 0),
+                 (assign, "$g_seeker_slot_13", 0),
+                 (assign, "$g_seeker_slot_14", 0),
+                 (assign, "$g_seeker_slot_15", 0),
+                 (assign, "$g_seeker_slot_16", 0),
+                 (assign, "$g_seeker_slot_17", 0),
+                 (assign, "$g_seeker_slot_18", 0),
+                 (assign, "$g_seeker_slot_19", 0),
+                 (assign, "$g_seeker_slot_20", 0),
+                 
+                 (assign, "$g_seeker_slot_1_target", 0),
+                 (assign, "$g_seeker_slot_2_target", 0),
+                 (assign, "$g_seeker_slot_3_target", 0),
+                 (assign, "$g_seeker_slot_4_target", 0),
+                 (assign, "$g_seeker_slot_5_target", 0),
+                 (assign, "$g_seeker_slot_6_target", 0),
+                 (assign, "$g_seeker_slot_7_target", 0),
+                 (assign, "$g_seeker_slot_8_target", 0),
+                 (assign, "$g_seeker_slot_9_target", 0),
+                 (assign, "$g_seeker_slot_10_target", 0),
+                 (assign, "$g_seeker_slot_11_target", 0),
+                 (assign, "$g_seeker_slot_12_target", 0),
+                 (assign, "$g_seeker_slot_13_target", 0),
+                 (assign, "$g_seeker_slot_14_target", 0),
+                 (assign, "$g_seeker_slot_15_target", 0),
+                 (assign, "$g_seeker_slot_16_target", 0),
+                 (assign, "$g_seeker_slot_17_target", 0),
+                 (assign, "$g_seeker_slot_18_target", 0),
+                 (assign, "$g_seeker_slot_19_target", 0),
+                 (assign, "$g_seeker_slot_20_target", 0),
 
-                 (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                 (agent_set_slot, ":agent", slot_agent_bound_x, 0),
-                 (agent_set_slot, ":agent", slot_agent_bound_y, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_is_shielded, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_under_compulsion, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 0),
-                 (agent_set_slot, ":agent", slot_agent_is_warder_for_agent, 0),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, -1),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -1),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -1),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -1),
-                 (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 0),
-                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
-                 (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
-             (try_end),
-
+             (try_end), # end of server only initialization
              
-             # seeker variables
-             (assign, "$g_number_seekers_active", 0),
-             
-             (assign, "$g_seeker_slot_1", 0),
-             (assign, "$g_seeker_slot_2", 0),
-             (assign, "$g_seeker_slot_3", 0),
-             (assign, "$g_seeker_slot_4", 0),
-             (assign, "$g_seeker_slot_5", 0),
-             (assign, "$g_seeker_slot_6", 0),
-             (assign, "$g_seeker_slot_7", 0),
-             (assign, "$g_seeker_slot_8", 0),
-             (assign, "$g_seeker_slot_9", 0),
-             (assign, "$g_seeker_slot_10", 0),
-             (assign, "$g_seeker_slot_11", 0),
-             (assign, "$g_seeker_slot_12", 0),
-             (assign, "$g_seeker_slot_13", 0),
-             (assign, "$g_seeker_slot_14", 0),
-             (assign, "$g_seeker_slot_15", 0),
-             (assign, "$g_seeker_slot_16", 0),
-             (assign, "$g_seeker_slot_17", 0),
-             (assign, "$g_seeker_slot_18", 0),
-             (assign, "$g_seeker_slot_19", 0),
-             (assign, "$g_seeker_slot_20", 0),
-             
-             (assign, "$g_seeker_slot_1_target", 0),
-             (assign, "$g_seeker_slot_2_target", 0),
-             (assign, "$g_seeker_slot_3_target", 0),
-             (assign, "$g_seeker_slot_4_target", 0),
-             (assign, "$g_seeker_slot_5_target", 0),
-             (assign, "$g_seeker_slot_6_target", 0),
-             (assign, "$g_seeker_slot_7_target", 0),
-             (assign, "$g_seeker_slot_8_target", 0),
-             (assign, "$g_seeker_slot_9_target", 0),
-             (assign, "$g_seeker_slot_10_target", 0),
-             (assign, "$g_seeker_slot_11_target", 0),
-             (assign, "$g_seeker_slot_12_target", 0),
-             (assign, "$g_seeker_slot_13_target", 0),
-             (assign, "$g_seeker_slot_14_target", 0),
-             (assign, "$g_seeker_slot_15_target", 0),
-             (assign, "$g_seeker_slot_16_target", 0),
-             (assign, "$g_seeker_slot_17_target", 0),
-             (assign, "$g_seeker_slot_18_target", 0),
-             (assign, "$g_seeker_slot_19_target", 0),
-             (assign, "$g_seeker_slot_20_target", 0),
 
              # determine number of weaves known based off channeling (firearms) proficiency
 
@@ -1765,6 +1770,38 @@ common_wot_initialize_channeling_weave_variables_multi = (
              (assign, "$g_initialize_complete", 1),
              
          ])
+
+## Multiplayer Server update client Seeker global variables trigger
+common_wot_server_update_client_seeker_global_variables_multi = (
+    0, 0, 0.5, [],
+    [
+        (get_max_players, ":num_players"),
+        (try_for_range, ":player_no", 0, ":num_players"),
+        (player_is_active, ":player_no"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 0, 0, 0),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 1, "$g_seeker_slot_1", "$g_seeker_slot_1_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 2, "$g_seeker_slot_2", "$g_seeker_slot_2_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 3, "$g_seeker_slot_3", "$g_seeker_slot_3_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 4, "$g_seeker_slot_4", "$g_seeker_slot_4_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 5, "$g_seeker_slot_5", "$g_seeker_slot_5_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 6, "$g_seeker_slot_6", "$g_seeker_slot_6_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 7, "$g_seeker_slot_7", "$g_seeker_slot_7_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 8, "$g_seeker_slot_8", "$g_seeker_slot_8_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 9, "$g_seeker_slot_9", "$g_seeker_slot_9_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 10, "$g_seeker_slot_10", "$g_seeker_slot_10_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 11, "$g_seeker_slot_11", "$g_seeker_slot_11_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 12, "$g_seeker_slot_12", "$g_seeker_slot_12_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 13, "$g_seeker_slot_13", "$g_seeker_slot_13_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 14, "$g_seeker_slot_14", "$g_seeker_slot_14_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 15, "$g_seeker_slot_15", "$g_seeker_slot_15_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 16, "$g_seeker_slot_16", "$g_seeker_slot_16_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 17, "$g_seeker_slot_17", "$g_seeker_slot_17_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 18, "$g_seeker_slot_18", "$g_seeker_slot_18_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 19, "$g_seeker_slot_19", "$g_seeker_slot_19_target"),
+            (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 20, "$g_seeker_slot_20", "$g_seeker_slot_20_target"),
+        (try_end),
+     ])
+
 
 ## Timer triggers
 common_wot_timer_trigger_one_second = (
@@ -1910,6 +1947,141 @@ common_wot_check_for_channelers_in_the_scene = (
                  (else_try),
                  (agent_has_item_equipped, ":agent", "itm_power_npc_companion_ranged"),
                      (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+             # end added for npc companions
+             # added for multiplayer
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_player_multiplayer"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+             # end added for multiplayer
+                 (else_try),
+                 (neg|agent_is_human, ":agent"), # horses
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
+                 (else_try), # non-channelers
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
+                 (try_end),
+             (try_end),
+         ])
+
+## Check for channelers in the scene (for multiplayer)
+common_wot_check_for_channelers_in_the_scene_multi = (
+    0, 0, 2,
+    [
+        (eq, "$g_initialize_complete", 1),
+        (multiplayer_is_server), # only run this on the server side
+        ],
+         [
+             (try_for_agents, ":agent"),
+#                 (agent_is_human, ":agent"),
+                 (agent_is_alive, ":agent"),
+                 (neg|agent_is_wounded, ":agent"),
+#                 (agent_get_wielded_item, ":item", ":agent", 0),
+#                 (item_get_type, ":item_type", ":item"),
+                 (try_begin),
+                 (agent_has_item_equipped, ":agent", "itm_power_player"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+#                 (else_try),
+#                 (agent_has_item_equipped, ":agent", "itm_power_recruit_non_ranged"),
+#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+#                 (else_try),
+#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_non_ranged"),
+#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+#                 (else_try),
+#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_non_ranged"),
+#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+#                 (else_try),
+#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_non_ranged"),
+#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+#                 (else_try),
+#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_non_ranged"),
+#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_male_good_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+#                 (else_try),
+#                 (agent_has_item_equipped, ":agent", "itm_power_male_good_non_ranged"),
+#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_novice_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+#                 (else_try),
+#                 (agent_has_item_equipped, ":agent", "itm_power_novice_non_ranged"),
+#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_accepted_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_yellow_ajah_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+#                 (else_try),
+#                 (agent_has_item_equipped, ":agent", "itm_power_aes_sedai_non_ranged"),
+#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_brown_ajah_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_white_ajah_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_blue_ajah_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_grey_ajah_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_red_ajah_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_green_ajah_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_female_good_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+#                 (else_try),
+#                 (agent_has_item_equipped, ":agent", "itm_power_female_good_non_ranged"),
+#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_apprentice_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_veteran_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_black_ajah_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_dreadlord_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_male_bad_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_female_bad_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+                 (else_try),
+                 (agent_has_item_equipped, ":agent", "itm_power_kinswoman_ranged"),
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+             # added for npc companions (non needed for multiplayer)
+                 #(else_try),
+                 #(agent_has_item_equipped, ":agent", "itm_power_npc_companion_ranged"),
+                 #    (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
              # end added for npc companions
              # added for multiplayer
                  (else_try),
@@ -2612,11 +2784,12 @@ common_wot_recharge_channeling_stamina_trigger = (
 
         ])
 
-## Recharge Channeling Stamina trigger (second version for multiplayer)
+## Recharge Channeling Stamina trigger (second version for multiplayer) (only needs to run on client side)
 common_wot_recharge_channeling_stamina_trigger_multi = (
     0.4, 0, 0,
     [
         (gt, "$g_one_second_timer", 2),
+        (neq, multiplayer_is_server), # will only run on the client side
         ],
          [
             (multiplayer_get_my_player, ":player"),
@@ -2787,7 +2960,7 @@ common_wot_weave_toggle_all = (
 #### Used for multiplayer ####
 ## Click 'Numpad_7' to set weave toggle to 'short range'
 common_wot_weave_toggle_short_range_multi = (
-    0, 0, 0, [],
+    0, 0, 0, [(neq, multiplayer_is_server)],
          [
             (multiplayer_get_my_player, ":player"),
 #            (player_get_agent_id, ":player_agent", ":player"),
@@ -2808,7 +2981,7 @@ common_wot_weave_toggle_short_range_multi = (
 
 ## Click 'Numpad_8' to set weave toggle to 'long range'
 common_wot_weave_toggle_long_range_multi = (
-    0, 0, 0, [],
+    0, 0, 0, [(neq, multiplayer_is_server)],
          [
             (multiplayer_get_my_player, ":player"),
 #            (player_get_agent_id, ":player_agent", ":player"),
@@ -2829,7 +3002,7 @@ common_wot_weave_toggle_long_range_multi = (
 
 ## Click 'Numpad_9' to set weave toggle to 'support'
 common_wot_weave_toggle_support_multi = (
-    0, 0, 0, [],
+    0, 0, 0, [(neq, multiplayer_is_server)],
          [
             (multiplayer_get_my_player, ":player"),
 #            (player_get_agent_id, ":player_agent", ":player"),
@@ -2850,7 +3023,7 @@ common_wot_weave_toggle_support_multi = (
 
 ## Click 'Numpad_5' to set weave toggle to 'advanced'
 common_wot_weave_toggle_advanced_multi = (
-    0, 0, 0, [],
+    0, 0, 0, [(neq, multiplayer_is_server)],
          [
             (multiplayer_get_my_player, ":player"),
 #            (player_get_agent_id, ":player_agent", ":player"),
@@ -2871,7 +3044,7 @@ common_wot_weave_toggle_advanced_multi = (
 
 ## Click 'Numpad_6' to set weave toggle to 'all'
 common_wot_weave_toggle_all_multi = (
-    0, 0, 0, [],
+    0, 0, 0, [(neq, multiplayer_is_server)],
          [
             (multiplayer_get_my_player, ":player"),
 #            (player_get_agent_id, ":player_agent", ":player"),
@@ -3067,9 +3240,9 @@ common_wot_cycle_through_known_weaves = (
 
         ])
 
-## Click 'Caps Lock' to cycle through known weaves (multiplayer)
+## Click 'Caps Lock' to cycle through known weaves (multiplayer) (only needs to run on client side)
 common_wot_cycle_through_known_weaves_multi = (
-    0, 0, 0, [],
+    0, 0, 0, [(neq, multiplayer_is_server)],
          [
             (multiplayer_get_my_player, ":player"),
 #            (player_get_agent_id, ":player_agent", ":player"),
@@ -3245,11 +3418,12 @@ common_wot_reset_troop_ratio_bar_additional = (
         (assign, "$g_reset_troop_ratio_bar", 1),
         ])
 
-## Reset troop ratio bar after certain battle menus  (multiplayer)
+## Reset troop ratio bar after certain battle menus  (multiplayer) (only needs to run on client side)
 common_wot_reset_troop_ratio_bar_multi = (
     0, 0.1, 0.2,
     [
         (eq, "$g_reset_troop_ratio_bar", 1),
+        (neq, multiplayer_is_server),
         ],
          [
              (start_presentation, "prsnt_troop_ratio_bar_multiplayer"),
@@ -3258,16 +3432,17 @@ common_wot_reset_troop_ratio_bar_multi = (
          ])
 
 common_wot_reset_troop_ratio_bar_additional_multi = (
-    ti_escape_pressed, 0, 0, [],
+    ti_escape_pressed, 0, 0, [(neq, multiplayer_is_server)],
     [
         (assign, "$g_reset_troop_ratio_bar", 1),
         ])
 
-## Reset troop ratio bar after certain battle menus  (multiplayer_2)
+## Reset troop ratio bar after certain battle menus  (multiplayer_2) (only needs to run on client side)
 common_wot_reset_troop_ratio_bar_multi_2 = (
     0, 0.1, 0.2,
     [
         (eq, "$g_reset_troop_ratio_bar", 1),
+        (neq, multiplayer_is_server),
         ],
          [
              (start_presentation, "prsnt_troop_ratio_bar_multiplayer_2"),
@@ -3276,7 +3451,7 @@ common_wot_reset_troop_ratio_bar_multi_2 = (
          ])
 
 common_wot_reset_troop_ratio_bar_additional_multi_2 = (
-    ti_escape_pressed, 0, 0, [],
+    ti_escape_pressed, 0, 0, [(neq, multiplayer_is_server)],
     [
         (assign, "$g_reset_troop_ratio_bar", 1),
         ])
@@ -3448,10 +3623,11 @@ common_wot_bound_trigger = (
         
         ])
 
-## Bound trigger ## (multiplayer, do damage for 10 seconds)
+## Bound trigger ## (multiplayer, do damage for 10 seconds) (should only run on server side)
 common_wot_bound_trigger_multi = (
     0, 0, 0.01,
                     [
+                      (multiplayer_is_server), # set to run on server only
                       (assign, ":bound_check", 0),
                       
                       (try_for_agents, ":agent"),
@@ -3984,10 +4160,11 @@ common_wot_non_linked_suldam_trigger = (
         
         ])
 
-## Non-linked Sul'dam trigger ## for multiplayer
+## Non-linked Sul'dam trigger ## for multiplayer (should only run on server)
 common_wot_non_linked_suldam_trigger_multi = (
     0, 0, 3,
                     [
+                      (multiplayer_is_server),
                       (assign, ":not_linked_check", 0),
                       
                       (try_for_agents, ":agent"),
@@ -4058,87 +4235,47 @@ common_wot_non_linked_suldam_trigger_multi = (
                     (get_distance_between_positions, ":dist", pos1, pos2),
                     (lt, ":dist", 300), # sul'dam within 300 cm of target
 
-                    (agent_get_troop_id, ":target_id", ":target"),
-                    (troop_get_xp, ":target_xp", ":target_id"),
-                    (agent_get_troop_id, ":suldam_id", ":agent"),
-                    (troop_get_xp, ":suldam_xp", ":suldam_id"),
-
                     (assign, ":gold_buff", 0),
-                    (multiplayer_get_my_player, ":player_id"),
-
                     (try_begin),
-                    (eq, ":player_id", ":agent"),
-                        (multiplayer_get_my_gold, ":player_gold"),
+                    (neg|agent_is_non_player, ":agent"),
+                        (agent_get_player_id, ":player_id", ":agent"),
+                        (player_get_gold, ":player_gold", ":player_id"),
                         (store_div, ":gold_buff", ":player_gold", 30),
                     (try_end),
 
-                    (store_add, ":leash_opportunity_1", ":gold_buff", 7),
-                    (store_add, ":leash_opportunity_2", ":gold_buff", 10),
-                    (store_add, ":leash_opportunity_3", ":gold_buff", 13),
-                    (store_add, ":leash_opportunity_4", ":gold_buff", 16),
+                    (store_add, ":leash_opportunity_1", ":gold_buff", 10),
+                    #(store_add, ":leash_opportunity_2", ":gold_buff", 10),
+                    (store_add, ":leash_opportunity_3", ":gold_buff", 16),
+                    #(store_add, ":leash_opportunity_4", ":gold_buff", 16),
                     
 
                     (try_begin),
                     (eq, ":agent_suldam", 1), # agent is suldam
+                        (store_random_in_range, ":random", 0, 100),
                         (try_begin),
-                        (le, ":suldam_xp", ":target_xp"), # suldam less experienced than target
-                            (store_random_in_range, ":random", 0, 100),
+                        (lt, ":random", ":leash_opportunity_1"),
+                            # FIXME? This may not work for actual human players
+                            (agent_set_team, ":target", ":suldam_team"),
+                            ##new
                             (try_begin),
-                            (lt, ":random", ":leash_opportunity_1"),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                ##new
-                                (player_get_gold, ":gold", ":agent"),
+                            (neg|agent_is_non_player),
+                                (player_get_gold, ":gold", ":player_id"),
                                 (store_add, ":gold_new", ":gold", 300),
-                                (player_set_gold, ":agent", ":gold_new", 15000),
-                                #(agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                #(agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                #(agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (else_try), # suldam more experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", ":leash_opportunity_2"),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                ##new
-                                (player_get_gold, ":gold", ":agent"),
-                                (store_add, ":gold_new", ":gold", 300),
-                                (player_set_gold, ":agent", ":gold_new", 15000),
-                                #(agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                #(agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                #(agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
+                                (player_set_gold, ":player_id", ":gold_new", 15000),
                             (try_end),
                         (try_end),
                     (else_try), # agent is der suldam
+                        (store_random_in_range, ":random", 0, 100),
                         (try_begin),
-                        (le, ":suldam_xp", ":target_xp"), # suldam less experienced than target
-                            (store_random_in_range, ":random", 0, 100),
+                        (lt, ":random", ":leash_opportunity_3"),
+                            # FIXME? This may not work for actual human players
+                            (agent_set_team, ":target", ":suldam_team"),
+                            ##new
                             (try_begin),
-                            (lt, ":random", ":leash_opportunity_3"),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                ##new
-                                (player_get_gold, ":gold", ":agent"),
+                            (neg|agent_is_non_player),
+                                (player_get_gold, ":gold", ":player_id"),
                                 (store_add, ":gold_new", ":gold", 300),
-                                (player_set_gold, ":agent", ":gold_new", 15000),
-                                #(agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                #(agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                #(agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (else_try), # suldam more experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", ":leash_opportunity_4"),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                ##new
-                                (player_get_gold, ":gold", ":agent"),
-                                (store_add, ":gold_new", ":gold", 300),
-                                (player_set_gold, ":agent", ":gold_new", 15000),
-                                #(agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                #(agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                #(agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
+                                (player_set_gold, ":player_id", ":gold_new", 15000),
                             (try_end),
                         (try_end),
                     (try_end),
@@ -4152,6 +4289,54 @@ common_wot_non_linked_suldam_trigger_multi = (
 common_suldam_with_dead_damane_trigger = (
     0, 0, 3,
                     [
+                      (assign, ":dead_damane", 0),
+
+                      (try_for_agents, ":agent"),
+                          (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
+                      
+                          (assign, ":dead_or_wounded", 0),
+                          (try_begin),
+                          (neg|agent_is_alive, ":agent"),
+                              (val_add, ":dead_or_wounded", 1),
+                          (else_try),
+                          (agent_is_wounded, ":agent"),
+                              (val_add, ":dead_or_wounded", 1),
+                          (try_end),
+
+                          (gt, ":dead_or_wounded", 0),
+                          (val_add, ":dead_damane", 1),
+                      (try_end),
+
+                      (gt, ":dead_damane", 0),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
+                      
+            (assign, ":dead_or_wounded", 0),
+            (try_begin),
+            (neg|agent_is_alive, ":agent"),
+                (val_add, ":dead_or_wounded", 1),
+            (else_try),
+            (agent_is_wounded, ":agent"),
+                (val_add, ":dead_or_wounded", 1),
+            (try_end),
+
+            (gt, ":dead_or_wounded", 0), # damane is dead or wounded
+
+            (agent_get_slot, ":damane_leash_holder", ":agent", slot_agent_warder_bond_holder),
+
+            (agent_set_slot, ":damane_leash_holder", slot_agent_has_warders_spawned, 2), # start looking for female channelers like any sul'dam who didn't get a damane from spawn code.
+        (try_end),
+        
+        ])
+
+## Sul'dam with dead Damane trigger ## (multiplayer) (code should only run on server side)
+common_suldam_with_dead_damane_trigger_multi = (
+    0, 0, 3,
+                    [
+                      (multiplayer_is_server),
                       (assign, ":dead_damane", 0),
 
                       (try_for_agents, ":agent"),
@@ -4243,10 +4428,113 @@ common_wot_nearby_myrddraal_trigger = (
         
         ])
 
+## Nearby Myrddraal trigger ## (multiplayer) (code should only run on server side)
+common_wot_nearby_myrddraal_trigger_multi = (
+    0, 0, 0.25, [(multiplayer_is_server)],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_is_human, ":agent"), # no fear death effect for horses... for now
+            (neg|agent_has_item_equipped, ":agent", "itm_myrddraal_hood_helmet"), # agent is not a myrddraal
+        # new for darkfriend buff
+            (agent_get_troop_id, ":agent_troop", ":agent"),
+            (troop_get_slot, ":darkfriend_buff_check", ":agent_troop", slot_troop_darkfriend_buff),
+            (eq, ":darkfriend_buff_check", 0), # only proceed with code if agent doesn't have the buff
+        # end
+        
+            (agent_get_team, ":agent_team", ":agent"),
+            (agent_get_position, pos1, ":agent"),
+            (assign, ":number_myrddraal_nearby", 0),
+
+            (try_for_agents, ":agent_2"),
+                (agent_has_item_equipped, ":agent_2", "itm_myrddraal_hood_helmet"), # agent is myrddraal
+                (agent_is_alive, ":agent_2"),
+                (neg|agent_is_wounded, ":agent_2"),
+                (agent_get_team, ":agent_2_team", ":agent_2"),
+                (teams_are_enemies, ":agent_team", ":agent_2_team"), # agent not on the same team as myrddraal
+
+                (agent_get_position, pos2, ":agent_2"),
+                (get_distance_between_positions, ":dist", pos1, pos2),
+        
+                (try_begin),
+                (lt, ":dist", 1000),
+                    (val_add, ":number_myrddraal_nearby", 1),
+                (try_end),
+
+            (try_end),
+        
+            (try_begin),
+            (gt, ":number_myrddraal_nearby", 0),
+                (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 10),
+            (try_end),
+
+            (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, ":number_myrddraal_nearby"),
+                
+        (try_end),
+        
+        ])
+
 ## Myrddraal Fear trigger ##
 common_wot_myrddraal_fear_trigger = (
     0, 0, 3,
                     [
+                      (assign, ":fear_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":has_fear", ":agent", slot_agent_myrddraal_fear_counter),
+                          (gt, ":has_fear", 0),
+                          (val_add, ":fear_check", 1),
+                      (end_try),
+
+                      (ge, ":fear_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":has_fear", ":agent", slot_agent_myrddraal_fear_counter),
+            (gt, ":has_fear", 0),
+        
+                (agent_get_slot, ":fear_magnitude", ":agent", slot_agent_myrddraal_fear_magnitude),
+                (store_add, ":fear_magnitude_new", ":fear_magnitude", 1),
+
+                (try_for_range, ":unused", 1, ":fear_magnitude_new"),
+                    (store_random_in_range, ":random", 1, 100),
+        
+                    (try_begin),
+                    (lt, ":random", 15),
+                        (store_agent_hit_points,":target_health",":agent",1),
+        
+                        (try_begin),
+                        (gt,":target_health",1),
+                            (val_sub,":target_health",1),
+                            (agent_set_hit_points,":agent",":target_health",1),
+                        (try_end), # no (else_try) that will kill agent for now (can't die from fear, just become a very easy target)
+        
+                    (try_end),
+                        
+                (try_end),
+
+                (val_sub, ":has_fear", 1),
+                (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, ":has_fear"), # fear will wear off as long as agent stays away from myrddraal
+
+                (agent_get_look_position, pos1, ":agent"),
+                (particle_system_burst, "psys_fear_aura", pos1, 5),
+                
+        (try_end),
+        
+        ])
+
+## Myrddraal Fear trigger ## (multiplayer) (code should only run on server side)
+common_wot_myrddraal_fear_trigger_multi = (
+    0, 0, 3,
+                    [
+                      (multiplayer_is_server), # only for server
                       (assign, ":fear_check", 0),
                       
                       (try_for_agents, ":agent"),
@@ -4364,9 +4652,9 @@ common_wot_draghkar_hunt_trigger = (
         
         ])
 
-## Draghkar Hunt trigger ## for multiplayer
+## Draghkar Hunt trigger ## for multiplayer (code should only run on server side)
 common_wot_draghkar_hunt_trigger_multi = (
-    0, 0, 1, [],
+    0, 0, 1, [(multiplayer_is_server)],
 
        [
         (try_for_agents, ":agent"),
@@ -4410,11 +4698,10 @@ common_wot_draghkar_hunt_trigger_multi = (
                 (gt, ":number_enemies_nearby", 0),
         
                     (assign, ":gold_buff", 0),
-                    (multiplayer_get_my_player, ":player_id"),
-
                     (try_begin),
-                    (eq, ":player_id", ":agent"),
-                        (multiplayer_get_my_gold, ":player_gold"),
+                    (neg|agent_is_non_player, ":agent"),
+                        (agent_get_player_id, ":player_id", ":agent"),
+                        (player_get_gold, ":player_gold", ":player_id"),
                         (store_div, ":gold_buff", ":player_gold", 30),
                     (try_end),
 
@@ -4428,9 +4715,12 @@ common_wot_draghkar_hunt_trigger_multi = (
                         (agent_set_slot, ":target", slot_agent_draghkar_kiss_by, ":agent"),
                         (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 5),
                         ##new
-                        (player_get_gold, ":gold", ":agent"),
-                        (store_add, ":gold_new", ":gold", 300),
-                        (player_set_gold, ":agent", ":gold_new", 15000),
+                        (try_begin), # for non-bot agents
+                        (neg|agent_is_non_player, ":agent"),
+                            (player_get_gold, ":gold", ":player_id"),
+                            (store_add, ":gold_new", ":gold", 300),
+                            (player_set_gold, ":player_id", ":gold_new", 15000),
+                        (try_begin),
                         ## play draghkar crooning sound
                     (try_end),
                 (try_end),
@@ -4445,6 +4735,50 @@ common_wot_draghkar_hunt_trigger_multi = (
 common_wot_draghkar_kiss_of_death_trigger = (
     0, 0, 0.04,
                     [
+                      (assign, ":kiss_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":has_kiss", ":agent", slot_agent_has_draghkar_kiss),
+                          (gt, ":has_kiss", 0),
+                          (val_add, ":kiss_check", 1),
+                      (end_try),
+
+                      (ge, ":kiss_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":has_kiss", ":agent", slot_agent_has_draghkar_kiss),
+            (gt, ":has_kiss", 0),
+
+                (agent_get_position, pos1, ":agent"),
+                (particle_system_burst, "psys_fear_aura", pos1, 5),
+
+                (store_agent_hit_points,":target_health",":agent",1),
+        
+                (try_begin),
+                (gt,":target_health",1),
+                    (val_sub,":target_health",1),
+                    (agent_set_hit_points,":agent",":target_health",1),
+                (else_try),
+                    (agent_get_slot, ":draghkar", ":agent", slot_agent_draghkar_kiss_by),
+                    (agent_set_hit_points, ":agent", 0, 0),
+                    (agent_deliver_damage_to_agent, ":draghkar",":agent"),
+                (try_end),
+                
+        (try_end),
+        
+        ])
+
+## Draghkar Kiss of Death trigger ## (multiplayer) (code should run only on server side)
+common_wot_draghkar_kiss_of_death_trigger_multi = (
+    0, 0, 0.04,
+                    [
+                      (multiplayer_is_server), # for server only
                       (assign, ":kiss_check", 0),
                       
                       (try_for_agents, ":agent"),
@@ -4515,10 +4849,74 @@ common_wot_shielded_trigger = (
         
         ])
 
+## Shielded trigger ## (multiplayer) (code should only run on server side)
+common_wot_shielded_trigger_multi = (
+    0, 0, 0.0025,
+                    [
+                      (multiplayer_is_server), # for server only
+                      (assign, ":shield_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":shielded", ":agent", slot_agent_is_shielded),
+                          (eq, ":shielded", 1),
+                          (val_add, ":shield_check", 1),
+                      (end_try),
+
+                      (ge, ":shield_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":shielded", ":agent", slot_agent_is_shielded),
+            (eq, ":shielded", 1),
+        
+                (agent_get_look_position, pos59, ":agent"),
+                (particle_system_burst, "psys_shield_aura", pos59, 10),
+                
+        (try_end),
+        
+        ])
+
 ## Compulsion trigger ##
 common_wot_compulsion_trigger = (
     0, 0, 0.0025,
                     [
+                      (assign, ":compulsion_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":compelled", ":agent", slot_agent_under_compulsion),
+                          (eq, ":compelled", 1),
+                          (val_add, ":compulsion_check", 1),
+                      (end_try),
+
+                      (ge, ":compulsion_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":compelled", ":agent", slot_agent_under_compulsion),
+            (eq, ":compelled", 1),
+        
+                (agent_get_look_position, pos58, ":agent"),
+                (particle_system_burst, "psys_compulsion_aura", pos58, 10),
+                
+        (try_end),
+        
+        ])
+
+## Compulsion trigger ## (multiplayer) (code should only run on server side)
+common_wot_compulsion_trigger_multi = (
+    0, 0, 0.0025,
+                    [
+                      (multiplayer_is_server), # for server only
                       (assign, ":compulsion_check", 0),
                       
                       (try_for_agents, ":agent"),
@@ -4760,6 +5158,107 @@ common_wot_balefire_trigger_2 = (
         
         ])
 
+## Balefire trigger ## (Version 3: multiplayer mode - throws corpses to coordinaes (100,100,ground level)) (code should only run on server side)
+common_wot_balefire_trigger_multi = (
+    0, 0, 0.001,
+                    [
+                      (multiplayer_is_server), # for server only
+                      (assign, ":balefire_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":balefired", ":agent", slot_agent_hit_by_balefire),
+                          (eq, ":balefired", 1),
+                          (val_add, ":balefire_check", 1),
+                      (end_try),
+
+                      (ge, ":balefire_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":balefired", ":agent", slot_agent_hit_by_balefire),
+            (eq, ":balefired", 1),
+        
+                (agent_get_look_position, pos57, ":agent"),
+                (particle_system_burst, "psys_compulsion_aura", pos58, 10),  # new one for balefire
+
+                (agent_get_slot, ":chosen", ":agent", slot_agent_balefire_shooter),
+
+                (agent_set_hit_points, ":agent", 0, 0),
+                (agent_deliver_damage_to_agent, ":chosen", ":agent"),
+                (try_begin), # add to channeling multiplier if agent is player
+                (neg|agent_is_non_player, ":chosen"),
+                    (val_add, "$g_channeling_proficiency_modifier", 150),
+                (try_end),
+                (add_xp_to_troop,75,":chosen"),
+        
+                (position_set_x, pos57, 100), # changed from 0 because that was causing crashing in "Oasis"
+                (position_set_y, pos57, 100), # changed from 0 because that was causing crashing in "Oasis"
+                (position_set_z_to_ground_level, pos57),
+                (agent_set_position, ":agent", pos57),  # move agent's body far away
+
+                (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 0),
+
+                (try_begin),
+                (agent_is_non_player, ":agent"),
+                    (agent_get_kill_count, ":kill_count", ":agent", 0),
+                    (agent_get_kill_count, ":wounded_count", ":agent", 1),
+                (else_try),
+                (neg|agent_is_non_player, ":agent"),
+                    (agent_get_player_id, ":player_id", ":agent"),
+                    (player_get_kill_count, ":kill_count", ":player_id"),
+                    (assign, ":wounded_count", 0),
+                (try_end),
+
+                (try_begin),
+                (gt, ":kill_count", 0),
+                    (assign, ":kills", 1),
+                (try_end),
+
+                (try_begin),
+                (gt, ":wounded_count", 0),
+                    (assign, ":wounded", 1),
+                (try_end),
+
+                (assign, ":kill_wounded", ":kills"),
+                (val_or, ":kill_wounded", ":wounded"),
+        
+                (agent_get_team, ":agent_team", ":agent"),
+                (assign, ":resurrection_count", 0),
+
+                (try_begin),
+                (eq, ":kill_wounded", 5),   # if agent killed/wounded other agents before being balefired FIXME: ??? (was 1, changed to 5 so this resurrection will not work)
+                    (try_for_agents, ":agent_2"),
+                        (eq, ":resurrection_count", 0),
+                        (agent_is_non_player, ":agent_2"),
+                        (try_begin),
+                        (neg|agent_is_alive, ":agent_2"),
+                            (agent_get_team, ":agent_2_team", ":agent_2"),
+                            (teams_are_enemies, ":agent_2_team", ":agent_team"), # if dead agent is not on the team of balefired agent
+                                (agent_get_position, pos56, ":agent_2"),
+                                (agent_set_position, ":agent_2", pos57),
+                                (agent_get_troop_id, ":agent_2_troop", ":agent_2"),
+                                (agent_get_party_id, ":agent_2_party", ":agent_2"),
+#                                (troop_get_type, ":agent_2_troop_type", ":agent_2_troop"),
+                                (set_spawn_position, pos56),
+                                (spawn_agent, ":agent_2_troop"),
+                                (assign, ":new_agent", reg0),
+                                (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_2_party"),
+                                (agent_set_team, ":new_agent", ":agent_2_team"),
+                                (assign, ":resurrection_count", 1),
+                        (try_end),
+                    (try_end),
+                (try_end),
+
+#                (remove_agent, ":agent"), # not sure what this does
+        (try_end),
+        
+        ])
+
 ## Burn over time trigger 1## 
 common_wot_burn_over_time_trigger = (
     0, 0, 0.01,
@@ -4836,10 +5335,11 @@ common_wot_burn_over_time_trigger = (
 
        ])
 
-## Burn over time trigger 2 ## For Multiplayer
-common_wot_burn_over_time_trigger_2 = (
+## Burn over time trigger 2 ## For Multiplayer (should only run on server side)
+common_wot_burn_over_time_trigger_multi = (
     0, 0, 0.01,
                     [
+                      (multiplayer_is_server), # for server only
                       (assign, ":fire_check", 0),
                       
                       (try_for_agents, ":agent"),
@@ -4877,11 +5377,6 @@ common_wot_burn_over_time_trigger_2 = (
                         (agent_set_hit_points,":agent",":target_health",1),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
                  
-                        (try_begin), # add to channeling multiplier if agent is player
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 2),
-                        (try_end),
-#                        (add_xp_to_troop,1,":chosen"),
                         (agent_get_slot, ":burn_duration", ":agent", slot_agent_fire_duration),
                  
                         (try_begin), # check burn duration
@@ -4898,7 +5393,10 @@ common_wot_burn_over_time_trigger_2 = (
                  
                         (try_begin),
                         (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 20),
+                            (agent_get_player_id, ":player_id", ":chosen"),
+                            (player_get_gold, ":gold", ":player_id"),
+                            (val_add, ":gold", 300),
+                            (player_set_gold, ":player_id", ":gold", 15000),
                         (try_end),
                  
                         (add_xp_to_troop,25,":chosen"),
@@ -6703,6 +7201,7 @@ common_wot_seeker_trigger_1_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_1", 1),
+        (multiplayer_is_server),
         ],
 	[
             
@@ -6769,10 +7268,12 @@ common_wot_seeker_trigger_1_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_1_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_1_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_1_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos31 ,50),
                 (play_sound, "snd_explosion"),
@@ -6794,6 +7295,7 @@ common_wot_seeker_trigger_2_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_2", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -6860,10 +7362,12 @@ common_wot_seeker_trigger_2_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_2_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_2_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_2_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos32 ,50),
                 (play_sound, "snd_explosion"),
@@ -6885,6 +7389,7 @@ common_wot_seeker_trigger_3_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_3", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -6951,10 +7456,12 @@ common_wot_seeker_trigger_3_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_3_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_3_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_3_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos33 ,50),
                 (play_sound, "snd_explosion"),
@@ -6976,6 +7483,7 @@ common_wot_seeker_trigger_4_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_4", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7042,10 +7550,12 @@ common_wot_seeker_trigger_4_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_4_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_4_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_4_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos34 ,50),
                 (play_sound, "snd_explosion"),
@@ -7067,6 +7577,7 @@ common_wot_seeker_trigger_5_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_5", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7133,10 +7644,12 @@ common_wot_seeker_trigger_5_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_5_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_5_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_5_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos35 ,50),
                 (play_sound, "snd_explosion"),
@@ -7158,6 +7671,7 @@ common_wot_seeker_trigger_6_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_6", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7224,10 +7738,12 @@ common_wot_seeker_trigger_6_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_6_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_6_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_6_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos36 ,50),
                 (play_sound, "snd_explosion"),
@@ -7249,6 +7765,7 @@ common_wot_seeker_trigger_7_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_7", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7315,10 +7832,12 @@ common_wot_seeker_trigger_7_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_7_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_7_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_7_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos37 ,50),
                 (play_sound, "snd_explosion"),
@@ -7340,6 +7859,7 @@ common_wot_seeker_trigger_8_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_8", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7406,10 +7926,12 @@ common_wot_seeker_trigger_8_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_8_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_8_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_8_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos38 ,50),
                 (play_sound, "snd_explosion"),
@@ -7431,6 +7953,7 @@ common_wot_seeker_trigger_9_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_9", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7497,10 +8020,12 @@ common_wot_seeker_trigger_9_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_9_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_9_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_9_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos39 ,50),
                 (play_sound, "snd_explosion"),
@@ -7522,6 +8047,7 @@ common_wot_seeker_trigger_10_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_10", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7588,10 +8114,12 @@ common_wot_seeker_trigger_10_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_10_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_10_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_10_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos40 ,50),
                 (play_sound, "snd_explosion"),
@@ -7613,6 +8141,7 @@ common_wot_seeker_trigger_11_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_11", 1),
+        (multiplayer_is_server),
         ],
 	[
             
@@ -7679,10 +8208,12 @@ common_wot_seeker_trigger_11_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_11_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_11_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_11_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos41 ,50),
                 (play_sound, "snd_explosion"),
@@ -7704,6 +8235,7 @@ common_wot_seeker_trigger_12_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_12", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7770,10 +8302,12 @@ common_wot_seeker_trigger_12_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_12_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_12_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_12_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos42 ,50),
                 (play_sound, "snd_explosion"),
@@ -7795,6 +8329,7 @@ common_wot_seeker_trigger_13_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_13", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7861,10 +8396,12 @@ common_wot_seeker_trigger_13_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_13_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_13_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_13_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos43 ,50),
                 (play_sound, "snd_explosion"),
@@ -7886,6 +8423,7 @@ common_wot_seeker_trigger_14_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_14", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -7952,10 +8490,12 @@ common_wot_seeker_trigger_14_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_14_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_14_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_14_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos44 ,50),
                 (play_sound, "snd_explosion"),
@@ -7977,6 +8517,7 @@ common_wot_seeker_trigger_15_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_15", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -8043,10 +8584,12 @@ common_wot_seeker_trigger_15_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_15_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_15_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_15_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos45 ,50),
                 (play_sound, "snd_explosion"),
@@ -8068,6 +8611,7 @@ common_wot_seeker_trigger_16_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_16", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -8134,10 +8678,12 @@ common_wot_seeker_trigger_16_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_16_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_16_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_16_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos46 ,50),
                 (play_sound, "snd_explosion"),
@@ -8159,6 +8705,7 @@ common_wot_seeker_trigger_17_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_17", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -8225,10 +8772,12 @@ common_wot_seeker_trigger_17_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_17_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_17_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_17_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos47 ,50),
                 (play_sound, "snd_explosion"),
@@ -8250,6 +8799,7 @@ common_wot_seeker_trigger_18_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_18", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -8316,10 +8866,12 @@ common_wot_seeker_trigger_18_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_18_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_18_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_18_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos48 ,50),
                 (play_sound, "snd_explosion"),
@@ -8341,6 +8893,7 @@ common_wot_seeker_trigger_19_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_19", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -8407,10 +8960,12 @@ common_wot_seeker_trigger_19_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_19_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_19_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_19_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos49 ,50),
                 (play_sound, "snd_explosion"),
@@ -8433,6 +8988,7 @@ common_wot_seeker_trigger_20_multi = (
     0, 0, 0.00025,
     [
         (eq, "$g_seeker_slot_20", 1),
+        (multiplayer_is_server),
         ],
 	[
         
@@ -8499,10 +9055,12 @@ common_wot_seeker_trigger_20_multi = (
 		(agent_set_hit_points, "$g_seeker_slot_20_target", 0, 0),
                 (agent_get_slot, ":chosen", "$g_seeker_slot_20_target", slot_agent_seeker_shooter),
                 (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_20_target"),
-		(add_xp_to_troop, ":chosen", 50),
                 (try_begin),
                 (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
+                    (agent_get_player_id, ":player_id", ":chosen"),
+                    (player_get_gold, ":gold", ":player_id"),
+                    (val_add, ":gold", 300),
+                    (player_set_gold, ":player_id", ":gold", 15000),
                 (try_end),
 		(particle_system_burst, "psys_massive_green_fire", pos50 ,50),
                 (play_sound, "snd_explosion"),
@@ -25644,86 +26202,64 @@ mission_templates = [
       ###### Wheel of Time triggers
       #################################################################
 
-      common_wot_pre_initialization_variable_assignment,
-      common_wot_initialize_general_player_channeling_variables,
-      common_wot_initialize_timers,
-      
-      # pick one initialize weave_trigger (2 for custom battle)
-      #common_wot_initialize_channeling_weave_variables_1,
-      #common_wot_initialize_channeling_weave_variables_2,
-      common_wot_initialize_channeling_weave_variables_multi,
-      # end
-      
-      common_wot_timer_trigger_one_second,
-      common_wot_timer_trigger_one_tenth_second,
-      common_wot_timer_trigger_one_hundredth_second,
-      common_wot_timer_trigger_one_thousandth,
-      common_wot_check_for_channelers_in_the_scene,
-      #common_wot_spawn_warders,
-      #common_wot_dismount_spawned_warders_in_sieges,
-      common_wot_recharge_channeling_stamina_trigger_multi,
-      common_wot_weave_toggle_short_range_multi,
-      common_wot_weave_toggle_long_range_multi,
-      common_wot_weave_toggle_support_multi,
-      common_wot_weave_toggle_advanced_multi,
-      common_wot_weave_toggle_all_multi,
-      #common_wot_re_add_one_power_item_to_inventory,
-      common_wot_cycle_through_known_weaves_multi,
-      common_wot_inventory_click_to_refill_channeling_ammo,
-      common_wot_reset_troop_ratio_bar_multi,
-      common_wot_reset_troop_ratio_bar_additional_multi,
-      
-      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
-      #common_wot_airborne_trigger,
-      # end
+        common_wot_initialize_general_player_channeling_variables,
+        common_wot_initialize_timers,
+        common_wot_initialize_channeling_weave_variables_multi,
+        common_wot_server_update_client_seeker_global_variables_multi,
 
-      # use multiplayer version
-      common_wot_bound_trigger_multi,
+        common_wot_timer_trigger_one_second,
+        common_wot_timer_trigger_one_tenth_second,
+        common_wot_timer_trigger_one_hundredth_second,
+        common_wot_timer_trigger_one_thousandth,
 
-      # Test to see if these cause problems for White Tower in multiplayer
-      #common_wot_warder_follow_bond_holder,
-      #common_wot_leader_warder_determines_movement_of_group,
-      #common_wot_incapacitated_warders_trigger,
-      
-      common_wot_non_linked_suldam_trigger_multi,
-      common_suldam_with_dead_damane_trigger,
-      common_wot_nearby_myrddraal_trigger,
-      common_wot_myrddraal_fear_trigger,
-      common_wot_draghkar_hunt_trigger_multi,
-      common_wot_draghkar_kiss_of_death_trigger,
-      common_wot_shielded_trigger,
-      common_wot_compulsion_trigger,
-      
-      # pick one balefire trigger (2 for custom battle)
-      #common_wot_balefire_trigger_1,
-      common_wot_balefire_trigger_2,
-      # end
-      
-      #common_wot_burn_over_time_trigger, use _2 for multiplayer
-      common_wot_burn_over_time_trigger_2,
-      
-      # keep all seeker triggers active (use _multi for multiplayer)
-      common_wot_seeker_trigger_1_multi,
-      common_wot_seeker_trigger_2_multi,
-      common_wot_seeker_trigger_3_multi,
-      common_wot_seeker_trigger_4_multi,
-      common_wot_seeker_trigger_5_multi,
-      common_wot_seeker_trigger_6_multi,
-      common_wot_seeker_trigger_7_multi,
-      common_wot_seeker_trigger_8_multi,
-      common_wot_seeker_trigger_9_multi,
-      common_wot_seeker_trigger_10_multi,
-      common_wot_seeker_trigger_11_multi,
-      common_wot_seeker_trigger_12_multi,
-      common_wot_seeker_trigger_13_multi,
-      common_wot_seeker_trigger_14_multi,
-      common_wot_seeker_trigger_15_multi,
-      common_wot_seeker_trigger_16_multi,
-      common_wot_seeker_trigger_17_multi,
-      common_wot_seeker_trigger_18_multi,
-      common_wot_seeker_trigger_19_multi,
-      common_wot_seeker_trigger_20_multi,
-      # end
+        common_wot_check_for_channelers_in_the_scene_multi,
+        common_wot_recharge_channeling_stamina_trigger_multi,
+        common_wot_weave_toggle_short_range_multi,
+        common_wot_weave_toggle_long_range_multi,
+        common_wot_weave_toggle_support_multi,
+        common_wot_weave_toggle_advanced_multi,
+        common_wot_weave_toggle_all_multi,
+        common_wot_cycle_through_known_weaves_multi,
+
+        common_wot_reset_troop_ratio_bar_multi,
+        common_wot_reset_troop_ratio_bar_additional_multi,
+        #common_wot_reset_troop_ratio_bar_multi_2,
+        #common_wot_reset_troop_ratio_bar_additional_multi_2,
+
+        #common_wot_airborne_trigger,
+
+        common_wot_bound_trigger_multi,
+        common_wot_non_linked_suldam_trigger_multi,
+        common_suldam_with_dead_damane_trigger_multi,
+        common_wot_nearby_myrddraal_trigger_multi,
+        common_wot_myrddraal_fear_trigger_multi,
+        common_wot_draghkar_hunt_trigger_multi,
+        common_wot_draghkar_kiss_of_death_trigger_multi,
+        common_wot_shielded_trigger_multi,
+        common_wot_compulsion_trigger_multi,
+        common_wot_balefire_trigger_multi,
+        common_wot_burn_over_time_trigger_multi,
+
+        common_wot_seeker_trigger_1_multi,
+        common_wot_seeker_trigger_2_multi,
+        common_wot_seeker_trigger_3_multi,
+        common_wot_seeker_trigger_4_multi,
+        common_wot_seeker_trigger_5_multi,
+        common_wot_seeker_trigger_6_multi,
+        common_wot_seeker_trigger_7_multi,
+        common_wot_seeker_trigger_8_multi,
+        common_wot_seeker_trigger_9_multi,
+        common_wot_seeker_trigger_10_multi,
+        common_wot_seeker_trigger_11_multi,
+        common_wot_seeker_trigger_12_multi,
+        common_wot_seeker_trigger_13_multi,
+        common_wot_seeker_trigger_14_multi,
+        common_wot_seeker_trigger_15_multi,
+        common_wot_seeker_trigger_16_multi,
+        common_wot_seeker_trigger_17_multi,
+        common_wot_seeker_trigger_18_multi,
+        common_wot_seeker_trigger_19_multi,
+        common_wot_seeker_trigger_20_multi,
  
       #########################################################################
       ###### end Wheel of Time triggers
@@ -25732,7 +26268,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (1, 1, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
+      (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -26031,85 +26567,64 @@ mission_templates = [
       ###### Wheel of Time triggers
       #################################################################
 
-      common_wot_pre_initialization_variable_assignment,
-      common_wot_initialize_general_player_channeling_variables,
-      common_wot_initialize_timers,
-      
-      # pick one initialize weave_trigger (2 for custom battle)
-      #common_wot_initialize_channeling_weave_variables_1,
-      #common_wot_initialize_channeling_weave_variables_2,
-      common_wot_initialize_channeling_weave_variables_multi,
-      # end
-      
-      common_wot_timer_trigger_one_second,
-      common_wot_timer_trigger_one_tenth_second,
-      common_wot_timer_trigger_one_hundredth_second,
-      common_wot_timer_trigger_one_thousandth,
-      common_wot_check_for_channelers_in_the_scene,
-      #common_wot_spawn_warders,
-      #common_wot_dismount_spawned_warders_in_sieges,
-      common_wot_recharge_channeling_stamina_trigger_multi,
-      common_wot_weave_toggle_short_range_multi,
-      common_wot_weave_toggle_long_range_multi,
-      common_wot_weave_toggle_support_multi,
-      common_wot_weave_toggle_advanced_multi,
-      common_wot_weave_toggle_all_multi,
-      #common_wot_re_add_one_power_item_to_inventory,
-      common_wot_cycle_through_known_weaves_multi,
-      common_wot_inventory_click_to_refill_channeling_ammo,
-      common_wot_reset_troop_ratio_bar_multi,
-      common_wot_reset_troop_ratio_bar_additional_multi,
-      
-      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
-      #common_wot_airborne_trigger,
-      # end
+        common_wot_initialize_general_player_channeling_variables,
+        common_wot_initialize_timers,
+        common_wot_initialize_channeling_weave_variables_multi,
+        common_wot_server_update_client_seeker_global_variables_multi,
 
-      # use multiplayer version
-      common_wot_bound_trigger_multi,
+        common_wot_timer_trigger_one_second,
+        common_wot_timer_trigger_one_tenth_second,
+        common_wot_timer_trigger_one_hundredth_second,
+        common_wot_timer_trigger_one_thousandth,
 
-      # Test to see if these cause problems for White Tower in multiplayer
-      #common_wot_warder_follow_bond_holder,
-      #common_wot_leader_warder_determines_movement_of_group,
-      #common_wot_incapacitated_warders_trigger,
-      
-      common_wot_non_linked_suldam_trigger_multi,
-      common_suldam_with_dead_damane_trigger,
-      common_wot_nearby_myrddraal_trigger,
-      common_wot_myrddraal_fear_trigger,
-      common_wot_draghkar_hunt_trigger_multi,
-      common_wot_draghkar_kiss_of_death_trigger,
-      common_wot_shielded_trigger,
-      common_wot_compulsion_trigger,
-      
-      # pick one balefire trigger (2 for custom battle)
-      #common_wot_balefire_trigger_1,
-      common_wot_balefire_trigger_2,
-      # end
-      
-      #common_wot_burn_over_time_trigger, use _2 for multiplayer
-      common_wot_burn_over_time_trigger_2,
-      
-      # keep all seeker triggers active (use _multi for multiplayer)
-      common_wot_seeker_trigger_1_multi,
-      common_wot_seeker_trigger_2_multi,
-      common_wot_seeker_trigger_3_multi,
-      common_wot_seeker_trigger_4_multi,
-      common_wot_seeker_trigger_5_multi,
-      common_wot_seeker_trigger_6_multi,
-      common_wot_seeker_trigger_7_multi,
-      common_wot_seeker_trigger_8_multi,
-      common_wot_seeker_trigger_9_multi,
-      common_wot_seeker_trigger_10_multi,
-      common_wot_seeker_trigger_11_multi,
-      common_wot_seeker_trigger_12_multi,
-      common_wot_seeker_trigger_13_multi,
-      common_wot_seeker_trigger_14_multi,
-      common_wot_seeker_trigger_15_multi,
-      common_wot_seeker_trigger_16_multi,
-      common_wot_seeker_trigger_17_multi,
-      common_wot_seeker_trigger_18_multi,
-      common_wot_seeker_trigger_19_multi,
-      common_wot_seeker_trigger_20_multi,
+        common_wot_check_for_channelers_in_the_scene_multi,
+        common_wot_recharge_channeling_stamina_trigger_multi,
+        common_wot_weave_toggle_short_range_multi,
+        common_wot_weave_toggle_long_range_multi,
+        common_wot_weave_toggle_support_multi,
+        common_wot_weave_toggle_advanced_multi,
+        common_wot_weave_toggle_all_multi,
+        common_wot_cycle_through_known_weaves_multi,
+
+        common_wot_reset_troop_ratio_bar_multi,
+        common_wot_reset_troop_ratio_bar_additional_multi,
+        #common_wot_reset_troop_ratio_bar_multi_2,
+        #common_wot_reset_troop_ratio_bar_additional_multi_2,
+
+        #common_wot_airborne_trigger,
+
+        common_wot_bound_trigger_multi,
+        common_wot_non_linked_suldam_trigger_multi,
+        common_suldam_with_dead_damane_trigger_multi,
+        common_wot_nearby_myrddraal_trigger_multi,
+        common_wot_myrddraal_fear_trigger_multi,
+        common_wot_draghkar_hunt_trigger_multi,
+        common_wot_draghkar_kiss_of_death_trigger_multi,
+        common_wot_shielded_trigger_multi,
+        common_wot_compulsion_trigger_multi,
+        common_wot_balefire_trigger_multi,
+        common_wot_burn_over_time_trigger_multi,
+
+        common_wot_seeker_trigger_1_multi,
+        common_wot_seeker_trigger_2_multi,
+        common_wot_seeker_trigger_3_multi,
+        common_wot_seeker_trigger_4_multi,
+        common_wot_seeker_trigger_5_multi,
+        common_wot_seeker_trigger_6_multi,
+        common_wot_seeker_trigger_7_multi,
+        common_wot_seeker_trigger_8_multi,
+        common_wot_seeker_trigger_9_multi,
+        common_wot_seeker_trigger_10_multi,
+        common_wot_seeker_trigger_11_multi,
+        common_wot_seeker_trigger_12_multi,
+        common_wot_seeker_trigger_13_multi,
+        common_wot_seeker_trigger_14_multi,
+        common_wot_seeker_trigger_15_multi,
+        common_wot_seeker_trigger_16_multi,
+        common_wot_seeker_trigger_17_multi,
+        common_wot_seeker_trigger_18_multi,
+        common_wot_seeker_trigger_19_multi,
+        common_wot_seeker_trigger_20_multi,
       # end
  
       #########################################################################
@@ -26119,7 +26634,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (1, 1, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
+      (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -27159,86 +27674,64 @@ mission_templates = [
       ###### Wheel of Time triggers
       #################################################################
 
-      common_wot_pre_initialization_variable_assignment,
-      common_wot_initialize_general_player_channeling_variables,
-      common_wot_initialize_timers,
-      
-      # pick one initialize weave_trigger (2 for custom battle)
-      #common_wot_initialize_channeling_weave_variables_1,
-      #common_wot_initialize_channeling_weave_variables_2,
-      common_wot_initialize_channeling_weave_variables_multi,
-      # end
-      
-      common_wot_timer_trigger_one_second,
-      common_wot_timer_trigger_one_tenth_second,
-      common_wot_timer_trigger_one_hundredth_second,
-      common_wot_timer_trigger_one_thousandth,
-      common_wot_check_for_channelers_in_the_scene,
-      #common_wot_spawn_warders,
-      #common_wot_dismount_spawned_warders_in_sieges,
-      common_wot_recharge_channeling_stamina_trigger_multi,
-      common_wot_weave_toggle_short_range_multi,
-      common_wot_weave_toggle_long_range_multi,
-      common_wot_weave_toggle_support_multi,
-      common_wot_weave_toggle_advanced_multi,
-      common_wot_weave_toggle_all_multi,
-      #common_wot_re_add_one_power_item_to_inventory,
-      common_wot_cycle_through_known_weaves_multi,
-      common_wot_inventory_click_to_refill_channeling_ammo,
-      common_wot_reset_troop_ratio_bar_multi,
-      common_wot_reset_troop_ratio_bar_additional_multi,
-      
-      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
-      #common_wot_airborne_trigger,
-      # end
+        common_wot_initialize_general_player_channeling_variables,
+        common_wot_initialize_timers,
+        common_wot_initialize_channeling_weave_variables_multi,
+        common_wot_server_update_client_seeker_global_variables_multi,
 
-      # use multiplayer version
-      common_wot_bound_trigger_multi,
+        common_wot_timer_trigger_one_second,
+        common_wot_timer_trigger_one_tenth_second,
+        common_wot_timer_trigger_one_hundredth_second,
+        common_wot_timer_trigger_one_thousandth,
 
-      # Test to see if these cause problems for White Tower in multiplayer
-      #common_wot_warder_follow_bond_holder,
-      #common_wot_leader_warder_determines_movement_of_group,
-      #common_wot_incapacitated_warders_trigger,
-      
-      common_wot_non_linked_suldam_trigger_multi,
-      common_suldam_with_dead_damane_trigger,
-      common_wot_nearby_myrddraal_trigger,
-      common_wot_myrddraal_fear_trigger,
-      common_wot_draghkar_hunt_trigger_multi,
-      common_wot_draghkar_kiss_of_death_trigger,
-      common_wot_shielded_trigger,
-      common_wot_compulsion_trigger,
-      
-      # pick one balefire trigger (2 for custom battle)
-      #common_wot_balefire_trigger_1,
-      common_wot_balefire_trigger_2,
-      # end
-      
-      #common_wot_burn_over_time_trigger, use _2 for multiplayer
-      common_wot_burn_over_time_trigger_2,
-      
-      # keep all seeker triggers active (use _multi for multiplayer)
-      common_wot_seeker_trigger_1_multi,
-      common_wot_seeker_trigger_2_multi,
-      common_wot_seeker_trigger_3_multi,
-      common_wot_seeker_trigger_4_multi,
-      common_wot_seeker_trigger_5_multi,
-      common_wot_seeker_trigger_6_multi,
-      common_wot_seeker_trigger_7_multi,
-      common_wot_seeker_trigger_8_multi,
-      common_wot_seeker_trigger_9_multi,
-      common_wot_seeker_trigger_10_multi,
-      common_wot_seeker_trigger_11_multi,
-      common_wot_seeker_trigger_12_multi,
-      common_wot_seeker_trigger_13_multi,
-      common_wot_seeker_trigger_14_multi,
-      common_wot_seeker_trigger_15_multi,
-      common_wot_seeker_trigger_16_multi,
-      common_wot_seeker_trigger_17_multi,
-      common_wot_seeker_trigger_18_multi,
-      common_wot_seeker_trigger_19_multi,
-      common_wot_seeker_trigger_20_multi,
-      # end
+        common_wot_check_for_channelers_in_the_scene_multi,
+        common_wot_recharge_channeling_stamina_trigger_multi,
+        common_wot_weave_toggle_short_range_multi,
+        common_wot_weave_toggle_long_range_multi,
+        common_wot_weave_toggle_support_multi,
+        common_wot_weave_toggle_advanced_multi,
+        common_wot_weave_toggle_all_multi,
+        common_wot_cycle_through_known_weaves_multi,
+
+        common_wot_reset_troop_ratio_bar_multi,
+        common_wot_reset_troop_ratio_bar_additional_multi,
+        #common_wot_reset_troop_ratio_bar_multi_2,
+        #common_wot_reset_troop_ratio_bar_additional_multi_2,
+
+        #common_wot_airborne_trigger,
+
+        common_wot_bound_trigger_multi,
+        common_wot_non_linked_suldam_trigger_multi,
+        common_suldam_with_dead_damane_trigger_multi,
+        common_wot_nearby_myrddraal_trigger_multi,
+        common_wot_myrddraal_fear_trigger_multi,
+        common_wot_draghkar_hunt_trigger_multi,
+        common_wot_draghkar_kiss_of_death_trigger_multi,
+        common_wot_shielded_trigger_multi,
+        common_wot_compulsion_trigger_multi,
+        common_wot_balefire_trigger_multi,
+        common_wot_burn_over_time_trigger_multi,
+
+        common_wot_seeker_trigger_1_multi,
+        common_wot_seeker_trigger_2_multi,
+        common_wot_seeker_trigger_3_multi,
+        common_wot_seeker_trigger_4_multi,
+        common_wot_seeker_trigger_5_multi,
+        common_wot_seeker_trigger_6_multi,
+        common_wot_seeker_trigger_7_multi,
+        common_wot_seeker_trigger_8_multi,
+        common_wot_seeker_trigger_9_multi,
+        common_wot_seeker_trigger_10_multi,
+        common_wot_seeker_trigger_11_multi,
+        common_wot_seeker_trigger_12_multi,
+        common_wot_seeker_trigger_13_multi,
+        common_wot_seeker_trigger_14_multi,
+        common_wot_seeker_trigger_15_multi,
+        common_wot_seeker_trigger_16_multi,
+        common_wot_seeker_trigger_17_multi,
+        common_wot_seeker_trigger_18_multi,
+        common_wot_seeker_trigger_19_multi,
+        common_wot_seeker_trigger_20_multi,
  
       #########################################################################
       ###### end Wheel of Time triggers
@@ -27247,7 +27740,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (1, 1, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
+      (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -27946,86 +28439,64 @@ mission_templates = [
       ###### Wheel of Time triggers
       #################################################################
 
-      common_wot_pre_initialization_variable_assignment,
-      common_wot_initialize_general_player_channeling_variables,
-      common_wot_initialize_timers,
-      
-      # pick one initialize weave_trigger (2 for custom battle)
-      #common_wot_initialize_channeling_weave_variables_1,
-      #common_wot_initialize_channeling_weave_variables_2,
-      common_wot_initialize_channeling_weave_variables_multi,
-      # end
-      
-      common_wot_timer_trigger_one_second,
-      common_wot_timer_trigger_one_tenth_second,
-      common_wot_timer_trigger_one_hundredth_second,
-      common_wot_timer_trigger_one_thousandth,
-      common_wot_check_for_channelers_in_the_scene,
-      #common_wot_spawn_warders,
-      #common_wot_dismount_spawned_warders_in_sieges,
-      common_wot_recharge_channeling_stamina_trigger_multi,
-      common_wot_weave_toggle_short_range_multi,
-      common_wot_weave_toggle_long_range_multi,
-      common_wot_weave_toggle_support_multi,
-      common_wot_weave_toggle_advanced_multi,
-      common_wot_weave_toggle_all_multi,
-      #common_wot_re_add_one_power_item_to_inventory,
-      common_wot_cycle_through_known_weaves_multi,
-      common_wot_inventory_click_to_refill_channeling_ammo,
-      common_wot_reset_troop_ratio_bar_multi_2,
-      common_wot_reset_troop_ratio_bar_additional_multi_2,
-      
-      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
-      #common_wot_airborne_trigger,
-      # end
+        common_wot_initialize_general_player_channeling_variables,
+        common_wot_initialize_timers,
+        common_wot_initialize_channeling_weave_variables_multi,
+        common_wot_server_update_client_seeker_global_variables_multi,
 
-      # use multiplayer version
-      common_wot_bound_trigger_multi,
+        common_wot_timer_trigger_one_second,
+        common_wot_timer_trigger_one_tenth_second,
+        common_wot_timer_trigger_one_hundredth_second,
+        common_wot_timer_trigger_one_thousandth,
 
-      # Test to see if these cause problems for White Tower in multiplayer
-      #common_wot_warder_follow_bond_holder,
-      #common_wot_leader_warder_determines_movement_of_group,
-      #common_wot_incapacitated_warders_trigger,
-      
-      common_wot_non_linked_suldam_trigger_multi,
-      common_suldam_with_dead_damane_trigger,
-      common_wot_nearby_myrddraal_trigger,
-      common_wot_myrddraal_fear_trigger,
-      common_wot_draghkar_hunt_trigger_multi,
-      common_wot_draghkar_kiss_of_death_trigger,
-      common_wot_shielded_trigger,
-      common_wot_compulsion_trigger,
-      
-      # pick one balefire trigger (2 for custom battle)
-      #common_wot_balefire_trigger_1,
-      common_wot_balefire_trigger_2,
-      # end
-      
-      #common_wot_burn_over_time_trigger, use _2 for multiplayer
-      common_wot_burn_over_time_trigger_2,
-      
-      # keep all seeker triggers active (use _multi for multiplayer)
-      common_wot_seeker_trigger_1_multi,
-      common_wot_seeker_trigger_2_multi,
-      common_wot_seeker_trigger_3_multi,
-      common_wot_seeker_trigger_4_multi,
-      common_wot_seeker_trigger_5_multi,
-      common_wot_seeker_trigger_6_multi,
-      common_wot_seeker_trigger_7_multi,
-      common_wot_seeker_trigger_8_multi,
-      common_wot_seeker_trigger_9_multi,
-      common_wot_seeker_trigger_10_multi,
-      common_wot_seeker_trigger_11_multi,
-      common_wot_seeker_trigger_12_multi,
-      common_wot_seeker_trigger_13_multi,
-      common_wot_seeker_trigger_14_multi,
-      common_wot_seeker_trigger_15_multi,
-      common_wot_seeker_trigger_16_multi,
-      common_wot_seeker_trigger_17_multi,
-      common_wot_seeker_trigger_18_multi,
-      common_wot_seeker_trigger_19_multi,
-      common_wot_seeker_trigger_20_multi,
-      # end
+        common_wot_check_for_channelers_in_the_scene_multi,
+        common_wot_recharge_channeling_stamina_trigger_multi,
+        common_wot_weave_toggle_short_range_multi,
+        common_wot_weave_toggle_long_range_multi,
+        common_wot_weave_toggle_support_multi,
+        common_wot_weave_toggle_advanced_multi,
+        common_wot_weave_toggle_all_multi,
+        common_wot_cycle_through_known_weaves_multi,
+
+        common_wot_reset_troop_ratio_bar_multi,
+        common_wot_reset_troop_ratio_bar_additional_multi,
+        #common_wot_reset_troop_ratio_bar_multi_2,
+        #common_wot_reset_troop_ratio_bar_additional_multi_2,
+
+        #common_wot_airborne_trigger,
+
+        common_wot_bound_trigger_multi,
+        common_wot_non_linked_suldam_trigger_multi,
+        common_suldam_with_dead_damane_trigger_multi,
+        common_wot_nearby_myrddraal_trigger_multi,
+        common_wot_myrddraal_fear_trigger_multi,
+        common_wot_draghkar_hunt_trigger_multi,
+        common_wot_draghkar_kiss_of_death_trigger_multi,
+        common_wot_shielded_trigger_multi,
+        common_wot_compulsion_trigger_multi,
+        common_wot_balefire_trigger_multi,
+        common_wot_burn_over_time_trigger_multi,
+
+        common_wot_seeker_trigger_1_multi,
+        common_wot_seeker_trigger_2_multi,
+        common_wot_seeker_trigger_3_multi,
+        common_wot_seeker_trigger_4_multi,
+        common_wot_seeker_trigger_5_multi,
+        common_wot_seeker_trigger_6_multi,
+        common_wot_seeker_trigger_7_multi,
+        common_wot_seeker_trigger_8_multi,
+        common_wot_seeker_trigger_9_multi,
+        common_wot_seeker_trigger_10_multi,
+        common_wot_seeker_trigger_11_multi,
+        common_wot_seeker_trigger_12_multi,
+        common_wot_seeker_trigger_13_multi,
+        common_wot_seeker_trigger_14_multi,
+        common_wot_seeker_trigger_15_multi,
+        common_wot_seeker_trigger_16_multi,
+        common_wot_seeker_trigger_17_multi,
+        common_wot_seeker_trigger_18_multi,
+        common_wot_seeker_trigger_19_multi,
+        common_wot_seeker_trigger_20_multi,
  
       #########################################################################
       ###### end Wheel of Time triggers
@@ -28034,7 +28505,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (1, 1, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
+      (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -29043,86 +29514,64 @@ mission_templates = [
       ###### Wheel of Time triggers
       #################################################################
 
-      common_wot_pre_initialization_variable_assignment,
-      common_wot_initialize_general_player_channeling_variables,
-      common_wot_initialize_timers,
-      
-      # pick one initialize weave_trigger (2 for custom battle)
-      #common_wot_initialize_channeling_weave_variables_1,
-      #common_wot_initialize_channeling_weave_variables_2,
-      common_wot_initialize_channeling_weave_variables_multi,
-      # end
-      
-      common_wot_timer_trigger_one_second,
-      common_wot_timer_trigger_one_tenth_second,
-      common_wot_timer_trigger_one_hundredth_second,
-      common_wot_timer_trigger_one_thousandth,
-      common_wot_check_for_channelers_in_the_scene,
-      #common_wot_spawn_warders,
-      #common_wot_dismount_spawned_warders_in_sieges,
-      common_wot_recharge_channeling_stamina_trigger_multi,
-      common_wot_weave_toggle_short_range_multi,
-      common_wot_weave_toggle_long_range_multi,
-      common_wot_weave_toggle_support_multi,
-      common_wot_weave_toggle_advanced_multi,
-      common_wot_weave_toggle_all_multi,
-      #common_wot_re_add_one_power_item_to_inventory,
-      common_wot_cycle_through_known_weaves_multi,
-      common_wot_inventory_click_to_refill_channeling_ammo,
-      common_wot_reset_troop_ratio_bar_multi,
-      common_wot_reset_troop_ratio_bar_additional_multi,
-      
-      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
-      #common_wot_airborne_trigger,
-      # end
+        common_wot_initialize_general_player_channeling_variables,
+        common_wot_initialize_timers,
+        common_wot_initialize_channeling_weave_variables_multi,
+        common_wot_server_update_client_seeker_global_variables_multi,
 
-      # use multiplayer version
-      common_wot_bound_trigger_multi,
+        common_wot_timer_trigger_one_second,
+        common_wot_timer_trigger_one_tenth_second,
+        common_wot_timer_trigger_one_hundredth_second,
+        common_wot_timer_trigger_one_thousandth,
 
-      # Test to see if these cause problems for White Tower in multiplayer
-      #common_wot_warder_follow_bond_holder,
-      #common_wot_leader_warder_determines_movement_of_group,
-      #common_wot_incapacitated_warders_trigger,
-      
-      common_wot_non_linked_suldam_trigger_multi,
-      common_suldam_with_dead_damane_trigger,
-      common_wot_nearby_myrddraal_trigger,
-      common_wot_myrddraal_fear_trigger,
-      common_wot_draghkar_hunt_trigger_multi,
-      common_wot_draghkar_kiss_of_death_trigger,
-      common_wot_shielded_trigger,
-      common_wot_compulsion_trigger,
-      
-      # pick one balefire trigger (2 for custom battle)
-      #common_wot_balefire_trigger_1,
-      common_wot_balefire_trigger_2,
-      # end
-      
-      #common_wot_burn_over_time_trigger, use _2 for multiplayer
-      common_wot_burn_over_time_trigger_2,
-      
-      # keep all seeker triggers active (use _multi for multiplayer)
-      common_wot_seeker_trigger_1_multi,
-      common_wot_seeker_trigger_2_multi,
-      common_wot_seeker_trigger_3_multi,
-      common_wot_seeker_trigger_4_multi,
-      common_wot_seeker_trigger_5_multi,
-      common_wot_seeker_trigger_6_multi,
-      common_wot_seeker_trigger_7_multi,
-      common_wot_seeker_trigger_8_multi,
-      common_wot_seeker_trigger_9_multi,
-      common_wot_seeker_trigger_10_multi,
-      common_wot_seeker_trigger_11_multi,
-      common_wot_seeker_trigger_12_multi,
-      common_wot_seeker_trigger_13_multi,
-      common_wot_seeker_trigger_14_multi,
-      common_wot_seeker_trigger_15_multi,
-      common_wot_seeker_trigger_16_multi,
-      common_wot_seeker_trigger_17_multi,
-      common_wot_seeker_trigger_18_multi,
-      common_wot_seeker_trigger_19_multi,
-      common_wot_seeker_trigger_20_multi,
-      # end
+        common_wot_check_for_channelers_in_the_scene_multi,
+        common_wot_recharge_channeling_stamina_trigger_multi,
+        common_wot_weave_toggle_short_range_multi,
+        common_wot_weave_toggle_long_range_multi,
+        common_wot_weave_toggle_support_multi,
+        common_wot_weave_toggle_advanced_multi,
+        common_wot_weave_toggle_all_multi,
+        common_wot_cycle_through_known_weaves_multi,
+
+        common_wot_reset_troop_ratio_bar_multi,
+        common_wot_reset_troop_ratio_bar_additional_multi,
+        #common_wot_reset_troop_ratio_bar_multi_2,
+        #common_wot_reset_troop_ratio_bar_additional_multi_2,
+
+        #common_wot_airborne_trigger,
+
+        common_wot_bound_trigger_multi,
+        common_wot_non_linked_suldam_trigger_multi,
+        common_suldam_with_dead_damane_trigger_multi,
+        common_wot_nearby_myrddraal_trigger_multi,
+        common_wot_myrddraal_fear_trigger_multi,
+        common_wot_draghkar_hunt_trigger_multi,
+        common_wot_draghkar_kiss_of_death_trigger_multi,
+        common_wot_shielded_trigger_multi,
+        common_wot_compulsion_trigger_multi,
+        common_wot_balefire_trigger_multi,
+        common_wot_burn_over_time_trigger_multi,
+
+        common_wot_seeker_trigger_1_multi,
+        common_wot_seeker_trigger_2_multi,
+        common_wot_seeker_trigger_3_multi,
+        common_wot_seeker_trigger_4_multi,
+        common_wot_seeker_trigger_5_multi,
+        common_wot_seeker_trigger_6_multi,
+        common_wot_seeker_trigger_7_multi,
+        common_wot_seeker_trigger_8_multi,
+        common_wot_seeker_trigger_9_multi,
+        common_wot_seeker_trigger_10_multi,
+        common_wot_seeker_trigger_11_multi,
+        common_wot_seeker_trigger_12_multi,
+        common_wot_seeker_trigger_13_multi,
+        common_wot_seeker_trigger_14_multi,
+        common_wot_seeker_trigger_15_multi,
+        common_wot_seeker_trigger_16_multi,
+        common_wot_seeker_trigger_17_multi,
+        common_wot_seeker_trigger_18_multi,
+        common_wot_seeker_trigger_19_multi,
+        common_wot_seeker_trigger_20_multi,
  
       #########################################################################
       ###### end Wheel of Time triggers
@@ -29131,7 +29580,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (1, 1, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
+      (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -30279,86 +30728,64 @@ mission_templates = [
       ###### Wheel of Time triggers
       #################################################################
 
-      common_wot_pre_initialization_variable_assignment,
-      common_wot_initialize_general_player_channeling_variables,
-      common_wot_initialize_timers,
-      
-      # pick one initialize weave_trigger (2 for custom battle)
-      #common_wot_initialize_channeling_weave_variables_1,
-      #common_wot_initialize_channeling_weave_variables_2,
-      common_wot_initialize_channeling_weave_variables_multi,
-      # end
-      
-      common_wot_timer_trigger_one_second,
-      common_wot_timer_trigger_one_tenth_second,
-      common_wot_timer_trigger_one_hundredth_second,
-      common_wot_timer_trigger_one_thousandth,
-      common_wot_check_for_channelers_in_the_scene,
-      #common_wot_spawn_warders,
-      #common_wot_dismount_spawned_warders_in_sieges,
-      common_wot_recharge_channeling_stamina_trigger_multi,
-      common_wot_weave_toggle_short_range_multi,
-      common_wot_weave_toggle_long_range_multi,
-      common_wot_weave_toggle_support_multi,
-      common_wot_weave_toggle_advanced_multi,
-      common_wot_weave_toggle_all_multi,
-      #common_wot_re_add_one_power_item_to_inventory,
-      common_wot_cycle_through_known_weaves_multi,
-      common_wot_inventory_click_to_refill_channeling_ammo,
-      common_wot_reset_troop_ratio_bar_multi_2,
-      common_wot_reset_troop_ratio_bar_additional_multi_2,
-      
-      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
-      #common_wot_airborne_trigger,
-      # end
+        common_wot_initialize_general_player_channeling_variables,
+        common_wot_initialize_timers,
+        common_wot_initialize_channeling_weave_variables_multi,
+        common_wot_server_update_client_seeker_global_variables_multi,
 
-      # use multiplayer version
-      common_wot_bound_trigger_multi,
+        common_wot_timer_trigger_one_second,
+        common_wot_timer_trigger_one_tenth_second,
+        common_wot_timer_trigger_one_hundredth_second,
+        common_wot_timer_trigger_one_thousandth,
 
-      # Test to see if these cause problems for White Tower in multiplayer
-      #common_wot_warder_follow_bond_holder,
-      #common_wot_leader_warder_determines_movement_of_group,
-      #common_wot_incapacitated_warders_trigger,
-      
-      common_wot_non_linked_suldam_trigger_multi,
-      common_suldam_with_dead_damane_trigger,
-      common_wot_nearby_myrddraal_trigger,
-      common_wot_myrddraal_fear_trigger,
-      common_wot_draghkar_hunt_trigger_multi,
-      common_wot_draghkar_kiss_of_death_trigger,
-      common_wot_shielded_trigger,
-      common_wot_compulsion_trigger,
-      
-      # pick one balefire trigger (2 for custom battle)
-      #common_wot_balefire_trigger_1,
-      common_wot_balefire_trigger_2,
-      # end
-      
-      #common_wot_burn_over_time_trigger, use _2 for multiplayer
-      common_wot_burn_over_time_trigger_2,
-      
-      # keep all seeker triggers active (use _multi for multiplayer)
-      common_wot_seeker_trigger_1_multi,
-      common_wot_seeker_trigger_2_multi,
-      common_wot_seeker_trigger_3_multi,
-      common_wot_seeker_trigger_4_multi,
-      common_wot_seeker_trigger_5_multi,
-      common_wot_seeker_trigger_6_multi,
-      common_wot_seeker_trigger_7_multi,
-      common_wot_seeker_trigger_8_multi,
-      common_wot_seeker_trigger_9_multi,
-      common_wot_seeker_trigger_10_multi,
-      common_wot_seeker_trigger_11_multi,
-      common_wot_seeker_trigger_12_multi,
-      common_wot_seeker_trigger_13_multi,
-      common_wot_seeker_trigger_14_multi,
-      common_wot_seeker_trigger_15_multi,
-      common_wot_seeker_trigger_16_multi,
-      common_wot_seeker_trigger_17_multi,
-      common_wot_seeker_trigger_18_multi,
-      common_wot_seeker_trigger_19_multi,
-      common_wot_seeker_trigger_20_multi,
-      # end
+        common_wot_check_for_channelers_in_the_scene_multi,
+        common_wot_recharge_channeling_stamina_trigger_multi,
+        common_wot_weave_toggle_short_range_multi,
+        common_wot_weave_toggle_long_range_multi,
+        common_wot_weave_toggle_support_multi,
+        common_wot_weave_toggle_advanced_multi,
+        common_wot_weave_toggle_all_multi,
+        common_wot_cycle_through_known_weaves_multi,
+
+        common_wot_reset_troop_ratio_bar_multi,
+        common_wot_reset_troop_ratio_bar_additional_multi,
+        #common_wot_reset_troop_ratio_bar_multi_2,
+        #common_wot_reset_troop_ratio_bar_additional_multi_2,
+
+        #common_wot_airborne_trigger,
+
+        common_wot_bound_trigger_multi,
+        common_wot_non_linked_suldam_trigger_multi,
+        common_suldam_with_dead_damane_trigger_multi,
+        common_wot_nearby_myrddraal_trigger_multi,
+        common_wot_myrddraal_fear_trigger_multi,
+        common_wot_draghkar_hunt_trigger_multi,
+        common_wot_draghkar_kiss_of_death_trigger_multi,
+        common_wot_shielded_trigger_multi,
+        common_wot_compulsion_trigger_multi,
+        common_wot_balefire_trigger_multi,
+        common_wot_burn_over_time_trigger_multi,
+
+        common_wot_seeker_trigger_1_multi,
+        common_wot_seeker_trigger_2_multi,
+        common_wot_seeker_trigger_3_multi,
+        common_wot_seeker_trigger_4_multi,
+        common_wot_seeker_trigger_5_multi,
+        common_wot_seeker_trigger_6_multi,
+        common_wot_seeker_trigger_7_multi,
+        common_wot_seeker_trigger_8_multi,
+        common_wot_seeker_trigger_9_multi,
+        common_wot_seeker_trigger_10_multi,
+        common_wot_seeker_trigger_11_multi,
+        common_wot_seeker_trigger_12_multi,
+        common_wot_seeker_trigger_13_multi,
+        common_wot_seeker_trigger_14_multi,
+        common_wot_seeker_trigger_15_multi,
+        common_wot_seeker_trigger_16_multi,
+        common_wot_seeker_trigger_17_multi,
+        common_wot_seeker_trigger_18_multi,
+        common_wot_seeker_trigger_19_multi,
+        common_wot_seeker_trigger_20_multi,
  
       #########################################################################
       ###### end Wheel of Time triggers
@@ -30367,7 +30794,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (1, 1, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
+      (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -31428,86 +31855,64 @@ mission_templates = [
       ###### Wheel of Time triggers
       #################################################################
 
-      common_wot_pre_initialization_variable_assignment,
-      common_wot_initialize_general_player_channeling_variables,
-      common_wot_initialize_timers,
-      
-      # pick one initialize weave_trigger (2 for custom battle)
-      #common_wot_initialize_channeling_weave_variables_1,
-      #common_wot_initialize_channeling_weave_variables_2,
-      common_wot_initialize_channeling_weave_variables_multi,
-      # end
-      
-      common_wot_timer_trigger_one_second,
-      common_wot_timer_trigger_one_tenth_second,
-      common_wot_timer_trigger_one_hundredth_second,
-      common_wot_timer_trigger_one_thousandth,
-      common_wot_check_for_channelers_in_the_scene,
-      #common_wot_spawn_warders,
-      #common_wot_dismount_spawned_warders_in_sieges,
-      common_wot_recharge_channeling_stamina_trigger_multi,
-      common_wot_weave_toggle_short_range_multi,
-      common_wot_weave_toggle_long_range_multi,
-      common_wot_weave_toggle_support_multi,
-      common_wot_weave_toggle_advanced_multi,
-      common_wot_weave_toggle_all_multi,
-      #common_wot_re_add_one_power_item_to_inventory,
-      common_wot_cycle_through_known_weaves_multi,
-      common_wot_inventory_click_to_refill_channeling_ammo,
-      common_wot_reset_troop_ratio_bar_multi_2,
-      common_wot_reset_troop_ratio_bar_additional_multi_2,
-      
-      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
-      #common_wot_airborne_trigger,
-      # end
+        common_wot_initialize_general_player_channeling_variables,
+        common_wot_initialize_timers,
+        common_wot_initialize_channeling_weave_variables_multi,
+        common_wot_server_update_client_seeker_global_variables_multi,
 
-      # use multiplayer version
-      common_wot_bound_trigger_multi,
+        common_wot_timer_trigger_one_second,
+        common_wot_timer_trigger_one_tenth_second,
+        common_wot_timer_trigger_one_hundredth_second,
+        common_wot_timer_trigger_one_thousandth,
 
-      # Test to see if these cause problems for White Tower in multiplayer
-      #common_wot_warder_follow_bond_holder,
-      #common_wot_leader_warder_determines_movement_of_group,
-      #common_wot_incapacitated_warders_trigger,
-      
-      common_wot_non_linked_suldam_trigger_multi,
-      common_suldam_with_dead_damane_trigger,
-      common_wot_nearby_myrddraal_trigger,
-      common_wot_myrddraal_fear_trigger,
-      common_wot_draghkar_hunt_trigger_multi,
-      common_wot_draghkar_kiss_of_death_trigger,
-      common_wot_shielded_trigger,
-      common_wot_compulsion_trigger,
-      
-      # pick one balefire trigger (2 for custom battle)
-      #common_wot_balefire_trigger_1,
-      common_wot_balefire_trigger_2,
-      # end
-      
-      #common_wot_burn_over_time_trigger, use _2 for multiplayer
-      common_wot_burn_over_time_trigger_2,
-      
-      # keep all seeker triggers active (use _multi for multiplayer)
-      common_wot_seeker_trigger_1_multi,
-      common_wot_seeker_trigger_2_multi,
-      common_wot_seeker_trigger_3_multi,
-      common_wot_seeker_trigger_4_multi,
-      common_wot_seeker_trigger_5_multi,
-      common_wot_seeker_trigger_6_multi,
-      common_wot_seeker_trigger_7_multi,
-      common_wot_seeker_trigger_8_multi,
-      common_wot_seeker_trigger_9_multi,
-      common_wot_seeker_trigger_10_multi,
-      common_wot_seeker_trigger_11_multi,
-      common_wot_seeker_trigger_12_multi,
-      common_wot_seeker_trigger_13_multi,
-      common_wot_seeker_trigger_14_multi,
-      common_wot_seeker_trigger_15_multi,
-      common_wot_seeker_trigger_16_multi,
-      common_wot_seeker_trigger_17_multi,
-      common_wot_seeker_trigger_18_multi,
-      common_wot_seeker_trigger_19_multi,
-      common_wot_seeker_trigger_20_multi,
-      # end
+        common_wot_check_for_channelers_in_the_scene_multi,
+        common_wot_recharge_channeling_stamina_trigger_multi,
+        common_wot_weave_toggle_short_range_multi,
+        common_wot_weave_toggle_long_range_multi,
+        common_wot_weave_toggle_support_multi,
+        common_wot_weave_toggle_advanced_multi,
+        common_wot_weave_toggle_all_multi,
+        common_wot_cycle_through_known_weaves_multi,
+
+        common_wot_reset_troop_ratio_bar_multi,
+        common_wot_reset_troop_ratio_bar_additional_multi,
+        #common_wot_reset_troop_ratio_bar_multi_2,
+        #common_wot_reset_troop_ratio_bar_additional_multi_2,
+
+        #common_wot_airborne_trigger,
+
+        common_wot_bound_trigger_multi,
+        common_wot_non_linked_suldam_trigger_multi,
+        common_suldam_with_dead_damane_trigger_multi,
+        common_wot_nearby_myrddraal_trigger_multi,
+        common_wot_myrddraal_fear_trigger_multi,
+        common_wot_draghkar_hunt_trigger_multi,
+        common_wot_draghkar_kiss_of_death_trigger_multi,
+        common_wot_shielded_trigger_multi,
+        common_wot_compulsion_trigger_multi,
+        common_wot_balefire_trigger_multi,
+        common_wot_burn_over_time_trigger_multi,
+
+        common_wot_seeker_trigger_1_multi,
+        common_wot_seeker_trigger_2_multi,
+        common_wot_seeker_trigger_3_multi,
+        common_wot_seeker_trigger_4_multi,
+        common_wot_seeker_trigger_5_multi,
+        common_wot_seeker_trigger_6_multi,
+        common_wot_seeker_trigger_7_multi,
+        common_wot_seeker_trigger_8_multi,
+        common_wot_seeker_trigger_9_multi,
+        common_wot_seeker_trigger_10_multi,
+        common_wot_seeker_trigger_11_multi,
+        common_wot_seeker_trigger_12_multi,
+        common_wot_seeker_trigger_13_multi,
+        common_wot_seeker_trigger_14_multi,
+        common_wot_seeker_trigger_15_multi,
+        common_wot_seeker_trigger_16_multi,
+        common_wot_seeker_trigger_17_multi,
+        common_wot_seeker_trigger_18_multi,
+        common_wot_seeker_trigger_19_multi,
+        common_wot_seeker_trigger_20_multi,
  
       #########################################################################
       ###### end Wheel of Time triggers
@@ -31516,7 +31921,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (1, 1, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
+      (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
