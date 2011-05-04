@@ -41512,6 +41512,11 @@ items = [
                                     (val_sub,":target_health",5),
                                     (agent_set_hit_points,":agent",":target_health",1),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    # new for multiplayer
+                                    (player_get_gold, ":gold", ":player"),
+                                    (val_add, ":gold", 3),
+                                    (player_set_gold, ":player", ":gold", 15000),
+                                    # end
                                 (else_try),
                                     (agent_set_hit_points,":agent",0,0),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
@@ -41572,6 +41577,11 @@ items = [
                             (particle_system_burst, "psys_heal_aura", pos2, 50),
                             #(play_sound, "snd_heal"),
                             (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_heal"),
+                            # new for multiplayer
+                            (player_get_gold, ":gold", ":player"),
+                            (val_add, ":gold", 3),
+                            (player_set_gold, ":player", ":gold", 15000),
+                            # end
                         (try_end),
 
                     (try_end),
@@ -42018,6 +42028,11 @@ items = [
                                         #(particle_system_burst, "psys_unravel_aura", pos1, 50), # handle this on the server side
                                         #(play_sound, "snd_unravel"),
                                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 10),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
                                 (try_end),
                                     
                             (else_try),
@@ -42031,6 +42046,11 @@ items = [
                                         (particle_system_burst, "psys_unravel_aura", pos1, 50),
                                         #(play_sound, "snd_unravel"),
                                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 5),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
                                 (try_end),
                             (else_try),
                             (eq, ":chosen_active_effect", 4),
@@ -42043,6 +42063,11 @@ items = [
                                         (particle_system_burst, "psys_unravel_aura", pos1, 50),
                                         #(play_sound, "snd_unravel"),
                                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 5),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
                                 (try_end),
                             (try_end),
 
@@ -42059,6 +42084,11 @@ items = [
                                     (particle_system_burst, "psys_unravel_aura", pos2, 50),
                                     #(play_sound, "snd_unravel"),
                                     (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                                    # new for multiplayer
+                                    (player_get_gold, ":gold", ":player"),
+                                    (val_add, ":gold", 5),
+                                    (player_set_gold, ":player", ":gold", 15000),
+                                    # end
                             (try_end),
 
                         (else_try),
@@ -42137,6 +42167,11 @@ items = [
                                         #(particle_system_burst, "psys_unravel_aura", pos1, 50), # handle this on the server side
                                         #(play_sound, "snd_unravel"),
                                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 10),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
                                 (try_end),
 
                             (else_try),
@@ -42154,6 +42189,11 @@ items = [
                                         (particle_system_burst, "psys_unravel_aura", pos2, 50),
                                         #(play_sound, "snd_unravel"),
                                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 10),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
                                 (try_end),
                             (else_try),
                             (eq, ":teammate_active_effect", 3),
@@ -42168,6 +42208,11 @@ items = [
                                         (particle_system_burst, "psys_unravel_aura", pos2, 50),
                                         #(play_sound, "snd_unravel"),
                                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 5),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
                                 (try_end),
                             (else_try),
                             (eq, ":teammate_active_effect", 4),
@@ -42182,6 +42227,11 @@ items = [
                                         (particle_system_burst, "psys_unravel_aura", pos2, 50),
                                         #(play_sound, "snd_unravel"),
                                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 5),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
                                 (try_end),
                             (try_end),
                         (else_try),
@@ -43043,6 +43093,11 @@ items = [
                                     (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_shielded_by, ":chosen"),
                                     #(play_sound, "snd_shield"),  # new sound?
                                     (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_shield"),
+                                    # new for multiplayer
+                                    (player_get_gold, ":gold", ":player"),
+                                    (val_add, ":gold", 10),
+                                    (player_set_gold, ":player", ":gold", 15000),
+                                    # end
                             (try_end),
                         (try_end),
 
@@ -43096,8 +43151,6 @@ items = [
 
                         (try_begin),
                         (ge, ":number_of_enemies", 1),
-                
-                        (try_begin),            
                         (le, "$g_number_seekers_active", 20),
                             (assign, ":slot_found", 0),
                             (try_begin),
@@ -43284,7 +43337,6 @@ items = [
                         (else_try),
                         (ge, ":number_of_enemies", 1),
                         (eq, "$g_number_seekers_active", 20),
-                        (neg|agent_is_non_player, ":chosen"),
                             (display_message, "@Too many active seekers!!"), 
                         (try_end),
 
@@ -43342,45 +43394,114 @@ items = [
 
                             (agent_get_team, ":chosen_team", ":chosen"),
                             (agent_get_team, ":target_team", ":target"),
-                    
+            
                             (try_begin),
-                            (eq, ":channeler", 1), # target is channeler
+                            (agent_is_non_player), # run this for bots
+                    
                                 (try_begin),
-                                    (store_random_in_range, ":random", 1, 100),
-                                    (gt, ":random", 60),
-                                        (agent_set_team, ":target", ":chosen_team"),
-                                        (agent_clear_scripted_mode, ":target"),
-                
-                                        # set slot
-                                        #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
-                                        (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
-                                        #(agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
-                                        (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
-                                        #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
-                                        (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
-
-                                        #(play_sound, "snd_compulsion"),
-                                        (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
+                                (eq, ":channeler", 1), # target is channeler
+                                    (try_begin),
+                                        (store_random_in_range, ":random", 1, 100),
+                                        (gt, ":random", 60),
+                                            (agent_set_team, ":target", ":chosen_team"),
+                                            (agent_clear_scripted_mode, ":target"),
+                    
+                                            # set slot
+                                            #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
+                                            #(agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
+                                            #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
+    
+                                            #(play_sound, "snd_compulsion"),
+                                            (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
+                                            # new for multiplayer
+                                            (player_get_gold, ":gold", ":player"),
+                                            (val_add, ":gold", 10),
+                                            (player_set_gold, ":player", ":gold", 15000),
+                                            # end
+                                    (try_end),
+                                (else_try), # target is non-channeler
+                                    (try_begin),
+                                        (store_random_in_range, ":random", 1, 100),
+                                        (gt, ":random", 30),
+                                            (agent_set_team, ":target", ":chosen_team"),
+                                            (agent_clear_scripted_mode, ":target"),
+                    
+                                            # set slot
+                                            #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
+                                            #(agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
+                                            #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
+    
+                                            #(play_sound, "snd_compulsion"),
+                                            (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
+                                            # new for multiplayer
+                                            (player_get_gold, ":gold", ":player"),
+                                            (val_add, ":gold", 10),
+                                            (player_set_gold, ":player", ":gold", 15000),
+                                            # end
+                                    (try_end),
                                 (try_end),
-                            (else_try), # target is non-channeler
+            
+                            (else_try), # agent is human
+            
                                 (try_begin),
-                                    (store_random_in_range, ":random", 1, 100),
-                                    (gt, ":random", 30),
-                                        (agent_set_team, ":target", ":chosen_team"),
-                                        (agent_clear_scripted_mode, ":target"),
-                
-                                        # set slot
-                                        #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
-                                        (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
-                                        #(agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
-                                        (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
-                                        #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
-                                        (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
-
-                                        #(play_sound, "snd_compulsion"),
-                                        (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
+                                (eq, ":channeler", 1), # target is channeler
+                                    (try_begin),
+                                        (store_random_in_range, ":random", 1, 100),
+                                        (gt, ":random", 60),
+                                            # Remove the following two lines for humans
+                                            #(agent_set_team, ":target", ":chosen_team"),
+                                            #(agent_clear_scripted_mode, ":target"),
+                    
+                                            # set slot
+                                            #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
+                                            #(agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
+                                            #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
+    
+                                            #(play_sound, "snd_compulsion"),
+                                            (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
+                                            # new for multiplayer
+                                            (player_get_gold, ":gold", ":player"),
+                                            (val_add, ":gold", 10),
+                                            (player_set_gold, ":player", ":gold", 15000),
+                                            # end
+                                    (try_end),
+                                (else_try), # target is non-channeler
+                                    (try_begin),
+                                        (store_random_in_range, ":random", 1, 100),
+                                        (gt, ":random", 30),
+                                            # Remove the following two lines for humans
+                                            #(agent_set_team, ":target", ":chosen_team"),
+                                            #(agent_clear_scripted_mode, ":target"),
+                    
+                                            # set slot
+                                            #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
+                                            #(agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
+                                            #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
+                                            (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
+    
+                                            #(play_sound, "snd_compulsion"),
+                                            (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
+                                            # new for multiplayer
+                                            (player_get_gold, ":gold", ":player"),
+                                            (val_add, ":gold", 10),
+                                            (player_set_gold, ":player", ":gold", 15000),
+                                            # end
+                                    (try_end),
                                 (try_end),
+            
                             (try_end),
+            
                         (try_end),
 
                     (try_end),
@@ -43503,16 +43624,15 @@ items = [
             (try_end),
 
 
-
 #   Counts the number of times the player has used the channeling item
-            (val_add, "$g_number_of_weaves_used", 1),
+#            (val_add, "$g_number_of_weaves_used", 1),
 #            (assign, reg5, "$g_number_of_weaves_used"),
 #            (display_message, "@Player has channeled {reg5} times ..."),
 #   Warns that the player is almost out of 'ammo'
-            (try_begin),
-            (ge, "$g_number_of_weaves_used", 130),
-                (display_message, "str_almost_out_of_ammo"),
-            (try_end),
+#            (try_begin),
+#            (ge, "$g_number_of_weaves_used", 130),
+#                (display_message, "str_almost_out_of_ammo"),
+#            (try_end),
 #   Displays the player's channeling proficiency modifier
 #            (assign, reg4,"$g_channeling_proficiency_modifier"),
 #            (display_message, "@Current channeling proficiency modifier is {reg4} ..."),

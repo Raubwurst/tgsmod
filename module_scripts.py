@@ -13280,7 +13280,7 @@ scripts = [
       
 #####################################################
       (else_try), # read in seeker info from a client
-      (eq, ":event_type", multiplayer_event_send_seeker_info_to_server),
+      (eq, ":event_type", multiplayer_event_send_agent_slot_info_to_server),
       (neq, ":player_no", 0),
           (store_script_param, ":slot_type", 3),
           (store_script_param, ":agent_id", 4),
