@@ -1771,13 +1771,15 @@ common_wot_initialize_channeling_weave_variables_multi = (
              
          ])
 
-## Multiplayer Server update client Seeker global variables trigger
+## Multiplayer Server update client Seeker global variables trigger (also used to update agent slots)
 common_wot_server_update_client_seeker_global_variables_multi = (
-    0, 0, 0.5, [],
+    0, 0, 0.1, [(multiplayer_is_server)],
     [
         (get_max_players, ":num_players"),
         (try_for_range, ":player_no", 0, ":num_players"),
         (player_is_active, ":player_no"),
+        
+            # Update seeker global variables
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 0, 0, 0),
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 1, "$g_seeker_slot_1", "$g_seeker_slot_1_target"),
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 2, "$g_seeker_slot_2", "$g_seeker_slot_2_target"),
@@ -1799,6 +1801,74 @@ common_wot_server_update_client_seeker_global_variables_multi = (
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 18, "$g_seeker_slot_18", "$g_seeker_slot_18_target"),
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 19, "$g_seeker_slot_19", "$g_seeker_slot_19_target"),
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 20, "$g_seeker_slot_20", "$g_seeker_slot_20_target"),
+        
+            # Update agent slots
+            (try_for_agents, ":agent"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_has_active_seeker),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_has_active_seeker, ":slot_value"),
+             
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_on_fire),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_on_fire, ":slot_value"),
+        
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_fire_duration),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_fire_duration, ":slot_value"),
+             
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_is_airborne),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_is_airborne, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_airborne_x_movement),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_airborne_x_movement, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_airborne_y_movement),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_airborne_y_movement, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_airborne_power_factor),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_airborne_power_factor, ":slot_value"),
+
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_has_been_shocked),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_has_been_shocked, ":slot_value"),
+
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_is_bound),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_is_bound, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_bound_x),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_bound_x, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_bound_y),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_bound_y, ":slot_value"),
+
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_is_shielded),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_is_shielded, ":slot_value"),
+
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_under_compulsion),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_under_compulsion, ":slot_value"),
+
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_hit_by_balefire),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_hit_by_balefire, ":slot_value"),
+
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_has_warders_spawned),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_has_warders_spawned, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_is_warder_for_agent),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_is_warder_for_agent, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_aes_sedai_warder_1),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_aes_sedai_warder_1, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_aes_sedai_warder_2),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_aes_sedai_warder_2, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_aes_sedai_warder_3),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_aes_sedai_warder_3, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_aes_sedai_warder_4),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_aes_sedai_warder_4, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_warders_incapacitated),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_warders_incapacitated, ":slot_value"),
+
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_myrddraal_fear_counter),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_myrddraal_fear_counter, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_myrddraal_fear_magnitude),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_myrddraal_fear_magnitude, ":slot_value"),
+
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_has_draghkar_kiss),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_has_draghkar_kiss, ":slot_value"),
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_draghkar_cooldown),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_draghkar_cooldown, ":slot_value"),
+        
+                (agent_get_slot, ":slot_value", ":agent", slot_agent_is_channeler),
+                (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_is_channeler, ":slot_value"),
+            (try_end),
         (try_end),
      ])
 
@@ -3422,8 +3492,8 @@ common_wot_reset_troop_ratio_bar_additional = (
 common_wot_reset_troop_ratio_bar_multi = (
     0, 0.1, 0.2,
     [
-        (eq, "$g_reset_troop_ratio_bar", 1),
         (neq, multiplayer_is_server),
+        (eq, "$g_reset_troop_ratio_bar", 1),
         ],
          [
              (start_presentation, "prsnt_troop_ratio_bar_multiplayer"),
@@ -3441,8 +3511,8 @@ common_wot_reset_troop_ratio_bar_additional_multi = (
 common_wot_reset_troop_ratio_bar_multi_2 = (
     0, 0.1, 0.2,
     [
-        (eq, "$g_reset_troop_ratio_bar", 1),
         (neq, multiplayer_is_server),
+        (eq, "$g_reset_troop_ratio_bar", 1),
         ],
          [
              (start_presentation, "prsnt_troop_ratio_bar_multiplayer_2"),
@@ -26059,7 +26129,10 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-          (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_begin),
+          (neq, multiplayer_is_server),
+              (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_end),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -26423,7 +26496,10 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-          (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_begin),
+          (neq, multiplayer_is_server),
+              (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_end),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -26456,10 +26532,10 @@ mission_templates = [
         common_wot_weave_toggle_all_multi,
         common_wot_cycle_through_known_weaves_multi,
 
-        common_wot_reset_troop_ratio_bar_multi,
-        common_wot_reset_troop_ratio_bar_additional_multi,
-        #common_wot_reset_troop_ratio_bar_multi_2,
-        #common_wot_reset_troop_ratio_bar_additional_multi_2,
+        #common_wot_reset_troop_ratio_bar_multi,
+        #common_wot_reset_troop_ratio_bar_additional_multi,
+        common_wot_reset_troop_ratio_bar_multi_2,
+        common_wot_reset_troop_ratio_bar_additional_multi_2,
 
         #common_wot_airborne_trigger,
 
@@ -27530,7 +27606,10 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-          (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_begin),
+          (neq, multiplayer_is_server),
+              (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_end),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -28291,7 +28370,10 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-          (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_begin),
+          (neq, multiplayer_is_server),
+              (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_end),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -29366,7 +29448,10 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-          (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_begin),
+          (neq, multiplayer_is_server),
+              (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_end),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -30576,7 +30661,10 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-          (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_begin),
+          (neq, multiplayer_is_server),
+              (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_end),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -31707,7 +31795,10 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-          (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_begin),
+          (neq, multiplayer_is_server),
+              (assign, "$g_reset_troop_ratio_bar", 1),
+          (try_end),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
