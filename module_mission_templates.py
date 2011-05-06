@@ -26537,7 +26537,7 @@ mission_templates = [
         common_wot_reset_troop_ratio_bar_multi_2,
         common_wot_reset_troop_ratio_bar_additional_multi_2,
 
-        common_wot_airborne_trigger,
+        #common_wot_airborne_trigger,
 
         common_wot_bound_trigger_multi,
         common_wot_non_linked_suldam_trigger_multi,
@@ -26580,7 +26580,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
+      (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################

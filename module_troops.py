@@ -4904,8 +4904,7 @@ troops = [
     itm_leather_apron,itm_ankle_boots,itm_felt_hat,itm_saddle_horse],
    def_attrib_multiplayer|level(20),wpex(140,135,150,200,125,100),knows_common|knows_riding_3|knows_ironflesh_3|knows_shield_2|knows_power_draw_8|knows_power_strike_3|knows_athletics_5,swadian_face_young_1, swadian_face_old_2],
   ["legion_ashaman_multiplayer","Asha'man","Asha'man",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_1,
-   #HACK
-   [itm_power_player_multiplayer,itm_sword_medieval_a,itm_power_male_good_ranged,
+   [itm_power_player_multiplayer,itm_sword_medieval_a,
     itm_ashaman_soldier_coat, itm_black_leather_boots,itm_saddle_horse],
    def_attrib_multiplayer|level(20),wpex(140,135,150,135,125,100),knows_common|knows_riding_3|knows_ironflesh_4|knows_shield_2|knows_power_strike_3|knows_athletics_3,swadian_face_young_1, swadian_face_old_2],
     
