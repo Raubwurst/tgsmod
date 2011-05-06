@@ -2105,6 +2105,8 @@ scripts = [
       (item_set_slot, "itm_light_crossbow", slot_item_multiplayer_item_class, multi_item_class_type_bow),
       #new for wheel of time
       (item_set_slot, "itm_power_player_multiplayer", slot_item_multiplayer_item_class, multi_item_class_type_bow),
+      #HACK
+      (item_set_slot, "itm_power_male_good_ranged", slot_item_multiplayer_item_class, multi_item_class_type_bow),
       (item_set_slot, "itm_red_hand_fast_crossbow", slot_item_multiplayer_item_class, multi_item_class_type_bow),
       (item_set_slot, "itm_two_rivers_long_bow", slot_item_multiplayer_item_class, multi_item_class_type_bow),
       (item_set_slot, "itm_hunting_crossbow", slot_item_multiplayer_item_class, multi_item_class_type_bow),
@@ -2898,6 +2900,8 @@ scripts = [
 
       # Legion Channeler (Ashaman)
       (call_script, "script_multiplayer_set_item_available_for_troop", "itm_power_player_multiplayer", "trp_legion_ashaman_multiplayer"),
+      # HACK
+      (call_script, "script_multiplayer_set_item_available_for_troop", "itm_power_male_good_ranged", "trp_legion_ashaman_multiplayer"),
       
       (call_script, "script_multiplayer_set_item_available_for_troop", "itm_ashaman_soldier_coat", "trp_legion_ashaman_multiplayer"),
       (call_script, "script_multiplayer_set_item_available_for_troop", "itm_ashaman_dedicated_coat", "trp_legion_ashaman_multiplayer"),
