@@ -7982,83 +7982,108 @@ scripts = [
 #### V: NOTE: Possible FIXME, setting ages to current age in 998, year that TEoTW begins. May not be appropriate to scripted events?
 #### V: NOTE: Possible TODO, pretenders can presumably be defined here, too - needs testing
 
+### mat: testing changes
+    ## pre-initialization setup (to make sure certain slots aren't empty)
+    (try_for_range, ":cur_troop", lords_begin, lords_end),
+        (store_random_in_range, ":random", 20, 40),
+        (troop_set_slot, ":cur_troop", slot_troop_age, ":random"),
+    (try_end),
+    
+    (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
+        (store_random_in_range, ":random", 15, 35),
+        (troop_set_slot, ":cur_troop", slot_troop_age, ":random"),
+    (try_end),
+### mat: end
+
 ## V: BEGIN CODEBLOCK FOR TGS KNIGHT AGES, FAMILY AND REPUTATION
 
 #-##-###-####-#####-- DRAGON LEGION FACTION FAMILY STRUCTRE --#####-####-###-##-#
+    # lord 0
 	(troop_set_slot, "trp_kingdom_1_lord", slot_troop_age,20),  # Rand    
 	(troop_set_slot, "trp_kingdom_1_lord", slot_troop_father, "trp_knight_1_3"), # Tam
-
+    # 1ord 1
 	(troop_set_slot, "trp_knight_1_1", slot_troop_age,20),  # Mat    
 	(troop_set_slot, "trp_knight_1_1", slot_troop_father, "trp_knight_1_10"), # Abell
 	(troop_set_slot, "trp_knight_1_1", slot_troop_mother, "trp_kingdom_1_lady_1"), # Natti
 	(troop_set_slot, "trp_knight_1_1", slot_troop_spouse, "trp_kingdom_7_lord"), # Fortuona
-	
-	(troop_set_slot, "trp_kingdom_1_lady_1", slot_troop_age,45),
-	(troop_set_slot, "trp_kingdom_1_lady_1", slot_troop_spouse, "trp_knight_1_10"),
-	
-	(troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_age,16),
-	(troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_father, "trp_knight_1_10"), 
-	(troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_mother, "trp_kingdom_1_lady_1"),
-	
-	(troop_set_slot, "trp_knight_1_lady_3", slot_troop_age,14),
-	(troop_set_slot, "trp_knight_1_lady_3", slot_troop_father, "trp_knight_1_9"), 
-	(troop_set_slot, "trp_knight_1_lady_3", slot_troop_mother, "trp_kingdom_1_lady_1"), 
-	
-	(troop_set_slot, "trp_knight_1_2", slot_troop_age,20),  # Perrin    
+    # lord 2
+    (troop_set_slot, "trp_knight_1_2", slot_troop_age,20),  # Perrin    
 	(troop_set_slot, "trp_knight_1_2", slot_troop_spouse, "trp_knight_1_lady_4"), # Faile
-	
-	(troop_set_slot, "trp_knight_1_lady_4", slot_troop_age,21), 
-	(troop_set_slot, "trp_knight_1_lady_4", slot_troop_spouse, "trp_knight_1_2"),
-	
-	(troop_set_slot, "trp_knight_1_3", slot_troop_age,52),  # Tam    
-	
-	(troop_set_slot, "trp_knight_1_4", slot_troop_age,63),  # Damer    
-	
+    # lord 3
+	(troop_set_slot, "trp_knight_1_3", slot_troop_age,52),  # Tam  
+    # lord 4
+	(troop_set_slot, "trp_knight_1_4", slot_troop_age,63),  # Damer  
+    # lord 5
 	(troop_set_slot, "trp_knight_1_5", slot_troop_age,50),  # Davram    
 	(troop_set_slot, "trp_knight_1_5", slot_troop_spouse, "trp_kingdom_1_lady_5"), # Diera
-	
-	(troop_set_slot, "trp_kingdom_1_lady_5", slot_troop_age,41),
-	(troop_set_slot, "trp_kingdom_1_lady_5", slot_troop_spouse, "trp_knight_1_5"),
-	
-	(troop_set_slot, "trp_knight_1_6", slot_troop_age,22),  # Talmanes    
-	
-	(troop_set_slot, "trp_knight_1_7", slot_troop_age,26),  # Logain    
-	
-	(troop_set_slot, "trp_knight_1_8", slot_troop_age,22),  # Jahar   
-	
+    # lord 6
+	(troop_set_slot, "trp_knight_1_6", slot_troop_age,22),  # Talmanes  
+    # lord 7
+	(troop_set_slot, "trp_knight_1_7", slot_troop_age,26),  # Logain
+    # lord 8
+	(troop_set_slot, "trp_knight_1_8", slot_troop_age,22),  # Jahar
+    # lord 9
 	(troop_set_slot, "trp_knight_1_9", slot_troop_age,51),  # Bran    
 	(troop_set_slot, "trp_knight_1_9", slot_troop_spouse, "trp_kingdom_1_lady_6"),
-	
+    # lord 10
 	(troop_set_slot, "trp_knight_1_10", slot_troop_age,54),  # Abell  
 	(troop_set_slot, "trp_knight_1_10", slot_troop_spouse, "trp_kingdom_1_lady_1"),
-	
+    # lord 11
 	(troop_set_slot, "trp_knight_1_11", slot_troop_age,23),  # Min  
 	(troop_set_slot, "trp_knight_1_11", slot_troop_spouse, "trp_kingdom_1_lord"),
-	
-	(troop_set_slot, "trp_knight_1_12", slot_troop_age,44),  # Donaldo   
-	
-	(troop_set_slot, "trp_kingdom_1_lady_8", slot_troop_age,23),
-	(troop_set_slot, "trp_kingdom_1_lady_8", slot_troop_father, "trp_knight_1_12"), 
-	
-	(troop_set_slot, "trp_knight_1_13", slot_troop_age,17),  # Fager    
-	
+    # lord 12
+	(troop_set_slot, "trp_knight_1_12", slot_troop_age,44),  # Donaldo
+    # lord 13
+	(troop_set_slot, "trp_knight_1_13", slot_troop_age,17),  # Fager
+    # lord 14
 	(troop_set_slot, "trp_knight_1_14", slot_troop_age,27),  # Jur    
 	(troop_set_slot, "trp_knight_1_14", slot_troop_spouse, "trp_kingdom_1_lady_7"),
-	
-	(troop_set_slot, "trp_knight_1_15", slot_troop_age,37),  # Daerid    
-	
-	(troop_set_slot, "trp_kingdom_1_lady_9", slot_troop_age,17),
+    # lord 15
+	(troop_set_slot, "trp_knight_1_15", slot_troop_age,37),  # Daerid  
+    # lord 16
+	(troop_set_slot, "trp_knight_1_16", slot_troop_age,23),  # Ban    
+	# lord 17
+	(troop_set_slot, "trp_knight_1_17", slot_troop_age,32),  # Harnan    
+	# lord 18
+	(troop_set_slot, "trp_knight_1_18", slot_troop_age,43),  # Vanin    
+	# lord 19
+	(troop_set_slot, "trp_knight_1_19", slot_troop_age,23),  # Macoll    
+	# lord 20
+	(troop_set_slot, "trp_knight_1_20", slot_troop_age,59),  # Elyas
+
+    # lady 1
+	(troop_set_slot, "trp_kingdom_1_lady_1", slot_troop_age,45), # Natti Cauthon
+	(troop_set_slot, "trp_kingdom_1_lady_1", slot_troop_spouse, "trp_knight_1_10"),
+	# lady 2
+	(troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_age,16), # Bodewhin Cauthon
+	(troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_father, "trp_knight_1_10"), 
+	(troop_set_slot, "trp_kingdom_1_lady_2", slot_troop_mother, "trp_kingdom_1_lady_1"),
+	# lady 3
+	(troop_set_slot, "trp_knight_1_lady_3", slot_troop_age,14), # Eldrin Cauthon
+	(troop_set_slot, "trp_knight_1_lady_3", slot_troop_father, "trp_knight_1_10"), 
+	(troop_set_slot, "trp_knight_1_lady_3", slot_troop_mother, "trp_kingdom_1_lady_1"), 
+	# lady 4
+	(troop_set_slot, "trp_knight_1_lady_4", slot_troop_age,21), # Faile
+	(troop_set_slot, "trp_knight_1_lady_4", slot_troop_spouse, "trp_knight_1_2"),
+    (troop_set_slot, "trp_knight_1_lady_4", slot_troop_father, "trp_knight_1_5"),
+    (troop_set_slot, "trp_knight_1_lady_4", slot_troop_mother, "trp_kingdom_1_lady_5"),
+	# lady 5
+	(troop_set_slot, "trp_kingdom_1_lady_5", slot_troop_age,41), # Deira Bashere
+	(troop_set_slot, "trp_kingdom_1_lady_5", slot_troop_spouse, "trp_knight_1_5"),
+	# lady 6
+    (troop_set_slot, "trp_kingdom_1_lady_6", slot_troop_age, 45), # Marin al'Vere
+    (troop_set_slot, "trp_kingdom_1_lady_6", slot_troop_spouse, "trp_knight_1_9"),
+    # lady 7
+    (troop_set_slot, "trp_kingdom_1_lady_7", slot_troop_age, 25), # Sora Grady
+    (troop_set_slot, "trp_kingdom_1_lady_7", slot_troop_spouse, "trp_knight_1_14"),
+    # lady 8
+	(troop_set_slot, "trp_kingdom_1_lady_8", slot_troop_age,23), # Junitho Sandomere
+	(troop_set_slot, "trp_kingdom_1_lady_8", slot_troop_father, "trp_knight_1_12"), 
+	# lady 9
+	(troop_set_slot, "trp_kingdom_1_lady_9", slot_troop_age,17), # Katia Ondin
 	(troop_set_slot, "trp_kingdom_1_lady_9", slot_troop_father, "trp_knight_1_15"), 
 	
-	(troop_set_slot, "trp_knight_1_16", slot_troop_age,23),  # Ban    
-	
-	(troop_set_slot, "trp_knight_1_17", slot_troop_age,32),  # Harnan    
-	
-	(troop_set_slot, "trp_knight_1_18", slot_troop_age,43),  # Vanin    
-	
-	(troop_set_slot, "trp_knight_1_19", slot_troop_age,23),  # Macoll    
-	
-	(troop_set_slot, "trp_knight_1_20", slot_troop_age,59),  # Elyas    
+ 
 	
 #-##-###-####-#####-- SOUTHERN COALITION FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_2_lord", slot_troop_age,44),  # Semaradrid    
@@ -8633,7 +8658,149 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_8_19", slot_troop_age,41),  # High Lord Weiramon  
 	
-	(troop_set_slot, "trp_knight_8_20", slot_troop_age,37),  # Anaiyella   
+	(troop_set_slot, "trp_knight_8_20", slot_troop_age,37),  # Anaiyella
+    
+
+###############################################################################################################
+### mat: here's my attempt to fix all the code that follows and is confusing because of how chopped up it is...
+
+    ## mainly lordly reps
+    # 0: none
+    # 1: martial
+    # 2: quarrelsome
+    # 3: selfrighteous
+    # 4: cunning
+    # 5: debauched
+    # 6: goodnatured
+    # 7: upstanding
+
+    ## ?? mainly npc reps ??    
+    # 8: roguish
+    # 9: benefactor
+    # 10: custodian
+
+    ## lady reps
+    # 21: conventional
+    # 22: adventurous
+    # 23: otherworldly
+    # 24: ambitious
+    # 25: moralist    
+    
+    ### setup lord stuff
+    (try_for_range, ":cur_lord", lords_begin, lords_end),
+        (troop_set_slot, ":cur_lord", slot_troop_occupation, slto_kingdom_hero),
+
+        (store_random_in_range, ":random", 2, 16), # this can obviously be customized if we feel like it to give certain lords the right personality
+        (try_begin),
+        (lt, ":random", 8),
+            (troop_set_slot, ":cur_lord", slot_lord_reputation_type, ":random"),
+        (else_try),
+            (troop_set_slot, ":cur_lord", slot_lord_reputation_type, 1), # guarantees that about 50% will be martial
+        (try_end),
+    (try_end),
+
+    ### setup lady stuff
+    (try_for_range, ":cur_lady", kingdom_ladies_begin, kingdom_ladies_end),
+        (troop_set_slot, ":cur_lady", slot_troop_occupation, slto_kingdom_lady), # first
+
+        # ladies need a guardian
+        (troop_get_slot, ":spouse", ":cur_lady", slot_troop_spouse),
+        (try_begin),
+        (ge, ":spouse", 0),
+            (troop_set_slot, ":cur_lady", slot_troop_guardian, ":spouse"), # first choice for guardian is spouse
+        (else_try),
+    
+            (troop_get_slot, ":father", ":cur_lady", slot_troop_father),
+            (try_begin),
+            (ge, ":father", 0),
+                (troop_set_slot, ":cur_lady", slot_troop_guardian, ":father"), # second choice for guardian is father
+            (else_try),
+    
+                (troop_get_slot, ":mother", ":cur_lady", slot_troop_mother),
+                (try_begin),
+                (ge, ":mother", 0),
+                    (troop_set_slot, ":cur_lady", slot_troop_guardian, ":mother"), # third choice for guardian is mother
+                (else_try),
+                    (store_troop_faction, ":cur_lady_faction", ":cur_lady"),
+                    (try_begin),
+                    (eq, ":cur_lady_faction", "fac_kingdom_1"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_1_lord"), # fourth choice for guardian is kingdom lord
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_2"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_2_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_3"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_3_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_4"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_4_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_5"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_5_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_6"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_6_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_7"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_7_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_8"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_8_lord"),
+                    (try_end),
+                (try_end),
+
+            (try_end),
+    
+        (try_end),
+
+        # determine reputation
+        (troop_get_slot, ":spouse", ":cur_lady", slot_troop_spouse),
+        (try_begin),
+        (ge, ":spouse", 0), # lady is married
+            (store_random_in_range, ":wife_reputation", 20, 26),
+			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":wife_reputation"),
+        (else_try), # use guardian rep
+    
+            (troop_get_slot, ":guardian", ":cur_lady", slot_troop_guardian),
+            (try_begin),
+            (ge, ":guardian", 0),
+                (troop_get_slot, ":guardian_reputation", ":guardian", slot_lord_reputation_type),
+                (try_begin),
+				(this_or_next|eq, ":guardian_reputation", lrep_martial),
+				(eq, ":guardian_reputation", 0),
+    	            (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_conventional),
+				(else_try),
+				(eq, ":guardian_reputation", lrep_quarrelsome),
+					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_otherworldly),
+				(else_try),
+				(eq, ":guardian_reputation", lrep_selfrighteous),
+					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
+				(else_try),
+				(eq, ":guardian_reputation", lrep_cunning),
+					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
+				(else_try),
+				(eq, ":guardian_reputation", lrep_goodnatured),
+					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
+				(else_try),
+				(eq, ":guardian_reputation", lrep_debauched),
+					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
+				(else_try),
+				(eq, ":guardian_reputation", lrep_upstanding),
+					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
+				(try_end),
+    
+            (else_try), # assign randomly
+                (store_random_in_range, ":random", 20, 26),
+                (troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":random"),
+            (try_end),
+    
+        (try_end),
+            
+        (call_script, "script_add_lady_items", ":cur_lady"), # last
+    (try_end),
+
+### mat: END: here's my attempt to fix all the code that follows and is confusing because of how chopped up it is...
+####################################################################################################################
 	
 
 	  #The first thing - family structure
@@ -8643,14 +8810,15 @@ scripts = [
 	  #For the sake of simplicity, we can assume that all male aristocrats in prior generations either married commoners or procured their brides from the Old Country, thus discounting intermarriage
 
 
-	  (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
-	  		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_lady),
-	  (try_end),
+### mat: removed	  (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
+### mat: removed	  		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_lady),
+### mat: removed	  (try_end),
 
-	  (assign, ":cur_lady", "trp_kingdom_1_lady_1"),
+### mat: removed	  (assign, ":cur_lady", "trp_kingdom_1_lady_1"),
 	  
-	  (try_for_range, ":cur_troop", lords_begin, lords_end),
-		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+### mat: removed	  (try_for_range, ":cur_troop", lords_begin, lords_end),
+### mat: removed		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+### mat: removed      (try_end),
 
 ### BEGIN COMMENTED OUT FOR TGS
 #		(store_random_in_range, ":father_age_at_birth", 23, 26),
@@ -8701,12 +8869,12 @@ scripts = [
 #		
 #		
 ### END COMMENTED OUT FOR TGS
-		(try_begin),
+### mat: removed		(try_begin),
 ### BEGIN COMMENTED OUT FOR TGS
 #			(lt, ":npc_seed", 8), #NPC seed is the order in the faction
 #			(assign, ":reputation", ":npc_seed"),
 ### END COMMENTED OUT FOR TGS
-			(assign, ":reputation", 1), ## Added for TGS
+### mat: removed			(assign, ":reputation", 1), ## Added for TGS
 ### BEGIN COMMENTED OUT FOR TGS
 #			(store_random_in_range, ":age", 45, 64),
 #
@@ -8718,96 +8886,100 @@ scripts = [
 #			(troop_set_slot, ":cur_troop", slot_troop_spouse, ":cur_lady"),
 #			(troop_set_slot, ":cur_lady", slot_troop_spouse, ":cur_troop"),
 ### END COMMENTED OUT FOR TGS
-			(store_random_in_range, ":wife_reputation", 20, 26),
-			(try_begin),
-				(eq, ":wife_reputation", 20),
-				(assign, ":wife_reputation", lrep_conventional),	
-			(try_end),
-			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":wife_reputation"),
+### mat: removed			(store_random_in_range, ":wife_reputation", 20, 26),
+### mat: removed			(try_begin),
+### mat: removed				(eq, ":wife_reputation", 20),
+### mat: removed				(assign, ":wife_reputation", lrep_conventional),	
+### mat: removed			(try_end),
+### mat: removed			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":wife_reputation"),
 	
 #?			(troop_set_slot, "trp_kingdom_1_lady_1", slot_lord_reputation_type, ":wife_reputation"),
 
 #			(call_script, "script_init_troop_age", ":cur_lady", 49), # Commented out for TGS
-			(call_script, "script_add_lady_items", ":cur_lady"),
+### mat: removed			(call_script, "script_add_lady_items", ":cur_lady"),
 
-			(val_add, ":cur_lady", 1),
+### mat: removed			(val_add, ":cur_lady", 1),
 			
 
 			#daughter
 #			(troop_set_slot, ":cur_lady", slot_troop_father, ":cur_troop"), # Commented out for TGS
-			(store_sub, ":mother", ":cur_lady", 1),
+### mat: removed			(store_sub, ":mother", ":cur_lady", 1),
 #			(call_script, "script_init_troop_age", ":cur_lady", 19), # Commented out for TGS
 			
             ##diplomacy start+ fix native bug (daughters are their own mothers)
             #(troop_set_slot, ":cur_lady", slot_troop_mother, ":cur_lady"),
-            (troop_set_slot, ":cur_lady", slot_troop_mother, ":mother"),
+ ### mat: removed           (troop_set_slot, ":cur_lady", slot_troop_mother, ":mother"),
             ##diplomacy end+
 
-			(store_random_in_range, ":lady_reputation", lrep_conventional, 34), #33% chance of father-derived
-			(try_begin),
-				(le, ":lady_reputation", 25),
-				(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":lady_reputation"),
-			(else_try),
-				(eq, ":lady_reputation", 26),
-				(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_conventional),
-			(else_try),
-				(eq, ":lady_reputation", 27),
-				(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
-			(else_try),
-				(assign, ":guardian_reputation", ":reputation"),
-				(try_begin),
-					(this_or_next|eq, ":guardian_reputation", lrep_martial),
-						(eq, ":guardian_reputation", 0),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_conventional),
-				(else_try),
-					(eq, ":guardian_reputation", lrep_quarrelsome),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_otherworldly),
-				(else_try),
-					(eq, ":guardian_reputation", lrep_selfrighteous),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
-				(else_try),
-					(eq, ":guardian_reputation", lrep_cunning),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
-				(else_try),
-					(eq, ":guardian_reputation", lrep_goodnatured),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
-				(else_try),
-					(eq, ":guardian_reputation", lrep_debauched),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
-				(else_try),
-					(eq, ":guardian_reputation", lrep_upstanding),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
-				(try_end),
-			(try_end),
+### mat: removed			(store_random_in_range, ":lady_reputation", lrep_conventional, 34), #33% chance of father-derived
+### mat: removed			(try_begin),
+### mat: removed				(le, ":lady_reputation", 25),
+### mat: removed				(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":lady_reputation"),
+### mat: removed			(else_try),
+### mat: removed				(eq, ":lady_reputation", 26),
+### mat: removed				(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_conventional),
+### mat: removed			(else_try),
+### mat: removed				(eq, ":lady_reputation", 27),
+### mat: removed				(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
+### mat: removed			(else_try),
+### mat: removed				(assign, ":guardian_reputation", ":reputation"),
+### mat: removed				(try_begin),
+### mat: removed					(this_or_next|eq, ":guardian_reputation", lrep_martial),
+### mat: removed						(eq, ":guardian_reputation", 0),
+### mat: removed					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_conventional),
+### mat: removed				(else_try),
+### mat: removed					(eq, ":guardian_reputation", lrep_quarrelsome),
+### mat: removed					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_otherworldly),
+### mat: removed				(else_try),
+### mat: removed					(eq, ":guardian_reputation", lrep_selfrighteous),
+### mat: removed					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
+### mat: removed				(else_try),
+### mat: removed					(eq, ":guardian_reputation", lrep_cunning),
+### mat: removed					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
+### mat: removed				(else_try),
+### mat: removed					(eq, ":guardian_reputation", lrep_goodnatured),
+### mat: removed					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
+### mat: removed				(else_try),
+### mat: removed					(eq, ":guardian_reputation", lrep_debauched),
+### mat: removed					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
+### mat: removed				(else_try),
+### mat: removed					(eq, ":guardian_reputation", lrep_upstanding),
+### mat: removed					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
+### mat: removed				(try_end),
+### mat: removed			(try_end),
 
-			(call_script, "script_add_lady_items", ":cur_lady"),
-			(val_add, ":cur_lady", 1),
+### mat: removed			(call_script, "script_add_lady_items", ":cur_lady"),
+### mat: removed			(val_add, ":cur_lady", 1),
 			#high renown
 
-		(else_try),	#Older unmarried lords
+### mat: the two (else_try)'s in this condition will never be run since the original (try_begin)
+### is never false.  Also, the code directly above is assuming that lady_1 is married to lord_1,
+### lady_2 is married to lord_2, and so on, and this isn't the case in TGS.  I think we need to
+### look at what all is being assigned in this block of code and make it more static.
+    
+### mat: removed		(else_try),	#Older unmarried lords
 ### BEGIN COMMENTED OUT FOR TGS
 #			(is_between, ":npc_seed", 8, 12),
 #
 #			(store_random_in_range, ":age", 25, 36),
 ### END COMMENTED OUT FOR TGS
-			(store_random_in_range, ":reputation", 0, 8),
+### mat: removed			(store_random_in_range, ":reputation", 0, 8),
 
-			(store_random_in_range, ":sister_reputation", 20, 26),
-			(try_begin),
-				(eq, ":sister_reputation", 20),
-				(assign, ":sister_reputation", lrep_conventional),
-			(try_end),
-			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":sister_reputation"),
-			(troop_set_slot, ":cur_lady", slot_troop_guardian, ":cur_troop"),
+### mat: removed			(try_begin),
+### mat: removed				(eq, ":sister_reputation", 20),
+### mat: removed				(assign, ":sister_reputation", lrep_conventional),
+### mat: removed			(try_end),
+### mat: removed			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":sister_reputation"),
+### mat: removed			(troop_set_slot, ":cur_lady", slot_troop_guardian, ":cur_troop"),
 
-			(call_script, "script_init_troop_age", ":cur_lady", 21),
-			(call_script, "script_add_lady_items", ":cur_lady"),
+### mat: removed			(call_script, "script_init_troop_age", ":cur_lady", 21),
+### mat: removed			(call_script, "script_add_lady_items", ":cur_lady"),
 
-			(val_add, ":cur_lady", 1),
-		(else_try),	#Younger unmarried lords
+### mat: removed			(val_add, ":cur_lady", 1),
+### mat: removed		(else_try),	#Younger unmarried lords
 
 		#age is father's minus 20 to 25
-			(store_sub, ":father", ":cur_troop", 12),
+### mat: removed			(store_sub, ":father", ":cur_troop", 12),
 ### BEGIN COMMENTED OUT FOR TGS
 #			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
 #			(troop_get_slot, ":mother", ":father", slot_troop_spouse),
@@ -8816,21 +8988,21 @@ scripts = [
 #			(store_sub, ":age", ":father_age", ":father_age_at_birth"),
 #
 ### END COMMENTED OUT FOR TGS
-			(try_begin), #50% chance of having father's rep
-				(store_random_in_range, ":reputation", 0, 16),
-				(gt, ":reputation", 7),	
-				(troop_get_slot, ":reputation", ":father", slot_lord_reputation_type),
-			(try_end),
-		(try_end),
+### mat: removed			(try_begin), #50% chance of having father's rep
+### mat: removed				(store_random_in_range, ":reputation", 0, 16),
+### mat: removed				(gt, ":reputation", 7),	
+### mat: removed				(troop_get_slot, ":reputation", ":father", slot_lord_reputation_type),
+### mat: removed			(try_end),
+### mat: removed		(try_end),
 
-		(try_begin),
-			(eq, ":reputation", 0),
-			(assign, ":reputation", 1),
-		(try_end),
+### mat: removed		(try_begin),
+### mat: removed			(eq, ":reputation", 0),
+### mat: removed			(assign, ":reputation", 1),
+### mat: removed		(try_end),
 
-      (troop_set_slot, ":cur_troop", slot_lord_reputation_type, ":reputation"),
+### mat: removed        (troop_set_slot, ":cur_troop", slot_lord_reputation_type, ":reputation"),
 #		(call_script, "script_init_troop_age", ":cur_troop", ":age"), # Commented out for TGS
-	  (try_end),
+### mat: removed	  (try_end),
 	  
 	  (try_begin),
 	    (eq, "$cheat_mode", 1),
