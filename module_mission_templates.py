@@ -33331,16 +33331,59 @@ mission_templates = [
                 (ti_before_mission_start, 0, 0,  # set ways to night
                    [],
                      [
-                         (scene_set_day_time, 4),
+                         (scene_set_day_time, 12),
+                         #(set_fog_distance, 4, 0x030303), #fog distance between 20-250, color is grey 0xbfbfbf
+                         (assign, "$g_ways_player_agent", -1),
+                         (assign, "$g_ways_player_in_freefall", 0),
+                         (assign, "$g_ways_player_z_previous", 0),
+                         (assign, "$g_ways_death_message_displayed", 0),
                     ]
                  ),
                 
-               (1, 0, 10, # create dark fog in the ways
+               (0, 0, 10, # create dark fog in the ways
                    [],
                     [
-                        (set_fog_distance, 7, 0xbfbfbf), #fog distance between 20-250, color is grey 0xbfbfbf
+                        #(set_fog_distance, 4, 0x030303), #fog distance between 20-250, color is grey 0xbfbfbf
                     ]
                 ),
+
+               (0, 0, 0.25, # make player die if they fall for too long
+                   [],
+                    [
+                        (try_begin),
+                        (eq, "$g_ways_player_agent", -1),
+                            (try_for_agents, ":agent"),
+                                (agent_get_troop_id, ":troop", ":agent"),
+                                (try_begin),
+                                (eq, ":troop", "trp_player"),
+                                    (assign, "$g_ways_player_agent", ":agent"),
+                                (try_end),
+                            (try_end),
+                        (try_end),
+
+                        (agent_get_position, pos1, "$g_ways_player_agent"),
+                        (position_get_z, ":z_pos", pos1),
+                        (store_sub, ":z_diff", "$g_ways_player_z_previous", ":z_pos"),
+
+                        (try_begin),
+                        (gt, ":z_diff", 1),
+                            (val_add, "$g_ways_player_in_freefall", 1),
+                            (assign, "$g_ways_player_z_previous", ":z_pos"),
+                        (else_try),
+                            (assign, "$g_ways_player_in_freefall", 0),
+                            (assign, "$g_ways_player_z_previous", ":z_pos"),
+                        (try_end),
+
+                        (try_begin),
+                        (gt, "$g_ways_player_in_freefall", 16),
+                        (eq, "$g_ways_death_message_displayed", 0),
+                            (agent_set_hit_points,"$g_ways_player_agent",0,0),
+                            (agent_deliver_damage_to_agent,"$g_ways_player_agent","$g_ways_player_agent"),
+                            (display_message, "@You have gone mad with fear..."),
+                            (assign, "$g_ways_death_message_displayed", 1),
+                        (try_end),
+                    ]
+                ),                
 			
 				(ti_tab_pressed, 0, 0,			# Exit with tab. Needed when building. ;)
 					[],

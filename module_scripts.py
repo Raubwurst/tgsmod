@@ -8721,6 +8721,8 @@ scripts = [
                 (ge, ":mother", 0),
                     (troop_set_slot, ":cur_lady", slot_troop_guardian, ":mother"), # third choice for guardian is mother
                 (else_try),
+                # (conditional to make this code not run)
+                (eq, 1, 2),
                     (store_troop_faction, ":cur_lady_faction", ":cur_lady"),
                     (try_begin),
                     (eq, ":cur_lady_faction", "fac_kingdom_1"),
