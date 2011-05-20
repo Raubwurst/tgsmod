@@ -240,6 +240,11 @@ sounds = [
  ("myrddraal_yell", sf_priority_7|sf_vol_11,["snakehiss2.wav","snakehit.wav","snakeatt.wav"]),
  ("myrddraal_stun", sf_priority_7|sf_vol_11,["snakehiss2.wav","snakehit.wav","snakeatt.wav"]),
  ("myrddraal_victory", sf_priority_7|sf_vol_11,["snakehiss2.wav","snakehit.wav","snakeatt.wav"]),
+ # Machin Shin
+ ("ways_wind_2", sf_priority_7|sf_vol_10,["ways_wind_2.wav"]),
+ ("ways_wind_3", sf_priority_7|sf_vol_10,["ways_wind_3.wav"]),
+ ("ways_wind_4", sf_priority_7|sf_vol_10,["ways_wind_4.wav"]),
+ ("ways_wind_5", sf_priority_7|sf_vol_10,["ways_wind_5.wav"]),
 
 
 

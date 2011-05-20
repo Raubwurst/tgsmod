@@ -66,6 +66,8 @@ map_icons = [
   ("mule",0,"icon_mule", 0.2,snd_footstep_grass, 0.15, 0.173, 0),
   ("cattle",0,"icon_cow", 0.2,snd_footstep_grass, 0.15, 0.173, 0),
   ("training_ground",mcn_no_shadow,"training", 0.35,0),
+    # added for wheel of time
+  ("waygate",mcn_no_shadow,"waygate_map_icon", 0.35,0),
 
   ("bridge_a",mcn_no_shadow,"map_river_bridge_a", 1.27,0),
   ("bridge_b",mcn_no_shadow,"map_river_bridge_b", 0.7,0),
@@ -356,4 +358,7 @@ map_icons = [
   ("map_flag_kingdom_h",0,"map_flag_kingdom_f", banner_scale,0), #added for Wheel of Time
   ("banner_136",0,"map_flag_15", banner_scale,0),
   ("bandit_lair",mcn_no_shadow,"map_bandit_lair", 0.45, 0),
+  
+
+  
 ]

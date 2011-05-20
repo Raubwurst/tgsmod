@@ -203,5 +203,9 @@ snd_myrddraal_grunt_long = 201
 snd_myrddraal_yell = 202
 snd_myrddraal_stun = 203
 snd_myrddraal_victory = 204
+snd_ways_wind_2 = 205
+snd_ways_wind_3 = 206
+snd_ways_wind_4 = 207
+snd_ways_wind_5 = 208
 
 

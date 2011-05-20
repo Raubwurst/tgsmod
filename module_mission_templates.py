@@ -33332,18 +33332,47 @@ mission_templates = [
                    [],
                      [
                          (scene_set_day_time, 12),
-                         #(set_fog_distance, 4, 0x030303), #fog distance between 20-250, color is grey 0xbfbfbf
+                         (set_fog_distance, 4, 0x030303), #fog distance between 20-250, color is grey 0xbfbfbf
                          (assign, "$g_ways_player_agent", -1),
                          (assign, "$g_ways_player_in_freefall", 0),
                          (assign, "$g_ways_player_z_previous", 0),
                          (assign, "$g_ways_death_message_displayed", 0),
+                         # Machin Shin variables
+                         (store_random_in_range, "$g_ways_machin_shin_stage_1_counter", 45, 90), # no activity from the wind
+                         (store_random_in_range, "$g_ways_machin_shin_stage_2_counter", 40, 80), # player hears a slight wind noise
+                         (store_random_in_range, "$g_ways_machin_shin_stage_3_counter", 35, 70), # player hears louder wind with quiet whispers
+                         (store_random_in_range, "$g_ways_machin_shin_stage_4_counter", 20, 40), # player hears loud wind, louder whispers, starts losing 1 health per second
+                         
+                         (store_random_in_range, ":random", 1, 100),
+                         (try_begin),
+                         (lt, ":random", 65),
+                             (assign, "$g_ways_machin_shin_stage", 1),
+                         (else_try),
+                         (lt, ":random", 85),
+                             (assign, "$g_ways_machin_shin_stage", 2),
+                         (else_try),
+                         (lt, ":random", 95),
+                             (assign, "$g_ways_machin_shin_stage", 3),
+                         (else_try),
+                             (assign, "$g_ways_machin_shin_stage", 4),
+                         (try_end),
+                         # Make the Ways silent
+                         (stop_all_sounds, 2),
                     ]
                  ),
                 
-               (0, 0, 10, # create dark fog in the ways
+               (0, 0, 3, # create dark fog in the ways
                    [],
                     [
-                        #(set_fog_distance, 4, 0x030303), #fog distance between 20-250, color is grey 0xbfbfbf
+                        (try_begin),
+                        (eq, "$g_ways_machin_shin_stage", 4),
+                            (set_fog_distance, 3, 0x030303), #fog distance between 20-250, color is grey 0xbfbfbf
+                        (else_try),
+                        (eq, "$g_ways_machin_shin_stage", 5),
+                            (set_fog_distance, 1, 0x030303), #fog distance between 20-250, color is grey 0xbfbfbf
+                        (else_try),
+                            (set_fog_distance, 4, 0x030303), #fog distance between 20-250, color is grey 0xbfbfbf
+                        (try_end),
                     ]
                 ),
 
@@ -33366,7 +33395,7 @@ mission_templates = [
                         (store_sub, ":z_diff", "$g_ways_player_z_previous", ":z_pos"),
 
                         (try_begin),
-                        (gt, ":z_diff", 1),
+                        (gt, ":z_diff", 150), # started at 1
                             (val_add, "$g_ways_player_in_freefall", 1),
                             (assign, "$g_ways_player_z_previous", ":z_pos"),
                         (else_try),
@@ -33384,6 +33413,104 @@ mission_templates = [
                         (try_end),
                     ]
                 ),                
+
+               (0, 0, 1, # Machin Shin trigger
+                   [],
+                    [
+                        (try_begin),
+                        (eq, "$g_ways_machin_shin_stage", 1),
+                            (try_begin),
+                            (eq, "$g_ways_machin_shin_stage_1_counter", 0),
+                                (assign, "$g_ways_machin_shin_stage", 2),
+                                (stop_all_sounds, 1),
+                                (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_2"),
+                            (else_try),
+                                (val_sub, "$g_ways_machin_shin_stage_1_counter", 1),
+                                (stop_all_sounds, 2),
+                            (try_end),
+                        
+                        (else_try),
+                        (eq, "$g_ways_machin_shin_stage", 2),
+                            (try_begin),
+                            (eq, "$g_ways_machin_shin_stage_2_counter", 0),
+                                (assign, "$g_ways_machin_shin_stage", 3),
+                                (stop_all_sounds, 1),
+                                (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_3"),
+                            (else_try),
+                                (val_sub, "$g_ways_machin_shin_stage_2_counter", 1),
+                                (store_mod, ":temporary", "$g_ways_machin_shin_stage_2_counter", 5),
+                                (try_begin),
+                                (eq, ":temporary", 0),
+                                    (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_2"),
+                                (try_end),
+                            (try_end),
+                        
+                        (else_try),
+                        (eq, "$g_ways_machin_shin_stage", 3),
+                            (try_begin),
+                            (eq, "$g_ways_machin_shin_stage_3_counter", 0),
+                                (assign, "$g_ways_machin_shin_stage", 4),
+                                (stop_all_sounds, 1),
+                                (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_4"),
+                            (else_try),
+                                (val_sub, "$g_ways_machin_shin_stage_3_counter", 1),
+                                (store_mod, ":temporary", "$g_ways_machin_shin_stage_3_counter", 5),
+                                (try_begin),
+                                (eq, ":temporary", 0),
+                                    (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_3"),
+                                (try_end),
+                            (try_end),
+                        
+                        (else_try),
+                        (eq, "$g_ways_machin_shin_stage", 4),
+                            (try_begin),
+                            (eq, "$g_ways_machin_shin_stage_4_counter", 0),
+                                (assign, "$g_ways_machin_shin_stage", 5),
+                                (stop_all_sounds, 1),
+                                (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_5"),
+                            (else_try),
+                                (val_sub, "$g_ways_machin_shin_stage_4_counter", 1),
+                                (store_mod, ":temporary", "$g_ways_machin_shin_stage_4_counter", 5),
+                                (try_begin),
+                                (eq, ":temporary", 0),
+                                    (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_4"),
+                                (try_end),
+                            (try_end),
+                        
+                            (store_agent_hit_points, ":player_health", "$g_ways_player_agent", 1),
+                            (try_begin),
+                            (ge, ":player_health", 1),
+                                (val_sub, ":player_health", 1),
+                                (agent_set_hit_points, "$g_ways_player_agent", ":player_health", 1),
+                                (agent_deliver_damage_to_agent, "$g_ways_player_agent", "$g_ways_player_agent", 1),
+                            (else_try),
+                                (agent_set_hit_points, "$g_ways_player_agent", 0, 0),
+                                (agent_deliver_damage_to_agent, "$g_ways_player_agent", "$g_ways_player_agent", 1),
+                            (try_end),
+                        
+                        (else_try),
+                        (eq, "$g_ways_machin_shin_stage", 5),
+                            (val_sub, "$g_ways_machin_shin_stage_4_counter", 1),
+                            (store_mod, ":temporary", "$g_ways_machin_shin_stage_4_counter", 5), # keep using this counter even though it will be negative
+                            (try_begin),
+                            (eq, ":temporary", 0),
+                                (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_5"),
+                            (try_end),
+
+                            (store_agent_hit_points, ":player_health", "$g_ways_player_agent", 1),
+                            (try_begin),
+                            (ge, ":player_health", 2),
+                                (val_sub, ":player_health", 2),
+                                (agent_set_hit_points, "$g_ways_player_agent", ":player_health", 1),
+                                (agent_deliver_damage_to_agent, "$g_ways_player_agent", "$g_ways_player_agent", 2),
+                            (else_try),
+                                (agent_set_hit_points, "$g_ways_player_agent", 0, 0),
+                                (agent_deliver_damage_to_agent, "$g_ways_player_agent", "$g_ways_player_agent", 2),
+                            (try_end),
+
+                        (try_end),
+                    ]
+                ),   
 			
 				(ti_tab_pressed, 0, 0,			# Exit with tab. Needed when building. ;)
 					[],

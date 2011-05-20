@@ -1109,3 +1109,4 @@ spr_tree_house_guard_b = 1107
 spr_tree_shelter_a = 1108
 spr_yellow_fall_leafs_a = 1109
 spr_explosion = 1110
+spr_waygate = 1111

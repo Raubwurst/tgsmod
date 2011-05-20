@@ -3104,5 +3104,8 @@ scene_props = [
     ]),]),
 ###End Wheel of Time magic explosion
 
+  # Added for wheel of time waygate
+  ("waygate",0,"waygate","bo_waygate", []),
+
   
 ]
