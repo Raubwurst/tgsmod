@@ -1773,7 +1773,9 @@ common_wot_initialize_channeling_weave_variables_multi = (
 
 ## Multiplayer Server update client Seeker global variables trigger (also used to update agent slots)
 common_wot_server_update_client_seeker_global_variables_multi = (
-    0, 0, 0.1, [(multiplayer_is_server)],
+    0, 0, 0.1, [(multiplayer_is_server),
+                (eq, 0, 1), # this condition is to turn off this common
+                ],
     [
         (get_max_players, ":num_players"),
         (try_for_range, ":player_no", 0, ":num_players"),

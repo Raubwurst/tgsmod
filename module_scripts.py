@@ -13467,6 +13467,2234 @@ scripts = [
           #(else_try),
           (try_end),
 
+#####################################################
+      (else_try), # a player has used a multiplayer channeling item
+      (eq, ":event_type", multiplayer_event_send_one_power_use_to_server),
+      (neq, ":player_no", 0),
+          (assign, ":player", ":player_no"),
+          (store_script_param, ":active_channeling_weave", 3),
+
+#            (assign,":distance",99999),
+                         
+#            (try_for_agents,":agent"),
+#                (agent_is_alive,":agent"),
+#                (neg|agent_is_wounded,":agent"), ## add this to not re-count wounded people
+#                (agent_is_human,":agent"),
+#                (agent_get_look_position, pos2, ":agent"), 
+#                (get_distance_between_positions,":dist",pos1,pos2),
+#                (lt,":dist",":distance"),
+#                (assign,":chosen",":agent"), # 'chosen' is the shooter
+#                (assign,":distance",":dist"),
+#            (try_end),
+      
+            # Don't need to 'find' chosen
+            (player_get_agent_id, ":chosen", ":player"),
+            (agent_get_look_position, pos1, ":chosen"),
+
+            (agent_get_horse, ":chosen_horse", ":chosen"),
+            (agent_get_team, ":chosen_team", ":chosen"),
+
+## Run the channeling code only if the channeling agent is not shielded
+            (agent_get_slot, ":agent_is_shielded", ":chosen", slot_agent_is_shielded),
+
+            (try_begin),
+            (eq, ":agent_is_shielded", 0),
+
+                
+################################## Weave 1
+                (try_begin),
+                (eq, ":active_channeling_weave", 1),
+
+                    (try_begin),
+                        (copy_position, pos3, pos1),
+                        (position_move_y, pos3, 350),
+                        (position_set_z_to_ground_level,pos3),
+                        
+                        (try_for_agents,":agent"),
+                            (neq,":chosen",":agent"), ## added this to avoid killing shooter
+                            (neq, ":chosen_horse", ":agent"),
+#                            (neg|agent_is_ally,":agent"), ## add this to avoid killing allies
+                            (agent_is_alive,":agent"), ## add this to not re-kill dead people
+                            (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
+                            (agent_get_look_position,pos2,":agent"),
+                            (get_distance_between_positions,":dist",pos3,pos2),
+                            (store_agent_hit_points,":target_health",":agent",1),
+                            (lt,":dist",400),
+
+                                (agent_set_slot, ":agent", slot_agent_is_airborne, 1),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_is_airborne, 1),
+
+                                (position_get_x, ":attacker_x", pos1),
+                                (position_get_y, ":attacker_y", pos1),
+                                (position_get_x, ":target_x", pos2),
+                                (position_get_y, ":target_y", pos2),
+
+                                (store_sub, ":run", ":target_x", ":attacker_x"),
+                                (store_sub, ":rise", ":target_y", ":attacker_y"),
+
+                                (agent_set_slot, ":agent", slot_agent_airborne_x_movement, ":run"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_x_movement, ":run"),
+                                (agent_set_slot, ":agent", slot_agent_airborne_y_movement, ":rise"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_y_movement, ":rise"),
+
+                                (get_distance_between_positions, ":dist_from_chosen", pos1, pos2),
+                                (try_begin),
+                                (lt, ":dist_from_chosen", 100),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 8),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 8),
+                                (else_try),
+                                (is_between, ":dist_from_chosen", 100, 250),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 6),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 6),
+                                (else_try),
+                                (is_between, ":dist_from_chosen", 250, 450),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 4),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 4),
+                                (else_try),
+                                (is_between, ":dist_from_chosen", 450, 750),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 2),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 2),
+                                (try_end),
+                                
+                                (try_begin),
+                                    (gt,":target_health",5),
+                                    (val_sub,":target_health",5),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            
+                        (try_end),
+                        (particle_system_burst, "psys_massive_pistol_smoke", pos1, 25),
+                        (play_sound,"snd_air_blast"),
+                        #(multiplayer_send_2_int_to_server, multiplayer_event_sound_at_player, "snd_air_blast", ":player"),
+            
+                    (try_end),
+
+                # air blast weave end
+
+
+################################## Weave 2
+                (else_try),
+                (eq, ":active_channeling_weave", 2),
+      
+                    (try_begin),
+                        (assign, ":times_near_ground", 0),
+                        (assign, ":near_enemy", 0),
+
+                        (try_for_range,reg5,1,1000),  ###was 500
+                        (eq, ":times_near_ground", 0),
+                            (particle_system_burst, "psys_freeze_blast", pos1, 10),
+                            (position_move_y,pos1,20), # was 10
+                            (copy_position,pos2,pos1),
+                            (position_set_z_to_ground_level, pos2),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+
+                            (position_get_z, ":z_ground", pos2),
+                            (store_add, ":z_ground_low", ":z_ground", 20), 
+                            (store_add, ":z_ground_high", ":z_ground", 200),
+
+                            (try_for_agents, ":agent"),
+                            (eq, ":near_enemy", 0),
+                                (neq, ":chosen", ":agent"),
+                                (neq, ":chosen_horse", ":agent"),
+                                (agent_get_team, ":agent_team", ":agent"),
+                                (teams_are_enemies, ":chosen_team", ":agent_team"),
+                                (agent_is_alive, ":agent"),
+                                (neg|agent_is_wounded, ":agent"),
+                                (agent_get_look_position, pos4, ":agent"),
+                                (get_distance_between_positions, ":dist_2", pos2, pos4),
+                                (position_get_z, ":z_attack_trail", pos1),
+                                (lt, ":dist_2", 50), # near agent (x-y)
+                                (is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # within the agent's body (z height)
+                                (assign, ":dist", 5),
+                                (assign, ":near_enemy", 1),
+                            (try_end),
+                    
+                            (try_begin),
+                            (lt,":dist",10),
+                                (val_add, ":times_near_ground", 1),
+                                (particle_system_burst, "psys_tsunami", pos1, 75),  # effect needs a long duration
+                                (play_sound,"snd_freeze"), # need a sound for freeze
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_freeze", ":player"),
+                                (copy_position, pos3, pos1),
+                                #(scene_prop_get_instance,":instance", "spr_snowy_heap_a", 0),  #need
+                                #(position_copy_origin,pos2,pos1),
+                                #(prop_instance_set_position,":instance",pos2),
+                                (assign,reg5,2000),  #was 1000
+                            (try_end),
+                        (try_end),
+                                
+                        (try_for_agents,":agent"),
+                            (neq,":chosen",":agent"), ## added this to avoid freezing shooter
+                            (neq, ":chosen_horse", ":agent"),
+#                            (neg|agent_is_ally,":agent"), ## add this to avoid freezing allies
+                            (agent_is_alive,":agent"), ## add this to not freeze dead people
+                            (neg|agent_is_wounded,":agent"), ## add this to not freeze wounded people
+                            (agent_get_position,pos2,":agent"),
+                            (get_distance_between_positions,":dist",pos3,pos2),
+                         
+                            (try_begin),
+                            (lt,":dist",250),  # freeze (slowed movement) if blast within 250 of agent
+                                (agent_set_speed_limit, ":agent", 0),
+                                # add damage to freeze for multiplayer
+                                (try_begin),
+                                    (gt,":target_health",5),
+                                    (val_sub,":target_health",5),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    # new for multiplayer
+                                    (player_get_gold, ":gold", ":player"),
+                                    (val_add, ":gold", 3),
+                                    (player_set_gold, ":player", ":gold", 15000),
+                                    # end
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            (try_end),
+                    
+                        (try_end),
+            
+                    (try_end),
+                            
+                    #Freeze weave end
+
+
+#########################################  Weave 3
+                (else_try),
+                (eq, ":active_channeling_weave", 3),
+
+                    (try_begin),
+                        (assign, ":distance",99999),
+                        (assign, ":number_of_allies", 0),
+
+                        (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## don't heal dead
+                            (neg|agent_is_wounded,":agent"), ## don't heal wounded
+                            (agent_is_ally,":agent"), ## don't heal enemies
+                            (agent_is_human,":agent"), ## don't look for horses on the first round
+                            (neq, ":chosen", ":agent"), ## shooter can't heal self
+                            (store_agent_hit_points,":health",":agent",0),
+                            (lt,":health",75),
+                            (agent_get_look_position, pos2, ":agent"),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+                            (lt,":dist",":distance"),
+                            (assign,":nearest_hurt_ally",":agent"),
+                            (assign,":distance",":dist"),
+                            (val_add, ":number_of_allies", 1),
+                        (try_end),
+
+                        (try_begin),
+                        (ge, ":number_of_allies", 1),
+                            (agent_set_hit_points,":nearest_hurt_ally",100,0),
+                            (agent_get_look_position, pos2, ":nearest_hurt_ally"),
+                            (particle_system_burst, "psys_heal_aura", pos2, 50),
+                            (play_sound, "snd_heal"),
+                            #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_heal", ":player"),
+                            # new for multiplayer
+                            (player_get_gold, ":gold", ":player"),
+                            (val_add, ":gold", 3),
+                            (player_set_gold, ":player", ":gold", 15000),
+                            # end
+                        (try_end),
+
+                    (try_end),
+                        
+                    # End Heal Nearest Ally Weave
+
+
+################################## Weave 4
+                (else_try),
+                (eq, ":active_channeling_weave", 4),
+
+                    (try_begin),
+                        (assign, ":times_near_ground", 0),
+                        (assign, ":near_enemy", 0),
+
+                        (try_for_range,reg5,1,1000),  ###was 500
+                        (eq, ":times_near_ground", 0),
+                            (particle_system_burst, "psys_torch_fire", pos1, 15),
+                            (position_move_y,pos1,20),
+                            (copy_position,pos2,pos1),
+                            (position_set_z_to_ground_level, pos2),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+
+                            (position_get_z, ":z_ground", pos2),
+                            (store_add, ":z_ground_low", ":z_ground", 20),
+                            (store_add, ":z_ground_high", ":z_ground", 200),
+
+                            (try_for_agents, ":agent"),
+                            (eq, ":near_enemy", 0),
+                                (neq, ":chosen", ":agent"),
+                                (neq, ":chosen_horse", ":agent"),
+                                (agent_get_team, ":agent_team", ":agent"),
+                                (teams_are_enemies, ":chosen_team", ":agent_team"),
+                                (agent_is_alive, ":agent"),
+                                (neg|agent_is_wounded, ":agent"),
+                                (agent_get_look_position, pos4, ":agent"),
+                                (get_distance_between_positions, ":dist_2", pos2, pos4),
+                                (position_get_z, ":z_attack_trail", pos1),
+                                (lt, ":dist_2", 50), # near agent (x-y)
+                                (is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # within the agent's body (z height)
+                                (assign, ":dist", 5),
+                                (assign, ":near_enemy", 1),
+                            (try_end),
+                    
+                            (try_begin),
+                            (lt,":dist",10),
+                                (val_add, ":times_near_ground", 1),
+                                (particle_system_burst, "psys_massive_fire", pos1, 15),  #need
+                                (particle_system_burst, "psys_war_smoke_tall", pos1, 15),  #need
+                                (play_sound,"snd_fire_ball"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_fire_ball", ":player"),
+                                (copy_position, pos3, pos1),
+                                #(scene_prop_get_instance,":instance", "spr_explosion", 0),  #need
+                                #(position_copy_origin,pos2,pos1),
+                                #(prop_instance_set_position,":instance",pos2),
+                                #(position_move_z,pos2,1000),
+                                #(prop_instance_animate_to_position,":instance",pos2,175),
+                                (assign,reg5,2000),  #was 1000
+                            (try_end),
+                        (try_end),
+                                
+                        (try_for_agents,":agent"),
+                            (neq,":chosen",":agent"), ## added this to avoid killing shooter
+                            (neq, ":chosen_horse", ":agent"),
+#                            (neg|agent_is_ally,":agent"), ## add this to avoid killing allies
+                            (agent_is_alive,":agent"), ## add this to not re-kill dead people
+                            (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
+                            (agent_get_position,pos2,":agent"),
+                            (get_distance_between_positions,":dist",pos3,pos2),
+                         
+                            # do 25 damage if fireball within 50 of agent
+                            (try_begin),
+                                (lt,":dist",50),  #was 300
+                                (store_agent_hit_points,":target_health",":agent",1),
+                                (try_begin),
+                                    (gt,":target_health",25),
+                                    (val_sub,":target_health",25),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (agent_set_slot, ":agent", slot_agent_on_fire, 1),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_on_fire, 1),
+                                    (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_starter, ":chosen"),
+                                    (agent_set_slot, ":agent", slot_agent_fire_duration, 20),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_duration, 20),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            # do 15 damage if fireball within 50 to 125 of agent
+                            (else_try),
+                                (is_between,":dist",50,125),  #was 300
+                                (store_agent_hit_points,":target_health",":agent",1),
+                                (try_begin),
+                                    (gt,":target_health",15),
+                                    (val_sub,":target_health",15),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (agent_set_slot, ":agent", slot_agent_on_fire, 1),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_on_fire, 1),
+                                    (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_starter, ":chosen"),
+                                    (agent_set_slot, ":agent", slot_agent_fire_duration, 15),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_duration, 15),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            # do 10 damage if fireball within 125 to 225 of agent
+                            (else_try),
+                                (is_between,":dist",125,225),  #was 300
+                                (store_agent_hit_points,":target_health",":agent",1),
+                                (try_begin),
+                                    (gt,":target_health",10),
+                                    (val_sub,":target_health",10),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (agent_set_slot, ":agent", slot_agent_on_fire, 1),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_on_fire, 1),
+                                    (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_starter, ":chosen"),
+                                    (agent_set_slot, ":agent", slot_agent_fire_duration, 10),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_duration, 10),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            # do 5 damage if fireball within 225 to 350 of agent
+                            (else_try),
+                                (is_between,":dist",225,350),  #was 300
+                                (store_agent_hit_points,":target_health",":agent",1),
+                                (try_begin),
+                                    (gt,":target_health",5),
+                                    (val_sub,":target_health",5),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (agent_set_slot, ":agent", slot_agent_on_fire, 1),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_on_fire, 1),
+                                    (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_starter, ":chosen"),
+                                    (agent_set_slot, ":agent", slot_agent_fire_duration, 5),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_duration, 5),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            (try_end),
+
+                        (try_end),
+
+                    (try_end),
+                
+                    #Fireball weave end
+
+
+#########################################  Weave 5
+                (else_try),
+                (eq, ":active_channeling_weave", 5),
+
+                    (try_begin),
+                        (assign, ":chosen_active_effect", 0),
+                        (assign, ":chosen_horse_on_fire", 0),
+                        (assign, ":teammate_active_effect", 5),
+                
+
+                        (agent_get_slot, ":chosen_seeker", ":chosen", slot_agent_has_active_seeker),
+                        (try_begin),
+                        (eq, ":chosen_seeker", 1),
+                            (assign, ":chosen_active_effect", 1),
+                
+                        (else_try), # chosen doesn't have a seeker
+                            (agent_get_slot, ":chosen_fire", ":chosen", slot_agent_on_fire),
+                            (try_begin),
+                            (eq, ":chosen_fire", 1),
+                                (assign, ":chosen_active_effect", 3),
+                
+                            (else_try), # chosen not on fire
+                                (agent_get_slot, ":chosen_bound", ":chosen", slot_agent_is_bound),
+                                (try_begin),
+                                (eq, ":chosen_bound", 1),
+                                    (assign, ":chosen_active_effect", 4),
+                
+                                (else_try), # chosen not bound
+                                    (agent_get_horse, ":chosen_horse", ":chosen"),
+                                    (try_begin),
+                                    (ge, ":chosen_horse", 0),
+                                        (agent_get_slot, ":chosen_horse_fire", ":chosen_horse", slot_agent_on_fire),
+                                    (try_end),
+                
+                                    (try_begin),
+                                    (eq, ":chosen_horse_fire", 1),
+                                        (assign, ":chosen_horse_on_fire", 1),
+
+                                    (else_try), # chosen horse not on fire
+                                        
+                                        (try_for_agents,":agent"),
+                                            (agent_is_alive,":agent"), ## don't help dead
+                                            (neg|agent_is_wounded,":agent"), ## don't help wounded
+#                                            (agent_is_human,":agent"), ## don't help horses
+                
+                                            # determine if agents under compulsion used to be teammates
+                                            (agent_get_slot, ":compulsion_present", ":agent", slot_agent_under_compulsion),
+                                            (assign, ":agent_ally", 0),
+                                            (try_begin),
+                                            (eq, ":compulsion_present", 1),
+                                                (agent_get_slot, ":original_team", ":agent", slot_agent_compelled_start_team),
+                                                (try_begin),
+                                                (ge, ":original_team", 0),
+                                                (eq, ":original_team", ":chosen_team"), # used to be teammate
+                                                    (assign, ":agent_ally", 2),
+                                                (else_try),
+                                                (agent_is_ally, ":agent"), # teammate by compulsion
+                                                    (assign, ":agent_ally", 1),
+                                                (try_end),
+                                            (else_try),
+                                            (agent_is_ally, ":agent"), # always been teammate
+                                                (assign, ":agent_ally", 1),
+                                            (try_end),
+                                                
+                                            (gt, ":agent_ally", 0), ## don't help enemies
+                                            (neq, ":chosen", ":agent"), ## this code will not look at 'chosen'
+                
+                                            (try_begin),
+                                            (neq, ":teammate_active_effect", 1),
+                                                (agent_get_slot, ":teammate_seeker", ":agent", slot_agent_has_active_seeker),
+                                                (try_begin),
+                                                (eq, ":teammate_seeker", 1),
+                                                (eq, ":agent_ally", 1), # stop seekers for agents currently on chosen's team
+                                                    (assign, ":teammate_active_effect", 1),
+                                                (else_try),
+                                                (neq, ":teammate_active_effect", 2),
+                                                    (agent_get_slot, ":teammate_compelled", ":agent", slot_agent_under_compulsion),
+                                                    (try_begin),
+                                                    (eq, ":teammate_compelled", 1),
+                                                    (eq, ":agent_ally", 2), # break compulsion on compelled allies
+                                                        (assign, ":teammate_active_effect", 2),
+                                                    (else_try),
+                                                    (neq, ":teammate_active_effect", 3),
+                                                        (agent_get_slot, ":teammate_fire", ":agent", slot_agent_on_fire),
+                                                        (try_begin),
+                                                        (eq, ":teammate_fire", 1),
+                                                        (eq, ":agent_ally", 1), # stop fire for agents currently on chosen's team
+                                                            (assign, ":teammate_active_effect", 3),
+                                                        (else_try),
+                                                        (neq, ":teammate_active_effect", 4),
+                                                            (agent_get_slot, ":teammate_bound", ":agent", slot_agent_is_bound),
+                                                            (try_begin),
+                                                            (eq, ":teammate_bound", 1),
+                                                            (eq, ":agent_ally", 1), # break bound for agents currently on chosen's team
+                                                                (assign, ":teammate_active_effect", 4),
+                                                            (try_end),
+                                                        (try_end),
+                                                    (try_end),
+                                                (try_end),
+                                            (try_end),
+                
+                                        (try_end),
+
+                                        (assign, ":distance", 99999),
+                                
+                                        (try_for_agents,":agent"),
+                                            (agent_is_alive,":agent"), ## don't help dead
+                                            (neg|agent_is_wounded,":agent"), ## don't help wounded
+#                                            (agent_is_human,":agent"), ## don't help horses
+                
+                                            # determine if agents under compulsion used to be teammates
+                                            (agent_get_slot, ":compulsion_present", ":agent", slot_agent_under_compulsion),
+                                            (assign, ":agent_ally", 0),
+                                            (try_begin),
+                                            (eq, ":compulsion_present", 1),
+                                                (agent_get_slot, ":original_team", ":agent", slot_agent_compelled_start_team),
+                                                (try_begin),
+                                                (ge, ":original_team", 0),
+                                                (eq, ":original_team", ":chosen_team"), # used to be teammate
+                                                    (assign, ":agent_ally", 2),
+                                                (else_try),
+                                                (agent_is_ally, ":agent"), # teammate by compulsion
+                                                    (assign, ":agent_ally", 1),
+                                                (try_end),
+                                            (else_try),
+                                            (agent_is_ally, ":agent"), # always been teammate
+                                                (assign, ":agent_ally", 1),
+                                            (try_end),
+                                                
+                                            (gt, ":agent_ally", 0), ## don't help enemies
+                                            (neq, ":chosen", ":agent"), ## this code will not look at 'chosen'
+
+                                            (try_begin),
+                                            (eq, ":teammate_active_effect", 1),
+                                                (agent_get_slot, ":teammate_seeker", ":agent", slot_agent_has_active_seeker),
+                                                (eq, ":teammate_seeker", 1),
+                                                (eq, ":agent_ally", 1),
+                                                    (agent_get_look_position, pos2, ":agent"),
+                                                    (get_distance_between_positions,":dist",pos1,pos2),
+                                                    (lt,":dist",":distance"),
+                                                    (assign,":nearest_affected_ally",":agent"),
+                                                    (assign,":distance",":dist"),
+                                            (else_try),
+                                            (eq, ":teammate_active_effect", 2),
+                                                (agent_get_slot, ":teammate_compelled", ":agent", slot_agent_under_compulsion),
+                                                (eq, ":teammate_compelled", 1),
+                                                (eq, ":agent_ally", 2),
+                                                    (agent_get_look_position, pos2, ":agent"),
+                                                    (get_distance_between_positions,":dist",pos1,pos2),
+                                                    (lt,":dist",":distance"),
+                                                    (assign,":nearest_affected_ally",":agent"),
+                                                    (assign,":distance",":dist"),
+                                            (else_try),
+                                            (eq, ":teammate_active_effect", 3),
+                                                (agent_get_slot, ":teammate_fire", ":agent", slot_agent_on_fire),
+                                                (eq, ":teammate_fire", 1),
+                                                (eq, ":agent_ally", 1),
+                                                    (agent_get_look_position, pos2, ":agent"),
+                                                    (get_distance_between_positions,":dist",pos1,pos2),
+                                                    (lt,":dist",":distance"),
+                                                    (assign,":nearest_affected_ally",":agent"),
+                                                    (assign,":distance",":dist"),
+                                            (else_try),
+                                            (eq, ":teammate_active_effect", 4),
+                                                (agent_get_slot, ":teammate_bound", ":agent", slot_agent_is_bound),
+                                                (eq, ":teammate_bound", 1),
+                                                (eq, ":agent_ally", 1),
+                                                    (agent_get_look_position, pos2, ":agent"),
+                                                    (get_distance_between_positions,":dist",pos1,pos2),
+                                                    (lt,":dist",":distance"),
+                                                    (assign,":nearest_affected_ally",":agent"),
+                                                    (assign,":distance",":dist"),
+                                            (try_end),
+                                        (try_end),
+                                        # End of loops for finding closest affected ally
+                                    (try_end),
+                                    # End of loops for finding horse on fire
+                
+                                (try_end),
+                            (try_end),
+                        (try_end),
+                        # End of if statements for does 'chosen' have active effects
+
+                        (try_begin),
+                        (gt, ":chosen_active_effect", 0), # chosen unraveling weave on self
+                            (try_begin),
+                            (eq, ":chosen_active_effect", 1),
+                
+                                (try_begin),
+                                    (store_random_in_range, ":random", 1, 100),
+                                    (gt, ":random", 50),
+                                        (agent_set_slot, ":chosen", slot_agent_has_active_seeker, 0),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":chosen", slot_agent_has_active_seeker, 0),
+                                        (val_sub, "$g_number_seekers_active", 1),
+                
+                                        (try_begin),
+                                        (eq, "$g_seeker_slot_1_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_1", 0),
+                                            (copy_position, pos1, pos31),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_2_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_2", 0),
+                                            (copy_position, pos1, pos32),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_3_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_3", 0),
+                                            (copy_position, pos1, pos33),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_4_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_4", 0),
+                                            (copy_position, pos1, pos34),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_5_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_5", 0),
+                                            (copy_position, pos1, pos35),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_6_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_6", 0),
+                                            (copy_position, pos1, pos36),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_7_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_7", 0),
+                                            (copy_position, pos1, pos37),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_8_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_8", 0),
+                                            (copy_position, pos1, pos38),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_9_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_9", 0),
+                                            (copy_position, pos1, pos39),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_10_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_10", 0),
+                                            (copy_position, pos1, pos40),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_11_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_11", 0),
+                                            (copy_position, pos1, pos41),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_12_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_12", 0),
+                                            (copy_position, pos1, pos42),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_13_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_13", 0),
+                                            (copy_position, pos1, pos43),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_14_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_14", 0),
+                                            (copy_position, pos1, pos44),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_15_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_15", 0),
+                                            (copy_position, pos1, pos45),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_16_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_16", 0),
+                                            (copy_position, pos1, pos46),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_17_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_17", 0),
+                                            (copy_position, pos1, pos47),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_18_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_18", 0),
+                                            (copy_position, pos1, pos48),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_19_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_19", 0),
+                                            (copy_position, pos1, pos49),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_20_target", ":chosen"),
+                                            (assign, "$g_seeker_slot_20", 0),
+                                            (copy_position, pos1, pos50),
+                                        (try_end),
+                
+                                        (particle_system_burst, "psys_unravel_aura", pos1, 50), # handle this on the server side
+                                        (play_sound, "snd_unravel"),
+                                        #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_unravel", ":player"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 10),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
+                                (try_end),
+                                    
+                            (else_try),
+                            (eq, ":chosen_active_effect", 3),
+                
+                                (try_begin),
+                                    (store_random_in_range, ":random", 1, 100),
+                                    (gt, ":random", 25),
+                                        (agent_set_slot, ":chosen", slot_agent_on_fire, 0),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":chosen", slot_agent_on_fire, 0),
+                                        (particle_system_burst, "psys_unravel_aura", pos1, 50),
+                                        (play_sound, "snd_unravel"),
+                                        #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_unravel", ":player"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 5),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
+                                (try_end),
+                            (else_try),
+                            (eq, ":chosen_active_effect", 4),
+                
+                                (try_begin),
+                                    (store_random_in_range, ":random", 1, 100),
+                                    (gt, ":random", 25),
+                                        (agent_set_slot, ":chosen", slot_agent_is_bound, 0),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":chosen", slot_agent_is_bound, 0),
+                                        (particle_system_burst, "psys_unravel_aura", pos1, 50),
+                                        (play_sound, "snd_unravel"),
+                                        #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_unravel", ":player"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 5),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
+                                (try_end),
+                            (try_end),
+
+                        (else_try), # chosen unraveling weave on horse
+                        (eq, ":chosen_horse_on_fire", 1),
+
+                            (agent_get_position, pos2, ":chosen_horse"),
+                
+                            (try_begin),
+                                (store_random_in_range, ":random", 1, 100),
+                                (gt, ":random", 25),
+                                    (agent_set_slot, ":chosen_horse", slot_agent_on_fire, 0),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":chosen_horse", slot_agent_on_fire, 0),
+                                    (particle_system_burst, "psys_unravel_aura", pos2, 50),
+                                    (play_sound, "snd_unravel"),
+                                    #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_unravel", ":player"),
+                                    # new for multiplayer
+                                    (player_get_gold, ":gold", ":player"),
+                                    (val_add, ":gold", 5),
+                                    (player_set_gold, ":player", ":gold", 15000),
+                                    # end
+                            (try_end),
+
+                        (else_try),
+                        (lt, ":teammate_active_effect", 5), # chosen unraveling weave on teammate
+                            (try_begin),
+                            (eq, ":teammate_active_effect", 1),
+
+                                (try_begin),
+                                    (store_random_in_range, ":random", 1, 100),
+                                    (gt, ":random", 50),
+                                        (agent_set_slot, ":nearest_affected_ally", slot_agent_has_active_seeker, 0),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":nearest_affected_ally", slot_agent_has_active_seeker, 0),
+                                        (val_sub, "$g_number_seekers_active", 1),
+                
+                                        (try_begin),
+                                        (eq, "$g_seeker_slot_1_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_1", 0),
+                                            (copy_position, pos1, pos31),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_2_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_2", 0),
+                                            (copy_position, pos1, pos32),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_3_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_3", 0),
+                                            (copy_position, pos1, pos33),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_4_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_4", 0),
+                                            (copy_position, pos1, pos34),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_5_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_5", 0),
+                                            (copy_position, pos1, pos35),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_6_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_6", 0),
+                                            (copy_position, pos1, pos36),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_7_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_7", 0),
+                                            (copy_position, pos1, pos37),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_8_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_8", 0),
+                                            (copy_position, pos1, pos38),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_9_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_9", 0),
+                                            (copy_position, pos1, pos39),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_10_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_10", 0),
+                                            (copy_position, pos1, pos40),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_11_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_11", 0),
+                                            (copy_position, pos1, pos41),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_12_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_12", 0),
+                                            (copy_position, pos1, pos42),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_13_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_13", 0),
+                                            (copy_position, pos1, pos43),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_14_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_14", 0),
+                                            (copy_position, pos1, pos44),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_15_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_15", 0),
+                                            (copy_position, pos1, pos45),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_16_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_16", 0),
+                                            (copy_position, pos1, pos46),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_17_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_17", 0),
+                                            (copy_position, pos1, pos47),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_18_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_18", 0),
+                                            (copy_position, pos1, pos48),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_19_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_19", 0),
+                                            (copy_position, pos1, pos49),
+                                        (else_try),
+                                        (eq, "$g_seeker_slot_20_target", ":nearest_affected_ally"),
+                                            (assign, "$g_seeker_slot_20", 0),
+                                            (copy_position, pos1, pos50),
+                                        (try_end),
+                
+                                        (particle_system_burst, "psys_unravel_aura", pos1, 50), # handle this on the server side
+                                        (play_sound, "snd_unravel"),
+                                        #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_unravel", ":player"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 10),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
+                                (try_end),
+
+                            (else_try),
+                            (eq, ":teammate_active_effect", 2),
+
+                                (agent_get_position, pos2, ":nearest_affected_ally"),
+                
+                                (try_begin),
+                                    (store_random_in_range, ":random", 1, 100),
+                                    (gt, ":random", 50),
+                                        (agent_get_slot, ":start_team", ":nearest_affected_ally", slot_agent_compelled_start_team),
+                                        (agent_set_team, ":nearest_affected_ally", ":start_team"),
+                                        (agent_set_slot, ":nearest_affected_ally", slot_agent_under_compulsion, 0),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":nearest_affected_ally", slot_agent_under_compulsion, 0),
+                                        (particle_system_burst, "psys_unravel_aura", pos2, 50),
+                                        (play_sound, "snd_unravel"),
+                                        #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_unravel", ":player"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 10),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
+                                (try_end),
+                            (else_try),
+                            (eq, ":teammate_active_effect", 3),
+
+                                (agent_get_position, pos2, ":nearest_affected_ally"),
+                
+                                (try_begin),
+                                    (store_random_in_range, ":random", 1, 100),
+                                    (gt, ":random", 25),
+                                        (agent_set_slot, ":nearest_affected_ally", slot_agent_on_fire, 0),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":nearest_affected_ally", slot_agent_on_fire, 0),
+                                        (particle_system_burst, "psys_unravel_aura", pos2, 50),
+                                        (play_sound, "snd_unravel"),
+                                        #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_unravel", ":player"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 5),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
+                                (try_end),
+                            (else_try),
+                            (eq, ":teammate_active_effect", 4),
+
+                                (agent_get_position, pos2, ":nearest_affected_ally"),
+                
+                                (try_begin),
+                                    (store_random_in_range, ":random", 1, 100),
+                                    (gt, ":random", 25),
+                                        (agent_set_slot, ":nearest_affected_ally", slot_agent_is_bound, 0),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":nearest_affected_ally", slot_agent_is_bound, 0),
+                                        (particle_system_burst, "psys_unravel_aura", pos2, 50),
+                                        (play_sound, "snd_unravel"),
+                                        #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_unravel", ":player"),
+                                        # new for multiplayer
+                                        (player_get_gold, ":gold", ":player"),
+                                        (val_add, ":gold", 5),
+                                        (player_set_gold, ":player", ":gold", 15000),
+                                        # end
+                                (try_end),
+                            (try_end),
+                        (else_try),
+                        (neg|agent_is_non_player, ":chosen"),
+                            #(display_message, "@No active weaves to unravel..."),
+                            (multiplayer_send_int_to_player, ":player", multiplayer_event_send_message_to_player, 1),
+                        (try_end),
+
+                    (try_end),
+                        
+                    # End Unravel Weave
+
+
+#########################################  Weave 6
+                (else_try),
+                (eq, ":active_channeling_weave", 6),
+
+                    (try_begin),
+                        (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## don't hurt dead
+                            (neg|agent_is_wounded,":agent"), ## don't hurt wounded
+#                            (neg|agent_is_ally,":agent"), ## don't hurt allies
+                            (neq,":chosen",":agent"), ## don't hurt self
+                            (neq, ":chosen_horse", ":agent"),
+                            (agent_get_look_position, pos2, ":agent"),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+                            (store_agent_hit_points,":target_health",":agent",1),
+                    
+                            (try_begin),
+                            (lt,":dist",750),
+
+                                (agent_set_slot, ":agent", slot_agent_is_airborne, 1),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_is_airborne, 1),
+
+                                (position_get_x, ":attacker_x", pos1),
+                                (position_get_y, ":attacker_y", pos1),
+                                (position_get_x, ":target_x", pos2),
+                                (position_get_y, ":target_y", pos2),
+
+                                (store_sub, ":run", ":target_x", ":attacker_x"),
+                                (store_sub, ":rise", ":target_y", ":attacker_y"),
+
+                                (agent_set_slot, ":agent", slot_agent_airborne_x_movement, ":run"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_x_movement, ":run"),
+                                (agent_set_slot, ":agent", slot_agent_airborne_y_movement, ":rise"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_y_movement, ":rise"),
+
+                                (get_distance_between_positions, ":dist_from_chosen", pos1, pos2),
+                                (try_begin),
+                                (lt, ":dist_from_chosen", 100),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 20),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 20),
+                                (else_try),
+                                (is_between, ":dist_from_chosen", 100, 250),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 15),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 15),
+                                (else_try),
+                                (is_between, ":dist_from_chosen", 250, 450),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 10),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 10),
+                                (else_try),
+                                (is_between, ":dist_from_chosen", 450, 750),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 5),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 5),
+                                (try_end),
+                            (try_end),
+
+                            (try_begin),
+                            (lt, ":dist", 400),
+                                (try_begin),
+                                    (gt,":target_health",15),
+                                    (val_sub,":target_health",15),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            (else_try),
+                            (is_between,":dist",400,700),
+                                (try_begin),
+                                    (gt,":target_health",10),
+                                    (val_sub,":target_health",10),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            (try_end),
+                        (try_end),
+
+                        (particle_system_burst, "psys_massive_pistol_smoke", pos1, 25),
+                        (play_sound, "snd_explosion"),
+                        #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_explosion", ":player"),
+
+                    (try_end),
+                        
+                    # End Defensive Blast Weave
+
+
+################################## Weave 7
+                (else_try),
+                (eq, ":active_channeling_weave", 7),
+
+                    (try_begin),
+                        (assign, ":times_near_ground", 0),
+                        (assign, ":near_enemy", 0),
+
+                        (try_for_range,reg5,1,1000),  ###was 500
+                        (eq, ":times_near_ground", 0),
+                            (particle_system_burst, "psys_dust_blast", pos1, 10),
+                            (position_move_y,pos1,20),
+                            (copy_position,pos2,pos1),
+                            (position_set_z_to_ground_level, pos2),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+
+                            (position_get_z, ":z_ground", pos2),
+                            (store_add, ":z_ground_low", ":z_ground", 20),
+                            (store_add, ":z_ground_high", ":z_ground", 200),
+
+                            (try_for_agents, ":agent"),
+                            (eq, ":near_enemy", 0),
+                                (neq, ":chosen", ":agent"),
+                                (neq, ":chosen_horse", ":agent"),
+                                (agent_get_team, ":agent_team", ":agent"),
+                                (teams_are_enemies, ":chosen_team", ":agent_team"),
+                                (agent_is_alive, ":agent"),
+                                (neg|agent_is_wounded, ":agent"),
+                                (agent_get_look_position, pos4, ":agent"),
+                                (get_distance_between_positions, ":dist_2", pos2, pos4),
+                                (position_get_z, ":z_attack_trail", pos1),
+                                (lt, ":dist_2", 50), # near agent (x-y)
+                                (is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # within the agent's body (z height)
+                                (assign, ":dist", 5),
+                                (assign, ":near_enemy", 1),
+                            (try_end),
+                    
+                            (try_begin),
+                            (lt,":dist",10),
+                                (val_add, ":times_near_ground", 1),
+                                (particle_system_burst, "psys_earthquake", pos1, 25),  # effect needs a long duration
+                                (play_sound,"snd_explosion"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_explosion", ":player"),
+                                (copy_position, pos3, pos1),
+                                #(scene_prop_get_instance,":instance", "spr_snowy_heap_a", 0),  #need
+                                #(position_copy_origin,pos2,pos1),
+                                #(prop_instance_set_position,":instance",pos2),
+                                (assign,reg5,2000),  #was 1000
+                            (try_end),
+                        (try_end),
+                    
+                        (try_for_agents,":agent"),
+                            (neq,":chosen",":agent"), ## added this to avoid affecting shooter
+                            (neq, ":chosen_horse", ":agent"),
+#                            (neg|agent_is_ally,":agent"), ## add this to avoid hurting allies
+                            (agent_is_alive,":agent"), ## add this to not affect dead people
+                            (neg|agent_is_wounded,":agent"), ## add this to not affect wounded people
+                            (agent_get_position,pos2,":agent"),
+                            (get_distance_between_positions,":dist",pos3,pos2),
+                            (store_agent_hit_points,":target_health",":agent",1),
+                    
+                            (try_begin),
+                            (lt,":dist",750),
+
+                                (agent_set_slot, ":agent", slot_agent_is_airborne, 1),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_is_airborne, 1),
+
+                                (position_get_x, ":attacker_x", pos1),
+                                (position_get_y, ":attacker_y", pos1),
+                                (position_get_x, ":target_x", pos2),
+                                (position_get_y, ":target_y", pos2),
+
+                                (store_sub, ":run", ":target_x", ":attacker_x"),
+                                (store_sub, ":rise", ":target_y", ":attacker_y"),
+
+                                (agent_set_slot, ":agent", slot_agent_airborne_x_movement, ":run"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_x_movement, ":run"),
+                                (agent_set_slot, ":agent", slot_agent_airborne_y_movement, ":rise"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_y_movement, ":rise"),
+
+                                (get_distance_between_positions, ":dist_from_chosen", pos1, pos2),
+                                (try_begin),
+                                (lt, ":dist_from_chosen", 100),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 20),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 20),
+                                (else_try),
+                                (is_between, ":dist_from_chosen", 100, 250),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 15),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 15),
+                                (else_try),
+                                (is_between, ":dist_from_chosen", 250, 450),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 10),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 10),
+                                (else_try),
+                                (is_between, ":dist_from_chosen", 450, 750),
+                                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 5),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 5),
+                                (try_end),
+                            (try_end),
+
+                            (try_begin),
+                            (lt, ":dist", 100),
+                                (try_begin),
+                                    (gt,":target_health",15),
+                                    (val_sub,":target_health",15),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            (else_try),
+                            (is_between,":dist",100,250),
+                                (try_begin),
+                                    (gt,":target_health",10),
+                                    (val_sub,":target_health",10),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            (try_end),
+                            (else_try),
+                            (is_between,":dist",250,450),
+                                (try_begin),
+                                    (gt,":target_health",6),
+                                    (val_sub,":target_health",6),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                            (else_try),
+                            (is_between,":dist",450,750),
+                                (try_begin),
+                                    (gt,":target_health",3),
+                                    (val_sub,":target_health",3),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_end),
+                        (try_end),
+
+                    (try_end),
+                                                
+                    #End Ranged Earth Blast
+
+
+#########################################  Weave 8
+                (else_try),
+                (eq, ":active_channeling_weave", 8),
+
+                    (try_begin),
+                        (assign, ":distance",99999),
+                        (assign, ":number_of_enemies", 0),
+
+                        (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## don't bind dead
+                            (neg|agent_is_wounded,":agent"), ## don't bind wounded
+                            (agent_is_human,":agent"), ## don't bind horses
+                            (neg|agent_is_ally,":agent"), ## don't bind allies
+                            (neq, ":chosen", ":agent"), ## shooter can't bind self
+                            (agent_get_slot, ":already_bound", ":agent", slot_agent_is_bound),
+                            (eq, ":already_bound", 0),
+                            (agent_get_look_position, pos2, ":agent"),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+                            (lt,":dist",":distance"),
+                            (assign,":target",":agent"),
+                            (assign,":distance",":dist"),
+                            (val_add, ":number_of_enemies", 1),
+                        (try_end),
+
+                        (try_begin),
+                        (ge, ":number_of_enemies", 1),
+                            (agent_get_slot, ":target_is_channeler", ":target", slot_agent_is_channeler),
+                            (agent_get_slot, ":target_is_shielded", ":target", slot_agent_is_shielded),
+                    
+                            (try_begin),
+                            (eq, ":target_is_channeler", 1),  # harder to bind channelers
+                            (eq, ":target_is_shielded", 0),  # unless they are shielded
+                    
+                                (try_begin),
+                                    (store_random_in_range, ":random", 1, 100),
+                                    (gt, ":random", 50),
+                                        (agent_get_look_position, pos3, ":target"),
+                                        (position_get_x, ":target_x", pos3),
+                                        (position_get_y, ":target_y", pos3),
+                                        # set slots
+                                        (agent_set_slot, ":target", slot_agent_is_bound, 1),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_is_bound, 1),
+                                        (agent_set_slot, ":target", slot_agent_bound_by, ":chosen"),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_bound_by, ":chosen"),
+                                        (agent_set_slot, ":target", slot_agent_bound_x, ":target_x"),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_bound_x, ":target_x"),
+                                        (agent_set_slot, ":target", slot_agent_bound_y, ":target_y"),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_bound_y, ":target_y"),
+                                        (agent_set_slot, ":target", slot_agent_bound_duration, 10),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_bound_duration, 10),
+                                (try_end),
+                    
+                            (else_try),
+                                (agent_get_look_position, pos3, ":target"),
+                                (position_get_x, ":target_x", pos3),
+                                (position_get_y, ":target_y", pos3),
+                                # set slots
+                                (agent_set_slot, ":target", slot_agent_is_bound, 1),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_is_bound, 1),
+                                (agent_set_slot, ":target", slot_agent_bound_by, ":chosen"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_bound_by, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_bound_x, ":target_x"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_bound_x, ":target_x"),
+                                (agent_set_slot, ":target", slot_agent_bound_y, ":target_y"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_bound_y, ":target_y"),
+                                (agent_set_slot, ":target", slot_agent_bound_duration, 10),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_bound_duration, 10),
+                            (try_end),
+
+                            (play_sound, "snd_man_grunt_long"),
+                            #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_man_grunt_long", ":player"),
+
+                        (try_end),
+
+                    (try_end),
+
+                    # End Bind Weave
+
+
+################################## Weave 9
+                (else_try),
+                (eq, ":active_channeling_weave", 9),
+      
+                    (try_begin),
+                        (assign, ":victim_1", 0),
+                        (assign, ":victim_2", 0),
+                        (assign, ":victim_3", 0),
+                        (assign, ":victim_4", 0),
+                        (assign, ":victim_5", 0),
+                        (assign, ":victim_6", 0),
+                        (assign, ":victim_7", 0),
+                        (assign, ":victim_8", 0),
+
+                        (assign, ":times_near_ground", 0),
+                        (assign, ":near_enemy", 0),
+
+                        (try_for_range,reg5,1,1000),  ###was 500
+                        (eq, ":times_near_ground", 0),
+                            (particle_system_burst, "psys_electricity_blast", pos1, 10),
+                            (position_move_y,pos1,20),
+                            (copy_position,pos2,pos1),
+                            (position_set_z_to_ground_level, pos2),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+
+                            (position_get_z, ":z_ground", pos2),
+                            (store_add, ":z_ground_low", ":z_ground", 20),
+                            (store_add, ":z_ground_high", ":z_ground", 200),
+
+                            (try_for_agents, ":agent"),
+                            (eq, ":near_enemy", 0),
+                                (neq, ":chosen", ":agent"),
+                                (neq, ":chosen_horse", ":agent"),
+                                (agent_get_team, ":agent_team", ":agent"),
+                                (teams_are_enemies, ":chosen_team", ":agent_team"),
+                                (agent_is_alive, ":agent"),
+                                (neg|agent_is_wounded, ":agent"),
+                                (agent_get_look_position, pos4, ":agent"),
+                                (get_distance_between_positions, ":dist_2", pos2, pos4),
+                                (position_get_z, ":z_attack_trail", pos1),
+                                (lt, ":dist_2", 50), # near agent (x-y)
+                                (is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # within the agent's body (z height)
+                                (assign, ":dist", 5),
+                                (assign, ":near_enemy", 1),
+                            (try_end),
+                    
+                            (try_begin),
+                            (lt,":dist",10),
+                                (val_add, ":times_near_ground", 1),
+                                (particle_system_burst, "psys_electricity_sparks", pos1, 25),
+                                (play_sound,"snd_chain_lightning"), # need a sound for freeze
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_chain_lightning", ":player"),
+                                (copy_position, pos3, pos1),
+                                #(scene_prop_get_instance,":instance", "spr_snowy_heap_a", 0),  #need
+                                #(position_copy_origin,pos2,pos1),
+                                #(prop_instance_set_position,":instance",pos2),
+                                (assign,reg5,2000),  #was 1000
+                            (try_end),
+                        (try_end),
+
+                        (try_for_range, ":counter", 1, 8),
+                            (assign, ":distance", 99999),
+                            (assign, ":number_near_blast", 0),
+                        ## Look for agents near initial strike zone
+                            (try_for_agents,":agent"),
+                                (neq,":chosen",":agent"), ## added this to avoid shocking shooter
+                                (neq, ":chosen_horse", ":agent"),
+#                                (neg|agent_is_ally,":agent"), ## add this to avoid shocking allies
+                                (agent_is_alive,":agent"), ## add this to not shock dead people
+                                (neg|agent_is_wounded,":agent"), ## add this to not shock wounded people
+                                (agent_get_slot, ":already_shocked", ":agent", slot_agent_has_been_shocked),
+                                (eq, ":already_shocked", 0),
+                                (agent_get_position,pos2,":agent"),
+                                (get_distance_between_positions,":dist",pos3,pos2),
+                                (lt,":dist",":distance"),
+                                    (assign,":agent_closest_to_blast",":agent"),
+                                    (assign,":distance",":dist"),
+                                    (val_add, ":number_near_blast", 1),
+                            (try_end),
+
+                            (try_begin), # apply charge if agent close enough
+                            (ge, ":number_near_blast", 1),
+                            (lt, ":dist", 1500),
+                                (store_agent_hit_points,":target_health",":agent_closest_to_blast",1),
+
+                                (try_begin),
+                                (is_between, ":counter", 1, 3),
+                                    (try_begin),
+                                    (gt, ":target_health", 15),
+                                        (val_sub,":target_health",15),
+                                        (agent_set_hit_points,":agent_closest_to_blast",":target_health",1),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent_closest_to_blast"),
+                                    (else_try),
+                                        (agent_set_hit_points,":agent_closest_to_blast",0,0),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent_closest_to_blast"),
+                                    (try_end),
+                                (else_try),
+                                (is_between, ":counter", 3, 5),
+                                    (try_begin),
+                                    (gt, ":target_health", 12),
+                                        (val_sub,":target_health",12),
+                                        (agent_set_hit_points,":agent_closest_to_blast",":target_health",1),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent_closest_to_blast"),
+                                    (else_try),
+                                        (agent_set_hit_points,":agent_closest_to_blast",0,0),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent_closest_to_blast"),
+                                    (try_end),
+                                (else_try),
+                                (is_between, ":counter", 5, 7),
+                                    (try_begin),
+                                    (gt, ":target_health", 9),
+                                        (val_sub,":target_health",9),
+                                        (agent_set_hit_points,":agent_closest_to_blast",":target_health",1),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent_closest_to_blast"),
+                                    (else_try),
+                                        (agent_set_hit_points,":agent_closest_to_blast",0,0),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent_closest_to_blast"),
+                                    (try_end),
+                                (else_try),
+                                (is_between, ":counter", 7, 9),
+                                    (try_begin),
+                                    (gt, ":target_health", 6),
+                                        (val_sub,":target_health",6),
+                                        (agent_set_hit_points,":agent_closest_to_blast",":target_health",1),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent_closest_to_blast"),
+                                    (else_try),
+                                        (agent_set_hit_points,":agent_closest_to_blast",0,0),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent_closest_to_blast"),
+                                    (try_end),
+                                (try_end),
+                    
+
+                                # set victim slots
+                                (agent_set_slot, ":agent_closest_to_blast", slot_agent_has_been_shocked, 1),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent_closest_to_blast", slot_agent_has_been_shocked, 1),
+
+                                (try_begin),
+                                (eq, ":counter", 1),
+                                    (assign, ":victim_1", ":agent_closest_to_blast"),
+                                (else_try),
+                                (eq, ":counter", 2),
+                                    (assign, ":victim_2", ":agent_closest_to_blast"),
+                                (else_try),
+                                (eq, ":counter", 3),
+                                    (assign, ":victim_3", ":agent_closest_to_blast"),
+                                (else_try),
+                                (eq, ":counter", 4),
+                                    (assign, ":victim_4", ":agent_closest_to_blast"),
+                                (else_try),
+                                (eq, ":counter", 5),
+                                    (assign, ":victim_5", ":agent_closest_to_blast"),
+                                (else_try),
+                                (eq, ":counter", 6),
+                                    (assign, ":victim_6", ":agent_closest_to_blast"),
+                                (else_try),
+                                (eq, ":counter", 7),
+                                    (assign, ":victim_7", ":agent_closest_to_blast"),
+                                (else_try),
+                                (eq, ":counter", 8),
+                                    (assign, ":victim_8", ":agent_closest_to_blast"),
+                                (end_try),
+
+                                # calculate blast travel
+                                (agent_get_position, pos2, ":agent_closest_to_blast"),
+                                (position_get_x, ":x_end", pos2),
+                                (position_get_y, ":y_end", pos2),
+                                (position_get_z, ":z_end", pos2),
+                                (val_add, ":z_end", 1250),
+
+                                (position_get_x, ":x_start", pos3),
+                                (position_get_y, ":y_start", pos3),
+                                (position_get_z, ":z_start", pos3),
+                    
+                                (try_begin),
+                                (gt, ":counter", 1),
+                                    (val_add, ":z_start", 1250),
+                                (try_end),
+
+                                (store_sub, ":run", ":x_end", ":x_start"),
+                                (store_sub, ":rise", ":y_end", ":y_start"),
+                                (store_sub, ":vert", ":z_end", ":z_start"),
+
+                                (assign, ":interval", 60),
+
+                                (val_div, ":run", ":interval"),
+                                (val_div, ":rise", ":interval"),
+                                (val_div, ":vert", ":interval"),
+
+                                (try_for_range, ":unused", 0, ":interval"),
+                                    (val_add, ":x_start", ":run"),
+                                    (val_add, ":y_start", ":rise"),
+                                    (val_add, ":z_start", ":vert"),
+
+                                    (position_set_x, pos3, ":x_start"),
+                                    (position_set_y, pos3, ":y_start"),
+                                    (position_set_z, pos3, ":z_start"),
+
+                                    (particle_system_burst, "psys_electricity_blast", pos3, 10),
+                                (try_end),
+                    
+                                (particle_system_burst, "psys_electricity_sparks", pos2, 25),
+
+                                (copy_position, pos3, pos2),
+                    
+                            (try_end),
+
+                        # reset victim slots
+                        (try_end),
+
+                        (try_begin),
+                        (neq, ":victim_1", 0),
+                            (agent_set_slot, ":victim_1", slot_agent_has_been_shocked, 0),
+                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":victim_1", slot_agent_has_been_shocked, 0),
+                        (try_end),
+
+                        (try_begin),
+                        (neq, ":victim_2", 0),
+                            (agent_set_slot, ":victim_2", slot_agent_has_been_shocked, 0),
+                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":victim_2", slot_agent_has_been_shocked, 0),
+                        (try_end),
+
+                        (try_begin),
+                        (neq, ":victim_3", 0),
+                            (agent_set_slot, ":victim_3", slot_agent_has_been_shocked, 0),
+                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":victim_3", slot_agent_has_been_shocked, 0),
+                        (try_end),
+
+                        (try_begin),
+                        (neq, ":victim_4", 0),
+                            (agent_set_slot, ":victim_4", slot_agent_has_been_shocked, 0),
+                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":victim_4", slot_agent_has_been_shocked, 0),
+                        (try_end),
+
+                        (try_begin),
+                        (neq, ":victim_5", 0),
+                            (agent_set_slot, ":victim_5", slot_agent_has_been_shocked, 0),
+                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":victim_5", slot_agent_has_been_shocked, 0),
+                        (try_end),
+
+                        (try_begin),
+                        (neq, ":victim_6", 0),
+                            (agent_set_slot, ":victim_6", slot_agent_has_been_shocked, 0),
+                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":victim_6", slot_agent_has_been_shocked, 0),
+                        (try_end),
+
+                        (try_begin),
+                        (neq, ":victim_7", 0),
+                            (agent_set_slot, ":victim_7", slot_agent_has_been_shocked, 0),
+                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":victim_7", slot_agent_has_been_shocked, 0),
+                        (try_end),
+
+                        (try_begin),
+                        (neq, ":victim_8", 0),
+                            (agent_set_slot, ":victim_8", slot_agent_has_been_shocked, 0),
+                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":victim_8", slot_agent_has_been_shocked, 0),
+                        (try_end),
+
+                    (try_end),
+                    
+                    #Chain Lightening end
+
+
+#########################################  Weave 10
+                (else_try),
+                (eq, ":active_channeling_weave", 10),
+
+                    (try_begin),
+                         (agent_get_position,pos1,":chosen"),
+                    
+                         (position_move_y,pos1,1000),  # how far out the flame wall is  (was 500)
+                         (play_sound,"snd_fire_curtain"),
+                         #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_fire_curtain", ":player"),
+                         (assign,":mul",1),
+                         (try_for_range,":num",1,16),  # was (try_for_range,":num",1,11),
+                            (val_mul,":num",":mul"),
+                            (val_mul,":num",300),      # was (val_mul,":num",200),  # is how wide the flame wall is
+                            (position_move_x,pos1,":num"),
+                            (particle_system_burst,"psys_massive_fire",pos1,125),  #was 75  (this number is the duration
+                            (try_for_agents,":agent"),
+                                (neq,":chosen",":agent"), ### added this to avoid killing shooter
+                                (neq, ":chosen_horse", ":agent"),
+#                                (neg|agent_is_ally,":agent"),## added this to avoid killing allies
+                                (agent_is_alive,":agent"), ## add this to not re-kill dead people
+                                (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
+                                (agent_get_position,pos2,":agent"),
+                                (get_distance_between_positions,":dist",pos1,pos2),
+                    
+                                # instant kill if fire curtain within 50 of agent
+                                (try_begin),
+                                (lt,":dist",50),  #was 300
+                                        (agent_set_hit_points,":agent",0,0),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                # do 25 damage if fire curtain within 50 to 100 of agent
+                                (else_try),
+                                    (is_between,":dist",50, 100),  #was 300
+                                    (store_agent_hit_points,":target_health",":agent",1),
+                                    (try_begin),
+                                        (gt,":target_health",25),
+                                        (val_sub,":target_health",25),
+                                        (agent_set_hit_points,":agent",":target_health",1),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                        (agent_set_slot, ":agent", slot_agent_on_fire, 1),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_on_fire, 1),
+                                        (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_starter, ":chosen"),
+                                        (agent_set_slot, ":agent", slot_agent_fire_duration, 20),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_duration, 20),
+                                    (else_try),
+                                        (agent_set_hit_points,":agent",0,0),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                        (position_get_z, ":z_temp", pos2),
+                                        (val_add, ":z_temp", 300),
+                                        (position_set_z, pos2, ":z_temp"),
+                                        #(particle_system_burst, "psys_torch_fire", pos2, 100),
+                                    (try_end),
+                                # do 15 damage if fire curtain within 100 to 200 of agent
+                                (else_try),
+                                    (is_between,":dist",100,200),  #was 300
+                                    (store_agent_hit_points,":target_health",":agent",1),
+                                    (try_begin),
+                                        (gt,":target_health",15),
+                                        (val_sub,":target_health",15),
+                                        (agent_set_hit_points,":agent",":target_health",1),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                        (agent_set_slot, ":agent", slot_agent_on_fire, 1),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_on_fire, 1),
+                                        (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_starter, ":chosen"),
+                                        (agent_set_slot, ":agent", slot_agent_fire_duration, 15),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_duration, 15),
+                                    (else_try),
+                                        (agent_set_hit_points,":agent",0,0),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                        (position_get_z, ":z_temp", pos2),
+                                        (val_add, ":z_temp", 300),
+                                        (position_set_z, pos2, ":z_temp"),
+                                        #(particle_system_burst, "psys_torch_fire", pos2, 100),
+                                    (try_end),
+                                # do 10 damage if fire curtain within 200 to 300 of agent
+                                (else_try),
+                                    (is_between,":dist",200,300),  #was 300
+                                    (store_agent_hit_points,":target_health",":agent",1),
+                                    (try_begin),
+                                        (gt,":target_health",10),
+                                        (val_sub,":target_health",10),
+                                        (agent_set_hit_points,":agent",":target_health",1),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                        (agent_set_slot, ":agent", slot_agent_on_fire, 1),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_on_fire, 1),
+                                        (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_starter, ":chosen"),
+                                        (agent_set_slot, ":agent", slot_agent_fire_duration, 10),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_duration, 10),
+                                    (else_try),
+                                        (agent_set_hit_points,":agent",0,0),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                        (position_get_z, ":z_temp", pos2),
+                                        (val_add, ":z_temp", 300),
+                                        (position_set_z, pos2, ":z_temp"),
+                                        #(particle_system_burst, "psys_torch_fire", pos2, 100),
+                                    (try_end),
+                                # do 5 damage if fire curtain within 300 to 400 of agent
+                                (else_try),
+                                    (is_between,":dist",300,400),  #was 300
+                                    (store_agent_hit_points,":target_health",":agent",1),
+                                    (try_begin),
+                                        (gt,":target_health",5),
+                                        (val_sub,":target_health",5),
+                                        (agent_set_hit_points,":agent",":target_health",1),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                        (agent_set_slot, ":agent", slot_agent_on_fire, 1),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_on_fire, 1),
+                                        (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_starter, ":chosen"),
+                                        (agent_set_slot, ":agent", slot_agent_fire_duration, 5),
+                                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_fire_duration, 5),
+                                    (else_try),
+                                        (agent_set_hit_points,":agent",0,0),
+                                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                        (position_get_z, ":z_temp", pos2),
+                                        (val_add, ":z_temp", 300),
+                                        (position_set_z, pos2, ":z_temp"),
+                                        #(particle_system_burst, "psys_torch_fire", pos2, 100),
+                                    (try_end),
+                                (try_end),
+                    
+                            (try_end),
+                            (val_mul,":mul",-1),
+                        (try_end),
+
+                    (try_end),
+
+                    # End Fire Curtain Weave
+
+
+#########################################  Weave 11
+                (else_try),
+                (eq, ":active_channeling_weave", 11),
+      
+                    (try_begin),
+                        (assign, ":distance",99999),
+                        (assign, ":number_of_enemies", 0),
+
+                        (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## don't shield dead
+                            (neg|agent_is_wounded,":agent"), ## don't shield wounded
+                            (agent_is_human,":agent"), ## don't shield horses
+                            (neg|agent_is_ally,":agent"), ## don't shield allies
+                            (neq, ":chosen", ":agent"), ## shooter can't shield self
+                            (agent_get_slot, ":channeler", ":agent", slot_agent_is_channeler),
+                            (eq, ":channeler", 1),
+                            (agent_get_slot, ":already_shielded", ":agent", slot_agent_is_shielded),
+                            (eq, ":already_shielded", 0),
+                            (agent_get_look_position, pos2, ":agent"),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+                            (lt,":dist",":distance"),
+                            (assign,":target",":agent"),
+                            (assign,":distance",":dist"),
+                            (val_add, ":number_of_enemies", 1),
+                        (try_end),
+
+                        (try_begin),
+                        (ge, ":number_of_enemies", 1),
+                    
+                            (try_begin),
+                                (store_random_in_range, ":random", 1, 100),
+                                (gt, ":random", 60),
+                                    # set slot
+                                    (agent_set_slot, ":target", slot_agent_is_shielded, 1),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_is_shielded, 1),
+                                    (agent_set_slot, ":target", slot_agent_shielded_by, ":chosen"),
+                                    #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_shielded_by, ":chosen"),
+                                    (play_sound, "snd_shield"),  # new sound?
+                                    #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_shield", ":player"),
+                                    # new for multiplayer
+                                    (player_get_gold, ":gold", ":player"),
+                                    (val_add, ":gold", 10),
+                                    (player_set_gold, ":player", ":gold", 15000),
+                                    # end
+                            (try_end),
+                        (try_end),
+
+                    (try_end),
+
+                    # End Shield Weave
+
+
+#########################################  Weave 12
+                (else_try),
+                (eq, ":active_channeling_weave", 12),
+
+                    (try_begin),
+                        (assign, ":distance",99999),
+                        (assign, ":number_of_enemies", 0),
+
+                        (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## don't hurt dead
+                            (neg|agent_is_wounded,":agent"), ## don't hurt wounded
+                            (agent_is_human,":agent"), ## don't hurt horses
+                            (neg|agent_is_ally,":agent"), ## don't hurt allies
+                            (neq, ":chosen", ":agent"), ## shooter can't hurt self
+                            (agent_get_slot, ":already_targeted", ":agent", slot_agent_has_active_seeker),
+                            (eq, ":already_targeted", 0),
+                            (agent_get_look_position, pos2, ":agent"),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+                            (lt,":dist",":distance"),
+                            (assign,":target",":agent"),
+                            (assign,":distance",":dist"),
+                            (val_add, ":number_of_enemies", 1),
+                        (try_end),
+
+#                    (assign, reg45, ":dist"),
+#                    (display_message, "@Target is {reg45} from shooter..."),
+
+                        (try_begin),
+                        (ge, ":number_of_enemies", 1),
+                        (le, "$g_number_seekers_active", 20),
+                            (assign, ":slot_found", 0),
+                    
+                            (try_begin),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_1", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos31, pos1),  # cur position for seeker 1
+                                (assign, "$g_seeker_slot_1_target", ":target"), # make target global target for slot 1
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), # slot chosen as the target's shooter
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), # show that agent is getting tracked
+                                (val_add, "$g_number_seekers_active", 1), # add to total number of active seekers
+                                (assign, "$g_seeker_slot_1", 1), # globally show that the seeker slot is full
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_2", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos32, pos1),
+                                (assign, "$g_seeker_slot_2_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_2", 1),
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_3", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos33, pos1),  
+                                (assign, "$g_seeker_slot_3_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_3", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_4", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos34, pos1),  
+                                (assign, "$g_seeker_slot_4_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_4", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_5", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos35, pos1),  
+                                (assign, "$g_seeker_slot_5_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_5", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_6", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos36, pos1),  
+                                (assign, "$g_seeker_slot_6_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_6", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_7", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos37, pos1),  
+                                (assign, "$g_seeker_slot_7_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_7", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_8", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos38, pos1),  
+                                (assign, "$g_seeker_slot_8_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_8", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_9", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos39, pos1),  
+                                (assign, "$g_seeker_slot_9_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_9", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_10", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos40, pos1),  
+                                (assign, "$g_seeker_slot_10_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_10", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_11", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos41, pos1),  # cur position for seeker 11
+                                (assign, "$g_seeker_slot_11_target", ":target"), # make target global target for slot 11
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), # slot chosen as the target's shooter
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), # show that agent is getting tracked
+                                (val_add, "$g_number_seekers_active", 1), # add to total number of active seekers
+                                (assign, "$g_seeker_slot_11", 1), # globally show that the seeker slot is full
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_12", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos42, pos1),
+                                (assign, "$g_seeker_slot_12_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_12", 1),
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_13", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos43, pos1),  
+                                (assign, "$g_seeker_slot_13_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_13", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_14", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos44, pos1),  
+                                (assign, "$g_seeker_slot_14_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_14", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_15", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos45, pos1),  
+                                (assign, "$g_seeker_slot_15_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_15", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_16", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos46, pos1),  
+                                (assign, "$g_seeker_slot_16_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_16", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_17", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos47, pos1),  
+                                (assign, "$g_seeker_slot_17_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_17", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_18", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos48, pos1),  
+                                (assign, "$g_seeker_slot_18_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_18", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_19", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos49, pos1),  
+                                (assign, "$g_seeker_slot_19_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_19", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (else_try),
+                            (eq, ":slot_found", 0),
+                            (eq, "$g_seeker_slot_20", 0),
+                                (agent_get_look_position, pos1, ":chosen"),
+                                (copy_position, pos50, pos1),  
+                                (assign, "$g_seeker_slot_20_target", ":target"), 
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
+                                (val_add, "$g_number_seekers_active", 1), 
+                                (assign, "$g_seeker_slot_20", 1), 
+                                (assign, ":slot_found", 1),
+                                (play_sound, "snd_seeker"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_seeker", ":player"),
+                            (try_end),
+                        (else_try),
+                        (ge, ":number_of_enemies", 1),
+                        (eq, "$g_number_seekers_active", 20),
+                        (neg|agent_is_non_player, ":chosen"),
+                            #(display_message, "@Too many active seekers!!"),
+                            (multiplayer_send_int_to_player, ":player", multiplayer_event_send_message_to_player, 2),
+                        (try_end),
+
+                    (try_end),
+                        
+                    # End Seeker Weave
+
+
+#########################################  Weave 13
+                (else_try),
+                (eq, ":active_channeling_weave", 13),
+
+                    (try_begin),
+                        (assign, ":distance",99999),
+                        (assign, ":number_of_enemies", 0),
+
+                        (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## don't compel dead
+                            (neg|agent_is_wounded,":agent"), ## don't compel wounded
+                            (agent_is_human,":agent"), ## don't compel horses
+                            (neg|agent_is_ally,":agent"), ## don't compel allies
+                            (neq, ":chosen", ":agent"), ## shooter can't compel self
+                            (get_player_agent_no,":player_agent"),
+                            (neq, ":agent", ":player_agent"), ## shooter can't compel player (too many complications)
+                            (agent_get_slot, ":already_compelled", ":agent", slot_agent_under_compulsion),
+                            (eq, ":already_compelled", 0),
+                            (agent_get_look_position, pos2, ":agent"),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+                            (lt,":dist",":distance"),
+                            (assign,":target",":agent"),
+                            (assign,":distance",":dist"),
+                            (val_add, ":number_of_enemies", 1),
+                        (try_end),
+
+                        (try_begin),
+                        (ge, ":number_of_enemies", 1),
+
+                            (agent_get_slot, ":channeler", ":agent", slot_agent_is_channeler),
+
+                            (agent_get_team, ":chosen_team", ":chosen"),
+                            (agent_get_team, ":target_team", ":target"),
+            
+                            (try_begin),
+                            (agent_is_non_player), # run this for bots
+                    
+                                (try_begin),
+                                (eq, ":channeler", 1), # target is channeler
+                                    (try_begin),
+                                        (store_random_in_range, ":random", 1, 100),
+                                        (gt, ":random", 60),
+                                            (agent_set_team, ":target", ":chosen_team"),
+                                            (agent_clear_scripted_mode, ":target"),
+                    
+                                            # set slot
+                                            (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
+                                            (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
+                                            (agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
+    
+                                            (play_sound, "snd_compulsion"),
+                                            #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_compulsion", ":player"),
+                                            # new for multiplayer
+                                            (player_get_gold, ":gold", ":player"),
+                                            (val_add, ":gold", 10),
+                                            (player_set_gold, ":player", ":gold", 15000),
+                                            # end
+                                    (try_end),
+                                (else_try), # target is non-channeler
+                                    (try_begin),
+                                        (store_random_in_range, ":random", 1, 100),
+                                        (gt, ":random", 30),
+                                            (agent_set_team, ":target", ":chosen_team"),
+                                            (agent_clear_scripted_mode, ":target"),
+                    
+                                            # set slot
+                                            (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
+                                            (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
+                                            (agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
+    
+                                            (play_sound, "snd_compulsion"),
+                                            #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_compulsion", ":player"),
+                                            # new for multiplayer
+                                            (player_get_gold, ":gold", ":player"),
+                                            (val_add, ":gold", 10),
+                                            (player_set_gold, ":player", ":gold", 15000),
+                                            # end
+                                    (try_end),
+                                (try_end),
+            
+                            (else_try), # agent is human
+            
+                                (try_begin),
+                                (eq, ":channeler", 1), # target is channeler
+                                    (try_begin),
+                                        (store_random_in_range, ":random", 1, 100),
+                                        (gt, ":random", 60),
+                                            # Remove the following two lines for humans
+                                            #(agent_set_team, ":target", ":chosen_team"),
+                                            #(agent_clear_scripted_mode, ":target"),
+                    
+                                            # set slot
+                                            (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
+                                            (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
+                                            (agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
+    
+                                            (play_sound, "snd_compulsion"),
+                                            #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_compulsion", ":player"),
+                                            # new for multiplayer
+                                            (player_get_gold, ":gold", ":player"),
+                                            (val_add, ":gold", 10),
+                                            (player_set_gold, ":player", ":gold", 15000),
+                                            # end
+                                    (try_end),
+                                (else_try), # target is non-channeler
+                                    (try_begin),
+                                        (store_random_in_range, ":random", 1, 100),
+                                        (gt, ":random", 30),
+                                            # Remove the following two lines for humans
+                                            #(agent_set_team, ":target", ":chosen_team"),
+                                            #(agent_clear_scripted_mode, ":target"),
+                    
+                                            # set slot
+                                            (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
+                                            (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
+                                            (agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
+                                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
+    
+                                            (play_sound, "snd_compulsion"),
+                                            #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_compulsion", ":player"),
+                                            # new for multiplayer
+                                            (player_get_gold, ":gold", ":player"),
+                                            (val_add, ":gold", 10),
+                                            (player_set_gold, ":player", ":gold", 15000),
+                                            # end
+                                    (try_end),
+                                (try_end),
+            
+                            (try_end),
+            
+                        (try_end),
+
+                    (try_end),
+
+                    # End Compulsion Weave
+
+
+################################## Weave 14
+                (else_try),
+                (eq, ":active_channeling_weave", 14),
+
+                    (try_begin),
+                        (assign, ":times_near_ground", 0),
+
+                        (try_for_range,reg5,1,1000),  ###was 500
+                        (eq, ":times_near_ground", 0),
+                            (particle_system_burst, "psys_balefire_beam", pos1, 15), ## need balefire trail
+                            (position_move_y,pos1,20),
+                            (copy_position,pos2,pos1),
+                            (position_set_z_to_ground_level, pos2),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+
+                            (position_get_z, ":z_ground", pos2),
+                            (store_add, ":z_ground_low", ":z_ground", 20),
+                            (store_add, ":z_ground_high", ":z_ground", 200),
+
+                            (try_for_agents, ":agent"),
+                                (neq, ":chosen", ":agent"),
+                                (neq, ":chosen_horse", ":agent"),
+#                                (neg|agent_is_ally, ":agent"),
+                                (agent_is_alive, ":agent"),
+                                (neg|agent_is_wounded, ":agent"),
+                                (agent_get_look_position, pos4, ":agent"),
+                                (get_distance_between_positions, ":dist_2", pos2, pos4),
+                                (position_get_z, ":z_attack_trail", pos1),
+                                (lt, ":dist_2", 50), # balefire must be near the agent (x-y radius)
+                                (is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # balefire must be within the agent's body (z height)
+                                (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 1),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_hit_by_balefire, 1),
+                                (agent_set_slot, ":agent", slot_agent_balefire_shooter, ":chosen"),
+                                #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_balefire_shooter, ":chosen"),
+                                (try_for_range, ":unused", 1, 10),
+                                    (particle_system_burst, "psys_balefire_strike", pos4, 20),  #need
+                                    (position_move_z, pos4, 20),
+                                (try_end),
+                            (try_end),
+                    
+                            (try_begin),
+                            (lt,":dist",10),
+                                (val_add, ":times_near_ground", 1),
+                                (play_sound,"snd_balefire"),
+                                #(multiplayer_send_2_int_to_player, multiplayer_event_sound_at_player, "snd_balefire", ":player"),
+                                (copy_position, pos3, pos1),
+                                #(scene_prop_get_instance,":instance", "spr_explosion", 0),  #need
+                                #(position_copy_origin,pos2,pos1),
+                                #(prop_instance_set_position,":instance",pos2),
+                                #(position_move_z,pos2,1000),
+                                #(prop_instance_animate_to_position,":instance",pos2,175),
+                                (assign,reg5,2000),  #was 1000
+                            (try_end),
+                        (try_end),
+
+                    (try_end),
+                                
+                    #Balefire weave end
+
+
+                    
+### Be sure to leave this (try_end), at the end of the active weave code
+                (try_end),
+
+######################################### Run the "Shield Breaker" code if the channeler is shielded...
+            (else_try),
+                (agent_get_slot, ":shield_holder", ":chosen", slot_agent_shielded_by),
+
+                (try_begin),
+                (agent_is_alive, ":shield_holder"), # shield creator is alive
+                (neg|agent_is_wounded, ":shield_holder"),
+                    (try_begin),
+                        (store_random_in_range, ":random", 1, 100),
+                        (gt, ":random", 65),
+                            (agent_set_slot, ":chosen", slot_agent_is_shielded, 0),
+                            #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":chosen", slot_agent_is_shielded, 0),
+                            (play_sound, "snd_unravel"),
+                            #(multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                    (try_end),
+                (else_try), # shield creator is dead / wounded
+                    (store_random_in_range, ":random", 1, 100),
+                    (gt, ":random", 25),
+                        (agent_set_slot, ":chosen", slot_agent_is_shielded, 0),
+                        #(multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":chosen", slot_agent_is_shielded, 0),
+                        (play_sound, "snd_unravel"),
+                        #(multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
+                (try_end),
+
+#                (store_mod, ":counter", "$g_number_of_weaves_used", 4),
+#                (try_begin),
+#                (eq, ":counter", 0),
+                    #(display_message, "@You are shielded..."),
+                    (multiplayer_send_int_to_player, ":player", multiplayer_event_send_message_to_player, 3),
+#                (try_end),
+                
+            # End of Shield Breaker code
+                
+            (try_end),
+
+
+###################################################
+####### End of one power server event #############
+
 ######################################################      
       
       # (else_try),
@@ -14043,6 +16271,21 @@ scripts = [
                   (agent_set_slot, ":agent_id", ":slot_id", ":slot_value"),
               #(else_try),
               #(eq, ":slot_type", 2),
+              (try_end),
+
+#########################################################################
+          (else_try), # print message from server on player's screen
+          (eq, ":event_type", multiplayer_event_send_message_to_player),
+              (store_script_param, ":message_no", 3),
+              (try_begin),
+              (eq, ":message_no", 1),
+                  (display_message, "@There are no active weaves to unravel..."),
+              (else_try),
+              (eq, ":message_no", 2),
+                  (display_message, "@Too many active seekers!!"),
+              (else_try),
+              (eq, ":message_no", 3),
+                  (display_message, "@You are shielded..."),
               (try_end),
       
 ##########################################
@@ -45604,7 +47847,8 @@ scripts = [
 		#RESULTS
 		#Guardian forces lady to be betrothed to suitor now
 		(try_begin),
-			(lt, ":lady_suitor_relation", -20),
+			(lt, ":lady_suitor_relation", -20), ### mat: DEBUG: (code for Vaerraent to be aware of) This is the portion of the code that is causing errors on this script. All ladies need a guardian.
+                                                ### If you set a troop to be a lady's guardian, then that troop will show as the lady's brother.  That's why all the leaders had a ton of sisters when I attempted to fix it that way.
 			(this_or_next|troop_slot_eq, ":guardian", slot_lord_reputation_type, lrep_selfrighteous),
 			(this_or_next|troop_slot_eq, ":guardian", slot_lord_reputation_type, lrep_debauched),
 				(troop_slot_eq, ":guardian", slot_lord_reputation_type, lrep_quarrelsome),

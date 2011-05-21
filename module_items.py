@@ -41301,10 +41301,80 @@ items = [
 
 ################################################################################
 ############### Multiplayer One Power Item #####################################
-################################################################################ 
-
+################################################################################
 
  ["power_player_multiplayer","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
+  [(ti_on_weapon_attack, [
+
+#                    (get_player_agent_no,":player_agent"),
+
+            # new for multiplayer
+            (multiplayer_get_my_player, ":player"),
+            (player_get_slot, ":active_channeling_weave", ":player", slot_player_current_weave),
+            (try_begin),
+            (eq, ":active_channeling_weave", 1),
+                (assign, ":stamina_cost", 600),
+            (else_try),
+            (eq, ":active_channeling_weave", 2),
+                (assign, ":stamina_cost", 1050),
+            (else_try),
+            (eq, ":active_channeling_weave", 3),
+                (assign, ":stamina_cost", 1500),
+            (else_try),
+            (eq, ":active_channeling_weave", 4),
+                (assign, ":stamina_cost", 2100),
+            (else_try),
+            (eq, ":active_channeling_weave", 5),
+                (assign, ":stamina_cost", 2550),
+            (else_try),
+            (eq, ":active_channeling_weave", 6),
+                (assign, ":stamina_cost", 2850),
+            (else_try),
+            (eq, ":active_channeling_weave", 7),
+                (assign, ":stamina_cost", 3150),
+            (else_try),
+            (eq, ":active_channeling_weave", 8),
+                (assign, ":stamina_cost", 3600),
+            (else_try),
+            (eq, ":active_channeling_weave", 9),
+                (assign, ":stamina_cost", 4350),
+            (else_try),
+            (eq, ":active_channeling_weave", 10),
+                (assign, ":stamina_cost", 5100),
+            (else_try),
+            (eq, ":active_channeling_weave", 11),
+                (assign, ":stamina_cost", 5850),
+            (else_try),
+            (eq, ":active_channeling_weave", 12),
+                (assign, ":stamina_cost", 6600),
+            (else_try),
+            (eq, ":active_channeling_weave", 13),
+                (assign, ":stamina_cost", 7350),
+            (else_try),
+            (eq, ":active_channeling_weave", 14),
+                (assign, ":stamina_cost", 8100),
+            (try_end),
+            
+            (player_get_slot, ":current_channeling_stamina", ":player", slot_player_current_channeling_stamina),
+            (store_sub, ":stamina_check", ":current_channeling_stamina", ":stamina_cost"),
+            (try_begin),
+            (lt, ":stamina_check", 0),
+                (display_message, "@You are too tired to channel..."),
+            (else_try),
+                (val_sub, ":current_channeling_stamina", ":stamina_cost"),
+                (player_set_slot, ":player", slot_player_current_channeling_stamina, ":current_channeling_stamina"),
+                (multiplayer_send_int_to_server, multiplayer_event_send_one_power_use_to_server, ":active_channeling_weave"),
+            (try_end),
+
+
+                         ],),
+    ]], 
+
+#################################################################
+######## The backup of the 2nd try at Multiplayer ###############
+#################################################################
+
+ ["power_player_multiplayer_backup","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
   [(ti_on_weapon_attack, [
 
 #                    (get_player_agent_no,":player_agent"),
@@ -43645,7 +43715,7 @@ items = [
 ################################################################################ 
 #### Backup (Original) version of the multiplayer One Power Item ###############
 
- ["power_player_multiplayer_backup","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
+ ["power_player_multiplayer_backup_original","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
   [(ti_on_weapon_attack, [
 
 #                    (get_player_agent_no,":player_agent"),
