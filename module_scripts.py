@@ -8081,7 +8081,42 @@ scripts = [
 	(troop_set_slot, "trp_kingdom_1_lady_8", slot_troop_father, "trp_knight_1_12"), 
 	# lady 9
 	(troop_set_slot, "trp_kingdom_1_lady_9", slot_troop_age,17), # Katia Ondin
-	(troop_set_slot, "trp_kingdom_1_lady_9", slot_troop_father, "trp_knight_1_15"), 
+	(troop_set_slot, "trp_kingdom_1_lady_9", slot_troop_father, "trp_knight_1_15"),
+    
+    # Starting add random lady guardian for Legion ladies
+    (troop_set_slot, "trp_kingdom_1_lady_10", slot_troop_age, 55), # Damer Flinn's sister
+    (troop_set_slot, "trp_kingdom_1_lady_10", slot_troop_guardian, "trp_knight_1_4"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_11", slot_troop_age, 53), # Damer Flinn's sister
+    (troop_set_slot, "trp_kingdom_1_lady_11", slot_troop_guardian, "trp_knight_1_4"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_12", slot_troop_age, 32), # Logain Ablar's sister
+    (troop_set_slot, "trp_kingdom_1_lady_12", slot_troop_guardian, "trp_knight_1_7"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_13", slot_troop_age, 28), # Fager Neald's sister
+    (troop_set_slot, "trp_kingdom_1_lady_13", slot_troop_guardian, "trp_knight_1_13"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_14", slot_troop_age, 23), # Jur Grady's sister
+    (troop_set_slot, "trp_kingdom_1_lady_14", slot_troop_guardian, "trp_knight_1_14"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_15", slot_troop_age, 22), # Daerid Ondin's sister
+    (troop_set_slot, "trp_kingdom_1_lady_15", slot_troop_guardian, "trp_knight_1_15"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_16", slot_troop_age, 17), # Ban al'Seen's sister
+    (troop_set_slot, "trp_kingdom_1_lady_16", slot_troop_guardian, "trp_knight_1_16"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_17", slot_troop_age, 18), # Harnan's sister
+    (troop_set_slot, "trp_kingdom_1_lady_17", slot_troop_guardian, "trp_knight_1_17"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_18", slot_troop_age, 28), # Chel Vanin's sister
+    (troop_set_slot, "trp_kingdom_1_lady_18", slot_troop_guardian, "trp_knight_1_18"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_19", slot_troop_age, 24), # Macoll's sister
+    (troop_set_slot, "trp_kingdom_1_lady_19", slot_troop_guardian, "trp_knight_1_19"),
+
+    (troop_set_slot, "trp_kingdom_1_lady_20", slot_troop_age, 34), # Elyas Machera's sister
+    (troop_set_slot, "trp_kingdom_1_lady_20", slot_troop_guardian, "trp_knight_1_20"),         
+    # end
 	
  
 	
@@ -8214,7 +8249,38 @@ scripts = [
 	(troop_set_slot, "trp_kingdom_2_lady_10", slot_troop_age,17),
 	(troop_set_slot, "trp_kingdom_2_lady_10", slot_troop_father, "trp_knight_2_39"), 
 	
-	(troop_set_slot, "trp_knight_2_40", slot_troop_age,31),  # Tellaen 
+	(troop_set_slot, "trp_knight_2_40", slot_troop_age,31),  # Tellaen
+
+    # Starting add random lady guardian for Southland Coalition ladies
+    (troop_set_slot, "trp_kingdom_2_lady_13", slot_troop_guardian, "trp_knight_2_13"),
+    (troop_set_slot, "trp_kingdom_2_lady_14", slot_troop_guardian, "trp_knight_2_14"),
+    (troop_set_slot, "trp_kingdom_2_lady_15", slot_troop_guardian, "trp_knight_2_15"),
+    (troop_set_slot, "trp_kingdom_2_lady_16", slot_troop_guardian, "trp_knight_2_16"),
+    (troop_set_slot, "trp_kingdom_2_lady_17", slot_troop_guardian, "trp_knight_2_17"),
+    (troop_set_slot, "trp_kingdom_2_lady_18", slot_troop_guardian, "trp_knight_2_18"),
+    (troop_set_slot, "trp_kingdom_2_lady_19", slot_troop_guardian, "trp_knight_2_19"),
+    (troop_set_slot, "trp_kingdom_2_lady_20", slot_troop_guardian, "trp_knight_2_20"),
+    (troop_set_slot, "trp_kingdom_2_lady_21", slot_troop_guardian, "trp_knight_2_21"),
+    (troop_set_slot, "trp_kingdom_2_lady_22", slot_troop_guardian, "trp_knight_2_22"),
+    (troop_set_slot, "trp_kingdom_2_lady_23", slot_troop_guardian, "trp_knight_2_23"),
+    (troop_set_slot, "trp_kingdom_2_lady_24", slot_troop_guardian, "trp_knight_2_24"),
+    (troop_set_slot, "trp_kingdom_2_lady_25", slot_troop_guardian, "trp_knight_2_25"),
+    (troop_set_slot, "trp_kingdom_2_lady_26", slot_troop_guardian, "trp_knight_2_26"),
+    (troop_set_slot, "trp_kingdom_2_lady_27", slot_troop_guardian, "trp_knight_2_27"),
+    (troop_set_slot, "trp_kingdom_2_lady_28", slot_troop_guardian, "trp_knight_2_28"),
+    (troop_set_slot, "trp_kingdom_2_lady_29", slot_troop_guardian, "trp_knight_2_29"),
+    (troop_set_slot, "trp_kingdom_2_lady_30", slot_troop_guardian, "trp_knight_2_30"),
+    (troop_set_slot, "trp_kingdom_2_lady_31", slot_troop_guardian, "trp_knight_2_31"),
+    (troop_set_slot, "trp_kingdom_2_lady_32", slot_troop_guardian, "trp_knight_2_32"),
+    (troop_set_slot, "trp_kingdom_2_lady_33", slot_troop_guardian, "trp_knight_2_33"),
+    (troop_set_slot, "trp_kingdom_2_lady_34", slot_troop_guardian, "trp_knight_2_34"),
+    (troop_set_slot, "trp_kingdom_2_lady_35", slot_troop_guardian, "trp_knight_2_35"),
+    (troop_set_slot, "trp_kingdom_2_lady_36", slot_troop_guardian, "trp_knight_2_36"),
+    (troop_set_slot, "trp_kingdom_2_lady_37", slot_troop_guardian, "trp_knight_2_37"),
+    (troop_set_slot, "trp_kingdom_2_lady_38", slot_troop_guardian, "trp_knight_2_38"),
+    (troop_set_slot, "trp_kingdom_2_lady_39", slot_troop_guardian, "trp_knight_2_39"),
+    (troop_set_slot, "trp_kingdom_2_lady_40", slot_troop_guardian, "trp_knight_2_40"),
+    # end
 	
 #-##-###-####-#####-- SOUTHERN ALLIANCE FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_3_lord", slot_troop_age,20),  # Elayne    
@@ -8321,7 +8387,43 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_3_39", slot_troop_age,23),  # Carlomin   
 	
-	(troop_set_slot, "trp_knight_3_40", slot_troop_age,50),  # Aracome    
+	(troop_set_slot, "trp_knight_3_40", slot_troop_age,50),  # Aracome
+
+    # Starting add random lady guardian for Southland Alliance ladies
+    (troop_set_slot, "trp_kingdom_3_lady_8", slot_troop_guardian, "trp_knight_3_8"),
+    (troop_set_slot, "trp_kingdom_3_lady_9", slot_troop_guardian, "trp_knight_3_8"), # 9 is Gawyn
+    (troop_set_slot, "trp_kingdom_3_lady_10", slot_troop_guardian, "trp_knight_3_10"),
+    (troop_set_slot, "trp_kingdom_3_lady_11", slot_troop_guardian, "trp_knight_3_11"),
+    (troop_set_slot, "trp_kingdom_3_lady_12", slot_troop_guardian, "trp_knight_3_12"),    
+    (troop_set_slot, "trp_kingdom_3_lady_13", slot_troop_guardian, "trp_knight_3_13"),
+    (troop_set_slot, "trp_kingdom_3_lady_14", slot_troop_guardian, "trp_knight_3_14"),
+    (troop_set_slot, "trp_kingdom_3_lady_15", slot_troop_guardian, "trp_knight_3_15"),
+    (troop_set_slot, "trp_kingdom_3_lady_16", slot_troop_guardian, "trp_knight_3_16"),
+    (troop_set_slot, "trp_kingdom_3_lady_17", slot_troop_guardian, "trp_knight_3_17"),
+    (troop_set_slot, "trp_kingdom_3_lady_18", slot_troop_guardian, "trp_knight_3_18"),
+    (troop_set_slot, "trp_kingdom_3_lady_19", slot_troop_guardian, "trp_knight_3_19"),
+    (troop_set_slot, "trp_kingdom_3_lady_20", slot_troop_guardian, "trp_knight_3_20"),
+    (troop_set_slot, "trp_kingdom_3_lady_21", slot_troop_guardian, "trp_knight_3_21"),
+    (troop_set_slot, "trp_kingdom_3_lady_22", slot_troop_guardian, "trp_knight_3_22"),
+    (troop_set_slot, "trp_kingdom_3_lady_23", slot_troop_guardian, "trp_knight_3_23"),
+    (troop_set_slot, "trp_kingdom_3_lady_24", slot_troop_guardian, "trp_knight_3_24"),
+    (troop_set_slot, "trp_kingdom_3_lady_25", slot_troop_guardian, "trp_knight_3_25"),
+    (troop_set_slot, "trp_kingdom_3_lady_26", slot_troop_guardian, "trp_knight_3_26"),
+    (troop_set_slot, "trp_kingdom_3_lady_27", slot_troop_guardian, "trp_knight_3_27"),
+    (troop_set_slot, "trp_kingdom_3_lady_28", slot_troop_guardian, "trp_knight_3_28"),
+    (troop_set_slot, "trp_kingdom_3_lady_29", slot_troop_guardian, "trp_knight_3_29"),
+    (troop_set_slot, "trp_kingdom_3_lady_30", slot_troop_guardian, "trp_knight_3_30"),
+    (troop_set_slot, "trp_kingdom_3_lady_31", slot_troop_guardian, "trp_knight_3_31"),
+    (troop_set_slot, "trp_kingdom_3_lady_32", slot_troop_guardian, "trp_knight_3_32"),
+    (troop_set_slot, "trp_kingdom_3_lady_33", slot_troop_guardian, "trp_knight_3_33"),
+    (troop_set_slot, "trp_kingdom_3_lady_34", slot_troop_guardian, "trp_knight_3_34"),
+    (troop_set_slot, "trp_kingdom_3_lady_35", slot_troop_guardian, "trp_knight_3_35"),
+    (troop_set_slot, "trp_kingdom_3_lady_36", slot_troop_guardian, "trp_knight_3_36"),
+    (troop_set_slot, "trp_kingdom_3_lady_37", slot_troop_guardian, "trp_knight_3_37"),
+    (troop_set_slot, "trp_kingdom_3_lady_38", slot_troop_guardian, "trp_knight_3_38"),
+    (troop_set_slot, "trp_kingdom_3_lady_39", slot_troop_guardian, "trp_knight_3_39"),
+    (troop_set_slot, "trp_kingdom_3_lady_40", slot_troop_guardian, "trp_knight_3_40"),
+    # end    
 	
 #-##-###-####-#####-- BORDERLANDS FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_4_lord", slot_troop_age,45),  # Lan    
@@ -8394,16 +8496,30 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_4_19", slot_troop_age,36),  # Uno    
 	
-	(troop_set_slot, "trp_knight_4_20", slot_troop_age,29),  # Ragan    
+	(troop_set_slot, "trp_knight_4_20", slot_troop_age,29),  # Ragan
+
+    # Starting add random lady guardian for Borderland ladies
+    (troop_set_slot, "trp_kingdom_4_lady_7", slot_troop_guardian, "trp_knight_4_7"),
+    (troop_set_slot, "trp_knight_4_2b_daughter", slot_troop_guardian, "trp_knight_4_8"),
+    (troop_set_slot, "trp_kingdom_4_lady_9", slot_troop_guardian, "trp_knight_4_9"),
+    (troop_set_slot, "trp_knight_4_2c_wife", slot_troop_guardian, "trp_knight_4_10"),
+    (troop_set_slot, "trp_kingdom_4_lady_11", slot_troop_guardian, "trp_knight_4_11"),
+    (troop_set_slot, "trp_knight_4_2c_daughter", slot_troop_guardian, "trp_knight_4_12"),    
+    (troop_set_slot, "trp_knight_4_1b_wife", slot_troop_guardian, "trp_knight_4_13"),
+    (troop_set_slot, "trp_kingdom_4_lady_14", slot_troop_guardian, "trp_knight_4_14"),
+    (troop_set_slot, "trp_knight_4_1b_daughter", slot_troop_guardian, "trp_knight_4_15"),
+    (troop_set_slot, "trp_knight_4_2b_daughter", slot_troop_guardian, "trp_knight_4_16"),
+    (troop_set_slot, "trp_kingdom_4_lady_17", slot_troop_guardian, "trp_knight_4_17"),
+    (troop_set_slot, "trp_knight_4_2c_wife", slot_troop_guardian, "trp_knight_4_18"),
+    (troop_set_slot, "trp_knight_4_1c_daughter", slot_troop_guardian, "trp_knight_4_19"),
+    (troop_set_slot, "trp_kingdom_4_lady_20", slot_troop_guardian, "trp_knight_4_20"),
+    # end        
 	
 #-##-###-####-#####-- WHITE TOWER FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_5_lord", slot_troop_age,17),  # Egwene    
 	#(troop_set_slot, "kingdom_5_lord", slot_troop_spouse, ":cur_lady"),
 	(troop_set_slot, "trp_kingdom_5_lord", slot_troop_father, "trp_knight_1_9"), # Bran
 	(troop_set_slot, "trp_kingdom_5_lord", slot_troop_mother, "trp_kingdom_1_lady_6"), # Marin
-
-	(troop_set_slot, "trp_kingdom_1_lady_6", slot_troop_age,45),
-	(troop_set_slot, "trp_kingdom_2_lady_6", slot_troop_spouse, "trp_knight_1_9"),
 		
 	(troop_set_slot, "trp_knight_5_1", slot_troop_age,38),  # Silviana    
 	
@@ -8448,7 +8564,29 @@ scripts = [
 	(troop_set_slot, "trp_knight_5_20", slot_troop_age,36),  # Chubain    
 	
 	(troop_set_slot, "trp_kingdom_5_lady_1", slot_troop_age,19),
-	(troop_set_slot, "trp_kingdom_5_lady_1", slot_troop_father, "trp_knight_5_20"), 
+	(troop_set_slot, "trp_kingdom_5_lady_1", slot_troop_father, "trp_knight_5_20"),
+
+    # Starting add random lady guardian for White Tower ladies
+    (troop_set_slot, "trp_kingdom_5_lady_2", slot_troop_guardian, "trp_knight_5_2"),
+    (troop_set_slot, "trp_kingdom_5_lady_3", slot_troop_guardian, "trp_knight_5_2"),
+    (troop_set_slot, "trp_kingdom_5_lady_4", slot_troop_guardian, "trp_knight_5_5"),
+    (troop_set_slot, "trp_kingdom_5_5_wife", slot_troop_guardian, "trp_knight_5_5"),
+    (troop_set_slot, "trp_kingdom_5_2b_wife", slot_troop_guardian, "trp_knight_5_6"),
+    (troop_set_slot, "trp_kingdom_5_1c_daughter", slot_troop_guardian, "trp_knight_5_6"),
+    (troop_set_slot, "trp_kingdom_5_2c_daughter", slot_troop_guardian, "trp_knight_5_9"),
+    (troop_set_slot, "trp_kingdom_5_1c_wife", slot_troop_guardian, "trp_knight_5_9"),
+    (troop_set_slot, "trp_kingdom_5_2c_wife", slot_troop_guardian, "trp_knight_5_10"),
+    (troop_set_slot, "trp_kingdom_5_1c_daughter", slot_troop_guardian, "trp_knight_5_11"),
+    (troop_set_slot, "trp_kingdom_5_2c_daughter", slot_troop_guardian, "trp_knight_5_12"),
+    (troop_set_slot, "trp_kingdom_5_1b_wife", slot_troop_guardian, "trp_knight_5_13"),
+    (troop_set_slot, "trp_kingdom_5_2b_wife", slot_troop_guardian, "trp_knight_5_14"),
+    (troop_set_slot, "trp_kingdom_5_1c_daughter", slot_troop_guardian, "trp_knight_5_15"),
+    (troop_set_slot, "trp_kingdom_5_lady_16", slot_troop_guardian, "trp_knight_5_16"),
+    (troop_set_slot, "trp_kingdom_5_1c_wife", slot_troop_guardian, "trp_knight_5_17"),
+    (troop_set_slot, "trp_kingdom_5_2c_wife", slot_troop_guardian, "trp_knight_5_18"),
+    (troop_set_slot, "trp_kingdom_5_1c_daughter", slot_troop_guardian, "trp_knight_5_19"),
+    (troop_set_slot, "trp_kingdom_5_lady_20", slot_troop_guardian, "trp_knight_5_20"),
+    # end           
 	
 #-##-###-####-#####-- AIEL NATION FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_6_lord", slot_troop_age,47),  # Rhuarc    
@@ -8544,7 +8682,17 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_6_19", slot_troop_age,34),  # Heirn    
 	
-	(troop_set_slot, "trp_knight_6_20", slot_troop_age,50),  # Sulin    
+	(troop_set_slot, "trp_knight_6_20", slot_troop_age,50),  # Sulin
+
+    # Starting add random lady guardian for Aiel ladies
+    (troop_set_slot, "trp_kingdom_6_lady_1", slot_troop_guardian, "trp_knight_6_1"),
+    (troop_set_slot, "trp_kingdom_6_lady_2", slot_troop_guardian, "trp_knight_6_2"),
+    (troop_set_slot, "trp_kingdom_6_lady_3", slot_troop_guardian, "trp_knight_6_3"),
+    (troop_set_slot, "trp_kingdom_6_lady_4", slot_troop_guardian, "trp_knight_6_4"),
+    (troop_set_slot, "trp_kingdom_6_lady_6", slot_troop_guardian, "trp_knight_6_6"),
+    (troop_set_slot, "trp_kingdom_6_lady_9", slot_troop_guardian, "trp_knight_6_9"),
+    (troop_set_slot, "trp_kingdom_6_lady_11", slot_troop_guardian, "trp_knight_6_11"),
+    # end      
 	
 #-##-###-####-#####-- SEANCHAN EMPIRE FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_7_lord", slot_troop_age,19),  # Fortuona    
@@ -8615,7 +8763,23 @@ scripts = [
 	
 	(troop_set_slot, "trp_knight_7_19", slot_troop_age,45),  # Selucia    
 	
-	(troop_set_slot, "trp_knight_7_20", slot_troop_age,36),  # Malahavana    
+	(troop_set_slot, "trp_knight_7_20", slot_troop_age,36),  # Malahavana
+
+    # Starting add random lady guardian for Seanchan ladies
+    (troop_set_slot, "trp_kingdom_7_lady_8", slot_troop_guardian, "trp_knight_7_8"),
+    (troop_set_slot, "trp_kingdom_7_lady_9", slot_troop_guardian, "trp_knight_7_9"),
+    (troop_set_slot, "trp_kingdom_7_lady_10", slot_troop_guardian, "trp_knight_7_10"),
+    (troop_set_slot, "trp_kingdom_7_lady_11", slot_troop_guardian, "trp_knight_7_11"),
+    (troop_set_slot, "trp_kingdom_7_lady_12", slot_troop_guardian, "trp_knight_7_12"),    
+    (troop_set_slot, "trp_kingdom_7_lady_13", slot_troop_guardian, "trp_knight_7_13"),
+    (troop_set_slot, "trp_kingdom_7_lady_14", slot_troop_guardian, "trp_knight_7_14"),
+    (troop_set_slot, "trp_kingdom_7_lady_15", slot_troop_guardian, "trp_knight_7_15"),
+    (troop_set_slot, "trp_kingdom_7_lady_16", slot_troop_guardian, "trp_knight_7_16"),
+    (troop_set_slot, "trp_kingdom_7_lady_17", slot_troop_guardian, "trp_knight_7_17"),
+    (troop_set_slot, "trp_kingdom_7_lady_18", slot_troop_guardian, "trp_knight_7_18"),
+    (troop_set_slot, "trp_kingdom_7_lady_19", slot_troop_guardian, "trp_knight_7_19"),
+    (troop_set_slot, "trp_kingdom_7_lady_20", slot_troop_guardian, "trp_knight_7_20"),
+    # end     
 	
 #-##-###-####-#####-- SHADOWSPAWN AND DARKFRIEND FAMILY STRUCTRE --#####-####-###-##-#
 	(troop_set_slot, "trp_kingdom_8_lord", slot_troop_age,30),  # Shaidar Haran    
@@ -8659,6 +8823,29 @@ scripts = [
 	(troop_set_slot, "trp_knight_8_19", slot_troop_age,41),  # High Lord Weiramon  
 	
 	(troop_set_slot, "trp_knight_8_20", slot_troop_age,37),  # Anaiyella
+
+    # Starting add random lady guardian for Shadowspawn ladies
+    (troop_set_slot, "trp_kingdom_8_lady_1", slot_troop_guardian, "trp_knight_8_7"),
+    (troop_set_slot, "trp_kingdom_8_lady_2", slot_troop_guardian, "trp_knight_8_8"),
+    (troop_set_slot, "trp_kingdom_8_lady_3", slot_troop_guardian, "trp_knight_8_9"),
+    (troop_set_slot, "trp_kingdom_8_lady_4", slot_troop_guardian, "trp_knight_8_9"),
+    (troop_set_slot, "trp_kingdom_8_lady_5", slot_troop_guardian, "trp_knight_8_10"),
+    (troop_set_slot, "trp_kingdom_8_lady_6", slot_troop_guardian, "trp_knight_8_11"),
+    (troop_set_slot, "trp_kingdom_8_lady_7", slot_troop_guardian, "trp_knight_8_12"),    
+    (troop_set_slot, "trp_kingdom_8_lady_8", slot_troop_guardian, "trp_knight_8_13"),
+    (troop_set_slot, "trp_kingdom_8_lady_9", slot_troop_guardian, "trp_knight_8_13"),
+    (troop_set_slot, "trp_kingdom_8_lady_10", slot_troop_guardian, "trp_knight_8_14"),
+    (troop_set_slot, "trp_kingdom_8_lady_11", slot_troop_guardian, "trp_knight_8_15"),
+    (troop_set_slot, "trp_kingdom_8_lady_12", slot_troop_guardian, "trp_knight_8_15"),    
+    (troop_set_slot, "trp_kingdom_8_lady_13", slot_troop_guardian, "trp_knight_8_16"),
+    (troop_set_slot, "trp_kingdom_8_lady_14", slot_troop_father, "trp_knight_8_18"),
+    (troop_set_slot, "trp_kingdom_8_lady_15", slot_troop_father, "trp_knight_8_18"),
+    (troop_set_slot, "trp_kingdom_8_lady_16", slot_troop_father, "trp_knight_8_18"),
+    (troop_set_slot, "trp_kingdom_8_lady_17", slot_troop_father, "trp_knight_8_18"),
+    (troop_set_slot, "trp_kingdom_8_lady_18", slot_troop_guardian, "trp_knight_8_19"),
+    (troop_set_slot, "trp_kingdom_8_lady_19", slot_troop_guardian, "trp_knight_8_19"),
+    (troop_set_slot, "trp_kingdom_8_lady_20", slot_troop_guardian, "trp_knight_8_20"),
+    # end     
     
 
 ###############################################################################################################
@@ -8789,6 +8976,9 @@ scripts = [
 				(else_try),
 				(eq, ":guardian_reputation", lrep_upstanding),
 					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
+                (else_try),
+                    (store_random_in_range, ":reputation", 20, 26),
+                    (troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":reputation"),
 				(try_end),
     
             (else_try), # assign randomly
@@ -13920,6 +14110,8 @@ scripts = [
                                                 
                                             (gt, ":agent_ally", 0), ## don't help enemies
                                             (neq, ":chosen", ":agent"), ## this code will not look at 'chosen'
+                                            # new for debug
+                                            (agent_is_human, ":agent"),
                 
                                             (try_begin),
                                             (neq, ":teammate_active_effect", 1),

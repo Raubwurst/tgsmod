@@ -14936,7 +14936,6 @@ presentations = [
                 (overlay_set_size, "$g_presentation_obj_233", pos2),
 #                (overlay_set_size, "$g_presentation_obj_234", pos2),
             (try_end),
-
         
 
             (try_begin),

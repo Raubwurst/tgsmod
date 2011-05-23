@@ -8,4 +8,4 @@
 #export_dir = "test/"
 #export_dir = "C:/Program Files/Mount&Blade/Modules/Native/"
 #export_dir = "C:/Program Files (x86)/Mount&Blade Warband/Modules/The Gathering Storm/"
-#export_dir = "C:/Program Files (x86)/Mount&Blade Warband/Modules/WoT_Mod/"
+export_dir = "C:/Program Files (x86)/Mount&Blade Warband/Modules/WoT_Mod/"
