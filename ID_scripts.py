@@ -613,6 +613,5 @@ script_dplmc_time_sorted_heroes_for_center_aux = 611
 script_dplmc_time_sorted_heroes_for_center = 612
 script_dplmc_faction_leader_splits_gold = 613
 script_dplmc_lord_return_from_exile = 614
-script_diplomacy_start_neutral_between_kingdoms = 615
 
 

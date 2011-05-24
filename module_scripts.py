@@ -1020,14 +1020,16 @@ scripts = [
 
       (call_script, "script_update_village_market_towns"),
 
-	  #this should come after assignment of territorial grievances
-      (try_for_range, ":unused", 0, 70),
-        (try_begin),
-          (eq, "$cheat_mode", 1),
-          (display_message, "@{!}DEBUG -- initial war/peace check begins"),
-        (try_end),
-        (call_script, "script_randomly_start_war_peace_new", 0),
-      (try_end),
+## TGS: mat: I removed this because I think it causes the game to start with non-intended alliances
+#	  #this should come after assignment of territorial grievances
+#      (try_for_range, ":unused", 0, 70),
+#        (try_begin),
+#          (eq, "$cheat_mode", 1),
+#          (display_message, "@{!}DEBUG -- initial war/peace check begins"),
+#        (try_end),
+#        (call_script, "script_randomly_start_war_peace_new", 0),
+#      (try_end),
+## TGS: mat: End
 
 
       #Initialize walkers
@@ -31424,14 +31426,15 @@ scripts = [
 		(faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
 	  (try_end),
 
+### TGS: mat: REMOVED for now
 #Force very high relationship between Legion and Aiel Nation after 45 days.  (ends after 120 days so player affiliated with Legion can eventually go to war with Aiel)
-      (store_current_hours, ":number_game_hours_passed"),
-      (try_begin),
-        (is_between, ":number_game_hours_passed", 45*24, 120*24),
-        (eq, ":kingdom_a", "fac_kingdom_1"),
-        (eq, ":kingdom_b", "fac_kingdom_6"),
-        (set_relation, ":kingdom_a", ":kingdom_b", 90),
-      (try_end),
+#      (store_current_hours, ":number_game_hours_passed"),
+#      (try_begin),
+#        (is_between, ":number_game_hours_passed", 45*24, 120*24),
+#        (eq, ":kingdom_a", "fac_kingdom_1"),
+#        (eq, ":kingdom_b", "fac_kingdom_6"),
+#        (set_relation, ":kingdom_a", ":kingdom_b", 90),
+#      (try_end),
 # End         
   ]),
 
@@ -57665,68 +57668,7 @@ scripts = [
 # ---------------------------
 ###############################
 
-  # script_diplomacy_start_neutral_between_kingdoms
-  # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
-  # Output: none
-  ("diplomacy_start_neutral_between_kingdoms", #sets relations between two kingdoms
-    [
-      (store_script_param, ":kingdom_a", 1),
-      (store_script_param, ":kingdom_b", 2),
-      (store_script_param, ":initializing_war_peace_cond", 3),
 
-#      (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
-#      (val_max, ":relation", 0),
-#      (set_relation, ":kingdom_a", ":kingdom_b", ":relation"),
-
-      (set_relation, ":kingdom_a", ":kingdom_b", 1),   #Set this value for Wheel of Time
-
-      
-#     (call_script, "script_exchange_prisoners_between_factions", ":kingdom_a", ":kingdom_b"),
-#
-#      (try_begin),
-#        (eq, "$players_kingdom", ":kingdom_a"),
-#        (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_b"),
-#        (val_max, ":relation", 0),
-#        (call_script, "script_set_player_relation_with_faction", ":kingdom_b", ":relation"),
-#        (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", "fac_player_supporters_faction"), #event cancels certain quests
-#      (else_try),
-#        (eq, "$players_kingdom", ":kingdom_b"),
-#        (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_a"),
-#        (val_max, ":relation", 0),
-#        (call_script, "script_set_player_relation_with_faction", ":kingdom_a", ":relation"),
-#        (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", "fac_player_supporters_faction"), #event cancels certain quests
-#      (try_end),
-#
-      (try_begin),
-        (eq, ":initializing_war_peace_cond", 1),
-        (str_store_faction_name_link, s1, ":kingdom_a"),
-        (str_store_faction_name_link, s2, ":kingdom_b"),
-#        (display_log_message, "@{s1} and {s2} have declared neutrality with each other."),
-#        (call_script, "script_add_notification_menu", "mnu_notification_peace_declared", ":kingdom_a", ":kingdom_b"), #stability penalty for early peace is in the menu	#commented out for Wheel of Time	
-#        (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", ":kingdom_b"), #cancels quests
-#        (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", ":kingdom_a"), #cancels quests
-        (assign, "$g_recalculate_ais", 1),				
-      (try_end),
-
-#  Commented out force truce code for Wheel of Time
-	  
-#	  (try_begin), #add truce
-#		(store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
-#		(val_sub, ":truce_slot", kingdoms_begin),
-#	    (faction_set_slot, ":kingdom_b", ":truce_slot", 15),		#was 40
-#		(store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
-#		(val_sub, ":truce_slot", kingdoms_begin),
-#	    (faction_set_slot, ":kingdom_a", ":truce_slot", 15),          #was 40
-#		(store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
-#		(val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
-#		#(faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
-#		(faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),		
-#		(store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
-#		(val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
-#		#(faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
-#		(faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),		
-#	  (try_end),
-  ]),
 
 
 

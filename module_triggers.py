@@ -1739,14 +1739,20 @@ triggers = [
   (0.1, 0.5, 0, [(map_free,0),(eq,"$g_move_fast", 1)], [(assign,"$g_move_fast", 0)]),
     
 ##diplomacy end
+################################################
+################################################
   
-# moved for wheel of time
-#diplomatic indices (was in simple triggers) Begin randomly generating war/peace after game days past 120
-  (24, 0, 0, [
-              (store_current_hours, ":number_game_hours_passed"),
-              (gt, ":number_game_hours_passed", 0, 24*120),],
+# moved for wheel of time (Technically this could still be a simple trigger)
+#diplomatic indices (was in simple triggers) Begin randomly generating war/peace after game days past 120 
+  (24, 0, 0, [],
    [
-   (call_script, "script_randomly_start_war_peace_new", 1),
+   ## TGS: mat: ADDED to remove random war declarations for the first 120 days
+   (store_current_hours, ":number_game_hours_passed"),
+   (try_begin),
+   (gt, ":number_game_hours_passed", 24*170),
+       (call_script, "script_randomly_start_war_peace_new", 1),
+   (try_end),
+   ## TGS: mat: END
 
    (try_begin),
 		(store_random_in_range, ":acting_village", villages_begin, villages_end),
@@ -1850,26 +1856,421 @@ triggers = [
 	(try_end),
     ]),
 
-
+####################################
 ### Begin Wheel of time Triggers ###
-  
-# Initiate $g_tutorial_complete
-#  (0.1, 0, ti_once, [], [(assign,"$g_tutorial_complete",0)]),
+####################################
 
+# Wheel of Time scripted diplomacy
+  (24, 0, 0,
+               [(store_current_hours, ":number_game_hours_passed"),
+                (le, ":number_game_hours_passed", 24*170),
+                ],
+   [
+        (store_current_hours, ":number_game_hours_passed"),
+
+      #Set diplomacy for the first 30 days
+    
+      #Legion is at peace with everyone
+      #Southland Coalition is at war with Southland Alliance, Seanchan and at peace with everyone else
+      #Southland Alliance is at war with Southland Coalition, Seanchan and at peace with everyone else
+      #Borderlands are at war with Shadowspawn, neutral with Aiel Nation, and at peace with everyone else
+      #White Tower is at war with Shadowspawn and at peace with everyone else
+      #Aiel Nation is at war with Shadowspawn, neutral with Borderlands, and at peace with everyone else
+      #Seanchan are at war with Southland Coalition, Southland Alliance and at peace with everyone else
+      #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else        
+        
+        (try_begin),
+        (is_between, ":number_game_hours_passed", 0, 24*30-6),
+            # Legion of the Dragon
+            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0),  # (-1 = war, 0 = neutral, 1 = peace)
+            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_8", 0),
+            # Southlander Coalition
+            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+            # Southlander Alliance
+            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+            # Borderlands
+            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", -0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+            # White Tower
+            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+            # Aiel Nation
+            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+            # Seanchan
+            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+      #Set diplomacy for days 30 though 45
+    
+      #Legion is neutral with Southland Alliance and at peace with everyone else  (High peace with Aiel after 45 days)
+      #Southland Coalition is at war with Southland Alliance, Seanchan, and at peace with everyone else
+      #Southland Alliance is at war with Southland Coalition, Seanchan, neutral with Legion, Aiel Nation, and at peace with everyone else
+      #Borderlands are at war with Shadowspawn, neutral with Aiel Nation, and at peace with everyone else
+      #White Tower is at war with Shadowspawn and at peace with everyone else
+      #Aiel Nation is at war with Shadowspawn, neutral with Borderlands, Southland Alliance and at peace with everyone else
+      #Seanchan are at war with Southland Coalition,Southland Alliance and at peace with everyone else
+      #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else
+
+        (else_try),
+        (is_between, ":number_game_hours_passed", 24*30-6, 24*45-6),
+            # Legion of the Dragon
+            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0),  # (-1 = war, 0 = neutral, 1 = peace)
+            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand took Tear
+            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1),
+            # Southlander Coalition
+            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+            # Southlander Alliance
+            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+            # Borderlands
+            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+            # White Tower
+            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+            # Aiel Nation
+            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+            # Seanchan
+            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+      #Set diplomacy for days 45 though 60
+    
+      #Legion is neutral with Southland Alliance and at peace with everyone else  (High peace with Aiel after 45 days)
+      #Southland Coalition is at war with Southland Alliance, Seanchan, and at peace with everyone else
+      #Southland Alliance is at war with Southland Coalition, Seanchan, neutral with Legion, Aiel Nation, and at peace with everyone else
+      #Borderlands are at war with Shadowspawn, neutral with Aiel Nation, and at peace with everyone else
+      #White Tower is at war with Shadowspawn and at peace with everyone else
+      #Aiel Nation is at war with Shadowspawn, neutral with Borderlands, Southland Alliance and at peace with everyone else
+      #Seanchan are at war with Southland Coalition,Southland Alliance and at peace with everyone else
+      #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else
+
+        (else_try),
+        (is_between, ":number_game_hours_passed", 24*45-6, 24*60-6),
+            # Legion of the Dragon
+            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0),  # (-1 = war, 0 = neutral, 1 = peace)
+            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand took Tear
+            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
+            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_8", 0),
+            # Southlander Coalition
+            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+            # Southlander Alliance
+            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+            # Borderlands
+            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+            # White Tower
+            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+            # Aiel Nation
+            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+            # Seanchan
+            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+      #Set diplomacy for days 60 though 75
+    
+      #Legion is neutral with Southland Coalition, Southland Alliance, Seanchan, Shadowspawn and at peace with everyone else  (Super peace with Aiel Nation)
+      #Southland Coalition is at war with Southland Alliance, Seanchan, neutral with Legion, Aiel Nation and at peace with everyone else
+      #Southland Alliance is at war with Southland Coalition and Seanchan, neutral with Legion, Aiel Nation and at peace with everyone else
+      #Borderlands are at war with Shadowspawn, peace with Aiel Nation, and at peace with everyone else
+      #White Tower is at war with Shadowspawn and at peace with everyone else
+      #Aiel Nation is at war with Shadowspawn, neutral with Southland Coalition, Southland Alliance, Seanchan, and peace with Borderlands and everyone else
+      #Seanchan are at war with Southland Coalition and Southland Alliance and at peace with everyone else
+      #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else
+ 
+        (else_try),
+        (is_between, ":number_game_hours_passed", 24*60-6, 24*75-6),
+            # Legion of the Dragon
+            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand took Cairhien / Caemlyn
+            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand took Tear
+            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
+            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0), # Beginning hostilities with Seanchan
+            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1),
+            # Southlander Coalition
+            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0), # getting wary of Aiel
+            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 1),
+            # Southlander Alliance
+            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0), # getting warry of Aiel
+            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+            # Borderlands
+            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
+            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+            # White Tower
+            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_7", 0), # getting wary of Seanchan
+            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+            # Aiel Nation
+            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0), # Aiel beginning hostilities with Seanchan
+            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+            # Seanchan
+            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+        
+      #Set diplomacy for days 75 though 100
+    
+      #Legion is neutral with Southland Coalition, Shadowspawn, war with Seanchan and at peace with everyone else  (Super peace with Aiel Nation)
+      #Southland Coalition is neutral with Southland Alliance, Legion, Aiel Nation at war with Seanchan and at peace with everyone else
+      #Southland Alliance is neutral with Southland Coalition, at war with Seanchan, and at peace with everyone else
+      #Borderlands are at war with Shadowspawn, peace with Aiel Nation, and at peace with everyone else
+      #White Tower is at war with Shadowspawn, neutral with Seanchan, and at peace with everyone else
+      #Aiel Nation is at war with Shadowspawn, Seanchan, neutral with Southland Coalition, and peace with Borderlands and everyone else
+      #Seanchan are at war with Southland Coalition and Southland Alliance, Legion, Aiel Nation, neutral with Shadowspawn, White Tower, and at peace with everyone else
+      #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower, neutral with Legion, and at peace with everyone else
+ 
+        (else_try),
+        (is_between, ":number_game_hours_passed", 24*75-6, 24*100-6),
+            # Legion of the Dragon
+            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand consolidating power
+            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand consolidating power
+            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
+            (set_relation,"fac_kingdom_1", "fac_kingdom_7", -1), # Rand at war with Seanchan
+            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1),
+            # Southlander Coalition
+            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+            # Southlander Alliance
+            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+            # Borderlands
+            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
+            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+            # White Tower
+            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_7", -1), # getting wary of Seanchan
+            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+            # Aiel Nation
+            (set_relation,"fac_kingdom_6", "fac_kingdom_7", -1), # Aiel beginning war with Seanchan
+            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+            # Seanchan
+            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+      #Set diplomacy for days 100 though 118
+    
+      #Legion is neutral with Southland Coalition, Shadowspawn, war with Seanchan and at peace with everyone else  (Super peace with Aiel Nation)
+      #Southland Coalition is neutral with Southland Alliance, Legion, Aiel Nation at war with Seanchan and at peace with everyone else
+      #Southland Alliance is neutral with Southland Coalition, at war with Seanchan, and at peace with everyone else
+      #Borderlands are at war with Shadowspawn, peace with Aiel Nation, and at peace with everyone else
+      #White Tower is at war with Shadowspawn, neutral with Seanchan, and at peace with everyone else
+      #Aiel Nation is at war with Shadowspawn, Seanchan, neutral with Southland Coalition, and peace with Borderlands and everyone else
+      #Seanchan are at war with Southland Coalition and Southland Alliance, Legion, Aiel Nation, neutral with Shadowspawn, White Tower, and at peace with everyone else
+      #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower, neutral with Legion, and at peace with everyone else
+ 
+        (else_try),
+        (is_between, ":number_game_hours_passed", 24*100-6, 24*118-6),
+            # Legion of the Dragon
+            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand consolidating power
+            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand consolidating power
+            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
+            (set_relation,"fac_kingdom_1", "fac_kingdom_7", -1), # Rand seeking peace with Seanchan
+            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1),
+            # Southlander Coalition
+            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_7", 0), # Seeking peace with Seanchan
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+            # Southlander Alliance
+            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_7", 0), # Seeking peace with Seanchan
+            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+            # Borderlands
+            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
+            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+            # White Tower
+            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_7", -1), # getting wary of Seanchan
+            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+            # Aiel Nation
+            (set_relation,"fac_kingdom_6", "fac_kingdom_7", -1), # Aiel seeking peace with Seanchan
+            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+            # Seanchan
+            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+      #Set diplomacy for days 118 though 120
+    
+      #Legion is neutral with Southland Coalition, Shadowspawn, war with Seanchan and at peace with everyone else  (Super peace with Aiel Nation)
+      #Southland Coalition is neutral with Southland Alliance, Legion, Aiel Nation at war with Seanchan and at peace with everyone else
+      #Southland Alliance is neutral with Southland Coalition, at war with Seanchan, and at peace with everyone else
+      #Borderlands are at war with Shadowspawn, peace with Aiel Nation, and at peace with everyone else
+      #White Tower is at war with Shadowspawn, neutral with Seanchan, and at peace with everyone else
+      #Aiel Nation is at war with Shadowspawn, Seanchan, neutral with Southland Coalition, and peace with Borderlands and everyone else
+      #Seanchan are at war with Southland Coalition and Southland Alliance, Legion, Aiel Nation, neutral with Shadowspawn, White Tower, and at peace with everyone else
+      #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower, neutral with Legion, and at peace with everyone else
+ 
+        (else_try),
+        (is_between, ":number_game_hours_passed", 24*118-6, 24*120-6),
+            # Legion of the Dragon
+            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand consolidating power
+            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand consolidating power
+            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
+            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0), # Rand seeking peace with Seanchan
+            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1), # Full war with Shadowspawn
+            # Southlander Coalition
+            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_7", 0), # Seeking peace with Seanchan
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+            # Southlander Alliance
+            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_7", 0), # Seeking peace with Seanchan
+            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+            # Borderlands
+            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
+            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+            # White Tower
+            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_7", -1), # getting wary of Seanchan
+            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+            # Aiel Nation
+            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0), # Aiel seeking peace with Seanchan
+            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+            # Seanchan
+            (set_relation,"fac_kingdom_7", "fac_kingdom_8", -1), # Seanchan meets Shadowspawn for the first time
+
+      #Set diplomacy for days 120 though 170
+    
+      #All at war with the Shadowspawn for at least 50 days (other stuff stays somewhat the same)
+ 
+        (else_try),
+        (is_between, ":number_game_hours_passed", 24*120-6, 24*170-6),
+            # Legion of the Dragon
+            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand consolidating power
+            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand consolidating power
+            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
+            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0), # Rand seeking peace with Seanchan
+            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1), # Full war with Shadowspawn
+            # Southlander Coalition
+            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_7", 0), # Seeking peace with Seanchan
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", -1),
+            # Southlander Alliance
+            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_3", "fac_kingdom_7", 0), # Seeking peace with Seanchan
+            (set_relation,"fac_kingdom_3", "fac_kingdom_8", -1),
+            # Borderlands
+            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
+            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+            # White Tower
+            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
+            (set_relation,"fac_kingdom_5", "fac_kingdom_7", -1), # getting wary of Seanchan
+            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+            # Aiel Nation
+            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0), # Aiel seeking peace with Seanchan
+            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+            # Seanchan
+            (set_relation,"fac_kingdom_7", "fac_kingdom_8", -1), # Seanchan meets Shadowspawn for the first time
+        (try_end),
+        
+    ]),  
+  
 # Wheel of Time Initialization
   (0.1, 0, ti_once, [(eq, "$g_tutorial_complete", 1)],
     [
-        # Diplomacy
-#        (call_script,"script_randomly_start_war_peace_new",1),
-
         # Channeling Proficiency variable
-        (assign,"$g_channeling_proficiency_modifier",0),
-        (assign,"$g_channeling_proficiency_modifier",0),
-
+        (assign, "$g_channeling_proficiency_modifier",0),
+        (assign, "$g_day_number", 1),
     ]),
 
-# Periodically Force Wheel of Time Diplomacy (every 5 days) (don't use for now)
-#  (24*5, 0, 0, [(eq, "$g_tutorial_complete", 1)],[(call_script,"script_randomly_start_war_peace_new",1)]),
+#display day number
+  (24, 0, 0, [],
+   [
+        (assign, reg0, "$g_day_number"),
+        (display_message, "@Day {reg0} ..."),
+        (val_add, "$g_day_number", 1),
+    ]),  
 
 ################## Timeline changes begin ##############
 

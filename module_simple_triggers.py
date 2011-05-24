@@ -5242,6 +5242,7 @@ simple_triggers = [
 
   ##diplomacy end
 
+####################################################################
   ### Added for wheel of time
 
   # Recruitment triggers (outlander and bribes)
