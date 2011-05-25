@@ -941,4 +941,5 @@ itm_lord_warhorse_6 = 939
 itm_lord_warhorse_7 = 940
 itm_lord_warhorse_8 = 941
 itm_whitecloak_inquisitor_tabbard = 942
-itm_items_end = 943
+itm_ashandarei = 943
+itm_items_end = 944

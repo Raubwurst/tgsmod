@@ -150,7 +150,7 @@ items = [
 # A treatise on The Method of Mechanical Theorems Archimedes
  
 #This book must be at the beginning of readable books
- ["book_tactics","De Re Militari", [("book_a",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none],
+ ["book_tactics","Fog and Steel by Madoc Comadrin", [("book_a",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none], #I noticed the books and thought this would be... a nice little easter egg at the moment
  ["book_persuasion","Rhetorica ad Herennium", [("book_b",0)], itp_type_book, 0, 5000,weight(2)|abundance(100),imodbits_none],
  ["book_leadership","The Life of Alixenus the Great", [("book_d",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
  ["book_intelligence","Essays on Logic", [("book_e",0)], itp_type_book, 0, 2900,weight(2)|abundance(100),imodbits_none],
@@ -1236,7 +1236,7 @@ items = [
  #weight(2.25)
  ["power_ammo","One Power Ammo", [("cartridge_a",0),("practice_arrows_2",ixmesh_flying_ammo)], itp_type_bullets|itp_can_penetrate_shield|itp_default_ammo, 0, 5,weight(0.01)|abundance(90)|weapon_length(3)|thrust_damage(1,pierce)|max_ammo(200),imodbits_missile],
 #
- 
+
 #####################################
 #Magic items for test  (itcf_thrust_onehanded|itcf_thrust_onehanded_lance_horseback)
 #####################################
@@ -47400,6 +47400,19 @@ items = [
 2900 , weight(24)|abundance(100)|head_armor(0)|body_armor(48)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
 
 
+#Mat Cauthon's Items
+
+ 
+#["black_hat", "Mat Cauthon's Hat", [("black_hat",0)],itp_unique|itp_type_head_armor|itp_civilian,0,9, weight(1)|head_armor(10)|body_armor(0)|leg_armor(0)|difficulty(0),imodbits_cloth],
+# Feel free to edit values such as weight and armor value etc etc
+# Currently Buggy Model 
+ 
+["ashandarei",         "Ashandarei", [("ashandarei_ravens",0)], itp_unique|itp_type_polearm|itp_offset_lance| itp_primary|itp_two_handed|itp_wooden_parry, itc_staff|itcf_carry_spear,
+ 0 , weight(3.5)|difficulty(5)|spd_rtng(100) | weapon_length(150)|swing_damage(55 , cut) | thrust_damage(30 ,  pierce),imodbits_polearm ],
+# Again, feel free to edit values such as length, difficulty, damage etc etc
+# I put value(in-game) to 0 as I'd imagine only Mat will have it...
+# And if you don't want the ravens, just take "_ravens" out of the mesh name entry.
+######################
 
 
  
