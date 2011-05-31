@@ -2910,7 +2910,7 @@ troops = [
   #Older knights with higher skills moved to top
 
 #Legion of the Dragon
-  ["knight_1_1", "Matrim Cauthon", "Mat", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_red_hand_plate, itm_red_hand_greaves, itm_leather_gloves, itm_ashandarei], knight_attrib_5,wp_polearm(330)|wp(250),knight_skills_5|knows_trainer_7, 0x000000003d04100448dc92392471c91c00000000001d47250000000000000000],
+  ["knight_1_1", "Matrim Cauthon", "Mat", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_mats_hat, itm_red_hand_plate, itm_red_hand_greaves, itm_leather_gloves, itm_ashandarei], knight_attrib_5,wp_polearm(330)|wp(250),knight_skills_5|knows_trainer_7, 0x000000003d04100448dc92392471c91c00000000001d47250000000000000000],
   ["knight_1_2", "Perrin Aybara", "Perrin", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_two_rivers_armor, itm_leather_boots, itm_leather_gloves, itm_warhammer], knight_attrib_5,wp_two_handed(300)|wp(250),knight_skills_5|knows_trainer_4, 0x0000000837041181596d91b96c72bb2400000000001ec7550000000000000000],
   ["knight_1_3", "Tam al'Thor", "Tam", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_two_rivers_armor, itm_leather_boots, itm_leather_gloves, itm_two_rivers_long_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_large_heron_mark_blade], knight_attrib_4,wp_archery(320)|wp_two_handed(300)|wp(250),knight_skills_4|knows_trainer_4, 0x0000000ebf04614436d39596a4924aed00000000001dab1a0000000000000000],
   ["knight_1_4", "Damer Flinn", "Flinn", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_male_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, 0x0000000edc08314026a272a7624f522100000000001e491d0000000000000000],
@@ -5088,7 +5088,7 @@ troops = [
   
   ["quick_battle_troop_4","Shaidar Haran",  "Shaidar Haran",  tf_hero|tf_myrddraal, 0,0,  fac_kingdom_8,[itm_myrddraal_horse, itm_myrddraal_armor, itm_black_leather_boots, itm_myrddraal_hood_helmet, itm_black_mail_gauntlets, itm_myrddraal_blade], knight_attrib_5,wpex(150,300,100,250,100,100),knight_skills_5|knows_trainer_5|knows_athletics_7, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
   
-  ["quick_battle_troop_5","Matrim Cauthon", "Mat", tf_hero, 0, 0,  fac_kingdom_1, [itm_hunter, itm_red_hand_plate, itm_red_hand_greaves, itm_leather_gloves, itm_ashandarei, itm_throwing_knives, itm_throwing_knives], knight_attrib_5,wpex(150,150,350,150,100,200),knight_skills_5|knows_trainer_7, 0x000000022608300336db6db6db6db6db00000000001db6db0000000000000000],
+  ["quick_battle_troop_5","Matrim Cauthon", "Mat", tf_hero, 0, 0,  fac_kingdom_1, [itm_hunter, itm_mats_hat, itm_red_hand_plate, itm_red_hand_greaves, itm_leather_gloves, itm_ashandarei, itm_throwing_knives, itm_throwing_knives], knight_attrib_5,wpex(150,150,350,150,100,200),knight_skills_5|knows_trainer_7, 0x000000003d04100448dc92392471c91c00000000001d47250000000000000000],
   
   ["quick_battle_troop_6","Perrin Aybara", "Perrin", tf_hero, 0, 0,  fac_kingdom_1, [itm_hunter, itm_two_rivers_armor, itm_leather_boots, itm_leather_gloves, itm_warhammer, itm_illian_seax], knight_attrib_5,wpex(250,300,150,100,100,100),knight_skills_5|knows_trainer_4, 0x00000002270022434795b6b9634f66ea00000000001e58d20000000000000000],
 

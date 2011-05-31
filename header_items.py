@@ -371,6 +371,8 @@ itc_guandao    = itc_parry_polearm|itcf_overswing_polearm|itcf_thrust_polearm|it
 
 itc_greatlance = itcf_thrust_onehanded_lance |itcf_thrust_onehanded_lance_horseback| itcf_thrust_polearm
 
+itc_ashandarei = itc_staff|itcf_horseback_slashright_onehanded|itcf_horseback_slashleft_onehanded
+
 #EXtra Mesh IDs
 ixmesh_inventory   = 0x1000000000000000
 ixmesh_flying_ammo = 0x2000000000000000
