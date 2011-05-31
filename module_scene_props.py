@@ -3106,6 +3106,26 @@ scene_props = [
 
   # Added for wheel of time waygate
   ("waygate",0,"waygate","bo_waygate", []),
+  ("ways_exit_ramp",0,"ways_exit_ramp","bo_ways_exit_ramp", []),
+  #specific Ogier signs
+  ("waygate_ogier_sign_ancohima",0,"waygate_ogier_sign_ancohima",0, []),
+  ("waygate_ogier_sign_mainelle",0,"waygate_ogier_sign_mainelle",0, []),
+  ("waygate_ogier_sign_alcairrahienallen",0,"waygate_ogier_sign_alcairrahienallen",0, []),
+  ("waygate_ogier_sign_mafaldadaranell",0,"waygate_ogier_sign_mafaldadaranell",0, []),
+  ("waygate_ogier_sign_aridhol",0,"waygate_ogier_sign_aridhol",0, []),
+  ("waygate_ogier_sign_braem",0,"waygate_ogier_sign_braem",0, []),
+  ("waygate_ogier_sign_haicaemlyn",0,"waygate_ogier_sign_haicaemlyn",0, []),
+  ("waygate_ogier_sign_londarencor",0,"waygate_ogier_sign_londarencor",0, []),
+  ("waygate_ogier_sign_barashta",0,"waygate_ogier_sign_barashta",0, []),
+  ("waygate_ogier_sign_dorellecaromon",0,"waygate_ogier_sign_dorellecaromon",0, []),
+  ("waygate_ogier_sign_arenmador",0,"waygate_ogier_sign_arenmador",0, []),
+  ("waygate_ogier_sign_tear",0,"waygate_ogier_sign_tear",0, []),
+  ("waygate_ogier_sign_deranbar",0,"waygate_ogier_sign_deranbar",0, []),
+  ("waygate_ogier_sign_manetheren",0,"waygate_ogier_sign_manetheren",0, []),
+  ("waygate_ogier_sign_jaracopan",0,"waygate_ogier_sign_jaracopan",0, []),
+  ("waygate_ogier_sign_shanaine",0,"waygate_ogier_sign_shanaine",0, []),
+  ("waygate_ogier_sign_iman",0,"waygate_ogier_sign_iman",0, []),
+  ("waygate_ogier_sign_tarvalon",0,"waygate_ogier_sign_tarvalon",0, []),
 
   
 ]

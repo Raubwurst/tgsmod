@@ -33333,7 +33333,12 @@ mission_templates = [
                 (ti_before_mission_start, 0, 0,  # set ways to night
                    [],
                      [
-                         (scene_set_day_time, 12),
+                         (scene_set_day_time, 15), # was 12
+                         (set_rain, 1, 0), # make rain strength zero
+                         (get_global_cloud_amount, "$g_ways_exit_cloud_amount"),
+                         (get_global_haze_amount, "$g_ways_exit_haze_amount"),
+                         (set_global_cloud_amount, 95),
+                         (set_global_haze_amount, 60),
                          (set_fog_distance, 4, 0x030303), #fog distance between 20-250, color is grey 0xbfbfbf
                          (assign, "$g_ways_player_agent", -1),
                          (assign, "$g_ways_player_in_freefall", 0),
@@ -33515,8 +33520,12 @@ mission_templates = [
                 ),   
 			
 				(ti_tab_pressed, 0, 0,			# Exit with tab. Needed when building. ;)
-					[],
+					[(eq, 0, 1)], # removed for now
 					[
+                        # new
+                        (set_global_cloud_amount, "$g_ways_exit_cloud_amount"),
+                        (set_global_haze_amount, "$g_ways_exit_haze_amount"),
+                        # end
 						(finish_mission,0),
 						(change_screen_return,0),
 					]
@@ -33542,9 +33551,25 @@ mission_templates = [
 						(assign, "$g_battle_result", -1),
 						(set_mission_result,-1),
 						(call_script, "script_count_mission_casualties_from_agents"),
-						(finish_mission,0)
+                        # new
+                        (set_global_cloud_amount, "$g_ways_exit_cloud_amount"),
+                        (set_global_haze_amount, "$g_ways_exit_haze_amount"),
+                        # end
+						(finish_mission,0),
 					]
 				),
+
+                (ti_on_leave_area, 0, ti_once, [],
+                   [
+                       # new
+                       (set_global_cloud_amount, "$g_ways_exit_cloud_amount"),
+                       (set_global_haze_amount, "$g_ways_exit_haze_amount"),
+                       # end
+                       (finish_mission,0),
+                    ]
+                 ),
+
+
 			],
 		), 
 	### Ways mission_template END

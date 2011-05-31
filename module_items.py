@@ -47403,12 +47403,12 @@ items = [
 #Mat Cauthon's Items
 
  
-#["black_hat", "Mat Cauthon's Hat", [("black_hat",0)],itp_unique|itp_type_head_armor|itp_civilian,0,9, weight(1)|head_armor(10)|body_armor(0)|leg_armor(0)|difficulty(0),imodbits_cloth],
+#["mats_hat", "Mat Cauthon's Hat", [("mats_hat",0)],itp_unique|itp_type_head_armor|itp_civilian,0,9, weight(1)|head_armor(15)|body_armor(0)|leg_armor(0)|difficulty(0),imodbits_cloth],
 # Feel free to edit values such as weight and armor value etc etc
 # Currently Buggy Model 
  
-["ashandarei",         "Ashandarei", [("ashandarei_ravens",0)], itp_unique|itp_type_polearm|itp_offset_lance| itp_primary|itp_two_handed|itp_wooden_parry, itc_staff|itcf_carry_spear,
- 0 , weight(3.5)|difficulty(5)|spd_rtng(100) | weapon_length(150)|swing_damage(55 , cut) | thrust_damage(30 ,  pierce),imodbits_polearm ],
+["ashandarei",         "Ashandarei", [("ashandarei_ravens",0)], itp_unique|itp_type_polearm|itp_merchandise| itp_primary|itp_two_handed, itcf_carry_spear|itc_guandao,
+ 0 , weight(3.0)|difficulty(5)|spd_rtng(115) | weapon_length(155)|swing_damage(55 , cut) | thrust_damage(30 ,  pierce),imodbits_polearm ],
 # Again, feel free to edit values such as length, difficulty, damage etc etc
 # I put value(in-game) to 0 as I'd imagine only Mat will have it...
 # And if you don't want the ravens, just take "_ravens" out of the mesh name entry.
