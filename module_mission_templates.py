@@ -33324,9 +33324,10 @@ mission_templates = [
 		"You enter the ways.",
 			[
 				(100,mtef_team_0,af_override_horse,0,7,[]),		# Entry_point 100 set as default, if the player for some reason doesn't have a correct $g_ways_point set.
-				#(1,mtef_visitor_source|mtef_team_1,af_override_horse,0,20,[]),
-				#(2,mtef_visitor_source|mtef_team_1,af_override_horse,0,20,[]),	#Haven' added other parties inside ways yet
-				#(3,mtef_visitor_source|mtef_team_1,af_override_horse,0,20,[]),
+				(41,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
+				(42,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),	#Haven' added other parties inside ways yet
+				(43,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
+                (44,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
 			],
     	
 			[
@@ -33569,6 +33570,127 @@ mission_templates = [
                     ]
                  ),
 
+				(1, 0, ti_once, [   # random change of Shadowspawn in Ways
+                                    (store_random_in_range, ":random", 0, 100),
+                                    (le, ":random", 25),
+                                ],
+					[
+                        (agent_get_team, ":player_team", "$g_ways_player_agent"),
+                        (store_add, ":enemy_team", ":player_team", 1),
+						(store_random_in_range, ":entry_location", 41, 45),
+                        (entry_point_get_position, pos1, ":entry_location"),
+                        
+                        (set_spawn_position, pos1),
+                        (spawn_agent, "trp_myrddraal"),
+                        (agent_set_team, reg0, ":enemy_team"),
+                        
+                        (try_for_range, ":unused", 1, 3),
+                            (spawn_agent, "trp_trolloc_berserker"),
+                            (agent_set_team, reg0, ":enemy_team"),
+                        (try_end),
+                        
+                        (try_for_range, ":unused", 1, 5),
+                            (spawn_agent, "trp_trolloc_grunt"),
+                            (agent_set_team, reg0, ":enemy_team"),
+                        (try_end),
+                        
+                        (try_for_agents, ":agent"),
+                            (neg|agent_is_human, ":agent"), # horse
+                            (agent_set_hit_points, ":agent", 0, 0),
+                            (agent_deliver_damage_to_agent, ":agent", ":agent", 1),
+                        (try_end),
+					]
+				),
+
+                
+      #################################################################  
+      ###### Wheel of Time triggers
+      #################################################################
+
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
+      
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
+      
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      common_wot_check_for_channelers_in_the_scene,
+      common_wot_spawn_warders,
+      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_weave_toggle_short_range,
+      common_wot_weave_toggle_long_range,
+      common_wot_weave_toggle_support,
+      common_wot_weave_toggle_advanced,
+      common_wot_weave_toggle_all,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
+      
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      #common_wot_airborne_trigger,
+      # end
+      
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+      
+      # pick one balefire trigger (2 for custom battle)
+      #common_wot_balefire_trigger_1,
+      common_wot_balefire_trigger_2,
+      # end
+      
+      common_wot_burn_over_time_trigger,
+      
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      # end
+ 
+      #########################################################################
+      ###### end Wheel of Time triggers
+      #########################################################################
+      
+##################################################
+##### troop_ratio_bar
+##################################################
+      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+##################################################
 
 			],
 		), 
