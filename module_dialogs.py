@@ -21464,8 +21464,11 @@ I give you my protection and grant you the right to bear arms in my name, and I 
    (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
    (assign, ":is_pretender", 1),
 
+## TGS: mat: DEBUG: here's where "$supported_pretender" and "$supported_pretender_old_faction" are set
    (assign, "$supported_pretender", "$g_talk_troop"),
    (troop_get_slot, "$supported_pretender_old_faction", "$g_talk_troop", slot_troop_original_faction),
+## TGS: mat: DEBUG: end
+
    (troop_set_faction, "$g_talk_troop", "fac_player_supporters_faction"),
    (faction_set_slot, "fac_player_supporters_faction", slot_faction_leader, "$g_talk_troop"),
    (assign, "$g_talk_troop_faction", "fac_player_supporters_faction"),

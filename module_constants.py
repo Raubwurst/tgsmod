@@ -1526,8 +1526,10 @@ kingdom_ladies_end = "trp_heroes_end"
 
 #active NPCs in order: companions, kings, lords, pretenders
 
+# TGS: mat: DEBUG: this one seems to be the correct one
 pretenders_begin = "trp_kingdom_1_pretender"
 pretenders_end = kingdom_ladies_begin
+# TGS: mat: DEBUG: end
 
 ## V: BEGIN EDITED OUT FOR WOT MOD
 # lords_begin = "trp_knight_1_1"
@@ -1564,8 +1566,11 @@ soldiers_end = "trp_town_walker_1"
 ##rebel_factions_begin = "fac_kingdom_1_rebels"
 ##rebel_factions_end =   "fac_kingdoms_end"
 
+# TGS: mat: DEBUG: This one is also correct, but in a round about way
 pretenders_begin = "trp_kingdom_1_pretender"
 pretenders_end = active_npcs_end
+# TGS: mat: DEBUG: end
+
 #Rebellion changes
 
 tavern_minstrels_begin = "trp_tavern_minstrel_1"
