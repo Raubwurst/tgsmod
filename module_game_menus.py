@@ -1126,8 +1126,8 @@ game_menus = [
     "none",
     [],
     [
-      ("start_mother_lady",[
-          ],"A lady of noble birth.",[
+      ("start_mother_lady",[(this_or_next|eq, "$background_type", cb_father_lord),
+                            (eq, "$background_type", cb_father_warder),],"A lady of noble birth.",[
       (assign,"$background_type_mother", cb_mother_lady),
       (assign, reg3, "$character_gender"),
       (str_store_string,s16,"@Your mother made sure you were raised right;\
@@ -1136,8 +1136,7 @@ game_menus = [
  but only through the curtains of a coach or when it was festival time."),
 	(jump_to_menu,"mnu_start_character_2"),
     ]),
-      ("start_mother_aes_sedai",[
-          ],"An Aes Sedai.",[
+      ("start_mother_aes_sedai",[(neq, "$background_type", cb_father_thief)],"An Aes Sedai.",[
       (assign,"$background_type_mother", cb_mother_aes_sedai),
       (assign, reg3, "$character_gender"),
       (str_store_string,s16,"@As a {reg3?daughter:son} of an Aes Sedai,\
@@ -1146,8 +1145,7 @@ game_menus = [
  but the time you did have was certainly unique."),
 	(jump_to_menu,"mnu_start_character_2"),
     ]),
-      ("start_mother_house_wife",[
-          ],"A house wife.",[
+      ("start_mother_house_wife",[(neq, "$background_type", cb_father_lord)],"A house wife.",[
       (assign,"$background_type_mother",cb_mother_house_wife),
       (assign, reg3, "$character_gender"),
       (str_store_string,s16,"@As a young {reg3?girl:boy}, you were some lucky to\
@@ -1155,8 +1153,7 @@ game_menus = [
  the important things, like how to get along with others, and if necessary, make your own meals."),
 	(jump_to_menu,"mnu_start_character_2"),
     ]),
-      ("start_mother_womens_circle_member",[
-          ],"A member of the Women's Circle.",[
+      ("start_mother_womens_circle_member",[(neq, "$background_type", cb_father_thief)],"A member of the Women's Circle.",[
       (assign,"$background_type_mother",cb_mother_womens_circle_member),
       (assign, reg3, "$character_gender"),
       (str_store_string,s16,"@As a member of the Women's Circle,\
@@ -1165,8 +1162,7 @@ game_menus = [
  You were instilled with a sense of leadership but also a respect for those in authority."),
 	(jump_to_menu,"mnu_start_character_2"),
     ]),
-      ("start_mother_innkeeper",[
-          ],"An innkeeper.",[
+      ("start_mother_innkeeper",[(neq, "$background_type", cb_father_lord)],"An innkeeper.",[
       (assign,"$background_type_mother",cb_mother_innkeeper),
       (assign, reg3, "$character_gender"),
       (str_store_string,s16,"@As a {reg3?daughter:son} of an innkeeper,\
@@ -1174,9 +1170,8 @@ game_menus = [
  and learned the importance of a good meal and perhaps a flagon of ale to keep men's spirits up."),
 	(jump_to_menu,"mnu_start_character_2"),
     ]),
-      ("start_mother_hunter_for_the_horn",[
-          ],"A Hunter for the Horn.",[
-      (assign,"$background_type_mother",cb_mother_innkeeper),
+      ("start_mother_hunter_for_the_horn",[(neq, "$background_type", cb_father_thief)],"A Hunter for the Horn.",[
+      (assign,"$background_type_mother",cb_mother_hunter_for_the_horn),
       (assign, reg3, "$character_gender"),
       (str_store_string,s16,"@Your mother left when you were young.\
  She had always been a restless spirit, and when the Hunt for the Horn was called, it was too\
@@ -1184,8 +1179,8 @@ game_menus = [
  rubbed off on you as well."),
 	(jump_to_menu,"mnu_start_character_2"),
     ]),
-      ("start_mother_whore",[
-          ],"A whore.",[
+      ("start_mother_whore",[(neq, "$background_type", cb_father_lord),
+                             (neq, "$background_type", cb_father_warder),],"A whore.",[
       (assign,"$background_type_mother",cb_mother_whore),
       (assign, reg3, "$character_gender"),
       (str_store_string,s16,"@Your mother may not have had the highest\
@@ -1194,8 +1189,7 @@ game_menus = [
  went far in shaping your future."),
 	(jump_to_menu,"mnu_start_character_2"),
     ]),
-      ("start_mother_seamstress",[
-          ],"A seamstress.",[
+      ("start_mother_seamstress",[(neq, "$background_type", cb_father_lord)],"A seamstress.",[
       (assign,"$background_type_mother",cb_mother_seamstress),
       (assign, reg3, "$character_gender"),
       (str_store_string,s16,"@Your mother was a business woman through\
@@ -1218,7 +1212,9 @@ game_menus = [
     "none",
     [],
     [
-      ("page",[(eq, "$character_gender", tf_male)],"A page at a nobleman's court.",[
+      ("page",[(eq, "$character_gender", tf_male),
+               (this_or_next|eq, "$background_type", cb_father_lord),
+               (eq, "$background_type_mother", cb_mother_lady),],"A page at a nobleman's court.",[
       (assign,"$background_answer_2", cb_childhood_page),
       (assign, reg3, "$character_gender"),
       (str_store_string,s11,"@As a {reg3?girl:boy} growing out of childhood,\
@@ -1228,7 +1224,9 @@ game_menus = [
  and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords."),
 	(jump_to_menu,"mnu_start_character_3"),
     ]),
-      ("lady_in_waiting",[(eq,"$character_gender",tf_female)],"A lady-in-waiting.",[
+      ("lady_in_waiting",[(eq,"$character_gender",tf_female),
+                          (this_or_next|eq, "$background_type", cb_father_lord),
+                          (eq, "$background_type_mother", cb_mother_lady),],"A lady-in-waiting.",[
         (assign,"$background_answer_3",cb_childhood_lady_in_waiting),
       (str_store_string,s14,"@{reg3?daughter:man}"),
       (str_store_string,s13,"@{reg3?woman:man}"),
@@ -1251,17 +1249,32 @@ game_menus = [
  day when you left your former life behind and started down the long road of training and discovery."),
 	(jump_to_menu,"mnu_start_character_3"),
     ]),
-      ("ashaman_soldier",[(eq, "$character_gender", tf_male)],"An Ashaman Soldier.",[
-      (assign,"$background_answer_2", cb_childhood_ashaman_soldier),
+      ("wilder",[(assign, ":test_1", 0),
+                 (try_begin),
+                 (eq, "$character_gender", tf_male),
+                     (assign, ":test_1", 1),
+                 (else_try),
+                 (eq, "$character_gender", tf_female),
+                 (neq, "$background_type_mother", cb_mother_aes_sedai),
+                     (assign, ":test_1", 1),
+                 (try_end),
+                 (eq, ":test_1", 1),],"A Wilder.",[
+      (assign,"$background_answer_2", cb_childhood_wilder),
       (assign, reg3, "$character_gender"),
-      (str_store_string,s11,"@One day, a man came to your village.\
- He asked many questions of the townfolk and eventually he even talked to you.\
- After a series of tests, the man informed you that you had the ability to channel. Your parents\
- were angry at first, but after a long talk with the stranger, they agreed to send you with him to\
- be trained. You followed the man through a doorway in the air and began your new life as a soldier."),
+      (str_store_string,s11,"@One day, when you were around fourteen years old,\
+ you fell through the ice in the village pond. When you came to the surface, to your horror\
+ your head hit ice instead of air. You frantically looked for the hole, but the freezing cold\
+ started to disorient you. As you ran out of air, you began to panic. Just before you reached you\
+ passed out, the ice suddenly broke above you. You surfaced and called for help. The next week was\
+ spent recovering. But a lingering sickness set in that finally broke after several intense days.\
+ In the months to come, you slowly realized that you had channeled. But, you kept this secret for fear\
+ of what your friends and family would think."),
 	(jump_to_menu,"mnu_start_character_3"),
     ]),
-      ("hunter",[
+      ("hunter",[(neq, "$background_type_mother", cb_mother_lady),
+                 (neq, "$background_type_mother", cb_mother_aes_sedai),
+                 (neq, "$background_type_mother", cb_mother_innkeeper),
+                 (neq, "$background_type_mother", cb_mother_seamstress),
           ],"A hunter.",[
       (assign,"$background_answer_2",cb_childhood_hunter),
       (assign, reg3, "$character_gender"),
@@ -1271,7 +1284,9 @@ game_menus = [
  was right, you had to hit what you were aiming at."),
 	(jump_to_menu,"mnu_start_character_3"),
     ]),
-      ("farmer",[
+      ("farmer",[(neq, "$background_type_mother", cb_mother_lady),
+                 (neq, "$background_type_mother", cb_mother_aes_sedai),
+                 (neq, "$background_type_mother", cb_mother_hunter_for_the_horn),
           ],"Another set of hands on the farm.",[
       (assign,"$background_answer_2",cb_childhood_farmer),
       (assign, reg3, "$character_gender"),
@@ -1282,8 +1297,7 @@ game_menus = [
  with a hail of stones from your sling and in later years, an arrow from your bow."),
 	(jump_to_menu,"mnu_start_character_3"),
     ]),
-      ("apprentice",[
-          ],"A craftsman's apprentice.",[
+      ("apprentice",[(neq, "$background_type_mother", cb_mother_lady)],"A craftsman's apprentice.",[
       (assign,"$background_answer_2", cb_childhood_apprentice),
       (assign, reg3, "$character_gender"),
       (str_store_string,s11,"@As a {reg3?girl:boy} growing out of childhood,\
@@ -1292,13 +1306,17 @@ game_menus = [
  you wished to stay."),
 	(jump_to_menu,"mnu_start_character_3"),
     ]),
-      ("village_wisdom_assistant",[(eq, "$character_gender", tf_female)],"A village wisdom's assistant.",[
+      ("village_wisdom_assistant",[(eq, "$character_gender", tf_female),
+                                   (neq, "$background_type_mother", cb_mother_lady),
+                                   (neq, "$background_type_mother", cb_mother_whore),],"A village wisdom's assistant.",[
       (assign,"$background_answer_2",cb_childhood_village_wisdom_assistant),
       (assign, reg3, "$character_gender"),
       (str_store_string,s11,"@When you were young, the Village Wisdom\
- took you as her apprentice. You quick memory helped you learn the many herbs used to make remedies.\
- But as you grew into your teens, you found that you may have been selected for another reason. You learned\
- that you had the ability to listen to the weather."),
+ took you as her apprentice. Your quick memory helped you learn the many herbs used to make remedies.\
+ But as you grew into your teens, you learned that the Wisdom's duties went far beyond tending the sick.\
+ A Wisdom was also expected to provide other answers such as when to plant crops, or how the weather would\
+ be that year. You knew that if you worked hard in your training, you too would grow to be a respected\
+ member of your community."),
 	(jump_to_menu,"mnu_start_character_3"),
     ]),
       
@@ -1394,8 +1412,7 @@ game_menus = [
 ##        ]),
 
       ("minor_noble",[(this_or_next|eq, "$background_type", cb_father_lord),
-                       (eq, "$background_type_mother", cb_mother_lady),
-                       ],"A minor noble.",[
+                      (eq, "$background_type_mother", cb_mother_lady),],"A minor noble.",[
         (assign,"$background_answer_3",cb_young_adulthood_minor_noble),
       (str_store_string,s14,"@{reg3?daughter:man}"),
       (str_store_string,s12,"@An uxpected death in the family placed the\
@@ -1405,7 +1422,7 @@ game_menus = [
  who was greatly respected by your peers."),
 	(jump_to_menu,"mnu_start_character_4"),
         ]),
-      ("gleeman",[],"A gleeman.",[
+      ("gleeman",[(neq, "$background_type", cb_father_lord)],"A gleeman.",[
         (assign,"$background_answer_3",cb_young_adulthood_gleeman),
       (str_store_string,s14,"@{reg3?daughter:man}"),
       (str_store_string,s13,"@{reg3?woman:man}"),
@@ -1436,18 +1453,19 @@ game_menus = [
  In the front of your mind was the thought that you could do this. One day, you would become an Aes Sedai."),
 	(jump_to_menu,"mnu_start_character_4"),
         ]),
-      ("ashaman_dedicated",[(eq, "$background_answer_2", cb_childhood_ashaman_soldier)],"An Ashaman Dedicated.",[
-        (assign,"$background_answer_3",cb_young_adulthood_ashaman_dedicated),
+      ("active_wilder",[(eq, "$background_answer_2", cb_childhood_wilder)],"An active Wilder.",[
+        (assign,"$background_answer_3",cb_young_adulthood_accepted),
       (str_store_string,s14,"@{reg3?daughter:man}"),
       (str_store_string,s13,"@{reg3?woman:man}"),
-      (str_store_string,s12,"@The day you received your sword pin was one of\
- your most cherished memories. You had come so far from the scared village boy who was told he could channel.\
- Now, the One Power was a part of your life. In fact, you used Sai'din in most of your daily activities.\
- You were strong and grew in confidence and experience every day. Soon, you knew the Dragon pin would be\
- yours as well..."),
+      (str_store_string,s12,"@You knew you could channel, but you did everything\
+ in your power to keep that secret. There were many groups in the land who would kill you out of\
+ hand for what you could do. However, when you were alone, or when no one would notice, you used your\
+ new abilities in ways to help others. Gradually, your skills grew and you became quite adept at weaving\
+ the flows..."),
 	(jump_to_menu,"mnu_start_character_4"),
         ]),
-      ("merchant",[],"A merchant.",[
+      ("merchant",[(neq, "$background_type", cb_father_lord),
+                   (neq, "$background_type", cb_father_thief),],"A merchant.",[
         (assign,"$background_answer_3", cb_young_adulthood_merchant),
       (str_store_string,s14,"@{reg3?daughter:man}"),
       (str_store_string,s13,"@{reg3?woman:man}"),
@@ -1467,12 +1485,11 @@ game_menus = [
       (str_store_string,s12,"@You were too young in the eyes of some, but\
  never the less, when the old wisdom died, she named you as her replacement. The villagers didn't\
  doubt your knowledge of herbs and remedies, but you could tell they were just a little hesitant.\
- You were detemined to prove yourself, and over the years became a respected healer. Your ability to\
- listen to the winds also improved. You kept this to yourself though, because you now knew this\
- ability was related to the One Power."),
+ You were detemined to prove yourself, and over the years became a respected healer."),
 	(jump_to_menu,"mnu_start_character_4"),
         ]),
-       ("smuggler",[],"A smuggler.",[
+       ("smuggler",[(neq, "$background_type", cb_father_lord),
+                    (eq, "$background_type", cb_father_thief),],"A smuggler.",[
         (assign,"$background_answer_3", cb_young_adulthood_smuggler),
       (str_store_string,s14,"@{reg3?daughter:man}"),
       (str_store_string,s13,"@{reg3?woman:man}"),
@@ -1483,7 +1500,7 @@ game_menus = [
  Thankfully, a quick mind and an eye that could spot trouble a mile away kept you one step ahead of the authoritied."),
 	(jump_to_menu,"mnu_start_character_4"),
         ]),
-       ("merchant_guard",[],"A merchant's guard.",[
+       ("merchant_guard",[(neq, "$background_type", cb_father_lord)],"A merchant's guard.",[
         (assign,"$background_answer_3", cb_young_adulthood_merchant_guard),
       (str_store_string,s14,"@{reg3?daughter:man}"),
       (str_store_string,s13,"@{reg3?woman:man}"),
@@ -1534,7 +1551,9 @@ game_menus = [
     "none",
     [],
     [
-      ("achievement_noble_title",[(neq,"$background_answer_3",cb_young_adulthood_minor_noble)],"Gained a noble title.",[
+      ("achievement_noble_title",[(neq,"$background_type",cb_father_lord),
+                                  (neq,"$background_type_mother",cb_mother_lady),
+                                  (neq,"$background_answer_3",cb_young_adulthood_minor_noble),],"Gained a noble title.",[
         (assign,"$background_answer_4", cb_crowning_achievement_noble_title),
       (str_store_string,s13,"@It was not expected, but you were named the heir of a noble house.\
  Many thought this was a poor choice, since you were not of noble birth, but you soon taught them respect.\
@@ -1553,7 +1572,8 @@ game_menus = [
  but all the land learned of what you had done."),
         (jump_to_menu,"mnu_choose_skill"),
         ]),
-      ("achievement_mastered_the_flame_and_void ",[],"Mastered the Flame and Void.",[
+      ("achievement_mastered_the_flame_and_void ",[(this_or_next|eq, "$background_answer_3", cb_young_adulthood_warder),
+                                                   (eq, "$background_answer_3", cb_young_adulthood_merchant_guard),],"Mastered the Flame and Void.",[
         (assign,"$background_answer_4",cb_crowning_achievement_mastered_the_flame_and_void),
       (str_store_string,s13,"@In order to become a true warrior, you had been taught that you must\
  learn to master both your actions and your emotions. Neither fear or anger would help you during battle.\
@@ -1570,7 +1590,10 @@ game_menus = [
 ## glory of God by the time you're done..."),
 ##        (jump_to_menu,"mnu_choose_skill"),
 ##        ]),
-      ("achievement_survived_journey_across_aiel_waste",[],"Survived a journey across the Aiel Waste.",[
+      ("achievement_survived_journey_across_aiel_waste",[(this_or_next|eq, "$background_type", cb_father_warder),
+                                                         (this_or_next|eq, "$background_type", cb_father_adventurer),
+                                                         (this_or_next|eq, "$background_answer_3", cb_young_adulthood_warder),
+                                                         (eq, "$background_answer_3", cb_young_adulthood_merchant_guard),],"Survived a journey across the Aiel Waste.",[
         (assign,"$background_answer_4",cb_crowning_achievement_survived_journey_across_aiel_waste),
       (str_store_string,s13,"@While accompanying a merchant train into the Aiel Waste, you were bitten\
  by a poisonious snake. It was thought that you were dead, so the merchants left you behind in a small hollow in the rocks.\
@@ -1580,17 +1603,17 @@ game_menus = [
  was horrified by what had been done and rewarded you with triple the pay you were due."),
         (jump_to_menu,"mnu_choose_skill"),
         ]),
-     ("achievement_learned_to_speak_to_wolves",[],"Learned to speek to wolves.",[
+     ("achievement_learned_to_speak_to_wolves",[],"Learned to speak to wolves.",[
         (assign,"$background_answer_4",cb_crowning_achievement_learned_to_speak_to_wolves),
       (str_store_string,s13,"@You are not sure whether you learned or if it just happened,\
  but in your early 20s, you first heard the voices in your head. Slowly you pieced together\
  that these voices weren't madness. Then came the dreams. Dreams with wolves in them. Your senses\
  became heightened, and you began to spend more and more time out in the wilds. Soon you found a small\
  pack who let you join them and taught you more about your new life. But, you were insistent that\
- you also keep a foot in the world of humans. So, after after a year with the wolves, you moved on."),
+ you also keep a foot in the world of humans. So, after a year with the wolves, you moved on."),
         (jump_to_menu,"mnu_choose_skill"),
         ]),
-      ("achievement_saved_lord_at_tarwins_gap",[],"Saved a lord at Tarwin's Gap.",[
+      ("achievement_saved_lord_at_tarwins_gap",[(neq, "$background_type", cb_father_lord)],"Saved a lord at Tarwin's Gap.",[
         (assign,"$background_answer_4",cb_crowning_achievement_saved_lord_at_tarwins_gap),
       (str_store_string,s13,"@Having trained since your youth, you were not surprised when\
  you were called to join the forces marching to Tarwin's Gap. War was the life of the Bordermen,\
@@ -1604,7 +1627,7 @@ game_menus = [
         (jump_to_menu,"mnu_choose_skill"),
         ]),
       ("achievement_rediscovered_lost_weaves",[(this_or_next|eq, "$background_answer_3", cb_young_adulthood_accepted),
-                                               (eq, "$background_answer_3", cb_young_adulthood_ashaman_dedicated),
+                                               (eq, "$background_answer_3", cb_young_adulthood_accepted),
                                                ],"Rediscovered a lost weave.",[
         (assign,"$background_answer_4",cb_crowning_achievement_rediscovered_lost_weaves),
       (str_store_string,s13,"@Early on, you were marked as being a promising channeler.\
@@ -1614,7 +1637,7 @@ game_menus = [
  but determined in your mind to continue researching those things which were thought to be impossible."),
         (jump_to_menu,"mnu_choose_skill"),
         ]),
-      ("achievement_became_wealthy_merchant",[],"Became a wealthy merchant",[
+      ("achievement_became_wealthy_merchant",[(eq, "$background_answer_3", cb_young_adulthood_merchant)],"Became a wealthy merchant",[
         (assign,"$background_answer_4",cb_crowning_achievement_became_wealthy_merchant),
       (str_store_string,s13,"@Due to your ability to predict trade patterns and your superior\
  management of logistics, you became one of the wealthiest merchants in Andor. Not many people knew it,\
@@ -1623,7 +1646,8 @@ game_menus = [
  was without question."),
         (jump_to_menu,"mnu_choose_skill"),
         ]),
-      ("achievement_stole_laurel_crown",[],"Stole the Laurel Crown.",[
+      ("achievement_stole_laurel_crown",[(eq, "$background_type", cb_father_thief),
+                                         (eq, "$background_answer_3", cb_young_adulthood_smuggler),],"Stole the Laurel Crown.",[
         (assign,"$background_answer_4",cb_crowning_achievement_stole_laurel_crown),
       (str_store_string,s13,"@As a thief, your main worry was staying out of the noose.\
  But, the thrill of the next big heist was always to much to pass by. At the top of the list, by far, was when\
@@ -1902,7 +1926,7 @@ game_menus = [
 
       (else_try),
         (eq,"$background_type",cb_father_skilled_tradesman),
-           
+        
         (troop_raise_attribute, "trp_player",ca_strength,1),
         (troop_raise_attribute, "trp_player",ca_intelligence,1),
         (troop_raise_attribute, "trp_player",ca_charisma,1),
@@ -2101,11 +2125,12 @@ game_menus = [
         (troop_raise_skill, "trp_player","skl_surgery",1),
         (troop_raise_skill, "trp_player","skl_leadership",1),
         (troop_raise_proficiency, "trp_player",wpt_firearm,30),
+        (troop_add_item, "trp_player","itm_dagger",0),
         (troop_add_item, "trp_player","itm_power_player",0),
         (troop_add_item, "trp_player","itm_novice_dress",0),
         (troop_add_item, "trp_player","itm_novice_accepted_damane_shoes",0),
     (else_try),
-        (eq,"$background_answer_2",cb_childhood_ashaman_soldier),
+        (eq,"$background_answer_2",cb_childhood_wilder),
         (troop_raise_attribute, "trp_player",ca_strength,1),
         (troop_raise_attribute, "trp_player",ca_intelligence,1),
         (troop_raise_skill, "trp_player","skl_power_strike",1),
@@ -2115,8 +2140,7 @@ game_menus = [
         (troop_raise_skill, "trp_player","skl_prisoner_management",1),
         (troop_raise_proficiency, "trp_player",wpt_firearm,30),
         (troop_add_item, "trp_player","itm_power_player",0),
-        (troop_add_item, "trp_player","itm_ashaman_soldier_coat",0),
-        (troop_add_item, "trp_player","itm_black_leather_boots",0),
+        (troop_add_item, "trp_player","itm_dagger",0),
     (else_try),
         (eq,"$background_answer_2",cb_childhood_hunter),
         (troop_raise_attribute, "trp_player",ca_agility,1),
@@ -2158,7 +2182,6 @@ game_menus = [
         (troop_raise_skill, "trp_player","skl_first_aid",1),
         (troop_raise_skill, "trp_player","skl_leadership",1),
         (troop_add_item, "trp_player","itm_cudgel",0),
-        (troop_add_item, "trp_player","itm_power_player",0),
     (try_end),
 ############################
 
@@ -2190,10 +2213,9 @@ game_menus = [
         (troop_raise_proficiency, "trp_player",wpt_firearm,40),
         (troop_add_item, "trp_player","itm_accepted_dress",0),
     (else_try),
-        (eq,"$background_answer_3",cb_young_adulthood_ashaman_dedicated),
+        (eq,"$background_answer_3",cb_young_adulthood_active_wilder),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,15),
         (troop_raise_proficiency, "trp_player",wpt_firearm,35),
-        (troop_add_item, "trp_player","itm_ashaman_dedicated_coat",0),
     (else_try),
         (eq,"$background_answer_3",cb_young_adulthood_merchant),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,15),
@@ -2207,7 +2229,9 @@ game_menus = [
         (eq,"$background_answer_3",cb_young_adulthood_village_wisdom),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,15),
         (troop_raise_proficiency, "trp_player",wpt_throwing,5),
-        (troop_raise_proficiency, "trp_player",wpt_firearm,30),
+        (troop_raise_skill, "trp_player","skl_wound_treatment",1),
+        (troop_raise_skill, "trp_player","skl_first_aid",1),
+        (troop_raise_skill, "trp_player","skl_surgery",1),
         (troop_add_item, "trp_player","itm_woolen_hose",0),
         (troop_add_item, "trp_player","itm_homespun_dress",0),
     (else_try),

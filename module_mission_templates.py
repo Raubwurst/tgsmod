@@ -33403,7 +33403,7 @@ mission_templates = [
                         (store_sub, ":z_diff", "$g_ways_player_z_previous", ":z_pos"),
 
                         (try_begin),
-                        (gt, ":z_diff", 150), # started at 1
+                        (gt, ":z_diff", 425), # started at 1
                             (val_add, "$g_ways_player_in_freefall", 1),
                             (assign, "$g_ways_player_z_previous", ":z_pos"),
                         (else_try),
@@ -33570,34 +33570,35 @@ mission_templates = [
                     ]
                  ),
 
-				(1, 0, ti_once, [   # random change of Shadowspawn in Ways
-                                    (store_random_in_range, ":random", 0, 100),
-                                    (le, ":random", 25),
-                                ],
+				(1, 0, ti_once, [],  # random chance of Shadowspawn in the Ways
 					[
-                        (agent_get_team, ":player_team", "$g_ways_player_agent"),
-                        (store_add, ":enemy_team", ":player_team", 1),
-						(store_random_in_range, ":entry_location", 41, 45),
-                        (entry_point_get_position, pos1, ":entry_location"),
+                        (store_random_in_range, ":random", 0, 100),
+                        (try_begin),
+                        (le, ":random", 25),
+                            (agent_get_team, ":player_team", "$g_ways_player_agent"),
+                            (store_add, ":enemy_team", ":player_team", 1),
+    						(store_random_in_range, ":entry_location", 41, 45),
+                            (entry_point_get_position, pos1, ":entry_location"),
                         
-                        (set_spawn_position, pos1),
-                        (spawn_agent, "trp_myrddraal"),
-                        (agent_set_team, reg0, ":enemy_team"),
-                        
-                        (try_for_range, ":unused", 1, 3),
-                            (spawn_agent, "trp_trolloc_berserker"),
+                            (set_spawn_position, pos1),
+                            (spawn_agent, "trp_myrddraal"),
                             (agent_set_team, reg0, ":enemy_team"),
-                        (try_end),
                         
-                        (try_for_range, ":unused", 1, 5),
-                            (spawn_agent, "trp_trolloc_grunt"),
-                            (agent_set_team, reg0, ":enemy_team"),
-                        (try_end),
+                            (try_for_range, ":unused", 1, 3),
+                                (spawn_agent, "trp_trolloc_berserker"),
+                                (agent_set_team, reg0, ":enemy_team"),
+                            (try_end),
                         
-                        (try_for_agents, ":agent"),
-                            (neg|agent_is_human, ":agent"), # horse
-                            (agent_set_hit_points, ":agent", 0, 0),
-                            (agent_deliver_damage_to_agent, ":agent", ":agent", 1),
+                            (try_for_range, ":unused", 1, 5),
+                                (spawn_agent, "trp_trolloc_grunt"),
+                                (agent_set_team, reg0, ":enemy_team"),
+                            (try_end),
+                        
+                            (try_for_agents, ":agent"),
+                                (neg|agent_is_human, ":agent"), # horse
+                                (agent_set_hit_points, ":agent", 0, 0),
+                                (agent_deliver_damage_to_agent, ":agent", ":agent", 1),
+                            (try_end),
                         (try_end),
 					]
 				),
@@ -33632,8 +33633,8 @@ mission_templates = [
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
-      common_wot_reset_troop_ratio_bar,
-      common_wot_reset_troop_ratio_bar_additional,
+      #common_wot_reset_troop_ratio_bar,
+      #common_wot_reset_troop_ratio_bar_additional,
       
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
@@ -33689,7 +33690,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      #(0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 
 			],

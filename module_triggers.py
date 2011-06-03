@@ -2609,73 +2609,59 @@ triggers = [
 
   # Learn Weave Triggers
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 1),],[(dialog_box,"str_learn_weave_1")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 15),], [(dialog_box,"str_learn_weave_2")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 30),], [(dialog_box,"str_learn_weave_3")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 50),], [(dialog_box,"str_learn_weave_4")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 65),], [(dialog_box,"str_learn_weave_5")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 75),], [(dialog_box,"str_learn_weave_6")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 85),], [(dialog_box,"str_learn_weave_7")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 100),], [(dialog_box,"str_learn_weave_8")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 125),], [(dialog_box,"str_learn_weave_9")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 150),], [(dialog_box,"str_learn_weave_10")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 175),], [(dialog_box,"str_learn_weave_11")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 200),], [(dialog_box,"str_learn_weave_12")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 225),], [(dialog_box,"str_learn_weave_13")]),
   
   (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-                      (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+                      (eq,"$background_answer_2",cb_childhood_wilder),
                       (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 250),], [(dialog_box,"str_learn_weave_14")]),
 
   ## New main map hotkeys
@@ -2685,8 +2671,7 @@ triggers = [
             (try_begin),
             (key_clicked, key_m),  # start the remainder of the code when 'M' is clicked
             (this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-            (this_or_next|eq,"$background_answer_2",cb_childhood_ashaman_soldier),
-            (eq,"$background_answer_2",cb_childhood_village_wisdom_assistant),
+            (eq,"$background_answer_2",cb_childhood_wilder),
                 (troop_ensure_inventory_space, "trp_player", 1),
                 (troop_add_item, "trp_player", "itm_power_player", 0),
             (try_end),
