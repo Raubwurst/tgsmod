@@ -2723,7 +2723,7 @@ triggers = [
 
   ## New main map testing hotkeys HACK: make sure this doesn't work in non-development versions
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1), #  to enable cheats, remove the second line in the condition
-                   #(eq, "$g_tutorial_complete", 0),
+                   (eq, "$g_tutorial_complete", 0),
                    ],
          [
             ##Click 'K' to add troops to hero party

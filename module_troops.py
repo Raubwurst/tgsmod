@@ -2822,10 +2822,12 @@ troops = [
   ["kingdom_heroes_including_player_begin",  "kingdom_heroes_including_player_begin",  "kingdom_heroes_including_player_begin",  tf_hero, 0,reserved,  fac_kingdom_1,[],          lord_attrib,wp(220),knows_lord_1, 0x000000000010918a01f248377289467d],
 
 # FIXME: I gave channeling items and high fireams proficiency to all companions for testing purposes.
-  ["npc1","Borcha","Borcha",tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_khergit_armor,itm_nomad_boots,itm_knife],
+  ["npc1","Seinen","Seinen",tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_khergit_armor,itm_nomad_boots,itm_knife],
    str_8|agi_7|int_12|cha_7|level(3),wp(60)|wp_firearm(95),knows_tracker_npc|
    knows_ironflesh_1|knows_power_strike_1|knows_pathfinding_3|knows_athletics_2|knows_tracking_1|knows_riding_2, #skills 2/3 player at that level
    0x00000004bf086143259d061a9046e23500000000001db52c0000000000000000],
+
+# I'm still working on the npc1  
   ["npc2","Marnid","Marnid", tf_hero|tf_unmoveable_in_party_window, 0,reserved, fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_linen_tunic,itm_hide_boots,itm_club],
    str_7|agi_7|int_11|cha_6|level(1),wp(40)|wp_firearm(130),knows_merchant_npc|
    knows_trade_2|knows_weapon_master_1|knows_ironflesh_1|knows_wound_treatment_1|knows_athletics_2|knows_first_aid_1|knows_leadership_1,
