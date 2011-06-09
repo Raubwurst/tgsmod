@@ -1,7 +1,29 @@
 #!/bin/sh
-mv ./module_info.py ./module_info.py.bak
+if [ -f ./module_info.py ] ; then
+	echo "module_info exists, temporarily appending .bak"
+	mv ./module_info.py ./module_info.py.bak
+else
+	echo "module_info does not exist, I will create it"
+fi
+
 echo "export_dir = \"The Gathering Storm/\"" > ./module_info.py
-mv ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/steamapps/common/mountblade\ warband/Modules/The\ Gathering\ Storm/ .
+
+echo "moving module folder to build..."
+mv ~/mb-warband/drive_c/Program\ Files/Mount\&Blade\ Warband/Modules/The\ Gathering\ Storm/ .
+
+echo "copying resources..."
+
+copydirs=( Data languages Music Resource SceneObj Sounds Textures )
+for directory in ${copydirs[@]} ; do
+	echo "copying $directory to target" 
+	rsync -r --exclude=.svn ./$directory/ ./The\ Gathering\ Storm/$directory
+done
+
+echo "copying module.ini to target"
+cp ./module.ini ./The\ Gathering\ Storm
+
+echo "beginning build..."
+echo "-------------------------------------------"
 python2 process_init.py
 python2 process_global_variables.py
 python2 process_strings.py
@@ -31,8 +53,13 @@ python2 process_simple_triggers.py
 python2 process_dialogs.py
 python2 process_global_variables_unused.py
 python2 process_postfx.py
-mv ./module_info.py.bak ./module_info.py
-mv ./The\ Gathering\ Storm ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/steamapps/common/mountblade\ warband/Modules/
+echo "-------------------------------------------"
+echo "finished build"
+if [ -f ./module_info.py.bak ] ; then
+	echo "moving old module_info back"
+	mv ./module_info.py.bak ./module_info.py 
+fi
+mv ./The\ Gathering\ Storm ~/mb-warband/drive_c/Program\ Files/Mount\&Blade\ Warband/Modules/
 rm *.pyc
 echo ''
 echo '______________________________'
