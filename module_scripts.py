@@ -1694,10 +1694,18 @@ scripts = [
           (troop_set_slot, ":troop_no", slot_troop_npc_companion_secondary_weave, 0),
     (try_end),
 
-    # FIXME: later, modify this to only include the actual companions who will be channelers
+    # only npc1 - npc6 are channelers
     (try_for_range, ":troop_no", companions_begin, companions_end),
-          (troop_set_slot, ":troop_no", slot_troop_npc_companion_is_channeler, 1),
-          (troop_set_slot, ":troop_no", slot_troop_npc_companion_known_weaves, 1),
+          (try_begin),
+          (this_or_next|eq, ":troop_no", "trp_npc1"),
+          (this_or_next|eq, ":troop_no", "trp_npc2"),
+          (this_or_next|eq, ":troop_no", "trp_npc3"),
+          (this_or_next|eq, ":troop_no", "trp_npc4"),
+          (this_or_next|eq, ":troop_no", "trp_npc5"),
+          (eq, ":troop_no", "trp_npc6"),
+              (troop_set_slot, ":troop_no", slot_troop_npc_companion_is_channeler, 1),
+              (troop_set_slot, ":troop_no", slot_troop_npc_companion_known_weaves, 1),
+          (try_end),
     (try_end),
 # end added for npc companion one power item      
 

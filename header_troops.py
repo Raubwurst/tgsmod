@@ -13,6 +13,7 @@ tf_female         = 1
 #added for wheel of time
 tf_trolloc        = 2
 tf_myrddraal      = 3
+tf_ogier_male     = 4
 #end added for wheel of time
 troop_type_mask   = 0x0000000f
 tf_hero              = 0x00000010
