@@ -2898,7 +2898,7 @@ troops = [
    0x00000001ee0c00064f1d99c95552672b00000000001e47140000000000000000],
 
   # Male Borderland Soldier
-  ["npc13","Lasan","Lasan",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_sword_two_handed_b, itm_lance, itm_studded_leather_coat, itm_leather_boots, itm_leather_gloves, itm_skullcap, itm_hunter],
+  ["npc13","Lasan","Lasan",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_trolloc_mace, itm_lance, itm_studded_leather_coat, itm_leather_boots, itm_leather_gloves, itm_skullcap, itm_hunter],
    str_14|agi_11|int_10|cha_8|level(10),wp_polearm(110)|wp_one_handed(100)|wp(80),knows_warrior_npc|
    knows_riding_3|knows_leadership_2|knows_athletics_2|knows_ironflesh_2|knows_power_strike_2|knows_weapon_master_3|knows_spotting_1|knows_pathfinding_1|knows_tracking_1|knows_first_aid_1|knows_wound_treatment_1,
    0x0000000dbf00434b4ab3aa691b524c6100000000001e2b6e0000000000000000],
