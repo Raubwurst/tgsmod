@@ -1904,7 +1904,7 @@ triggers = [
             (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
             # Borderlands
             (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # backstrom: Changed -0 to 0. Just for looks.
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", -0),
             (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
             (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
             # White Tower
@@ -2042,7 +2042,7 @@ triggers = [
             (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
             (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0), # getting wary of Aiel
             (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 1), # backstrom: Shall there be alliance here?
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 1),
             # Southlander Alliance
             (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
             (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
