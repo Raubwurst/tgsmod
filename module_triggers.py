@@ -1904,7 +1904,7 @@ triggers = [
             (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
             # Borderlands
             (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", -0),
+            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # backstrom: Changed -0 to 0. Just for looks.
             (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
             (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
             # White Tower
@@ -1916,6 +1916,7 @@ triggers = [
             (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
             # Seanchan
             (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+			(call_script, "script_set_kingdoms_interaction_from_relations"), # tmp.fix.lords.not.attacking 2.6
 
       #Set diplomacy for days 30 though 45
     
@@ -1965,6 +1966,7 @@ triggers = [
             (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
             # Seanchan
             (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+			(call_script, "script_set_kingdoms_interaction_from_relations"), # tmp.fix.lords.not.attacking 2.6
 
       #Set diplomacy for days 45 though 60
     
@@ -2014,6 +2016,7 @@ triggers = [
             (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
             # Seanchan
             (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+			(call_script, "script_set_kingdoms_interaction_from_relations"), # tmp.fix.lords.not.attacking 2.6
 
       #Set diplomacy for days 60 though 75
     
@@ -2042,7 +2045,7 @@ triggers = [
             (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
             (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0), # getting wary of Aiel
             (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 1),
+            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 1), # backstrom: Shall there be alliance here?
             # Southlander Alliance
             (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
             (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
@@ -2063,6 +2066,7 @@ triggers = [
             (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
             # Seanchan
             (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+			(call_script, "script_set_kingdoms_interaction_from_relations"), # tmp.fix.lords.not.attacking 2.6
         
       #Set diplomacy for days 75 though 100
     
@@ -2112,6 +2116,7 @@ triggers = [
             (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
             # Seanchan
             (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+			(call_script, "script_set_kingdoms_interaction_from_relations"), # tmp.fix.lords.not.attacking 2.6
 
       #Set diplomacy for days 100 though 118
     
@@ -2161,6 +2166,7 @@ triggers = [
             (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
             # Seanchan
             (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+			(call_script, "script_set_kingdoms_interaction_from_relations"), # tmp.fix.lords.not.attacking 2.6
 
       #Set diplomacy for days 118 though 120
     
@@ -2210,6 +2216,7 @@ triggers = [
             (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
             # Seanchan
             (set_relation,"fac_kingdom_7", "fac_kingdom_8", -1), # Seanchan meets Shadowspawn for the first time
+			(call_script, "script_set_kingdoms_interaction_from_relations"), # tmp.fix.lords.not.attacking 2.6
 
       #Set diplomacy for days 120 though 170
     
@@ -2252,6 +2259,7 @@ triggers = [
             (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
             # Seanchan
             (set_relation,"fac_kingdom_7", "fac_kingdom_8", -1), # Seanchan meets Shadowspawn for the first time
+			(call_script, "script_set_kingdoms_interaction_from_relations"), # tmp.fix.lords.not.attacking 2.6
         (try_end),
         
     ]),  

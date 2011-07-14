@@ -57675,6 +57675,246 @@ scripts = [
 # ---------------------------
 ###############################
 
+# Backstrom-TGS HACK begin tmp.fix.lords.not.attacking.begin
+
+# Part of the temp.fix for lords not attacking each other in rel. 2.6 (keyword for search: tmp.fix.lords.not.attacking (for use in other files)).
+# This could be rewritten to only contain the parts that are actually needed, but I haven't gotten the time yet to go through the whole chain of things happening during a declaration of war.
+# Tried using only g_reinitialize_ais, 1 but that didn't seem to do the trick. In the meantime I have used the native (or diplomacy?) versions of declare_war declare_peace
+# for the scripted events/declarations in TGS day 0-170 in module_triggers.py
+
+# I opted to not include declare_alliance because of the Borderlands->Tar Valon relations. IMO the Borderlands is better of battling Shayol Ghul instead of running 
+# to the rescue of Tar Valon, should Tar Valon get into a war with someone else. If there is any war the Borderlands should take part in, then it can be declared in 
+# module_triggers.py for day 0 - 170 like every other faction.
+
+
+ # script_diplomacy_start_war_between_kingdoms_silent
+  # Slightly tweaked script_diplomacy_start_war_between_kingdoms to make the menu not show up.
+  # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
+  # Output: none
+  ("diplomacy_start_war_between_kingdoms_silent", #sets relations between two kingdoms and their vassals.
+    [
+      (store_script_param, ":kingdom_a", 1),
+      (store_script_param, ":kingdom_b", 2),
+      #(store_script_param, ":initializing_war_peace_cond", 3), #1 = after start of game # backstrom: I have set all of these to 0 for now, to keep out "reasons for declaring war", etc.
+
+	  (call_script, "script_npc_decision_checklist_peace_or_war", ":kingdom_a", ":kingdom_b", -1),
+	  #(assign, ":explainer_string", reg1),
+
+      (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
+    #  (val_min, ":relation", -10),
+    #  (val_add, ":relation", -30), 
+      (set_relation, ":kingdom_a", ":kingdom_b", ":relation"),
+
+      (try_begin), # backstrom: Kept around if player has joined a faction
+        (eq, "$players_kingdom", ":kingdom_a"), # backstrom: From my understanding = if player is part of :kingdom_a
+        (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_b"),
+    #    (val_min, ":relation", -30),
+        (call_script, "script_set_player_relation_with_faction", ":kingdom_b", ":relation"),
+      (else_try),
+        (eq, "$players_kingdom", ":kingdom_b"), # backstrom: or part of :kindgom_b
+        (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_a"),
+    #    (val_min, ":relation", -30),
+        (call_script, "script_set_player_relation_with_faction", ":kingdom_a", ":relation"),
+      (try_end),
+
+        (str_store_faction_name_link, s1, ":kingdom_a"),
+        (str_store_faction_name_link, s2, ":kingdom_b"),
+        (display_log_message, "@DEBUG: {s1} is at war with {s2}."), # backstrom: Debug message to see the triggers firing
+		
+        (call_script, "script_update_faction_notes", ":kingdom_a"), # Update faction messages in 'Factions' menu.
+        (call_script, "script_update_faction_notes", ":kingdom_b"), # Update faction messages in 'Factions' menu.
+        (assign, "$g_recalculate_ais", 1), # backstrom: I had hoped this one together with script_npc_decision_checklist_peace_or_war would be sufficent to get the lords to attack each other. But something is missing.
+      (try_end),
+	]),
+
+	  
+ # script_diplomacy_start_peace_between_kingdoms_silent
+  # Part of the tmp.fix.lords.not.attacking for rel. 2.6
+  # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
+  # Output: none
+  ("diplomacy_start_peace_between_kingdoms_silent", #sets relations between two kingdoms
+    [
+      (store_script_param, ":kingdom_a", 1),
+      (store_script_param, ":kingdom_b", 2),
+      #(store_script_param, ":initializing_war_peace_cond", 3), #set to 1 if not the start of the game
+
+    #  (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
+    #  (val_max, ":relation", 0),
+    #  (set_relation, ":kingdom_a", ":kingdom_b", ":relation"),
+      (call_script, "script_exchange_prisoners_between_factions", ":kingdom_a", ":kingdom_b"),
+
+      (try_begin), # Player is part of faction :kingdom_a
+        (eq, "$players_kingdom", ":kingdom_a"),
+        (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_b"),
+        (val_max, ":relation", 0),
+        (call_script, "script_set_player_relation_with_faction", ":kingdom_b", ":relation"),
+        (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", "fac_player_supporters_faction"), #event cancels certain quests
+      (else_try), # or Player is part of faction :kingdom_b
+        (eq, "$players_kingdom", ":kingdom_b"),
+        (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_a"),
+        (val_max, ":relation", 0),
+        (call_script, "script_set_player_relation_with_faction", ":kingdom_a", ":relation"),
+        (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", "fac_player_supporters_faction"), #event cancels certain quests
+      (try_end),
+
+      (try_for_range, ":cur_center", centers_begin, centers_end), # stop sieges
+        (store_faction_of_party, ":faction_no", ":cur_center"),
+        (this_or_next|eq, ":faction_no", ":kingdom_a"),
+        (eq, ":faction_no", ":kingdom_b"),
+        (party_get_slot, ":besieger_party", ":cur_center", slot_center_is_besieged_by),
+        (ge, ":besieger_party", 0), #town is under siege
+        (party_is_active, ":besieger_party"),
+        (store_faction_of_party, ":besieger_party_faction_no", ":besieger_party"),
+        (this_or_next|eq, ":besieger_party_faction_no", ":kingdom_a"),
+        (eq, ":besieger_party_faction_no", ":kingdom_b"),
+        (call_script, "script_lift_siege", ":cur_center", 0),
+      (try_end),
+
+      (try_begin), # stop player sieging
+        (this_or_next|eq, "$players_kingdom", ":kingdom_a"),
+        (eq, "$players_kingdom", ":kingdom_b"),
+
+        (ge, "$g_player_besiege_town", 0),
+        (party_is_active, "$g_player_besiege_town"),
+
+        (store_faction_of_party, ":besieged_center_faction_no", "$g_player_besiege_town"),
+
+        (this_or_next|eq, ":besieged_center_faction_no", ":kingdom_a"),
+        (eq, ":besieged_center_faction_no", ":kingdom_b"),
+
+        (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
+        (assign, "$g_player_besiege_town", -1),
+      (try_end),
+
+      (try_begin),
+        #(eq, ":initializing_war_peace_cond", 1), # backstrom: I've used 0 for this... I think. So commented out so it fires.
+        (str_store_faction_name_link, s1, ":kingdom_a"),
+        (str_store_faction_name_link, s2, ":kingdom_b"),
+        #(display_log_message, "@DEBUG: {s1} and {s2} is at peace with each other."), # backstrom-debug
+        #(call_script, "script_add_notification_menu", "mnu_notification_peace_declared", ":kingdom_a", ":kingdom_b"), #stability penalty for early peace is in the menu # backstrom: commented out to remove menu popup
+        
+		# backstrom: The right_to_rule +3 from kingdom peace if factionleader = player (in the script_event_kingdom_make_peace_with_kingdom) shouldn't be a problem since 
+		# player shouldn't be factionleader for AI factions. It's only use is cancelling quests.
+		(call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", ":kingdom_b"), #cancels quests
+        (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", ":kingdom_a"), #cancels quests
+        (assign, "$g_recalculate_ais", 1),
+      (try_end),
+
+	  # backstrom: truce part is commented out below. Shouldn't be needed for scripted war/peace.
+	#  (try_begin), #add truce
+	#	(store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
+	#	(val_sub, ":truce_slot", kingdoms_begin),
+		##diplomacy begin
+	    #(faction_set_slot, ":kingdom_b", ":truce_slot", 40),
+    #    (faction_set_slot, ":kingdom_b", ":truce_slot", 20),
+	    ##diplomacy end
+	#	(store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
+	#	(val_sub, ":truce_slot", kingdoms_begin),
+	    ##diplomacy begin # backstrom - diplomacy part commented out for tmp.fix.lords.not.attacking
+	    #(faction_set_slot, ":kingdom_a", ":truce_slot", 40),
+        #(faction_set_slot, ":kingdom_a", ":truce_slot", 20), 
+        ##diplomacy end
+		
+
+	#	(store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
+	#	(val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
+		#(faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
+	#	(faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
+	#	(store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
+	#	(val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
+		#(faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
+	#	(faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
+	#  (try_end),
+  ]),
+  
+  
+  #script_diplomacy_start_alliance_between_kingdoms_silent, 200 days alliance, no truce after that.
+  # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
+  # Output: none
+  #
+  # backstrom: commented out all the parts which had to do with relations since set_relations is used in triggers.
+  ("diplomacy_start_alliance_between_kingdoms_silent", #sets relations between two kingdoms
+    [
+      (store_script_param, ":kingdom_a", 1),
+      (store_script_param, ":kingdom_b", 2),
+      #(store_script_param, ":initializing_war_peace_cond", 3),
+
+     # (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
+     # (val_add, ":relation", 15),
+     # (val_max, ":relation", 40),
+     # (set_relation, ":kingdom_a", ":kingdom_b", ":relation"),
+      (call_script, "script_exchange_prisoners_between_factions", ":kingdom_a", ":kingdom_b"),
+
+      (try_begin),
+        (eq, "$players_kingdom", ":kingdom_a"),
+        (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_b"),
+       # (val_add, ":relation", 15),
+       # (val_max, ":relation", 40),
+        (call_script, "script_set_player_relation_with_faction", ":kingdom_b", ":relation"),
+        #(call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", "fac_player_supporters_faction"), #event cancels certain quests
+      (else_try),
+        (eq, "$players_kingdom", ":kingdom_b"),
+        (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_a"),
+       # (val_add, ":relation", 15),
+       # (val_max, ":relation", 40),
+        (call_script, "script_set_player_relation_with_faction", ":kingdom_a", ":relation"),
+        #(call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", "fac_player_supporters_faction"), #event cancels certain quests
+      (try_end),
+
+      (try_begin),
+        #(eq, ":initializing_war_peace_cond", 1),
+        (str_store_faction_name_link, s1, ":kingdom_a"),
+        (str_store_faction_name_link, s2, ":kingdom_b"),
+        #(display_log_message, "@DEBUG: {s1} and {s2} is in an alliance with each other."), # backstrom-debug
+
+        #(call_script, "script_add_notification_menu", "mnu_dplmc_notification_alliance_declared", ":kingdom_a", ":kingdom_b"), #stability penalty for early peace is in the menu
+
+        (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", ":kingdom_b"), #cancels quests
+        (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", ":kingdom_a"), #cancels quests
+        (assign, "$g_recalculate_ais", 1),
+
+
+      (try_end),
+
+    ]),
+  
+  # script_set_kingdoms_interaction_from_relations
+  # Try at a script to set war, peace, alliance, etc. depending on faction relations. For TGS scripted relations.
+  #
+  # It should cycle through all kingdoms and depending on their relations with each other it should either set war, peace or alliance (placeholder for alliance, I don't get the actual alliance text in faction notes to show up, maybe disabled?)
+  ("set_kingdoms_interaction_from_relations",
+	[
+		(try_for_range, ":faction_no_1", npc_kingdoms_begin, npc_kingdoms_end),
+			(assign, ":kingdom_a", ":faction_no_1"),
+			(try_for_range, ":faction_no_2", npc_kingdoms_begin, npc_kingdoms_end),
+				(assign, ":kingdom_b", ":faction_no_2"),
+					(try_begin),
+						(neq, ":kingdom_a", ":kingdom_b"),
+						(store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
+						(try_begin),
+							(eq, ":relation", -1),
+							(call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":kingdom_a", ":kingdom_b", 0),
+						(else_try),
+							(eq, ":relation", 0),
+							(call_script, "script_diplomacy_start_peace_between_kingdoms_silent", ":kingdom_a", ":kingdom_b", 0),
+						(else_try),
+							(eq, ":relation", 1),
+							(call_script, "script_diplomacy_start_alliance_between_kingdoms_silent", ":kingdom_a", ":kingdom_b", 0),
+						(else_try),
+							(str_store_faction_name, s1, ":kingdom_a"),
+							(str_store_faction_name, s2, ":kingdom_b"),
+							#(display_log_message, "@DEBUG: Failed to set KIFR for {s1} and {s2}"), # backstrom-debug
+						(try_end),
+					(try_end),
+			(try_end),
+		(try_end),
+	
+	]),
+  # Backstrom-TGS HACK end tmp.fix.lords.not.attacking.end
+	  
+	  
+	  
+
 
 
 

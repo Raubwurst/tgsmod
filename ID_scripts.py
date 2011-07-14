@@ -613,5 +613,9 @@ script_dplmc_time_sorted_heroes_for_center_aux = 611
 script_dplmc_time_sorted_heroes_for_center = 612
 script_dplmc_faction_leader_splits_gold = 613
 script_dplmc_lord_return_from_exile = 614
+script_diplomacy_start_war_between_kingdoms_silent = 615
+script_diplomacy_start_peace_between_kingdoms_silent = 616
+script_diplomacy_start_alliance_between_kingdoms_silent = 617
+script_set_kingdoms_interaction_from_relations = 618
 
 
