@@ -94,7 +94,8 @@ woman_face_keys = [
 
 (280,0,0.0,1.0, "Post-Edit"),
 ]
-#added for wheel of time
+
+#added for TGS
 trolloc_face_keys = [
 (20,0, 0.7,-0.6, "Chin Size"),
 (260,0, -0.6,1.4, "Chin Shape"),
@@ -204,7 +205,8 @@ ogier_male_face_keys = [
 (280,0,0.0,1.0, "Post-Edit"),
 ]
 
-#end added for wheel of time
+#end added for TGS
+
 undead_face_keys = []
 
 
@@ -295,7 +297,7 @@ skins = [
     psys_game_blood,psys_game_blood_2,
   ),
 
-    #### added for wheel of time
+    #### added for TGS
 
 
   (
@@ -400,7 +402,8 @@ skins = [
      [2.7, comp_greater_than, (1.0,chin_size), (1.0,mouth_nose_distance), (1.0,nose_height), (-1.0,face_width)],
      ]
   ),  
-  
+
+# end added for TGS  
   
 ##  (
 ##    "undead", 0,

@@ -242,6 +242,9 @@ meshes = [
   ("tableau_mesh_heraldic_armor_d", 0, "tableau_mesh_heraldic_armor_d",  0, 0, 0, 0, 0, 0, 1, 1, 1),
 
   ("outer_terrain_plain_1", 0, "ter_border_a", -90, 0, 0, 0, 0, 0, 1, 1, 1),
+
+  
+# edited for TGS
   ("banner_a01", 0, "banner_a01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_a02", 0, "banner_a02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_a03", 0, "banner_a03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -417,7 +420,7 @@ meshes = [
   ("banner_f19", 0, "banner_f19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_f20", 0, "banner_f20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   
-#Wheel of Time Seanchan
+#TGS Seanchan
   ("banner_g01", 0, "banner_a01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_g02", 0, "banner_a02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_g03", 0, "banner_a03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -441,7 +444,7 @@ meshes = [
   ("banner_g21", 0, "banner_a21", 0, 0, 0, -90, 0, 0, 1, 1, 1),
 #End Seanchan
 
-#Wheel of Time Shadowspawn
+#TGS Shadowspawn
   ("banner_h01", 0, "banner_d01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_h02", 0, "banner_d02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_h03", 0, "banner_d03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -483,8 +486,8 @@ meshes = [
   ("banner_kingdom_d", 0, "banner_kingdom_d", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_kingdom_e", 0, "banner_kingdom_e", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_kingdom_f", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_kingdom_g", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),  #Wheel of Time
-  ("banner_kingdom_h", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),  #Wheel of Time
+  ("banner_kingdom_g", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),  #TGS
+  ("banner_kingdom_h", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),  #TGS
   ("banner_f21", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
 
 
@@ -729,8 +732,10 @@ meshes = [
   ("arms_kingdom_d", 0, "banner_kingdom_d", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_kingdom_e", 0, "banner_kingdom_e", 0, 0, 0, -90, 0, 0, 1, 1, 1),  
   ("arms_kingdom_f", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_kingdom_g", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),  #Wheel of Time
-  ("arms_kingdom_h", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),  #Wheel of Time  
+  ("arms_kingdom_g", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),  #TGS
+  ("arms_kingdom_h", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),  #TGS  
+# end edited for TGS
+  
   ("arms_f21", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
 
   ("banners_default_a", 0, "banners_default_a", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -747,9 +752,9 @@ meshes = [
   ("ui_kingdom_shield_4", 0, "ui_kingdom_shield_4", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("ui_kingdom_shield_5", 0, "ui_kingdom_shield_5", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("ui_kingdom_shield_6", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  ("ui_kingdom_shield_7", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #Wheel of Time
-  ("ui_kingdom_shield_8", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #Wheel of Time
-  ("ui_kingdom_shield_9", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #Wheel of Time
+  ("ui_kingdom_shield_7", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_8", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_9", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
 
   #("flag_swadian", 0, "banner_a01", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   #("flag_vaegir", 0, "banner_a02", 0, 0, 0, 0, 0, 0, 1, 1, 1),
@@ -796,6 +801,10 @@ meshes = [
   ("mp_ui_host_maps_16", 0, "mp_ui_host_maps_d1", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mp_ui_host_maps_17", 0, "mp_ui_host_maps_d2", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mp_ui_host_maps_18", 0, "mp_ui_host_maps_d3", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  
+  ## Prebatle Orders & Deployment Begin
+  ("note_window_bottom", 0, "note_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+## Prebattle Orders & Deployment End
 
 ##diplomacy begin
   ("longer_button", 0, "longer_button", 0, 0, 0, 0, 0, 0, 0.4, 0.5, 0.5),
@@ -805,6 +814,20 @@ meshes = [
   ("message_window", 0, "message_window", 0, 0, 0, 0, 0, 0, 0.8, 0.5, 0.5), # in core_ui_meshes.brf
   # Jrider -
 ##diplomacy end
+##diplomacy start+
+##Additional meshes, used by components ported from rubik's Custom Commander
+  ("options_window", 0, "options_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("note_window", 0, "note_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  
+  ("drop_button", 0, "button_drop", 0, 0, 0, 0, 0, 0, 1, 0.5, 0.5),
+  ("drop_button_down", 0, "button_drop_clicked", 0, 0, 0, 0, 0, 0, 1, 0.5, 0.5),
+  ("drop_button_hl", 0, "button_drop_hl", 0, 0, 0, 0, 0, 0, 1, 0.5, 0.5),
+  ("drop_button_child", 0, "button_drop_child", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
+  ("drop_button_child_down", 0, "button_drop_child_clicked", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
+  ("drop_button_child_hl", 0, "button_drop_child_hl", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
+##diplomacy start+
+
+# added for TGS
 
 ##################################################
 ##### end troop_ratio_bar
@@ -855,4 +878,7 @@ meshes = [
 ##################################################
 ##### end channeling_weave_select_symbols
 ##################################################  
+
+# end added for TGS
+  
 ]

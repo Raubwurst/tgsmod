@@ -210,7 +210,7 @@ sounds = [
  ("team_scored_a_point", sf_2d|sf_priority_10|sf_vol_10, ["you_scored_a_point.ogg"]),
  ("enemy_scored_a_point", sf_2d|sf_priority_10|sf_vol_10, ["enemy_scored_a_point.ogg"]),
 
- ###new sounds for Wheel of Time
+ ###new sounds for TGS
  ("fire_ball",sf_priority_7|sf_vol_13, ["Fireball2.wav"]),
  ("fire_curtain",sf_priority_7|sf_vol_15, ["Fire_Torch_Loop3.ogg"]),
  ("heal", sf_priority_9|sf_vol_15, ["quest_cancelled2.ogg"]),
@@ -246,7 +246,6 @@ sounds = [
  ("ways_wind_4", sf_priority_7|sf_vol_10,["ways_wind_4.wav"]),
  ("ways_wind_5", sf_priority_7|sf_vol_10,["ways_wind_5.wav"]),
 
-
-
-# don't delete 
+# end new sounds for TGS
+ 
 ]

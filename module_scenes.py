@@ -43,7 +43,12 @@ from module_constants import *
 #  town_21  Ahmerrad
 #  town_22  Bariyye
 ####################################################################################################################
+
+# added for TGS
+####################################################################################################################
 ### V: TODO: Need more scenes
+# end added for TGS
+
 scenes = [
   ("random_scene",sf_generate|sf_randomize|sf_auto_entry_points,"none", "none", (0,0),(240,240),-0.5,"0x300028000003e8fa0000034e00004b34000059be",
     [],[]),
@@ -130,8 +135,10 @@ scenes = [
   ("tutorial_5",sf_generate,"none", "none", (0,0),(120,120),-100,"0x3a06dca80005715c0000537400001377000011fe",
     [],[], "outer_terrain_plain"),
 
+# added for TGS
   # The Ways
   ("ways",sf_no_horses, "none", "none", (0,0),(400,400),-100,"0", [],[]), #sf_generate is optional for the ways, since we don't need the ground while inside. But it's nice when scening. I use terrain height set to different levels (20m,25m,15m for the test map I think) to easily see that the "bridges" don't get a bad x, z or y.
+# end added for TGS  
 
   ("training_ground_horse_track_1",sf_generate,"none", "none", (0,0),(120,120),-100,"0x00000000337553240004d53700000c0500002a0f80006267",
     [],[], "outer_terrain_plain"),
@@ -1106,7 +1113,7 @@ scenes = [
 	
 #	("village_99",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001500410320005a96800006b5300004edc00000d11",
 #    [],[],"outer_terrain_desert"),
-  #changed for wheel of time
+  #changed for TGS
         ("village_99",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
     [],[],"outer_terrain_plain"),
   #end
@@ -1213,7 +1220,7 @@ scenes = [
   ("random_multi_steppe_large", sf_generate|sf_randomize|sf_auto_entry_points, "none", "none", (0,0),(100, 100), -0.5, "0x000000012a00d8630009fe7f0004406900002920001e4f81",
     [],[], "outer_terrain_steppe"),
 
-# added for wheel of time
+# added for TGS
   ("multi_emonds_field",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
     [],[],"outer_terrain_plain"),
   ("multi_shienaran_border_tower",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000002065509400048120000045eb000066ee0000046e",
@@ -1230,7 +1237,7 @@ scenes = [
   #  [],[],"outer_terrain_plain"),
 #  ("multi_temp",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
 #    [],[],"outer_terrain_plain"),
-  # end  
+  # end    
 
   ("multiplayer_maps_end",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
     [],[],"outer_terrain_plain"),
@@ -1256,7 +1263,7 @@ scenes = [
     [],[], "outer_terrain_desert_b"),
   ("quick_battle_scene_3",sf_generate,"none", "none", (0,0),(120,120),-100,"0x000000023002b76300046d2400000190000076300000692a", 
     [],[], "outer_terrain_plain"),
-  # added for wheel of time
+  # added for TGS
   ("quick_battle_emonds_field",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
     [],[],"outer_terrain_plain"),
   ("quick_battle_shienaran_border_tower",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000002065509400048120000045eb000066ee0000046e",

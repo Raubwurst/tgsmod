@@ -106,9 +106,10 @@ soldier_personality = aggressiveness_8 | courage_9
 merchant_personality = aggressiveness_0 | courage_7
 escorted_merchant_personality = aggressiveness_0 | courage_11
 bandit_personality   = aggressiveness_3 | courage_8 | banditness
-#added for wheel of time
+
+#added for TGS
 wot_bandit_personality = aggressiveness_7 | courage_8 | banditness
 wot_trolloc_personality = aggressiveness_12 | courage_10 | banditness
-#end added for wheel of time
+#end added for TGS
 
 

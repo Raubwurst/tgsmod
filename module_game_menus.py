@@ -37,9 +37,9 @@ from module_constants import *
 
 game_menus = [
   ("start_game_0",menu_text_color(0xFF000000)|mnf_disable_all_keys,
-  ##diplomacy begin (tweaked for wheel of time)
+  ##diplomacy begin (tweaked for TGS)
     "Welcome, adventurer, to The Gathering Storm - A Wheel of Time Mod for Mount & Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
-  ##diplomacy end  (tweaked for wheel of time)
+  ##diplomacy end  (tweaked for TGS)
   "none",
     [],
     [
@@ -54,7 +54,7 @@ game_menus = [
     ]
   ),
 
-# altered for wheel of time
+# altered for TGS
   ("start_phase_2",mnf_disable_all_keys,
     "You hear about Randland, a land torn between rival kingdoms battling each other for supremacy,\
  a haven for lords and mercenaries,  cutthroats and adventurers, all willing to risk their lives in pursuit of fortune, power, or glory...\
@@ -65,7 +65,7 @@ game_menus = [
     [],
     [
 
-      ("town_1",[(eq, "$current_startup_quest_phase", 0),],"join a caravan to Bandar Eban, in the lands of the Southlander Coalition.",
+      ("town_1",[(eq, "$current_startup_quest_phase", 0),],"Join a caravan to Bandar Eban, in the lands of the Southlander Coalition.",
        [
          (assign, "$current_town", "p_town_6"),
          (assign, "$g_starting_town", "$current_town"),
@@ -75,7 +75,7 @@ game_menus = [
 #         (change_screen_return),
        ]),
        
-      ("town_2",[(eq, "$current_startup_quest_phase", 0),],"join a caravan to Tanchico, in the lands of the Southlander Alliance.",
+      ("town_2",[(eq, "$current_startup_quest_phase", 0),],"Join a caravan to Tanchico, in the lands of the Southlander Alliance.",
        [
          (assign, "$current_town", "p_town_8"),
          (assign, "$g_starting_town", "$current_town"),
@@ -85,7 +85,7 @@ game_menus = [
 #         (change_screen_return),
        ]),
        
-      ("town_3",[(eq, "$current_startup_quest_phase", 0),],"join a caravan to Tear, in the lands of the Southlander Alliance.",
+      ("town_3",[(eq, "$current_startup_quest_phase", 0),],"Join a caravan to Tear, in the lands of the Southlander Alliance.",
        [
          (assign, "$current_town", "p_town_10"),
          (assign, "$g_starting_town", "$current_town"),
@@ -95,7 +95,7 @@ game_menus = [
 #         (change_screen_return),
        ]),
        
-      ("town_4",[(eq, "$current_startup_quest_phase", 0),],"take a ship to Cairhien, in the lands of the Southlander Coalition.",
+      ("town_4",[(eq, "$current_startup_quest_phase", 0),],"Take a ship to Cairhien, in the lands of the Southlander Coalition.",
        [
          (assign, "$current_town", "p_town_1"),
          (assign, "$g_starting_town", "$current_town"),
@@ -105,7 +105,7 @@ game_menus = [
 #         (change_screen_return),
        ]),
        
-      ("town_5",[(eq, "$current_startup_quest_phase", 0),],"take a ship to Lugard, in the lands of the Southlander Coalition.",
+      ("town_5",[(eq, "$current_startup_quest_phase", 0),],"Take a ship to Lugard, in the lands of the Southlander Coalition.",
        [
          (assign, "$current_town", "p_town_5"),
          (assign, "$g_starting_town", "$current_town"),
@@ -115,7 +115,7 @@ game_menus = [
 #         (change_screen_return),
        ]),
        
-      ("town_6",[(eq, "$current_startup_quest_phase", 0),],"join a caravan to Tar Valon, in the lands of the White Tower.",
+      ("town_6",[(eq, "$current_startup_quest_phase", 0),],"Join a caravan to Tar Valon, in the lands of the White Tower.",
        [
          (assign, "$current_town", "p_town_19"),
          (assign, "$g_starting_town", "$current_town"),
@@ -125,8 +125,7 @@ game_menus = [
 #         (change_screen_return),
        ]),
 
-      # end altered for wheel of time
-
+      # end altered for TGS
 	   
       ("tutorial_cheat",[(eq,1,0)],"{!}CHEAT!",
        [
@@ -137,12 +136,12 @@ game_menus = [
          (troop_raise_skill, "trp_player", skl_leadership, 7),
          (troop_raise_skill, "trp_player", skl_prisoner_management, 5),
          (troop_raise_skill, "trp_player", skl_inventory_management, 10),
-         ## modified for wheel of time
+         ## modified for TGS
          (party_add_members, "p_main_party", "trp_legion_heavy_lancer", 10), # was trp_swadian_knight
          (party_add_members, "p_main_party", "trp_cairhien_light_cavalry", 10), # was trp_vaegir_knight
          (party_add_members, "p_main_party", "trp_mayene_bowman", 10), # was trp_vaegir_archer
          (party_add_members, "p_main_party", "trp_two_rivers_marksman", 10), # was trp_swadian_sharpshooter
-         ## end modified for wheel of time
+         ## end modified for TGS
          (troop_add_item, "trp_player","itm_scale_armor",0),
          (troop_add_item, "trp_player","itm_full_helm",0),
          
@@ -601,7 +600,7 @@ game_menus = [
 		(jump_to_menu, "mnu_lord_relations"),
         ]
        ),
-
+	   
 	##diplomacy start+ see dplmc_affiliated_family_report
      ("view_affiliated_family_report",[
 		#(this_or_next|troop_slot_ge, "trp_player", slot_troop_spouse, 1),
@@ -655,7 +654,7 @@ game_menus = [
        ),
       ]
   ),
-  
+
   (
     "custom_battle_scene",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "(NO_TRANS)",
@@ -682,7 +681,7 @@ game_menus = [
            (jump_to_scene,"scn_quick_battle_scene_3"),(change_screen_mission)        
 		]
        ),
-      # added for wheel of time
+      # added for TGS
       ("quick_battle_emonds_field",[],"{!}quick_battle_emonds_field",
        [
            (set_jump_mission,"mt_ai_training"),
@@ -695,7 +694,7 @@ game_menus = [
            (jump_to_scene,"scn_quick_battle_shienaran_border_tower"),(change_screen_mission)        
 		]
        ),
-      # end
+      # end added for TGS
       ("quick_battle_scene_4",[],"{!}quick_battle_scene_4",
        [
            (set_jump_mission,"mt_ai_training"),
@@ -982,9 +981,10 @@ game_menus = [
     ]
   ),
 
+
   
   #####################################################
-  ######## Edited Character Creation for Wheel of Time
+  ######## Edited Character Creation for TGS
   #####################################################
   
   ("start_game_1",menu_text_color(0xFF000000)|mnf_disable_all_keys,
@@ -1731,7 +1731,7 @@ game_menus = [
       ("begin_adventuring",[],"Become an adventurer and ride to your destiny.",[
            (set_show_messages, 0),
 
-           # new for wheel of time
+           # new for TGS
            (troop_set_slot, "trp_player", slot_troop_darkfriend_buff, 0),
            # end
 
@@ -2350,9 +2350,8 @@ game_menus = [
   ),
 
   ########################################################
-  ######## End Edited Character Creation for Wheel of Time
+  ######## End Edited Character Creation for TGS
   ########################################################
-
   (
     "past_life_explanation",mnf_disable_all_keys,
     "{s3}",
@@ -2527,15 +2526,33 @@ game_menus = [
    "{s1}",
    "none",
    [   
-    (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
+    ##diplomacy start+
+	 #Avoid unnecessary iterations, since below we only use slto_kingdom_hero troops.
+    (assign, ":met_lord_count", 0),
+    #Add support for promoted kingdom ladies.
+    #(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
+    (try_for_range, ":active_npc", heroes_begin, heroes_end),
+      (troop_slot_eq, ":active_npc", slot_troop_occupation, slto_kingdom_hero),
+      (troop_slot_ge, ":active_npc", slot_troop_met, 1),
+      (val_add, ":met_lord_count", 1),
+    ##diplomacy end+
 		(troop_set_slot, ":active_npc", slot_troop_temp_slot, 0),
 	(try_end),
 	
 	(str_clear, s1),
-    (try_for_range, ":unused", active_npcs_begin, active_npcs_end),
+    ##diplomacy start+
+    #Add support for promoted kingdom ladies.
+    #(try_for_range, ":unused", active_npcs_begin, active_npcs_end),#<- changed
+    #We counted the number of heroes, so we can cut down on the number of
+    #iterations (since expanding this from active_npcs to heroes means that
+    #a lot of them will not be lords).
+    (try_for_range, ":unused", 0, ":met_lord_count"),#<- added
 		(assign, ":score_to_beat", -100),
 		(assign, ":best_relation_remaining_npc", -1),
-		(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
+		#Add support for promoted kingdom ladies
+		#(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),#<-changed
+		(try_for_range, ":active_npc", heroes_begin, heroes_end),#<-added
+	##diplomacy end+
 			(troop_slot_eq, ":active_npc", slot_troop_temp_slot, 0),
 			(troop_slot_eq, ":active_npc", slot_troop_occupation, slto_kingdom_hero),
 			(troop_slot_ge, ":active_npc", slot_troop_met, 1),
@@ -2588,7 +2605,7 @@ game_menus = [
        ),
       ]
   ),
-  
+
   ("companion_report",0,
    "{s7}{s1}",
    "none",
@@ -2599,8 +2616,11 @@ game_menus = [
    (try_begin),
 	(troop_get_slot, ":spouse_or_betrothed", "trp_player", slot_troop_spouse),
 	(try_begin),
-		(troop_get_type, ":is_female", "trp_player"),
-		(eq, ":is_female", 1),
+		##diplomacy start+ Test gender with script
+		#(troop_get_type, ":is_female", "trp_player"),#<- replaced
+		(call_script, "script_cf_dplmc_troop_is_female", "trp_player"),
+		#(eq, ":is_female", 1),#<- replaced
+		##diplomacy end+
 		(str_store_string, s8, "str_husband"),
 	(else_try),
 		(str_store_string, s8, "str_wife"),
@@ -3195,6 +3215,13 @@ game_menus = [
               
       (str_store_faction_name, s8, "$players_kingdom"),
       (try_begin),
+	  ##diplomacy start+ Handle player is co-ruler of NPC faction
+		(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+		(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+		(ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+		(str_store_string, s9, "str_you_are_king_queen_of_s8_s9"), 
+	  (else_try),
+	  ##diplomacy end+
         (this_or_next|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
         (neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
         #(str_store_string, s9, "@You are a lord of {s8}.^{s9}"),
@@ -3406,33 +3433,82 @@ game_menus = [
 ###################################################################################
 # Autoloot: Allow item management from camp
 ###################################################################################
+##nested diplomacy start+
+#Made some changes to autoloot conditions
 	("dplmc_camp_manage_inventory",
 		[		  
-		  (eq, "$g_autoloot", 1),  
-      (store_skill_level, ":inv_skill", "skl_inventory_management", "trp_player"),
-      (gt, "$g_player_chamberlain", 0),
-      (ge, ":inv_skill", 3),   
+	  #OLD:
+	  #(eq, "$g_autoloot", 1),  
+      #(store_skill_level, ":inv_skill", "skl_inventory_management", "trp_player"),
+      #(gt, "$g_player_chamberlain", 0),
+      #(ge, ":inv_skill", 3),   
+	  #NEW:
+	  #1. Must have companions
+	  #2. Either a hero in the party must have inventory management 3 or higher, or the player must have inventory management of 2 or higher, or the player or a hero in the party must have a looting skill of 2 or higher
+	  (call_script, "script_cf_dplmc_player_party_meets_autoloot_conditions"),
 		],
-		"Manage your party's inventory.",
+	  #"Manage your party's inventory.",
+	  "Manage auto-loot settings.",
 		[
+			(try_begin),
+				#dplmc+ Add check if autoloot has not been initialized yet
+				(call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
+			(try_end),
 			(troop_clear_inventory, "trp_temp_troop"),
+			##diplomacy start+
+			(assign, "$pool_troop", "trp_temp_troop"),
+			(assign, "$dplmc_return_menu", "mnu_camp"),
+			##diplomacy end+
 			(assign, "$inventory_menu_offset", 0),
 			(jump_to_menu, "mnu_dplmc_manage_loot_pool")
 		]
 	),
+	
+#Alternate display: make it clear why autoloot isn't appearing
+	("dplmc_camp_manage_inventory_disabled",
+		[
+	  #Print this when the player has companions but doesn't meet
+	  #the minimum skill levels.
+		(try_begin),
+			(call_script, "script_cf_dplmc_player_party_meets_autoloot_conditions"),
+		(try_end),
+		(eq, reg0, 0),
+		(disable_menu_option),
+	    ],
+	  "Auto-loot requires Inventory Management or Looting at rank 2.",
+		[
+		]
+	),
+##nested diplomacy end+ Finished changes to autoloot conditions
 ###################################################################################
 # End Autoloot
 ###################################################################################  
-	("dplmc_camp_preferences",
-		[		  
-		],
-		"Diplomacy preferences.",
-		[
-			(jump_to_menu, "mnu_dplmc_preferences")
-		]
-	),
-  
+	# ("dplmc_camp_preferences",
+		# [		  
+		# ],
+		# "Diplomacy preferences.",
+		# [
+			# (jump_to_menu, "mnu_dplmc_preferences")
+		# ]
+	# ),
+##nested diplomacy start+
+	 ("dplmc_camp_preferences",
+		 [		  
+		 ],
+		 "Additional Mod Preferences.",
+		 [
+			 (jump_to_menu, "mnu_dplmc_preferences")
+		 ]
+	 ),
+##nested diplomacy end+  
 ##diplomacy end   
+## PreBattle Orders & Deployment Begin
+ 	("action_prebattle_mod_preferences",[],
+		"Mod Preferences.", #Includes Diplomacy Horse Speed
+       [(start_presentation, "prsnt_pbod_preferences")]
+    ), 
+## PreBattle Orders & Deployment End
+
       ("camp_action",[],"Take an action.",
        [(jump_to_menu, "mnu_camp_action"),
         ]
@@ -3549,6 +3625,30 @@ game_menus = [
          (change_screen_return),
         ]
        ),	   
+
+	   ##nested diplomacy start+
+	  ("camp_cheat_7",[(troop_slot_ge, "trp_player", slot_troop_spouse, 1),],"{!}Divorce player spouse",
+       [
+	 	 (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+        #set this before the loop below, to avoid potential wierdness in the family relation check
+			(troop_set_slot, ":spouse", slot_troop_spouse, -1),
+	     (troop_set_slot, "trp_player", slot_troop_spouse, -1),
+
+		#apply relation loss with the spouse
+		 (call_script, "script_change_player_relation_with_troop", ":spouse", -40),
+	    #change relations with family - inverse of gain from marriage
+		(try_for_range, ":family_member", heroes_begin, heroes_end),
+		    (neq, ":family_member", ":spouse"),
+			(call_script, "script_dplmc_troop_get_family_relation_to_troop", ":spouse", ":family_member"),
+			(gt, reg0, 0),
+			(val_mul, reg0, -2),
+			(val_div, reg0, 3),
+			(val_min, reg0, -1),
+			(call_script, "script_change_player_relation_with_troop", ":family_member", reg0),
+		 (try_end),
+        ]
+       ),
+	   ##nested diplomacy end+
 
       ("cheat_faction_orders",[(ge,"$cheat_mode",1)],
 	  "{!}Cheat: Set Debug messages to All.",
@@ -3716,6 +3816,17 @@ game_menus = [
             (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
         ],"Change your vassals' title of nobility.",
         [(start_presentation, "prsnt_dplmc_set_vassal_title"),
+        ]
+       ),
+       ("action_change_policies",
+        [
+            (gt, "$cheat_mode", 0),
+            (eq, "$players_kingdom_name_set", 1),
+            (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+            (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+        ],"{!}Cheat: Change kingdom policies",
+        [(start_presentation, "prsnt_dplmc_policy_management"),
+
         ]
        ),
       ##Custom player kingdom vassal titles, credit Caba'drin end
@@ -4369,12 +4480,207 @@ game_menus = [
             (set_background_mesh, "mesh_pic_sarranid_encounter"),
 		  (try_end),
         (try_end),
+		
+		## PreBattle Orders & Deployment Begin
+		(try_begin),
+		    (eq, "$g_presentation_credits_obj_1", 1),
+			(start_presentation, "prsnt_prebattle_record_battle_size"),
+		(else_try),
+		    (eq, "$g_presentation_credits_obj_1", 2),
+			(start_presentation, "prsnt_prebattle_custom_deployment"),
+		(try_end),
+## PreBattle Orders & Deployment End
     ],
     [
+	## PreBattle Orders & Deployment Begin
+	  ("encounter_attack_deployment",
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 2),
+		
+		(call_script, "script_prebattle_calculate_battle_advantage_and_size"),
+		(assign, ":friend_count", reg1),
+		(assign, ":enemy_count", reg2),
+		(store_add, ":total_combatants", ":friend_count", ":enemy_count"),
+		(party_get_slot, ":battle_size", "p_main_party", slot_party_prebattle_battle_size),
+		(gt, ":total_combatants", ":battle_size"),
+      ],
+      "Choose who will join you in battle.",
+      [
+  		(assign, "$g_next_menu", "mnu_simple_encounter"),
+		(start_presentation, "prsnt_prebattle_custom_deployment"),
+      ]),
+	  
+	  ("encounter_attack_plan",
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+		(neq, "$g_encounter_type", enctype_fighting_against_village_raid),
+		(neq, "$g_encounter_type", enctype_catched_during_village_raid),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 2),
+      ],
+      "Plan your battle with the enemy.",
+      [
+  		(assign, "$g_next_menu", "mnu_simple_encounter"),		
+		(start_presentation, "prsnt_prebattle_orders"),
+      ]),
+	  
+	  
+	  ("encounter_attack_do_plan",
+      [
+        (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+      ],
+      "Enough planning. To battle!",
+      [
+	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+	  
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),     
+     
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+		
+		(set_party_battle_mode),
+		(try_begin),
+          (eq, "$g_encounter_type", enctype_fighting_against_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+          (eq, "$g_encounter_type", enctype_catched_during_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+          (set_jump_mission,"mt_lead_charge"),
+          (call_script, "script_setup_random_scene"),
+        (try_end),
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+	  
+	  ("encounter_attack_clear_plan",
+      [
+         (this_or_next|party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
+		 (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+      ],
+      "Re-assess the situation.",
+      [
+        (try_begin),
+		    (party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
+		    (party_set_slot, "p_main_party", slot_party_prebattle_customized_deployment, 0),
+		(try_end),
+	    (try_begin),
+		    (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+			(party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+		    (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0),
+		(try_end),
+		
+        (jump_to_menu, "mnu_simple_encounter"),
+      ]),
+	  
+	  ("encounter_attack_hold",
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+		(neq, "$g_encounter_type", enctype_fighting_against_village_raid),
+		(neq, "$g_encounter_type", enctype_catched_during_village_raid),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+      ],
+      "Take the field.",
+      [
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),     
+         
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+	    (party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+		(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),		
+        
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+		
+        (set_jump_mission,"mt_lead_charge"),
+        (call_script, "script_setup_random_scene"),
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+	  
+	  ("encounter_attack_follow",
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+		(neq, "$g_encounter_type", enctype_fighting_against_village_raid),
+		(neq, "$g_encounter_type", enctype_catched_during_village_raid),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+      ],
+      "Lead your troops.",
+      [
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),     
+         
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),		
+        
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+		
+        (set_jump_mission,"mt_lead_charge"),
+        (call_script, "script_setup_random_scene"),
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+## PreBattle Orders & Deployment End
       ("encounter_attack",
       [
         (eq, "$encountered_party_friendly", 0),
         (neg|troop_is_wounded, "trp_player"),
+				## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
       ],
       "Charge the enemy.",
       [
@@ -4388,6 +4694,28 @@ game_menus = [
 		(try_end),          
         
         (call_script, "script_calculate_renown_value"),
+		##diplomacy start+
+		(try_begin),
+			#Call this to properly set cached values for strength
+			(eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
+			(assign, ":terrain_code", dplmc_terrain_code_none),#defined in header_terrain_types.py
+			(try_begin),
+				(this_or_next|eq, "$g_encounter_type", enctype_fighting_against_village_raid),
+					(eq, "$g_encounter_type", enctype_catched_during_village_raid),
+				(assign, ":terrain_code", dplmc_terrain_code_village),#defined in header_terrain_types.py
+			(else_try),
+				(encountered_party_is_attacker),
+				(call_script, "script_dplmc_get_terrain_code_for_battle", "$g_encountered_party", "p_main_party"),
+				(assign, ":terrain_code", reg0),
+			(else_try),
+				(call_script, "script_dplmc_get_terrain_code_for_battle", "p_main_party", "$g_encountered_party"),
+				(assign, ":terrain_code", reg0),
+			(try_end),
+			(neq, ":terrain_code", dplmc_terrain_code_none),
+			(call_script, "script_dplmc_party_calculate_strength_in_terrain", "p_main_party", ":terrain_code", 0, 1),
+			(call_script, "script_dplmc_party_calculate_strength_in_terrain", "$g_encountered_party", ":terrain_code", 0, 1),
+		(try_end),
+		##diplomacy end+
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
         (set_party_battle_mode),
@@ -4416,6 +4744,9 @@ game_menus = [
       [
         (eq, "$encountered_party_friendly", 0),
         (call_script, "script_party_count_members_with_full_health", "p_main_party"),(ge, reg0, 4),
+						## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
       ],
       "Order your troops to attack without you.",
       [
@@ -4425,6 +4756,9 @@ game_menus = [
       
       ("encounter_leave",[
           (eq,"$cant_leave_encounter", 0),
+		  				## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
           ],"Leave.",[
 
 ###NPC companion changes begin
@@ -4467,10 +4801,16 @@ game_menus = [
          (call_script, "script_party_count_fit_regulars", "p_main_party"),
          (assign, ":player_count", reg0),
          (ge, ":player_count", ":enemy_party_strength"),
+		 				## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
          ],"Pull back, leaving some soldiers behind to cover your retreat.",[(jump_to_menu, "mnu_encounter_retreat_confirm"),]),
          
       ("encounter_surrender",[
          (eq,"$cant_leave_encounter", 1),
+		 				## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
           ],"Surrender.",[(assign,"$g_player_surrenders",1)]),
     ]
   ),
@@ -4590,52 +4930,49 @@ game_menus = [
       (try_end),
       
       (try_begin),
-        (le, ":minimum_power", 5),
+        (le, ":minimum_power", 25),
         (assign, ":division_constant", 1),
       (else_try),
-        (le, ":minimum_power", 10),
+        (le, ":minimum_power", 50),
         (assign, ":division_constant", 2),
       (else_try),
-        (le, ":minimum_power", 25),
+        (le, ":minimum_power", 75),
         (assign, ":division_constant", 3),
       (else_try),
-        (le, ":minimum_power", 50),
+        (le, ":minimum_power", 125),
         (assign, ":division_constant", 4),
       (else_try),
-        (le, ":minimum_power", 100),
+        (le, ":minimum_power", 200),
         (assign, ":division_constant", 5),
       (else_try),
-        (le, ":minimum_power", 200),
+        (le, ":minimum_power", 400),
         (assign, ":division_constant", 6),
       (else_try),
-        (le, ":minimum_power", 400),
+        (le, ":minimum_power", 800),
         (assign, ":division_constant", 7),
       (else_try),
-        (le, ":minimum_power", 800),
+        (le, ":minimum_power", 1600),
         (assign, ":division_constant", 8),
       (else_try),
-        (le, ":minimum_power", 1600),
+        (le, ":minimum_power", 3200),
         (assign, ":division_constant", 9),
       (else_try),
-        (le, ":minimum_power", 3200),
+        (le, ":minimum_power", 6400),
         (assign, ":division_constant", 10),
       (else_try),
-        (le, ":minimum_power", 6400),
+        (le, ":minimum_power", 12800),
         (assign, ":division_constant", 11),
       (else_try),
-        (le, ":minimum_power", 12800),
+        (le, ":minimum_power", 25600),
         (assign, ":division_constant", 12),
       (else_try),
-        (le, ":minimum_power", 25600),
+        (le, ":minimum_power", 51200),
         (assign, ":division_constant", 13),
       (else_try),
-        (le, ":minimum_power", 51200),
-        (assign, ":division_constant", 14),
-      (else_try),
         (le, ":minimum_power", 102400),
-        (assign, ":division_constant", 15),
+        (assign, ":division_constant", 14),
       (else_try),  
-        (assign, ":division_constant", 16),
+        (assign, ":division_constant", 15),
       (try_end),  
                                                                               
       (val_div, ":player_party_strength", ":division_constant"), #1.126, ":division_constant" was 5 before
@@ -4822,13 +5159,16 @@ game_menus = [
      (else_try),
        (eq, "$g_battle_result", -1),
        (str_store_string, s11, "@Your companions carry you away from the fighting."),
-       (troop_get_type, ":is_female", "trp_player"),
+		 ##diplomacy start+ Test gender with script
+       #(troop_get_type, ":is_female", "trp_player"),#<- replaced
        (try_begin),
-         (eq, ":is_female", 1),
+         #(eq, ":is_female", 1),#<- replaced
+		(eq, 1, "$character_gender"),#<- added
          (set_background_mesh, "mesh_pic_wounded_fem"),
        (else_try),
          (set_background_mesh, "mesh_pic_wounded"),
        (try_end),
+		 ##diplomacy end+
      (else_try),
        (eq, "$g_battle_result", 1),
        (str_store_string, s11, "@You have defeated the enemy."),
@@ -4902,7 +5242,16 @@ game_menus = [
 			(gt, "$g_private_battle_with_troop", 0),
 			(troop_slot_eq, "$g_private_battle_with_troop", slot_troop_leaded_party, "$g_encountered_party"),
 			(assign, "$g_private_battle_with_troop", 0),
+			##diplomacy start+
+			#g_disable_condescending_comments is also used to track the "enhanced/diminished prejudice" setting
+			(try_begin),
+				(eq, "$g_disable_condescending_comments", 0),
 			(assign, "$g_disable_condescending_comments", 1),
+			(else_try),
+				(eq, "$g_disable_condescending_comments", 2),
+				(assign, "$g_disable_condescending_comments", 3),
+			##diplomacy end+
+			(try_end),
 		(try_end),
 		
 		#new - begin
@@ -5098,7 +5447,17 @@ game_menus = [
           (call_script, "script_party_calculate_loot", "p_total_enemy_casualties"), #p_encountered_party_backup changed to total_enemy_casualties
           (gt, reg0, 0),          
           (troop_sort_inventory, "trp_temp_troop"),
+		  ##diplomacy start+
+		  #Here: we jump to rubik's autoloot from CC if applicable instead of using the standard loot screen
+		  (try_begin),
+			(call_script, "script_cf_dplmc_player_party_meets_autoloot_conditions"),
+			(assign, "$dplmc_return_menu", "mnu_total_victory"),
+            (jump_to_menu, "mnu_dplmc_manage_loot_pool"),
+		  (else_try),
+			#Old behavior:
           (change_screen_loot, "trp_temp_troop"),
+		  (try_end),
+		  ##diplomacy end+
         (else_try),
           #finished all
           (try_begin),
@@ -5181,6 +5540,37 @@ game_menus = [
 			  (faction_set_slot, "$players_kingdom", slot_faction_ai_last_decisive_event, ":hours"),
 			  
               (try_begin), #player took a walled center while he is a vassal of npc kingdom.
+  			  ##diplomacy start+ Handle player is co-ruler of NPC faction
+				(assign, ":is_coruler", 0),
+                (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+                (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+                (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+				(assign, ":is_coruler", 1),
+				
+				(assign, "$g_center_taken_by_player_faction", "$g_encountered_party"),
+				(faction_get_slot, ":faction_leader", "fac_player_supporters_faction", slot_faction_leader),
+				(try_begin),
+					(eq, ":faction_leader", "trp_player"),
+					(assign, ":faction_leader", heroes_end),
+					(try_for_range, ":troop_no", heroes_begin, ":faction_leader"),
+						(this_or_next|troop_slot_eq, slot_troop_spouse, "trp_player"),
+							(troop_slot_eq, "trp_player", slot_troop_spouse, ":troop_no"),
+						(neg|troop_slot_ge, ":faction_leader", slot_troop_prisoner_of_party, 0),#Not a prisoner
+						(neg|troop_slot_ge, ":faction_leader", slot_troop_occupation, slto_retirement),#Not retired, exiled, dead
+						(assign, ":faction_leader", ":troop_no"),#assign and break the loop
+					(try_end),
+				(try_end),
+				
+				(is_between, ":faction_leader", heroes_begin, heroes_end),#Not the player, and not a bogus value
+				(neg|troop_slot_ge, ":faction_leader", slot_troop_prisoner_of_party, 0),#Not a prisoner
+				(neg|troop_slot_ge, ":faction_leader", slot_troop_occupation, slto_retirement),#Not retired, exiled, dead
+				
+				(change_screen_return),              
+				(start_map_conversation, ":faction_leader", -1),
+			  (else_try),
+			  #player took a walled center while he is a vassal of npc kingdom.
+			    (neq, ":is_coruler", 1),
+			  ##diplomacy end+
                 (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
                 (jump_to_menu, "$g_next_menu"),
               (else_try), #player took a walled center while he is a vassal of rebels.
@@ -5191,14 +5581,51 @@ game_menus = [
                 (change_screen_return),              
                 (start_map_conversation, ":faction_leader", -1),
               (else_try), #player took a walled center for player's kingdom
+			    ##diplomacy start+ Handle player is co-ruler of faction
+				(this_or_next|eq, ":is_coruler", 1),
+				##diplomacy end+
                 (neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),                
                 (assign, "$g_center_taken_by_player_faction", "$g_encountered_party"),
                 (assign, "$talk_context", tc_give_center_to_fief),
                 (change_screen_return),              
                 
-                ## modified for wheel of time
+                ## modified for TGS
                 (assign, ":best_troop", "trp_two_rivers_marksman"), # was trp_swadian_sharpshooter
-                ## end modified for wheel of time
+                ## end modified for TGS
+        
+				##diplomacy start+
+				#Trivial aesthetic change, change the default troop to be appropriate to the
+				#culture of the player kingdom (instead of defaulting always to a Swadian troop).
+				(assign, ":players_culture", "$players_kingdom"),
+				(try_begin),
+					#If not the co-ruler of an NPC kingdom, use the player faction culture.
+				   (neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+				   (assign, ":best_troop", "trp_mercenary_crossbowman"),#<- while we're at it, use a mercenary default
+				   (assign, ":players_culture", "$g_player_culture"),
+				   (this_or_next|is_between, ":players_culture", npc_kingdoms_begin, npc_kingdoms_end),
+					(is_between, ":players_culture", cultures_begin, cultures_end),
+				(else_try),
+					#If not the co-ruler of an NPC kingdom, and there wasn't a valid player faction
+					#culture, try to use the faction of the player's court.
+					(neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+					(is_between, "$g_player_court", centers_begin, centers_end),
+					(party_slot_ge, "$g_player_court", slot_center_original_faction, 1),
+					(party_get_slot, ":players_culture", "$g_player_court", slot_center_original_faction),
+				(try_end),
+				(try_begin),
+					#Resolve from kingdom to culture if necessary
+				   (is_between, ":players_culture", kingdoms_begin, kingdoms_end),
+				   (faction_get_slot, ":players_culture", ":players_culture", slot_faction_culture),
+				(try_end),
+				(try_begin),
+					#If the final result is a culture, get the best troop if valid
+				   (is_between, ":players_culture", cultures_begin, cultures_end),
+				   (neq, ":players_culture", "fac_culture_1"),
+				   (faction_get_slot, reg0, ":players_culture", slot_faction_guard_troop),
+				   (ge, reg0, soldiers_begin),
+				   (assign, ":best_troop", reg0),
+				(try_end),
+				##diplomacy end+
                 (assign, ":maximum_troop_score", 0),
                 
                 (party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
@@ -5391,13 +5818,16 @@ game_menus = [
            (str_store_string, s0, "@No matter! I will persevere!"),
          (else_try),
            (eq, ":random_no", 3),
-           (troop_get_type, ":is_female", "trp_player"),
+			  ##diplomacy start+ Don't use troop_get_type for gender
+			  #(troop_get_type, ":is_female", "trp_player"),#<- replaced
            (try_begin),
-             (eq, ":is_female", 1),
+             #(eq, ":is_female", 1),#<- replaced
+			 (eq, 1, "$character_gender"),#<- added
              (str_store_string, s0, "@What did I do to deserve this?"),
            (else_try),
              (str_store_string, s0, "@I suppose it'll make for a good story, at least..."),
            (try_end),
+			  ##diplomacy end+
          (try_end),
          ],
        "{s0}",
@@ -5511,11 +5941,160 @@ game_menus = [
           (leave_encounter),
           (change_screen_return),
         (try_end),
+		## PreBattle Orders & Deployment Begin
+		(try_begin),
+		    (eq, "$g_presentation_credits_obj_1", 1),
+			(start_presentation, "prsnt_prebattle_record_battle_size"),
+		(else_try),
+		    (eq, "$g_presentation_credits_obj_1", 2),
+			(start_presentation, "prsnt_prebattle_custom_deployment"),
+		(try_end),
+## PreBattle Orders & Deployment End
       ],
     [
+	## PreBattle Orders & Deployment Begin
+	  ("join_attack_deployment",
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 2),
+		
+		(call_script, "script_prebattle_calculate_battle_advantage_and_size"),
+		(assign, ":friend_count", reg1),
+		(assign, ":enemy_count", reg2),
+		(store_add, ":total_combatants", ":friend_count", ":enemy_count"),
+		(party_get_slot, ":battle_size", "p_main_party", slot_party_prebattle_battle_size),
+		(gt, ":total_combatants", ":battle_size"),
+      ],
+	   "Choose who will join you in battle.",
+      [
+  		(assign, "$g_next_menu", "mnu_join_battle"),	
+		(start_presentation, "prsnt_prebattle_custom_deployment"),
+      ]),
+	  
+	  ("join_attack_plan",
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 2),
+      ],
+	   "Plan your attack on the enemy.",
+      [
+  		(assign, "$g_next_menu", "mnu_join_battle"),	
+		(start_presentation, "prsnt_prebattle_orders"),
+      ]),
+	  
+	  ("join_attack_do_plan",
+      [
+        (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+      ],
+      "Enough planning. To battle!",
+      [
+	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+	  
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        (call_script, "script_setup_random_scene"),
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+	  
+	  ("join_attack_clear_plan",
+      [
+        (this_or_next|party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
+      	(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+      ],
+      "Re-assess the situation.",
+      [
+        (try_begin),
+		    (party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
+		    (party_set_slot, "p_main_party", slot_party_prebattle_customized_deployment, 0),
+		(try_end),
+	    (try_begin),
+		    (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+			(party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+		    (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0),
+		(try_end),
+		
+        (jump_to_menu, "mnu_join_battle"),
+      ]),
+	  	  
+	  ("join_attack_hold",
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+      ],
+      "Take the field.",
+      [
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),	
+	  
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        (call_script, "script_setup_random_scene"),
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+	  
+	  ("join_attack_follow",
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+      ],
+      "Lead your troops.",
+      [
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),	
+	  
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        (call_script, "script_setup_random_scene"),
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+## PreBattle Orders & Deployment End
+
       ("join_attack",
       [
         (neg|troop_is_wounded, "trp_player"),
+		## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
       ],
       "Charge the enemy.",
       [
@@ -5537,6 +6116,9 @@ game_menus = [
       [
         (call_script, "script_party_count_members_with_full_health", "p_main_party"),
         (ge, reg0, 3),
+	## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
       ],
       "Order your troops to attack with your allies while you stay back.",
       [
@@ -5545,7 +6127,11 @@ game_menus = [
         (jump_to_menu,"mnu_join_order_attack"),
       ]),
       
-      ("join_leave",[],"Leave.",
+      ("join_leave",[
+	  ## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
+		],"Leave.",
       [
         (try_begin),
            (neg|troop_is_wounded, "trp_player"),
@@ -5771,13 +6357,16 @@ game_menus = [
     [
         (str_store_party_name, s1, "$g_encountered_party"),
         (str_store_party_name, s2, "$g_encountered_party_2"),
-        (troop_get_type, ":is_female", "trp_player"),
+		  ##diplomacy start+ Get gender from script
+        #(troop_get_type, ":is_female", "trp_player"),#<- replaced
         (try_begin),
-          (eq, ":is_female", 1),
+          #(eq, ":is_female", 1),#<- replaced
+		  (eq, 1, "$character_gender"),#<- added
           (set_background_mesh, "mesh_pic_siege_sighted_fem"),
         (else_try),
           (set_background_mesh, "mesh_pic_siege_sighted"),
         (try_end),
+		  ##diplomacy end+
     ],
     [
       ("approach_besiegers",[(store_faction_of_party, ":faction_no", "$g_encountered_party_2"),
@@ -5830,7 +6419,20 @@ game_menus = [
         (try_begin),
           (eq, "$new_encounter", 1),
           (assign, "$new_encounter", 0),
+		  ###diplomacy start+
+		  ##If terrain advantage is on, use siege settings
+          #(assign, ":save_dplmc_terrain_advantage", "$g_dplmc_terrain_advantage"),
+		  ##(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
+		  #(try_begin),  		   
+		  #   (eq, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_ENABLE),
+		  #   (assign, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_FORCE_SIEGE),
+		  #(try_end),
+		  ###diplomacy end+
           (call_script, "script_encounter_init_variables"),
+		  ###diplomacy start+
+		  ##Revert terrain advantage setting
+		  #(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
+		  ###diplomacy end+
         (try_end),
 
         (try_begin),
@@ -5874,8 +6476,28 @@ game_menus = [
                                 (jump_to_scene,":meeting_scene"),
                                 (assign, "$talk_context", tc_siege_commander),
                                 (change_screen_map_conversation, ":siege_leader_id")]),
+    ## Pre-Battle Orders & Deployment Begin							
+     ("siege_attack_plan",
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 2),
+      ],
+      "Plan your assault.",
+      [
+  		(assign, "$g_next_menu", "mnu_besiegers_camp_with_allies"),		
+		(start_presentation, "prsnt_prebattle_orders"),
+      ]),
+     ## Pre-Battle Orders & Deployment End								
+								
       ("join_siege_with_allies",[(neg|troop_is_wounded, "trp_player")], "Join the next assault.",
        [
+	          ## Pre-Battle Orders & Deployment Begin
+		   (try_begin),
+			(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+			(party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+		   (try_end),
+		   ## Pre-Battle Orders & Deployment End
            (assign, "$g_joined_battle_to_help", 1), 
            (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
            (try_begin),
@@ -5956,7 +6578,19 @@ game_menus = [
           (eq, "$new_encounter", 1),
           (assign, "$new_encounter", 0),
           (call_script, "script_let_nearby_parties_join_current_battle", 1, 0),
+		  ###diplomacy start+
+		  ##If terrain advantage is on, use siege settings for estimating strength
+          #(assign, ":save_dplmc_terrain_advantage", "$g_dplmc_terrain_advantage"),
+		  #(try_begin),  		   
+		  #   (eq, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_ENABLE),
+		  #   (assign, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_FORCE_SIEGE),
+		  #(try_end),
+		  ###diplomacy end+
           (call_script, "script_encounter_init_variables"),
+		  ###diplomacy start+
+		  ##Revert terrain advantage settings
+		  #(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
+		  ###diplomacy end+
           (assign, "$entry_to_town_forbidden",0),
           (assign, "$sneaked_into_town",0),
           (assign, "$town_entered", 0),
@@ -6016,12 +6650,97 @@ game_menus = [
           (str_store_troop_name,s8,":center_lord"),
           (str_store_string,s7,"@{s8} of {s9}"),
         (try_end),
-
+        ##diplomacy start+
+		(assign, ":save_reg0", reg0),#save variables
+		(assign, ":save_reg4", reg4),
+		(assign, reg0, 0),
+		(assign, reg4, 0),
+		(try_begin),#If there's a relation of some kind, write it to s11 (which we'll overwrite below)
+			(lt, ":center_lord", 1),
+		(else_try),
+			#your relative
+			(call_script, "script_troop_get_family_relation_to_troop", ":center_lord", "trp_player"),#outputs to s11, reg0, and reg4
+			(ge, reg0, 1),#Fall through if this not a relative
+		(else_try),
+			#your current liege
+			(eq, ":center_faction", "$players_kingdom"),
+			(is_between, ":center_faction", kingdoms_begin, kingdoms_end),#include fac_player_supporters_faction for claimant quest
+			(faction_slot_eq, ":center_faction", slot_faction_leader, ":center_lord"),
+			(str_store_string, s11, "@liege"),
+			(assign, reg0, 1),
+		(else_try),
+			#your former liege if you renounced a kingdom
+			(eq, ":center_faction", "$players_oath_renounced_against_kingdom"),
+			(is_between, ":center_faction", npc_kingdoms_begin, npc_kingdoms_end),
+			(faction_slot_eq, ":center_faction", slot_faction_leader, ":center_lord"),
+			(str_store_string, s11, "@former liege"),
+			(assign, reg0, 1),
+		(else_try),
+			#stop here for lords you haven't met, or non-hero troops
+			(this_or_next|neg|troop_is_hero, ":center_lord"),
+			(troop_slot_eq, ":center_lord", slot_troop_met, 0),
+		(else_try),
+			#check for affiliates
+			(call_script, "script_dplmc_is_affiliated_family_member", ":center_lord"),
+			(ge, reg0, 1),
+			(try_begin),
+				(ge, "$g_encountered_party_relation", 0),#don't say "ally" when you might fight them, as that's confusing
+				(str_store_string, s11, "str_dplmc_ally"),
+			(else_try),
+				(str_store_string, s11, "@affiliate"),
+			(try_end),
+		(else_try),
+			#check for friends (former companions)
+			(call_script, "script_troop_get_player_relation", ":center_lord"),
+			(is_between, ":center_lord", companions_begin, companions_end),
+			(neg|troop_slot_eq, ":center_lord", slot_troop_playerparty_history, dplmc_pp_history_nonplayer_entry),
+			(try_begin),
+			   (ge, "$g_encountered_party_relation", 0),#don't say "ally" when you might fight them, as that's confusing
+			   (ge, reg0, 50),
+			   (str_store_string, s11, "str_dplmc_ally"),
+			(else_try),
+				(ge, "$g_encountered_party_relation", 0),
+				(ge, reg0, 20),
+				(str_store_string, s11, "str_dplmc_friend"),
+			(else_try),
+				(str_store_string, s11, "@former companion"),
+			(try_end),
+			(assign, reg0, 1),
+		(else_try),
+			#don't print "friend" if you might fight them
+			(lt, "$g_encountered_party_relation", 0),
+			(assign, reg0, 0),
+		(else_try),
+			#check for friends
+			(val_div, reg0, 50),#right now reg0 holds the relation with the player
+			(ge, reg0, 1),
+			(str_store_string, s11, "str_dplmc_friend"),
+		(else_try),
+			#check for marshall
+			(eq, ":center_faction", "$players_kingdom"),
+			(faction_slot_eq, ":center_faction", slot_faction_marshall, ":center_lord"),
+			(str_store_string, s11, "@marshall"),
+		(else_try),
+			#check for vassal of player if nothing else to say
+			(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
+			(val_add, reg0, 1),
+			(val_sub, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+			(ge, reg0, 1),
+			(str_store_string, s11, "@vassal"),
+		(else_try),
+			(assign, reg0, 0),
+		(try_end),
+		##diplomacy end+
         (try_begin), # same mnu_town
           (party_slot_eq,"$current_town",slot_party_type, spt_castle),
           (try_begin),
             (eq, ":center_lord", "trp_player"),
             (str_store_string,s11,"@ Your own banner flies over the castle gate."),
+		  ##diplomacy start+ If reg0 > 0, a relation string was written to {s11} above
+		  (else_try),
+			(ge, reg0, 1),
+			(str_store_string, s11, "@ You see the banner of your {s11} {s7} over the castle gate."),
+		  ##diplomacy end+
           (else_try),
             (ge, ":center_lord", 0),
             (str_store_string,s11,"@ You see the banner of {s7} over the castle gate."),
@@ -6035,6 +6754,11 @@ game_menus = [
           (try_begin),
             (eq, ":center_lord", "trp_player"),
             (str_store_string,s11,"@ Your own banner flies over the town gates."),
+		  ##diplomacy start+ If reg0 > 0, a relation string was written to {s11} above
+		  (else_try),
+			(ge, reg0, 1),
+			(str_store_string, s11, "@ You see the banner of your {s11} {s7} over the town gates."),
+		  ##diplomacy end+
           (else_try),
             (ge, ":center_lord", 0),
             (str_store_string,s11,"@ You see the banner of {s7} over the town gates."),
@@ -6061,6 +6785,17 @@ game_menus = [
           (str_store_string, s3, "str_dplmc_place_is_occupied_by_insurgents"),
         (else_try),
         ##diplomacy end
+		##diplomacy start+ Handle player is co-ruler of kingdom
+		(assign, ":is_coruler", 0),
+		(try_begin),
+			(eq, "$g_encountered_party_faction", "$players_kingdom"),
+			(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+			(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+			(ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+			(assign, ":is_coruler", 1),
+		(try_end),
+		(this_or_next|eq, ":is_coruler", 1),
+		##diplomacy end+
           (eq,"$g_encountered_party_faction","fac_player_supporters_faction"),
           (str_store_string, s3, "str_place_is_occupied_by_player"),
         (else_try),
@@ -6069,6 +6804,10 @@ game_menus = [
         (else_try),
 #          (str_store_string, s3, "str_place_is_occupied_by_friendly"),
         (try_end),
+		##diplomacy start+
+		(assign, reg0, ":save_reg0"),#revert variables
+		(assign, reg4, ":save_reg4"),
+		##diplomacy end+
 
         (try_begin),
           (eq, "$g_leave_town_outside",1),
@@ -6129,6 +6868,17 @@ game_menus = [
         ##diplomacy end             
         (else_try),
           (party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),                    
+		  ##diplomacy start+ Handle player is co-ruler of kingdom
+		  (assign, ":is_coruler",0),
+	  	  (try_begin),
+			(eq, "$g_encountered_party_faction", "$players_kingdom"),
+			(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+			(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+			(ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+			(assign, ":is_coruler", 1),
+		  (try_end),
+		  (this_or_next|eq, ":is_coruler", 1),
+		  ##diplomacy end+
           (this_or_next|party_slot_eq, "$g_encountered_party", slot_town_lord, "trp_player"),
           (faction_slot_eq, "$g_encountered_party_faction", slot_faction_leader, "trp_player"),          
           (jump_to_menu, "mnu_enter_your_own_castle"),
@@ -6469,13 +7219,16 @@ game_menus = [
     "You are laying siege to {s1}. {s2} {s3}",
     "none",
     [
-        (troop_get_type, ":is_female", "trp_player"),
+		  ##diplomacy start+ test gender with script
+        #(troop_get_type, ":is_female", "trp_player"),#<- replaced
         (try_begin),
-          (eq, ":is_female", 1),
+          #(eq, ":is_female", 1),#<- replaced
+	      (eq, 1, "$character_gender"),#<- added
           (set_background_mesh, "mesh_pic_siege_sighted_fem"),
         (else_try),
           (set_background_mesh, "mesh_pic_siege_sighted"),
         (try_end),
+		  ##diplomacy end+
         (assign, "$g_siege_force_wait", 0),
         (try_begin),
           (party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, -1),
@@ -6647,6 +7400,26 @@ game_menus = [
           ]),
 
       
+	  	## Pre-Battle Orders & Deployment Begin							
+     ("siege_attack_plan",
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		
+		(ge, "$g_siege_method", 1),
+        (gt, "$g_friend_fit_for_battle", 3),
+        (store_current_hours, ":cur_hours"),
+        (ge, ":cur_hours", "$g_siege_method_finish_hours"),
+		
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 2),
+      ],
+      "Plan your assault.",
+      [
+  		(assign, "$g_next_menu", "mnu_castle_besiege"),		
+		(start_presentation, "prsnt_prebattle_orders"),
+      ]),
+     ## Pre-Battle Orders & Deployment End
+	  
       ("castle_lead_attack",
        [
          (neg|troop_is_wounded, "trp_player"),
@@ -6657,6 +7430,12 @@ game_menus = [
        ],
        "Lead your soldiers in an assault.", 
        [
+	       ## Pre-Battle Orders & Deployment Begin
+		   (try_begin),
+			(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+			(party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+		   (try_end),
+		   ## Pre-Battle Orders & Deployment End
            (try_begin),
              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
              (party_get_slot, ":battle_scene", "$g_encountered_party", slot_town_walls),
@@ -6760,13 +7539,16 @@ game_menus = [
     "{s1}",
     "none",
     [
-        (troop_get_type, ":is_female", "trp_player"),
+		  ##diplomacy start+ test gender with script
+        #(troop_get_type, ":is_female", "trp_player"),#<- replaced
         (try_begin),
-          (eq, ":is_female", 1),
+          #(eq, ":is_female", 1),#<- replaced
+		  (eq, 1, "$character_gender"),#<- added
           (set_background_mesh, "mesh_pic_siege_sighted_fem"),
         (else_try),
           (set_background_mesh, "mesh_pic_siege_sighted"),
         (try_end),
+		  ##diplomacy end+
         (assign, ":result", "$g_battle_result"),#will be reset at script_encounter_calculate_fit
         (call_script, "script_encounter_calculate_fit"),
         
@@ -6938,7 +7720,15 @@ game_menus = [
         (try_begin),
           (set_background_mesh, "mesh_pic_siege_attack"),
         (try_end),
-        
+        ###diplomacy start+
+		##If terrain advantage is on, use siege settings
+        #(assign, ":save_dplmc_terrain_advantage", "$g_dplmc_terrain_advantage"),
+		##(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
+		#(try_begin),  		   
+		#   (eq, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_ENABLE),
+		#   (assign, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_FORCE_SIEGE),
+		#(try_end),
+		###diplomacy end+
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
         (val_div, ":player_party_strength", 10),
@@ -6970,6 +7760,10 @@ game_menus = [
         (else_try),
           (str_store_string, s4, "str_attack_walls_continue"),
         (try_end),
+		##diplomacy start+
+		#Revert terrain advantage settings
+		#(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
+		##diplomacy end+
      ],
     [
 ##      ("lead_next_wave",[(eq, "$no_soldiers_left", 0)],"Lead the next wave of attack personally.", [
@@ -6996,7 +7790,14 @@ game_menus = [
         (try_begin),
           (set_background_mesh, "mesh_pic_siege_attack"),
         (try_end),
-
+        ###diplomacy start+
+		##If terrain advantage is on, use siege settings
+        #(assign, ":save_dplmc_terrain_advantage", "$g_dplmc_terrain_advantage"),
+		#(try_begin),  		   
+		#   (eq, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_ENABLE),
+		#   (assign, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_FORCE_SIEGE),
+		#(try_end),
+		###diplomacy end+
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
         (val_div, ":player_party_strength", 10),
@@ -7059,6 +7860,10 @@ game_menus = [
         (else_try),
           (str_store_string, s4, "str_attack_walls_continue"),
         (try_end),
+		###diplomacy start+
+		##Revert terrain advantage settings
+		#(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
+		###diplomacy end+
      ],
     [
       ("continue",[],"Continue...",[(jump_to_menu,"mnu_besiegers_camp_with_allies")]),
@@ -7099,14 +7904,25 @@ game_menus = [
   (
     "castle_taken",mnf_disable_all_keys,
   ##diplomacy begin
-    "{s3} has fallen to your troops, and you now have full control of the {reg2?town:castle}. You can plunder spoils of war worth {reg3} crowns.\
+    "{s3} has fallen to your troops, and you now have full control of the {reg2?town:castle}. You can plunder spoils of war worth {reg3} denars.\
 {reg1? You may station troops here to defend it against enemies who may try to recapture it. Also, you should select now whether you will hold the {reg2?town:castle} yourself or give it to a faithful vassal...:}",# Only visible when castle is taken without being a vassal of a kingdom.
   ##diplomacy end
     "none",
     [
         (party_clear, "$g_encountered_party"),
-
+		##diplomacy start+ Handle player is co-ruler of kingdom
+		(assign, ":is_coruler", 0),
+		(try_begin),
+			(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+			(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+			(ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+			(assign, ":is_coruler", 1),
+		(try_end),
+		##diplomacy end+
         (try_begin),        
+		  ##diplomacy start+
+		  (this_or_next|eq, ":is_coruler", 1),
+		  ##diplomacy end+
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
           (party_get_slot, ":new_owner", "$g_encountered_party", slot_town_lord),
           (neq, ":new_owner", "trp_player"),
@@ -7120,6 +7936,10 @@ game_menus = [
         (assign, "$g_player_besiege_town", -1),
                         
         (party_set_slot, "$g_encountered_party", slot_center_last_taken_by_troop, "trp_player"),
+		##diplomacy start+ Set last taken time
+		(store_current_hours, ":cur_hours"),
+		(party_set_slot, "$g_encountered_party", dplmc_slot_center_last_transfer_time, ":cur_hours"),
+		##diplomacy end+
         ##diplomacy begin
         #Reduce prosperity of the center by 5
         #(call_script, "script_change_center_prosperity", "$g_encountered_party", -5),
@@ -7175,9 +7995,31 @@ game_menus = [
       ("dplmc_spoils_yourself",[],"Plunder it and keep the spoils all for yourself.",
        [         
          (call_script, "script_change_center_prosperity", "$g_encountered_party", -8),  
-         (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+		 ##diplomacy start+
+		 (assign, ":is_kingdom_leader", 0),
+		 (try_begin),
+			(is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
+			(faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
+			(ge, ":faction_leader", 0),
+			(this_or_next|eq, ":faction_leader", "trp_player"),
+			(this_or_next|troop_slot_eq, ":faction_leader", slot_troop_spouse, "trp_player"),
+				(troop_slot_eq, "trp_player", slot_troop_spouse, ":faction_leader"),
+			(assign, ":is_kingdom_leader", 1),
+		 (else_try),
+			(eq, "$players_kingdom", "fac_player_supporters_faction"),
+			(assign, ":is_kingdom_leader", 1),
+		 (try_end),
+		 #Add support for promoted ladies
+         #(try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+         (try_for_range, ":troop_no", heroes_begin, heroes_end),		 
+		 ##diplomacy end+
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
+		   ##diplomacy start+
+		   (this_or_next|eq, "$players_kingdom", ":troop_faction_no"),
+			  (eq, "fac_player_supporters_faction", ":troop_faction_no"),
+		   (this_or_next|eq, ":is_kingdom_leader", 1),
+		   ##diplomacy end+
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
            (call_script, "script_change_player_relation_with_troop", ":troop_no", -2),
          (try_end),         
@@ -7193,12 +8035,24 @@ game_menus = [
         ]),
       ("dplmc_spoils_accompanying_vassals",
       [
+		##nested diplomacy start+
+		#Add support for being the ruler or co-ruler of an original kingdom
           (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
+		  (faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
+		  (this_or_next|eq, ":faction_leader", "trp_player"),
+		  (this_or_next|troop_slot_eq, ":faction_leader", slot_troop_spouse, "trp_player"),
+  		##nested diplomacy end+
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
          (assign, ":vassal_count", 0),       
-         (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+		##nested diplomacy start+ add support for kingdom ladies, and the other faction options
+        # (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+		 (try_for_range, ":troop_no", heroes_begin, heroes_end),
+  	    ##nested diplmacy end+
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
+		   ##nested diplomacy start+
+		   (this_or_next|eq, "$players_kingdom", ":troop_faction_no"),
+		   ##nested diplomacy end+
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
            (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
            (ge, ":party_no", 1),
@@ -7210,17 +8064,76 @@ game_menus = [
       ],"Plunder it and share the spoils equally between the vassals accompanying you and yourself.",
        [  
          (assign, ":vassal_count", 1),       
-         (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+		 ##nested diplomacy start+
+		 ##OLD:
+         #(try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+         #  (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+         #  (store_troop_faction, ":troop_faction_no", ":troop_no"),
+         #  (eq, "fac_player_supporters_faction", ":troop_faction_no"),
+         #  (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
+         #  (ge, ":party_no", 1),
+         #  (store_distance_to_party_from_party, ":distance","p_main_party", ":party_no"),
+         #  (le, ":distance", 25),
+         #  (val_add, ":vassal_count", 1),
+         #  (call_script, "script_change_player_relation_with_troop", ":troop_no", 3),
+         #(try_end),
+		 #
+		 #NEW:
+		 #first loop through to count
+		 (try_for_range, ":troop_no", heroes_begin, heroes_end),#promoted lady support
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
+			(this_or_next|eq, "$players_kingdom", ":troop_faction_no"),#support for other faction arrangements
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
            (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
            (ge, ":party_no", 1),
            (store_distance_to_party_from_party, ":distance","p_main_party", ":party_no"),
            (le, ":distance", 25),
            (val_add, ":vassal_count", 1),
-           (call_script, "script_change_player_relation_with_troop", ":troop_no", 3),
          (try_end),
+		 (store_div, ":gold_per_lord", "$diplomacy_var", ":vassal_count"),
+		 #now loop through to add gold/relation
+		 (try_for_range, ":troop_no", heroes_begin, heroes_end),#promoted lady support
+			(troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+			(store_troop_faction, ":troop_faction_no", ":troop_no"),
+			(this_or_next|eq, "$players_kingdom", ":troop_faction_no"),#support for other faction arrangements
+				(eq, "fac_player_supporters_faction", ":troop_faction_no"),
+			(troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
+			(ge, ":party_no", 1),
+			(store_distance_to_party_from_party, ":distance","p_main_party", ":party_no"),
+			(le, ":distance", 25),
+			#add gold
+			(troop_add_gold, ":troop_no", ":gold_per_lord"),
+			#Relation adjustment
+			(store_random_in_range, reg0, 0, 1000),
+			(val_add, reg0, ":gold_per_lord"),
+			(val_div, reg0, 1000),
+			(gt, reg0, 0),
+			(val_min, reg0, 4),
+			(assign, ":relation_change", reg0),
+			#Modify for personality
+			(try_begin),
+				#Lords who dislike raiding will be displeased by looting a town (but not a castle)
+				(party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+				(call_script, "script_dplmc_get_troop_morality_value", ":troop_no", tmt_humanitarian),
+				(try_begin),
+					(gt, reg0, 0),#Some lords like raiding settlements less than others
+					(val_sub, ":relation_change", reg0),
+					(val_min, ":relation_change", -1),
+				(else_try),
+					(lt, reg0, 0),#Some lords like raiding settlements more than others
+					(val_sub, ":relation_change", reg0),
+					(val_min, ":relation_change", 5),
+				(else_try),
+					(this_or_next|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_custodian),
+					(this_or_next|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_benefactor),
+						(troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_moralist),
+					(val_sub, ":relation_change", 1),
+			(try_end),
+			(try_end),
+			(call_script, "script_change_player_relation_with_troop", ":troop_no", ":relation_change"),
+		 (try_end),
+		 ##nested diplomacy end+
          (val_div, "$diplomacy_var", ":vassal_count"),
          (try_begin),
            (gt, "$g_player_chamberlain", 0),
@@ -7236,17 +8149,76 @@ game_menus = [
       ("dplmc_spoils_all_vassals",
       [
           (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
+		  ##nested diplomacy start+
+		  #Support for being co-ruler of an original kingdom
+		  (faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
+		  (this_or_next|eq, ":faction_leader", "trp_player"),
+		  (this_or_next|troop_slot_eq, ":faction_leader", slot_troop_spouse, "trp_player"),
+		  ##nested diplomacy end+
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
       ],"Plunder it and share the spoils equally between your vassals and yourself.",
        [         
          (assign, ":vassal_count", 1),
-         (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+		 ##nested diplomacy start+
+		 #OLD:
+         #(try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+         #  (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+         #  (store_troop_faction, ":troop_faction_no", ":troop_no"),
+         #  (eq, "fac_player_supporters_faction", ":troop_faction_no"),
+         #  (val_add, ":vassal_count", 1),
+         #  (call_script, "script_change_player_relation_with_troop", ":troop_no", 2),
+         #(try_end),
+		 #
+		 #NEW:
+		 #  1. Actually give the gold to your vassals;
+		 #  2. Support kingdom ladies as vassals
+		 #  3. Support being the ruler or co-ruler of an original kingdom
+		 #  4. The relationship gain should not exceed 1 per 1000 gold pieces.
+		 (try_for_range, ":troop_no", heroes_begin, heroes_end),
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
-           (eq, "fac_player_supporters_faction", ":troop_faction_no"),
+			(this_or_next|eq, ":troop_faction_no", "fac_player_supporters_faction"),
+				(eq, ":troop_faction_no", "$players_kingdom"),
            (val_add, ":vassal_count", 1),
-           (call_script, "script_change_player_relation_with_troop", ":troop_no", 2),
          (try_end),
+		 
+		 (store_div, ":gold_per_lord", "$diplomacy_var", ":vassal_count"),
+		 (try_for_range, ":troop_no", heroes_begin, heroes_end),
+			(troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+			(store_troop_faction, ":troop_faction_no", ":troop_no"),
+			(this_or_next|eq, ":troop_faction_no", "fac_player_supporters_faction"),
+				(eq, ":troop_faction_no", "$players_kingdom"),
+			(troop_add_gold, ":troop_no", ":gold_per_lord"),
+			#Relation adjustment
+			(store_random_in_range, reg0, 0, 1000),
+			(val_add, reg0, ":gold_per_lord"),
+			(val_div, reg0, 1000),
+			(gt, reg0, 0),
+			(val_min, reg0, 3),
+			(assign, ":relation_change", reg0),
+			#Modify for personality
+			(try_begin),
+				#Lords who dislike raiding will be displeased by looting a town (but not a castle)
+				(party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+				(call_script, "script_dplmc_get_troop_morality_value", ":troop_no", tmt_humanitarian),
+				(try_begin),
+					(gt, reg0, 0),#Some lords like raiding settlements less than others
+					(val_sub, ":relation_change", reg0),
+					(val_min, ":relation_change", -1),
+				(else_try),
+					(lt, reg0, 0),#Some lords like raiding settlements more than others
+					(val_sub, ":relation_change", reg0),
+					(val_min, ":relation_change", 4),
+				(else_try),
+					(this_or_next|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_custodian),
+					(this_or_next|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_benefactor),
+						(troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_moralist),
+					(val_sub, ":relation_change", 1),
+			(try_end),
+			(call_script, "script_change_player_relation_with_troop", ":troop_no", ":relation_change"),
+ 		 (try_end),
+		 (try_end),
+		 ##nested diplomacy end+
          (val_div, "$diplomacy_var", ":vassal_count"),
          (try_begin),
            (gt, "$g_player_chamberlain", 0),
@@ -7283,7 +8255,10 @@ game_menus = [
           (eq, "$player_has_homage", 0),
           (assign, reg8, 0),
           (try_begin),
-            (party_slot_eq, "$g_encountered_party", spt_town),
+		    ##diplomacy start+ FIX: Inserted missing argument
+            #(party_slot_eq, "$g_encountered_party", spt_town),
+			(party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+			##diplomacy end+
             (assign, reg8, 1),
           (try_end),
           (str_store_string, s5, "@However, since you are not a sworn {man/follower} of {s9}, there is no chance he would recognize you as the {lord/lady} of this {reg8?town:castle}."),
@@ -7349,8 +8324,10 @@ game_menus = [
 		(else_try),
 			(assign, reg3, 0),
 		(try_end),
-		(troop_get_type, reg4, ":faction_leader"),
-	 
+		##diplomacy start+ use script for gender
+		#(troop_get_type, reg4, ":faction_leader"),#<- OLD
+		(call_script, "script_dplmc_store_troop_is_female_reg", ":faction_leader", 4),
+		##diplomacy end+
    ],
     [
 		("continue",[],"Continue.",
@@ -7384,7 +8361,10 @@ game_menus = [
 		(else_try),
 			(assign, reg3, 0),
 		(try_end),
-		(troop_get_type, reg4, ":faction_leader"),
+		##diplomacy start+ use script for gender
+		#(troop_get_type, reg4, ":faction_leader"),#<- OLD
+		(call_script, "script_dplmc_store_troop_is_female_reg", ":faction_leader", 4),
+		##diplomacy end+
 	 
 		(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
 		(str_store_troop_name, s11, ":spouse"), 
@@ -7412,7 +8392,7 @@ game_menus = [
  'I was most pleased to hear of your valiant efforts in the capture of {s2}. Your victory has gladdened all our hearts.\
  You also requested me to give you ownership of the castle, but that is a favour which I fear I cannot grant,\
  as you already hold significant estates in my realm.\
- Instead I have sent you {reg6} crowns to cover the expenses of your campaign, but {s2} I give to {s5}.'\
+ Instead I have sent you {reg6} denars to cover the expenses of your campaign, but {s2} I give to {s5}.'\
  ",
     "none",
     [(set_background_mesh, "mesh_pic_messenger"),
@@ -7450,7 +8430,7 @@ game_menus = [
  'I was most pleased to hear of your valiant efforts in the capture of {s2}. Your victory has gladdened all our hearts.\
  You also requested me to give ownership of the castle to your {wife/husband}, but that is a favour which I fear I cannot grant,\
  as {she/he} already holds significant estates in my realm.\
- Instead I have sent you {reg6} crowns to cover the expenses of your campaign, but {s2} I give to {s5}.'\
+ Instead I have sent you {reg6} denars to cover the expenses of your campaign, but {s2} I give to {s5}.'\
  ",
 ##diplomacy end+
     "none",
@@ -7758,7 +8738,19 @@ game_menus = [
         (try_begin),
           (eq, "$g_siege_first_encounter", 1),
           (call_script, "script_let_nearby_parties_join_current_battle", 0, 1),
+		  ###diplomacy start+
+		  ##If terrain advantage is on, use siege settings
+          #(assign, ":save_dplmc_terrain_advantage", "$g_dplmc_terrain_advantage"),
+		  #(try_begin),  		   
+		  #   (eq, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_ENABLE),
+		  #   (assign, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_FORCE_SIEGE),
+		  #(try_end),
+		  ###diplomacy end+
           (call_script, "script_encounter_init_variables"),
+		  ###diplomacy start+
+		  ##Revert terrain advantage settings
+		  #(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
+		  ###diplmacy end+
         (try_end),
 
         (try_begin),
@@ -7906,6 +8898,15 @@ game_menus = [
     "{s4}^^Your casualties: {s8}^^Allies' casualties: {s9}^^Enemy casualties: {s10}",
     "none",
     [
+	    ###diplomacy start+
+		##If terrain advantage is on, use siege settings
+        #(assign, ":save_dplmc_terrain_advantage", "$g_dplmc_terrain_advantage"),
+		##(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
+		#(try_begin),  		   
+		#   (eq, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_ENABLE),
+		#   (assign, "$g_dplmc_terrain_advantage", TERRAIN_ADVANTAGE_FORCE_SIEGE),
+		#(try_end),
+		###diplomacy end+
         (try_begin),
           (eq, "$g_siege_join", 1),
           (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
@@ -7959,6 +8960,10 @@ game_menus = [
         (else_try),
           (str_store_string, s4, "str_siege_defender_order_attack_continue"),
         (try_end),
+		###diplomacy start+
+		##Revert terrain advantage settings
+		#(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
+		###diplomacy end+
     ],
     [
       ("continue",[],"Continue...",[
@@ -7973,6 +8978,19 @@ game_menus = [
     "none",
     [
       (try_begin),
+	  ##diplomacy start+ Add support for the player as co-ruler of an NPC faction
+	    (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
+		(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+		(ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+		(try_begin),
+			(eq, 1, "$character_gender"),
+			(call_script, "script_dplmc_print_cultural_word_to_sreg", "trp_player", DPLMC_CULTURAL_TERM_KING_FEMALE, s10),
+		(else_try),
+			(call_script, "script_dplmc_print_cultural_word_to_sreg", "trp_player", DPLMC_CULTURAL_TERM_KING, s10),
+		(try_end),
+		(str_store_string, s10, "@As you approach, you are spotted by the castle guards, who welcome you and open the gates for their {s10}."),
+	  (else_try),
+	  ##diplomacy end+
         (neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
         (faction_get_slot, ":faction_leader", "fac_player_supporters_faction", slot_faction_leader),
         (eq, ":faction_leader", "trp_player"),
@@ -8065,17 +9083,107 @@ game_menus = [
         (try_end),
 
         (str_clear, s11),
+        ##diplomacy start+
+		(assign, ":save_reg0", reg0),#save variables
+		(assign, ":save_reg4", reg4),
+		(assign, reg0, 0),
+		(assign, reg4, 0),
+		(try_begin),#If there's a relation of some kind, write it to s11 (which we'll overwrite below)
+			(lt, ":center_lord", 1),
+		(else_try),
+			#your relative
+			(call_script, "script_troop_get_family_relation_to_troop", ":center_lord", "trp_player"),#outputs to s11, reg0, and reg4
+			(ge, reg0, 1),#Fall through if this not a relative
+		(else_try),
+			#your current liege
+			(eq, ":center_faction", "$players_kingdom"),
+			(is_between, ":center_faction", kingdoms_begin, kingdoms_end),#include fac_player_supporters_faction for claimant quest
+			(faction_slot_eq, ":center_faction", slot_faction_leader, ":center_lord"),
+			(str_store_string, s11, "@liege"),
+			(assign, reg0, 1),
+		(else_try),
+			#your former liege if you renounced a kingdom
+			(eq, ":center_faction", "$players_oath_renounced_against_kingdom"),
+			(is_between, ":center_faction", npc_kingdoms_begin, npc_kingdoms_end),
+			(faction_slot_eq, ":center_faction", slot_faction_leader, ":center_lord"),
+			(str_store_string, s11, "@former liege"),
+			(assign, reg0, 1),
+		(else_try),
+			#stop here for lords you haven't met, or non-hero troops
+			(this_or_next|neg|troop_is_hero, ":center_lord"),
+			(troop_slot_eq, ":center_lord", slot_troop_met, 0),
+		(else_try),
+			#check for affiliates
+			(call_script, "script_dplmc_is_affiliated_family_member", ":center_lord"),
+			(ge, reg0, 1),
+			(try_begin),
+				(ge, "$g_encountered_party_relation", 0),#don't say "ally" when you might fight them, as that's confusing
+				(str_store_string, s11, "str_dplmc_ally"),
+			(else_try),
+				(str_store_string, s11, "@affiliate"),
+			(try_end),
+		(else_try),
+			#check for former companions
+			(call_script, "script_troop_get_player_relation", ":center_lord"),
+			(is_between, ":center_lord", companions_begin, companions_end),
+			(neg|troop_slot_eq, ":center_lord", slot_troop_playerparty_history, dplmc_pp_history_nonplayer_entry),
+			(try_begin),
+			   (ge, "$g_encountered_party_relation", 0),#don't say "ally" when you might fight them, as that's confusing
+			   (ge, reg0, 50),
+			   (str_store_string, s11, "str_dplmc_ally"),
+			(else_try),
+				(ge, "$g_encountered_party_relation", 0),
+				(ge, reg0, 20),
+				(str_store_string, s11, "str_dplmc_friend"),
+			(else_try),
+				(str_store_string, s11, "@former companion"),
+			(try_end),
+			(assign, reg0, 1),
+		(else_try),
+			#don't print "friend" if you might fight them
+			(lt, "$g_encountered_party_relation", 0),
+			(assign, reg0, 0),
+		(else_try),
+			#check for friends
+			(val_div, reg0, 50),#right now reg0 holds the relation with the player
+			(ge, reg0, 1),
+			(str_store_string, s11, "str_dplmc_friend"),
+		(else_try),
+			#check for marshall
+			(eq, ":center_faction", "$players_kingdom"),
+			(faction_slot_eq, ":center_faction", slot_faction_marshall, ":center_lord"),
+			(str_store_string, s11, "@marshall"),
+		(else_try),
+			#check for vassal of player if nothing else to say
+			(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
+			(val_add, reg0, 1),
+			(val_sub, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+			(ge, reg0, 1),
+			(str_store_string, s11, "@vassal"),
+		(else_try),
+			(assign, reg0, 0),
+		(try_end),
+		##diplomacy end+
         (try_begin),
           (party_slot_eq, "$current_town", slot_village_state, svs_looted),
         (else_try),
           (eq, ":center_lord", "trp_player"),
           (str_store_string,s11,"@ This village and the surrounding lands belong to you."),
+		##diplomacy start+ If reg0 > 0, a relation string has been written into s11
+		(else_try),
+		  (ge, reg0, 1),
+		  (str_store_string,s11,"@ You remember that this village and the surrounding lands belong to your {s11} {s7}."),
+		##diplomacy end+
         (else_try),
           (ge, ":center_lord", 0),
           (str_store_string,s11,"@ You remember that this village and the surrounding lands belong to {s7}."),
         (else_try),
           (str_store_string,s11,"@ These lands belong to no one."),
         (try_end),
+		##diplomacy start+
+		(assign, reg0, ":save_reg0"),#revert registers
+		(assign, reg4, ":save_reg4"),
+		##diplomacy end+
 
         (str_clear, s7),
         (try_begin),
@@ -8192,7 +9300,7 @@ game_menus = [
            (jump_to_menu, "mnu_center_manage"),
         ]),
       
-      ## edited for wheel of time  (removed for now because it has been added in diplomacy)
+      ## edited for TGS  (removed for now because it has been added in diplomacy)
 #      ("recruit_volunteers",
 #      [
 #        (call_script, "script_cf_village_recruit_volunteers_cond"),
@@ -8240,7 +9348,7 @@ game_menus = [
 #        ],"Door to the village center."),
 #SW - Talk to village elder END
 
-      ## end edited for wheel of time (removed for now because it has been added in diplomacy)
+      ## end edited for TGS (removed for now because it has been added in diplomacy)
       
       ("village_center",[(neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
                          (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
@@ -8287,6 +9395,13 @@ game_menus = [
          (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
          (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
          (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+	   ##diplomacy start+
+		#rubik had a good idea: only enable this after having met the village elder
+		(party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
+		(gt, ":village_elder_troop", 0),
+		(this_or_next|eq, "$cheat_mode", 1),#Always can jump to village elder in cheat mode
+		    (troop_slot_ge,":village_elder_troop", slot_troop_met, 1),
+		##diplomacy end+
        ]
        ,"Meet the Village Elder.",
        [
@@ -8305,6 +9420,26 @@ game_menus = [
          (try_end),
         ]),
       ##diplomacy end        
+	##diplomacy start+
+	#If you can't jump to the village elder, explain why
+    ("dplmc_village_elder_meeting_denied",
+	[	
+		#Only show this when the player would get the rest of the village menus
+        (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
+        (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
+        (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+	    #There is a valid village elder, and you haven't met him,
+		#and there isn't another condition that enables the jump.
+		(party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
+		(gt, ":village_elder_troop", 0),
+		(eq, "$cheat_mode", 0),
+		(troop_slot_eq, ":village_elder_troop", slot_troop_met, 0),
+		(disable_menu_option),
+		],
+       "You have not met the village elder yet.",
+       [
+     ]),
+	 ##diplomacy end+
       ("village_buy_food",[(party_slot_eq, "$current_town", slot_village_state, 0),
                            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
                            ],"Buy supplies from the peasants.",
@@ -8316,7 +9451,34 @@ game_menus = [
            (change_screen_trade, ":merchant_troop"),
          (try_end),
          ]),
+##diplomacy start+
+#Import rubik's Auto-Sell options from Custom Commander
+      ("dplmc_village_auto_sell",
+        [
+         (party_slot_eq, "$current_town", slot_village_state, 0),			
+         (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+			(party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
+			(ge, ":village_elder_troop", 0),
+        ],
+       "Sell items automatically.",
+       [
+          (assign, "$g_next_menu", "mnu_village"),
+          (jump_to_menu,"mnu_dplmc_trade_auto_sell_begin"),
+        ]),
 
+      ("dplmc_village_auto_buy_food",
+        [
+          (party_slot_eq, "$current_town", slot_village_state, 0),
+			 (party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
+			 (ge, ":village_elder_troop", 0),
+          (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+        ],
+       "Buy food automatically.",
+       [
+          (assign, "$g_next_menu", "mnu_village"),
+          (jump_to_menu,"mnu_dplmc_trade_auto_buy_food_begin"),
+        ]),
+##diplomacy end+
       ("village_attack_bandits",[
         (party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
         ##diplomacy begin
@@ -8426,7 +9588,26 @@ game_menus = [
       ("village_reports",[(eq, "$cheat_mode", 1),], "{!}CHEAT! Show reports.",
        [(jump_to_menu,"mnu_center_reports"),
            ]),
-      ("village_leave",[],"Leave...",[(change_screen_return,0)]),
+      ("village_leave",[],"Leave...",[(change_screen_return,0),
+	  ##diplomacy start+
+	  ##Importing auto-purchase of food from rubik's Custom Commander
+	  (try_begin),	     
+		 (party_slot_eq, "$current_town", slot_village_state, 0),
+		 (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+		 (party_get_slot, ":merchant_troop", "$current_town",slot_town_elder),
+		 (gt, ":merchant_troop", 0),
+		 (call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
+		 (try_begin),
+			(eq, "$g_dplmc_buy_food_when_leaving", 1),
+			(call_script, "script_dplmc_auto_buy_food", "trp_player", ":merchant_troop"),
+		 (try_end),
+		 (try_begin),
+			(eq, "$g_dplmc_sell_items_when_leaving", 1),
+			(call_script, "script_dplmc_auto_sell", "trp_player", ":merchant_troop", "$g_dplmc_auto_sell_price_limit", all_items_begin, all_items_end, 2),
+		 (try_end),
+	  (try_end),
+	  ##diplomacy end+
+	  ]),
       
     ],
   ),
@@ -8489,7 +9670,7 @@ game_menus = [
      (party_get_slot, ":volunteer_amount", "$current_town", slot_center_volunteer_troop_amount),
      (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
      (store_troop_gold, ":gold", "trp_player"),
-     (store_div, ":gold_capacity", ":gold", 10),#10 crowns per man
+     (store_div, ":gold_capacity", ":gold", 10),#10 denars per man
      (assign, ":party_capacity", ":free_capacity"),
      (val_min, ":party_capacity", ":gold_capacity"),
      (try_begin),
@@ -8506,7 +9687,7 @@ game_menus = [
        (eq, ":volunteer_amount", 0),
        (str_store_string, s18, "@No one here seems to be willing to join your party."),
      (else_try),
-       (store_mul, reg6, ":volunteer_amount", 10),#10 crowns per man
+       (store_mul, reg6, ":volunteer_amount", 10),#10 denars per man
        (str_store_troop_name_by_count, s3, ":volunteer_troop", ":volunteer_amount"),
        (try_begin),
          (eq, reg5, 1),
@@ -8543,7 +9724,7 @@ game_menus = [
         (eq, reg7, 0),
         (gt, reg5, 0),
       ],
-      "Recruit them ({reg6} crowns).",
+      "Recruit them ({reg6} denars).",
       [
         (call_script, "script_village_recruit_volunteers_recruit"),
                         
@@ -8763,7 +9944,7 @@ game_menus = [
   (
     "center_improve",0,
     "{s19} As the party member with the highest engineer skill ({reg2}), {reg3?you reckon:{s3} reckons} that building the {s4} will cost you\
- {reg5} crowns and will take {reg6} days.",
+ {reg5} denars and will take {reg6} days.",
     "none",
     [(call_script, "script_get_improvement_details", "$g_improvement_type"),
      (assign, ":improvement_cost", reg0),
@@ -9141,7 +10322,7 @@ game_menus = [
   (
     "village_loot_complete",mnf_disable_all_keys,
     "On your orders your troops sack the village, pillaging everything of any value,\
- and then put the buildings to the torch. From the coins and valuables that are found, you get your share of {reg1} crowns.",
+ and then put the buildings to the torch. From the coins and valuables that are found, you get your share of {reg1} denars.",
     "none",
     [
         (get_achievement_stat, ":number_of_village_raids", ACHIEVEMENT_THE_BANDIT, 0),
@@ -9213,8 +10394,52 @@ game_menus = [
             (party_set_slot, "$current_town", slot_village_number_of_cattle, ":num_cattle"),
           (try_end),
           (troop_clear_inventory, "trp_temp_troop"),
+
+		  #below line changed with below lines to make plunder result more realistic. Now only items produced in bound town can be stolen after raid.
+          #(reset_item_probabilities,100),
+
+		  #begin of changes
+		  (party_get_slot, ":bound_town", slot_village_bound_center, "$current_town"),
+          (store_sub, ":item_to_price_slot", slot_town_trade_good_prices_begin, trade_goods_begin),
           (reset_item_probabilities,100),
-          (troop_add_merchandise,"trp_temp_troop",itp_type_goods,45),
+          (assign, ":total_probability", 0),
+          (try_for_range, ":cur_goods", trade_goods_begin, trade_goods_end),
+            (store_add, ":cur_price_slot", ":cur_goods", ":item_to_price_slot"),
+            (party_get_slot, ":cur_price", ":bound_town", ":cur_price_slot"),
+            (call_script, "script_center_get_production", ":bound_town", ":cur_goods"),
+            (assign, ":cur_probability", reg0),
+            (call_script, "script_center_get_consumption", ":bound_town", ":cur_goods"),
+            (val_div, reg0, 3),
+            (val_add, ":cur_probability", reg0),
+            (val_mul, ":cur_probability", 4),
+            (val_mul, ":cur_probability", average_price_factor),
+            (val_div, ":cur_probability", ":cur_price"),
+			#first only simulation
+            #(set_item_probability_in_merchandise,":cur_goods",":cur_probability"),						  
+			(val_add, ":total_probability", ":cur_probability"),
+          (try_end),
+
+          (try_for_range, ":cur_goods", trade_goods_begin, trade_goods_end),
+            (store_add, ":cur_price_slot", ":cur_goods", ":item_to_price_slot"),
+            (party_get_slot, ":cur_price", ":bound_town", ":cur_price_slot"),
+            (call_script, "script_center_get_production", ":bound_town", ":cur_goods"),
+            (assign, ":cur_probability", reg0),
+            (call_script, "script_center_get_consumption", ":bound_town", ":cur_goods"),
+            (val_div, reg0, 3),
+            (val_add, ":cur_probability", reg0),
+            (val_mul, ":cur_probability", 4),
+            (val_mul, ":cur_probability", average_price_factor),
+            (val_div, ":cur_probability", ":cur_price"),
+
+			(val_mul, ":cur_probability", num_merchandise_goods),
+			(val_mul, ":cur_probability", 100),
+			(val_div, ":cur_probability", ":total_probability"),
+
+            (set_item_probability_in_merchandise,":cur_goods",":cur_probability"),						  
+          (try_end),
+		  #end of changes
+
+          (troop_add_merchandise,"trp_temp_troop",itp_type_goods,30),
           (troop_sort_inventory, "trp_temp_troop"),
           (change_screen_loot, "trp_temp_troop"),
         ]),
@@ -9381,12 +10606,97 @@ game_menus = [
 		  (str_clear, s14),
           (str_store_string,s10,"@You are at {s2}."),
         (try_end),
-        
+        ##diplomacy start+
+		(assign, ":save_reg0", reg0),#save variables
+		(assign, ":save_reg4", reg4),
+		(assign, reg0, 0),
+		(assign, reg4, 0),
+		(try_begin),#If there's a relation of some kind, write it to s11 (which we'll overwrite below)
+			(lt, ":center_lord", 1),
+		(else_try),
+			#your relative
+			(call_script, "script_troop_get_family_relation_to_troop", ":center_lord", "trp_player"),#outputs to s11, reg0, and reg4
+			(ge, reg0, 1),#Fall through if this not a relative
+		(else_try),
+			#your current liege
+			(eq, ":center_faction", "$players_kingdom"),
+			(is_between, ":center_faction", kingdoms_begin, kingdoms_end),#include fac_player_supporters_faction for claimant quest
+			(faction_slot_eq, ":center_faction", slot_faction_leader, ":center_lord"),
+			(str_store_string, s11, "@liege"),
+			(assign, reg0, 1),
+		(else_try),
+			#your former liege if you renounced a kingdom
+			(eq, ":center_faction", "$players_oath_renounced_against_kingdom"),
+			(is_between, ":center_faction", npc_kingdoms_begin, npc_kingdoms_end),
+			(faction_slot_eq, ":center_faction", slot_faction_leader, ":center_lord"),
+			(str_store_string, s11, "@former liege"),
+			(assign, reg0, 1),
+		(else_try),
+			#stop here for lords you haven't met, or non-hero troops
+			(this_or_next|neg|troop_is_hero, ":center_lord"),
+			(troop_slot_eq, ":center_lord", slot_troop_met, 0),
+		(else_try),
+			#check for affiliates
+			(call_script, "script_dplmc_is_affiliated_family_member", ":center_lord"),
+			(ge, reg0, 1),
+			(try_begin),
+				(ge, "$g_encountered_party_relation", 0),#don't say "ally" when you might fight them, as that's confusing
+				(str_store_string, s11, "str_dplmc_ally"),
+			(else_try),
+				(str_store_string, s11, "@affiliate"),
+			(try_end),
+		(else_try),
+			#check for former companions
+			(call_script, "script_troop_get_player_relation", ":center_lord"),
+			(is_between, ":center_lord", companions_begin, companions_end),
+			(neg|troop_slot_eq, ":center_lord", slot_troop_playerparty_history, dplmc_pp_history_nonplayer_entry),
+			(try_begin),
+			   (ge, "$g_encountered_party_relation", 0),#don't say "ally" when you might fight them, as that's confusing
+			   (ge, reg0, 50),
+			   (str_store_string, s11, "str_dplmc_ally"),
+			(else_try),
+				(ge, "$g_encountered_party_relation", 0),
+				(ge, reg0, 20),
+				(str_store_string, s11, "str_dplmc_friend"),
+			(else_try),
+				(str_store_string, s11, "@former companion"),
+			(try_end),
+			(assign, reg0, 1),
+		(else_try),
+			#don't print "friend" if you might fight them
+			(lt, "$g_encountered_party_relation", 0),
+			(assign, reg0, 0),
+		(else_try),
+			#check for friends
+			(val_div, reg0, 50),#right now reg0 holds the relation with the player
+			(ge, reg0, 1),
+			(str_store_string, s11, "str_dplmc_friend"),
+		(else_try),
+			#check for marshall
+			(eq, ":center_faction", "$players_kingdom"),
+			(faction_slot_eq, ":center_faction", slot_faction_marshall, ":center_lord"),
+			(str_store_string, s11, "@marshall"),
+		(else_try),
+			#check for vassal of player if nothing else to say
+			(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
+			(val_add, reg0, 1),
+			(val_sub, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+			(ge, reg0, 1),
+			(str_store_string, s11, "@vassal"),
+		(else_try),
+			(assign, reg0, 0),
+		(try_end),
+		##diplomacy end+
         (try_begin),
           (party_slot_eq,"$current_town",slot_party_type, spt_castle),
           (try_begin),
             (eq, ":center_lord", "trp_player"),
             (str_store_string,s11,"@ Your own banner flies over the castle gate."),
+	      ##diplomacy start+ If reg0 > 0, a relation string was written to {s11} above
+		  (else_try),
+			(ge, reg0, 1),
+			(str_store_string, s11, "@ You see the banner of your {s11} {s7} over the castle gate."),
+		  ##diplomacy end+
 		  (else_try),
 			(gt, ":center_lord", -1),
 			(troop_slot_eq, ":center_lord", slot_troop_spouse, "trp_player"),
@@ -9402,6 +10712,11 @@ game_menus = [
           (try_begin),
             (eq, ":center_lord", "trp_player"),
             (str_store_string,s11,"@ Your own banner flies over the town gates."),
+	      ##diplomacy start+ If reg0 > 0, a relation string was written to {s11} above
+		  (else_try),
+			(ge, reg0, 1),
+			(str_store_string, s11, "@ The banner of your {s11} {s7} flies over the town gates."),
+		  ##diplomacy end+
 		  (else_try),	
 			(gt, ":center_lord", -1),
 			(troop_slot_eq, ":center_lord", slot_troop_spouse, "trp_player"),
@@ -9414,6 +10729,10 @@ game_menus = [
             (str_store_string,s11,"@ This town has no garrison."),
           (try_end),
         (try_end),
+		##diplomacy start+
+		(assign, reg0, ":save_reg0"),#revert variables
+		(assign, reg4, ":save_reg4"),
+		##diplomacy end+
 
         (str_clear, s12),
         (try_begin),
@@ -9674,12 +10993,12 @@ game_menus = [
              (assign,reg2,":tier_2_troop"),
              (assign,reg3,":tier_2_troop"),
            (else_try),
-         ## modified for wheel of time
+         ## modified for TGS
              (assign,reg0,"trp_illian_swordsman"), # was trp_vaegir_infantry
              (assign,reg1,"trp_illian_swordsman"), # was trp_vaegir_infantry
              (assign,reg2,"trp_murandy_bowman"), # was trp_vaegir_archer
              (assign,reg3,"trp_altara_dueler"), # was trp_vaegir_footman
-         ## end modified for wheel of time
+         ## end modified for TGS
            (try_end),
            (shuffle_range,0,4),
          
@@ -9797,8 +11116,15 @@ game_menus = [
 				(store_current_hours, ":hours"),
 				(store_sub, ":hours_since_last_attempt", ":hours", "$g_last_assassination_attempt_time"),
 				(gt, ":hours_since_last_attempt", 168),
-				(try_for_range, ":lord", active_npcs_begin, active_npcs_end),
-					##diplomacy start+ add support for non-noble personalities
+				##diplomacy start+ Support ladies owning fiefs
+				#(try_for_range, ":lord", active_npcs_begin, active_npcs_end),
+				(try_for_range, ":lord", heroes_begin, heroes_end),
+					(this_or_next|is_between, ":lord", active_npcs_begin, active_npcs_end),
+						(troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
+					#Make sure they're not retired or dead
+					(neg|troop_slot_ge, ":lord", slot_troop_occupation, slto_retirement),
+					#add support for non-noble personalities
+					(this_or_next|troop_slot_eq, ":lord", slot_lord_reputation_type, lrep_ambitious),#"Lady MacBeth"
 					(this_or_next|troop_slot_eq, ":lord", slot_lord_reputation_type, lrep_roguish),
 					##diplomacy end+
 					(troop_slot_eq, ":lord", slot_lord_reputation_type, lrep_debauched),
@@ -9814,6 +11140,31 @@ game_menus = [
 					
 					(troop_set_slot, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),					
 				(try_end),
+				##diplomacy start+
+				#"Lady MacBeth" noblewomen will also attempt to have people killed on their husbands' behalf.
+				(lt, "$g_last_assassination_attempt_time", ":hours"),
+				(neg|troop_slot_eq, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),
+				(try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
+					(troop_slot_eq, ":lady", slot_troop_cur_center, "$g_encountered_party"),
+					(troop_slot_eq, ":lady", slot_lord_reputation_type, lrep_ambitious),#"Lady MacBeth"
+					(troop_slot_eq, ":lady", slot_troop_occupation, slto_kingdom_lady),
+					
+					(call_script, "script_troop_get_player_relation", ":lady"),
+					(lt, reg0, 1),
+					#Will send an assassin if she doesn't like the player, and either she or her husband
+					#is at -20 or worse with the player.
+					(try_begin),
+						(ge, reg0, -20),
+						(troop_slot_ge, ":lady", slot_troop_spouse, 1),
+						(troop_get_slot, reg0, ":lady", slot_troop_spouse),
+						(call_script, "script_troop_get_player_relation", reg0),
+					(try_end),
+						(lt, reg0, -20),
+					
+					(assign, "$g_last_assassination_attempt_time", ":hours"),
+					(troop_set_slot, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),
+				(try_end),
+				##diplomacy end+
 			 (try_end),	
 						
 			 (try_begin),
@@ -9881,6 +11232,13 @@ game_menus = [
 				(ge, ":alternative_town", towns_end),
 				(val_sub, ":alternative_town", 22),
 			   (try_end),
+			   ##diplomacy start+
+			   #The above code makes assumptions about the number of towns that might not be true on other maps.
+			   #Changing it to support variable sizes would not be hard, but I'm not convinced that it is so
+			   #desirable in the first place.
+			   (is_between, ":alternative_town", centers_begin, centers_end),
+			   (party_slot_eq, ":alternative_town", slot_party_type, spt_town),
+				##diplomacy end+
 			   (try_begin),
 				(eq, "$cheat_mode", 1),
 			    (str_store_party_name, s3, "$current_town"),
@@ -9914,6 +11272,13 @@ game_menus = [
 				(ge, ":alternative_town", towns_end),
 				(val_sub, ":alternative_town", 22),
 			   (try_end),
+			   ##diplomacy start+
+			   #The above code makes assumptions about the number of towns that might not be true on other maps.
+			   #Changing it to support variable sizes would not be hard, but I'm not convinced that it is so
+			   #desirable in the first place.
+			   (is_between, ":alternative_town", centers_begin, centers_end),
+			   (party_slot_eq, ":alternative_town", slot_party_type, spt_town),
+			   ##diplomacy end+
                (party_get_slot, ":tavern_minstrel", ":alternative_town", slot_center_tavern_minstrel),			   
                (gt, ":tavern_minstrel", 0),
 			   
@@ -9959,7 +11324,7 @@ game_menus = [
                
 			   (assign, ":troop_of_merchant", 0),
            
-            # edited for wheel of time
+            # edited for TGS
            
                #(try_begin),
                #  (eq, "$g_encountered_party_faction", "fac_kingdom_1"),
@@ -10000,7 +11365,7 @@ game_menus = [
                  (eq, "$g_starting_town", "p_town_19"),
                      (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
                  (try_end),
-                 # end edited for wheel of time
+                 # end edited for TGS
            
 			   (gt, ":troop_of_merchant", 0),	
                
@@ -10161,9 +11526,9 @@ game_menus = [
            (change_screen_mission),
             #If you're already at escape, then talk context will reset            
          (else_try),                   
-             ### edited for wheel of time
+             ### edited for TGS
            (assign, "$talk_context", tc_town_talk), # was tc_town_talk
-             ### end edited for wheel of time
+             ### end edited for TGS
            
            (assign, "$g_mt_mode", tcm_default),
            
@@ -10382,8 +11747,23 @@ game_menus = [
       ("walled_center_move_court",
       [
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
+		##diplomacy start+ Handle player is co-ruler of kingdom
+		(assign, ":is_coruler", 0),
+		(try_begin),
+			(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+			(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+			(ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+			(assign, ":is_coruler", 1),
+		(try_end),
+		(this_or_next|eq, ":is_coruler", 1),
+		##diplomacy end+
         (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
         (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+		##diplomacy start+ Handle player is co-ruler of kingdom
+		(this_or_next|eq, "$g_encountered_party_faction", "$players_kingdom"),
+			(eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
+		(this_or_next|eq, ":is_coruler", 1),
+		##diplomacy end+
         (eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
         (neq, "$g_player_court", "$current_town"),
       ],
@@ -10430,7 +11810,11 @@ game_menus = [
 		  (party_slot_ge, "$g_encountered_party", slot_town_lord, active_npcs_begin),
 		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
 		  (eq, "$players_kingdom", ":castle_faction"),
-		  
+		  ##diplomacy start+ can arise if using this to represent polygamy
+		  (this_or_next|troop_slot_eq, ":town_lord", slot_troop_spouse, "trp_player"),
+		     (troop_slot_eq, "trp_player", slot_troop_spouse, ":town_lord"),
+		  (this_or_next|is_between, ":town_lord", heroes_begin, heroes_end),
+		  ##diplomacy end+
 		  (troop_slot_eq, "trp_player", slot_troop_spouse, ":town_lord"),		    
 
 		  (assign, ":player_can_draw_from_garrison", 1),
@@ -10442,6 +11826,32 @@ game_menus = [
       [
         (change_screen_exchange_members,1),
       ]),
+	  ##diplomacy start+
+	  #Other option to add troops to garrison
+      ("dplmc_castle_give_troops",
+      [	  
+		(party_get_slot, ":town_lord", "$current_town", slot_town_lord),
+		(store_faction_of_party, ":castle_faction", "$g_encountered_party"),
+		(is_between, ":castle_faction", kingdoms_begin, kingdoms_end),
+		
+		#The player can add troops but not remove them:
+		#Not owned by the player
+		(neq, ":town_lord", "trp_player"),
+		#Not unassigned
+		(ge, ":town_lord", heroes_begin),
+		#Not owned by the player's spouse
+		(neg|troop_slot_eq, "trp_player", slot_troop_spouse, ":town_lord"),
+		(neg|troop_slot_eq, ":town_lord", slot_troop_spouse, "trp_player"),
+		#But nevertheless the owner will accept troops
+		(call_script, "script_dplmc_player_can_give_troops_to_troop", ":town_lord"),
+		
+        (ge, reg0, 1),
+      ],
+      "Give troops to the garrison (cannot remove)",
+      [
+        (change_screen_give_members, "$current_town"),
+      ]),	  
+	  ##diplomacy end+
 
       ("castle_wait",
       [
@@ -10461,7 +11871,7 @@ game_menus = [
           (party_get_num_companions, ":num_men", "p_main_party"),
           (store_div, reg1, ":num_men", 4),
           (val_add, reg1, 1),
-          (str_store_string, s1, "@ ({reg1} crowns per night)"),
+          (str_store_string, s1, "@ ({reg1} denars per night)"),
           (store_troop_gold, ":gold", "trp_player"),
           (lt, ":gold", reg1),
           (assign, ":can_rest", 0),
@@ -10550,10 +11960,33 @@ game_menus = [
       [
         (jump_to_menu, "mnu_collect_taxes"),
       ]),
-      
-      ##diplomacy begin (use diplo code for wheel of time)
+      ##diplomacy begin (use diplo code for TGS)
       ("dplmc_guild_master_meeting",
        [(party_slot_eq,"$current_town",slot_party_type, spt_town),
+	    ##nested diplomacy start+
+		#rubik had a good idea: only enable this after meeting the guild master
+		(assign, ":can_meet_guild_master", 0),
+		(try_begin),
+			#Always can jump to guild master in cheat mode.
+			(eq, "$cheat_mode", 1),
+			(assign, ":can_meet_guild_master", 1),
+		(else_try),
+			#Can jump to guild master after meeting him once.
+			(party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
+			(ge, ":guild_master_troop", 1),
+			(neg|troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
+			(assign, ":can_meet_guild_master", 1),
+		(else_try),
+			#Always enable this in Praven for the sake of playability, since
+			#the guild master there is weirdly hard to find.
+			(this_or_next|eq, "$current_town", "p_town_6"),
+			#Also enable in the starting town, to avoid confusing players into
+			#thinking the menu item doesn't exist.
+			(eq, "$g_starting_town", "$current_town"),
+			(assign, ":can_meet_guild_master", 1),
+		(try_end),
+		(neq, ":can_meet_guild_master", 0),
+		##nested diplomacy end+
         (this_or_next|eq,"$entry_to_town_forbidden",0),
         (eq, "$sneaked_into_town",1),
 		],
@@ -10574,12 +12007,50 @@ game_menus = [
            (change_screen_map_conversation, ":guild_master_troop"),
          (try_end),
      ]),
-	  ##diplomacy end   (use diplo code for wheel of time)
-
+	##nested diplomacy start+
+	#If you can't jump to the guild master, explain why
+    ("dplmc_guild_master_meeting_denied",
+	[	
+		#Only show this when the player would get the rest of the town menu
+		(party_slot_eq,"$current_town",slot_party_type, spt_town),
+		(this_or_next|eq,"$entry_to_town_forbidden",0),
+        (eq, "$sneaked_into_town",1),
+	    #There is a valid guild master, and you haven't met him,
+		#and there isn't another condition that enables the jump.
+		(party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
+		(gt, ":guild_master_troop", 0),
+		(eq, "$cheat_mode", 0),
+		(neq, "$g_starting_town", "$current_town"),
+		(neq, "$current_town", "p_town_6"),
+		(troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
+		(disable_menu_option),
+		],
+       "You have not met the Guild Master yet.",
+       [
+     ]),
+	 ##nested diplomacy end+
+	  ##diplomacy end   (use diplo code for TGS)
       ("town_leave",[],"Leave...",
       [
         (assign, "$g_permitted_to_center",0),
         (change_screen_return,0),
+		##diplomacy start+
+		#Porting rubik's autobuy/autosell from Custom Commander
+		(try_begin),
+		  (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+		  (call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
+		 (try_begin),
+			(eq, "$g_dplmc_buy_food_when_leaving", 1),
+			(party_get_slot, ":merchant_troop", "$current_town", slot_town_merchant),
+			(gt, ":merchant_troop", 0),
+			(call_script, "script_dplmc_auto_buy_food", "trp_player", ":merchant_troop"),
+		 (try_end),
+		 (try_begin),
+			(eq, "$g_dplmc_sell_items_when_leaving", 1),
+			(call_script, "script_dplmc_player_auto_sell_at_center", "$current_town"),
+		 (try_end),
+		(try_end),
+		##diplomacy end+
       ],"Leave Area."),
 
       ("castle_cheat_interior",
@@ -10788,7 +12259,7 @@ game_menus = [
   (
     "town_tournament_won",mnf_disable_all_keys,
     "You have won the tournament of {s3}! You are filled with pride as the crowd cheers your name.\
- In addition to honour, fame and glory, you earn a prize of {reg9} crowns. {s8}",
+ In addition to honour, fame and glory, you earn a prize of {reg9} denars. {s8}",
     "none",
     [
         (str_store_party_name, s3, "$current_town"),
@@ -10802,7 +12273,7 @@ game_menus = [
         (try_begin),
           (gt, "$g_tournament_bet_win_amount", 0),
           (assign, reg8, ":total_win"),
-          (str_store_string, s8, "@Moreover, you earn {reg8} crowns from the clever bets you placed on yourself..."),
+          (str_store_string, s8, "@Moreover, you earn {reg8} denars from the clever bets you placed on yourself..."),
         (try_end),
 		(try_begin),
 			(this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
@@ -10851,7 +12322,10 @@ game_menus = [
           (troop_is_hero, ":winner_troop"),
           (call_script, "script_change_troop_renown", ":winner_troop", 20),
         (try_end),
-        (troop_get_type, reg3, ":winner_troop"),
+		  ##diplomacy start+ use script for gender
+        #(troop_get_type, reg3, ":winner_troop"),#<- OLD
+		  (call_script, "script_dplmc_store_troop_is_female_reg", ":winner_troop", 3),
+		  ##diplomacy end+
         ],
     [
       ("continue", [], "Continue...",
@@ -11079,7 +12553,7 @@ game_menus = [
 
   (
     "tournament_bet",0,
-    "The odds against you are {reg5} to {reg6}.{reg1? You have already bet {reg1} crowns on yourself, and if you win, you will earn {reg2} crowns.:} How much do you want to bet?",
+    "The odds against you are {reg5} to {reg6}.{reg1? You have already bet {reg1} denars on yourself, and if you win, you will earn {reg2} denars.:} How much do you want to bet?",
     "none",
     [
       (assign, reg1, "$g_tournament_bet_placed"),
@@ -11108,7 +12582,7 @@ game_menus = [
       ("bet_100_denars", [(store_troop_gold, ":gold", "trp_player"),
                           (ge, ":gold", 100)
                           ],
-       "100 crowns.",
+       "100 denars.",
        [
          (assign, "$temp", 100),
          (jump_to_menu, "mnu_tournament_bet_confirm"),
@@ -11116,7 +12590,7 @@ game_menus = [
       ("bet_50_denars", [(store_troop_gold, ":gold", "trp_player"),
                          (ge, ":gold", 50)
                          ],
-       "50 crowns.",
+       "50 denars.",
        [
          (assign, "$temp", 50),
          (jump_to_menu, "mnu_tournament_bet_confirm"),
@@ -11124,7 +12598,7 @@ game_menus = [
       ("bet_20_denars", [(store_troop_gold, ":gold", "trp_player"),
                          (ge, ":gold", 20)
                          ],
-       "20 crowns.",
+       "20 denars.",
        [
          (assign, "$temp", 20),
          (jump_to_menu, "mnu_tournament_bet_confirm"),
@@ -11132,7 +12606,7 @@ game_menus = [
       ("bet_10_denars", [(store_troop_gold, ":gold", "trp_player"),
                          (ge, ":gold", 10)
                          ],
-       "10 crowns.",
+       "10 denars.",
        [
          (assign, "$temp", 10),
          (jump_to_menu, "mnu_tournament_bet_confirm"),
@@ -11140,7 +12614,7 @@ game_menus = [
       ("bet_5_denars", [(store_troop_gold, ":gold", "trp_player"),
                         (ge, ":gold", 5)
                         ],
-       "5 crowns.",
+       "5 denars.",
        [
          (assign, "$temp", 5),
          (jump_to_menu, "mnu_tournament_bet_confirm"),
@@ -11154,7 +12628,7 @@ game_menus = [
 
   (
     "tournament_bet_confirm",0,
-    "If you bet {reg1} crowns, you will earn {reg2} crowns if you win the tournament. Is that all right?",
+    "If you bet {reg1} denars, you will earn {reg2} denars if you win the tournament. Is that all right?",
     "none",
     [
       (call_script, "script_get_win_amount_for_tournament_bet"),
@@ -11289,11 +12763,22 @@ game_menus = [
 
   (
     "collect_taxes_complete",mnf_disable_all_keys,
-    "You've collected {reg3} crowns in taxes from {s3}. {s19} will be expecting you to take the money to him.",
+	##diplomacy start+
+	##Replace "him" with "{reg4?her:him}"
+    "You've collected {reg3} denars in taxes from {s3}. {s19} will be expecting you to take the money to {reg4?her:him}.",
+	##diplomacy end+
     "none",
     [(str_store_party_name, s3, "$current_town"),
      (quest_get_slot, ":quest_giver", "qst_collect_taxes", slot_quest_giver_troop),
      (str_store_troop_name, s19, ":quest_giver"),
+	 ##diplomacy start+
+	 ##Store quest giver gender to reg4
+	 (assign, reg4, 0),
+	 (try_begin),
+		(call_script, "script_cf_dplmc_troop_is_female", ":quest_giver"),
+		(assign, reg4, 1),
+	 (try_end),
+	 ##diplomacy end+
      (quest_get_slot, reg3, "qst_collect_taxes", slot_quest_gold_reward),
      (try_begin),
        (eq, "$qst_collect_taxes_halve_taxes", 0),
@@ -11324,7 +12809,7 @@ game_menus = [
 
   (
     "collect_taxes_failed",mnf_disable_all_keys,
-    "You could collect only {reg3} crowns as tax from {s3} before the revolt broke out.\
+    "You could collect only {reg3} denars as tax from {s3} before the revolt broke out.\
  {s1} won't be happy, but some silver will placate him better than nothing at all...",
     "none",
     [(str_store_party_name, s3, "$current_town"),
@@ -11676,7 +13161,7 @@ game_menus = [
 
   (
     "center_reports",0,
-    "Town Name: {s1}^Rent Income: {reg1} crowns^Tariff Income: {reg2} crowns^Food Stock: for {reg3} days",
+    "Town Name: {s1}^Rent Income: {reg1} denars^Tariff Income: {reg2} denars^Food Stock: for {reg3} days",
     "none",
     [(party_get_slot, ":town_food_store", "$g_encountered_party", slot_party_food_store),
      (call_script, "script_center_get_food_consumption", "$g_encountered_party"),
@@ -11844,6 +13329,18 @@ game_menus = [
     "none",
     [],
     [
+		##diplomacy start+
+		#Begin auto-sell, credit rubik (Custom Commander)
+      ## CC
+      ("auto_sell",[],
+       "Sell items automatically.",
+       [
+          (assign, "$g_next_menu", "mnu_town"),
+          (jump_to_menu,"mnu_dplmc_trade_auto_sell_begin"),
+        ]),
+      ## CC
+		#End auto-sell, credit rubik (Custom Commander)
+		##diplomacy start+
       ("assess_prices",
        [
          (store_faction_of_party, ":current_town_faction", "$current_town"),
@@ -11878,12 +13375,100 @@ game_menus = [
            (party_get_slot, ":merchant_troop", "$current_town", slot_town_merchant),
            (change_screen_trade, ":merchant_troop"),
         ]),
+		##diplomacy start+
+		#Begin auto-buy, credit rubik (Custom Commander)
+      ## CC
+      ("auto_buy_food",[],
+       "Buy food automatically.",
+       [
+          (assign, "$g_next_menu", "mnu_town"),
+          (jump_to_menu,"mnu_dplmc_trade_auto_buy_food_begin"),
+        ]),
+      ## CC
+		##diplomacy end+
       ("back_to_town_menu",[],"Head back.",
        [
            (jump_to_menu,"mnu_town"),
         ]),
     ]
   ),
+
+##diplomacy start+
+##Begin auto-sell credit rubik (Custom Commander)
+##Altered to only sell items from the player's inventory, not his companions'.
+#
+#Uses global variable $g_auto_sell_price_limit changed to $g_dplmc_auto_sell_price_limit
+## CC
+  (
+    "dplmc_trade_auto_sell_begin",0,
+    "Items in your inventory whose type is marked as sellable and whose prices \
+are below {reg1} denars will be sold to the {reg2?appropriate merchants:elder} \
+in the current {reg2?town:village} automatically.  Specifically food, trade \
+goods, and books will never be sold. ^^You can change some settings here freely.",
+    "none",
+  [
+	##dplmc+ added section begin
+    (this_or_next|is_between, "$current_town", towns_begin, towns_end),
+	    (is_between, "$current_town", villages_begin, villages_end),
+	(call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
+	##dplmc+ added section end
+    (assign, reg1, "$g_dplmc_auto_sell_price_limit"),
+	 (assign, reg2, 0),
+    (try_begin),
+      (is_between, "$current_town", towns_begin, towns_end),
+      (assign, reg2, 1),
+    (try_end),
+  ],
+  [
+    ("continue",[],"Continue...",
+    [
+      #(call_script, "script_auto_sell_all"),
+	  (call_script, "script_dplmc_player_auto_sell_at_center", "$current_town"),
+      (jump_to_menu, "$g_next_menu"),
+      ]),
+    ("change_settings",[],"Change settings.",[(start_presentation, "prsnt_dplmc_auto_sell_options"),]),
+    ("go_back",[],"Go back",[(jump_to_menu, "$g_next_menu")]),
+  ]
+  ),
+
+  (
+    "dplmc_trade_auto_buy_food_begin",0,
+    "You will automatically buy food according to your shopping list. Do you want to continue?^^You can view and configure the shopping list here.",
+    "none", [],
+  [
+    ("continue",[
+	  #dplmc+ added to check against weird conditions
+ 	  (assign, ":merchant_troop", -1),
+	  (try_begin),
+		  (is_between, "$current_town", towns_begin, towns_end),
+        (party_get_slot, ":merchant_troop", "$current_town", slot_town_merchant),
+     (else_try),
+		  (is_between, "$current_town", villages_begin, villages_end),
+        (party_get_slot, ":merchant_troop", "$current_town", slot_town_elder),
+     (try_end),
+	  (ge, ":merchant_troop", 1),
+	  #dplmc+ end addition
+	 ],"Continue...",
+    [
+ 	   (assign, ":merchant_troop", -1),
+	   (try_begin),
+		  (is_between, "$current_town", towns_begin, towns_end),
+        (party_get_slot, ":merchant_troop", "$current_town", slot_town_merchant),
+      (else_try),
+		  (is_between, "$current_town", villages_begin, villages_end),
+        (party_get_slot, ":merchant_troop", "$current_town", slot_town_elder),
+      (try_end),
+	   (call_script, "script_dplmc_auto_buy_food", "trp_player", ":merchant_troop"),
+      (jump_to_menu, "$g_next_menu"),
+      ]),
+      
+    ("dplmc_change_shopping_list_of_food",[],"Configure your shopping list.",[(start_presentation, "prsnt_dplmc_shopping_list_of_food"),]),
+    ("go_back",[],"Go back",[(jump_to_menu, "$g_next_menu")]),
+   ]
+  ),
+## CC
+##End auto-sell credit rubik (Custom Commander)
+##diplomacy start+
 
   (
    "town_trade_assessment_begin",0, 
@@ -11934,8 +13519,14 @@ game_menus = [
      (assign, ":best_result_3_item", -1),
      (assign, ":best_result_3_town", -1),
      (assign, ":best_result_3_profit", 0),
+     (assign, ":best_result_4_item", -1),
+     (assign, ":best_result_4_town", -1),
+     (assign, ":best_result_4_profit", 0),
+     (assign, ":best_result_5_item", -1),
+     (assign, ":best_result_5_town", -1),
+     (assign, ":best_result_5_profit", 0),
 
-     (store_sub, ":num_towns", towns_end, towns_begin),
+     (store_sub, ":num_towns", walled_centers_end, walled_centers_begin),
      (store_sub, ":num_goods", trade_goods_end, trade_goods_begin),
      (store_mul, ":max_iteration", ":num_towns", ":num_goods"),
      (val_mul, ":max_iteration", ":max_skill"),
@@ -11945,22 +13536,54 @@ game_menus = [
 
      (try_for_range, ":unused", 0, ":max_iteration"),
        (store_random_in_range, ":random_trade_good", trade_goods_begin, trade_goods_end),
+
        (store_random_in_range, ":random_town", towns_begin, towns_end),
+
+       (party_get_slot, ":cur_merchant", ":org_encountered_party", slot_town_merchant),       
+	   (assign, ":num_items_in_town_inventory", 0),
+       (try_for_range, ":i_slot", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
+         (troop_get_inventory_slot, ":slot_item", ":cur_merchant", ":i_slot"),
+         (try_begin),
+           (eq, ":slot_item", ":random_trade_good"),           
+		   (val_add, ":num_items_in_town_inventory", 1),
+         (try_end),
+       (try_end),
+
+       (ge, ":num_items_in_town_inventory", 1),
+
        (assign, ":already_best", 0),
        (try_begin),
          (eq, ":random_trade_good", ":best_result_1_item"),
          (eq, ":random_town", ":best_result_1_town"),
          (val_add, ":already_best", 1),
-       (else_try),
+       (try_end),
+
+	   (try_begin),
          (eq, ":random_trade_good", ":best_result_2_item"),
          (eq, ":random_town", ":best_result_2_town"),
          (val_add, ":already_best", 1),
-       (else_try),
+       (try_end),
+
+	   (try_begin),
          (eq, ":random_trade_good", ":best_result_3_item"),
          (eq, ":random_town", ":best_result_3_town"),
          (val_add, ":already_best", 1),
        (try_end),
-       (eq, ":already_best", 0),
+
+	   (try_begin),
+         (eq, ":random_trade_good", ":best_result_4_item"),
+         (eq, ":random_town", ":best_result_4_town"),
+         (val_add, ":already_best", 1),
+       (try_end),
+
+	   (try_begin),
+         (eq, ":random_trade_good", ":best_result_5_item"),
+         (eq, ":random_town", ":best_result_5_town"),
+         (val_add, ":already_best", 1),
+       (try_end),
+
+       (le, ":already_best", 1),
+
        (store_item_value, ":random_trade_good_price", ":random_trade_good"),
        (assign, "$g_encountered_party", ":org_encountered_party"),
        (call_script, "script_game_get_item_buy_price_factor", ":random_trade_good"),
@@ -11974,36 +13597,111 @@ game_menus = [
        (val_max, ":random_trade_good_sell_price", 1),
        (store_sub, ":difference", ":random_trade_good_sell_price", ":random_trade_good_buy_price"),
        (try_begin),
-         (gt, ":difference", ":best_result_1_profit"),
-         (val_add, ":num_best_results", 1),
-         (val_min, ":num_best_results", 3),
-         (assign, ":best_result_3_item", ":best_result_2_item"),
-         (assign, ":best_result_3_town", ":best_result_2_town"),
-         (assign, ":best_result_3_profit", ":best_result_2_profit"),
-         (assign, ":best_result_2_item", ":best_result_1_item"),
-         (assign, ":best_result_2_town", ":best_result_1_town"),
-         (assign, ":best_result_2_profit", ":best_result_1_profit"),
-         (assign, ":best_result_1_item", ":random_trade_good"),
-         (assign, ":best_result_1_town", ":random_town"),
-         (assign, ":best_result_1_profit", ":difference"),
-       (else_try),
-         (gt, ":difference", ":best_result_2_profit"),
-         (val_add, ":num_best_results", 1),
-         (val_min, ":num_best_results", 3),
-         (assign, ":best_result_3_item", ":best_result_2_item"),
-         (assign, ":best_result_3_town", ":best_result_2_town"),
-         (assign, ":best_result_3_profit", ":best_result_2_profit"),
-         (assign, ":best_result_2_item", ":random_trade_good"),
-         (assign, ":best_result_2_town", ":random_town"),
-         (assign, ":best_result_2_profit", ":difference"),
-       (else_try),
-         (gt, ":difference", ":best_result_3_profit"),
-         (val_add, ":num_best_results", 1),
-         (val_min, ":num_best_results", 3),
-         (assign, ":best_result_3_item", ":random_trade_good"),
-         (assign, ":best_result_3_town", ":random_town"),
-         (assign, ":best_result_3_profit", ":difference"),
-       (try_end),
+	     (this_or_next|eq, ":best_result_1_item", ":random_trade_good"),
+		 (this_or_next|eq, ":best_result_2_item", ":random_trade_good"),
+		 (this_or_next|eq, ":best_result_3_item", ":random_trade_good"),
+		 (this_or_next|eq, ":best_result_4_item", ":random_trade_good"),
+		 (eq, ":best_result_5_item", ":random_trade_good"),
+
+         (try_begin),
+		   (eq, ":best_result_1_item", ":random_trade_good"),
+		   (gt, ":difference", ":best_result_1_profit"),
+           (assign, ":best_result_1_item", ":random_trade_good"),
+           (assign, ":best_result_1_town", ":random_town"),
+           (assign, ":best_result_1_profit", ":difference"),
+         (else_try),
+		   (eq, ":best_result_2_item", ":random_trade_good"),
+		   (gt, ":difference", ":best_result_2_profit"),
+           (assign, ":best_result_2_item", ":random_trade_good"),
+           (assign, ":best_result_2_town", ":random_town"),
+           (assign, ":best_result_2_profit", ":difference"),
+		 (else_try),
+		   (eq, ":best_result_3_item", ":random_trade_good"),
+		   (gt, ":difference", ":best_result_3_profit"),
+           (assign, ":best_result_3_item", ":random_trade_good"),
+           (assign, ":best_result_3_town", ":random_town"),
+           (assign, ":best_result_3_profit", ":difference"),
+		 (else_try),
+		   (eq, ":best_result_4_item", ":random_trade_good"),
+		   (gt, ":difference", ":best_result_4_profit"),
+           (assign, ":best_result_4_item", ":random_trade_good"),
+           (assign, ":best_result_4_town", ":random_town"),
+           (assign, ":best_result_4_profit", ":difference"),
+		 (else_try),
+		   (eq, ":best_result_5_item", ":random_trade_good"),
+		   (gt, ":difference", ":best_result_5_profit"),
+           (assign, ":best_result_5_item", ":random_trade_good"),
+           (assign, ":best_result_5_town", ":random_town"),
+           (assign, ":best_result_5_profit", ":difference"),
+		 (try_end),
+	   (else_try),
+         (try_begin),
+           (gt, ":difference", ":best_result_1_profit"),
+           (val_add, ":num_best_results", 1),
+           (val_min, ":num_best_results", 5),
+           (assign, ":best_result_5_item", ":best_result_4_item"),
+           (assign, ":best_result_5_town", ":best_result_4_town"),
+           (assign, ":best_result_5_profit", ":best_result_4_profit"),
+           (assign, ":best_result_4_item", ":best_result_3_item"),
+           (assign, ":best_result_4_town", ":best_result_3_town"),
+           (assign, ":best_result_4_profit", ":best_result_3_profit"),
+           (assign, ":best_result_3_item", ":best_result_2_item"),
+           (assign, ":best_result_3_town", ":best_result_2_town"),
+           (assign, ":best_result_3_profit", ":best_result_2_profit"),
+           (assign, ":best_result_2_item", ":best_result_1_item"),
+           (assign, ":best_result_2_town", ":best_result_1_town"),
+           (assign, ":best_result_2_profit", ":best_result_1_profit"),
+           (assign, ":best_result_1_item", ":random_trade_good"),
+           (assign, ":best_result_1_town", ":random_town"),
+           (assign, ":best_result_1_profit", ":difference"),
+         (else_try),
+           (gt, ":difference", ":best_result_2_profit"),
+           (val_add, ":num_best_results", 1),
+           (val_min, ":num_best_results", 5),
+           (assign, ":best_result_5_item", ":best_result_4_item"),
+           (assign, ":best_result_5_town", ":best_result_4_town"),
+           (assign, ":best_result_5_profit", ":best_result_4_profit"),
+           (assign, ":best_result_4_item", ":best_result_3_item"),
+           (assign, ":best_result_4_town", ":best_result_3_town"),
+           (assign, ":best_result_4_profit", ":best_result_3_profit"),
+           (assign, ":best_result_3_item", ":best_result_2_item"),
+           (assign, ":best_result_3_town", ":best_result_2_town"),
+           (assign, ":best_result_3_profit", ":best_result_2_profit"),
+           (assign, ":best_result_2_item", ":random_trade_good"),
+           (assign, ":best_result_2_town", ":random_town"),
+           (assign, ":best_result_2_profit", ":difference"),
+         (else_try),
+           (gt, ":difference", ":best_result_3_profit"),
+           (val_add, ":num_best_results", 1),
+           (val_min, ":num_best_results", 5),
+           (assign, ":best_result_5_item", ":best_result_4_item"),
+           (assign, ":best_result_5_town", ":best_result_4_town"),
+           (assign, ":best_result_5_profit", ":best_result_4_profit"),
+           (assign, ":best_result_4_item", ":best_result_3_item"),
+           (assign, ":best_result_4_town", ":best_result_3_town"),
+           (assign, ":best_result_4_profit", ":best_result_3_profit"),
+           (assign, ":best_result_3_item", ":random_trade_good"),
+           (assign, ":best_result_3_town", ":random_town"),
+           (assign, ":best_result_3_profit", ":difference"),
+         (else_try),
+           (gt, ":difference", ":best_result_4_profit"),
+           (val_add, ":num_best_results", 1),
+           (val_min, ":num_best_results", 5),
+           (assign, ":best_result_5_item", ":best_result_4_item"),
+           (assign, ":best_result_5_town", ":best_result_4_town"),
+           (assign, ":best_result_5_profit", ":best_result_4_profit"),
+           (assign, ":best_result_4_item", ":random_trade_good"),
+           (assign, ":best_result_4_town", ":random_town"),
+           (assign, ":best_result_4_profit", ":difference"),
+         (else_try),
+           (gt, ":difference", ":best_result_5_profit"),
+           (val_add, ":num_best_results", 1),
+           (val_min, ":num_best_results", 5),
+           (assign, ":best_result_5_item", ":best_result_4_item"),
+           (assign, ":best_result_5_town", ":best_result_4_town"),
+           (assign, ":best_result_5_profit", ":best_result_4_profit"),
+         (try_end),
+	   (try_end),
      (try_end),
 
      (assign, "$g_encountered_party", ":org_encountered_party"),
@@ -12023,25 +13721,39 @@ game_menus = [
        (str_store_string, s2, "@However, {reg3?You are:{s1} is} unable to find any trade goods that would bring a profit."),
      (else_try),
        (try_begin),
+         (ge, ":best_result_5_item", 0),
+         (assign, reg6, ":best_result_5_profit"),
+         (str_store_item_name, s4, ":best_result_5_item"),
+         (str_store_party_name, s5, ":best_result_5_town"),
+         (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} denars per item.{s3}"),
+       (try_end),
+       (try_begin),
+         (ge, ":best_result_4_item", 0),
+         (assign, reg6, ":best_result_4_profit"),
+         (str_store_item_name, s4, ":best_result_4_item"),
+         (str_store_party_name, s5, ":best_result_4_town"),
+         (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} denars per item.{s3}"),
+       (try_end),
+       (try_begin),
          (ge, ":best_result_3_item", 0),
          (assign, reg6, ":best_result_3_profit"),
          (str_store_item_name, s4, ":best_result_3_item"),
          (str_store_party_name, s5, ":best_result_3_town"),
-         (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} crowns per item.{s3}"),
+         (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} denars per item.{s3}"),
        (try_end),
        (try_begin),
          (ge, ":best_result_2_item", 0),
          (assign, reg6, ":best_result_2_profit"),
          (str_store_item_name, s4, ":best_result_2_item"),
          (str_store_party_name, s5, ":best_result_2_town"),
-         (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} crowns per item.{s3}"),
+         (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} denars per item.{s3}"),
        (try_end),
        (try_begin),
          (ge, ":best_result_1_item", 0),
          (assign, reg6, ":best_result_1_profit"),
          (str_store_item_name, s4, ":best_result_1_item"),
          (str_store_party_name, s5, ":best_result_1_town"),
-         (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} crowns per item.{s3}"),
+         (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} denars per item.{s3}"),
        (try_end),
        (str_store_string, s2, "@{reg3?You find:{s1} finds} out the following:^{s3}"),
      (try_end),
@@ -12200,7 +13912,7 @@ game_menus = [
 
   (
     "enemy_offer_ransom_for_prisoner",0,
-    "{s2} offers you a sum of {reg12} crowns in silver if you are willing to sell him {s1}.",
+    "{s2} offers you a sum of {reg12} denars in silver if you are willing to sell him {s1}.",
     "none",
     [(call_script, "script_calculate_ransom_amount_for_troop", "$g_ransom_offer_troop"),
      (assign, reg12, reg0),
@@ -12220,6 +13932,73 @@ game_menus = [
         ##diplomacy begin
         (try_end),
         ##diplomacy end
+		##diplomacy start+
+		#The enemy actually loses the gold paid.
+		(assign, ":gold_paid", reg12),
+		(assign, ":lord_who_pays", "$g_ransom_offer_troop"),
+		(store_troop_faction, ":faction_no", "$g_ransom_offer_troop"),
+		#For kingdom ladies, someone else might pay.
+		(try_begin),
+			(is_between, "$g_ransom_offer_troop", kingdom_ladies_begin, kingdom_ladies_end),
+			(neg|troop_slot_eq, "$g_ransom_offer_troop", slot_troop_occupation, slto_kingdom_hero),#I think at this step even for heroes it's 0
+			(neg|troop_slot_ge, "$g_ransom_offer_troop", slot_troop_wealth, 1),
+			(try_begin),
+				#Check spouse pays
+				(troop_get_slot, ":lord", "$g_ransom_offer_troop", slot_troop_spouse),
+				(this_or_next|is_between, ":lord", active_npcs_begin, active_npcs_end),
+					(troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
+				(store_troop_faction, ":lord_faction", ":lord"),
+				(eq, ":faction_no", ":lord_faction"),
+				(neg|troop_slot_ge, ":lord", slot_troop_occupation, slto_retirement),
+				(assign, ":lord_who_pays", ":lord"),
+			(else_try),
+				#Check father pays
+				(troop_get_slot, ":lord", "$g_ransom_offer_troop", slot_troop_father),
+				(this_or_next|is_between, ":lord", active_npcs_begin, active_npcs_end),
+					(troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
+				(store_troop_faction, ":lord_faction", ":lord"),
+				(eq, ":faction_no", ":lord_faction"),
+				(neg|troop_slot_ge, ":lord", slot_troop_occupation, slto_retirement),
+				(assign, ":lord_who_pays", ":lord"),
+			(else_try),
+				#Check guardian pays
+				(troop_get_slot, ":lord", "$g_ransom_offer_troop", slot_troop_guardian),
+				(this_or_next|is_between, ":lord", active_npcs_begin, active_npcs_end),
+					(troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
+				(store_troop_faction, ":lord_faction", ":lord"),
+				(eq, ":faction_no", ":lord_faction"),
+				(neg|troop_slot_ge, ":lord", slot_troop_occupation, slto_retirement),
+				(assign, ":lord_who_pays", ":lord"),
+			(else_try),
+				#Check mother pays
+				(troop_get_slot, ":lord", "$g_ransom_offer_troop", slot_troop_mother),
+				(this_or_next|is_between, ":lord", active_npcs_begin, active_npcs_end),
+					(troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
+				(store_troop_faction, ":lord_faction", ":lord"),
+				(eq, ":faction_no", ":lord_faction"),
+				(neg|troop_slot_ge, ":lord", slot_troop_occupation, slto_retirement),
+				(assign, ":lord_who_pays", ":lord"),
+			(try_end),
+		(try_end),
+		(try_begin),
+			(ge, ":gold_paid", 0),
+			(ge, ":lord_who_pays", 1),
+			(troop_is_hero, ":lord_who_pays"),
+			#Remove the gold.  The lady has her own funds (e.g. from her dower)
+			#that will partially defray the expense to the lord, depending on
+			#the campaign difficulty.
+		    (game_get_reduce_campaign_ai, ":reduce_campaign_ai"),
+		    (try_begin),
+			   (eq, ":reduce_campaign_ai", 0), #hard: lord pays 50%, lady's resources pay for 50%
+			   (val_div, ":gold_paid", 2),
+		    (else_try),
+			   (eq, ":reduce_campaign_ai", 1), #medium: lord pays 75%, lady's resources pay for 25%
+			   (val_mul, ":gold_paid", 3),
+			   (val_div, ":gold_paid", 4),
+		    (try_end),#easy: lord pays 100%, lady pays nothing
+			(call_script, "script_dplmc_remove_gold_from_lord_and_holdings", ":gold_paid", ":lord_who_pays"),
+		(try_end),
+		##diplomacy end+
         (party_remove_prisoners, "$g_ransom_offer_party", "$g_ransom_offer_troop", 1),
         #(troop_set_slot, "$g_ransom_offer_troop", slot_troop_is_prisoner, 0),
         (call_script, "script_remove_troop_from_prison", "$g_ransom_offer_troop"),
@@ -12227,9 +14006,169 @@ game_menus = [
         ]),
       ("ransom_reject",[],"Reject the offer.",
        [
+	    ##diplomacy start+
+		#Relation loss altered by lord personality type.
+		#OLD:
+        #(call_script, "script_change_player_relation_with_troop", "$g_ransom_offer_troop", -4),
+		#NEW:
+		(try_begin),
+			(troop_slot_eq, "$g_ransom_offer_troop", slot_lord_reputation_type, lrep_quarrelsome),
+			(call_script, "script_change_player_relation_with_troop", "$g_ransom_offer_troop", -6),
+		(else_try),
+			(troop_slot_eq, "$g_ransom_offer_troop", slot_lord_reputation_type, lrep_debauched),
+			(call_script, "script_change_player_relation_with_troop", "$g_ransom_offer_troop", -5),
+		(else_try),
         (call_script, "script_change_player_relation_with_troop", "$g_ransom_offer_troop", -4),
+		(try_end),
+		##diplomacy end+
         (call_script, "script_change_player_honor", -1),
         (assign, "$g_ransom_offer_rejected", 1),
+		##diplomacy start+
+		#TODO: Review this, it was partway through a redesign when I stopped.
+		#Also apply a negative reaction modifier to other lords
+		(assign, ":save_reg0", reg0),
+		
+		(store_faction_of_troop, ":captive_faction", "$g_ransom_offer_troop"),
+		#For kingdom ladies:
+		(try_begin),
+			(is_between, "$g_ransom_offer_troop", kingdom_ladies_begin, kingdom_ladies_end),
+			#(troop_slot_eq, "$g_ransom_offer_troop", slot_troop_occupation, slto_kingdom_lady),
+			(call_script, "script_get_kingdom_lady_social_determinants", "$g_talk_troop"),
+			(assign, ":guardian", reg0),
+			(store_faction_of_troop, ":captive_faction", ":guardian"),
+			
+			(try_for_range, ":troop_no", heroes_begin, heroes_end),
+				(troop_slot_ge, ":troop_no", slot_troop_occupation, slto_kingdom_hero),#lowest valid
+				(neg|troop_slot_ge, ":troop_no", slot_troop_occupation, slto_inactive_pretender),#end of valid range
+				(neq, "$g_ransom_offer_troop", ":troop_no"),	
+				(store_faction_of_troop, ":troop_faction", ":troop_no"),
+				
+				(assign, ":disapproval_threshold", 20),
+				(try_begin),
+					(neq, ":troop_faction", ":captive_faction"),
+					(neg|is_between, ":troop_no", kingdom_ladies_begin, kingdom_ladies_end),
+					(assign, ":disapproval_threshold", 40),
+				(try_end),
+				#(this_or_next|is_between, ":troop_no", kingdom_ladies_begin, kingdom_ladies_end),
+				#	(eq, ":troop_faction", ":captive_faction"),
+				(assign, ":relation_change", 0),
+				
+				#family
+				(try_begin),
+					(this_or_next|troop_slot_eq, ":troop_no", slot_troop_spouse, "$g_ransom_offer_troop"),
+					(this_or_next|troop_slot_eq, "$g_ransom_offer_troop", slot_troop_spouse, ":troop_no"),
+					(eq, ":guardian", ":troop_no"),
+					(assign, ":relation_change", -4),
+				(else_try),
+					(eq, ":troop_no", slot_troop_betrothed, "$g_ransom_offer_troop"),
+					(assign, ":relation_change", -4),
+				(else_try),
+					(call_script, "script_troop_get_family_relation_to_troop", "$g_ransom_offer_troop", ":troop_no"),
+					(ge, reg0, 14),
+					(assign, ":relation_change", -3),
+				(else_try),
+					(ge, reg0, 10),
+					(assign, ":relation_change", -2),
+				(else_try),
+					(ge, reg0, 2),
+					(assign, ":relation_change", -1),
+				(else_try),
+					(call_script, "script_troop_get_relation_with_troop", ":troop_no", "$g_ransom_offer_troop"),
+					(ge, reg0, ":disapproval_threshold"),
+					(this_or_next|is_between, ":troop_no", kingdom_ladies_begin, kingdom_ladies_end),
+						(eq, ":troop_faction", ":captive_faction"),
+					(assign, ":relation_change", -1),
+				(else_try),
+					(ge, ":guardian", 1),
+					(call_script, "script_troop_get_relation_with_troop", ":troop_no", ":guardian"),
+					(ge, reg0, ":disapproval_threshold"),
+					(assign, ":relation_change", -1),
+				(try_end),
+								
+				(lt, ":relation_change", 0),
+				(try_begin),
+					(troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_quarrelsome),
+					(val_mul, ":relation_change", 3),#-1 to -2, -2 to -3, -3 to -5, -4 to -6
+					(val_sub, ":relation_change", 1),
+					(val_div, ":relation_change", 2),
+				(try_end),
+				(call_script, "script_change_player_relation_with_troop", ":troop_no", ":relation_change"),
+			(try_end),
+		(else_try),
+		#For others:
+			(is_between, "$g_ransom_offer_troop", active_npcs_begin, active_npcs_end),
+			(try_for_range, ":hero", heroes_begin, heroes_end),
+				(this_or_next|is_between, ":hero", active_npcs_begin, active_npcs_end),
+					(troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
+				(neg|troop_slot_eq, ":hero", slot_troop_occupation, dplmc_slto_dead),
+				(neg|troop_slot_ge, ":hero", slot_troop_occupation, slto_retirement),
+				
+				(neq, ":hero", "$g_ransom_offer_troop"),
+				
+				(store_faction_of_troop, ":troop_faction", ":hero"),
+				
+				(assign, ":relation_change", 0),
+				
+				(call_script, "script_troop_get_family_relation_to_troop", "$g_ransom_offer_troop", ":hero"),
+				(try_begin),
+					(ge, reg0, 10),
+					(assign, ":relation_change", -1),
+				(try_end),
+				
+				(call_script, "script_troop_get_relation_with_troop", ":hero", "$g_ransom_offer_troop"),
+				(try_begin),
+					(ge, reg0, 20),
+					(eq, ":troop_faction", ":captive_faction"),
+					(val_sub, ":relation_change", 1),
+				(else_try),
+					(ge, reg0, 40),
+					(val_sub, ":relation_change", 1),
+				(else_try),
+					(lt, reg0, 0),
+					(assign, ":relation_change", 0),
+				(try_end),
+				
+				(lt, ":relation_change", 0),
+				(try_begin),
+					(troop_slot_eq, ":hero", slot_lord_reputation_type, lrep_quarrelsome),
+					(val_mul, ":relation_change", 3),#-1 to -2, -2 to -3, -3 to -5, -4 to -6
+					(val_sub, ":relation_change", 1),
+					(val_div, ":relation_change", 2),
+				(try_end),
+				(call_script, "script_change_player_relation_with_troop", ":hero", ":relation_change"),
+			(try_end),
+			
+			(try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
+				(neg|troop_slot_eq, ":lady", slot_troop_occupation, slto_kingdom_hero),
+				(neg|troop_slot_eq, ":lady", slot_troop_occupation, dplmc_slto_dead),
+				(neg|troop_slot_ge, ":lady", slot_troop_occupation, slto_retirement),
+				
+				(neq, ":lady", "$g_ransom_offer_troop"),
+					
+				(assign, ":relation_change", 0),
+				(call_script, "script_troop_get_family_relation_to_troop", ":lady", "$g_ransom_offer_troop"),
+				(try_begin),
+					(ge, reg0, 14),
+					(assign, ":relation_change", -3),
+				(else_try),
+					(ge, reg0, 10),
+					(assign, ":relation_change", -2),
+				(else_try),
+					(ge, reg0, 2),
+					(assign, ":relation_change", -1),
+				(else_try),
+					(call_script, "script_troop_get_relation_with_troop", ":lady", "$g_ransom_offer_troop"),
+					(ge, reg0, 20),
+					(assign, ":relation_change", -1),
+				(try_end),
+				
+				(lt, ":relation_change", 0),
+				(call_script, "script_change_player_relation_with_troop", ":lady", ":relation_change"),
+			(try_end),
+		(try_end),
+		
+		(assign, reg0, ":save_reg0"),
+		##diplomacy end+
         (change_screen_return),
         ]),
     ]
@@ -12837,13 +14776,16 @@ game_menus = [
     "none",
     [
         (play_cue_track, "track_escape"),
-        (troop_get_type, ":is_female", "trp_player"),
+		  ##diplomacy start+ test gender with script
+        #(troop_get_type, ":is_female", "trp_player"),#<- replaced
         (try_begin),
-          (eq, ":is_female", 1),
+          #(eq, ":is_female", 1),#<- replaced
+		  (eq, 1, "$character_gender"),#<- added
           (set_background_mesh, "mesh_pic_escape_1_fem"),
         (else_try),
           (set_background_mesh, "mesh_pic_escape_1"),
         (try_end),
+		  ##diplomacy end+
     ],
     [
       ("continue",[],"Continue...",
@@ -12869,13 +14811,16 @@ game_menus = [
     "You are quickly surrounded by guards who take away your weapons. With curses and insults, they throw you into the dungeon where you must while away the miserable days of your captivity.",
     "none",
     [
-        (troop_get_type, ":is_female", "trp_player"),
+		  ##diplomacy start+ test gender with script
+        #(troop_get_type, ":is_female", "trp_player"),#<- replaced
         (try_begin),
-          (eq, ":is_female", 1),
+          #(eq, ":is_female", 1),#<- replaced
+		  (eq, 1, "$character_gender"),#<- added
           (set_background_mesh, "mesh_pic_prisoner_fem"),
         (else_try),
           (set_background_mesh, "mesh_pic_prisoner_man"),
         (try_end),
+		  ##diplomacy end+
     ],
     [
       ("continue",[],"Continue...",
@@ -12895,13 +14840,16 @@ game_menus = [
  The guards are outraged and beat you savagely before throwing you back into the cell for God knows how long...",
     "none",
     [
-        (troop_get_type, ":is_female", "trp_player"),
+		  ##diplomacy start+ test gender with script
+        #(troop_get_type, ":is_female", "trp_player"),#<-replaced
         (try_begin),
-          (eq, ":is_female", 1),
+          #(eq, ":is_female", 1),#<-replaced
+		  (eq, 1, "$character_gender"),#<- added
           (set_background_mesh, "mesh_pic_prisoner_fem"),
         (else_try),
           (set_background_mesh, "mesh_pic_prisoner_man"),
         (try_end),
+		  ##diplomacy end+
    ],
     [
       ("continue",[],"Continue...",
@@ -12976,7 +14924,7 @@ game_menus = [
     "captivity_end_propose_ransom",0,
     "You spend long hours in the sunless dank of the dungeon, more than you can count.\
  Suddenly one of your captors enters your cell with an offer;\
- he proposes to free you in return for {reg5} crowns of your hidden wealth. You decide to...",
+ he proposes to free you in return for {reg5} denars of your hidden wealth. You decide to...",
     "none",
     [
       (assign, reg5, "$player_ransom_amount"),
@@ -13019,13 +14967,16 @@ game_menus = [
  enduring the kicks and curses of the guards, watching your underfed body waste away more and more...",
     "none",
     [
-        (troop_get_type, ":is_female", "trp_player"),
+		  ##diplomacy start+ test gender with script
+        #(troop_get_type, ":is_female", "trp_player"),#<- replaced
         (try_begin),
-          (eq, ":is_female", 1),
+          #(eq, ":is_female", 1),#<- replaced
+		  (eq, 1, "$character_gender"),#<- added
           (set_background_mesh, "mesh_pic_prisoner_fem"),
         (else_try),
           (set_background_mesh, "mesh_pic_prisoner_man"),
         (try_end),
+		  ##diplomacy end+
         (store_random_in_range, ":random_hours", 16, 22),
         (call_script, "script_stay_captive_for_hours", ":random_hours"),
         (assign,"$auto_menu", "mnu_captivity_castle_check"),
@@ -13058,7 +15009,11 @@ game_menus = [
         (try_end),
         (str_store_troop_name, s8, ":quest_target_troop"),
         (assign, reg13, ":quest_target_amount"),
-		(troop_get_type, reg4, ":quest_target_troop"),
+		##diplomacy start+ 
+      #Set gender with script
+		#(troop_get_type, reg4, ":quest_target_troop"), #<- OLD
+		(call_script, "script_dplmc_store_troop_is_female_reg", ":quest_target_troop", 4),
+		##diplomacy end+
       ],
     [
       ("continue",[],"Continue...",
@@ -13348,7 +15303,10 @@ game_menus = [
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
 	  (faction_get_slot, ":faction_leader", "$g_notification_menu_var1", slot_faction_leader),
       (str_store_troop_name, s3, ":faction_leader"),
-	  (troop_get_type, reg4, ":faction_leader"),
+	  ##diplomacy start+ use a script for gender
+	  #(troop_get_type, reg4, ":faction_leader"),#<- OLD
+	  (call_script, "script_dplmc_store_troop_is_female_reg", ":faction_leader", 4),
+     ##diplomacy end+
 	  
       (set_fixed_point_multiplier, 100),
       (position_set_x, pos0, 65),
@@ -13376,7 +15334,10 @@ game_menus = [
 	  (str_store_faction_name, s5, ":old_faction"),
 	  (store_faction_of_troop, ":new_faction", ":defecting_lord"),
 	  (str_store_faction_name, s7, ":new_faction"),
-	  (troop_get_type, reg4, ":defecting_lord"),
+	  ##diplomacy start+ get gender with script
+	  #(troop_get_type, reg4, ":defecting_lord"),#<-OLD
+	  (call_script, "script_dplmc_store_troop_is_female_reg", ":defecting_lord", 4),
+	  ##diplomacy end+
 	  
 	],
     [
@@ -13407,7 +15368,10 @@ game_menus = [
 			(str_store_faction_name, s5, ":former_faction"),
 			(str_store_troop_name, s6, ":former_faction_leader"),
 		
-			(troop_get_type, reg4, ":indicted_lord"),
+		   ##diplomacy start+ get gender with script
+			#(troop_get_type, reg4, ":indicted_lord"),#<-OLD
+			(call_script, "script_dplmc_store_troop_is_female_reg", ":indicted_lord", 4),
+			##diplomacy end+
 			(store_faction_of_troop, ":new_faction", ":indicted_lord"),
 			(try_begin),
 				(is_between, ":new_faction", kingdoms_begin, kingdoms_end),
@@ -13515,7 +15479,7 @@ game_menus = [
   
   (
     "notification_player_faction_active",0,
-    "You now possess land in your name, without being tied to any kingdom. This makes you a monarch in your own right, with your court temporarily located at {s12}. However, the other monarchs will at first consider you a threat, for if any upstart warlord can grab a throne, then their own legitimacy is called into question.^^You may find it desirable at this time to pledge yourself to an existing kingdom. If you want to continue as a sovereign monarch, then your first priority should be to establish an independent right to rule. You can establish your right to rule through several means -- marrying into a high-born family, recruiting new lords, governing your lands, treating with other kings, or dispatching your companions on missions.^^At any rate, your first step should be to appoint a chief minister from among your companions, to handle affairs of state. Different companions have different capabilities.^You may appoint new ministers from time to time. You may also change the location of your court, by speaking to the minister.",
+    "You now possess land in your name, without being tied to any kingdom. This makes you a monarch in your own right, with your court temporarily located at {s12}. However, the other kings in Calradia will at first consider you a threat, for if any upstart warlord can grab a throne, then their own legitimacy is called into question.^^You may find it desirable at this time to pledge yourself to an existing kingdom. If you want to continue as a sovereign monarch, then your first priority should be to establish an independent right to rule. You can establish your right to rule through several means -- marrying into a high-born family, recruiting new lords, governing your lands, treating with other kings, or dispatching your companions on missions.^^At any rate, your first step should be to appoint a chief minister from among your companions, to handle affairs of state. Different companions have different capabilities.^You may appoint new ministers from time to time. You may also change the location of your court, by speaking to the minister.",
     "none",
     [
       (set_fixed_point_multiplier, 100),
@@ -13533,28 +15497,101 @@ game_menus = [
 	    (eq, ":walled_center_faction", "fac_player_supporters_faction"),
 		(assign, "$g_player_court", ":walled_center"),
 		
-		(try_begin),
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
+		##diplomacy start+
+		#OLD VERSION:
+		#(try_begin),
+		#	(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+		#	(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
+		#	(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
+		#(try_end),
+		#
+		#NEW VERSION:
+		#For settings with polygamy, check all kingdom ladies to see if they are wives.
+		#Also move unmarried daughters/sisters of the player if they exist (they cannot
+		#in Native, but might in mods).
+		(try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
+			#Make sure the spouse hasn't been promoted, and is not a prisoner, and is not exiled/dead
+			(troop_slot_eq, ":lady", slot_troop_occupation, slto_kingdom_lady),
+			(neg|troop_slot_ge, ":lady", slot_troop_leaded_party, 0),
+			#Make sure the lady isn't a prisoner
+			(neg|troop_slot_ge, ":lady", slot_troop_prisoner_of_party, 0),
+			(try_begin),
+				#Check if the lady is the player's spouse
+				(this_or_next|troop_slot_eq, "trp_player", slot_troop_spouse, ":lady"),
+					(troop_slot_eq, ":lady", slot_troop_spouse, "trp_player"),
+				#Update location
+				(troop_set_slot, ":lady", slot_troop_cur_center, "$g_player_court"),
+			(else_try),
+				#If the lady is unmarried, check if she is the player's dependent.
+				(troop_slot_eq, ":lady", slot_troop_spouse, -1),
+				(this_or_next|troop_slot_eq, ":lady", slot_troop_father, "trp_player"),
+				(this_or_next|troop_slot_eq, ":lady", slot_troop_mother, "trp_player"),
+					(troop_slot_eq, ":lady", slot_troop_guardian, "trp_player"),
+				#Update location
+				(troop_set_slot, ":lady", slot_troop_cur_center, "$g_player_court"),
+			(try_end),
 		(try_end),
+		##diplomacy end+
 		
 		(str_store_party_name, s12, "$g_player_court"),
 	  (try_end),
 	  
       ],
     [
+	  ##diplomacy start+
+	  #Make compatible with polygamy
       ("appoint_spouse",[
 	  (troop_slot_ge, "trp_player", slot_troop_spouse, 1),
 	  (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
 	  (neg|troop_slot_eq, ":player_spouse", slot_troop_occupation, slto_kingdom_hero),
+	  ##diplomacy start+
+	  #Also do not appoint the missing or the dead
+	  (neg|troop_slot_ge, ":player_spouse", slot_troop_occupation, slto_retirement),
+	  (call_script, "script_dplmc_store_troop_is_female", ":player_spouse"),#reg0 make gender-correct
+	  ##diplomacy end+
 	  (str_store_troop_name, s10, ":player_spouse"),
-	  ],"Appoint your wife, {s10}...",
+	  ],"Appoint your {reg0?wife:husband}, {s10}...",
        [
 	   (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
 	   (assign, "$g_player_minister", ":player_spouse"),
 	   (jump_to_menu, "mnu_minister_confirm"),
 	   ]),
+	  ##diplomacy end+
+	  
+	  ##diplomacy start+
+	  #Check for one additional spouse (polygamy may be enabled)
+      ("dplmc_appoint_spouse_plus_1",[
+	  (troop_slot_ge, "trp_player", slot_troop_spouse, 1),
+	  (assign, ":player_spouse", -1),
+	  (try_for_range_backwards, ":troop_no", heroes_begin, heroes_end),#Go backwards to ensure we end with the first match
+		(troop_slot_eq, ":troop_no", slot_troop_spouse, "trp_player"),
+		(neg|troop_slot_eq, "trp_player", slot_troop_spouse, ":troop_no"),#Not ordinary spouse
+		(neg|troop_slot_ge, ":troop_no", slot_troop_occupation, slto_retirement),#Not retired/dead/exiled
+		(neg|troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),#Not leading a party
+		(assign, ":player_spouse", ":troop_no"),
+	  (try_end),
+	  (ge, ":player_spouse", 1),
+	  (call_script, "script_dplmc_store_troop_is_female", ":player_spouse"),
+	  (str_store_troop_name, s10, ":player_spouse"),
+	  ],"Appoint your {reg0?wife:husband}, {s10}...",
+       [
+	   (assign, ":player_spouse", -1),
+	   (try_for_range_backwards, ":troop_no", heroes_begin, heroes_end),#Go backwards to ensure we end with the first match
+	     (troop_slot_eq, ":troop_no", slot_troop_spouse, "trp_player"),
+		 (neg|troop_slot_eq, "trp_player", slot_troop_spouse, ":troop_no"),#Not ordinary spouse
+		 (neg|troop_slot_ge, ":troop_no", slot_troop_occupation, slto_retirement),#Not retired/dead/exiled
+		 (neg|troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),#Not leading a party
+		 (assign, ":player_spouse", ":troop_no"),
+	   (try_end),
+	   (try_begin),
+		  (lt, ":player_spouse", 1),#This shouldn't be possible
+		  (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
+	   (try_end),
+	   
+	   (assign, "$g_player_minister", ":player_spouse"),
+	   (jump_to_menu, "mnu_minister_confirm"),
+	   ]),
+	  ##diplomacy end+
 
       ("appoint_npc1",[
 	  (main_party_has_troop, "trp_npc1"),
@@ -13740,9 +15777,23 @@ game_menus = [
 		(str_store_string, s11, "str_your_previous_court_some_time_ago"),
 	(try_end),	
 	
+	##diplomacy start+ Handle player is co-ruler of NPC kingdom
+	(assign, ":alt_faction", "fac_player_supporters_faction"),
+	(try_begin),
+		(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+		(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+		(ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+		(assign, ":alt_faction", "$players_kingdom"),
+	(try_end),
+	##diplomacy end+	
+	
 	(assign, "$g_player_court", -1),
 	(str_store_string, s14, "str_after_to_the_fall_of_s11_your_court_has_nowhere_to_go"),
 	(try_begin),
+		##diplomacy start+  Handle player is co-ruler of NPC kingdom
+		(this_or_next|neg|is_between, ":alt_faction", npc_kingdoms_begin, npc_kingdoms_end),
+			(neg|faction_slot_eq, ":alt_faction", slot_faction_state, sfs_active),
+		##diplomacy end+
 		(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
 		(str_store_string, s14, "str_as_you_no_longer_maintain_an_independent_kingdom_you_no_longer_maintain_a_court"),
 	(try_end),
@@ -13753,6 +15804,9 @@ game_menus = [
     (neg|party_slot_eq, ":walled_center", slot_village_infested_by_bandits, "trp_peasant_woman"),
     ##diplomacy end
 		(store_faction_of_party, ":walled_center_faction", ":walled_center"),
+		##diplomacy start+ Handle player is co-ruler of NPC kingdom
+		(this_or_next|eq, ":alt_faction", ":walled_center_faction"),
+		##diplomacy end+
 		(eq, ":walled_center_faction", "fac_player_supporters_faction"),
 		(neg|party_slot_ge, ":walled_center", slot_town_lord, active_npcs_begin),
 		
@@ -13760,6 +15814,11 @@ game_menus = [
 		(try_begin),
 			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
 			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
+			##diplomacy start+ Check that the spouse is not a hero, imprisoned (except by the player), or exiled/dead/etc.
+			(neg|troop_slot_eq, ":spouse", slot_troop_occupation, slto_kingdom_hero),
+			(neg|troop_slot_ge, ":spouse", slot_troop_occupation, slto_retirement),
+			(neg|troop_slot_ge, ":spouse", slot_troop_prisoner_of_party, 1),
+			##diplomacy end+
 			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
 			(str_store_party_name, s11, "$g_player_court"),
 		(try_end),
@@ -13771,6 +15830,9 @@ game_menus = [
 		(eq, "$g_player_court", -1),
 		
 		(store_faction_of_party, ":walled_center_faction", ":walled_center"),
+		##diplomacy start+ Handle player is co-ruler of NPC kingdom
+		(this_or_next|eq, ":alt_faction", ":walled_center_faction"),
+		##diplomacy end+
 		(eq, ":walled_center_faction", "fac_player_supporters_faction"),
 		
 		(assign, "$g_player_court", ":walled_center"),
@@ -13778,6 +15840,11 @@ game_menus = [
 		(try_begin),
 			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
 			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
+			##diplomacy start+ Check that the spouse is not a hero, imprisoned (except by the player), or exiled/dead/etc.
+			(neg|troop_slot_eq, ":spouse", slot_troop_occupation, slto_kingdom_hero),
+			(neg|troop_slot_ge, ":spouse", slot_troop_occupation, slto_retirement),
+			(neg|troop_slot_ge, ":spouse", slot_troop_prisoner_of_party, 1),
+			##diplomacy end+
 			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
 		(try_end),
 
@@ -13788,6 +15855,10 @@ game_menus = [
 	(try_end),
 	
 	(try_begin),
+		##diplomacy start+  Handle player is co-ruler of NPC kingdom
+		(this_or_next|neg|is_between, ":alt_faction", npc_kingdoms_begin, npc_kingdoms_end),
+			(neg|faction_slot_eq, ":alt_faction", slot_faction_state, sfs_active),
+		##diplomacy end+
 		(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
 		(str_store_string, s14, "str_as_you_no_longer_maintain_an_independent_kingdom_you_no_longer_maintain_a_court"),
 	(try_end),
@@ -13967,7 +16038,7 @@ game_menus = [
 
   (
     "notification_one_faction_left",0,
-    "Conquered by One Kingdom^^{s1} has defeated all rivals and stands as the sole kingdom.",
+    "Calradia Conquered by One Kingdom^^{s1} has defeated all rivals and stands as the sole kingdom.",
     "none",
     [
       (str_store_faction_name, s1, "$g_notification_menu_var1"),
@@ -14391,6 +16462,10 @@ game_menus = [
 	  
 	  (str_clear, s12), 
 	  (str_clear, s18),
+	  ##diplomacy start+ Store gender in register for use below
+	  (assign, ":save_reg4", reg4),
+	  (call_script, "script_dplmc_store_troop_is_female_reg", ":lady_guardian", 4),
+	  ##diplomacy end+
 	  (try_begin),
 	    (troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 0),
 		(str_store_string, s12, "str__you_should_ask_my_s11_s16s_permission_but_i_have_no_reason_to_believe_that_he_will_prevent_you_from_coming_to_see_me"),
@@ -14402,7 +16477,9 @@ game_menus = [
 	    (troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
 		(str_store_string, s12, "str__as_my_s11_s16_has_already_granted_permission_for_you_to_see_me_i_shall_expect_your_imminent_arrival"),
 	  (try_end),
-
+	  ##diplomacy start+ Revert register
+	  (assign, reg4, ":save_reg4"),
+	  ##diplomacy end+
       ],
     [
 	
@@ -14809,7 +16886,20 @@ game_menus = [
           (call_script, "script_party_calculate_loot", "p_total_enemy_casualties"), #p_encountered_party_backup changed to total_enemy_casualties          
           (gt, reg0, 0),          
           (troop_sort_inventory, "trp_temp_troop"),
+		  ##diplomacy start+
+		  ##OLD:
+          #(change_screen_loot, "trp_temp_troop"),
+		  ##NEW:
+		  ##jump to rubik's CC autoloot
+		  (try_begin),
+			(call_script, "script_party_calculate_loot", "p_total_enemy_casualties"), 
+			(assign, "$dplmc_return_menu", "mnu_bandit_lair"),
+            (jump_to_menu, "mnu_dplmc_manage_loot_pool"),
+		  (else_try),
+		     #Fall back to old behavior
           (change_screen_loot, "trp_temp_troop"),
+        (try_end),
+		  ##diplomacy end+
         (try_end),
         
         (try_begin),
@@ -15151,7 +17241,7 @@ game_menus = [
   ),
 
   ("notification_relieved_as_marshal", mnf_disable_all_keys,
-    "{s4} wishes to inform you that your services as marshal are no longer required. In honor of valiant efforts on behalf of the realm over the last {reg4} days, however, {reg8?she:he} offers you a purse of {reg5} crowns.",
+    "{s4} wishes to inform you that your services as marshal are no longer required. In honor of valiant efforts on behalf of the realm over the last {reg4} days, however, {reg8?she:he} offers you a purse of {reg5} denars.",
     "none",
     [
 	(assign, reg4, "$g_player_days_as_marshal"),
@@ -15171,7 +17261,13 @@ game_menus = [
 	
 	(faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
 	(str_store_troop_name, s4, ":faction_leader"),
-	(troop_get_type, reg8, ":faction_leader"),
+	##diplomacy start+ get gender with script
+	#(troop_get_type, reg8, ":faction_leader"),#<- OLD
+	(assign, ":save_reg0", reg0),
+	(call_script, "script_dplmc_store_troop_is_female", ":faction_leader"),
+	(assign, reg8, reg0),
+	(assign, reg0, ":save_reg0"),
+	##diplomacy end+
 	],
 	
 	 [
@@ -15192,12 +17288,21 @@ game_menus = [
 	# Inventory allocation / Loot allocation Game Menu  -  by Fisheye
 	# Parameters:
 	# $return_menu : return to this menu after managing loot.  0 if this menu is called via random encounter
+	##diplomacy start+
+	#Added "return_menu", renaming it to "$dplmc_return_menu"
+	##diplomacy end+
 	("dplmc_manage_loot_pool",
 		0,
 		"{s10}",
 		"none",
 		[
-			(assign, "$pool_troop", "trp_dplmc_chamberlain"),
+			##diplomacy start+
+			#Use a different troop!
+			#(assign, "$pool_troop", "trp_dplmc_chamberlain"),
+			(assign, "$pool_troop", "trp_temp_troop"),
+			#Make sure things are initialized
+			(call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
+			##diplomacy end+
 			(assign, reg20,0),
 			(troop_get_inventory_capacity, ":inv_cap", "$pool_troop"),
 				(try_for_range, ":i_slot", 0, ":inv_cap"),
@@ -15227,8 +17332,14 @@ game_menus = [
 					(store_free_inventory_capacity, ":space", "$pool_troop"),
 					(ge, ":space", 10)
 				],
-				"Let your heroes select gear from the item pool.",
+				##diplomacy start+
+				#"Let your heroes select gear from the item pool.",
+				"Let your heroes select gear from the items on the ground.",
+				##diplomacy end+
 				[
+					##diplomacy start+
+					(call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
+					##diplomacy end+
 					(jump_to_menu, "mnu_dplmc_auto_loot")
 				]
 			),
@@ -15244,37 +17355,137 @@ game_menus = [
 			),
 			("dplmc_loot",
 				[],
-				"Access the item pool.",
+				##diplomacy start+
+				#"Access the item pool.",
+				"Access the items on the ground.",
+				##diplomacy end+
 				[
-					(change_screen_loot, "$pool_troop")
+					(change_screen_loot, "$pool_troop"),
 				]
 			),
       ("dplmc_auto_loot_upgrade_management", [],
-        "Upgrade management of the NPC's equipments.",
+##diplomacy start+
+#        "Upgrade management of the NPC's equipments.",
+         "Update management of NPCs' equipment.",
+##diplomacy end+
         [
           (party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+		  ##nested diplomcy start+ Add error check.
+		  (assign, "$temp", -1),
+		  ##nested diplomacy end+
           (try_for_range, ":stack_no", 0, ":num_stacks"),
             (party_stack_get_troop_id,   ":stack_troop", "p_main_party", ":stack_no"),
             (is_between, ":stack_troop", companions_begin, companions_end),
             (assign, "$temp", ":stack_troop"),
             (assign, ":num_stacks", 0),
           (try_end),
+		  ##nested diplomacy start+   Add error check.
+		  (call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
+		  (try_begin),#<- dplmc+ added
+		    (ge, "$temp", 1),#<- dplmc+ added
           (start_presentation, "prsnt_dplmc_autoloot_upgrade_management"),
+		  (try_end),
+		  ##nested diplomacy end+
         ]
       ),			
 			("dplmc_leave",
 				[],
 				"{s20}",
 				[
-					(jump_to_menu, "mnu_camp"),					
+				##diplomacy start+
+				#Actually abandon the lost loot
+				(troop_get_inventory_capacity, ":inv_cap", "$pool_troop"),
+				(try_for_range, ":i_slot", 10, ":inv_cap"),
+					(troop_get_inventory_slot, ":item_id", "$pool_troop", ":i_slot"),
+					(ge, ":item_id", 0),
+					(neg|troop_has_item_equipped, "$pool_troop", ":item_id"),
+					(troop_set_inventory_slot, "$pool_troop", ":i_slot", -1), #delete it
+					(troop_inventory_slot_set_item_amount, "$pool_troop", ":i_slot", 0),
+				(try_end),
+				
+				#(jump_to_menu, "mnu_camp"),
+				(jump_to_menu, "$dplmc_return_menu"),
+				##diplomacy end+
 				]
 			),
+			##nested diplomacy start+
+			#Leave & take everything you can
+			("dplmc_leave_and_take_a",
+				[
+				(store_free_inventory_capacity, ":space", "trp_player"),
+				(lt, ":space", reg20),
+				(gt, reg20, 0),
+				(gt, ":space", 0),
+				(assign, reg0, ":space"),
+				],
+				"Gather {reg0} of the {reg20} items on the ground and leave.",
+				[
+					(store_free_inventory_capacity, ":space", "trp_player"),
+					#Take remaining items for player
+					(troop_get_inventory_capacity, ":inv_cap", "$pool_troop"),
+					(try_for_range, ":i_slot", 10, ":inv_cap"),
+					    (gt, ":space", 0),
+					    (troop_get_inventory_slot, ":item_id", "$pool_troop", ":i_slot"),
+					    (ge, ":item_id", 0),
+					    (neg|troop_has_item_equipped, "$pool_troop", ":item_id"),
+					    (troop_get_inventory_slot_modifier, ":imod", "$pool_troop", ":i_slot"),
+					    (troop_add_item, "trp_player", ":item_id", ":imod"),#give item to player
+					    (val_sub, ":space", 1),
+					    (troop_set_inventory_slot, "$pool_troop", ":i_slot", -1), #remove item from pool
+					    (troop_inventory_slot_set_item_amount, "$pool_troop", ":i_slot", 0),
+					(try_end),
+					#(jump_to_menu, "mnu_camp"),
+					(jump_to_menu, "$dplmc_return_menu"),
+				]
+			),
+			("dplmc_leave_and_take_b",
+				[
+				(store_free_inventory_capacity, ":space", "trp_player"),
+				(ge, ":space", reg20),
+				(gt, reg20, 0),#don't show if nothing is on the ground
+				(store_sub, reg0, reg20, 1),
+				],
+				"Gather the remaining {reg20} {reg0?items:item} on the ground and leave.",
+				[
+					(store_free_inventory_capacity, ":space", "trp_player"),
+					#Take remaining items for player
+					(troop_get_inventory_capacity, ":inv_cap", "$pool_troop"),
+					(try_for_range, ":i_slot", 10, ":inv_cap"),
+					    (gt, ":space", 0),
+					    (troop_get_inventory_slot, ":item_id", "$pool_troop", ":i_slot"),
+					    (ge, ":item_id", 0),
+					    (neg|troop_has_item_equipped, "$pool_troop", ":item_id"),
+					    (troop_get_inventory_slot_modifier, ":imod", "$pool_troop", ":i_slot"),
+					    (troop_add_item, "trp_player", ":item_id", ":imod"),#give item to player
+					    (val_sub, ":space", 1),
+					    (troop_set_inventory_slot, "$pool_troop", ":i_slot", -1), #remove item frlom pool
+					    (troop_inventory_slot_set_item_amount, "$pool_troop", ":i_slot", 0),
+					(try_end),
+					#(jump_to_menu, "mnu_camp"),
+					(jump_to_menu, "$dplmc_return_menu"),
+				]
+			),
+			("dplmc_leave_and_take_c",
+				[
+				(store_free_inventory_capacity, ":space", "trp_player"),
+				(eq, ":space", 0),
+				(gt, reg20, 0),#don't show if nothing is on the ground
+				(disable_menu_option),
+				],
+				"There is no space left in your bags.",
+				[
+				]
+			),
+			##nested diplomacy end+
 		]
 	),
 	
 	("dplmc_auto_loot",
 		0,
-		"Your heroes will automatically grab items from the item pool based on their pre-selected upgrade options. Heroes listed first in the party order will have first pick. Any equipment no longer needed will be placed back into the item pool. Are you sure you wish to do this?",
+##diplomacy start+
+#		"Your heroes will automatically grab items from the item pool based on their pre-selected upgrade options. Heroes listed first in the party order will have first pick. Any equipment no longer needed will be placed back into the item pool. Are you sure you wish to do this?",
+		"Your heroes will automatically grab items from the loot pool based on their pre-selected upgrade options. Heroes listed first in the party order will have first pick. Any equipment no longer needed will be dropped back into the loot pool.  Any items in the loot pool will be lost when you leave.  Are you sure you wish to do this?",
+##diplomacy end+
 		"none",
 		[],
 		[
@@ -15282,15 +17493,19 @@ game_menus = [
 				[],
 				"No, I've changed my mind.",
 				[
-					(jump_to_menu, "mnu_dplmc_manage_loot_pool")
+					(jump_to_menu, "mnu_dplmc_manage_loot_pool"),
 				]
 			),
 			("dplmc_autoloot_yes",
 				[],
 				"Yes, perform the upgrading.",
 				[
+					##diplomacy start+
+					(call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
+					(assign, "$pool_troop", "trp_temp_troop"),
+					##diplomacy end+
 					(call_script, "script_dplmc_auto_loot_all"),
-					(jump_to_menu, "mnu_dplmc_manage_loot_pool")
+					(jump_to_menu, "mnu_dplmc_manage_loot_pool"),
 				]
 			),
 		]
@@ -15580,7 +17795,7 @@ game_menus = [
     "none",
     [(set_game_menu_tableau_mesh, "tableau_faction_note_mesh_banner", "$g_notification_menu_var1", pos0),],
     [
-      ("dplmc_demand_4000",[(gt, "$g_player_chamberlain", 0),],"Demand 4000 crowns",
+      ("dplmc_demand_4000",[(gt, "$g_player_chamberlain", 0),],"Demand 4000 denars",
       [
         (call_script, "script_npc_decision_checklist_peace_or_war", "$g_notification_menu_var1", "fac_player_supporters_faction", -1),
         (assign, ":goodwill", reg0),      
@@ -15596,7 +17811,7 @@ game_menus = [
           (jump_to_menu,"mnu_dplmc_deny_terms"),
         (try_end),                
       ]),
-      ("dplmc_demand_8000",[(gt, "$g_player_chamberlain", 0),],"Demand 8000 crowns",
+      ("dplmc_demand_8000",[(gt, "$g_player_chamberlain", 0),],"Demand 8000 denars",
        [  
          (call_script, "script_npc_decision_checklist_peace_or_war", "$g_notification_menu_var1", "fac_player_supporters_faction", -1),
          (assign, ":goodwill", reg0), 
@@ -15616,11 +17831,23 @@ game_menus = [
       ("dplmc_demand_castle",[
         (assign, ":distance", 100),
         (assign, "$demanded_castle", -1),
+		##diplomacy start+ Handle player is co-ruler of NPC kingdom
+		(assign, ":alt_faction", "fac_player_supporters_faction"),
+		(try_begin),
+			(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+			(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+			(ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+			(assign, ":alt_faction", "$players_kingdom"),
+		(try_end),
+		##diplomacy end+
         (try_for_range, ":castle", castles_begin, castles_end),
           (store_faction_of_party, ":castle_faction", ":castle"),
           (eq, ":castle_faction", "$g_notification_menu_var1"),
           (try_for_range, ":center", centers_begin, centers_end),
             (store_faction_of_party, ":center_faction", ":center"),
+			##diplomacy start+
+			(this_or_next|eq, ":alt_faction", ":center_faction"),
+			##diplomacy end+
             (eq, ":center_faction", "fac_player_supporters_faction"),
             (store_distance_to_party_from_party, ":tmp_distance", ":center", ":castle"),
 
@@ -15641,8 +17868,46 @@ game_menus = [
         (call_script, "script_change_player_relation_with_faction", "$g_notification_menu_var1", -6),
         (try_begin),
           (le, ":random", ":goodwill"),
-          (call_script, "script_give_center_to_faction", "$demanded_castle", "fac_player_supporters_faction"),
-          (call_script, "script_diplomacy_start_peace_between_kingdoms", "$g_notification_menu_var1", "fac_player_supporters_faction", 1),    
+			 ##diplomacy start+
+			 #Chance of veto based on ownership and difficulty setting.
+			 (assign, ":did_veto", 0),
+			 (try_begin),
+					 (party_get_slot, ":castle_lord", "$demanded_castle", slot_town_lord),
+					 (ge, ":castle_lord", 1),
+					 (neg|troop_slot_ge, ":castle_lord", slot_troop_prisoner_of_party, 0),					 
+					 (try_begin),			
+								(this_or_next|troop_slot_eq, ":castle_lord", slot_troop_home, "$demanded_castle"),
+								(party_slot_eq, "$demanded_castle", dplmc_slot_center_original_lord, ":castle_lord"),
+								(store_random_in_range, ":random", 0, 24),
+								(assign, ":did_veto", 1),
+								(le, ":random", ":goodwill"),
+								(assign, ":did_veto", 0),
+ 					 (else_try),
+								(troop_get_slot, ":castle_lord_original_faction", ":castle_lord", slot_troop_original_faction),
+								(party_slot_eq, "$demanded_castle", slot_center_original_faction, ":castle_lord_original_faction"),
+								(store_random_in_range, ":random", 0, 12),
+								(assign, ":did_veto", 1),
+								(le, ":random", ":goodwill"),
+								(assign, ":did_veto", 0),
+					 (try_end),
+			 (try_end),
+			 (eq, ":did_veto", 0),
+		  ##Handle player is co-ruler of NPC kingdom
+          ##OLD:
+          #(call_script, "script_give_center_to_faction", "$demanded_castle", "fac_player_supporters_faction"),
+          #(call_script, "script_diplomacy_start_peace_between_kingdoms", "$g_notification_menu_var1", "fac_player_supporters_faction", 1),
+		  ##NEW:
+		  (assign, ":player_kingdom", "fac_player_supporters_faction"),
+		  (try_begin),
+		        (neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+				(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+				(call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+				(ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+				(assign, ":player_kingdom", "$players_kingdom"),
+		  (try_end),
+		  (call_script, "script_give_center_to_faction", "$demanded_castle", ":player_kingdom"),
+          (call_script, "script_diplomacy_start_peace_between_kingdoms", "$g_notification_menu_var1", ":player_kingdom", 1),
+		  ##diplomacy end+
           (change_screen_return),
         (else_try),       
           (jump_to_menu,"mnu_dplmc_deny_terms"),
@@ -15728,7 +17993,7 @@ game_menus = [
   
   (
     "dplmc_riot_negotiate",mnf_disable_all_keys,
-    "You approach the angry crowd and begin negotiations. The leader of the riot demands {reg0} crowns. He agrees to lay down arms if you are willing to pay.",
+    "You approach the angry crowd and begin negotiations. The leader of the riot demands {reg0} denars. He agrees to lay down arms if you are willing to pay.",
     "none",
     [
       (party_get_slot, ":center_relation", "$g_encountered_party", slot_center_player_relation),
@@ -15816,7 +18081,7 @@ game_menus = [
   
   (
     "dplmc_notification_appoint_chamberlain",0,
-    "As a lord of a fief you can now appoint a chamberlain who resides at you court for a weekly salary of 15 crowns. He will handle all financial affairs like collecting and determining taxes, paying wages and managing your estate. In addition he supervises money transfers between kingdoms giving you more diplomatic options.",
+    "As a lord of a fief you can now appoint a chamberlain who resides at you court for a weekly salary of 15 denars. He will handle all financial affairs like collecting and determining taxes, paying wages and managing your estate. In addition he supervises money transfers between kingdoms giving you more diplomatic options.",
     "none",
     [],
     [
@@ -15849,7 +18114,7 @@ game_menus = [
   
   (
     "dplmc_notification_appoint_constable",0,
-    "As a lord of a fief you can now appoint a constable who resides at you court for a weekly salary of 15 crowns. He will recruit new troops and provide information about your army.",
+    "As a lord of a fief you can now appoint a constable who resides at you court for a weekly salary of 15 denars. He will recruit new troops and provide information about your army.",
     "none",
     [],
     [
@@ -15885,7 +18150,7 @@ game_menus = [
 
   (
     "dplmc_notification_appoint_chancellor",0,
-    "As a lord of a fief you can now appoint a chancellor who resides at you court for a weekly salary of 20 crowns. He will be the keeper of your seal and conduct the correspondence between you and other important persons.",
+    "As a lord of a fief you can now appoint a chancellor who resides at you court for a weekly salary of 20 denars. He will be the keeper of your seal and conduct the correspondence between you and other important persons.",
     "none",
     [],
     [
@@ -15937,7 +18202,7 @@ game_menus = [
   
   (
     "dplmc_negotiate_besieger",0,
-    "You appear with a white flag at the top of the wall. After a while a negotiator of {s11} approaches you. He demands {s6} and all associated villages as well as {reg0} crowns for safe conduct.",
+    "You appear with a white flag at the top of the wall. After a while a negotiator of {s11} approaches you. He demands {s6} and all associated villages as well as {reg0} denars for safe conduct.",
     "none",
     [
       (party_get_slot, ":besieger", "$current_town", slot_center_is_besieged_by),
@@ -16072,7 +18337,7 @@ game_menus = [
     
     (str_clear, s12),
     (party_get_num_attached_parties, ":num_attached_parties", "$g_notification_menu_var1"),
-    (try_begin),
+    (try_begin),#<- dplmc+ unclosed try_begin!
       (gt, ":num_attached_parties", 0),
       (str_store_string, s12, "@^^Additional the following parties are currently inside:^"),
     (try_for_range, ":attached_party_rank", 0, ":num_attached_parties"),
@@ -16081,6 +18346,10 @@ game_menus = [
       (store_party_size, reg1, ":attached_party"),
       (str_store_string, s12, "@{s12} {s3} with {reg1} troops.^"),
     (try_end),
+	##diplomacy start+
+	#Add missing try-end for (gt, ":num_attached_parties", 0),
+	(try_end),
+	##diplomacy end+
 
     (call_script, "script_update_center_recon_notes", "$g_notification_menu_var1"),
     ],
@@ -16130,7 +18399,7 @@ game_menus = [
       (str_store_troop_name, s9, "$g_notification_menu_var1"),
       (try_begin),
         (eq, "$g_player_affiliated_troop", "$g_notification_menu_var1"),
-        (str_store_string, s11, "@{playername}, ^^I always knew you were a bad egg, since the day you have pledged allegiance to my clan. ^Did you really think you could set my family against me? You've dropped your mask, you snake! You are an infliction, and I will not bear it anymore. ^Hereby, I disown and ban you from my house. I have urged my family to fight you, and I will warn all the lords of your infamy. ^Tremble with fear, you have a deadly enemy! ^^{s9}."),
+        (str_store_string, s11, "@{playername}, ^^I always knew you were a bad egg, since the day you have pledged allegiance to my clan. ^Did you really think you could set my family against me? You've dropped your mask, you snake! You are an infliction, and I will not bear it anymore. ^Hereby, I disown and ban you from my house. I have urged my family to fight you, and I will warn Calradia lords about your infamy. ^Tremble with fear, you have a deadly enemy! ^^{s9}."),
       (else_try),
         (is_between, "$g_player_affiliated_troop", lords_begin, kingdom_ladies_end),
         (str_store_troop_name, s10, "$g_player_affiliated_troop"),
@@ -16148,63 +18417,181 @@ game_menus = [
   (
     "dplmc_preferences",0,
 	##diplomacy start+ alter for PBOD
-    "Additional Mod Preferences",##"Diplomacy preferences",
+    "Additional Mod Preferences{s0}",##"Diplomacy preferences",
 	##diplomacy end+
     "none",
     [
+	##diplomacy start+	
+	(troop_get_slot, reg0, "trp_dplmc_chamberlain", dplmc_slot_troop_affiliated),
+	(str_clear, s0),
+	(try_begin),
+		#Print a warning message for bad version numbers
+		(neq, reg0, 0),
+		(store_mod, ":verify", reg0, 128),
+		(this_or_next|lt, reg0, 0),
+			(neq, ":verify", DPLMC_VERSION_LOW_8_BITS),
+		(str_store_string, s0, "@{!}^^ WARNING: Unexpected version value in slot dplmc_slot_troop_affiliated in trp_dplmc_chamberlain: {reg0}"),
+	(else_try),
+		#In cheat mode, print the diplomacy+ version
+		(ge, "$cheat_mode", 1),
+		(val_div, reg0, 128),
+		(str_store_string, s0, "@{!}^^ Last Diplomacy 3.3.2+ update code for current saved game is {reg0}.  Update code for the current release is "+str(DPLMC_CURRENT_VERSION_CODE)+"."),
+	(try_end),
+	##diplomacy end+
     ],
-    [
-      ("dplmc_disable_horse_speed",[(eq, "$g_dplmc_horse_speed", 0),],"Disable Diplomacy horse speed.",
+    [ ##diplomacy start+ disable settings PBOD
+      ("dplmc_disable_horse_speed",[(eq, "$g_dplmc_horse_speed", 0),(eq,0,1),],"Disable Diplomacy horse speed.",
        [
            (assign, "$g_dplmc_horse_speed", 1),
            (jump_to_menu, "mnu_dplmc_preferences"),
         ]),
-      ("dplmc_enable_horse_speed",[(eq, "$g_dplmc_horse_speed", 1),],"Enable Diplomacy horse speed.",
+      ("dplmc_enable_horse_speed",[(eq, "$g_dplmc_horse_speed", 1),(eq,0,1),],"Enable Diplomacy horse speed.",
        [
            (assign, "$g_dplmc_horse_speed", 0),
            (jump_to_menu, "mnu_dplmc_preferences"),
         ]), 
-      ("dplmc_disable_battle_continuation",[ (eq, "$g_dplmc_battle_continuation", 0),],"Disable Diplomacy battle continuation.",
+      ("dplmc_disable_battle_continuation",[ (eq, "$g_dplmc_battle_continuation", 0),(eq,0,1),],"Disable Diplomacy battle continuation.",
        [
            (assign, "$g_dplmc_battle_continuation", 1),
            (jump_to_menu, "mnu_dplmc_preferences"),
         ]),
-      ("dplmc_enable_battle_continuation",[ (eq, "$g_dplmc_battle_continuation", 1),],"Enable Diplomacy battle continuation.",
+      ("dplmc_enable_battle_continuation",[ (eq, "$g_dplmc_battle_continuation", 1),(eq,0,1),],"Enable Diplomacy battle continuation.",
        [
            (assign, "$g_dplmc_battle_continuation", 0),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
+##diplomacy end+ changes for PBOD
 ##diplomacy start+
 	#toggle terrain advantage
-      ("dplmc_disable_terrain_advantage",[(eq, "$g_dplmc_terrain_advantage", 0),],"Disable terrain advantage in Autocalc battles.",
+      ("dplmc_disable_terrain_advantage",[(ge, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),],"Disable terrain advantage in Autocalc battles (currently this feature is Enabled).",
        [
-           (assign, "$g_dplmc_terrain_advantage", 1),
+           (assign, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),
            (jump_to_menu, "mnu_dplmc_preferences"),
         ]),
-      ("dplmc_enable_terrain_advantage",[(eq, "$g_dplmc_terrain_advantage", 1),],"Enable terrain advantage in Autocalc battles.",
+      ("dplmc_enable_terrain_advantage",[
+		(le, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),],"Enable terrain advantage in Autocalc battles (currently this feature is Disabled).",
        [
-           (assign, "$g_dplmc_terrain_advantage", 0),
+           (assign, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
+        ]), 
 	#toggle lord recycling
-	  ("dplmc_enable_lord_recycling",[(eq, "$g_dplmc_lord_recycling", 0),],"Allow lords to return from exile (Experimental)",
+	  ("dplmc_toggle_lord_recycling_a",[
+		(eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_DISABLE),
+		],"Enable lords returning from exile (currently disabled)",
        [
-           (assign, "$g_dplmc_lord_recycling", 1),
-           (jump_to_menu, "mnu_dplmc_preferences"),
+           (assign, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
         ]),
-      ("dplmc_disable_lord_recycling",[(eq, "$g_dplmc_lord_recycling", 1),],"Disallow lords from returning from exile.",
+	  ("dplmc_toggle_lord_recycling_b",[
+		(this_or_next|eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_FREQUENT),#currently this setting is not distinct
+		(eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
+		],"Disable lords returning from exile (currently enabled)",
+       [
+	 	   (assign, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_DISABLE),
+        ]),
+      ("dplmc_toggle_lord_recycling_reset",
+		[(neq, "$g_dplmc_lord_recycling", DPLMC_AI_CHANGES_DISABLE),
+ 		 (neq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
+		 (neq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_FREQUENT),
+		 (assign, reg0, "$g_dplmc_lord_recycling"),],
+			"You used a saved game from another mod: g_dplmc_lord_recycling = {reg0} (click to reset)",
        [
            (assign, "$g_dplmc_lord_recycling", 0),
            (jump_to_menu, "mnu_dplmc_preferences"),
+        ]),
+	#toggle AI changes
+	  ("dplmc_toggle_ai_changes_a",[
+		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
+		],"Enable AI changes (currently disabled)",
+       [
+           (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
+        ]),
+	  ("dplmc_toggle_ai_changes_b",[
+		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
+		],"Increase AI changes (currently low)",
+       [
+	 	   (assign, "$g_dplmc_ai_changes",DPLMC_AI_CHANGES_MEDIUM),
+        ]),
+
+	  ("dplmc_toggle_ai_changes_c",[
+		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_MEDIUM),
+		],"Increase AI changes (currently medium)",
+       [
+	 	   (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
+        ]),
+	  ("dplmc_toggle_ai_changes_d",[
+		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
+		],"Disable AI changes (currently high/experimental)",
+       [
+	 	   (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
         ]),
       ("dplmc_reset_lord_recycling",
-		[(neg|is_between, "$g_dplmc_lord_recycling", 0, 2),
-		 (assign, reg0, "$g_dplmc_lord_recycling"),],
-			"Error: g_dplmc_lord_recycling = {reg0} (click to reset)",
+		[(neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
+ 		 (neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
+		 (neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_MEDIUM),
+		 (neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
+		 (assign, reg0, "$g_dplmc_ai_changes"),],
+			"You used a saved game from another mod: g_dplmc_ai_changes = {reg0} (click to reset)",
        [
-           (assign, "$g_dplmc_lord_recycling", 0),
+           (assign, "$g_dplmc_ai_changes", 0),
            (jump_to_menu, "mnu_dplmc_preferences"),
         ]),
+	#toggle economics changes
+	  ("dplmc_toggle_gold_changes_a",[
+		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
+		],"Set economic & behavioral changes to low (current mode: disabled)",
+       [
+           (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
+        ]),
+	  ("dplmc_toggle_gold_changes_b",[
+		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
+		],"Set economic & behavioral changes to medium (current mode: low)",
+       [
+	 	   (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
+        ]),
+	  ("dplmc_toggle_gold_changes_c",[
+		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
+		],"Set economic & behavioral changes to high/experimental (current mode: medium)",
+       [
+	 	   (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
+        ]),
+	  ("dplmc_toggle_gold_changes_d",[
+		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
+		],"Disable economic & behavioral changes (current mode: high/experimental)",
+       [
+	 	   (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
+        ]),
+      ("dplmc_reset_gold_changes",
+		[(neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
+ 		 (neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
+		 (neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
+		 (neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
+		 (assign, reg0, "$g_dplmc_gold_changes"),],
+			"You used a saved game from another mod: g_dplmc_gold_changes = {reg0} (click to reset)",
+       [
+           (assign, "$g_dplmc_gold_changes", 0),
+           (jump_to_menu, "mnu_dplmc_preferences"),
+        ]),
+	#Toggle the default anti-woman prejudice.  This uses the already-existing
+	#global variable "$g_disable_condescending_comments", and gives it additional
+	#meaning.
+		("dplmc_switch_woman_prejudice_1", [
+			(this_or_next|eq, "$g_disable_condescending_comments", 0),
+			(eq, "$g_disable_condescending_comments", 1)],
+			"Change prejudice level (current level is default)",
+			[(val_add, "$g_disable_condescending_comments", 2),
+			(jump_to_menu, "mnu_dplmc_preferences"),]),
+		("dplmc_switch_woman_prejudice_2", [
+			(this_or_next|eq, "$g_disable_condescending_comments", 2),
+			(eq, "$g_disable_condescending_comments", 3)],
+			"Change prejudice level (current level is off)",
+			[(val_sub, "$g_disable_condescending_comments", 4),
+			(jump_to_menu, "mnu_dplmc_preferences"),]),
+		("dplmc_switch_woman_prejudice_3", [
+			(this_or_next|eq, "$g_disable_condescending_comments", -1),
+			(eq, "$g_disable_condescending_comments", -2)],
+			"Change prejudice level (current level is high)",
+			[(val_add, "$g_disable_condescending_comments", 2),
+			(jump_to_menu, "mnu_dplmc_preferences"),]),
 ##diplomacy end+
       ("dplmc_back",[],"Back...",
        [
@@ -16216,11 +18603,11 @@ game_menus = [
   ##diplomacy end  
 ##diplomacy start+
   ("dplmc_affiliated_family_report",0,
-   "{s43}",
+   "{s0}",
    "none",
    [   
-    (str_clear, s43),
-	(str_clear, s44),
+    (str_clear, s0),
+	(str_clear, s1),
 	(try_for_range, ":troop_no", active_npcs_including_player_begin, heroes_end),
 		(try_begin),
 			(eq, ":troop_no", active_npcs_including_player_begin),
@@ -16228,27 +18615,21 @@ game_menus = [
 		(try_end),
 		#$g_player_affiliated_troop
 		(assign, reg0, -1),
-		(call_script, "script_dplmc_is_affiliated_family_member", ":troop_no"),
+		(call_script, "script_dplmc_store_troop_is_eligible_for_affiliate_messages", ":troop_no"),
 		(try_begin),
-		#	#cheat mode: for debugging, add enfeoffed player companions
-		#	(ge, "$cheat_mode", 1),
-		#	(is_between, ":troop_no", companions_begin, companions_end),
-		#	(troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-		#	(assign, reg0, 1),
-		#(else_try),
 		#	#cheat mode: for debugging, add spouse's relatives
 			(ge, "$cheat_mode", 1),
 			(lt, reg0, 1),
 			(troop_get_slot, reg1, "trp_player", slot_troop_spouse),
 			(is_between, reg1, heroes_begin, heroes_end),
-			(call_script, "script_troop_get_family_relation_to_troop",":troop_no",reg1),#reg0 gets strength, s11 gets name of relation			
+			(call_script, "script_dplmc_troop_get_family_relation_to_troop",":troop_no",reg1),
 		(try_end),
 		(this_or_next|ge, reg0, 1),#affiliate
 		(this_or_next|eq, "trp_player", ":troop_no"),#self
 		(troop_slot_eq, "trp_player", slot_troop_spouse, ":troop_no"),#spouse
-		
-		(str_clear, s44),
-		(str_store_string, s43, "str_s43_s44"),#add blank line to start
+			
+		(str_clear, s1),
+		(str_store_string, s0, "str_dplmc_s0_newline_s1"),#add blank line to start
 			
 		#Vital stats for each.
 		#first, name and relative status:
@@ -16275,27 +18656,25 @@ game_menus = [
 		#	(neq, "trp_player", ":troop_no"),
 		#	(str_store_string, s44, "@ {s44} (s3}"),#s60: {name} (troop's relative)
 		#(try_end),
-		#(str_store_string, s43, "str_s43_s44"),#add line
-				
+		#	(str_store_string, s43, "str_s43_s44"),#add line
+		
 		#next, location
 		(try_begin),
             (this_or_next|eq, ":troop_no", active_npcs_including_player_begin),
 			(eq, ":troop_no", "trp_player"),
-			(str_store_string, s44, "@{playername}"),
+			(str_store_string, s1, "@{playername}"),
 		(else_try),
-			(call_script, "script_get_information_about_troops_position", ":troop_no", 0),#s1 = String, reg0 = knows-or-not
-			#(str_store_string, s44, "@{!}Location: {s1}"),
-			(str_store_string_reg, s44, s1),
+		(call_script, "script_get_information_about_troops_position", ":troop_no", 0),#s1 = String, reg0 = knows-or-not
 		(try_end),
-		(str_store_string, s43, "str_s43_s44"),#add line
+		(str_store_string, s0, "str_dplmc_s0_newline_s1"),#add line
 		
 		#next, relation:
 		(try_begin),
 			(neq, "trp_player", ":troop_no"),
 			(call_script, "script_troop_get_player_relation", ":troop_no"),
 			(assign, reg1, reg0) ,
-			(str_store_string, s44, "str_relation_reg1"),
-			(str_store_string, s43, "str_s43_s44"),#add line
+			(str_store_string, s1, "str_relation_reg1"),
+			(str_store_string, s0, "str_dplmc_s0_newline_s1"),#add line
 		(try_end),
 		
 		#next, troops
@@ -16313,11 +18692,11 @@ game_menus = [
             #(assign, "$g_dplmc_terrain_advantage", 0),#avoid wierdness
             #(call_script, "script_party_calculate_strength", ":led_party", 1),            
             #(assign, "$g_dplmc_terrain_advantage", reg2),#revert preference
-            (str_store_string, s44, "@Troops: {reg1}"),
+            (str_store_string, s1, "@Troops: {reg1}"),
 			#(str_store_string, s44, "@Troops: {reg1} (strength estimate {reg0})"),
-			(str_store_string, s43, "str_s43_s44"),#add line
+			(str_store_string, s0, "str_dplmc_s0_newline_s1"),#add line
 		(try_end),
-		
+  
 		##next, fief (only display lack-of-fiefs if a kingdom hero)
 		#(call_script, "script_print_troop_owned_centers_in_numbers_to_s0", ":troop_no"),
 		#(str_clear, s12),
@@ -16434,7 +18813,7 @@ game_menus = [
 	   ("view_affiliated_family_report",[
 		#(this_or_next|troop_slot_ge, "trp_player", slot_troop_spouse, 1),
         (this_or_next|ge,"$cheat_mode",1),
-		(is_between, "$g_player_affiliated_troop", kingdoms_begin, kingdoms_end),
+		(is_between, "$g_player_affiliated_troop", heroes_begin, heroes_end),
 		], "View affiliated family member / spouse report.",
        [
            (jump_to_menu, "mnu_dplmc_affiliated_family_report"),
@@ -16446,7 +18825,33 @@ game_menus = [
        ),
       ]
   ),
-##diplomacy end+  
+  
+  ("dplmc_start_select_prejudice",menu_text_color(0xFF000000)|mnf_disable_all_keys,
+    "In the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility.  Beacuse of this, a female character can face initial prejudice, and some opportunities open to men will not be available (although a woman will also have some opportunities a man will not).  Some players might find distasteful, so if you want you can ignore that aspect of society in Calradia.^^You can later change your mind through the options in the Camp menu.",
+    "none",
+    [],
+    [
+      ("dplmc_start_prejudice_yes",[],"I do not mind encountering sexism.",
+       [
+         (assign, "$g_disable_condescending_comments", 0),#Default value
+         (jump_to_menu,"mnu_start_character_1"),
+        ]
+       ),
+      ("dplmc_start_prejudice_no",[],"I would prefer not to encounter as much sexism.",
+       [
+         (assign, "$g_disable_condescending_comments", 2),#Any value 2 or higher shuts off sexist setting elements
+         (jump_to_menu, "mnu_start_character_1"),
+       ]
+       ),
+	  ("go_back",[],"Go back",
+       [
+	     (jump_to_menu,"mnu_start_game_1"),
+       ]),
+    ]
+  ),
+##diplomacy end+
+
+## added for TGS
   
 #########################
 #### Ways Menu Begin ####
@@ -16507,5 +18912,7 @@ game_menus = [
 #######################
 #### Ways Menu End ####
 #######################
+
+## end added for TGS  
   
  ]

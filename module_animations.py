@@ -1808,7 +1808,13 @@ animations = [
  ["unequip_bayonet", 0, amf_priority_equip|amf_play|amf_restart|amf_client_prediction,
   [1.0, "anim_human", 0, 1, 0]],
 ##   [0.2, "equip_arms", 254, 250, arf_blend_in_0]],
- ["unused_human_anim_14", 0, 0, [1.0, "anim_human", 0, 1, 0]],
+
+##PBOD - Spear Bracing Kit by The Mercenary
+ #["unused_human_anim_14", 0, 0, [1.0, "anim_human", 0, 1, 0]],
+["spearwall_hold", acf_thrust|acf_enforce_all|acf_align_with_ground, 0, 
+   [4.0, "anim_human", combat+7310, combat+7310, blend_in_ready],
+ ],
+##PBOD End
  ["unused_human_anim_15", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_16", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_17", 0, 0, [1.0, "anim_human", 0, 1, 0]],

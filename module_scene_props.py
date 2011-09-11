@@ -1121,6 +1121,8 @@ scene_props = [
         ]),
      ]),
 
+#modified for TGS  
+
   ("banner_a",0,"banner_a01","0", []),
   ("banner_b",0,"banner_a02","0", []),
   ("banner_c",0,"banner_a03","0", []),
@@ -1360,8 +1362,8 @@ scene_props = [
   ("banner_kingdom_d", 0, "banner_kingdom_d", "0", []),
   ("banner_kingdom_e", 0, "banner_kingdom_e", "0", []),
   ("banner_kingdom_f", 0, "banner_kingdom_f", "0", []),
-  ("banner_kingdom_g", 0, "banner_kingdom_f", "0", []),#Wheel of Time
-  ("banner_kingdom_h", 0, "banner_kingdom_f", "0", []),#Wheel of Time
+  ("banner_kingdom_g", 0, "banner_kingdom_f", "0", []),#TGS
+  ("banner_kingdom_h", 0, "banner_kingdom_f", "0", []),#TGS
   ("banner_f21", 0, "banner_a15", "0", []),
 
   ("tavern_chair_a",0,"tavern_chair_a","bo_tavern_chair_a", []),
@@ -3095,16 +3097,17 @@ scene_props = [
     ]),
    ]),
 
-###Wheel of Time magic explosion
+###TGS magic explosion
   
   ("explosion",0,0,"asplode", [
 (ti_on_scene_prop_hit,
     [
      (particle_system_burst,"psys_torch_fire",pos1,15),
     ]),]),
-###End Wheel of Time magic explosion
+###End TGS magic explosion
 
-  # Added for wheel of time waygate
+  # Added for TGS waygate
+
   ("waygate",0,"waygate","bo_waygate", []),
   ("ways_exit_ramp",0,"ways_exit_ramp","bo_ways_exit_ramp", []),
   #specific Ogier signs
@@ -3127,5 +3130,6 @@ scene_props = [
   ("waygate_ogier_sign_iman",0,"waygate_ogier_sign_iman",0, []),
   ("waygate_ogier_sign_tarvalon",0,"waygate_ogier_sign_tarvalon",0, []),
 
+  # End added for TGS waygate
   
 ]

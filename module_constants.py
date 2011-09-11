@@ -80,7 +80,7 @@ slot_agent_duel_start_time        = 22
 
 slot_agent_walker_occupation      = 25
 
-### New Wheel of Time Slots
+### New TGS Slots
 
 slot_agent_has_active_seeker      = 26    ## (0 = false, 1 = true)
 slot_agent_seeker_shooter         = 27    ## ID of agent who shot the seeker
@@ -134,7 +134,7 @@ slot_agent_draghkar_kiss_by       = 62    ## ID of Draghkar that kissed agent
 
 slot_agent_bound_duration         = 63    ## How long will the agent be bound (Counts from 10 to 0)
 
-### End Wheel of Time Slots
+### End TGS Slots
     
 ########################################################
 ##  FACTION SLOTS          #############################
@@ -256,7 +256,7 @@ slot_faction_provocation_days_with_factions_begin 		= 130
 slot_faction_war_damage_inflicted_on_factions_begin 	= 140
 slot_faction_sum_advice_about_factions_begin 			= 150
 
-# Added for Wheel of Time
+# Added for TGS
 # quick battle upgrade
 slot_faction_quick_battle_tier_3_infantry       = 161
 slot_faction_quick_battle_tier_4_infantry       = 162
@@ -283,7 +283,7 @@ slot_faction_reinforcements_h        = 184
 # channeler troop
 slot_faction_channeler_troop         = 185
 
-# End added for Wheel of Time
+# End added for TGS
 
 #revolts -- notes for self
 #type 1 -- minor revolt, aimed at negotiating change without changing the ruler
@@ -296,6 +296,36 @@ slot_faction_channeler_troop         = 185
 	# reGonalist/dynastic (based around an alternate ruling house
 	# regionalist/republican
 	# messianic (ie, Canudos)
+	
+##diplomacy start+
+#Treaty lengths.  Use these constants instead of "magic numbers" to make it
+#obvious what code is supposed to do, and also make it easy to change the
+#lengths without having to go through the entire mod.
+
+# Truces (as exist in Native)
+dplmc_treaty_truce_days_initial    = 20 
+dplmc_treaty_truce_days_expire     =  0
+
+#Trade treaties convert to truces after 20 days.
+dplmc_treaty_trade_days_initial    = 40
+dplmc_treaty_trade_days_expire     = dplmc_treaty_truce_days_initial
+
+#Defensive alliances convert to trade treaties after 20 days.
+dplmc_treaty_defense_days_initial  = 60
+dplmc_treaty_defense_days_expire   = dplmc_treaty_trade_days_initial
+
+#Alliances convert to defensive alliances after 20 days.
+dplmc_treaty_alliance_days_initial = 80 
+dplmc_treaty_alliance_days_expire  = dplmc_treaty_defense_days_initial
+
+#Define these by name to make them more clear in the source code.
+#They should not be altered from their definitions.
+dplmc_treaty_truce_days_half_done = (dplmc_treaty_truce_days_initial + dplmc_treaty_truce_days_expire) // 2
+dplmc_treaty_trade_days_half_done = (dplmc_treaty_trade_days_initial + dplmc_treaty_trade_days_expire) // 2
+dplmc_treaty_defense_days_half_done = (dplmc_treaty_defense_days_initial + dplmc_treaty_defense_days_expire) // 2
+dplmc_treaty_alliance_days_half_done = (dplmc_treaty_alliance_days_initial + dplmc_treaty_alliance_days_expire) // 2
+
+##diplomacy end+
 	
 ########################################################
 ##  PARTY SLOTS            #############################
@@ -618,7 +648,7 @@ slot_center_last_reconnoitered_by_faction_time 				= 350
 #slot_center_last_reconnoitered_by_faction_cached_strength 	= 360
 #slot_center_last_reconnoitered_by_faction_friend_strength 	= 370
 
-###### added for wheel of time
+###### added for TGS
 slot_center_outlander_volunteers_available         = 380 # number of outlander volunteers in the center
 slot_center_bribe_volunteers_available             = 381 # number of troops in the center you can bribe
 
@@ -630,7 +660,7 @@ slot_center_channelers_available_target            = 384 # target number of chan
 slot_center_trollocs_available                     = 385 # number of trollocs available (for Shayol Ghul)
 slot_center_trollocs_available_target              = 386 # target number of trollocs
 
-###### end added for wheel of time
+###### end added for TGS
 
 
 
@@ -911,8 +941,10 @@ pp_history_dismissed         = 2
 pp_history_quit              = 3
 pp_history_indeterminate     = 4
 ##diplomacy start+
-pp_history_appointed_office_dplmc      = 5 #assigned an office (like Minister)
-pp_history_granted_fief_dplmc        = 6 #was granted a fief, or (for pretenders) completed Pretender quest
+dplmc_pp_history_appointed_office    = 5 #assigned an office (like Minister)
+dplmc_pp_history_granted_fief        = 6 #was granted a fief, or (for pretenders) completed Pretender quest
+dplmc_pp_history_lord_rejoined       = 7 #enfeoffed lord temporarily rejoined the party
+dplmc_pp_history_nonplayer_entry     = 8 #became a lord without first being a companion of the player (normally this is assumed to be impossible)
 ##diplomacy end+
 
 slot_troop_playerparty_history_string   = 83
@@ -1033,7 +1065,7 @@ tro_failed_to_support_colleague            = 2
 
 slot_troop_will_join_prison_break      = 161
 
-# added for wheel of time
+# added for TGS
 slot_troop_recruit_primary             = 163  # this will be a number from 1 to 8 which will determine what recruitment option a lord will use.
 slot_troop_recruit_secondary           = 164
 
@@ -1044,7 +1076,7 @@ slot_troop_npc_companion_secondary_weave  = 172  # (0, or the number of one of t
 slot_troop_npc_companion_known_weaves     = 173  # number of weaves the companion knows. (1 to 11, since short range weaves aren't an option)
 slot_troop_npc_companion_is_channeler     = 174  # (0 if false, 1 if true) Added because I could not look up firearm (channeling) proficiency within the module_item.py file.
 
-# end added for wheel of time
+# end added for TGS
 
 
 troop_slots_reserved_for_relations_start        = 165 #this is based on id_troops, and might change
@@ -1084,13 +1116,13 @@ slot_player_bot_type_3_wanted                  = 37
 slot_player_bot_type_4_wanted                  = 38
 slot_player_spawn_count                        = 39
 
-### added slots for wheel of time
+### added slots for TGS
 slot_player_current_channeling_stamina         = 100
 slot_player_recharge_rate                      = 101
 slot_player_current_weave                      = 102
 slot_player_current_weave_toggle_mode          = 103 # (0 = all, 1 = short, 2 = long, 3 = support, 4 = advanced)
 slot_player_maximum_channeling_stamina         = 104
-## end added for wheel of time
+## end added for TGS
 
 
 ########################################################
@@ -1117,10 +1149,23 @@ slot_team_flag_situation                       = 0
 #cb2_urchin  = 2
 #cb2_steppe_child = 3
 #cb2_merchants_helper = 4
+##diplomacy start+ add background constants
+#dplmc_cb2_mummer = 5
+#dplmc_cb2_courtier = 6
+#dplmc_cb2_noble = 7
+#dplmc_cb2_acolyte = 8
+##diplomacy end+
 
+##diplomacy start+ add background constants
+#dplmc_cb3_bravo = 1
+#dplmc_cb3_merc = 2
+##diplomacy end+
 #cb3_poacher = 3
 #cb3_craftsman = 4
 #cb3_peddler = 5
+##diplomacy start+ add background constants
+#dplmc_cb3_preacher = 6
+##diplomacy end+
 #cb3_troubadour = 7
 #cb3_squire = 8
 #cb3_lady_in_waiting = 9
@@ -1129,10 +1174,13 @@ slot_team_flag_situation                       = 0
 #cb4_revenge = 1
 #cb4_loss    = 2
 #cb4_wanderlust =  3
+##diplomacy start+ add background constants
+#dplmc_cb4_fervor = 4
+##diplomacy end+
 #cb4_disown  = 5
 #cb4_greed  = 6
 
-#New for wheel of time
+#New for TGS
 
 # $background_type
 cb_father_lord = 1
@@ -1187,7 +1235,7 @@ cb_crowning_achievement_rediscovered_lost_weaves = 47
 cb_crowning_achievement_became_wealthy_merchant = 48
 cb_crowning_achievement_stole_laurel_crown = 49
 cb_crowning_achievement_traveled_to_shayol_ghul = 50
-#End new for wheel of time
+#End new for TGS
 
 #NPC system changes end
 #Encounter types
@@ -1217,6 +1265,20 @@ slto_retirement      = 11
 #slto_retirement_medium    = 12
 #slto_retirement_short     = 13
 #NPC changes end
+##diplomacy start+
+
+#These constants are not (yet) used, but they are defined so that other mods can
+#extend diplomacy in a consistent way, and have confidence that base diplomacy
+#will correctly respect the flags they set.
+
+#Note that the existing code assumes that dplmc_slto_exile and dplmc_slto_dead are
+#greater than slto_retirement.  If you had to change this, look around for every instance
+#where diplomacy checks "troop_slot_ge" slto_retirement, and expand it to also check
+#dead, exiled, etc.
+
+dplmc_slto_exile           = 14 #Set for newly exiled lords.  In saved games, this is retroactively applied (once only).
+dplmc_slto_dead            = 15 #not normally set
+##diplomacy end+
 
 ########################################################
 ##  QUEST SLOTS            #############################
@@ -1512,6 +1574,11 @@ secret_signs_end = countersigns_begin
 kingdom_titles_male_begin = "str_faction_title_male_player"
 kingdom_titles_female_begin = "str_faction_title_female_player"
 
+##diplomacy start+
+cultures_begin = "fac_culture_1"
+cultures_end   = "fac_player_faction"
+##diplomacy end+
+
 kingdoms_begin = "fac_player_supporters_faction"
 kingdoms_end = "fac_kingdoms_end"
 
@@ -1679,7 +1746,7 @@ villages_begin = "p_village_1"
 
 towns_end = castles_begin
 castles_end = villages_begin
-villages_end   = "p_karindi_gate" # was "p_salt_mine"
+villages_end   = "p_salt_mine"
 
 walled_centers_begin = towns_begin
 walled_centers_end   = castles_end
@@ -2020,6 +2087,13 @@ dplmc_slot_item_horse_armor        = dplmc_slot_item_body_armor
 
 dplmc_slot_item_shield_size        = dplmc_slot_item_head_armor
 dplmc_slot_item_shield_armor       = dplmc_slot_item_body_armor
+
+##diplomacy start+ slots redefined, re-use for rubik "auto buy food"
+dplmc_slot_item_food_portion       = dplmc_slot_item_leg_armor
+
+##New slot needed for rubik's Auto-Sell
+dplmc_slot_item_type_not_for_sell  = 71
+##diplomacy end+
   #### Autoloot improved by rubik end
 
 # These are troops slots
@@ -2051,10 +2125,47 @@ dplmc_npc_mission_nonaggression_request       = 18
 dplmc_npc_mission_persuasion                  = 19
 dplmc_slot_troop_mission_diplomacy            = 162
 dplmc_slot_troop_mission_diplomacy2           = 163
-dplmc_slot_troop_political_stance             = 164
-dplmc_slot_troop_affiliated                   = 165
+dplmc_slot_troop_political_stance             = 164 #dplmc+ deprecated, see note below
+##diplomacy start+
+#Though you may assume otherwise from the name,  dplmc_slot_troop_political_stance is
+#actually used as a temporary slot (it's overwritten every time you start a conversation
+#with your chancellor about who supports whom, and in Diplomacy 3.3.2 it isn't used
+#elsewhere).
+#   I'm giving it a new name to reflect its use, to avoid confusion.
+dplmc_slot_troop_temp_slot                    = 164 #replaces dplmc_slot_troop_political_stance
+##diplomacy end+
+dplmc_slot_troop_affiliated                   = 165 ##notes: 0 is default, 1 is asked; on newer games 3 is affiliated and 4 is betrayed
 dplmc_slot_party_mission_diplomacy            = 300
 dplmc_slot_center_taxation                    = 400
+##diplomacy start+ additional center slots
+dplmc_slot_center_ex_lord                     = 401 #The last lord (not counting those who willingly transferred it)
+dplmc_slot_center_original_lord               = 402 #The original lord
+dplmc_slot_center_last_transfer_time          = 403 #The last time it was captured
+dplmc_slot_center_last_attacked_time          = 404 #Last attempted raid or siege
+dplmc_slot_center_last_attacker               = 405 #Last lord who attempted to raid or siege
+
+dplmc_slot_village_trade_last_returned_from_market = 407#overlaps with dplmc_slot_town_trade_route_last_arrival_1
+dplmc_slot_village_trade_last_arrived_to_market = 408#overlaps with dplmc_slot_town_trade_route_last_arrival_2
+
+dplmc_slot_town_trade_route_last_arrival_1        = 407
+dplmc_slot_town_trade_route_last_arrival_2        = 408
+dplmc_slot_town_trade_route_last_arrival_3        = 409
+dplmc_slot_town_trade_route_last_arrival_4        = 410
+dplmc_slot_town_trade_route_last_arrival_5        = 411
+dplmc_slot_town_trade_route_last_arrival_6        = 412
+dplmc_slot_town_trade_route_last_arrival_7        = 413
+dplmc_slot_town_trade_route_last_arrival_8        = 414
+dplmc_slot_town_trade_route_last_arrival_9        = 415
+dplmc_slot_town_trade_route_last_arrival_10        = 416
+dplmc_slot_town_trade_route_last_arrival_11        = 417
+dplmc_slot_town_trade_route_last_arrival_12        = 418
+dplmc_slot_town_trade_route_last_arrival_13        = 419
+dplmc_slot_town_trade_route_last_arrival_14        = 420
+dplmc_slot_town_trade_route_last_arrival_15        = 421
+dplmc_slot_town_trade_route_last_arrivals_begin    = dplmc_slot_town_trade_route_last_arrival_1
+dplmc_slot_town_trade_route_last_arrivals_end      = dplmc_slot_town_trade_route_last_arrival_15 + 1
+
+##diplomacy end+
 dplmc_spt_spouse                              = 19
 dplmc_spt_gift_caravan                        = 21
 spt_messenger                                 = 8 #no prefix since its outcommented in native
@@ -2066,9 +2177,167 @@ dplmc_slot_faction_aristocracy                = 202
 dplmc_slot_faction_serfdom                    = 203 
 dplmc_slot_faction_quality                    = 204 
 dplmc_slot_faction_patrol_time                = 205
-dplmc_slot_faction_attitude                   = 206
+##nested diplomacy start+
+#dplmc_slot_faction_attitude                   = 206 #DEPRECATED - Not used anywhere in Diplomacy 3.3.2
+##nested diplomacy end+
 dplmc_slot_faction_attitude_begin             = 160
 ##diplomacy end 
+##diplomacy start+ add faction slots for additional policies
+dplmc_slot_faction_mercantilism               = 206 # + mercantilism / - free trade
+
+#For $g_dplmc_terrain_advantage
+DPLMC_TERRAIN_ADVANTAGE_DISABLE     =  -1
+DPLMC_TERRAIN_ADVANTAGE_ENABLE      =  0   #So I don't have to keep track of whether it is enabled or disabled by default
+
+#For $g_dplmc_lord_recycling
+DPLMC_LORD_RECYCLING_DISABLE           = -1
+DPLMC_LORD_RECYCLING_ENABLE            =  0
+DPLMC_LORD_RECYCLING_FREQUENT          =  1
+
+#For $g_dplmc_ai_changes
+DPLMC_AI_CHANGES_DISABLE        =  -1
+DPLMC_AI_CHANGES_LOW            =   0
+DPLMC_AI_CHANGES_MEDIUM         =   1
+DPLMC_AI_CHANGES_HIGH           =   2
+# Low:
+#  - Center points for fief allocation are calculated (villages 1 / castles 2 / towns 3)
+#    instead of (villages 1 / castles 1 / towns 2).
+#  - For qst_rescue_prisoner and qst_offer_gift, the relatives that can be a target of the
+#    quest have been extended to include uncles and aunts and in-laws.
+#  - Alterations to script_calculate_troop_score_for_center (these changes currently are
+#    only relevant during claimant quests).
+#  - When picking a new faction, lords are more likely to return to their original faction
+#    (except when that's the faction they're being exiled from), if the ordinary conditions
+#    for rejoining are met.  A lord's decision may also be influenced by his relations with
+#    other lords in the various factions, instead of just his relations with the faction
+#    leaders.
+# Medium:
+#  - Some changes for lord relation gains/losses when fiefs are allocated.
+#  - Kings overrule lords slightly less frequently on faction issues.
+#  - In deciding who to support for a fief, minor parameter changes for certain personalities.
+#    Some lords will still give priority to fiefless lords or to the lord who conquered the
+#    center if they have a slightly negative relation (normally the cutoff is 0 for all
+#    personalities).
+#  - When a lord can't find any good candidates for a fief under the normal rules,
+#    instead of automatically supporting himself he uses a weighted scoring scheme.
+#  - In various places where "average renown * 3/2" appears, an alternate calculation is
+#    sometimes used.
+# High:
+#  - The "renown factor" when an NPC lord or the player courts and NPC lady is adjusted by
+#    the prestige of the lady's guardian.
+
+#For $g_dplmc_gold_changes
+DPLMC_GOLD_CHANGES_DISABLE = -1
+DPLMC_GOLD_CHANGES_LOW     =  0
+DPLMC_GOLD_CHANGES_MEDIUM  =  1
+DPLMC_GOLD_CHANGES_HIGH    =  2
+#
+#Mercantilism
+# - Your caravans generate more revenue for your towns, but your benefit
+#   from the caravans of other kingdoms is diminished.
+# - Trade within the kingdom is made more efficient, while imports are
+#   discouraged.
+#
+#Low:
+# - Caravan trade benefits both the source and the destination
+# - When the player surrenders, there is a chance his personal equipment
+#   will not be looted, based on who accepted the surrender and the difficulty
+#   setting.  (This is meant to address a gameplay issue.  In the first 700
+#   days or so, there is no possible benefit to surrendering rather than
+#   fighting to the last man.)  Also, a bug that made it possible for
+#   books etc. to be looted was corrected.
+# - AI caravans take into consideration distance when choosing their next
+#   destination and will be slightly more like to visit their own faction.
+#   This strategy is mixed with the Native one, so the trade pattern will
+#   differ but not wildly.
+# - Scale town merchant gold by prosperity (up to a maximum 40% change).
+# - Food prices increase in towns that have been under siege for at least
+#   48 hours.
+# - In towns the trade penalty script has been tweaked to make it more
+#   efficient to sell goods to merchants specializing in them.
+#
+#Medium:
+# - Food consumption increases in towns as prosperity increases.
+#   Consumption also increases with garrison sizes.
+# - Lords' looting skill affects how much gold they take from the player
+#   when they defeat him.
+# - Lords' leadership skill modifies their troop wage costs the same way
+#   it does for the player.
+# - The player can lose gold when his fiefs are looted, like lords.
+# - The same way that lord party sizes increase as the player progresses,
+#   mercenary party sizes also increase to maintain their relevance.
+#   (The rate is the same as for lords: a 1.25% increase per level.)
+# - If the player has a kingdom of his own, his spouse will receive
+#   part of the bonus that ordinarily would be due a liege.  The extent
+#   of this bonus depends on the number of fiefs the players holds.
+#   This bonus is non-cumulative with the marshall bonus.
+# - Attrition is inflicted on NPC-owned centers if they can't pay wages,
+#   but only above a certain threshold.
+# - Strangers cannot acquire enterprises (enforced at 1 instead of at 0,
+#   so you have to do something).
+#
+#High:
+# - The total amount of weekly bonus gold awarded to kings in Calradia
+#   remains constant: as kings go into exile, their bonuses are divided
+#   among the remaining kings.
+# - If lord's run a personal gold surplus after party wages, the extra is
+#   divided among the lord and his garrisons budgets (each castle and town
+#   has its own pool of funds to pay for soldiers) on the basis of whether
+#   the lord is low on gold or any of his fortresses are.  (If none are low
+#   on gold, the lord takes everything, like before.)
+# - The honor loss from an offense depends in part on the player's honor
+#   at the time.  The purer the reputation, the greater the effect of a single
+#   disagrace.
+# - Raiding change: village gold lost is removed from uncollected taxes before
+#   the balance (if any) is removed from the lord.
+# - Csah for prisoners
+
+#For relatives: a standard way of generating IDs for "relatives" that are not
+#implemented in the game as troops, but nevertheless should be taken into
+#account for the purpose of script_troop_get_family_relation_to_troop
+DPLMC_VIRTUAL_RELATIVE_MULTIPLIER = -4
+DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET = -1#e.g. father for x = (DPLMC_VIRTUAL_RELATIVE_MULTIPLIER * x) + DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET
+DPLMC_VIRTUAL_RELATIVE_MOTHER_OFFSET = -2
+DPLMC_VIRTUAL_RELATIVE_SPOUSE_OFFSET = -3
+
+#For cultural terms, with "script_dplmc_store_cultural_word_reg0" :
+DPLMC_CULTURAL_TERM_WEAPON = 1#sword
+DPLMC_CULTURAL_TERM_WEAPON_PLURAL = 2#"swords"
+DPLMC_CULTURAL_TERM_USE_MY_WEAPON = 3#"swing my sword", etc.
+DPLMC_CULTURAL_TERM_KING = 4#"king"
+DPLMC_CULTURAL_TERM_KING_FEMALE = 5#"queen"
+DPLMC_CULTURAL_TERM_KING_PLURAL = 6#"kings"
+DPLMC_CULTURAL_TERM_LORD = 7#"lord"
+DPLMC_CULTURAL_TERM_LORD_PLURAL = 8#"lords"
+DPLMC_CULTURAL_TERM_SWINEHERD = 9
+DPLMC_CULTURAL_TERM_TAVERNWINE = 10#"wine" (used in tavern talk)
+
+## Possible return values from "script_dplmc_get_troop_standing_in_faction"
+DPLMC_FACTION_STANDING_LEADER = 60
+DPLMC_FACTION_STANDING_LEADER_SPOUSE = 50
+DPLMC_FACTION_STANDING_MARSHALL = 40
+DPLMC_FACTION_STANDING_LORD = 30
+DPLMC_FACTION_STANDING_DEPENDENT = 20
+DPLMC_FACTION_STANDING_MEMBER = 10#includes mercenaries 
+DPLMC_FACTION_STANDING_PETITIONER = 5
+DPLMC_FACTION_STANDING_UNAFFILIATED = 0
+
+
+## VERSION NUMBERS FOR TRACKING NEEDED CHANGES
+#Version 0: Diplomacy 3.3.2 and prior, and all Diplomacy 3.3.2+ versions released before 2011-06-06
+#Version 1: The 2011-06-06 release of Diplomacy 3.3.2+
+#Version 110611: The 2011-06-11 release of Diplomacy 3.3.2+.
+#Version 110612
+#Version 110615: Correct "half-siblings"
+
+DPLMC_CURRENT_VERSION_CODE = 110615
+DPLMC_VERSION_LOW_8_BITS = 68 #Number that comes after the rest of the version code
+
+##diplomacy end+
+
+
+################################################################
+### added for TGS
 
 ### spt_gateway for gateway parties BEGIN
 spt_gateway					= 401
@@ -2078,3 +2347,133 @@ spt_gateway					= 401
 waygates_begin = "p_karindi_gate"
 waygates_end = "p_salt_mine" 
 ### WAYS parties list END
+
+### end added for TGS
+#################################################################
+
+
+## Prebattle Orders & Deployment Begin
+current_version = 88
+slot_party_pbod_mod_version           = 46  #slot_village_player_can_not_steal_cattle
+max_battle_size = 1000 #RESET if you've modded the battlesize
+#Deployment
+slot_troop_prebattle_first_round      = 37  #slot_lady_no_messages 
+slot_troop_prebattle_array            = 38  #slot_lady_last_suitor 
+slot_troop_prebattle_num_upgrade      = 52  #slot_lord_reputation_type  
+slot_troop_prebattle_preupgrade_check = 39  #slot_troop_betrothal_time   
+slot_party_prebattle_customized_deployment = 47  #slot_center_accumulated_rents  
+slot_party_prebattle_battle_size           = 48  #slot_center_accumulated_tariffs 
+slot_party_prebattle_size_in_battle        = 49  #slot_town_wealth  
+slot_party_prebattle_in_battle_count       = 50  #slot_town_prosperity
+#Troop slots--for soldiers (non-heros, non-lords, non-player) only
+#Party slots--for the main party and main party backup only
+#Orders
+slot_party_prebattle_plan                  = 231 #slot_center_shipyards
+slot_party_prebattle_num_orders            = 232 #slot_center_household_gardens 
+slot_party_prebattle_order_array_begin     = 250 #slot_town_trade_good_prices_begin 
+#Party slots--for the main party only--up to 320 used in this version
+#reg()s from 6-50 used in this version (only during order presentation)
+
+#PBOD Preference Slots (used for p_main_party; available 72 - 108)
+slot_party_pref_prefs_set    = 72
+slot_party_pref_div_dehorse  = slot_town_village_product         #76
+slot_party_pref_div_no_ammo  = slot_town_rebellion_readiness     #77
+slot_party_pref_wu_lance     = slot_town_arena_melee_mission_tpl #78
+slot_party_pref_wu_harcher   = slot_town_arena_torny_mission_tpl #79
+slot_party_pref_wu_spear     = slot_town_arena_melee_1_num_teams #80
+slot_party_pref_dmg_tweaks   = slot_town_arena_melee_1_team_size #81
+slot_party_pref_spear_brace  = slot_town_arena_melee_2_num_teams #82
+slot_party_pref_formations   = slot_town_arena_melee_2_team_size #83
+slot_party_pref_bodyguard    = slot_town_arena_melee_3_num_teams #84
+slot_party_pref_bc_continue  = slot_town_arena_melee_3_team_size #85
+slot_party_pref_bc_charge_ko = slot_town_arena_melee_cur_tier    #86
+
+slot_party_gk_order          = 108
+slot_party_gk_order_hold_over_there = slot_party_gk_order #for party #2 at the moment
+
+#Caba'drin Orders & Weapon Fix
+skirmish_min_distance = 1500 #Min distance you wish maintained, in cm. Where agent will retreat
+skirmish_max_distance = 2500 #Max distance to maintain, in cm. Where agent will stop retreating
+
+slot_agent_lance         = 26
+slot_agent_horsebow      = 27
+slot_agent_spear         = 28
+slot_agent_new_division  = 29
+slot_agent_horse         = 30
+slot_agent_horse_rider   = 31
+slot_agent_volley_fire   = 32
+slot_agent_spearwall     = 33
+slot_agent_player_braced = 34
+
+ranged    = 0
+onehand   = 1
+twohands  = 2
+polearm   = 3
+shield    = 4
+noshield  = 5
+free      = 6 #shield
+clear     = -1
+begin     = 1
+end       = 0
+
+slot_team_d0_order_weapon     = 149 #plus 8 more for the other divisions
+slot_team_d0_order_shield     = 158 #plus 8 more for the other divisions
+slot_team_d0_order_skirmish   = 167 #plus 8 more for the other divisions
+slot_team_d0_order_volley     = 176 #plus 8 more for the other divisions
+slot_team_d0_order_sp_brace   = 185 #plus 8 more for the other divisions
+
+from header_triggers import *
+k_order_7 = key_f7
+k_order_8 = key_f8
+k_order_9 = key_f9
+
+###################################################################################
+# AutoLoot: Modified Constants
+# Most of these are slot definitions, make sure they do not clash with your mod's other slot usage
+###################################################################################
+# This is an item slot
+# slot_item_difficulty = 5
+
+# # Autoloot improved by rubik begin
+# slot_item_weight                  = 6
+
+# slot_item_cant_on_horseback       = 10
+# slot_item_type_not_for_sell       = 11
+# slot_item_modifier_multiplier     = 12
+
+slot_item_needs_two_hands	= 41
+slot_item_length	        = 42
+slot_item_speed	            = 43
+slot_item_thrust_damage	= 44
+slot_item_swing_damage	= 45
+slot_item_couchable     = 46
+slot_item_pike          = 47
+
+slot_item_head_armor	= slot_item_needs_two_hands
+slot_item_body_armor	= slot_item_thrust_damage
+slot_item_leg_armor	    = slot_item_swing_damage
+
+slot_item_horse_speed	= slot_item_needs_two_hands
+slot_item_horse_armor	= slot_item_thrust_damage
+slot_item_horse_charge	= slot_item_swing_damage
+# # Autoloot end
+keys = [key_0, key_1, key_2, key_3, key_4, key_5, key_6, key_7, key_8, key_9, key_a, key_b, key_c, key_d, key_e, key_f, key_g, key_h, key_i, key_j, key_k, key_l, key_m, key_n, key_o, key_p, key_q, key_r, key_s, key_t, key_u, key_v, key_w, key_x, key_y, key_z, key_numpad_0, key_numpad_1, key_numpad_2, key_numpad_3, key_numpad_4, key_numpad_5, key_numpad_6, key_numpad_7, key_numpad_8, key_numpad_9, key_num_lock, key_numpad_slash, key_numpad_multiply, key_numpad_minus, key_numpad_plus, key_numpad_enter, key_numpad_period, key_insert, key_delete, key_home, key_end, key_page_up, key_page_down, key_up, key_down, key_left, key_right, key_f1, key_f2, key_f3, key_f4, key_f5, key_f6, key_f7, key_f8, key_f9, key_f10, key_f11, key_f12, key_space, key_escape, key_enter, key_tab, key_back_space, key_open_braces, key_close_braces, key_comma, key_period, key_slash, key_back_slash, key_equals, key_minus, key_semicolon, key_apostrophe, key_tilde, key_caps_lock, key_left_shift, key_right_shift, key_left_control, key_right_control, key_left_alt, key_right_alt]
+
+## Prebattle Orders & Deployment End
+
+# modmerger_start version=201 type=1
+try:
+    from util_common import logger
+    from modmerger_options import mods_active
+    modcomp_name = "constants"
+    for mod_name in mods_active:
+        try:
+            logger.info("Importing constants from mod \"%s\"..."%(mod_name))
+            code = "from %s_constants import *" % mod_name
+            exec code
+        except ImportError:
+            errstring = "Component \"%s\" not found for mod \"%s\"." % (modcomp_name, mod_name)
+            logger.debug(errstring)
+except:
+    raise
+# modmerger_end

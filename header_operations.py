@@ -1336,6 +1336,10 @@ lhs_operations = [try_for_range,
                   troop_get_xp,
                   troop_get_class,
                   troop_inventory_slot_get_item_amount,
+##diplomacy start+ Imported two lines from CC...
+                  troop_inventory_slot_set_item_amount, ## CC
+                  troop_inventory_slot_get_item_max_amount, ## CC
+##diplomacy end+
                   troop_get_inventory_capacity,
                   troop_get_inventory_slot,
                   troop_get_inventory_slot_modifier,

@@ -991,7 +991,7 @@ particle_systems = [
     ),
 
 ###########################################################    
-########### New magic effects for Wheel of Time ###########
+########### New magic effects for TGS ###########
 ##########################################################
     ("massive_fire", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_size|psf_randomize_rotation, "prt_mesh_fire_1",
      50, 2.0, 0.0, -1.3, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
@@ -1343,5 +1343,6 @@ particle_systems = [
     ),
 
 
-### end new effects    
+### end new effects for TGS
+    
 ]

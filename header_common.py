@@ -54,12 +54,13 @@ multiplayer_event_open_game_rules                             = 45
 multiplayer_event_offer_duel                                  = 46
 multiplayer_event_admin_set_disallow_ranged_weapons           = 47
 
-# New Events (Client) added for wheel of time
+# New Events (Client) added for TGS
 multiplayer_event_sound_made_by_player           = 48    # 3: <sound>
 multiplayer_event_request_seeker_info            = 49    # 3: <seeker_no>
 multiplayer_event_send_seeker_info_to_server     = 120   # 3: <seeker_no> 4: <active_seeker_delta> 5: <slot_on_off> 6: <seeker_target>
 multiplayer_event_send_agent_slot_info_to_server = 121   # 3: <slot_type> (1 = agent) 4: <agent_id> 5: <slot_id> 6: <slot_value>
 multiplayer_event_send_one_power_use_to_server   = 122   # 3: <active_channeling_weave>
+
 
 #server events
 multiplayer_event_return_max_num_players                      = 50
@@ -126,7 +127,7 @@ multiplayer_event_cancel_duel                                 = 110
 multiplayer_event_show_server_message                         = 111
 multiplayer_event_return_disallow_ranged_weapons              = 112
 
-# New Events (Server) added for wheel of time
+# New Events (Server) added for TGS
 multiplayer_event_sound_at_player                = 113   # 3: <sound> 4: <player>
 multiplayer_event_send_seeker_info_to_player     = 114   # 3: <number_active> 4: <seeker_no> 5: <slot_on_off> 6: <seeker_target>
 multiplayer_event_send_slot_info_to_player       = 115   # 3: <slot_type> (1 = agent) 4: <agent_id> 5: <slot_id> 6: <slot_value>

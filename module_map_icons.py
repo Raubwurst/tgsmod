@@ -66,8 +66,9 @@ map_icons = [
   ("mule",0,"icon_mule", 0.2,snd_footstep_grass, 0.15, 0.173, 0),
   ("cattle",0,"icon_cow", 0.2,snd_footstep_grass, 0.15, 0.173, 0),
   ("training_ground",mcn_no_shadow,"training", 0.35,0),
-    # added for wheel of time
+      # added for TGS
   ("waygate",mcn_no_shadow,"waygate_map_icon", 0.35,0),
+    # end added for TGS
 
   ("bridge_a",mcn_no_shadow,"map_river_bridge_a", 1.27,0),
   ("bridge_b",mcn_no_shadow,"map_river_bridge_b", 0.7,0),
@@ -335,7 +336,7 @@ map_icons = [
   #end
   
   #custom banners
-  ("banner_208",0,"map_flag_f01", banner_scale,0), #166 if only 6 Wheel of Time Factions
+  ("banner_208",0,"map_flag_f01", banner_scale,0), #166 if only 6 TGS Factions
   ("banner_209",0,"map_flag_f02", banner_scale,0),
   ("banner_210",0,"map_flag_f03", banner_scale,0),
   ("banner_211",0,"map_flag_f04", banner_scale,0),
@@ -354,11 +355,10 @@ map_icons = [
   ("map_flag_kingdom_d",0,"map_flag_kingdom_d", banner_scale,0),
   ("map_flag_kingdom_e",0,"map_flag_kingdom_e", banner_scale,0),
   ("map_flag_kingdom_f",0,"map_flag_kingdom_f", banner_scale,0),
-  ("map_flag_kingdom_g",0,"map_flag_kingdom_f", banner_scale,0), #added for Wheel of Time
-  ("map_flag_kingdom_h",0,"map_flag_kingdom_f", banner_scale,0), #added for Wheel of Time
+  ("map_flag_kingdom_g",0,"map_flag_kingdom_f", banner_scale,0), #added for TGS
+  ("map_flag_kingdom_h",0,"map_flag_kingdom_f", banner_scale,0), #added for TGS
   ("banner_136",0,"map_flag_15", banner_scale,0),
   ("bandit_lair",mcn_no_shadow,"map_bandit_lair", 0.45, 0),
-  
 
   
 ]

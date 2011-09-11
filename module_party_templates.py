@@ -40,7 +40,7 @@ party_templates = [
 ##  ("vaegir_nobleman","Vaegir Nobleman",icon_vaegir_knight|carries_goods(10)|pf_quest_party,0,fac_commoners,merchant_personality,[(trp_nobleman,1,1),(trp_vaegir_knight,2,6),(trp_vaegir_horseman,4,12)]),
 ##  ("swadian_nobleman","Swadian Nobleman",icon_gray_knight|carries_goods(10)|pf_quest_party,0,fac_commoners,merchant_personality,[(trp_nobleman,1,1),(trp_swadian_knight,2,6),(trp_swadian_man_at_arms,4,12)]),
 # Ryan BEGIN
-  # edited for wheel of time
+  # edited for TGS
   ("looters","Bandit Rabble",icon_axeman|carries_goods(8),0,fac_outlaws,bandit_personality,[(trp_looter,15,125), (trp_arad_doman_rabble, 5, 30), (trp_tarabon_rabble, 5, 50), (trp_forest_bandit, 5, 25)]), #Looters
 # Ryan END
   ("manhunters","White Cloaks",icon_gray_knight,0,fac_manhunters,soldier_personality,[(trp_whitecloak_swordsman,10,30), (trp_whitecloak_bowman, 10,30), (trp_whitecloak_lancer, 8,24)]),
@@ -55,7 +55,7 @@ party_templates = [
   ("sea_raiders","Coastal Raiders",icon_axeman|carries_goods(2),0,fac_outlaws,wot_bandit_personality,[(trp_sea_raider,10,50), (trp_tear_recruit,10,25),(trp_altara_dueler,10,25), (trp_altara_knife_thrower, 10, 25), (trp_tarabon_bowman, 10, 25), (trp_illian_militia, 10, 25)]),
   
   ("trollocs","Marauding Trollocs",icon_axeman|carries_goods(2),0,fac_trollocs,wot_trolloc_personality,[(trp_trolloc_grunt_bandit,20,90), (trp_trolloc_hewer,15,40),(trp_trolloc_stalker,15,40),(trp_myrddraal,1,3)]),
-  # end wheel of time edit
+  # end edited for TGS
   
   ("deserters","Deserters",icon_vaegir_knight|carries_goods(3),0,fac_deserters,bandit_personality,[]),
     
@@ -100,7 +100,7 @@ party_templates = [
   # med-modernised templates are generally includes 5-10 troops in total, 
   # high-modernised templates are generally includes 3-5 troops in total
 
-  # edited for wheel of time
+  # edited for TGS
   ("kingdom_1_reinforcements_a", "{!}kingdom_1_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_ashaman_soldier,3,6),(trp_ashaman_dedicated,2,4),(trp_ashaman,2,3),(trp_ashaman_veteran,1,2)]),
   ("kingdom_1_reinforcements_b", "{!}kingdom_1_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_legion_recruit_army,5,10),(trp_legion_infantry,5,10),(trp_legion_heavy_crossbowman,4,8),(trp_legion_lancer,4,8),(trp_legion_bannerman,2,4),(trp_legion_captain,2,4)]),
   ("kingdom_1_reinforcements_c", "{!}kingdom_1_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_red_hand_recruit,5,10),(trp_red_hand_pikeman,3,6),(trp_red_hand_crossbowman,4,8),(trp_red_hand_man_at_arms,4,8),(trp_red_hand_lancer,2,4),(trp_red_hand_skirmisher,3,6)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
@@ -155,7 +155,7 @@ party_templates = [
   ("kingdom_6_reinforcements_g", "{!}kingdom_6_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_warrior,10,15),(trp_aiel_brute,5,10),(trp_brother_of_the_eagle,3,6),(trp_brotherless,3,6)]),
   ("kingdom_6_reinforcements_h", "{!}kingdom_6_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_warrior,10,15),(trp_aiel_grappler,5,10),(trp_black_eye,3,6),(trp_true_blood,3,6)]),
 
-  #new for wheel of time
+  #new for TGS
 
   ("kingdom_7_reinforcements_a", "{!}kingdom_7_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_suldam,3,5),(trp_der_suldam,2,4)]),
   ("kingdom_7_reinforcements_b", "{!}kingdom_7_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_seanchan_armsman,15,20),(trp_seanchan_swordsman,5,10),(trp_seanchan_deathwatch_guard,2,4),(trp_seanchan_marksman,4,8),(trp_seanchan_scout,4,8),(trp_seanchan_lancer,3,6)]),
@@ -175,7 +175,7 @@ party_templates = [
   ("kingdom_8_reinforcements_g", "{!}kingdom_8_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_darkfriend_initiate,15,25),(trp_darkfriend_murderer,6,10),(trp_darkfriend_assassin,4,8),(trp_darkfriend_ambusher,6,10),(trp_darkfriend_leader,4,8),(trp_darkfriend_marksman,8,14)]),
   ("kingdom_8_reinforcements_h", "{!}kingdom_8_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_darkfriend_initiate,15,25),(trp_darkfriend_murderer,6,10),(trp_darkfriend_assassin,4,8),(trp_darkfriend_ambusher,6,10),(trp_darkfriend_leader,4,8),(trp_darkfriend_marksman,8,14)]),
 
-  #end wheel of time edit
+  #end edited for TGS
   
 ##  ("kingdom_1_reinforcements_a", "kingdom_1_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_swadian_footman,3,7),(trp_swadian_skirmisher,5,10),(trp_swadian_militia,11,26)]),
 ##  ("kingdom_1_reinforcements_b", "kingdom_1_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_swadian_man_at_arms,5,10),(trp_swadian_infantry,5,10),(trp_swadian_crossbowman,3,8)]),
@@ -199,14 +199,14 @@ party_templates = [
 
 
 
-  # edited for wheel of time
+  # edited for TGS
   ("steppe_bandit_lair" ,"Dragonsworn Bandit Lair",icon_bandit_lair|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_arad_doman_rabble, 10, 30), (trp_tarabon_rabble, 10, 30), (trp_forest_bandit, 10, 20), (trp_tarabon_scout, 10, 20), (trp_mountain_bandit, 10, 20), (trp_caravan_guard, 15, 20)]),
   ("taiga_bandit_lair","Dragonsworn Bandit Lair",icon_bandit_lair|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_arad_doman_rabble, 10, 30), (trp_tarabon_rabble, 10, 30), (trp_forest_bandit, 10, 20), (trp_tarabon_scout, 10, 20), (trp_mountain_bandit, 10, 20), (trp_caravan_guard, 15, 20)]),
   ("desert_bandit_lair" ,"Aiel Renegades Lair",icon_bandit_lair|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_aiel_raider,10,45), (trp_aiel_runner, 10,45), (trp_dawn_runner, 5, 10), (trp_maiden_of_the_spear, 5, 10)]),
   ("forest_bandit_lair" ,"Forest Raiders Camp",icon_bandit_lair|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_forest_bandit,15,58), (trp_murandy_bowman, 10, 20), (trp_illian_scout, 5, 15), (trp_shienar_spearman, 5, 10), (trp_ghealdan_militia, 10, 20)]),
   ("mountain_bandit_lair" ,"Bandit Hideout",icon_bandit_lair|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_mountain_bandit,15,58), (trp_saldaea_skirmisher, 10, 20), (trp_sedai_recruit_soldier, 10, 20), (trp_murandy_maceman, 10, 20), (trp_andor_bowman, 10, 20), (trp_cairhien_light_cavalry, 10, 20)]),
   ("sea_raider_lair","Coastal Raider Landing",icon_bandit_lair|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_illian_militia,10,50), (trp_tear_recruit,10,25),(trp_altara_dueler,10,25), (trp_altara_knife_thrower, 10, 20), (trp_tarabon_bowman, 10, 20), (trp_mayene_swordsman, 5, 20)]),
-  # end wheel of time edit
+  # end edited for TGS
   ("looter_lair","Kidnappers' Hideout",icon_bandit_lair|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_looter,15,25)]),
   
   ("bandit_lair_templates_end","{!}bandit_lair_templates_end",icon_axeman|carries_goods(2)|pf_is_static,0,fac_outlaws,bandit_personality,[(trp_sea_raider,15,50)]),
