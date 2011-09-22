@@ -1746,7 +1746,11 @@ villages_begin = "p_village_1"
 
 towns_end = castles_begin
 castles_end = villages_begin
-villages_end   = "p_salt_mine"
+# Edited for TGS
+#villages_end   = "p_salt_mine"
+villages_end   = "p_karindi_gate"
+# End edited for TGS
+
 
 walled_centers_begin = towns_begin
 walled_centers_end   = castles_end

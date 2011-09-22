@@ -1669,10 +1669,11 @@ triggers = [
 
 ################################################
 ################################################
+
   
 # moved for TGS (Technically this could still be a simple trigger)
 #diplomatic indices (was in simple triggers) Begin randomly generating war/peace after game days past 120 
-  (24, 0, 0, [],
+  (24, 0, 0, [(eq, 1, 0)], ## added this conditional so this trigger won't be used.
    [
    ## TGS: mat: ADDED to remove random war declarations for the first 120 days
    (store_current_hours, ":number_game_hours_passed"),
@@ -1795,6 +1796,43 @@ triggers = [
                 ],
    [
         (store_current_hours, ":number_game_hours_passed"),
+        
+        # Interfaction relations
+        
+        (store_relation, ":rel_1_2", "fac_kingdom_1", "fac_kingdom_2"),
+        (store_relation, ":rel_1_3", "fac_kingdom_1", "fac_kingdom_3"),
+        (store_relation, ":rel_1_4", "fac_kingdom_1", "fac_kingdom_4"),
+        (store_relation, ":rel_1_5", "fac_kingdom_1", "fac_kingdom_5"),
+        (store_relation, ":rel_1_6", "fac_kingdom_1", "fac_kingdom_6"),
+        (store_relation, ":rel_1_7", "fac_kingdom_1", "fac_kingdom_7"),
+        (store_relation, ":rel_1_8", "fac_kingdom_1", "fac_kingdom_8"),
+
+        (store_relation, ":rel_2_3", "fac_kingdom_2", "fac_kingdom_3"),
+        (store_relation, ":rel_2_4", "fac_kingdom_2", "fac_kingdom_4"),
+        (store_relation, ":rel_2_5", "fac_kingdom_2", "fac_kingdom_5"),
+        (store_relation, ":rel_2_6", "fac_kingdom_2", "fac_kingdom_6"),
+        (store_relation, ":rel_2_7", "fac_kingdom_2", "fac_kingdom_7"),
+        (store_relation, ":rel_2_8", "fac_kingdom_2", "fac_kingdom_8"),
+
+        (store_relation, ":rel_3_4", "fac_kingdom_3", "fac_kingdom_4"),
+        (store_relation, ":rel_3_5", "fac_kingdom_3", "fac_kingdom_5"),
+        (store_relation, ":rel_3_6", "fac_kingdom_3", "fac_kingdom_6"),
+        (store_relation, ":rel_3_7", "fac_kingdom_3", "fac_kingdom_7"),
+        (store_relation, ":rel_3_8", "fac_kingdom_3", "fac_kingdom_8"),
+
+        (store_relation, ":rel_4_5", "fac_kingdom_4", "fac_kingdom_5"),
+        (store_relation, ":rel_4_6", "fac_kingdom_4", "fac_kingdom_6"),
+        (store_relation, ":rel_4_7", "fac_kingdom_4", "fac_kingdom_7"),
+        (store_relation, ":rel_4_8", "fac_kingdom_4", "fac_kingdom_8"),
+
+        (store_relation, ":rel_5_6", "fac_kingdom_5", "fac_kingdom_6"),
+        (store_relation, ":rel_5_7", "fac_kingdom_5", "fac_kingdom_7"),
+        (store_relation, ":rel_5_8", "fac_kingdom_5", "fac_kingdom_8"),
+
+        (store_relation, ":rel_6_7", "fac_kingdom_6", "fac_kingdom_7"),
+        (store_relation, ":rel_6_8", "fac_kingdom_6", "fac_kingdom_8"),
+
+        (store_relation, ":rel_7_8", "fac_kingdom_7", "fac_kingdom_8"),        
 
       #Set diplomacy for the first 30 days
     
@@ -1809,41 +1847,188 @@ triggers = [
         
         (try_begin),
         (is_between, ":number_game_hours_passed", 0, 24*30-6),
+        
             # Legion of the Dragon
-            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0),  # (-1 = war, 0 = neutral, 1 = peace)
-            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_8", 0),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_1_2", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_2", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_3", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_7", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_7", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms", "fac_kingdom_1", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Coalition
-            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+        
+            #war
+            (try_begin),
+            (gt, ":rel_2_3", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war    
+            (try_begin),
+            (gt, ":rel_2_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Alliance
-            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_3_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_3_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Borderlands
-            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", -0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+        
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_4_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
+            (try_end),
+        
             # White Tower
-            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Aiel Nation
-            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_6_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_6_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Seanchan
-            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_7_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
+            (try_end),
 
       #Set diplomacy for days 30 though 45
     
@@ -1858,41 +2043,188 @@ triggers = [
 
         (else_try),
         (is_between, ":number_game_hours_passed", 24*30-6, 24*45-6),
+
             # Legion of the Dragon
-            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0),  # (-1 = war, 0 = neutral, 1 = peace)
-            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand took Tear
-            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_1_2", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_2", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_7", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_7", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Coalition
-            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+        
+            #war
+            (try_begin),
+            (gt, ":rel_2_3", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war    
+            (try_begin),
+            (gt, ":rel_2_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Alliance
-            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_3_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_3_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Borderlands
-            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+        
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_4_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
+            (try_end),
+        
             # White Tower
-            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Aiel Nation
-            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_6_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_6_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Seanchan
-            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_7_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
+            (try_end),
 
       #Set diplomacy for days 45 though 60
     
@@ -1907,41 +2239,188 @@ triggers = [
 
         (else_try),
         (is_between, ":number_game_hours_passed", 24*45-6, 24*60-6),
+
             # Legion of the Dragon
-            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0),  # (-1 = war, 0 = neutral, 1 = peace)
-            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand took Tear
-            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
-            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_8", 0),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_1_2", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_2", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_7", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_7", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Coalition
-            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+        
+            #war
+            (try_begin),
+            (gt, ":rel_2_3", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war    
+            (try_begin),
+            (gt, ":rel_2_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Alliance
-            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_3_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
+            (try_end),        
+
+            #war        
+            (try_begin),
+            (gt, ":rel_3_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Borderlands
-            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+        
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_4_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
+            (try_end),
+        
             # White Tower
-            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Aiel Nation
-            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_6_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_6_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Seanchan
-            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_7_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
+            (try_end),
 
       #Set diplomacy for days 60 though 75
     
@@ -1956,41 +2435,188 @@ triggers = [
  
         (else_try),
         (is_between, ":number_game_hours_passed", 24*60-6, 24*75-6),
+
             # Legion of the Dragon
-            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand took Cairhien / Caemlyn
-            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand took Tear
-            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
-            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0), # Beginning hostilities with Seanchan
-            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_2", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war
+            (try_begin),
+            (gt, ":rel_1_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Coalition
-            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0), # getting wary of Aiel
-            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 1),
+        
+            #war
+            (try_begin),
+            (gt, ":rel_2_3", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war    
+            (try_begin),
+            (gt, ":rel_2_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Alliance
-            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0), # getting warry of Aiel
-            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_3_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
+            (try_end),        
+
+            #war        
+            (try_begin),
+            (gt, ":rel_3_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Borderlands
-            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
-            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+        
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_4_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
+            (try_end),
+        
             # White Tower
-            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_7", 0), # getting wary of Seanchan
-            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Aiel Nation
-            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0), # Aiel beginning hostilities with Seanchan
-            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_6_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_6_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Seanchan
-            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_7_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
+            (try_end),
         
       #Set diplomacy for days 75 though 100
     
@@ -2005,41 +2631,188 @@ triggers = [
  
         (else_try),
         (is_between, ":number_game_hours_passed", 24*75-6, 24*100-6),
+
             # Legion of the Dragon
-            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand consolidating power
-            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand consolidating power
-            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
-            (set_relation,"fac_kingdom_1", "fac_kingdom_7", -1), # Rand at war with Seanchan
-            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_2", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_5", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war
+            (try_begin),
+            (gt, ":rel_1_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war
+            (try_begin),
+            (gt, ":rel_1_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Coalition
-            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+        
+            #war
+            (try_begin),
+            (gt, ":rel_2_3", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war    
+            (try_begin),
+            (gt, ":rel_2_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Alliance
-            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_7", -1),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_3_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
+            (try_end),        
+
+            #war        
+            (try_begin),
+            (gt, ":rel_3_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Borderlands
-            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
-            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+        
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_4_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
+            (try_end),
+        
             # White Tower
-            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_7", -1), # getting wary of Seanchan
-            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Aiel Nation
-            (set_relation,"fac_kingdom_6", "fac_kingdom_7", -1), # Aiel beginning war with Seanchan
-            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_6_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_6_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Seanchan
-            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_7_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
+            (try_end),
 
       #Set diplomacy for days 100 though 118
     
@@ -2054,41 +2827,188 @@ triggers = [
  
         (else_try),
         (is_between, ":number_game_hours_passed", 24*100-6, 24*118-6),
+
             # Legion of the Dragon
-            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand consolidating power
-            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand consolidating power
-            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
-            (set_relation,"fac_kingdom_1", "fac_kingdom_7", -1), # Rand seeking peace with Seanchan
-            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_2", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_5", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war
+            (try_begin),
+            (gt, ":rel_1_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Coalition
-            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_7", 0), # Seeking peace with Seanchan
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_3", 1),
+            (try_end),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_2_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Alliance
-            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_7", 0), # Seeking peace with Seanchan
-            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_3_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
+            (try_end),        
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_7", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_8", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Borderlands
-            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
-            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+        
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_4_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
+            (try_end),
+        
             # White Tower
-            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_7", -1), # getting wary of Seanchan
-            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Aiel Nation
-            (set_relation,"fac_kingdom_6", "fac_kingdom_7", -1), # Aiel seeking peace with Seanchan
-            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_6_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_6_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Seanchan
-            (set_relation,"fac_kingdom_7", "fac_kingdom_8", 0),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_7_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
+            (try_end),
 
       #Set diplomacy for days 118 though 120
     
@@ -2103,41 +3023,188 @@ triggers = [
  
         (else_try),
         (is_between, ":number_game_hours_passed", 24*118-6, 24*120-6),
+
             # Legion of the Dragon
-            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand consolidating power
-            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand consolidating power
-            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
-            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0), # Rand seeking peace with Seanchan
-            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1), # Full war with Shadowspawn
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_2", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_5", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war
+            (try_begin),
+            (gt, ":rel_1_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Coalition
-            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_7", 0), # Seeking peace with Seanchan
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", 0),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_3", 1),
+            (try_end),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_2_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_7", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Alliance
-            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_7", 0), # Seeking peace with Seanchan
-            (set_relation,"fac_kingdom_3", "fac_kingdom_8", 0),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_3_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
+            (try_end),        
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_7", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_8", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Borderlands
-            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
-            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+        
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_4_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
+            (try_end),
+        
             # White Tower
-            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_7", -1), # getting wary of Seanchan
-            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Aiel Nation
-            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0), # Aiel seeking peace with Seanchan
-            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_6_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_6_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Seanchan
-            (set_relation,"fac_kingdom_7", "fac_kingdom_8", -1), # Seanchan meets Shadowspawn for the first time
+
+            #war        
+            (try_begin),
+            (gt, ":rel_7_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_7", "fac_kingdom_8", 1),
+            (try_end),
 
       #Set diplomacy for days 120 though 170
     
@@ -2145,41 +3212,189 @@ triggers = [
  
         (else_try),
         (is_between, ":number_game_hours_passed", 24*120-6, 24*170-6),
+
             # Legion of the Dragon
-            (set_relation,"fac_kingdom_1", "fac_kingdom_2", 0), # Rand consolidating power
-            (set_relation,"fac_kingdom_1", "fac_kingdom_3", 0), # Rand consolidating power
-            (set_relation,"fac_kingdom_1", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_1", "fac_kingdom_6", 1), # Rand is Car'a'carn
-            (set_relation,"fac_kingdom_1", "fac_kingdom_7", 0), # Rand seeking peace with Seanchan
-            (set_relation,"fac_kingdom_1", "fac_kingdom_8", -1), # Full war with Shadowspawn
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_2", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_5", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_1_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_1_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war
+            (try_begin),
+            (gt, ":rel_1_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Coalition
-            (set_relation,"fac_kingdom_2", "fac_kingdom_3", -1),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_2", "fac_kingdom_7", 0), # Seeking peace with Seanchan
-            (set_relation,"fac_kingdom_2", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_3", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_3", 1),
+            (try_end),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_2_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_2_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_2_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war
+            (try_begin),
+            (gt, ":rel_2_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Southlander Alliance
-            (set_relation,"fac_kingdom_3", "fac_kingdom_4", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_5", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_3", "fac_kingdom_7", 0), # Seeking peace with Seanchan
-            (set_relation,"fac_kingdom_3", "fac_kingdom_8", -1),
+        
+            #peace
+            (try_begin),
+            (lt, ":rel_3_4", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
+            (try_end),
+
+            #peace
+            (try_begin),
+            (lt, ":rel_3_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
+            (try_end),        
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_3_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war
+            (try_begin),
+            (gt, ":rel_3_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Borderlands
-            (set_relation,"fac_kingdom_4", "fac_kingdom_5", 1),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_6", 0), # not fighting Aiel
-            (set_relation,"fac_kingdom_4", "fac_kingdom_7", 0),
-            (set_relation,"fac_kingdom_4", "fac_kingdom_8", -1),
+        
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_5", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
+            (try_end),
+
+            #peace        
+            (try_begin),
+            (lt, ":rel_4_6", 10),
+                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
+            (try_end),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_4_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_4_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
+            (try_end),
+        
             # White Tower
-            (set_relation,"fac_kingdom_5", "fac_kingdom_6", 0),
-            (set_relation,"fac_kingdom_5", "fac_kingdom_7", -1), # getting wary of Seanchan
-            (set_relation,"fac_kingdom_5", "fac_kingdom_8", -1),
+        
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_5_6", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_7", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_5_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Aiel Nation
-            (set_relation,"fac_kingdom_6", "fac_kingdom_7", 0), # Aiel seeking peace with Seanchan
-            (set_relation,"fac_kingdom_6", "fac_kingdom_8", -1),
+
+            #neutral        
+            (try_begin),
+            (neg|is_between, ":rel_6_7", -5, 6),
+                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
+            (try_end),
+
+            #war        
+            (try_begin),
+            (gt, ":rel_6_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
+            (try_end),
+        
             # Seanchan
-            (set_relation,"fac_kingdom_7", "fac_kingdom_8", -1), # Seanchan meets Shadowspawn for the first time
+
+            #war        
+            (try_begin),
+            (gt, ":rel_7_8", -10),
+                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_7", "fac_kingdom_8", 1),
+            (try_end),
+        
         (try_end),
         
     ]),  

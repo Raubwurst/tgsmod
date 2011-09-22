@@ -810,39 +810,50 @@ simple_triggers = [
     (assign, "$g_half_payment_checkpoint", 0),
     ]),
 
-#diplomatic indices
+#diplomatic indices (modified for TGS)
   (24,
    [
-   (call_script, "script_randomly_start_war_peace_new", 1),
 
+   ## TGS: mat: ADDED to remove random war declarations for the first 170 days
+   (store_current_hours, ":number_game_hours_passed"),
    (try_begin),
-		(store_random_in_range, ":acting_village", villages_begin, villages_end),
-		(store_random_in_range, ":target_village", villages_begin, villages_end),
-		(store_faction_of_party, ":acting_faction", ":acting_village"),
-		(store_faction_of_party, ":target_faction", ":target_village"), #target faction receives the provocation
-		(neq, ":acting_village", ":target_village"),
-		(neq, ":acting_faction", ":target_faction"),
+   (gt, ":number_game_hours_passed", 24*170),
+   ## TGS: mat: END
+   
+       (call_script, "script_randomly_start_war_peace_new", 1),
 
-		(call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":target_faction", ":acting_faction"),
-		(eq, reg0, 0),
+       (try_begin),
+    		(store_random_in_range, ":acting_village", villages_begin, villages_end),
+    		(store_random_in_range, ":target_village", villages_begin, villages_end),
+    		(store_faction_of_party, ":acting_faction", ":acting_village"),
+    		(store_faction_of_party, ":target_faction", ":target_village"), #target faction receives the provocation
+    		(neq, ":acting_village", ":target_village"),
+    		(neq, ":acting_faction", ":target_faction"),
 
-		(try_begin),
-			(party_slot_eq, ":acting_village", slot_center_original_faction, ":target_faction"),
+    		(call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":target_faction", ":acting_faction"),
+    		(eq, reg0, 0),
 
-			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
-		(else_try),
-			(party_slot_eq, ":acting_village", slot_center_ex_faction, ":target_faction"),
+    		(try_begin),
+    			(party_slot_eq, ":acting_village", slot_center_original_faction, ":target_faction"),
 
-			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
+    			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
+    		(else_try),
+    			(party_slot_eq, ":acting_village", slot_center_ex_faction, ":target_faction"),
 
-		(else_try),
-			(set_fixed_point_multiplier, 1),
-			(store_distance_to_party_from_party, ":distance", ":acting_village", ":target_village"),
-			(lt, ":distance", 25),
+    			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
 
-			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", ":target_village"),
-		(try_end),
+    		(else_try),
+    			(set_fixed_point_multiplier, 1),
+    			(store_distance_to_party_from_party, ":distance", ":acting_village", ":target_village"),
+    			(lt, ":distance", 25),
+
+    			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", ":target_village"),
+            (try_end),
+       (try_end),
+
+   ## TGS: mat: BEGIN
    (try_end),
+   ## TGS: mat: END   
 
    (try_for_range, ":faction_1", kingdoms_begin, kingdoms_end),
 		(faction_slot_eq, ":faction_1", slot_faction_state, sfs_active),
