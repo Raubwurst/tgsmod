@@ -4460,25 +4460,93 @@ game_menus = [
 		  (party_stack_get_troop_id, ":leader_troop", "$g_encountered_party", 0),
 		  (ge, ":leader_troop", 1),
 		  (troop_get_slot, ":leader_troop_faction", ":leader_troop", slot_troop_original_faction),
+        ## Altered for TGS
 		  (try_begin),
 			(eq, ":leader_troop_faction", fac_kingdom_1),
-            (set_background_mesh, "mesh_pic_swad"),
-		  (else_try),
-			(eq, ":leader_troop_faction", fac_kingdom_2),
-            (set_background_mesh, "mesh_pic_vaegir"),
-		  (else_try),
-			(eq, ":leader_troop_faction", fac_kingdom_3),
-            (set_background_mesh, "mesh_pic_khergit"),
-		  (else_try),
-			(eq, ":leader_troop_faction", fac_kingdom_4),
-            (set_background_mesh, "mesh_pic_nord"),
-		  (else_try),
-			(eq, ":leader_troop_faction", fac_kingdom_5),
             (set_background_mesh, "mesh_pic_rhodock"),
 		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_2),
+            (set_background_mesh, "mesh_pic_rhodock"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_3),
+            (set_background_mesh, "mesh_pic_vaegir"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_4),
+            (set_background_mesh, "mesh_pic_swad"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_5),
+            (set_background_mesh, "mesh_pic_swad"),
+		  (else_try),
 			(eq, ":leader_troop_faction", fac_kingdom_6),
+            (set_background_mesh, "mesh_pic_rhodock"),
+          (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_7),
+            (set_background_mesh, "mesh_pic_nord"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_8),
+            (set_background_mesh, "mesh_pic_khergit"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_9),
+            (set_background_mesh, "mesh_pic_rhodock"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_10),
+            (set_background_mesh, "mesh_pic_swad"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_11),
+            (set_background_mesh, "mesh_pic_vaegir"),
+          (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_12),
             (set_background_mesh, "mesh_pic_sarranid_encounter"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_13),
+            (set_background_mesh, "mesh_pic_rhodock"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_14),
+            (set_background_mesh, "mesh_pic_vaegir"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_15),
+            (set_background_mesh, "mesh_pic_rhodock"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_16),
+            (set_background_mesh, "mesh_pic_swad"),
+          (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_17),
+            (set_background_mesh, "mesh_pic_nord"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_18),
+            (set_background_mesh, "mesh_pic_vaegir"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_19),
+            (set_background_mesh, "mesh_pic_nord"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_20),
+            (set_background_mesh, "mesh_pic_khergit"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_21),
+            (set_background_mesh, "mesh_pic_rhodock"),
+          (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_22),
+            (set_background_mesh, "mesh_pic_sarranid_encounter"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_23),
+            (set_background_mesh, "mesh_pic_khergit"),
+		  (else_try),
+			(eq, ":leader_troop_faction", fac_kingdom_24),
+            (set_background_mesh, "mesh_pic_vaegir"),
+#		  (else_try),
+#			(eq, ":leader_troop_faction", fac_kingdom_25),
+#            (set_background_mesh, "mesh_pic_sarranid_encounter"),
+#		  (else_try),
+#			(eq, ":leader_troop_faction", fac_kingdom_26),
+#            (set_background_mesh, "mesh_pic_nord"),
+#          (else_try),
+#			(eq, ":leader_troop_faction", fac_kingdom_27),
+#            (set_background_mesh, "mesh_pic_nord"),
+#		  (else_try),
+#			(eq, ":leader_troop_faction", fac_kingdom_28),
+#            (set_background_mesh, "mesh_pic_khergit"),
 		  (try_end),
+        ## End altered for TGS
         (try_end),
 		
 		## PreBattle Orders & Deployment Begin
@@ -4528,10 +4596,15 @@ game_menus = [
 		(start_presentation, "prsnt_prebattle_orders"),
       ]),
 	  
-	  
-	  ("encounter_attack_do_plan",
+## TGS: mat: Altered for ship battles / border tower battles
+      ### encounter_attack_do_plan ###
+	  ("encounter_attack_do_plan", # original
       [
         (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (neq,":terrain",rt_bridge), # Fight on land
+        ## end added for tgs
       ],
       "Enough planning. To battle!",
       [
@@ -4565,12 +4638,142 @@ game_menus = [
           (jump_to_scene, ":scene_to_use"),
         (else_try),
           (set_jump_mission,"mt_lead_charge"),
-          (call_script, "script_setup_random_scene"),
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          # added for TGS to initiate border tower battles
+          (try_for_range, ":border_tower", border_towers_begin, border_towers_end),
+              (party_get_position, pos1, "p_main_party"),
+              (party_get_position, pos2, ":border_tower"),
+              (get_distance_between_positions, ":dist", pos1, pos2),
+              (try_begin),
+              (lt, ":dist", 250),
+                  (set_jump_mission, "mt_border_tower_battle"),
+                  (jump_to_scene, "scn_shienaran_border_tower_1"),
+              (try_end),
+          (try_end),
+          # end added for TGS
         (try_end),
         (assign, "$g_next_menu", "mnu_simple_encounter"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
+
+      # new
+	  ("encounter_attack_do_plan",   # battle on the high seas
+      [
+        (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        ## end added for tgs
+      ],
+      "Enough planning. Board their ships!", # altered for sea battles
+      [
+	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+	  
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),     
+     
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+		
+		(set_party_battle_mode),
+		(try_begin),
+          (eq, "$g_encounter_type", enctype_fighting_against_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+          (eq, "$g_encounter_type", enctype_catched_during_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+          # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (try_end),
+          # end
+        (try_end),
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+
+      # new
+	  ("encounter_attack_do_plan",   # battle on the shoreline
+      [
+        (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        # added to see if party is close to land
+        (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
+        (eq, reg0, 1), # main party is near shore
+        ## end added for tgs
+      ],
+      "Enough planning. Let's bring our ships to land!", # altered for sea battles
+      [
+	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+	  
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),     
+     
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+		
+		(set_party_battle_mode),
+		(try_begin),
+          (eq, "$g_encounter_type", enctype_fighting_against_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+          (eq, "$g_encounter_type", enctype_catched_during_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+          # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (try_end),
+          # end
+        (try_end),
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+## TGS: mat: Added for Sea battles / Border Tower battles end      
 	  
 	  ("encounter_attack_clear_plan",
       [
@@ -4591,8 +4794,10 @@ game_menus = [
 		
         (jump_to_menu, "mnu_simple_encounter"),
       ]),
-	  
-	  ("encounter_attack_hold",
+
+## TGS: mat: DEBUG: added for sea battles / border tower battles
+      ### encounter_attack_hold ###
+	  ("encounter_attack_hold", # original
       [
         (eq, "$encountered_party_friendly", 0),
         (neg|troop_is_wounded, "trp_player"),
@@ -4601,6 +4806,10 @@ game_menus = [
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 1),
 		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        # added for sea battles
+        (party_get_current_terrain,":terrain","p_main_party"),
+        (neq,":terrain",rt_bridge), # fight on land
+        # end added for sea battles
       ],
       "Take the field.",
       [
@@ -4627,13 +4836,26 @@ game_menus = [
         (set_party_battle_mode),
 		
         (set_jump_mission,"mt_lead_charge"),
-        (call_script, "script_setup_random_scene"),
+        (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+        # added for TGS to initiate border tower battles
+        (try_for_range, ":border_tower", border_towers_begin, border_towers_end),
+            (party_get_position, pos1, "p_main_party"),
+            (party_get_position, pos2, ":border_tower"),
+            (get_distance_between_positions, ":dist", pos1, pos2),
+            (try_begin),
+            (lt, ":dist", 250),
+                (set_jump_mission, "mt_border_tower_battle"),
+                (jump_to_scene, "scn_shienaran_border_tower_1"),
+            (try_end),
+        (try_end),
+        # end added for TGS
         (assign, "$g_next_menu", "mnu_simple_encounter"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
-	  
-	  ("encounter_attack_follow",
+
+      # new
+	  ("encounter_attack_hold", # battle on the high seas
       [
         (eq, "$encountered_party_friendly", 0),
         (neg|troop_is_wounded, "trp_player"),
@@ -4642,6 +4864,127 @@ game_menus = [
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 1),
 		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        ## end added for tgs
+      ],
+      "Defend our ships.",
+      [
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),     
+         
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+	    (party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+		(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),		
+        
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+		
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+        (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+        (set_jump_mission,"mt_ship_battle"),
+        (try_begin),
+        (val_add,reg10,reg11),
+        (gt,reg10,30),
+          (jump_to_scene, "scn_sea_b"), # override scene
+        (else_try),
+          (jump_to_scene, "scn_sea_b"), # override scene
+        (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+
+      # new
+	  ("encounter_attack_hold", # battle on the shoreline
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+		(neq, "$g_encounter_type", enctype_fighting_against_village_raid),
+		(neq, "$g_encounter_type", enctype_catched_during_village_raid),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        # added to see if party is close to land
+        (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
+        (eq, reg0, 1), # main party is near shore
+        ## end added for tgs
+      ],
+      "Hold the shoreline.",
+      [
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),     
+         
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+	    (party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+		(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),		
+        
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+		
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+        (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+        (set_jump_mission,"mt_ship_battle"),
+        (try_begin),
+        (val_add,reg10,reg11),
+        (gt,reg10,30),
+          (jump_to_scene, "scn_sea_land"), # override scene
+        (else_try),
+          (jump_to_scene, "scn_sea_land"), # override scene
+        (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+## TGS: mat: End Added for sea battles / border tower battles
+
+## TGS: mat: DEBUG: added for sea battles / border tower battles
+      ### encounter_attack_follow ###
+	  ("encounter_attack_follow", # original
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+		(neq, "$g_encounter_type", enctype_fighting_against_village_raid),
+		(neq, "$g_encounter_type", enctype_catched_during_village_raid),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (neq,":terrain",rt_bridge), # Fight on land
+        ## end added for tgs
       ],
       "Lead your troops.",
       [
@@ -4668,20 +5011,157 @@ game_menus = [
         (set_party_battle_mode),
 		
         (set_jump_mission,"mt_lead_charge"),
-        (call_script, "script_setup_random_scene"),
+        (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+        # added for TGS to initiate border tower battles
+        (try_for_range, ":border_tower", border_towers_begin, border_towers_end),
+            (party_get_position, pos1, "p_main_party"),
+            (party_get_position, pos2, ":border_tower"),
+            (get_distance_between_positions, ":dist", pos1, pos2),
+            (try_begin),
+            (lt, ":dist", 250),
+                (set_jump_mission, "mt_border_tower_battle"),
+                (jump_to_scene, "scn_shienaran_border_tower_1"),
+            (try_end),
+        (try_end),
+        # end added for TGS
         (assign, "$g_next_menu", "mnu_simple_encounter"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
+      
+      # new
+	  ("encounter_attack_follow", # battle on the high seas
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+		(neq, "$g_encounter_type", enctype_fighting_against_village_raid),
+		(neq, "$g_encounter_type", enctype_catched_during_village_raid),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        ## end added for tgs
+      ],
+      "Lead your troops to the enemy ships.",
+      [
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),     
+         
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),		
+        
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+		
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+        (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+        (set_jump_mission,"mt_ship_battle"),
+        (try_begin),
+        (val_add,reg10,reg11),
+        (gt,reg10,30),
+          (jump_to_scene, "scn_sea_b"), # override scene
+        (else_try),
+          (jump_to_scene, "scn_sea_b"), # override scene
+        (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+
+      # new
+	  ("encounter_attack_follow", # battle on the shoreline
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+		(neq, "$g_encounter_type", enctype_fighting_against_village_raid),
+		(neq, "$g_encounter_type", enctype_catched_during_village_raid),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        # added to see if party is close to land
+        (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
+        (eq, reg0, 1), # main party is near shore
+        ## end added for tgs
+      ],
+      "Lead your troops ashore.",
+      [
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),     
+         
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),		
+        
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+		
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+        (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+        (set_jump_mission,"mt_ship_battle"),
+        (try_begin),
+        (val_add,reg10,reg11),
+        (gt,reg10,30),
+          (jump_to_scene, "scn_sea_land"), # override scene
+        (else_try),
+          (jump_to_scene, "scn_sea_land"), # override scene
+        (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+## TGS: mat: End added for ship battles / border tower battles
+     
 ## PreBattle Orders & Deployment End
-      ("encounter_attack",
+
+## TGS: mat: Changed for ship battles / border tower batttles      
+      ### encounter_attack ###
+      ("encounter_attack", # original
       [
         (eq, "$encountered_party_friendly", 0),
         (neg|troop_is_wounded, "trp_player"),
 				## PreBattle Orders & Deployment Begin
 		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
 		## PreBattle Orders & Deployment End
-      ],
+        ## added this for sea battles
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (neq,":terrain",rt_bridge),
+        ## sea battles end
+      ],    
+       
       "Charge the enemy.",
       [
         (assign, "$g_battle_result", 0),
@@ -4733,12 +5213,190 @@ game_menus = [
           (jump_to_scene, ":scene_to_use"),
         (else_try),
           (set_jump_mission,"mt_lead_charge"),
-          (call_script, "script_setup_random_scene"),
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          # added for TGS to initiate border tower battles
+          (try_for_range, ":border_tower", border_towers_begin, border_towers_end),
+              (party_get_position, pos1, "p_main_party"),
+              (party_get_position, pos2, ":border_tower"),
+              (get_distance_between_positions, ":dist", pos1, pos2),
+              (try_begin),
+              (lt, ":dist", 250),
+                  (set_jump_mission, "mt_border_tower_battle"),
+                  (jump_to_scene, "scn_shienaran_border_tower_1"),
+              (try_end),
+          (try_end),
+          # end added for TGS
         (try_end),
         (assign, "$g_next_menu", "mnu_simple_encounter"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
+
+      # new
+      ("encounter_attack", # battle on the high seas
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+				## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
+        ## added this for sea battles
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge),
+        ## sea battles end
+      ],    
+       
+      "Board the enemy.",
+      [
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),          
+        
+        (call_script, "script_calculate_renown_value"),
+		##diplomacy start+
+		(try_begin),
+			#Call this to properly set cached values for strength
+			(eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
+			(assign, ":terrain_code", dplmc_terrain_code_none),#defined in header_terrain_types.py
+			(try_begin),
+				(this_or_next|eq, "$g_encounter_type", enctype_fighting_against_village_raid),
+					(eq, "$g_encounter_type", enctype_catched_during_village_raid),
+				(assign, ":terrain_code", dplmc_terrain_code_village),#defined in header_terrain_types.py
+			(else_try),
+				(encountered_party_is_attacker),
+				(call_script, "script_dplmc_get_terrain_code_for_battle", "$g_encountered_party", "p_main_party"),
+				(assign, ":terrain_code", reg0),
+			(else_try),
+				(call_script, "script_dplmc_get_terrain_code_for_battle", "p_main_party", "$g_encountered_party"),
+				(assign, ":terrain_code", reg0),
+			(try_end),
+			(neq, ":terrain_code", dplmc_terrain_code_none),
+			(call_script, "script_dplmc_party_calculate_strength_in_terrain", "p_main_party", ":terrain_code", 0, 1),
+			(call_script, "script_dplmc_party_calculate_strength_in_terrain", "$g_encountered_party", ":terrain_code", 0, 1),
+		(try_end),
+		##diplomacy end+
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (try_begin),
+          (eq, "$g_encounter_type", enctype_fighting_against_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+          (eq, "$g_encounter_type", enctype_catched_during_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+        # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (try_end),
+        # end
+        (try_end),
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+
+      # new
+      ("encounter_attack", # battle on the shoreline
+      [
+        (eq, "$encountered_party_friendly", 0),
+        (neg|troop_is_wounded, "trp_player"),
+				## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
+        ## added this for sea battles
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge),
+        # added to see if party is close to land
+        (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
+        (eq, reg0, 1), # main party is near shore
+        ## sea battles end
+      ],    
+       
+      "Go ashore.",
+      [
+        (assign, "$g_battle_result", 0),
+        (assign, "$g_engaged_enemy", 1),
+        
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (try_begin),
+		  (eq, ":encountered_party_template", "pt_village_farmers"),
+		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
+		(try_end),          
+        
+        (call_script, "script_calculate_renown_value"),
+		##diplomacy start+
+		(try_begin),
+			#Call this to properly set cached values for strength
+			(eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
+			(assign, ":terrain_code", dplmc_terrain_code_none),#defined in header_terrain_types.py
+			(try_begin),
+				(this_or_next|eq, "$g_encounter_type", enctype_fighting_against_village_raid),
+					(eq, "$g_encounter_type", enctype_catched_during_village_raid),
+				(assign, ":terrain_code", dplmc_terrain_code_village),#defined in header_terrain_types.py
+			(else_try),
+				(encountered_party_is_attacker),
+				(call_script, "script_dplmc_get_terrain_code_for_battle", "$g_encountered_party", "p_main_party"),
+				(assign, ":terrain_code", reg0),
+			(else_try),
+				(call_script, "script_dplmc_get_terrain_code_for_battle", "p_main_party", "$g_encountered_party"),
+				(assign, ":terrain_code", reg0),
+			(try_end),
+			(neq, ":terrain_code", dplmc_terrain_code_none),
+			(call_script, "script_dplmc_party_calculate_strength_in_terrain", "p_main_party", ":terrain_code", 0, 1),
+			(call_script, "script_dplmc_party_calculate_strength_in_terrain", "$g_encountered_party", ":terrain_code", 0, 1),
+		(try_end),
+		##diplomacy end+
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (try_begin),
+          (eq, "$g_encounter_type", enctype_fighting_against_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+          (eq, "$g_encounter_type", enctype_catched_during_village_raid),
+          (assign, "$g_village_raid_evil", 0),
+          (set_jump_mission,"mt_village_raid"),
+          (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
+          (jump_to_scene, ":scene_to_use"),
+        (else_try),
+        # this is the main part that's different
+           (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+           (set_jump_mission,"mt_ship_battle"),
+           (try_begin),
+           (val_add,reg10,reg11),
+             (gt,reg10,30),
+             (jump_to_scene, "scn_sea_land"), # override scene
+           (else_try),
+             (jump_to_scene, "scn_sea_land"), # override scene
+          (try_end),
+        # end
+        (try_end),
+        (assign, "$g_next_menu", "mnu_simple_encounter"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),       
+## TGS: mat: DEBUG - Sea Battles changes end      
       
       ("encounter_order_attack",
       [
@@ -5983,10 +6641,16 @@ game_menus = [
   		(assign, "$g_next_menu", "mnu_join_battle"),	
 		(start_presentation, "prsnt_prebattle_orders"),
       ]),
-	  
-	  ("join_attack_do_plan",
+
+## TGS: mat: Altered for ship battles / border tower battles
+      ### join_attack_do_plan ###
+	  ("join_attack_do_plan", # original
       [
         (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (neq,":terrain",rt_bridge), # Fight on land
+        ## end added for tgs
       ],
       "Enough planning. To battle!",
       [
@@ -6001,10 +6665,101 @@ game_menus = [
         (set_party_battle_mode),
         (set_jump_mission,"mt_lead_charge"),
         (call_script, "script_setup_random_scene"),
+        # added for TGS to initiate border tower battles
+        (try_for_range, ":border_tower", border_towers_begin, border_towers_end),
+            (party_get_position, pos1, "p_main_party"),
+            (party_get_position, pos2, ":border_tower"),
+            (get_distance_between_positions, ":dist", pos1, pos2),
+            (try_begin),
+            (lt, ":dist", 250),
+                (set_jump_mission, "mt_border_tower_battle"),
+                (jump_to_scene, "scn_shienaran_border_tower_1"),
+            (try_end),
+        (try_end),
+        # end added for TGS
         (assign, "$g_next_menu", "mnu_join_battle"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
+      
+      # new
+      ("join_attack_do_plan", # battle at sea
+      [
+        (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        ## end added for tgs
+      ],
+      "Enough planning. Board the enemy!",
+      [
+	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+	  
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+
+      # new
+      ("join_attack_do_plan", # battle on the shore
+      [
+        (party_slot_eq, "p_main_party", slot_party_prebattle_plan, 1),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        # added to determine if party is near the shore
+        (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
+        (eq, reg0, 1), # means party near shore
+        # end additional check
+        ## end added for tgs
+      ],
+      "Enough planning. Go ashore!",
+      [
+	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
+	  
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+## TGS: mat: End new for sea battles
 	  
 	  ("join_attack_clear_plan",
       [
@@ -6025,13 +6780,19 @@ game_menus = [
 		
         (jump_to_menu, "mnu_join_battle"),
       ]),
-	  	  
-	  ("join_attack_hold",
+
+## TGS: mat: DEBUG: changed for Sea Battles / border tower battles
+      ### join_attack_hold ###
+	  ("join_attack_hold", # original
       [
         (neg|troop_is_wounded, "trp_player"),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 1),
 		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (neq,":terrain",rt_bridge), # Fight on land
+        ## end added for tgs
       ],
       "Take the field.",
       [
@@ -6052,17 +6813,132 @@ game_menus = [
         (set_party_battle_mode),
         (set_jump_mission,"mt_lead_charge"),
         (call_script, "script_setup_random_scene"),
+        # added for TGS to initiate border tower battles
+        (try_for_range, ":border_tower", border_towers_begin, border_towers_end),
+            (party_get_position, pos1, "p_main_party"),
+            (party_get_position, pos2, ":border_tower"),
+            (get_distance_between_positions, ":dist", pos1, pos2),
+            (try_begin),
+            (lt, ":dist", 250),
+                (set_jump_mission, "mt_border_tower_battle"),
+                (jump_to_scene, "scn_shienaran_border_tower_1"),
+            (try_end),
+        (try_end),
+        # end added for TGS
         (assign, "$g_next_menu", "mnu_join_battle"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
-	  
-	  ("join_attack_follow",
+      
+      # new
+	  ("join_attack_hold", # battle at sea
       [
         (neg|troop_is_wounded, "trp_player"),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 1),
 		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        ## end added for tgs
+      ],
+      "Defend our ships.",
+      [
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),	
+	  
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+
+      # new
+	  ("join_attack_hold", # battle on the shore
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        # added to determine if party is near the shore
+        (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
+        (eq, reg0, 1), # means party near shore
+        # end additional check
+        ## end added for tgs
+      ],
+      "Hold the shoreline.",
+      [
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),	
+	  
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+## TGS: mat: End changed for sea battles      
+
+## TGS: mat: DEBUG: changed for Sea Battles / border tower battles
+      ### join_attack_follow ###
+	  ("join_attack_follow", # original
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        # added for sea battles
+        (party_get_current_terrain,":terrain","p_main_party"),
+        (neq,":terrain",rt_bridge), # fight on land
+        # end added for sea battles
       ],
       "Lead your troops.",
       [
@@ -6083,19 +6959,136 @@ game_menus = [
         (set_party_battle_mode),
         (set_jump_mission,"mt_lead_charge"),
         (call_script, "script_setup_random_scene"),
+        # added for TGS to initiate border tower battles
+        (try_for_range, ":border_tower", border_towers_begin, border_towers_end),
+            (party_get_position, pos1, "p_main_party"),
+            (party_get_position, pos2, ":border_tower"),
+            (get_distance_between_positions, ":dist", pos1, pos2),
+            (try_begin),
+            (lt, ":dist", 250),
+                (set_jump_mission, "mt_border_tower_battle"),
+                (jump_to_scene, "scn_shienaran_border_tower_1"),
+            (try_end),
+        (try_end),
+        # end added for TGS
         (assign, "$g_next_menu", "mnu_join_battle"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
+
+       # new
+	  ("join_attack_follow", # battle at sea
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        ## end added for tgs
+      ],
+      "Lead your troops to the enemy ships.",
+      [
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),	
+	  
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),
+
+       # new
+	  ("join_attack_follow", # battle on the shore
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
+		(ge, ":tactics", 1),
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+        ## added for TGS
+        (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge), # Fight at sea
+        # added to determine if party is near the shore
+        (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
+        (eq, reg0, 1), # means party near shore
+        # end additional check
+        ## end added for tgs
+      ],
+      "Lead your troops ashore.",
+      [
+        (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
+		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
+		(try_begin),
+		    (gt, ":first_order", 0),
+			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
+        (try_end),
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),	
+	  
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (try_end),
+        # end
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        (change_screen_mission),
+      ]),       
+## TGS: mat: End added for sea battles / border tower battles
+     
 ## PreBattle Orders & Deployment End
 
-      ("join_attack",
+## TGS: mat: DEBUG: tweaked for sea battles
+      ### join_attack ###
+      ("join_attack", # original
       [
         (neg|troop_is_wounded, "trp_player"),
 		## PreBattle Orders & Deployment Begin
 		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
 		## PreBattle Orders & Deployment End
-      ],
+        # added for sea battles
+        (party_get_current_terrain,":terrain","p_main_party"),
+        (neq,":terrain",rt_bridge),
+        # end
+      ],       
+       
       "Charge the enemy.",
       [
         (assign, "$g_joined_battle_to_help", 1),
@@ -6109,8 +7102,106 @@ game_menus = [
         (call_script, "script_setup_random_scene"),
         (assign, "$g_next_menu", "mnu_join_battle"),
         (jump_to_menu, "mnu_battle_debrief"),
+        # added for TGS to initiate border tower battles
+        (try_for_range, ":border_tower", border_towers_begin, border_towers_end),
+            (party_get_position, pos1, "p_main_party"),
+            (party_get_position, pos2, ":border_tower"),
+            (get_distance_between_positions, ":dist", pos1, pos2),
+            (try_begin),
+            (lt, ":dist", 250),
+                (set_jump_mission, "mt_border_tower_battle"),
+                (jump_to_scene, "scn_shienaran_border_tower_1"),
+            (try_end),
+        (try_end),
+        # end added for TGS
         (change_screen_mission),
       ]),
+
+      # new for sea battles
+      ("join_attack",
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
+        # added for sea battles
+        (party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge),
+        # end
+      ],       
+       
+      "Board the enemy.",
+      [
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        (call_script, "script_setup_random_scene"),
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_b"), # override scene
+          (try_end),
+        # end
+        (change_screen_mission),
+      ]),
+
+      # new for sea battles (go ashore)
+      ("join_attack",
+      [
+        (neg|troop_is_wounded, "trp_player"),
+		## PreBattle Orders & Deployment Begin
+		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
+		## PreBattle Orders & Deployment End
+        # added for sea battles
+        (party_get_current_terrain,":terrain","p_main_party"),
+        (eq,":terrain",rt_bridge),
+        # added to determine if party is near the shore
+        (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
+        (eq, reg0, 1), # means party near shore
+        # end additional check
+        # end sea battles extra
+      ],       
+       
+      "Go ashore.",
+      [
+        (assign, "$g_joined_battle_to_help", 1),
+        (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
+        (assign, "$g_battle_result", 0),
+        (call_script, "script_calculate_renown_value"),
+        (call_script, "script_calculate_battle_advantage"),
+        (set_battle_advantage, reg0),
+        (set_party_battle_mode),
+        (set_jump_mission,"mt_lead_charge"),
+        (call_script, "script_setup_random_scene"),
+        (assign, "$g_next_menu", "mnu_join_battle"),
+        (jump_to_menu, "mnu_battle_debrief"),
+        # this is the main part that's different
+          (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
+          (set_jump_mission,"mt_ship_battle"),
+          (try_begin),
+          (val_add,reg10,reg11),
+          (gt,reg10,30),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (else_try),
+            (jump_to_scene, "scn_sea_land"), # override scene
+          (try_end),
+        # end
+        (change_screen_mission),
+      ]),            
+
+## TGS: mat: DEBUG: sea battles end      
 
       ("join_order_attack",
       [
@@ -12452,7 +13543,7 @@ game_menus = [
            (try_end),
            
            (set_jump_mission, "mt_arena_melee_fight"),
-           
+           ## TGS: mat: Future - Could mess with this to have tournaments that are accurate to the Wheel of Time factions.
            (try_begin),
              (eq, ":town_original_faction", "fac_kingdom_1"),
              #Swadia

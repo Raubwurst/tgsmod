@@ -1751,6 +1751,10 @@ castles_end = villages_begin
 villages_end   = "p_karindi_gate"
 # End edited for TGS
 
+# Added for TGS
+border_towers_begin = "p_border_tower_1"
+border_towers_end   = "p_spawn_points_end"
+# End added for TGS
 
 walled_centers_begin = towns_begin
 walled_centers_end   = castles_end
@@ -1880,11 +1884,13 @@ banner_map_icons_end_minus_one = "icon_banner_136"
 banner_scene_props_begin = "spr_banner_a"
 banner_scene_props_end_minus_one = "spr_banner_f21"
 
+## TGS: mat: Note: may need to look into these
 khergit_banners_begin_offset = 63
 khergit_banners_end_offset = 84
 
 sarranid_banners_begin_offset = 105
 sarranid_banners_end_offset = 125
+## TGS: mat: Note: End
 
 banners_end_offset = 136
 

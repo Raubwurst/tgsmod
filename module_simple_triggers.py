@@ -852,7 +852,7 @@ simple_triggers = [
        (try_end),
 
    ## TGS: mat: BEGIN
-   (try_end),
+#   (try_end),
    ## TGS: mat: END   
 
    (try_for_range, ":faction_1", kingdoms_begin, kingdoms_end),
@@ -928,6 +928,11 @@ simple_triggers = [
 		(try_end),
 		(call_script, "script_update_faction_notes", ":faction_1"),
 	(try_end),
+
+   ## TGS: mat: BEGIN
+   (try_end),
+   ## TGS: mat: END   
+   
     ]),
 
   # Give some xp to hero parties
@@ -4561,8 +4566,10 @@ simple_triggers = [
    ##This allows for more complicated things to be added here in the future
    (troop_get_slot, ":diplomacy_version_code", "trp_dplmc_chamberlain", dplmc_slot_troop_affiliated),#I've arbitrarily picked "when I started tracking this" as 0
    (store_mod, ":verification", ":diplomacy_version_code", 128),
-   (assign, ":save_reg0", reg0),
-   (assign, ":save_reg1", reg1),
+   ## TGS: mat: Removed
+#   (assign, ":save_reg0", reg0),
+#   (assign, ":save_reg1", reg1),
+   ## TGS: mat: End
    (try_begin),
 		#Detect bad values
 		(neq, ":diplomacy_version_code", 0),
@@ -4598,24 +4605,25 @@ simple_triggers = [
    (party_set_name, "p_sea_raider_spawn_point_2", "str_the_coast"),
    (party_set_name, "p_desert_bandit_spawn_point", "str_the_deserts"),
 
-
+## TGS: mat: Removed
    #This to correct inappropriate home strings - Katrin to Uxkhal, Matheld to Fearichen
-   (troop_set_slot, "trp_npc11", slot_troop_home, "p_town_7"),
-   (troop_set_slot, "trp_npc8", slot_troop_home, "p_village_35"),
+#   (troop_set_slot, "trp_npc11", slot_troop_home, "p_town_7"),
+#   (troop_set_slot, "trp_npc8", slot_troop_home, "p_village_35"),
 
-   (troop_set_slot, "trp_npc15", slot_troop_town_with_contacts, "p_town_20"), #durquba
+#   (troop_set_slot, "trp_npc15", slot_troop_town_with_contacts, "p_town_20"), #durquba
 
    #mazigh, sekhtem, qalyut, tilimsal, shibal zumr, tamnuh, habba
-   (party_set_slot, "p_village_93", slot_center_linen_looms, 0),
-   (party_set_slot, "p_village_94", slot_center_linen_looms, 0),
-   (party_set_slot, "p_village_95", slot_center_linen_looms, 0),
-   (party_set_slot, "p_village_96", slot_center_linen_looms, 0),
-   (party_set_slot, "p_village_97", slot_center_linen_looms, 0),
-   (party_set_slot, "p_village_102", slot_center_linen_looms, 0),
-   (party_set_slot, "p_village_109", slot_center_linen_looms, 0),
+#   (party_set_slot, "p_village_93", slot_center_linen_looms, 0),
+#   (party_set_slot, "p_village_94", slot_center_linen_looms, 0),
+#   (party_set_slot, "p_village_95", slot_center_linen_looms, 0),
+#   (party_set_slot, "p_village_96", slot_center_linen_looms, 0),
+#   (party_set_slot, "p_village_97", slot_center_linen_looms, 0),
+#   (party_set_slot, "p_village_102", slot_center_linen_looms, 0),
+#   (party_set_slot, "p_village_109", slot_center_linen_looms, 0),
 
-   (party_set_slot, "p_village_67", slot_center_fishing_fleet, 0), #Tebandra
-   (party_set_slot, "p_village_5", slot_center_fishing_fleet, 15), #Kulum
+#   (party_set_slot, "p_village_67", slot_center_fishing_fleet, 0), #Tebandra
+#   (party_set_slot, "p_village_5", slot_center_fishing_fleet, 15), #Kulum
+## TGS: mat: End   
 
    ##diplomacy start+
    #End the changes in Native
@@ -4626,46 +4634,49 @@ simple_triggers = [
    (ge, ":diplomacy_version_code", 0),#do not run this if the code is bad
    (lt, ":diplomacy_version_code", 1),
    #Add home centers for claimants (mods not using standard NPCs or map may wish to remove this)
-   (troop_set_slot, "trp_kingdom_1_pretender", slot_troop_home, "p_town_4"),#Lady Isolle - Suno
-   (troop_set_slot, "trp_kingdom_2_pretender", slot_troop_home, "p_town_11"),#Prince Valdym - Curaw
-   (troop_set_slot, "trp_kingdom_3_pretender", slot_troop_home, "p_town_18"),#Dustum Khan - Narra
-   (troop_set_slot, "trp_kingdom_4_pretender", slot_troop_home, "p_town_12"),#Lethwin Far-Seeker - Wercheg
-   (troop_set_slot, "trp_kingdom_5_pretender", slot_troop_home, "p_town_3"),#Lord Kastor - Veluca
-   (troop_set_slot, "trp_kingdom_6_pretender", slot_troop_home, "p_town_20"),#Arwa the Pearled One - Durquba
+
+## TGS: mat: Removed for wheel of time   
+#   (troop_set_slot, "trp_kingdom_1_pretender", slot_troop_home, "p_town_4"),#Lady Isolle - Suno
+#   (troop_set_slot, "trp_kingdom_2_pretender", slot_troop_home, "p_town_11"),#Prince Valdym - Curaw
+#   (troop_set_slot, "trp_kingdom_3_pretender", slot_troop_home, "p_town_18"),#Dustum Khan - Narra
+#   (troop_set_slot, "trp_kingdom_4_pretender", slot_troop_home, "p_town_12"),#Lethwin Far-Seeker - Wercheg
+#   (troop_set_slot, "trp_kingdom_5_pretender", slot_troop_home, "p_town_3"),#Lord Kastor - Veluca
+#   (troop_set_slot, "trp_kingdom_6_pretender", slot_troop_home, "p_town_20"),#Arwa the Pearled One - Durquba
    #add ancestral fiefs to home slots (mods not using standard NPCs or map should remove this)
-   (troop_set_slot, "trp_knight_2_10", slot_troop_home, "p_castle_29"), #Nelag_Castle
-   (troop_set_slot, "trp_knight_3_4", slot_troop_home, "p_castle_30"), #Asugan_Castle
-   (troop_set_slot, "trp_knight_1_3", slot_troop_home, "p_castle_35"), #Haringoth_Castle
-   (troop_set_slot, "trp_knight_5_11", slot_troop_home, "p_castle_33"), #Etrosq_Castle
+#   (troop_set_slot, "trp_knight_2_10", slot_troop_home, "p_castle_29"), #Nelag_Castle
+#   (troop_set_slot, "trp_knight_3_4", slot_troop_home, "p_castle_30"), #Asugan_Castle
+#   (troop_set_slot, "trp_knight_1_3", slot_troop_home, "p_castle_35"), #Haringoth_Castle
+#   (troop_set_slot, "trp_knight_5_11", slot_troop_home, "p_castle_33"), #Etrosq_Castle
    #Also the primary six towns (mods not using standard NPCs or map may wish to remove this)
-   (troop_set_slot, "trp_kingdom_1_lord", slot_troop_home, "p_town_6"),#King Harlaus to Praven
-   (troop_set_slot, "trp_kingdom_2_lord", slot_troop_home, "p_town_8"),#King Yaroglek to Reyvadin
-   (troop_set_slot, "trp_kingdom_3_lord", slot_troop_home, "p_town_10"),#Sanjar Khan to Tulga
-   (troop_set_slot, "trp_kingdom_4_lord", slot_troop_home, "p_town_1"),#King Ragnar to Sargoth
-   (troop_set_slot, "trp_kingdom_5_lord", slot_troop_home, "p_town_5"),#King Graveth to Jelkala
-   (troop_set_slot, "trp_kingdom_6_lord", slot_troop_home, "p_town_19"),#Sultan Hakim to Shariz
+#   (troop_set_slot, "trp_kingdom_1_lord", slot_troop_home, "p_town_6"),#King Harlaus to Praven
+#   (troop_set_slot, "trp_kingdom_2_lord", slot_troop_home, "p_town_8"),#King Yaroglek to Reyvadin
+#   (troop_set_slot, "trp_kingdom_3_lord", slot_troop_home, "p_town_10"),#Sanjar Khan to Tulga
+#   (troop_set_slot, "trp_kingdom_4_lord", slot_troop_home, "p_town_1"),#King Ragnar to Sargoth
+#   (troop_set_slot, "trp_kingdom_5_lord", slot_troop_home, "p_town_5"),#King Graveth to Jelkala
+#   (troop_set_slot, "trp_kingdom_6_lord", slot_troop_home, "p_town_19"),#Sultan Hakim to Shariz
    
    #Set the "original lord" values corresponding to the above.
-   (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-		(this_or_next|eq, ":troop_no", "trp_knight_2_10"),#Nelag
-		(this_or_next|eq, ":troop_no", "trp_knight_3_4"),#Asugan
-		(this_or_next|eq, ":troop_no", "trp_knight_1_3"),#Haringoth
-		(this_or_next|eq, ":troop_no", "trp_knight_5_11"),#Etrosq
-		(this_or_next|is_between, ":troop_no", kings_begin, kings_end),
-			(is_between, ":troop_no", pretenders_begin, pretenders_end),
+#   (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+#		(this_or_next|eq, ":troop_no", "trp_knight_2_10"),#Nelag
+#		(this_or_next|eq, ":troop_no", "trp_knight_3_4"),#Asugan
+#		(this_or_next|eq, ":troop_no", "trp_knight_1_3"),#Haringoth
+#		(this_or_next|eq, ":troop_no", "trp_knight_5_11"),#Etrosq
+#		(this_or_next|is_between, ":troop_no", kings_begin, kings_end),
+#			(is_between, ":troop_no", pretenders_begin, pretenders_end),
 		
-		(troop_get_slot, ":center_no", ":troop_no", slot_troop_home),
-		(is_between, ":center_no", centers_begin, centers_end),
-		(neg|party_slot_ge, ":center_no", dplmc_slot_center_original_lord, 1),
-		(party_set_slot, ":center_no",  dplmc_slot_center_original_lord, ":troop_no"),
+#		(troop_get_slot, ":center_no", ":troop_no", slot_troop_home),
+#		(is_between, ":center_no", centers_begin, centers_end),
+#		(neg|party_slot_ge, ":center_no", dplmc_slot_center_original_lord, 1),
+#		(party_set_slot, ":center_no",  dplmc_slot_center_original_lord, ":troop_no"),
 		
 		#Also set "ex-lord"
-		(neg|is_between, ":troop_no", pretenders_begin, pretenders_end),
-		(troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-		(neg|party_slot_eq, ":center_no", slot_town_lord, ":troop_no"),
-		(neg|party_slot_ge, ":center_no", dplmc_slot_center_ex_lord, 1),
-		(party_set_slot, ":center_no", dplmc_slot_center_ex_lord, ":troop_no"),
-   (try_end),
+#		(neg|is_between, ":troop_no", pretenders_begin, pretenders_end),
+#		(troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+#		(neg|party_slot_eq, ":center_no", slot_town_lord, ":troop_no"),
+#		(neg|party_slot_ge, ":center_no", dplmc_slot_center_ex_lord, 1),
+#		(party_set_slot, ":center_no", dplmc_slot_center_ex_lord, ":troop_no"),
+ #  (try_end),
+## TGS: mat: End
       
    #Make sure the affiliation slot is set correctly.
    (try_begin),
@@ -4674,75 +4685,79 @@ simple_triggers = [
 	 (is_between, ":slot_val", 0, 3),#0 is default, 1 is asked, in previous versions there was no use of 2
 	 (troop_set_slot, "$g_player_affiliated_troop", dplmc_slot_troop_affiliated, 3),#3 is affiliated
    (try_end),
-   
+
+## TGS: mat: Removed   
    #Set father/mother slots for the unmarried medium-age lords, so checking for
    #being related will work as expected.
-   (try_for_range, ":troop_no", lords_begin, lords_end),
-		(troop_slot_eq, ":troop_no", slot_troop_father, -1),
-		(troop_slot_eq, ":troop_no", slot_troop_mother, -1),
-		(store_mul, ":father", ":troop_no", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),#defined in module_constants.py
-		(val_add, ":father", DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET),
-		(troop_set_slot, ":troop_no", slot_troop_father, ":father"),
-		(store_add, ":mother", ":father", DPLMC_VIRTUAL_RELATIVE_MOTHER_OFFSET - DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET),
-		(troop_set_slot, ":troop_no", slot_troop_mother, ":mother"),
-   (try_end),
+#   (try_for_range, ":troop_no", lords_begin, lords_end),
+#		(troop_slot_eq, ":troop_no", slot_troop_father, -1),
+#		(troop_slot_eq, ":troop_no", slot_troop_mother, -1),
+#		(store_mul, ":father", ":troop_no", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),#defined in module_constants.py
+#		(val_add, ":father", DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET),
+#		(troop_set_slot, ":troop_no", slot_troop_father, ":father"),
+#		(store_add, ":mother", ":father", DPLMC_VIRTUAL_RELATIVE_MOTHER_OFFSET - DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET),
+#		(troop_set_slot, ":troop_no", slot_troop_mother, ":mother"),
+#   (try_end),
    
    #Fix kingdom lady daughters having "slot_troop_mother" set to themselves.
    #The old fix was in troop_get_family_relation_to_troop, but now we can
    #just do it once here.
-   (try_for_range, ":troop_no", kingdom_ladies_begin, kingdom_ladies_end),
-		(try_begin),
-			(troop_slot_eq, ":troop_no", slot_troop_mother, ":troop_no"),
-			(troop_get_slot, ":father", ":troop_no", slot_troop_father),
-			(try_begin),
-				(is_between, ":father", active_npcs_begin, active_npcs_end),
-				(troop_get_slot, ":mother", ":father", slot_troop_spouse),
-				(troop_set_slot, ":troop_no", slot_troop_mother, ":mother"),
-				(try_begin),
+#   (try_for_range, ":troop_no", kingdom_ladies_begin, kingdom_ladies_end),
+#		(try_begin),
+#			(troop_slot_eq, ":troop_no", slot_troop_mother, ":troop_no"),
+#			(troop_get_slot, ":father", ":troop_no", slot_troop_father),
+#			(try_begin),
+#				(is_between, ":father", active_npcs_begin, active_npcs_end),
+#				(troop_get_slot, ":mother", ":father", slot_troop_spouse),
+#				(troop_set_slot, ":troop_no", slot_troop_mother, ":mother"),
+#				(try_begin),
 					#Print a message if desired
-					(ge, "$cheat_mode", 1),
-					(str_store_troop_name, s0, ":troop_no"),
-					(display_message, "@{!}DEBUG - Fixed slot_troop_mother for {s0}."),
-				(try_end),
-			(else_try),
-				(troop_set_slot, ":troop_no", slot_troop_mother, -1),#better than being set to herself 
+#					(ge, "$cheat_mode", 1),
+#					(str_store_troop_name, s0, ":troop_no"),
+#					(display_message, "@{!}DEBUG - Fixed slot_troop_mother for {s0}."),
+#				(try_end),
+#			(else_try),
+#				(troop_set_slot, ":troop_no", slot_troop_mother, -1),#better than being set to herself 
 				#Print a message if desired
-				(ge, "$cheat_mode", 1),
-				(str_store_troop_name, s0, ":troop_no"),
-				(display_message, "@{!}DEBUG - When fixing slot_troop_mother for {s0}, could not find a valid mother."),
-			(try_end),
+#				(ge, "$cheat_mode", 1),
+#				(str_store_troop_name, s0, ":troop_no"),
+#				(display_message, "@{!}DEBUG - When fixing slot_troop_mother for {s0}, could not find a valid mother."),
+#			(try_end),
 	#While we're at it, also give parents to the sisters of the middle-aged lords.
-		(else_try),
-			(troop_slot_eq, ":troop_no", slot_troop_father, -1),
-			(troop_slot_eq, ":troop_no", slot_troop_mother, -1),
+#		(else_try),
+#			(troop_slot_eq, ":troop_no", slot_troop_father, -1),
+#			(troop_slot_eq, ":troop_no", slot_troop_mother, -1),
 			#"Guardian" here means brother
-			(troop_get_slot, ":guardian", ":troop_no", slot_troop_guardian),
-			(ge, ":guardian", 1),
+#			(troop_get_slot, ":guardian", ":troop_no", slot_troop_guardian),
+#			(ge, ":guardian", 1),
 			#Has brother's father
-			(troop_get_slot, ":father", ":guardian", slot_troop_father),
-			(troop_set_slot, ":troop_no", slot_troop_father, ":father"),
+#			(troop_get_slot, ":father", ":guardian", slot_troop_father),
+#			(troop_set_slot, ":troop_no", slot_troop_father, ":father"),
 			#Has brother's mother
-			(troop_get_slot, ":mother", ":guardian", slot_troop_mother),
-			(troop_set_slot, ":troop_no", slot_troop_mother, ":mother"),
-		(try_end),
+#			(troop_get_slot, ":mother", ":guardian", slot_troop_mother),
+#			(troop_set_slot, ":troop_no", slot_troop_mother, ":mother"),
+#		(try_end),
    #Also set original factions for ladies.
-	   (neg|troop_slot_ge, ":troop_no", slot_troop_original_faction, 1),
-		(assign, ":guardian", -1),
-		(try_begin),
-		   (troop_slot_ge, ":troop_no", slot_troop_father, 1),
-			(troop_get_slot, ":guardian", ":troop_no", slot_troop_father),
- 	   (else_try),
-		   (troop_slot_ge, ":troop_no", slot_troop_guardian, 1),
-			(troop_get_slot, ":guardian", ":troop_no", slot_troop_guardian),
-		(else_try),
-		   (troop_slot_ge, ":troop_no", slot_troop_spouse, 1),
-			(troop_get_slot, ":guardian", ":troop_no", slot_troop_spouse),
-	   (try_end),
-		(ge, ":guardian", 1),
-		(troop_get_slot, ":original_faction", ":guardian", slot_troop_original_faction),
-		(troop_set_slot, ":troop_no", slot_troop_original_faction, ":original_faction"),
-   (try_end),
+#	   (neg|troop_slot_ge, ":troop_no", slot_troop_original_faction, 1),
+#		(assign, ":guardian", -1),
+#		(try_begin),
+#		   (troop_slot_ge, ":troop_no", slot_troop_father, 1),
+#			(troop_get_slot, ":guardian", ":troop_no", slot_troop_father),
+# 	   (else_try),
+#		   (troop_slot_ge, ":troop_no", slot_troop_guardian, 1),
+#			(troop_get_slot, ":guardian", ":troop_no", slot_troop_guardian),
+#		(else_try),
+#		   (troop_slot_ge, ":troop_no", slot_troop_spouse, 1),
+#			(troop_get_slot, ":guardian", ":troop_no", slot_troop_spouse),
+#	   (try_end),
+#		(ge, ":guardian", 1),
+#		(troop_get_slot, ":original_faction", ":guardian", slot_troop_original_faction),
+#		(troop_set_slot, ":troop_no", slot_troop_original_faction, ":original_faction"),
+#   (try_end),
+## TGS: mat: End
 
+
+## TGS: mat: Removed
 	  ##Set relations between kingdom ladies and their relatives.
 	  ##Do *not* initialize their relations with anyone they aren't related to:
 	  ##that is used for courtship.
@@ -4754,40 +4769,41 @@ simple_triggers = [
 	  #
 	  #Because relations may already exist, only call this in instances where
 	  #they are 0 or 1 (the latter just means "met" between NPCs).
-     (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
-		(troop_slot_eq, ":lady", slot_troop_occupation, slto_kingdom_lady),
-		(troop_get_slot, ":lady_faction", ":lady", slot_troop_original_faction),
-		(ge, ":lady_faction", 1),
+#     (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
+#		(troop_slot_eq, ":lady", slot_troop_occupation, slto_kingdom_lady),
+#		(troop_get_slot, ":lady_faction", ":lady", slot_troop_original_faction),
+#		(ge, ":lady_faction", 1),
 
-		(try_for_range, ":other_hero", heroes_begin, heroes_end),
-		   (this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_lady),
-			(this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_hero),
-				(troop_slot_eq, ":other_hero", slot_troop_occupation, slto_inactive_pretender),
-			(troop_slot_eq, ":other_hero", slot_troop_original_faction, ":lady_faction"),
+#		(try_for_range, ":other_hero", heroes_begin, heroes_end),
+#		   (this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_lady),
+#			(this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_hero),
+#				(troop_slot_eq, ":other_hero", slot_troop_occupation, slto_inactive_pretender),
+#			(troop_slot_eq, ":other_hero", slot_troop_original_faction, ":lady_faction"),
 
 			#Because this is not a new game: first check if relations have developed
-			(call_script, "script_troop_get_relation_with_troop", ":lady", ":other_hero"),
-			(is_between, reg0, 0, 2),#0 or 1
+#			(call_script, "script_troop_get_relation_with_troop", ":lady", ":other_hero"),
+#			(is_between, reg0, 0, 2),#0 or 1
 
-			(try_begin),
-				(this_or_next|troop_slot_eq, ":lady", slot_troop_spouse, ":other_hero"),
-				(troop_slot_eq, ":other_hero", slot_troop_spouse, ":lady"),
-				(store_random_in_range, reg0, 0, 11),
-			(else_try),
+#			(try_begin),
+#				(this_or_next|troop_slot_eq, ":lady", slot_troop_spouse, ":other_hero"),
+#				(troop_slot_eq, ":other_hero", slot_troop_spouse, ":lady"),
+#				(store_random_in_range, reg0, 0, 11),
+#			(else_try),
 				#(call_script, "script_troop_get_family_relation_to_troop", ":lady", ":other_hero"),
-				(call_script, "script_dplmc_troop_get_family_relation_to_troop", ":lady", ":other_hero"),
-			(try_end),
+#				(call_script, "script_dplmc_troop_get_family_relation_to_troop", ":lady", ":other_hero"),
+#			(try_end),
 			
-			(call_script, "script_troop_change_relation_with_troop", ":lady", ":other_hero", reg0),
+#			(call_script, "script_troop_change_relation_with_troop", ":lady", ":other_hero", reg0),
 
 			#This relation change only applies between kingdom ladies.
-			(troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_lady),
-			(is_between, ":other_hero", kingdom_ladies_begin, kingdom_ladies_end),
+#			(troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_lady),
+#			(is_between, ":other_hero", kingdom_ladies_begin, kingdom_ladies_end),
 
-			(store_random_in_range, ":random", 0, 11),
-			(call_script, "script_troop_change_relation_with_troop", ":lady", ":other_hero", ":random"),
-		(try_end),
-	  (try_end),
+#			(store_random_in_range, ":random", 0, 11),
+#			(call_script, "script_troop_change_relation_with_troop", ":lady", ":other_hero", ":random"),
+#		(try_end),
+#	  (try_end),
+## TGS: mat: End   
    
    #Change the occupation of exiled lords (not including pretenders or kings)
    (try_for_range, ":troop_no", lords_begin, lords_end),
@@ -4889,77 +4905,80 @@ simple_triggers = [
    (try_end),   
    #End version-checked block.   
    (try_end),
-   
-   (try_begin),
-    (ge, ":diplomacy_version_code", 1),
-    (lt, ":diplomacy_version_code", 110615),
+
+
+## TGS: mat: Removed   
+#   (try_begin),
+#    (ge, ":diplomacy_version_code", 1),
+#    (lt, ":diplomacy_version_code", 110615),
     #Fix a bug that was introduced in some version before 2011-06-15 that made
 	#all "young unmarried lords" only have half-siblings, with either their own
 	#father or mother slot uninitialized.
-	(try_begin),
-		(troop_slot_eq, 31, 31),#"slot_troop_father" was 31 in those saved games
-		(troop_set_slot, 31, -1),#(it still is 31 as far as I know, but this code should remain the same even if the slot value changes)
-	(try_end),
-	(try_begin),
-		(troop_slot_eq, 32,32),#"slot_troop_mother" was 32 in those saved games
-		(troop_set_slot, 32, -1),
-	(try_end),
-	(try_for_range, ":troop_no", lords_begin, lords_end),
-		(troop_get_slot, reg0, ":troop_no", slot_troop_father),
-		(troop_get_slot, reg1, ":troop_no", slot_troop_mother),
-		(try_begin),
-			(is_between, reg0, lords_begin, lords_end),
-			(neg|is_between, reg1, kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_get_slot, reg1, reg0, slot_troop_spouse),
-			(is_between, reg1, kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_set_slot, ":troop_no", slot_troop_mother, reg1),
-			(call_script, "script_update_troop_notes", ":troop_no"),#Doesn't actually do anything
-		(else_try),
-			(is_between, reg1, kingdom_ladies_begin, kingdom_ladies_end),
-			(neg|is_between, reg0, lords_begin, lords_end),
-			(troop_get_slot, reg0, reg1, slot_troop_spouse),
-			(is_between, reg0, lords_begin, lords_end),
-			(troop_set_slot, ":troop_no", slot_troop_father, reg0),
-			(call_script, "script_update_troop_notes", ":troop_no"),#Doesn't actually do anything
-		(try_end),
-	(try_end),
+#	(try_begin),
+#		(troop_slot_eq, 31, 31),#"slot_troop_father" was 31 in those saved games
+#		(troop_set_slot, 31, -1),#(it still is 31 as far as I know, but this code should remain the same even if the slot value changes)
+#	(try_end),
+#	(try_begin),
+#		(troop_slot_eq, 32,32),#"slot_troop_mother" was 32 in those saved games
+#		(troop_set_slot, 32, -1),
+#	(try_end),
+#	(try_for_range, ":troop_no", lords_begin, lords_end),
+#		(troop_get_slot, reg0, ":troop_no", slot_troop_father),
+#		(troop_get_slot, reg1, ":troop_no", slot_troop_mother),
+#		(try_begin),
+#			(is_between, reg0, lords_begin, lords_end),
+#			(neg|is_between, reg1, kingdom_ladies_begin, kingdom_ladies_end),
+#			(troop_get_slot, reg1, reg0, slot_troop_spouse),
+#			(is_between, reg1, kingdom_ladies_begin, kingdom_ladies_end),
+#			(troop_set_slot, ":troop_no", slot_troop_mother, reg1),
+#			(call_script, "script_update_troop_notes", ":troop_no"),#Doesn't actually do anything
+#		(else_try),
+#			(is_between, reg1, kingdom_ladies_begin, kingdom_ladies_end),
+#			(neg|is_between, reg0, lords_begin, lords_end),
+#			(troop_get_slot, reg0, reg1, slot_troop_spouse),
+#			(is_between, reg0, lords_begin, lords_end),
+#			(troop_set_slot, ":troop_no", slot_troop_father, reg0),
+#			(call_script, "script_update_troop_notes", ":troop_no"),#Doesn't actually do anything
+#		(try_end),
+#	(try_end),
 
 	#For old saved games, a reputation bug that was introduced in the release 2011-06-06 and was fixed on 2011-06-07.
-	(eq, ":diplomacy_version_code", 1),
-	(assign, reg0, 0),
-	(try_for_range, ":troop_no", lords_begin, lords_end),
-		(troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_none),
-		(store_random_in_range, reg1, lrep_none, lrep_roguish),
-		(val_max, reg1, lrep_none + 1),#So there's an extra chance of getting reputation 1, which is lrep_martial
-		(troop_set_slot, ":troop_no", slot_lord_reputation_type, reg1),
-		(val_add, reg0, 1),
-	(try_end),
+#	(eq, ":diplomacy_version_code", 1),
+#	(assign, reg0, 0),
+#	(try_for_range, ":troop_no", lords_begin, lords_end),
+#		(troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_none),
+#		(store_random_in_range, reg1, lrep_none, lrep_roguish),
+#		(val_max, reg1, lrep_none + 1),#So there's an extra chance of getting reputation 1, which is lrep_martial
+#		(troop_set_slot, ":troop_no", slot_lord_reputation_type, reg1),
+#		(val_add, reg0, 1),
+#	(try_end),
 	
-	(try_begin),
-		(ge, "$cheat_mode", 1),
-		(store_sub, reg1, reg0, 1),
-		(display_message, "@{!} Bug fix: set personality types for {reg0} {reg1?lords:lord}"),
-	(try_end),
+#	(try_begin),
+#		(ge, "$cheat_mode", 1),
+#		(store_sub, reg1, reg0, 1),
+#		(display_message, "@{!} Bug fix: set personality types for {reg0} {reg1?lords:lord}"),
+#	(try_end),
 	
-	(assign, reg0, 0),
-	(try_for_range, ":troop_no", kingdom_ladies_begin, kingdom_ladies_end),
-		(neq, ":troop_no", "trp_knight_1_1_wife"),#That lady should not appear in the game
-		(troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_none),
-		(store_random_in_range, reg1, lrep_conventional - 1, lrep_moralist + 1),
-		(val_max, reg1, lrep_conventional),#So there's an extra chance of getting lrep_conventional
-		(troop_set_slot, ":troop_no", slot_lord_reputation_type, reg1),
-		(val_add, reg0, 1),
-	(try_end),
+#	(assign, reg0, 0),
+#	(try_for_range, ":troop_no", kingdom_ladies_begin, kingdom_ladies_end),
+#		(neq, ":troop_no", "trp_knight_1_1_wife"),#That lady should not appear in the game
+#		(troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_none),
+#		(store_random_in_range, reg1, lrep_conventional - 1, lrep_moralist + 1),
+#		(val_max, reg1, lrep_conventional),#So there's an extra chance of getting lrep_conventional
+#		(troop_set_slot, ":troop_no", slot_lord_reputation_type, reg1),
+#		(val_add, reg0, 1),
+#	(try_end),
 	
-	(try_begin),
-		(ge, "$cheat_mode", 1),
-		(store_sub, reg1, reg0, 1),
-		(display_message, "@{!} Bug fix: set personality types for {reg0} {reg1?ladies:lady}"),
-	(try_end),
-   (try_end),
+#	(try_begin),
+#		(ge, "$cheat_mode", 1),
+#		(store_sub, reg1, reg0, 1),
+#		(display_message, "@{!} Bug fix: set personality types for {reg0} {reg1?ladies:lady}"),
+#	(try_end),
+#   (try_end),
    
-   (assign, reg1, ":save_reg1"),#Revert register
-   (assign, reg0, ":save_reg0"),#Revert register
+#   (assign, reg1, ":save_reg1"),#Revert register
+#   (assign, reg0, ":save_reg0"),#Revert register
+## TGS: mat: End
    
    #Ensure $character_gender is set correctly
    (try_begin),

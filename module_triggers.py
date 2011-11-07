@@ -3421,22 +3421,25 @@ triggers = [
   (1, 24*30, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Stone of Tear... King Darlin...to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_3_8","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_kingdom_10_lord","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_castle_4","fac_kingdom_1"),
         #Tear... High Lord Torean... to the Legion of the Dragon, Tear to Rand al'Thor
-        (call_script,"script_change_troop_faction","trp_knight_3_6","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_knight_10_1","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_town_10","fac_kingdom_1"),
         (call_script,"script_give_center_to_lord","p_town_10","trp_kingdom_1_lord",1),
         #Culmarr Castle... High Lord Hearne... to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_3_32","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_knight_10_2","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_castle_1","fac_kingdom_1"),
         #Slezkh Castle... High Lord Tolmeran... to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_3_38","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_knight_10_6","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_castle_22","fac_kingdom_1"),
-        
+
+## Removed for splitting the factions (just make Mayene allied w/ Legion instead)        
         #Mayene... Berelain sur Paendrag Paeron... to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_2_2","fac_kingdom_1"),
-        (call_script,"script_give_center_to_faction_aux", "p_town_12","fac_kingdom_1"),
+#        (call_script,"script_change_troop_faction","trp_knight_2_2","fac_kingdom_1"),
+#        (call_script,"script_give_center_to_faction_aux", "p_town_12","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_knight_4_2","fac_kingdom_1"), # Captain Havien Nurelle
+## End
 
         (dialog_box, "str_dragon_is_reborn_1"),
 #        (dialog_box, "str_dragon_is_reborn_2"),
@@ -3453,7 +3456,7 @@ triggers = [
   (1, 24*43, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Siuan Sedai is deposed... give Tar Valon to loyalist Aes Sedai
-        (call_script,"script_give_center_to_lord","p_town_19","trp_knight_5_11",1),
+        (call_script,"script_give_center_to_lord","p_town_19","trp_knight_21_1",1), # Silviana (Mistress of Novices)
 
         (dialog_box, "str_siuan_deposed"),
 
@@ -3470,9 +3473,9 @@ triggers = [
   (1, 24*47, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Tanchico... Panarch Amathera Aelfdene...to the Seanchan Empire, Tanchico to Banner-General Furyk Karede
-        (call_script,"script_change_troop_faction","trp_knight_3_4","fac_kingdom_7"),
-        (call_script,"script_give_center_to_faction_aux", "p_town_8","fac_kingdom_7"),
-        (call_script,"script_give_center_to_lord","p_town_8","trp_knight_7_2",1),
+        (call_script,"script_change_troop_faction","trp_kingdom_14_lord","fac_kingdom_23"),
+        (call_script,"script_give_center_to_faction_aux", "p_town_8","fac_kingdom_23"),
+        (call_script,"script_give_center_to_lord","p_town_8","trp_knight_23_2",1),
 
         (dialog_box, "str_seanchan_invade_tarabon"),
 
@@ -3482,8 +3485,8 @@ triggers = [
   (1, 24*55, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Salidar... to the White Tower, to Lelaine Sedai
-        (call_script,"script_give_center_to_faction_aux", "p_castle_34","fac_kingdom_5"),
-        (call_script,"script_give_center_to_lord","p_castle_34","trp_knight_5_7",1),
+        (call_script,"script_give_center_to_faction_aux", "p_castle_34","fac_kingdom_21"),
+        (call_script,"script_give_center_to_lord","p_castle_34","trp_knight_21_9",1),
         
         (dialog_box, "str_rebel_aes_sedai_to_salidar"),
 
@@ -3493,13 +3496,13 @@ triggers = [
   (1, 24*60, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Cairhien... Lord Dobraine Taborwin...to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_2_14","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_knight_5_3","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_town_1","fac_kingdom_1"),
         #Haringoth Castle... Lady Selande Darengil... to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_2_21","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_knight_5_4","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_castle_35","fac_kingdom_1"),
-        #Tevarin Castle... Cairhien Lord... to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_2_24","fac_kingdom_1"),
+        #Tevarin Castle... Bertome Saighan... to the Legion of the Dragon
+        (call_script,"script_change_troop_faction","trp_knight_5_7","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_castle_23","fac_kingdom_1"),
 
         (dialog_box, "str_dragon_takes_cairhien"),
@@ -3509,9 +3512,10 @@ triggers = [
 # Faction city and lord changes at 62 days:
   (1, 24*62, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
-        #Caemlyn... to the Legion of the Dragon, to Lord Davram Bashere
+        #Caemlyn... to the Legion of the Dragon, to Lord Davram Bashere (He joins from Saldaea)
         (call_script,"script_give_center_to_faction_aux", "p_town_3","fac_kingdom_1"),
-        (call_script,"script_give_center_to_lord","p_town_3","trp_knight_1_5",1),
+        (call_script,"script_change_troop_faction","trp_knight_20_1","fac_kingdom_1"),
+        (call_script,"script_give_center_to_lord","p_town_3","trp_knight_20_1",1),
 
         (dialog_box, "str_dragon_takes_caemlyn"),
 
@@ -3521,7 +3525,7 @@ triggers = [
   (1, 24*65, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Egwene al'Vere raised to rebel Amyrlin Seat... give her leadership of Salidar
-        (call_script,"script_give_center_to_lord","p_castle_34","trp_kingdom_5_lord",1),
+        (call_script,"script_give_center_to_lord","p_castle_34","trp_kingdom_21_lord",1),
 
         (dialog_box, "str_rebel_aes_sedai_raise_egwene_to_amyrlin"),
 
@@ -3531,20 +3535,20 @@ triggers = [
   (1, 24*70, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Amador... to the Seanchan Empire... to Banner-General Gamel Loune
-        (call_script,"script_give_center_to_faction_aux", "p_town_13","fac_kingdom_7"),
-        (call_script,"script_give_center_to_lord","p_town_13","trp_knight_7_4",1),
+        (call_script,"script_give_center_to_faction_aux", "p_town_13","fac_kingdom_23"),
+        (call_script,"script_give_center_to_lord","p_town_13","trp_knight_23_4",1),
         #Fortress of the Light... to the Seanchan Empire... to Banner-General Mikhel Najirah
-        (call_script,"script_give_center_to_faction_aux", "p_castle_3","fac_kingdom_7"),
-        (call_script,"script_give_center_to_lord","p_castle_3","trp_knight_7_5",1),
+        (call_script,"script_give_center_to_faction_aux", "p_castle_3","fac_kingdom_23"),
+        (call_script,"script_give_center_to_lord","p_castle_3","trp_knight_23_5",1),
         #Bellon... High Inquisitor Rhadam Asunawa... to the Seanchan Empire
-        (call_script,"script_change_troop_faction","trp_knight_3_29","fac_kingdom_7"),
-        (call_script,"script_give_center_to_faction_aux", "p_castle_2","fac_kingdom_7"),
+        (call_script,"script_change_troop_faction","trp_knight_16_1","fac_kingdom_23"),
+        (call_script,"script_give_center_to_faction_aux", "p_castle_2","fac_kingdom_23"),
         #Sienda... to the Seanchan Empire... to Banner-General Efraim Yamada
-        (call_script,"script_give_center_to_faction_aux", "p_castle_30","fac_kingdom_7"),
-        (call_script,"script_give_center_to_lord","p_castle_30","trp_knight_7_7",1),
+        (call_script,"script_give_center_to_faction_aux", "p_castle_30","fac_kingdom_23"),
+        (call_script,"script_give_center_to_lord","p_castle_30","trp_knight_23_7",1),
         #Grunwalder Castle... to the Seanchan Empire... to Lieutenant-General Abaldar Yulan
-        (call_script,"script_give_center_to_faction_aux", "p_castle_28","fac_kingdom_7"),
-        (call_script,"script_give_center_to_lord","p_castle_28","trp_knight_7_8",1),
+        (call_script,"script_give_center_to_faction_aux", "p_castle_28","fac_kingdom_23"),
+        (call_script,"script_give_center_to_lord","p_castle_28","trp_knight_23_8",1),
         
         (dialog_box, "str_seanchan_invade_amadicia"),
 
@@ -3554,20 +3558,20 @@ triggers = [
   (1, 24*72, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Ebou Dar... King Beslan Mitsobar... to the Seanchan Empire... to Empress Fortuona Athaem Kore Paendrag
-        (call_script,"script_change_troop_faction","trp_knight_2_7","fac_kingdom_7"),
-        (call_script,"script_give_center_to_faction_aux", "p_town_4","fac_kingdom_7"),
-        (call_script,"script_give_center_to_lord","p_town_4","trp_kingdom_7_lord",1),
+        (call_script,"script_change_troop_faction","trp_kingdom_8_lord","fac_kingdom_23"),
+        (call_script,"script_give_center_to_faction_aux", "p_town_4","fac_kingdom_23"),
+        (call_script,"script_give_center_to_lord","p_town_4","trp_kingdom_23_lord",1),
         #Alkindar... Altara Lord... to the Seanchan Empire... to King Beslan Mitsobar
-        (call_script,"script_change_troop_faction","trp_knight_2_35","fac_kingdom_7"),
-        (call_script,"script_give_center_to_faction_aux", "p_castle_25","fac_kingdom_7"),
-        (call_script,"script_give_center_to_lord","p_castle_25","trp_knight_2_7",1),
+        (call_script,"script_change_troop_faction","trp_knight_8_6","fac_kingdom_23"),
+        (call_script,"script_give_center_to_faction_aux", "p_castle_25","fac_kingdom_23"),
+        (call_script,"script_give_center_to_lord","p_castle_25","trp_kingdom_8_lord",1),
         #Jurador... Altara Lesser Lady... to the Seanchan Empire... to Altara Lord
-        (call_script,"script_change_troop_faction","trp_knight_2_38","fac_kingdom_7"),
-        (call_script,"script_give_center_to_faction_aux", "p_castle_36","fac_kingdom_7"),
-        (call_script,"script_give_center_to_lord","p_castle_36","trp_knight_2_35",1),
+        (call_script,"script_change_troop_faction","trp_knight_8_7","fac_kingdom_23"),
+        (call_script,"script_give_center_to_faction_aux", "p_castle_36","fac_kingdom_23"),
+        (call_script,"script_give_center_to_lord","p_castle_36","trp_knight_8_6",1),
         #Cormaed... Altara Lady... to the Seanchan Empire
-        (call_script,"script_change_troop_faction","trp_knight_2_36","fac_kingdom_7"),
-        (call_script,"script_give_center_to_faction_aux", "p_castle_32","fac_kingdom_7"),
+        (call_script,"script_change_troop_faction","trp_knight_8_5","fac_kingdom_23"),
+        (call_script,"script_give_center_to_faction_aux", "p_castle_32","fac_kingdom_23"),
 
         (dialog_box, "str_seanchan_invade_altara"),
 
@@ -3577,11 +3581,11 @@ triggers = [
   (1, 24*73, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Illian... Lord Ballin Elamri... to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_2_11","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_knight_6_7","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_town_22","fac_kingdom_1"),
-        (call_script,"script_give_center_to_lord","p_town_22","trp_knight_2_11",1),
+        (call_script,"script_give_center_to_lord","p_town_22","trp_knight_6_7",1),
         #Rindyar Castle... Lord Spiron Narettin... to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_2_10","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_knight_6_3","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_castle_27","fac_kingdom_1"),
 
         (dialog_box, "str_dragon_takes_illian"),
@@ -3599,8 +3603,8 @@ triggers = [
   (1, 24*77, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Caemlyn... to the Southlander Alliance... to Queen Elayne Trakand
-        (call_script,"script_give_center_to_faction_aux", "p_town_3","fac_kingdom_3"),
-        (call_script,"script_give_center_to_lord","p_town_3","trp_kingdom_3_lord",1),
+        (call_script,"script_give_center_to_faction_aux", "p_town_3","fac_kingdom_11"),
+        (call_script,"script_give_center_to_lord","p_town_3","trp_kingdom_11_lord",1),
 
         (dialog_box, "str_elayne_claims_andor_throne"),
 
@@ -3611,9 +3615,9 @@ triggers = [
    [
         #Bandar Eban... to the Legion of the Dragon... to Davram Bashere
         (call_script,"script_give_center_to_faction_aux", "p_town_6","fac_kingdom_1"),
-        (call_script,"script_give_center_to_lord","p_town_6","trp_knight_1_5",1),
+        (call_script,"script_give_center_to_lord","p_town_6","trp_knight_20_1",1),
         #Katar... Lord Rodel Ituralde... to the Legion of the Dragon
-        (call_script,"script_change_troop_faction","trp_knight_2_5","fac_kingdom_1"),
+        (call_script,"script_change_troop_faction","trp_knight_9_1","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_castle_32","fac_kingdom_1"),
 
         (dialog_box, "str_dragon_takes_arad_doman"),
@@ -3631,7 +3635,7 @@ triggers = [
   (1, 24*100, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Egwene al'Vere unites the White Tower
-        (call_script,"script_give_center_to_lord","p_town_19","trp_kingdom_5_lord",1),
+        (call_script,"script_give_center_to_lord","p_town_19","trp_kingdom_21_lord",1),
 
         (dialog_box, "str_egwene_unites_white_tower"),
 
@@ -3648,14 +3652,14 @@ triggers = [
   (1, 24*120, ti_once, [(eq, "$g_tutorial_complete", 1)],
    [
         #Chachin... to the Shadowspawn... to Moridin
-        (call_script,"script_give_center_to_faction_aux", "p_town_17","fac_kingdom_8"),
-        (call_script,"script_give_center_to_lord","p_town_17","trp_knight_8_1",1),
+        (call_script,"script_give_center_to_faction_aux", "p_town_17","fac_kingdom_24"),
+        (call_script,"script_give_center_to_lord","p_town_17","trp_knight_24_1",1),
         #Shol Arbela... to the Shadowspawn... to Demandred
-        (call_script,"script_give_center_to_faction_aux", "p_town_9","fac_kingdom_8"),
-        (call_script,"script_give_center_to_lord","p_town_9","trp_knight_8_2",1),
-        #Canluum... to the Shadowspawn... to Moghedien
-        (call_script,"script_give_center_to_faction_aux", "p_castle_19","fac_kingdom_8"),
-        (call_script,"script_give_center_to_lord","p_castle_19","trp_knight_8_3",1),
+        (call_script,"script_give_center_to_faction_aux", "p_town_9","fac_kingdom_24"),
+        (call_script,"script_give_center_to_lord","p_town_9","trp_knight_24_2",1),
+        #Canluum... to the Shadowspawn... to Graendal
+        (call_script,"script_give_center_to_faction_aux", "p_castle_19","fac_kingdom_24"),
+        (call_script,"script_give_center_to_lord","p_castle_19","trp_knight_24_5",1),
 
         (dialog_box, "str_last_battle_begins"),
 
@@ -4314,6 +4318,149 @@ triggers = [
             (try_end),
 
         ]),
+
+## TGS: mat: DEGUG: Add Sea Battles
+
+(0.1, 0, 0, [(party_get_current_terrain,":terrain","p_main_party"),
+      (assign, reg1,":terrain"),],
+   [#(try_begin),  # it seems like this shouldn't be there so I'll remove for now
+     (troop_get_inventory_slot, ":cur_horse", "trp_player", 8), #horse slot
+     (assign, ":new_icon", -1),
+     (try_begin),
+       (eq,reg1,7), # 7 = rt_bridge
+       (assign, ":new_icon", "icon_ship"),
+      #(display_message,"@water"),
+     (else_try),
+       (eq, "$g_player_icon_state", pis_normal),
+       (try_begin),
+         (ge, ":cur_horse", 0),
+         (assign, ":new_icon", "icon_player_horseman"),
+         #(display_message,"@no water, horse"),
+       (else_try),
+         (assign, ":new_icon", "icon_player"),
+         #(display_message,"@no water, no horse"),
+       (try_end),
+    (else_try),
+      (eq, "$g_player_icon_state", pis_camping), # All of this is thanks to Lumos bein' generous, and not being as much of a lazy arse as I am
+      (assign, ":new_icon", "icon_camp"), 
+    (try_end),
+    (party_set_icon,"p_main_party", ":new_icon"),
+
+]),
+  
+
+    (0.1, 0, 0, [(party_get_current_terrain,":terrain","p_main_party"),
+      (neq,":terrain",7),], # 7 = rt_bridge
+   [(party_set_icon,"p_main_party", "icon_player"),]),
+  
+ (0.1, 0, 0.0, [],
+[(try_for_parties, ":cur_party"),
+   (party_get_current_terrain, ":terrain", ":cur_party"),
+   (eq, ":terrain", 7), # 7 = rt_bridge
+  (party_get_template_id, ":cur_template", ":cur_party"),
+ (this_or_next|eq, ":cur_template", "pt_kingdom_hero_party"),
+ (this_or_next|eq, ":cur_template", "pt_kingdom_caravan_party"),
+ (this_or_next|eq, ":cur_template", "pt_manhunters"),
+ (this_or_next|eq, ":cur_template", "pt_village_farmers"),
+ (this_or_next|eq, ":cur_template", "pt_deserters"),
+ (this_or_next|eq, ":cur_template", "pt_looters"),
+ (this_or_next|eq, ":cur_template", "pt_forest_bandits"),
+ (this_or_next|eq, ":cur_template", "pt_steppe_bandits"),
+ (this_or_next|eq, ":cur_template", "pt_mountain_bandits"),
+ # added by mat2rivs
+ (this_or_next|eq, ":cur_template", "pt_taiga_bandits"),
+ (this_or_next|eq, ":cur_template", "pt_desert_bandits"),#
+ (this_or_next|eq, ":cur_template", "pt_trollocs"),#
+ (this_or_next|eq, ":cur_template", "pt_merchant_caravan"),#
+ (this_or_next|eq, ":cur_template", "pt_dplmc_spouse"),#
+ (this_or_next|eq, ":cur_template", "pt_dplmc_gift_caravan"),#
+ (this_or_next|eq, ":cur_template", "pt_dplmc_recruiter"),#
+ # end
+ (eq, ":cur_template", "pt_sea_raiders"),
+   (party_set_icon, ":cur_party", "icon_ship"),
+ (else_try),
+   (neq,":terrain",7), # 7 = rt_bridge
+   (party_get_template_id, ":cur_template", ":cur_party"),
+   (eq, ":cur_template", "pt_kingdom_hero_party"),
+ (party_set_icon,":cur_party","icon_flagbearer_a"),
+ (else_try),
+ # added by mat2rivs
+ (this_or_next|eq, ":cur_template", "pt_merchant_caravan"),
+ (this_or_next|eq, ":cur_template", "pt_dplmc_gift_caravan"),
+ # end
+ (eq, ":cur_template", "pt_kingdom_caravan_party"),
+ (party_set_icon,":cur_party","icon_mule"),
+ (else_try),
+ (eq, ":cur_template", "pt_deserters"),
+ (party_set_icon,":cur_party","icon_vaegir_knight"),
+ (else_try),
+ # added by mat2rivs
+ (this_or_next|eq, ":cur_template", "pt_dplmc_recruiter"),
+ # end
+ (eq, ":cur_template", "pt_manhunters"),
+ (party_set_icon,":cur_party","icon_gray_knight"),
+ (else_try),
+  (eq, ":cur_template", "pt_village_farmers"),
+ (party_set_icon,":cur_party","icon_peasant"),
+ # added by mat2rivs
+ (else_try),
+  (eq, ":cur_template", "pt_dplmc_spouse"),
+  (party_set_icon,":cur_party","icon_woman"),
+ # end
+ (else_try),
+  (this_or_next|eq, ":cur_template", "pt_looters"),
+ (this_or_next|eq, ":cur_template", "pt_forest_bandits"),
+# (this_or_next|eq, ":cur_template", "pt_steppe_bandits"),  # should be kherghit icon
+ (this_or_next|eq, ":cur_template", "pt_mountain_bandits"),
+ # added by mat2rivs
+ (this_or_next|eq, ":cur_template", "pt_desert_bandits"),
+ (this_or_next|eq, ":cur_template", "pt_trollocs"),
+ # end
+ (eq, ":cur_template", "pt_sea_raiders"),
+ (party_set_icon,":cur_party","icon_axeman"),
+ # added by mat2rivs
+ (else_try),
+  (this_or_next|eq, ":cur_template", "pt_taiga_bandits"),
+  (eq, ":cur_template", "pt_steppe_bandits"),
+  (party_set_icon,":cur_party","icon_khergit"),
+ # end 
+ (else_try),
+ (eq, ":cur_template", "pt_cattle_herd"),
+ (party_set_icon,":cur_party","icon_cattle"),
+ (try_end),]),
+
+## a little extra trigger added by mat2rivs to keep track of the terrain type the character was on last.
+    (0.5, 0, 0, [],
+   [(party_get_current_terrain, "$g_player_party_previous_terrain_type", "p_main_party")]),  ## If this is non rt_bridge and they are in rt_bridge, then they can fight in the 'Go Ashore' mode
+
+  ## New main map distance measuring trigger (Disabled normally)
+        (0, 0, 0, [(eq, "$g_tutorial_complete", 1), #  to enable, remove the second line in the condition
+                   (eq, "$g_tutorial_complete", 0),
+                   ],
+         [
+            ##Click 'N' to find main party's distance to bandar eban
+            (try_begin),
+            (key_clicked, key_n),  # start the remainder of the code when 'N' is clicked
+                #(party_get_position, pos1, "p_main_party"),
+                #(party_get_position, pos2, "p_town_6"),
+                #(get_distance_between_positions, reg1, pos1, pos2),
+                #(display_message, "@Main party is {reg1} cm from Bandar Eban..."),
+            
+                (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
+                (try_begin),
+                (eq, reg0, 0),
+                    (display_message, "@Too far from land to go ashore..."),
+                (else_try),
+                (eq, reg0, 1),
+                    (display_message, "@Close enough to land to go ashore..."),
+                (else_try),
+                    (display_message, "@Script is not working correctly..."),
+                (try_end),
+            (try_end),
+
+        ]),
+
+## TGS: Sea Battles end  
 
 
 

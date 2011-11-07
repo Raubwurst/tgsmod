@@ -2719,6 +2719,36 @@ common_battle_check_victory_condition = (
     (finish_mission, 1),
     ])
 
+## TGS: mat: DEBUG: try (all_enemies_defeated, 2) for ship battles
+common_battle_check_victory_condition_tgs = (
+  1, 60, ti_once,
+  [
+    (store_mission_timer_a,reg(1)),
+    (ge,reg(1),10),
+    (all_enemies_defeated, 2), # was (all_enemies_defeated, 5),
+	##PBOD - Battle Continuation
+	(this_or_next|party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
+	##PBOD - Battle Continuation
+    (neg|main_hero_fallen, 0),
+    (set_mission_result,1),
+    (display_message,"str_msg_battle_won"),
+    (assign,"$g_battle_won",1),
+    (assign, "$g_battle_result", 1),
+    ### Added for TGS
+    (try_for_agents, ":agent"),
+        (agent_slot_eq, ":agent", slot_agent_under_compulsion, 1),
+            (agent_set_hit_points,":agent",0,0),
+            (agent_deliver_damage_to_agent,":agent",":agent"),
+    (try_end),
+    ### End added for TGS
+    (call_script, "script_play_victorious_sound"),
+    ],
+  [
+    (call_script, "script_count_mission_casualties_from_agents"),
+    (finish_mission, 1),
+    ])
+## TGS: mat: DEBUG: End
+
 common_battle_victory_display = (
   10, 0, 0, [],
   [
@@ -11478,13 +11508,33 @@ mission_templates = [
      (try_begin), 
      #### modified for TGS
        (this_or_next|eq, ":dead_agent_troop_no", "trp_legion_prison_guard"),
-       (this_or_next|eq, ":dead_agent_troop_no", "trp_southlander_1_prison_guard"),
-       (this_or_next|eq, ":dead_agent_troop_no", "trp_southlander_2_prison_guard"),
-       (this_or_next|eq, ":dead_agent_troop_no", "trp_borderland_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_red_hand_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_two_rivers_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_mayene_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_cairhien_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_illian_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_murandy_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_altara_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_arad_doman_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_tear_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_andor_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_ghealdan_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_far_madding_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_tarabon_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_amadicia_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_whitecloak_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_shienar_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_arafel_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_kandor_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_saldaea_prison_guard"),
        (this_or_next|eq, ":dead_agent_troop_no", "trp_sedai_prison_guard"),
        (this_or_next|eq, ":dead_agent_troop_no", "trp_aiel_prison_guard"),
        (this_or_next|eq, ":dead_agent_troop_no", "trp_seanchan_prison_guard"),
+#       (this_or_next|eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
+#       (this_or_next|eq, ":dead_agent_troop_no", "trp_sea_folk_prison_guard"),
+#       (this_or_next|eq, ":dead_agent_troop_no", "trp_land_of_madmen_prison_guard"),
        (eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
+#       (eq, ":dead_agent_troop_no", "trp_falme_prison_guard"),
      #### end modified for TGS
           
        (eq, ":killer_agent_troop_no", "trp_player"),
@@ -14436,16 +14486,37 @@ mission_templates = [
         (agent_get_troop_id, ":killer_agent_troop_no", ":killer_agent_no"),
                 
         (try_begin), 
-        ## modified for TGS
-          (this_or_next|eq, ":dead_agent_troop_no", "trp_legion_prison_guard"),
-          (this_or_next|eq, ":dead_agent_troop_no", "trp_southlander_1_prison_guard"),
-          (this_or_next|eq, ":dead_agent_troop_no", "trp_southlander_2_prison_guard"),
-          (this_or_next|eq, ":dead_agent_troop_no", "trp_borderland_prison_guard"),
-          (this_or_next|eq, ":dead_agent_troop_no", "trp_sedai_prison_guard"),
-          (this_or_next|eq, ":dead_agent_troop_no", "trp_aiel_prison_guard"),
-          (this_or_next|eq, ":dead_agent_troop_no", "trp_seanchan_prison_guard"),
-          (eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
-        ## end modified for TGS
+         #### modified for TGS
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_legion_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_red_hand_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_two_rivers_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_mayene_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_cairhien_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_illian_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_murandy_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_altara_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_arad_doman_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_tear_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_andor_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_ghealdan_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_far_madding_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_tarabon_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_amadicia_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_whitecloak_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_shienar_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_arafel_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_kandor_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_saldaea_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_sedai_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_aiel_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_seanchan_prison_guard"),
+#           (this_or_next|eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
+#           (this_or_next|eq, ":dead_agent_troop_no", "trp_sea_folk_prison_guard"),
+#           (this_or_next|eq, ":dead_agent_troop_no", "trp_land_of_madmen_prison_guard"),
+           (eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
+#           (eq, ":dead_agent_troop_no", "trp_falme_prison_guard"),
+     #### end modified for TGS
+        
           
           (eq, ":killer_agent_troop_no", "trp_player"),
           
@@ -35348,6 +35419,712 @@ mission_templates = [
 			],
 		), 
 	### Ways mission_template END
+  
+
+    ### Sea Battles
+
+#################################
+#SEA BATTLE MISSION TEMPLATE
+#################################
+  (
+    "ship_battle",mtf_battle_mode,-1,
+    "You close in and board the enemy ships",
+    [(0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+    (1,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+    (2,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+    (10,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+    (11,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+    (12,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+     ],
+    [
+      (ti_on_agent_spawn, 0, 0, [],
+       [
+         (store_trigger_param_1, ":agent_no"),
+         (call_script, "script_agent_reassign_team", ":agent_no"),
+         ## TGS: mat: Didn't add courage stuff that's in 'lead_charge' because don't want agents fleeing the field
+         ]),
+      
+      ## TGS: mat: Added Common to make like 'lead_charge'
+      common_battle_init_banner,
+      ## TGS: mat: End
+      
+      ## TGS: mat: Added kill/wounded agent trigger, but commented out the effect on courage scores
+      (ti_on_agent_killed_or_wounded, 0, 0, [],
+       [
+        (store_trigger_param_1, ":dead_agent_no"),
+        #(store_trigger_param_2, ":killer_agent_no"),
+        (store_trigger_param_3, ":is_wounded"),
+
+        (try_begin),
+          (ge, ":dead_agent_no", 0),
+          (neg|agent_is_ally, ":dead_agent_no"),
+          (agent_is_human, ":dead_agent_no"),
+          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+##          (str_store_troop_name, s6, ":dead_agent_troop_id"),
+##          (assign, reg0, ":dead_agent_no"),
+##          (assign, reg1, ":killer_agent_no"),
+##          (assign, reg2, ":is_wounded"),
+##          (agent_get_team, reg3, ":dead_agent_no"),          
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
+          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+          (eq, ":is_wounded", 1),
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
+        (try_end),
+        
+        ## Removed the following to avoid routing enemies
+        #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
+       ]),
+      ## TGS: mat: End
+            
+
+      common_battle_tab_press,
+
+      (ti_question_answered, 0, 0, [],
+       [(store_trigger_param_1,":answer"),
+        (eq,":answer",0),
+        (assign, "$pin_player_fallen", 0),
+        (try_begin),
+          (store_mission_timer_a, ":elapsed_time"),
+          (gt, ":elapsed_time", 20),
+          (str_store_string, s5, "str_retreat"),
+          (call_script, "script_simulate_retreat", 10, 20, 1), ## TGS: mat: added , 1) at the end
+        (try_end),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        (finish_mission,0),]),
+
+      (ti_before_mission_start, 0, 0, [],
+       [
+         (team_set_relation, 0, 2, 1),
+         (team_set_relation, 1, 3, 1),
+         (call_script, "script_place_player_banner_near_inventory_bms"),
+         
+         ## TGS: mat: Added to make like 'lead_charge'
+         (party_clear, "p_routed_enemies"),
+
+         (assign, "$g_latest_order_1", 1), 
+         (assign, "$g_latest_order_2", 1), 
+         (assign, "$g_latest_order_3", 1), 
+         (assign, "$g_latest_order_4", 1),
+         ## TGS: mat: End
+         ]),
+      
+      (0, 0, ti_once, [], [(assign,"$battle_won",0),
+                           (assign,"$defender_reinforcement_stage",0),
+                           (assign,"$attacker_reinforcement_stage",0),
+                           (assign,"$g_presentation_battle_active", 0),
+                           (call_script, "script_place_player_banner_near_inventory"),
+                           (call_script, "script_combat_music_set_situation_with_culture"), #Any Ilex is a good Ilex
+                           ## TGS: mat: Add to make like 'lead_charge'
+                           (assign, "$g_defender_reinforcement_limit", 2),
+                           ## TGS: mat: End
+                           ]),
+
+      common_music_situation_update,
+      common_battle_check_friendly_kills,
+      
+      (1, 0, 5, [
+          
+      ## TGS: mat: Added to make like 'lead_charge'
+          
+      #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
+      #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
+      (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
+      (assign, ":total_enemy_soldiers", reg0),
+      
+      #decrease number of agents already in battle area to find all number of reinforcement enemies
+      (assign, ":enemy_soldiers_in_battle_area", 0),
+      (try_for_agents,":cur_agent"),
+        (agent_is_human, ":cur_agent"),
+        (agent_get_party_id, ":agent_party", ":cur_agent"),
+        (try_begin),
+          (neq, ":agent_party", "p_main_party"),
+          (neg|agent_is_ally, ":cur_agent"),
+          (val_add, ":enemy_soldiers_in_battle_area", 1),
+        (try_end),
+      (try_end),
+      (store_sub, ":total_enemy_reinforcements", ":total_enemy_soldiers", ":enemy_soldiers_in_battle_area"),
+
+      (try_begin),
+        (lt, ":total_enemy_reinforcements", 15),
+        (ge, "$defender_reinforcement_stage", 2),
+        (eq, "$defender_reinforcement_limit_increased", 0),
+        (val_add, "$g_defender_reinforcement_limit", 1),                    
+        (assign, "$defender_reinforcement_limit_increased", 1),
+      (try_end),    
+      #new (25.11.09) ends
+      ## TGS: mat: End
+      
+      ## TGS: mat: Commented out
+                 #(lt,"$defender_reinforcement_stage",2),
+      ## TGS: mat: Added to make like 'lead_charge
+                 (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
+      ## TGS: mat: End
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_defenders", 0),
+                 (lt,":num_defenders",6),
+#                 (assign, reg2, ":num_defenders"),
+#                 (display_message,"@num_defenders = {reg2}")
+                 ],
+           [(add_reinforcements_to_entry,0,7),
+            ## TGS: mat: Added to make like 'lead_charge'
+            (assign, "$defender_reinforcement_limit_increased", 0),
+            ## TGS: mat: End
+            (val_add,"$defender_reinforcement_stage",1)]),
+      
+      
+      (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_attackers", 1),
+                 (lt,":num_attackers",6),
+#                 (assign, reg2, ":num_attackers"),
+#                 (display_message,"@num_attackers = {reg2}")
+                 ],
+           [(add_reinforcements_to_entry,3,7),
+            (val_add,"$attacker_reinforcement_stage",1)]),
+      
+      common_battle_check_victory_condition,
+#      common_battle_check_victory_condition_tgs,
+      common_battle_victory_display,
+      
+      ## TGS: mat: Commented out this trigger and added the one from 'lead_charge'
+
+#      (1, 4, ti_once, [(main_hero_fallen)],
+#          [
+#              (assign, "$pin_player_fallen", 1),
+#              (str_store_string, s5, "str_retreat"),
+#              (call_script, "script_simulate_retreat", 10, 20),
+#              (assign, "$g_battle_result", -1),
+#              (set_mission_result,-1),
+#              (call_script, "script_count_mission_casualties_from_agents"),
+#              (finish_mission,0)]),
+
+      (1, 4, 0, [(main_hero_fallen)], #PBOD was 1, 4, ti_once
+          [
+		    (assign, "$pin_player_fallen", 1),
+			(try_begin),
+			  (party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
+			  (assign, ":num_allies", 0),
+			  #(store_friend_count, ":num_allies"),
+			  #(store_ally_count,":num_allies"),
+			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),			
+			  (try_for_agents, ":agent"),
+                 (agent_is_ally, ":agent"),
+                 (agent_is_alive, ":agent"),
+                 (val_add, ":num_allies", 1),
+              (try_end),
+			  (gt, ":num_allies", 0),
+			  (try_begin),
+				  (neq, "$cam_free", 1),
+				  (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
+				  (assign, "$cam_free", 1),
+				  (assign, "$cam_mode", 2),
+				  (call_script, "script_cust_cam_cycle_forwards"), #So, on Follow, it doesn't begin with the player's dead body
+				  (mission_cam_set_mode, 1),
+				  (party_slot_eq, "p_main_party", slot_party_pref_bc_charge_ko, 1), #PBOD "Charge on KO" Active
+				  (set_show_messages, 0),
+				  (team_give_order, "$fplayer_team_no", grc_everyone, mordr_charge),
+				  (team_set_order_listener, "$fplayer_team_no", grc_everyone),
+				  (call_script, "script_player_order_formations", mordr_charge),
+				  (set_show_messages, 1),
+			  (try_end),
+			(else_try),
+              #(assign, "$pin_player_fallen", 1),
+              (str_store_string, s5, "str_retreat"),
+              (call_script, "script_simulate_retreat", 10, 20, 1),
+              (assign, "$g_battle_result", -1),
+              (set_mission_result,-1),
+              (call_script, "script_count_mission_casualties_from_agents"),
+              (finish_mission,0),
+			(try_end),]),
+      
+      ## TGS: mat: End
+      
+      ## TGS: mat: Added to make like 'lead_charge'
+      common_battle_inventory,
+      ## TGS: mat: End
+      
+      ## TGS: mat: Decided to leave out the AI for running away for the ship / landing battles (Add for Shienar border tower)
+
+      #################################################################  
+      ###### TGS triggers
+      #################################################################
+
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
+      
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
+      
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      common_wot_check_for_channelers_in_the_scene,
+      common_wot_spawn_warders,
+      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_weave_toggle_short_range,
+      common_wot_weave_toggle_long_range,
+      common_wot_weave_toggle_support,
+      common_wot_weave_toggle_advanced,
+      common_wot_weave_toggle_all,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
+      
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      common_wot_airborne_trigger,
+      # end
+      
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+      
+      # pick one balefire trigger (2 for custom battle)
+      common_wot_balefire_trigger_1,
+      #common_wot_balefire_trigger_2,
+      # end
+      
+      common_wot_burn_over_time_trigger,
+      
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      # end
+ 
+      #########################################################################
+      ###### end TGS triggers
+      #########################################################################
+      
+      ## TGS: mat: Added to make like 'lead_charge'
+      common_battle_order_panel,
+      ## TGS: mat: End
+      
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      
+      ## TGS: mat: Added to make like 'lead_charge'
+      common_battle_order_panel_tick,
+      ## TGS: mat: End
+      
+      ]
+    ## TGS: mat: Added to make like 'lead_charge'
+    ##diplomacy begin
+    + custom_camera_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + weapon_use_triggers,
+    ##diplomacy end
+    ## TGS: mat: End
+    ),
+
+    ### Sea Battles End
+
+
+    ### Border Tower Battles
+
+#####################################
+#BORDER TOWER BATTLE MISSION TEMPLATE
+#####################################
+  (
+    "border_tower_battle",mtf_battle_mode,-1,
+    "You fight near the border tower.",
+    [(0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+    (1,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+    (2,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+    (10,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+    (11,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+    (12,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+     ],
+    [
+      (ti_on_agent_spawn, 0, 0, [],
+       [
+         (store_trigger_param_1, ":agent_no"),
+         (call_script, "script_agent_reassign_team", ":agent_no"),
+                  ## TGS: mat: Didn't add courage stuff that's in 'lead_charge' because don't want agents fleeing the field
+         ]),
+
+      ## TGS: mat: Added Common to make like 'lead_charge'
+      common_battle_init_banner,
+      ## TGS: mat: End
+
+      ## TGS: mat: Added kill/wounded agent trigger, but commented out the effect on courage scores
+      (ti_on_agent_killed_or_wounded, 0, 0, [],
+       [
+        (store_trigger_param_1, ":dead_agent_no"),
+        #(store_trigger_param_2, ":killer_agent_no"),
+        (store_trigger_param_3, ":is_wounded"),
+
+        (try_begin),
+          (ge, ":dead_agent_no", 0),
+          (neg|agent_is_ally, ":dead_agent_no"),
+          (agent_is_human, ":dead_agent_no"),
+          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+##          (str_store_troop_name, s6, ":dead_agent_troop_id"),
+##          (assign, reg0, ":dead_agent_no"),
+##          (assign, reg1, ":killer_agent_no"),
+##          (assign, reg2, ":is_wounded"),
+##          (agent_get_team, reg3, ":dead_agent_no"),          
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
+          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+          (eq, ":is_wounded", 1),
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
+        (try_end),
+        
+        ## Removed the following to avoid routing enemies
+        #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
+       ]),
+      ## TGS: mat: End      
+
+      common_battle_tab_press,
+
+      (ti_question_answered, 0, 0, [],
+       [(store_trigger_param_1,":answer"),
+        (eq,":answer",0),
+        (assign, "$pin_player_fallen", 0),
+        (try_begin),
+          (store_mission_timer_a, ":elapsed_time"),
+          (gt, ":elapsed_time", 20),
+          (str_store_string, s5, "str_retreat"),
+          (call_script, "script_simulate_retreat", 10, 20, 1), ## TGS: mat: added , 1) at the end
+        (try_end),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        (finish_mission,0),]),
+
+      (ti_before_mission_start, 0, 0, [],
+       [
+         (team_set_relation, 0, 2, 1),
+         (team_set_relation, 1, 3, 1),
+         (call_script, "script_place_player_banner_near_inventory_bms"),
+
+         ## TGS: mat: Added to make like 'lead_charge'
+         (party_clear, "p_routed_enemies"),
+
+         (assign, "$g_latest_order_1", 1), 
+         (assign, "$g_latest_order_2", 1), 
+         (assign, "$g_latest_order_3", 1), 
+         (assign, "$g_latest_order_4", 1),
+         ## TGS: mat: End         
+         ]),
+      
+      (0, 0, ti_once, [], [(assign,"$battle_won",0),
+                           (assign,"$defender_reinforcement_stage",0),
+                           (assign,"$attacker_reinforcement_stage",0),
+                           (assign,"$g_presentation_battle_active", 0),
+                           (call_script, "script_place_player_banner_near_inventory"),
+                           (call_script, "script_combat_music_set_situation_with_culture"), #Any Ilex is a good Ilex
+                           ## TGS: mat: Add to make like 'lead_charge'
+                           (assign, "$g_defender_reinforcement_limit", 2),
+                           ## TGS: mat: End
+                           ]),
+
+      common_music_situation_update,
+      common_battle_check_friendly_kills,
+
+      (1, 0, 5, [
+          
+      ## TGS: mat: Added to make like 'lead_charge'
+          
+      #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
+      #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
+      (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
+      (assign, ":total_enemy_soldiers", reg0),
+      
+      #decrease number of agents already in battle area to find all number of reinforcement enemies
+      (assign, ":enemy_soldiers_in_battle_area", 0),
+      (try_for_agents,":cur_agent"),
+        (agent_is_human, ":cur_agent"),
+        (agent_get_party_id, ":agent_party", ":cur_agent"),
+        (try_begin),
+          (neq, ":agent_party", "p_main_party"),
+          (neg|agent_is_ally, ":cur_agent"),
+          (val_add, ":enemy_soldiers_in_battle_area", 1),
+        (try_end),
+      (try_end),
+      (store_sub, ":total_enemy_reinforcements", ":total_enemy_soldiers", ":enemy_soldiers_in_battle_area"),
+
+      (try_begin),
+        (lt, ":total_enemy_reinforcements", 15),
+        (ge, "$defender_reinforcement_stage", 2),
+        (eq, "$defender_reinforcement_limit_increased", 0),
+        (val_add, "$g_defender_reinforcement_limit", 1),                    
+        (assign, "$defender_reinforcement_limit_increased", 1),
+      (try_end),    
+      #new (25.11.09) ends
+      ## TGS: mat: End
+      
+      ## TGS: mat: Commented out
+                 #(lt,"$defender_reinforcement_stage",2),
+      ## TGS: mat: Added to make like 'lead_charge
+                 (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
+      ## TGS: mat: End
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_defenders", 0),
+                 (lt,":num_defenders",6),
+#                 (assign, reg2, ":num_defenders"),
+#                 (display_message,"@num_defenders = {reg2}")
+                 ],
+           [(add_reinforcements_to_entry,0,7),
+            ## TGS: mat: Added to make like 'lead_charge'
+            (assign, "$defender_reinforcement_limit_increased", 0),
+            ## TGS: mat: End
+            (val_add,"$defender_reinforcement_stage",1)]),
+      
+      
+      (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_attackers", 1),
+                 (lt,":num_attackers",6),
+#                 (assign, reg2, ":num_attackers"),
+#                 (display_message,"@num_attackers = {reg2}")
+                 ],
+           [(add_reinforcements_to_entry,3,7),
+            (val_add,"$attacker_reinforcement_stage",1)]),
+      
+      common_battle_check_victory_condition,
+#      common_battle_check_victory_condition_tgs,
+      common_battle_victory_display,
+
+      ## TGS: mat: Commented out this trigger and added the one from 'lead_charge'
+
+#      (1, 4, ti_once, [(main_hero_fallen)],
+#          [
+#              (assign, "$pin_player_fallen", 1),
+#              (str_store_string, s5, "str_retreat"),
+#              (call_script, "script_simulate_retreat", 10, 20),
+#              (assign, "$g_battle_result", -1),
+#              (set_mission_result,-1),
+#              (call_script, "script_count_mission_casualties_from_agents"),
+#              (finish_mission,0)]),
+
+      (1, 4, 0, [(main_hero_fallen)], #PBOD was 1, 4, ti_once
+          [
+		    (assign, "$pin_player_fallen", 1),
+			(try_begin),
+			  (party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
+			  (assign, ":num_allies", 0),
+			  #(store_friend_count, ":num_allies"),
+			  #(store_ally_count,":num_allies"),
+			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),			
+			  (try_for_agents, ":agent"),
+                 (agent_is_ally, ":agent"),
+                 (agent_is_alive, ":agent"),
+                 (val_add, ":num_allies", 1),
+              (try_end),
+			  (gt, ":num_allies", 0),
+			  (try_begin),
+				  (neq, "$cam_free", 1),
+				  (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
+				  (assign, "$cam_free", 1),
+				  (assign, "$cam_mode", 2),
+				  (call_script, "script_cust_cam_cycle_forwards"), #So, on Follow, it doesn't begin with the player's dead body
+				  (mission_cam_set_mode, 1),
+				  (party_slot_eq, "p_main_party", slot_party_pref_bc_charge_ko, 1), #PBOD "Charge on KO" Active
+				  (set_show_messages, 0),
+				  (team_give_order, "$fplayer_team_no", grc_everyone, mordr_charge),
+				  (team_set_order_listener, "$fplayer_team_no", grc_everyone),
+				  (call_script, "script_player_order_formations", mordr_charge),
+				  (set_show_messages, 1),
+			  (try_end),
+			(else_try),
+              #(assign, "$pin_player_fallen", 1),
+              (str_store_string, s5, "str_retreat"),
+              (call_script, "script_simulate_retreat", 10, 20, 1),
+              (assign, "$g_battle_result", -1),
+              (set_mission_result,-1),
+              (call_script, "script_count_mission_casualties_from_agents"),
+              (finish_mission,0),
+			(try_end),]),
+      
+      ## TGS: mat: End
+      
+      ## TGS: mat: Added to make like 'lead_charge'
+      common_battle_inventory,
+      ## TGS: mat: End
+
+      
+      ## TGS: mat: Added AI triggers from 'lead_charge' (so troops will rout in border tower battles
+      #AI Triggers
+      (0, 0, ti_once, [
+          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2),
+          ],
+       [(call_script, "script_select_battle_tactic"),
+        (call_script, "script_battle_tactic_init"),
+        #(call_script, "script_battle_calculate_initial_powers"), #deciding run away method changed and that line is erased
+        ]),
+      
+      (3, 0, 0, [
+          (call_script, "script_apply_effect_of_other_people_on_courage_scores"),
+              ], []), #calculating and applying effect of people on others courage scores
+
+      (3, 0, 0, [
+          (try_for_agents, ":agent_no"),
+            (agent_is_human, ":agent_no"),
+            (agent_is_alive, ":agent_no"),          
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",3),          
+            (call_script, "script_decide_run_away_or_not", ":agent_no", ":mission_time"),
+          (try_end),          
+              ], []), #controlling courage score and if needed deciding to run away for each agent
+
+      (5, 0, 0, [
+          (store_mission_timer_a,":mission_time"),
+
+          (ge,":mission_time",3),
+          
+          (call_script, "script_battle_tactic_apply"),
+          ], []), #applying battle tactic
+      
+      ## TGS: mat: End
+
+      #################################################################  
+      ###### TGS triggers
+      #################################################################
+
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
+      
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
+      
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      common_wot_check_for_channelers_in_the_scene,
+      common_wot_spawn_warders,
+      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_weave_toggle_short_range,
+      common_wot_weave_toggle_long_range,
+      common_wot_weave_toggle_support,
+      common_wot_weave_toggle_advanced,
+      common_wot_weave_toggle_all,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
+      
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      common_wot_airborne_trigger,
+      # end
+      
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+      
+      # pick one balefire trigger (2 for custom battle)
+      common_wot_balefire_trigger_1,
+      #common_wot_balefire_trigger_2,
+      # end
+      
+      common_wot_burn_over_time_trigger,
+      
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      # end
+ 
+      #########################################################################
+      ###### end TGS triggers
+      #########################################################################
+
+      ## TGS: mat: Added to make like 'lead_charge'
+      common_battle_order_panel,
+      ## TGS: mat: End
+      
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+
+      ## TGS: mat: Added to make like 'lead_charge'
+      common_battle_order_panel_tick,
+      ## TGS: mat: End      
+      
+      ]
+    ## TGS: mat: Added to make like 'lead_charge'
+    ##diplomacy begin
+    + custom_camera_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + weapon_use_triggers,
+    ##diplomacy end
+    ## TGS: mat: End
+    ),
+
+    ### Border Tower Battles End
+
+  
 
 #######################################
 ## End added for TGS

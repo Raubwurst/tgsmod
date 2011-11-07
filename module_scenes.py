@@ -1230,6 +1230,14 @@ scenes = [
   #ways
   ("multi_ways",sf_generate, "none", "none", (0,0),(400,400),-100,"0x000000003003c780000d174700002c1d00000fec00001707", [],[], "outer_terrain_plain"),
   #ways
+  ("multi_sea_b",sf_generate,"none", "none", (0,0),(240,240),-0.5,"0x0000000030000000c00d2348000000008000000000000000",
+   [],[]),
+  ("multi_sea_land",sf_generate,"none", "none", (0,0),(240,240),-0.5,"0x0000000030000000c00d2348000000008000000000000000",
+   [],[]),
+  ("multi_ship_battle",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
+    [],[]),
+  ("multi_ship_landing",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
+    [],[]),
   
   #("multi_town_6_walls",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000002300015e300063d8800002757000055df00001b08",
   #  [],[],"sea_outer_terrain_1"),
@@ -1327,4 +1335,27 @@ scenes = [
     [],[]),
   ("enterprise_oil_press",sf_indoors,"oil_press_interior", "bo_oil_press_interior", (-40,-40),(40,40),-100,"0",
     [],[]),
+
+## Added for TGS (Sea Battles)
+#  ("sea_b",sf_generate,"none", "none", (0,0),(240,240),-0.5,"0x0000000030000000c00d2348000000008000000000000000",
+#   [],[]),
+  
+  # mat2rivs's version
+  ("sea_b",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
+    [],[]),
+  
+  #("sea_land",sf_generate,"none", "none", (0,0),(240,240),-0.5,"0x0000000030000000c00d2348000000008000000000000000",
+   #[],[]),
+  
+  # mat2rivs's version
+  ("sea_land",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
+    [],[]),
+## End added for TGS (Sea Battles)  
+
+
+## Added for TGS (Border Tower Battles)
+  ("shienaran_border_tower_1",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000002065509400048120000045eb000066ee0000046e",
+    [],[],"outer_terrain_steppe"),
+## End added for TGS   
+  
 ]

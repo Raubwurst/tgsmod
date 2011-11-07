@@ -68,6 +68,7 @@ map_icons = [
   ("training_ground",mcn_no_shadow,"training", 0.35,0),
       # added for TGS
   ("waygate",mcn_no_shadow,"waygate_map_icon", 0.35,0),
+  ("border_tower", mcn_no_shadow,"snowy_castle_battlement_corner_b.39",0.05,0),
     # end added for TGS
 
   ("bridge_a",mcn_no_shadow,"map_river_bridge_a", 1.27,0),

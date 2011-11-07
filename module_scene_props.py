@@ -3131,5 +3131,34 @@ scene_props = [
   ("waygate_ogier_sign_tarvalon",0,"waygate_ogier_sign_tarvalon",0, []),
 
   # End added for TGS waygate
+
+## Added for TGS (Sea Battles)
+
+#################################################
+#########SEA BATTLES BEGIN
+#################################################
+   ("ship",sokf_moveable,"longship","bo_longship", [   (ti_on_scene_prop_init,
+   [
+    (set_position_delta,0,0,0),
+    (store_trigger_param_1, ":instance_no"),
+    (party_set_slot,"p_ship_colisions",":instance_no",0),
+   ]),]),
+ ("ships_end",0,0,0,[]),
+ ("enemy_ship",sokf_moveable,"longship","bo_longship", [   (ti_on_scene_prop_init,
+   [
+    (set_position_delta,0,0,0),
+    (store_trigger_param_1, ":instance_no"),
+    (party_set_slot,"p_ship_colisions",":instance_no",0),
+   ]),]),
+ ("enemy_ships_end",0,0,0,[]), #RRRRRAAAAAGGGGGGEEEEE
+ ("universal_end",0,0,0,[]),
+
+ ("ship_protect",0,0,"bo_gourd_spike",[]),
+ ("enemy_ship_protect",0,0,"bo_gourd_spike",[]),
+#################################################
+#########SEA BATTLES END
+#################################################  
+
+## End added for TGS (Sea Battles)  
   
 ]
