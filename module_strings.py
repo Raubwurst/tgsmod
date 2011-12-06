@@ -1003,8 +1003,8 @@ strings = [
 
   ("npc1_payment", "It feels odd to join an army. Though I hold reservations, we can deal with them on the road. Oh, one last thing - I will need {reg3} crowns. As I said, I have lost all my herbs, and though the Healer of this town and I have shared knowledge, herbs are too valuable to give away."),
   ("npc2_payment", "I will need a mere {reg3} crowns, to facilitate my equipment requirements. I have no value to you dead, you see."),
-  ("npc3_payment", "{!}."),
-  ("npc4_payment", "{!}."),
+  ("npc3_payment", "If I could bother you for {reg3} crowns, I need to buy some traveling clothes."),
+  ("npc4_payment", "Ah, if you would, could you cover my tab? It's a mere {reg3} crowns."),
   ("npc5_payment", "Ah, one last thing, my {Lord/Lady} - Zonnein requires {reg3} crowns for her paywage."),
   ("npc6_payment", "Excellent. I will require {reg3} crowns as a deposit."),
   ("npc7_payment", "Very well, human, though us ogier do need sustinence - {reg3} crowns will do for now."),
@@ -1020,8 +1020,8 @@ strings = [
 
   ("npc1_payment_response", "I see. So... {reg3} crowns. There, have them. I trust you will be worth the price."),
   ("npc2_payment_response", "Very well, you will have your crowns."),
-  ("npc3_payment_response", "{!}."),
-  ("npc4_payment_response", "{!}."),
+  ("npc3_payment_response", "Yes, that will be fine."),
+  ("npc4_payment_response", "I suppose, but don't make a habit of it."),
   ("npc5_payment_response", "Payment? Here's {reg3} crowns, then."),
   ("npc6_payment_response", "Then {reg3} crowns it is."),
   ("npc7_payment_response", "Here's {reg3} crowns."),
@@ -1257,7 +1257,7 @@ strings = [
   ("npc5_home_description_2", "Zonnein was trained well, and adapted to her life as damane, but she ever held the flame of rebellion - learning of the ways of battle, she planned her escape. Years later, after the Hailene, the chance came - a group of soldiers from the north met with her sul'dam's scouts and destroyed them utterly, as Zonnein was ill and fell unconcious during the battle. A marath'damane, one of those that call themselves Aes Sedai freed her from her collar, and demanded that she go to the White Tower with other marath'damane to be studied. Seeing her escape, she accepted and told the marath'damane everything she could until her chance for a second escape came - she simply knocked down the soldiers guarding her with Air and ran into the night."),
   ("npc6_home_description_2", "But enough of wishing and dreams, I have no desire to see the water up close again - I almost drowned after that cursed woman in a grey dress destroyed my raker - I was the only survivor, managing to hang on to a piece of wood. I swear that I shall kill that Daughter of the Sands, one day!"),
   ("npc7_home_description_2", "They found me guilty of murder, my punishment was exile, to be mentioned at the next meeting of the Great Stump. To an ogier, this is akin to a death sentence - I have no choice but to find unpopulated stedding, as my own people will refuse me access should I arrive at theirs, even if I suffer from the Longing."),
-  ("npc8_home_description_2", "If it were up to me, I'd keep moving west until we reach Jehannah. Besides, there's a few folks there who'd I need to catch up with."), # mat
+  ("npc8_home_description_2", "If it were up to me, I'd keep moving west until we reach Jehannah. Besides, there's a few folks there who I need to catch up with."), # mat
   ("npc9_home_description_2", "Still, even though Emond's Field is small, in all my travels I have yet to meet folk who I'd rather live with than those from home. We are a strong community who will help eachother recover from just about any setback. And once we get a though in our minds, we won't rest until we see it through."), # mat
   ("npc10_home_description_2", "I've just never had much respect for those who make themselves rich at the expense of those who be poor. So, if by providing goods at a lower rate I keep a few crowns from the hands of the nobles, this seems like a fair trade to me."), # mat 
   ("npc11_home_description_2", "It has only been more recently that the School started up. It is a center for higher learning. Here the study of science and engineering is encouraged. And with the Dragon Reborn as our benefactor, we don't have to fear being shut down by some of the skeptical nobles."), # mat
@@ -2207,10 +2207,10 @@ strings = [
   ("kingdom_22_pretender_intro", "My name is Sevanna, I lead the true Aiel - the Shaido! For too long, soft wetlanders have dominated these ripe lands."),
   ("kingdom_23_pretender_intro", "I am High Lady Suroth Sabelle Meldarath, of Asinbayar and Barsabba. My destiny is to complete the Corenne and lead the Seanchan Empire, but I have been betrayed!"),
   ("kingdom_24_pretender_intro", "Ordieth is my name. I declare myself the Dark One! I will no longer stand for the usurper."),
-#  ("kingdom_25_pretender_intro", "I am Pretender."),
-#  ("kingdom_26_pretender_intro", "I am Pretender."),
-#  ("kingdom_27_pretender_intro", "I am Pretender."),
-#  ("kingdom_28_pretender_intro", "I am Pretender."),
+  ("kingdom_25_pretender_intro", "I am Pretender."),
+  ("kingdom_26_pretender_intro", "I am Pretender."),
+  ("kingdom_27_pretender_intro", "I am Pretender."),
+  ("kingdom_28_pretender_intro", "I am Pretender."),
 
   ("swadian_rebellion_pretender_story_1", "For a long time, I invested my time in building the Black Tower to rival the power and influence of the Aes Sedai, helping alter the balance of power of every land. I trained the men as weapons, perfect killing machines, as I was ordered."),
   ("kingdom_2_pretender_story_1", "I am the rightful leader of this kingdom."),
@@ -2236,10 +2236,10 @@ strings = [
   ("kingdom_22_pretender_story_1", "Some time ago, an impetous wetlander arrived in our lands. Weaving tales of Aiel blood, he managed to convince some fool Wise Ones to send him to Rhuidean, as a clan leader would be."),
   ("kingdom_23_pretender_story_1", "Following High Lord Turak's death at the hands of the Dragon, I led the Hailene - the Empire's scouts to gather intelligence for the Return. Unfortunately, we were met with more steel than graitude."),
   ("kingdom_24_pretender_story_1", "The Dark One burned me, forged me, used me, made me a mere puppet for him to use. Even now, I am compelled to do his bidding - though I have found ways to combat his Dark power."),
-#  ("kingdom_25_pretender_story_1", "I am the rightful leader of this kingdom."),
-#  ("kingdom_26_pretender_story_1", "I am the rightful leader of this kingdom."),
-#  ("kingdom_27_pretender_story_1", "I am the rightful leader of this kingdom."),
-#  ("kingdom_28_pretender_story_1", "I am the rightful leader of this kingdom."),
+  ("kingdom_25_pretender_story_1", "I am the rightful leader of this kingdom."),
+  ("kingdom_26_pretender_story_1", "I am the rightful leader of this kingdom."),
+  ("kingdom_27_pretender_story_1", "I am the rightful leader of this kingdom."),
+  ("kingdom_28_pretender_story_1", "I am the rightful leader of this kingdom."),
 
   ("swadian_rebellion_pretender_story_2", "Many a man has died from overtraining or gone mad from the Taint that afflicts saidin. Despite that, our numbers are great and we have made great advances in the use of the Power, especially in warfare. I would never had been able to accomplish such a feat by myself."),
   ("kingdom_2_pretender_story_2", "Truly, you must believe me."),
@@ -2265,10 +2265,10 @@ strings = [
   ("kingdom_22_pretender_story_2","To add further insult, he brought two more wetlanders with him - an Aes Sedai and a gambler. Both also demanded to go to Rhuidean, against all law and precept. Again, several fools decided to defile our sacred land and send both to see what only Wise Ones and clan leaders may see. When the wetlanders returned, the false Aiel called the clan leaders to Alcair Dal, as if he led a clan himself. There, he destroyed the Aiel people with vile lies."),
   ("kingdom_23_pretender_story_2", "After pacifying the Children of the Light's army that deigned to refuse us rightful access to our lands, we took their Fortress of the Light. Those that defy us in our own lands will perish, though any can take the oaths to the Crystal Throne to serve the Empress, may she live forever."),
   ("kingdom_24_pretender_story_2", "BURN THEM KILL THEM FLAY THEM! All these pretty little tubes, lovely skin, pretty skin, flay the skin, burn the eyes, flay the skin, burn the eyes..."),
-#  ("kingdom_25_pretender_story_2", "Truly, you must believe me."),
-#  ("kingdom_26_pretender_story_2", "Truly, you must believe me."),
-#  ("kingdom_27_pretender_story_2", "Truly, you must believe me."),
-#  ("kingdom_28_pretender_story_2", "Truly, you must believe me."),
+  ("kingdom_25_pretender_story_2", "Truly, you must believe me."),
+  ("kingdom_26_pretender_story_2", "Truly, you must believe me."),
+  ("kingdom_27_pretender_story_2", "Truly, you must believe me."),
+  ("kingdom_28_pretender_story_2", "Truly, you must believe me."),
 
   ("swadian_rebellion_pretender_story_3",  "Unfortunately, however, the Dragon himself has gone mad. I have heard him speak of voices - in fact, the very first time we met he was about to break one of the seals to the Dark One's prison! He has become less and less stable since then, with no apparent pattern to his actions. There is only one way we can save the Black Tower, one way to save all men with the ability to touch saidin from being destroyed. We must kill Rand al'Thor and take his lands. You have but to meet him yourself, the man is too powerful to be permitted to become insane. Help me save the Light by destroying the madman!"),
   ("kingdom_2_pretender_story_3", "If you help me, I promise you great riches!"),
@@ -2294,10 +2294,10 @@ strings = [
   ("kingdom_22_pretender_story_3", "The Shaido had to act - we gathered all the spears we could and headed to the wetlands. Though we managed to eventually capture the false car'a'carn, he was stolen from us by those snakes who would call themselves Aes Sedai. My spears abandoned me, and I am left as the only defender of the Aiel people - I am all that stands between the true Aiel and destruction. A new clan must be built from the ruins of my Shaido, the New Shaido will take these lands through spear and arrow, and cast down the wetlander snake who dares to name himself car'a'carn! A great new empire will rise and those who would bend knee to wetlanders will serve us as gai'shain or fall to our spears! Join me, and together we will retake these lands."),
   ("kingdom_23_pretender_story_3", "And that Empress is me. The Empire is in disarray and requires a strong hand to guide it to glory. Serve me, General, and together we will retake the Empire and bring all nations under one flag!"),
   ("kingdom_24_pretender_story_3", "We must march, friend soldier! March to Shayol Ghul itself! I have great talents to aid us, we will give no mercy to the Dark One or his puppets. March with me, and we shall quarter Shaidar Haran, this so-called Hand of the Dark, and throw what is left to his Master, may he choke on it!"),
-#  ("kingdom_25_pretender_story_3", "If you help me, I promise you great riches!"),
-#  ("kingdom_26_pretender_story_3", "If you help me, I promise you great riches!"),
-#  ("kingdom_27_pretender_story_3", "If you help me, I promise you great riches!"),
-#  ("kingdom_28_pretender_story_3", "If you help me, I promise you great riches!"),
+  ("kingdom_25_pretender_story_3", "If you help me, I promise you great riches!"),
+  ("kingdom_26_pretender_story_3", "If you help me, I promise you great riches!"),
+  ("kingdom_27_pretender_story_3", "If you help me, I promise you great riches!"),
+  ("kingdom_28_pretender_story_3", "If you help me, I promise you great riches!"),
 
   ("swadian_rebellion_monarch_response_1",  "Taim is a fool, jealous of my political power and strength in saidin. I raised him to leader of the Black Tower, and I can cast him back down."),
   ("kingdom_2_rebellion_monarch_response_1", "That fool still lives?"),
@@ -2323,10 +2323,10 @@ strings = [
   ("kingdom_22_rebellion_monarch_response_1", "It lightens my heart that the Shaido are no longer. Do not let the goat peddler Sevanna claim anything about Wise Ones or clan chiefs."),
   ("kingdom_23_rebellion_monarch_response_1", "Suroth is a Darkfriend, demoted to property. Unfortunately, she has escaped. The Seekers will find her."),
   ("kingdom_24_rebellion_monarch_response_1", "Padan Fain. That creature travelled to Shayol Ghul long ago, knelt and swore great oaths to the Dark Lord himself."),
-#  ("kingdom_25_rebellion_monarch_response_1", "That fool still lives?"),
-#  ("kingdom_26_rebellion_monarch_response_1", "That fool still lives?"),
-#  ("kingdom_27_rebellion_monarch_response_1", "That fool still lives?"),
-#  ("kingdom_28_rebellion_monarch_response_1", "That fool still lives?"),
+  ("kingdom_25_rebellion_monarch_response_1", "That fool still lives?"),
+  ("kingdom_26_rebellion_monarch_response_1", "That fool still lives?"),
+  ("kingdom_27_rebellion_monarch_response_1", "That fool still lives?"),
+  ("kingdom_28_rebellion_monarch_response_1", "That fool still lives?"),
 
   ("swadian_rebellion_monarch_response_2",  "It would please me greatly to see his head on the Traitor's Tree."),
   ("kingdom_2_rebellion_monarch_response_2", "Please dispose of this rebel for me."),
@@ -2352,10 +2352,10 @@ strings = [
   ("kingdom_22_rebellion_monarch_response_2", "Do not listen to her of the car'a'carn, for that matter. She has not been to Rhuidean, she has not seen what all Wise Ones and clan leaders must see, so she does not know what we know."),
   ("kingdom_23_rebellion_monarch_response_2", "Do not trouble yourself with the matter, and speak no further of property."),
   ("kingdom_24_rebellion_monarch_response_2", "Though he has found power, of a sort, it is nothing compared to the Power of the Dark, the True Power. We will crush him as all the other insects, when we shatter the Wheel."),
-#  ("kingdom_25_rebellion_monarch_response_2", "Please dispose of this rebel for me."),
-#  ("kingdom_26_rebellion_monarch_response_2", "Please dispose of this rebel for me."),
-#  ("kingdom_27_rebellion_monarch_response_2", "Please dispose of this rebel for me."),
-#  ("kingdom_28_rebellion_monarch_response_2", "Please dispose of this rebel for me."),
+  ("kingdom_25_rebellion_monarch_response_2", "Please dispose of this rebel for me."),
+  ("kingdom_26_rebellion_monarch_response_2", "Please dispose of this rebel for me."),
+  ("kingdom_27_rebellion_monarch_response_2", "Please dispose of this rebel for me."),
+  ("kingdom_28_rebellion_monarch_response_2", "Please dispose of this rebel for me."),
 
 ## TGS: V: End pretender dialogue rewrite
 #steve post 0912 changes end
@@ -2409,10 +2409,10 @@ strings = [
   ("kingdom_22_adjective",                     "the Aiel"),
   ("kingdom_23_adjective",                     "Seanchan"),
   ("kingdom_24_adjective",                     "the Shadowspawn"),
-#  ("kingdom_25_adjective",                     "Shara"),
-#  ("kingdom_26_adjective",                     "the Sea Folk"),
-#  ("kingdom_27_adjective",                     "the Land of Madmen"),
-#  ("kingdom_28_adjective",                     "Toman Head"),
+  ("kingdom_25_adjective",                     "Shara"),
+  ("kingdom_26_adjective",                     "the Sea Folk"),
+  ("kingdom_27_adjective",                     "the Land of Madmen"),
+  ("kingdom_28_adjective",                     "Toman Head"),
   #end added for TGS
 
 
@@ -3169,10 +3169,10 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("kingdom_22", "Aiel"),
   ("kingdom_23", "Seanchan"),
   ("kingdom_24", "Shadowspawn"),
-#  ("kingdom_25", "Sharans"),
-#  ("kingdom_26", "Sea Folk"),
-#  ("kingdom_27", "Madmen"),
-#  ("kingdom_28", "Toman Head Folk"),
+  ("kingdom_25", "Sharans"),
+  ("kingdom_26", "Sea Folk"),
+  ("kingdom_27", "Madmen"),
+  ("kingdom_28", "Toman Head Folk"),
   #end added for TGS
   
   ("bandits", "bandits"),
@@ -4819,6 +4819,14 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ######################
 
 #Comments for when cities change factions
+  #10 days
+  ("tarwins_gap","The armies of Shienar win a great victory over the Shadowspawn at Tarwin's Gap. Many believe the Creator himself lended aid."),
+  #15 days
+  ("falme_falls","Falme is invaded by mysterious forces."),
+  #20 days
+  ("falme_liberated","Heros from the dead are summoned and the Seanchan invaders are pushed back into the seas. There are reports that the Dragon Reborn fought the Dark One in the skies over Falme!"),
+  #25 days
+  ("seanchan_retreat","The Seanchan retreat to Tremalking to rebuild their attack forces."),
   #30 days
   ("dragon_is_reborn_1","The Stone of Tear has fallen!!  Callandor was wielded by the Dragon's hand!!"),
   ("dragon_is_reborn_2","Rand al'Thor has proclaimed himself the Dragon Reborn!!"),

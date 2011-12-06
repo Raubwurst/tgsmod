@@ -1670,169 +1670,25 @@ triggers = [
 ################################################
 ################################################
 
-  
-# moved for TGS (Technically this could still be a simple trigger)
-#diplomatic indices (was in simple triggers) Begin randomly generating war/peace after game days past 120 
-  (24, 0, 0, [(eq, 1, 0)], ## added this conditional so this trigger won't be used.
-   [
-   ## TGS: mat: ADDED to remove random war declarations for the first 120 days
-   (store_current_hours, ":number_game_hours_passed"),
-   (try_begin),
-   (gt, ":number_game_hours_passed", 24*170),
-       (call_script, "script_randomly_start_war_peace_new", 1),
-   (try_end),
-   ## TGS: mat: END
 
-   (try_begin),
-		(store_random_in_range, ":acting_village", villages_begin, villages_end),
-		(store_random_in_range, ":target_village", villages_begin, villages_end),
-		(store_faction_of_party, ":acting_faction", ":acting_village"),
-		(store_faction_of_party, ":target_faction", ":target_village"), #target faction receives the provocation
-		(neq, ":acting_village", ":target_village"),
-		(neq, ":acting_faction", ":target_faction"),
-
-		(call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":target_faction", ":acting_faction"),
-		(eq, reg0, 0),
-
-		(try_begin),
-			(party_slot_eq, ":acting_village", slot_center_original_faction, ":target_faction"),
-
-			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
-		(else_try),
-			(party_slot_eq, ":acting_village", slot_center_ex_faction, ":target_faction"),
-
-			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
-
-		(else_try),
-			(set_fixed_point_multiplier, 1),
-			(store_distance_to_party_from_party, ":distance", ":acting_village", ":target_village"),
-			(lt, ":distance", 25),
-
-			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", ":target_village"),
-		(try_end),
-   (try_end),
-
-   (try_for_range, ":faction_1", kingdoms_begin, kingdoms_end),
-		(faction_slot_eq, ":faction_1", slot_faction_state, sfs_active),
-		(try_for_range, ":faction_2", kingdoms_begin, kingdoms_end),
-			(neq, ":faction_1", ":faction_2"),
-			(faction_slot_eq, ":faction_2", slot_faction_state, sfs_active),
-
-			#remove provocations
-			(store_add, ":slot_truce_days", ":faction_2", slot_faction_truce_days_with_factions_begin),
-			(val_sub, ":slot_truce_days", kingdoms_begin),
-			(faction_get_slot, ":truce_days", ":faction_1", ":slot_truce_days"),
-			(try_begin),
-				(ge, ":truce_days", 1),
-				(try_begin),
-					(eq, ":truce_days", 1),
-					(call_script, "script_update_faction_notes", ":faction_1"),
-					(lt, ":faction_1", ":faction_2"),
-					(call_script, "script_add_notification_menu", "mnu_notification_truce_expired", ":faction_1", ":faction_2"),
-				##diplomacy begin
-        (else_try),
-          (eq, ":truce_days", 61),
-          (call_script, "script_update_faction_notes", ":faction_1"),
-          (lt, ":faction_1", ":faction_2"),
-          (call_script, "script_add_notification_menu", "mnu_dplmc_notification_alliance_expired", ":faction_1", ":faction_2"),
-        (else_try),
-          (eq, ":truce_days", 41),
-          (call_script, "script_update_faction_notes", ":faction_1"),
-          (lt, ":faction_1", ":faction_2"),
-          (call_script, "script_add_notification_menu", "mnu_dplmc_notification_defensive_expired", ":faction_1", ":faction_2"),
-        (else_try),
-          (eq, ":truce_days", 21),
-          (call_script, "script_update_faction_notes", ":faction_1"),
-          (lt, ":faction_1", ":faction_2"),
-          (call_script, "script_add_notification_menu", "mnu_dplmc_notification_trade_expired", ":faction_1", ":faction_2"),
-        ##diplomacy end
-				(try_end),
-				(val_sub, ":truce_days", 1),
-				(faction_set_slot, ":faction_1", ":slot_truce_days", ":truce_days"),
-			(try_end),
-
-			(store_add, ":slot_provocation_days", ":faction_2", slot_faction_provocation_days_with_factions_begin),
-			(val_sub, ":slot_provocation_days", kingdoms_begin),
-			(faction_get_slot, ":provocation_days", ":faction_1", ":slot_provocation_days"),
-			(try_begin),
-				(ge, ":provocation_days", 1),
-				(try_begin),#factions already at war
-					(store_relation, ":relation", ":faction_1", ":faction_2"),
-					(lt, ":relation", 0),
-					(faction_set_slot, ":faction_1", ":slot_provocation_days", 0),
-				(else_try), #Provocation expires
-					(eq, ":provocation_days", 1),
-					(call_script, "script_add_notification_menu", "mnu_notification_casus_belli_expired", ":faction_1", ":faction_2"),
-					(faction_set_slot, ":faction_1", ":slot_provocation_days", 0),
-				(else_try),
-					(val_sub, ":provocation_days", 1),
-					(faction_set_slot, ":faction_1", ":slot_provocation_days", ":provocation_days"),
-				(try_end),
-			(try_end),
-
-			(try_begin), #at war
-				(store_relation, ":relation", ":faction_1", ":faction_2"),
-				(lt, ":relation", 0),
-				(store_add, ":slot_war_damage", ":faction_2", slot_faction_war_damage_inflicted_on_factions_begin),
-				(val_sub, ":slot_war_damage", kingdoms_begin),
-				(faction_get_slot, ":war_damage", ":faction_1", ":slot_war_damage"),
-				(val_add, ":war_damage", 1),
-				(faction_set_slot, ":faction_1", ":slot_war_damage", ":war_damage"),
-			(try_end),
-
-		(try_end),
-		(call_script, "script_update_faction_notes", ":faction_1"),
-	(try_end),
-    ]),
-
-####################################
-### Begin TGS Triggers ###
-####################################
-
-# TGS scripted diplomacy
+## TGS: mat: Compressed attempt at scripted diplomacy
+  # TGS scripted diplomacy
   (24, 0, 0,
                [(store_current_hours, ":number_game_hours_passed"),
-                (le, ":number_game_hours_passed", 24*170),
+                (le, ":number_game_hours_passed", 24*170-6),
                 ],
    [
         (store_current_hours, ":number_game_hours_passed"),
         
-        # Interfaction relations
+        (try_for_range, ":first_kingdom", "fac_kingdom_1", kingdoms_end),
         
-        (store_relation, ":rel_1_2", "fac_kingdom_1", "fac_kingdom_2"),
-        (store_relation, ":rel_1_3", "fac_kingdom_1", "fac_kingdom_3"),
-        (store_relation, ":rel_1_4", "fac_kingdom_1", "fac_kingdom_4"),
-        (store_relation, ":rel_1_5", "fac_kingdom_1", "fac_kingdom_5"),
-        (store_relation, ":rel_1_6", "fac_kingdom_1", "fac_kingdom_6"),
-        (store_relation, ":rel_1_7", "fac_kingdom_1", "fac_kingdom_7"),
-        (store_relation, ":rel_1_8", "fac_kingdom_1", "fac_kingdom_8"),
-
-        (store_relation, ":rel_2_3", "fac_kingdom_2", "fac_kingdom_3"),
-        (store_relation, ":rel_2_4", "fac_kingdom_2", "fac_kingdom_4"),
-        (store_relation, ":rel_2_5", "fac_kingdom_2", "fac_kingdom_5"),
-        (store_relation, ":rel_2_6", "fac_kingdom_2", "fac_kingdom_6"),
-        (store_relation, ":rel_2_7", "fac_kingdom_2", "fac_kingdom_7"),
-        (store_relation, ":rel_2_8", "fac_kingdom_2", "fac_kingdom_8"),
-
-        (store_relation, ":rel_3_4", "fac_kingdom_3", "fac_kingdom_4"),
-        (store_relation, ":rel_3_5", "fac_kingdom_3", "fac_kingdom_5"),
-        (store_relation, ":rel_3_6", "fac_kingdom_3", "fac_kingdom_6"),
-        (store_relation, ":rel_3_7", "fac_kingdom_3", "fac_kingdom_7"),
-        (store_relation, ":rel_3_8", "fac_kingdom_3", "fac_kingdom_8"),
-
-        (store_relation, ":rel_4_5", "fac_kingdom_4", "fac_kingdom_5"),
-        (store_relation, ":rel_4_6", "fac_kingdom_4", "fac_kingdom_6"),
-        (store_relation, ":rel_4_7", "fac_kingdom_4", "fac_kingdom_7"),
-        (store_relation, ":rel_4_8", "fac_kingdom_4", "fac_kingdom_8"),
-
-        (store_relation, ":rel_5_6", "fac_kingdom_5", "fac_kingdom_6"),
-        (store_relation, ":rel_5_7", "fac_kingdom_5", "fac_kingdom_7"),
-        (store_relation, ":rel_5_8", "fac_kingdom_5", "fac_kingdom_8"),
-
-        (store_relation, ":rel_6_7", "fac_kingdom_6", "fac_kingdom_7"),
-        (store_relation, ":rel_6_8", "fac_kingdom_6", "fac_kingdom_8"),
-
-        (store_relation, ":rel_7_8", "fac_kingdom_7", "fac_kingdom_8"),        
+            (store_add, ":first_kingdom_plus_one", ":first_kingdom", 1),
+            (try_for_range, ":second_kingdom", ":first_kingdom_plus_one", kingdoms_end),
+        
+                (store_relation, ":rel", ":first_kingdom", ":second_kingdom"),
+                (assign, ":diplo_action_taken", 0),
+        
+                (try_begin),
 
       #Set diplomacy for the first 30 days
     
@@ -1845,190 +1701,205 @@ triggers = [
       #Seanchan are at war with Southland Coalition, Southland Alliance and at peace with everyone else
       #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else        
         
-        (try_begin),
-        (is_between, ":number_game_hours_passed", 0, 24*30-6),
+                (is_between, ":number_game_hours_passed", 0, 24*30-6),
+
         
-            # Legion of the Dragon
+                    # Nations at War        
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_6"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # illian vs tear
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # illian vs whitecloaks
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            #peace
-            (try_begin),
-            (lt, ":rel_1_2", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_2", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_3", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_7", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_7", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms", "fac_kingdom_1", "fac_kingdom_8", 1),
-            (try_end),
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_7"),
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Coalition
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            #war
-            (try_begin),
-            (gt, ":rel_2_3", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
-            (try_end),
+                    (try_begin), # Original
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_19"), # kandor vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_20"), # saldaea vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs shadowspawn
+                    (eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs shadowspawn
+                    (eq, ":second_kingdom", "fac_kingdom_24"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_2_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
-            (try_end),
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_23"),
+                    (eq, ":second_kingdom", "fac_kingdom_28"), # seanchan vs toman head
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),        
 
-            #peace
-            (try_begin),
-            (lt, ":rel_2_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war    
-            (try_begin),
-            (gt, ":rel_2_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
-            (try_end),
         
-            # Southlander Alliance
+                    # Nations at Peace
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_1"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_2"), # legion and band
+                    (eq, ":second_kingdom", "fac_kingdom_3"), # legion and two rivers
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_2"),
+                    (eq, ":second_kingdom", "fac_kingdom_3"), # band and two rivers
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_3"),
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # two rivers and andor
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_11"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # andor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_15"),
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # amadicia and whitecloaks
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_17"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_18"), # shienar and arafel
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # shienar and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # shienar and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # shienar and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_18"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # arafel and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # arafel and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # arafel and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_19"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # kandor and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # kandor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_20"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # saldaea and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),                
         
-            #peace
-            (try_begin),
-            (lt, ":rel_3_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
-            (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_3_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
-            (try_end),
+                    # Nations who are Neutral - may squabble, but not actively warring (Default State)
+                    (try_begin),
+                    (eq, ":diplo_action_taken", 0),
+                        (try_begin),
+                        (neg|is_between, ":rel", -5, 6),
+                            (call_script, "script_diplomacy_start_neutral_between_kingdoms", ":first_kingdom", ":second_kingdom", 1),
+                        (try_end),
+                    (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_3_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_3_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_3_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
-            (try_end),
         
-            # Borderlands
-        
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
-            (try_end),
 
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_4_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # White Tower
-        
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Aiel Nation
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_6_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_6_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Seanchan
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_7_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
-            (try_end),
 
       #Set diplomacy for days 30 though 45
     
@@ -2041,190 +1912,207 @@ triggers = [
       #Seanchan are at war with Southland Coalition,Southland Alliance and at peace with everyone else
       #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else
 
-        (else_try),
-        (is_between, ":number_game_hours_passed", 24*30-6, 24*45-6),
+                (else_try),
+                (is_between, ":number_game_hours_passed", 24*30-6, 24*45-6),
 
-            # Legion of the Dragon
         
-            #peace
-            (try_begin),
-            (lt, ":rel_1_2", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_2", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_7", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_7", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations at War
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_6"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # illian vs tear
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # illian vs whitecloaks
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Coalition
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_7"),
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            #war
-            (try_begin),
-            (gt, ":rel_2_3", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war    
-            (try_begin),
-            (gt, ":rel_2_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
-            (try_end),
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Alliance
+                    (try_begin), # Original
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_19"), # kandor vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_20"), # saldaea vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs shadowspawn
+                    (eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs shadowspawn
+                    (eq, ":second_kingdom", "fac_kingdom_24"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 30 - 45
+                    (eq, ":first_kingdom", "fac_kingdom_23"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_26"), # seanchan vs sea folk
+                    (eq, ":second_kingdom", "fac_kingdom_28"), # seanchan vs toman head
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),            
+
+
+                    # Nations at Peace
+                    (try_begin), # Modified for 30 - 45
+                    (eq, ":first_kingdom", "fac_kingdom_1"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_2"), # legion and band
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # legion and two rivers
+                    (eq, ":second_kingdom", "fac_kingdom_4"), # legion and mayene
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 30 - 45
+                    (eq, ":first_kingdom", "fac_kingdom_2"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # band and two rivers
+                    (eq, ":second_kingdom", "fac_kingdom_4"), # band and mayene
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 30 - 45
+                    (eq, ":first_kingdom", "fac_kingdom_3"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # two rivers and mayene
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # two rivers and andor
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_11"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # andor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_15"),
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # amadicia and whitecloaks
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_17"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_18"), # shienar and arafel
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # shienar and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # shienar and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # shienar and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_18"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # arafel and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # arafel and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # arafel and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_19"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # kandor and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # kandor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_20"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # saldaea and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),                
         
-            #peace
-            (try_begin),
-            (lt, ":rel_3_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
-            (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_3_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_3_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_3_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_3_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Borderlands
-        
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_4_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # White Tower
-        
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Aiel Nation
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_6_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_6_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Seanchan
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_7_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations who are Neutral - may squabble, but not actively warring (Default State)
+                    (try_begin),
+                    (eq, ":diplo_action_taken", 0),
+                        (try_begin),
+                        (neg|is_between, ":rel", -5, 6),
+                            (call_script, "script_diplomacy_start_neutral_between_kingdoms", ":first_kingdom", ":second_kingdom", 1),
+                        (try_end),
+                    (try_end),
 
       #Set diplomacy for days 45 though 60
     
@@ -2237,190 +2125,222 @@ triggers = [
       #Seanchan are at war with Southland Coalition,Southland Alliance and at peace with everyone else
       #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else
 
-        (else_try),
-        (is_between, ":number_game_hours_passed", 24*45-6, 24*60-6),
+                (else_try),
+                (is_between, ":number_game_hours_passed", 24*45-6, 24*60-6),
 
-            # Legion of the Dragon
         
-            #peace
-            (try_begin),
-            (lt, ":rel_1_2", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_2", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_7", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_7", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations at War
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_6"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # illian vs tear
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # illian vs whitecloaks
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Coalition
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_7"),
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            #war
-            (try_begin),
-            (gt, ":rel_2_3", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war    
-            (try_begin),
-            (gt, ":rel_2_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
-            (try_end),
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Alliance
+                    (try_begin), # Original
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_19"), # kandor vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_20"), # saldaea vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs shadowspawn
+                    (eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs shadowspawn
+                    (eq, ":second_kingdom", "fac_kingdom_24"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_14"),
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # tarabon vs seanchan
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),        
+                    (try_end),
+
+                    (try_begin), # New for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_23"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_26"), # seanchan vs sea folk
+                    (eq, ":second_kingdom", "fac_kingdom_28"), # seanchan vs toman head
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),            
         
-            #peace
-            (try_begin),
-            (lt, ":rel_3_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
-            (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_3_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
-            (try_end),
+                    # Nations at Peace
+                    (try_begin), # Modified for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_1"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_2"), # legion and band
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # legion and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # legion and mayene
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # legion and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
-            (try_end),        
+                    (try_begin), # Modified for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_2"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # band and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # band and mayene
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # band and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #war        
-            (try_begin),
-            (gt, ":rel_3_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
-            (try_end),
+                    (try_begin), # Modified for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_3"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # two rivers and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # two rivers and andor
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # two rivers and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_3_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
-            (try_end),
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_11"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # andor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_15"),
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # amadicia and whitecloaks
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_17"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_18"), # shienar and arafel
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # shienar and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # shienar and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # shienar and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_18"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # arafel and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # arafel and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # arafel and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_19"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # kandor and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # kandor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_20"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # saldaea and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),                
         
-            # Borderlands
-        
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
-            (try_end),
 
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_4_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # White Tower
-        
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Aiel Nation
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_6_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_6_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Seanchan
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_7_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations who are Neutral - may squabble, but not actively warring (Default State)
+                    (try_begin),
+                    (eq, ":diplo_action_taken", 0),
+                        (try_begin),
+                        (neg|is_between, ":rel", -5, 6),
+                            (call_script, "script_diplomacy_start_neutral_between_kingdoms", ":first_kingdom", ":second_kingdom", 1),
+                        (try_end),
+                    (try_end),
 
       #Set diplomacy for days 60 though 75
     
@@ -2432,193 +2352,231 @@ triggers = [
       #Aiel Nation is at war with Shadowspawn, neutral with Southland Coalition, Southland Alliance, Seanchan, and peace with Borderlands and everyone else
       #Seanchan are at war with Southland Coalition and Southland Alliance and at peace with everyone else
       #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else
- 
-        (else_try),
-        (is_between, ":number_game_hours_passed", 24*60-6, 24*75-6),
 
-            # Legion of the Dragon
+                (else_try),
+                (is_between, ":number_game_hours_passed", 24*60-6, 24*75-6),
+
         
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_2", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war
-            (try_begin),
-            (gt, ":rel_1_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations at War
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_6"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # illian vs tear
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # illian vs whitecloaks
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Coalition
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_7"),
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            #war
-            (try_begin),
-            (gt, ":rel_2_3", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war    
-            (try_begin),
-            (gt, ":rel_2_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
-            (try_end),
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Alliance
+                    (try_begin), # Modified for 60 - 75
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_1"), # legion vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_2"), # band vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_3"), # two rivers vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_19"), # kandor vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_20"), # saldaea vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs shadowspawn
+                    (eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs shadowspawn
+                    (eq, ":second_kingdom", "fac_kingdom_24"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 60 - 75
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_8"), # altara vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_14"), # tarabon vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_15"), # amadicia vs seanchan
+                    (eq, ":first_kingdom", "fac_kingdom_16"), # whitecloaks vs seanchan
+                    (eq, ":second_kingdom", "fac_kingdom_23"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_23"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_26"), # seanchan vs sea folk
+                    (eq, ":second_kingdom", "fac_kingdom_28"), # seanchan vs toman head
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),           
         
-            #peace
-            (try_begin),
-            (lt, ":rel_3_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
-            (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_3_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
-            (try_end),
+                    # Nations at Peace
+                    (try_begin), # Modified for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_1"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_2"), # legion and band
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # legion and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # legion and mayene
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # legion and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
-            (try_end),        
+                    (try_begin), # Modified for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_2"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # band and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # band and mayene
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # band and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #war        
-            (try_begin),
-            (gt, ":rel_3_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
-            (try_end),
+                    (try_begin), # Modified for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_3"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # two rivers and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # two rivers and andor
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # two rivers and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_3_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
-            (try_end),
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_11"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # andor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_15"),
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # amadicia and whitecloaks
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_17"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_18"), # shienar and arafel
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # shienar and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # shienar and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # shienar and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_18"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # arafel and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # arafel and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # arafel and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_19"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # kandor and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # kandor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_20"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # saldaea and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),                
         
-            # Borderlands
-        
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
-            (try_end),
 
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
-            (try_end),
+                    # Nations who are Neutral - may squabble, but not actively warring (Default State)
+                    (try_begin),
+                    (eq, ":diplo_action_taken", 0),
+                        (try_begin),
+                        (neg|is_between, ":rel", -5, 6),
+                            (call_script, "script_diplomacy_start_neutral_between_kingdoms", ":first_kingdom", ":second_kingdom", 1),
+                        (try_end),
+                    (try_end),
 
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_4_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # White Tower
-        
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Aiel Nation
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_6_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_6_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Seanchan
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_7_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
-            (try_end),
-        
-      #Set diplomacy for days 75 though 100
+      #Set diplomacy for days 75 though 95
     
       #Legion is neutral with Southland Coalition, Shadowspawn, war with Seanchan and at peace with everyone else  (Super peace with Aiel Nation)
       #Southland Coalition is neutral with Southland Alliance, Legion, Aiel Nation at war with Seanchan and at peace with everyone else
@@ -2628,193 +2586,250 @@ triggers = [
       #Aiel Nation is at war with Shadowspawn, Seanchan, neutral with Southland Coalition, and peace with Borderlands and everyone else
       #Seanchan are at war with Southland Coalition and Southland Alliance, Legion, Aiel Nation, neutral with Shadowspawn, White Tower, and at peace with everyone else
       #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower, neutral with Legion, and at peace with everyone else
- 
-        (else_try),
-        (is_between, ":number_game_hours_passed", 24*75-6, 24*100-6),
 
-            # Legion of the Dragon
+                (else_try),
+                (is_between, ":number_game_hours_passed", 24*75-6, 24*95-6),
+
         
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_2", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_5", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war
-            (try_begin),
-            (gt, ":rel_1_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war
-            (try_begin),
-            (gt, ":rel_1_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations at War
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_6"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # illian vs tear
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # illian vs whitecloaks
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Coalition
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_7"),
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            #war
-            (try_begin),
-            (gt, ":rel_2_3", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_3", 1),
-            (try_end),
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_2_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
-            (try_end),
+                    (try_begin), # Modified for 60 - 75
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_1"), # legion vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_2"), # band vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_3"), # two rivers vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_19"), # kandor vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_20"), # saldaea vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs shadowspawn
+                    (eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs shadowspawn
+                    (eq, ":second_kingdom", "fac_kingdom_24"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_2_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
-            (try_end),
+                    (try_begin), # Modified for 75 - 95
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_1"), # legion vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_2"), # band vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_3"), # two rivers vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_8"), # altara vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_14"), # tarabon vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_15"), # amadicia vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_16"), # whitecloaks vs seanchan
+                    (eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs seanchan
+                    (eq, ":second_kingdom", "fac_kingdom_23"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
 
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
-            (try_end),
+                    (try_begin), # New for 45 - 60
+                    (eq, ":first_kingdom", "fac_kingdom_23"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_26"), # seanchan vs sea folk
+                    (eq, ":second_kingdom", "fac_kingdom_28"), # seanchan vs toman head
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),           
 
-            #war    
-            (try_begin),
-            (gt, ":rel_2_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_7", 1),
-            (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_2_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations at Peace
+                    (try_begin), # Modified for 75 - 95
+                    (eq, ":first_kingdom", "fac_kingdom_1"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_2"), # legion and band
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # legion and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # legion and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # legion and andor
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # legion and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 75 - 95
+                    (eq, ":first_kingdom", "fac_kingdom_2"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # band and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # band and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # band and andor
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # band and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 75 - 95
+                    (eq, ":first_kingdom", "fac_kingdom_3"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # two rivers and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # two rivers and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # two rivers and ghealdan
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # two rivers and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 75 - 95
+                    (eq, ":first_kingdom", "fac_kingdom_8"),
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # altara and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),        
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_11"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # andor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_15"),
+                    (eq, ":second_kingdom", "fac_kingdom_16"), # amadicia and whitecloaks
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_17"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_18"), # shienar and arafel
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # shienar and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # shienar and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # shienar and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_18"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # arafel and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # arafel and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # arafel and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_19"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # kandor and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # kandor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_20"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # saldaea and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),                
         
-            # Southlander Alliance
-        
-            #peace
-            (try_begin),
-            (lt, ":rel_3_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
-            (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_3_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
-            (try_end),
+                    # Nations who are Neutral - may squabble, but not actively warring (Default State)
+                    (try_begin),
+                    (eq, ":diplo_action_taken", 0),
+                        (try_begin),
+                        (neg|is_between, ":rel", -5, 6),
+                            (call_script, "script_diplomacy_start_neutral_between_kingdoms", ":first_kingdom", ":second_kingdom", 1),
+                        (try_end),
+                    (try_end),
 
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
-            (try_end),        
-
-            #war        
-            (try_begin),
-            (gt, ":rel_3_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_7", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_3_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Borderlands
-        
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_4_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # White Tower
-        
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Aiel Nation
-
-            #war        
-            (try_begin),
-            (gt, ":rel_6_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_6_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Seanchan
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_7_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
-            (try_end),
-
-      #Set diplomacy for days 100 though 118
+      #Set diplomacy for days 95 though 118
     
       #Legion is neutral with Southland Coalition, Shadowspawn, war with Seanchan and at peace with everyone else  (Super peace with Aiel Nation)
       #Southland Coalition is neutral with Southland Alliance, Legion, Aiel Nation at war with Seanchan and at peace with everyone else
@@ -2824,191 +2839,380 @@ triggers = [
       #Aiel Nation is at war with Shadowspawn, Seanchan, neutral with Southland Coalition, and peace with Borderlands and everyone else
       #Seanchan are at war with Southland Coalition and Southland Alliance, Legion, Aiel Nation, neutral with Shadowspawn, White Tower, and at peace with everyone else
       #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower, neutral with Legion, and at peace with everyone else
- 
-        (else_try),
-        (is_between, ":number_game_hours_passed", 24*100-6, 24*118-6),
 
-            # Legion of the Dragon
+                (else_try),
+                (is_between, ":number_game_hours_passed", 24*95-6, 24*118-6),
+
         
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_2", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_5", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war
-            (try_begin),
-            (gt, ":rel_1_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations at War
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_7"),
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Coalition
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 60 - 75
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_1"), # legion vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_2"), # band vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_3"), # two rivers vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_19"), # kandor vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_20"), # saldaea vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs shadowspawn
+                    (eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs shadowspawn
+                    (eq, ":second_kingdom", "fac_kingdom_24"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 75 - 95
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_1"), # legion vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_2"), # band vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_3"), # two rivers vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_8"), # altara vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_14"), # tarabon vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_15"), # amadicia vs seanchan
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_16"), # whitecloaks vs seanchan
+                    (eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs seanchan
+                    (eq, ":second_kingdom", "fac_kingdom_23"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95-118
+                    (eq, ":first_kingdom", "fac_kingdom_23"),
+                    (eq, ":second_kingdom", "fac_kingdom_26"), # seanchan vs sea folk
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),           
+
+
+                    # Nations at Peace
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_1"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_2"), # legion and band
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # legion and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # legion and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # legion and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # legion and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # legion and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # legion and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # legion and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # legion and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # legion and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # legion and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_2"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # band and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # band and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # band and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # band and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # band and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # band and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # band and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # band and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # band and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # band and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_3"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # two rivers and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # two rivers and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # two rivers and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # two rivers and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # two rivers and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # two rivers and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # two rivers and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # two rivers and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # two rivers and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_4"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # mayene and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # mayene and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # mayene and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # mayene and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # mayene and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # mayene and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # mayene and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # mayene and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_5"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # cairhien and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # cairhien and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # cairhien and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # cairhien and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # cairhien and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # cairhien and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # cairhien and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_6"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # illian and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # illian and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # illian and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # illian and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # illian and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # illian and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),           
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_8"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_14"), # altara and tarabon
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_15"), # altara and amadicia
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # altara and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # arad doman and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # arad doman and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # arad doman and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # arad doman and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # arad doman and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_10"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # tear and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # tear and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # tear and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # tear and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_11"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # andor and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # andor and whitecloaks
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_21"), # andor and white tower
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # andor and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_12"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # ghealdan and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # ghealdan and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),            
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_14"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_15"), # tarabon and amadicia
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # tarabon and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_15"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_23"), # amadicia and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # amadicia and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_16"),
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # whitecloaks and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),         
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_17"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_18"), # shienar and arafel
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # shienar and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # shienar and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # shienar and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_18"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # arafel and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # arafel and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # arafel and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_19"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # kandor and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # kandor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_20"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # saldaea and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),                
         
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_3", 1),
-            (try_end),
-        
-            #peace
-            (try_begin),
-            (lt, ":rel_2_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
-            (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_2_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_7", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_2_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Southlander Alliance
-        
-            #peace
-            (try_begin),
-            (lt, ":rel_3_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_3_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
-            (try_end),        
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_7", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_3_8", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Borderlands
-        
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_4_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # White Tower
-        
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Aiel Nation
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_6_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_6_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Seanchan
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_7_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_7", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations who are Neutral - may squabble, but not actively warring (Default State)
+                    (try_begin),
+                    (eq, ":diplo_action_taken", 0),
+                        (try_begin),
+                        (neg|is_between, ":rel", -5, 6),
+                            (call_script, "script_diplomacy_start_neutral_between_kingdoms", ":first_kingdom", ":second_kingdom", 1),
+                        (try_end),
+                    (try_end),
 
       #Set diplomacy for days 118 though 120
     
@@ -3020,384 +3224,785 @@ triggers = [
       #Aiel Nation is at war with Shadowspawn, Seanchan, neutral with Southland Coalition, and peace with Borderlands and everyone else
       #Seanchan are at war with Southland Coalition and Southland Alliance, Legion, Aiel Nation, neutral with Shadowspawn, White Tower, and at peace with everyone else
       #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower, neutral with Legion, and at peace with everyone else
- 
-        (else_try),
-        (is_between, ":number_game_hours_passed", 24*118-6, 24*120-6),
 
-            # Legion of the Dragon
+                (else_try),
+                (is_between, ":number_game_hours_passed", 24*118-6, 24*120-6),
+
         
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_2", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_5", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war
-            (try_begin),
-            (gt, ":rel_1_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations at War
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_7"),
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Coalition
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 60 - 75
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_1"), # legion vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_2"), # band vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_3"), # two rivers vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_19"), # kandor vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_20"), # saldaea vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs shadowspawn
+                    (eq, ":first_kingdom", "fac_kingdom_23"), # seanchan vs shadowspawn
+                    (eq, ":second_kingdom", "fac_kingdom_24"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 118 - 120
+                    (eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs seanchan
+                    (eq, ":second_kingdom", "fac_kingdom_23"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95-118
+                    (eq, ":first_kingdom", "fac_kingdom_23"),
+                    (eq, ":second_kingdom", "fac_kingdom_26"), # seanchan vs sea folk
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),         
+
+
+                    # Nations at Peace
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_1"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_2"), # legion and band
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # legion and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # legion and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # legion and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # legion and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # legion and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # legion and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # legion and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # legion and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # legion and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # legion and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_2"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # band and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # band and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # band and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # band and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # band and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # band and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # band and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # band and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # band and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # band and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_3"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # two rivers and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # two rivers and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # two rivers and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # two rivers and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # two rivers and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # two rivers and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # two rivers and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # two rivers and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # two rivers and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_4"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # mayene and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # mayene and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # mayene and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # mayene and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # mayene and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # mayene and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # mayene and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # mayene and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_5"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # cairhien and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # cairhien and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # cairhien and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # cairhien and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # cairhien and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # cairhien and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # cairhien and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_6"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # illian and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # illian and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # illian and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # illian and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # illian and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # illian and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),           
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_8"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_14"), # altara and tarabon
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_15"), # altara and amadicia
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # altara and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # arad doman and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # arad doman and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # arad doman and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # arad doman and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # arad doman and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_10"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # tear and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # tear and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # tear and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # tear and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_11"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # andor and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # andor and whitecloaks
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_21"), # andor and white tower
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # andor and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_12"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # ghealdan and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # ghealdan and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),            
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_14"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_15"), # tarabon and amadicia
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # tarabon and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_15"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_23"), # amadicia and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # amadicia and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_16"),
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # whitecloaks and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),         
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_17"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_18"), # shienar and arafel
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # shienar and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # shienar and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # shienar and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_18"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # arafel and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # arafel and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # arafel and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_19"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # kandor and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # kandor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_20"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # saldaea and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),                
         
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_3", 1),
-            (try_end),
-        
-            #peace
-            (try_begin),
-            (lt, ":rel_2_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
-            (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_2_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_7", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Southlander Alliance
-        
-            #peace
-            (try_begin),
-            (lt, ":rel_3_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_3_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
-            (try_end),        
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_7", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_8", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Borderlands
-        
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_4_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # White Tower
-        
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Aiel Nation
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_6_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_6_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Seanchan
-
-            #war        
-            (try_begin),
-            (gt, ":rel_7_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_7", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations who are Neutral - may squabble, but not actively warring (Default State)
+                    (try_begin),
+                    (eq, ":diplo_action_taken", 0),
+                        (try_begin),
+                        (neg|is_between, ":rel", -5, 6),
+                            (call_script, "script_diplomacy_start_neutral_between_kingdoms", ":first_kingdom", ":second_kingdom", 1),
+                        (try_end),
+                    (try_end),
 
       #Set diplomacy for days 120 though 170
+
+############################################################################################################        
     
       #All at war with the Shadowspawn for at least 50 days (other stuff stays somewhat the same)
- 
-        (else_try),
-        (is_between, ":number_game_hours_passed", 24*120-6, 24*170-6),
 
-            # Legion of the Dragon
+                (else_try),
+                (is_between, ":number_game_hours_passed", 24*120-6, 24*170-6),
+
         
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_2", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_2", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_3", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_4", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_5", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace
-            (try_begin),
-            (lt, ":rel_1_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_1", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_1_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_1", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war
-            (try_begin),
-            (gt, ":rel_1_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_1", "fac_kingdom_8", 1),
-            (try_end),
+                    # Nations at War
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_7"),
+                    (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
         
-            # Southlander Coalition
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 120 - 170
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_1"), # legion vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_2"), # band vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_3"), # two rivers vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_4"), # mayene vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_5"), # cairhien vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_6"), # illian vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_7"), # murandy vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_8"), # altara tower vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_9"), # arad doman vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_10"), # tear vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_11"), # andor vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_12"), # ghealdan vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_13"), # far madding vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_14"), # tarabon vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_15"), # amadicia vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_16"), # whitecloaks vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_19"), # kandor vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_20"), # saldaea vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs shadowspawn
+                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs shadowspawn
+                    (eq, ":first_kingdom", "fac_kingdom_23"), # seanchan vs shadowspawn
+                    (eq, ":second_kingdom", "fac_kingdom_24"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 118 - 120
+                    (eq, ":first_kingdom", "fac_kingdom_21"), # white tower vs seanchan
+                    (eq, ":second_kingdom", "fac_kingdom_23"),
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95-118
+                    (eq, ":first_kingdom", "fac_kingdom_23"),
+                    (eq, ":second_kingdom", "fac_kingdom_26"), # seanchan vs sea folk
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 120 - 170
+                    (eq, ":first_kingdom", "fac_kingdom_24"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_26"), # shadowspawn vs sea folk
+                    (eq, ":second_kingdom", "fac_kingdom_28"), # shadowspawn vs toman head
+                        (try_begin),
+                        (gt, ":rel", -10),
+                            (call_script, "script_diplomacy_start_war_between_kingdoms_silent", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),              
+
+
+                    # Nations at Peace
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_1"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_2"), # legion and band
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # legion and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # legion and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # legion and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # legion and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # legion and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # legion and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # legion and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # legion and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # legion and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # legion and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_2"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_3"), # band and two rivers
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # band and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # band and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # band and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # band and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # band and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # band and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # band and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # band and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # band and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_3"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_4"), # two rivers and mayene
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # two rivers and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # two rivers and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # two rivers and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # two rivers and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # two rivers and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # two rivers and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # two rivers and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # two rivers and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_4"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_5"), # mayene and cairhien
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # mayene and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # mayene and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # mayene and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # mayene and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # mayene and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # mayene and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # mayene and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_5"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_6"), # cairhien and illian
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # cairhien and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # cairhien and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # cairhien and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # cairhien and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # cairhien and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # cairhien and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_6"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_9"), # illian and arad doman
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # illian and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # illian and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # illian and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # illian and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # illian and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),           
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_8"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_14"), # altara and tarabon
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_15"), # altara and amadicia
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # altara and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_9"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # arad doman and tear
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # arad doman and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # arad doman and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # arad doman and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # arad doman and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_10"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_11"), # tear and andor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # tear and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # tear and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # tear and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_11"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_12"), # andor and ghealdan
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # andor and whitecloaks
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_21"), # andor and white tower
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # andor and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_12"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_16"), # ghealdan and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # ghealdan and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),            
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_14"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_15"), # tarabon and amadicia
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # tarabon and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Modified for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_15"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_23"), # amadicia and whitecloaks
+                    (eq, ":second_kingdom", "fac_kingdom_23"), # amadicia and seanchan
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # New for 95 - 118
+                    (eq, ":first_kingdom", "fac_kingdom_16"),
+                    (eq, ":second_kingdom", "fac_kingdom_22"), # whitecloaks and aiel
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),         
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_17"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_18"), # shienar and arafel
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # shienar and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # shienar and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # shienar and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_18"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_19"), # arafel and kandor
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # arafel and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # arafel and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_19"),
+                    (this_or_next|eq, ":second_kingdom", "fac_kingdom_20"), # kandor and saldaea
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # kandor and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),
+
+                    (try_begin), # Original
+                    (eq, ":first_kingdom", "fac_kingdom_20"),
+                    (eq, ":second_kingdom", "fac_kingdom_21"), # saldaea and white tower
+                        (try_begin),
+                        (lt, ":rel", 10),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", ":first_kingdom", ":second_kingdom", 1),
+                            (assign, ":diplo_action_taken", 1),
+                        (else_try),
+                            (assign, ":diplo_action_taken", 1),
+                        (try_end),
+                    (try_end),                
         
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_3", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_3", 1),
-            (try_end),
-        
-            #peace
-            (try_begin),
-            (lt, ":rel_2_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_4", 1),
-            (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_2_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_2", "fac_kingdom_5", 1),
-            (try_end),
+                    # Nations who are Neutral - may squabble, but not actively warring (Default State)
+                    (try_begin),
+                    (eq, ":diplo_action_taken", 0),
+                        (try_begin),
+                        (neg|is_between, ":rel", -5, 6),
+                            (call_script, "script_diplomacy_start_neutral_between_kingdoms", ":first_kingdom", ":second_kingdom", 1),
+                        (try_end),
+                    (try_end),          
 
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_6", 1),
-            (try_end),
 
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_2_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_2", "fac_kingdom_7", 1),
-            (try_end),
 
-            #war
-            (try_begin),
-            (gt, ":rel_2_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_2", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Southlander Alliance
-        
-            #peace
-            (try_begin),
-            (lt, ":rel_3_4", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_4", 1),
-            (try_end),
+                ## days past final bracket
+                (try_end),
 
-            #peace
-            (try_begin),
-            (lt, ":rel_3_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_3", "fac_kingdom_5", 1),
+            ## try_for_range's final brackets
             (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_6", 1),
-            (try_end),        
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_3_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_3", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war
-            (try_begin),
-            (gt, ":rel_3_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_3", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Borderlands
-        
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_5", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_5", 1),
-            (try_end),
-
-            #peace        
-            (try_begin),
-            (lt, ":rel_4_6", 10),
-                (call_script, "script_diplomacy_start_peace_between_kingdoms_tweaked", "fac_kingdom_4", "fac_kingdom_6", 1),
-            (try_end),
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_4_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_4", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_4_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_4", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # White Tower
-        
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_5_6", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_5", "fac_kingdom_6", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_7", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_5_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_5", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Aiel Nation
-
-            #neutral        
-            (try_begin),
-            (neg|is_between, ":rel_6_7", -5, 6),
-                (call_script, "script_diplomacy_start_neutral_between_kingdoms","fac_kingdom_6", "fac_kingdom_7", 1),
-            (try_end),
-
-            #war        
-            (try_begin),
-            (gt, ":rel_6_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_6", "fac_kingdom_8", 1),
-            (try_end),
-        
-            # Seanchan
-
-            #war        
-            (try_begin),
-            (gt, ":rel_7_8", -10),
-                (call_script, "script_diplomacy_start_war_between_kingdoms_silent", "fac_kingdom_7", "fac_kingdom_8", 1),
-            (try_end),
-        
-        (try_end),
-        
-    ]),  
+        (try_end),        
+    ]), 
+## TGS: mat: End
   
 # TGS Initialization
   (0.1, 0, ti_once, [(eq, "$g_tutorial_complete", 1)],
@@ -3416,6 +4021,39 @@ triggers = [
     ]),  
 
 ################## Timeline changes begin ##############
+
+# Events at 10 days:
+  (1, 24*10, ti_once, [(eq, "$g_tutorial_complete", 1)],
+   [
+        (dialog_box, "str_tarwins_gap"),
+    ]),
+
+# Faction city and lord changes at 15 days:
+  (1, 24*15, ti_once, [(eq, "$g_tutorial_complete", 1)],
+   [
+        #Falme to Seanchan
+        (call_script,"script_give_center_to_faction_aux", "p_town_7","fac_kingdom_23"),
+
+        (dialog_box, "str_falme_falls"),
+    ]),
+
+# Faction city and lord changes at 20 days:
+  (1, 24*20, ti_once, [(eq, "$g_tutorial_complete", 1)],
+   [
+        #Falme to Toman Head
+        (call_script,"script_give_center_to_faction_aux", "p_town_7","fac_kingdom_28"),
+
+        (dialog_box, "str_falme_liberated"),
+    ]),
+
+# Faction city and lord changes at 25 days:
+  (1, 24*25, ti_once, [(eq, "$g_tutorial_complete", 1)],
+   [
+        #Tremalking Town to Seanchan
+        (call_script,"script_give_center_to_faction_aux", "p_town_33","fac_kingdom_23"),
+
+        (dialog_box, "str_seanchan_retreat"),
+    ]),    
 
 # Faction city and lord changes at 30 days:
   (1, 24*30, ti_once, [(eq, "$g_tutorial_complete", 1)],
@@ -3927,22 +4565,87 @@ triggers = [
 #                            (party_add_members, ":party", "trp_two_rivers_scout", 10),
 #                            (party_add_members, ":party", "trp_two_rivers_marksman", 10),
             # HACK for npc companions
-            (party_add_members, ":party", "trp_npc1",1),
-            (party_add_members, ":party", "trp_npc2",1),
-            (party_add_members, ":party", "trp_npc3",1),
-            (party_add_members, ":party", "trp_npc4",1),
-            (party_add_members, ":party", "trp_npc5",1),
-            (party_add_members, ":party", "trp_npc6",1),
-            (party_add_members, ":party", "trp_npc7",1),
-            (party_add_members, ":party", "trp_npc8",1),
-            (party_add_members, ":party", "trp_npc9",1),
-            (party_add_members, ":party", "trp_npc10",1),
-            (party_add_members, ":party", "trp_npc11",1),
-            (party_add_members, ":party", "trp_npc12",1),
-            (party_add_members, ":party", "trp_npc13",1),
-            (party_add_members, ":party", "trp_npc14",1),
-            (party_add_members, ":party", "trp_npc15",1),
-            (party_add_members, ":party", "trp_npc16",1),
+#            (party_add_members, ":party", "trp_npc1",1),
+#            (party_add_members, ":party", "trp_npc2",1),
+#            (party_add_members, ":party", "trp_npc3",1),
+#            (party_add_members, ":party", "trp_npc4",1),
+#            (party_add_members, ":party", "trp_npc5",1),
+#            (party_add_members, ":party", "trp_npc6",1),
+#            (party_add_members, ":party", "trp_npc7",1),
+#            (party_add_members, ":party", "trp_npc8",1),
+#            (party_add_members, ":party", "trp_npc9",1),
+#            (party_add_members, ":party", "trp_npc10",1),
+#            (party_add_members, ":party", "trp_npc11",1),
+#            (party_add_members, ":party", "trp_npc12",1),
+#            (party_add_members, ":party", "trp_npc13",1),
+#            (party_add_members, ":party", "trp_npc14",1),
+#            (party_add_members, ":party", "trp_npc15",1),
+#            (party_add_members, ":party", "trp_npc16",1),
+
+            
+            ## Hack for Shara
+#            (party_add_members, ":party", "trp_shara_recruit",2),
+#            (party_add_members, ":party", "trp_shara_armsman",2),
+#            (party_add_members, ":party", "trp_shara_town_guard",2),
+#            (party_add_members, ":party", "trp_shara_border_guard",2),
+#            (party_add_members, ":party", "trp_shara_swordsman",2),
+#            (party_add_members, ":party", "trp_shara_bowman",2),
+#            (party_add_members, ":party", "trp_shara_scout",2),
+#            (party_add_members, ":party", "trp_shara_man_at_arms",5),
+#            (party_add_members, ":party", "trp_ayyad_villager",2),
+#            (party_add_members, ":party", "trp_ayyad_village_leader",2),
+#            (party_add_members, ":party", "trp_shara_defender",2),
+#            (party_add_members, ":party", "trp_shara_captain",2),
+#            (party_add_members, ":party", "trp_shara_marksman",2),
+#            (party_add_members, ":party", "trp_shara_crossbowman",2),
+#            (party_add_members, ":party", "trp_shara_shbo_guardsman",2),
+#            (party_add_members, ":party", "trp_shara_skirmisher",5),
+#            (party_add_members, ":party", "trp_ayyad_counsel_member",2),
+
+            ## Hack for Sea Folk
+#            (party_add_members, ":party", "trp_sea_folk_recruit",3),
+#            (party_add_members, ":party", "trp_sea_folk_bilge_hand",3),
+#            (party_add_members, ":party", "trp_sea_folk_deck_hand",3),
+#            (party_add_members, ":party", "trp_sea_folk_boatswain",3),
+#            (party_add_members, ":party", "trp_sea_folk_dogwatcher",3),
+#            (party_add_members, ":party", "trp_sea_folk_weatherly",3),
+#            (party_add_members, ":party", "trp_sea_folk_quarterling",3),
+#            (party_add_members, ":party", "trp_sea_folk_sailmistress",3),
+#            (party_add_members, ":party", "trp_sea_folk_recruit_channeler",3),
+#            (party_add_members, ":party", "trp_sea_folk_pupil",3),
+#            (party_add_members, ":party", "trp_sea_folk_cargomaster",3),
+#            (party_add_members, ":party", "trp_sea_folk_deck_defender",3),
+#            (party_add_members, ":party", "trp_sea_folk_wavemistress",3),
+#            (party_add_members, ":party", "trp_sea_folk_windfinder",3),
+
+            ## Hack for Land of Madmen
+#            (party_add_members, ":party", "trp_madmen_recruit",2),
+#            (party_add_members, ":party", "trp_madmen_wanderer",2),
+#            (party_add_members, ":party", "trp_madmen_villager",2),
+#            (party_add_members, ":party", "trp_madmen_clansman",2),
+#            (party_add_members, ":party", "trp_madmen_looter",2),
+#            (party_add_members, ":party", "trp_madmen_hunter",2),
+#            (party_add_members, ":party", "trp_madmen_ambusher",2),
+#            (party_add_members, ":party", "trp_madmen_horse_tamer",2),
+#            (party_add_members, ":party", "trp_madmen_slave_catcher",2),
+#            (party_add_members, ":party", "trp_madmen_air_shifter",2),
+#            (party_add_members, ":party", "trp_madmen_fire_tamer",2),
+#            (party_add_members, ":party", "trp_madmen_chieftan",2),
+#            (party_add_members, ":party", "trp_madmen_pillager",2),
+#            (party_add_members, ":party", "trp_madmen_assassin",2),
+#            (party_add_members, ":party", "trp_madmen_thunderhoof",2),
+#            (party_add_members, ":party", "trp_madmen_plains_rider",2),
+#            (party_add_members, ":party", "trp_madmen_storm_caller",2),
+            
+            ## Hack for Toman Head
+            (party_add_members, ":party", "trp_toman_head_recruit",8),
+            (party_add_members, ":party", "trp_toman_head_footman",8),
+            (party_add_members, ":party", "trp_toman_head_city_guard",8),
+            (party_add_members, ":party", "trp_toman_head_bowman",8),
+            (party_add_members, ":party", "trp_toman_head_scout",8), 
+
+
+            
 
                         (else_try),
                         (eq, "$g_cheat_recruit_add", 2),
@@ -4342,92 +5045,99 @@ triggers = [
        (try_end),
     (else_try),
       (eq, "$g_player_icon_state", pis_camping), # All of this is thanks to Lumos bein' generous, and not being as much of a lazy arse as I am
-      (assign, ":new_icon", "icon_camp"), 
+      (assign, ":new_icon", "icon_camp"),
     (try_end),
-    (party_set_icon,"p_main_party", ":new_icon"),
-
+     ## TGS: mat: Edited to keep icons from going crazy
+     (party_get_icon, ":current_icon", "p_main_party"),
+     (try_begin),
+     (neq, ":current_icon", ":new_icon"),
+         (party_set_icon,"p_main_party", ":new_icon"),
+     (try_end),
+     ## TGS: mat: End
 ]),
   
-
-    (0.1, 0, 0, [(party_get_current_terrain,":terrain","p_main_party"),
-      (neq,":terrain",7),], # 7 = rt_bridge
-   [(party_set_icon,"p_main_party", "icon_player"),]),
+## TGS: mat: Removed to stop the stuttering
+#    (0.1, 0, 0, [(party_get_current_terrain,":terrain","p_main_party"),
+#      (neq,":terrain",7),], # 7 = rt_bridge
+#   [(party_set_icon,"p_main_party", "icon_player"),]),
+## TGS: mat: End
   
  (0.1, 0, 0.0, [],
 [(try_for_parties, ":cur_party"),
    (party_get_current_terrain, ":terrain", ":cur_party"),
    (eq, ":terrain", 7), # 7 = rt_bridge
-  (party_get_template_id, ":cur_template", ":cur_party"),
- (this_or_next|eq, ":cur_template", "pt_kingdom_hero_party"),
- (this_or_next|eq, ":cur_template", "pt_kingdom_caravan_party"),
- (this_or_next|eq, ":cur_template", "pt_manhunters"),
- (this_or_next|eq, ":cur_template", "pt_village_farmers"),
- (this_or_next|eq, ":cur_template", "pt_deserters"),
- (this_or_next|eq, ":cur_template", "pt_looters"),
- (this_or_next|eq, ":cur_template", "pt_forest_bandits"),
- (this_or_next|eq, ":cur_template", "pt_steppe_bandits"),
- (this_or_next|eq, ":cur_template", "pt_mountain_bandits"),
+      (party_get_template_id, ":cur_template", ":cur_party"),
+      (this_or_next|eq, ":cur_template", "pt_kingdom_hero_party"),
+      (this_or_next|eq, ":cur_template", "pt_kingdom_caravan_party"),
+      (this_or_next|eq, ":cur_template", "pt_manhunters"),
+      (this_or_next|eq, ":cur_template", "pt_village_farmers"),
+      (this_or_next|eq, ":cur_template", "pt_deserters"),
+      (this_or_next|eq, ":cur_template", "pt_looters"),
+      (this_or_next|eq, ":cur_template", "pt_forest_bandits"),
+      (this_or_next|eq, ":cur_template", "pt_steppe_bandits"),
+      (this_or_next|eq, ":cur_template", "pt_mountain_bandits"),
  # added by mat2rivs
- (this_or_next|eq, ":cur_template", "pt_taiga_bandits"),
- (this_or_next|eq, ":cur_template", "pt_desert_bandits"),#
- (this_or_next|eq, ":cur_template", "pt_trollocs"),#
- (this_or_next|eq, ":cur_template", "pt_merchant_caravan"),#
- (this_or_next|eq, ":cur_template", "pt_dplmc_spouse"),#
- (this_or_next|eq, ":cur_template", "pt_dplmc_gift_caravan"),#
- (this_or_next|eq, ":cur_template", "pt_dplmc_recruiter"),#
+      (this_or_next|eq, ":cur_template", "pt_taiga_bandits"),
+      (this_or_next|eq, ":cur_template", "pt_desert_bandits"),#
+      (this_or_next|eq, ":cur_template", "pt_trollocs"),#
+      (this_or_next|eq, ":cur_template", "pt_merchant_caravan"),#
+      (this_or_next|eq, ":cur_template", "pt_dplmc_spouse"),#
+      (this_or_next|eq, ":cur_template", "pt_dplmc_gift_caravan"),#
+      (this_or_next|eq, ":cur_template", "pt_dplmc_recruiter"),#
  # end
- (eq, ":cur_template", "pt_sea_raiders"),
-   (party_set_icon, ":cur_party", "icon_ship"),
- (else_try),
+      (eq, ":cur_template", "pt_sea_raiders"),
+        (party_set_icon, ":cur_party", "icon_ship"),
+   (else_try),
    (neq,":terrain",7), # 7 = rt_bridge
-   (party_get_template_id, ":cur_template", ":cur_party"),
-   (eq, ":cur_template", "pt_kingdom_hero_party"),
- (party_set_icon,":cur_party","icon_flagbearer_a"),
- (else_try),
+     (party_get_template_id, ":cur_template", ":cur_party"),
+     (eq, ":cur_template", "pt_kingdom_hero_party"),
+       (party_set_icon,":cur_party","icon_flagbearer_a"),
+   (else_try),
  # added by mat2rivs
- (this_or_next|eq, ":cur_template", "pt_merchant_caravan"),
- (this_or_next|eq, ":cur_template", "pt_dplmc_gift_caravan"),
+     (this_or_next|eq, ":cur_template", "pt_merchant_caravan"),
+     (this_or_next|eq, ":cur_template", "pt_dplmc_gift_caravan"),
  # end
- (eq, ":cur_template", "pt_kingdom_caravan_party"),
- (party_set_icon,":cur_party","icon_mule"),
- (else_try),
- (eq, ":cur_template", "pt_deserters"),
- (party_set_icon,":cur_party","icon_vaegir_knight"),
- (else_try),
+     (eq, ":cur_template", "pt_kingdom_caravan_party"),
+       (party_set_icon,":cur_party","icon_mule"),
+   (else_try),
+     (eq, ":cur_template", "pt_deserters"),
+       (party_set_icon,":cur_party","icon_vaegir_knight"),
+   (else_try),
  # added by mat2rivs
- (this_or_next|eq, ":cur_template", "pt_dplmc_recruiter"),
+     (this_or_next|eq, ":cur_template", "pt_dplmc_recruiter"),
  # end
- (eq, ":cur_template", "pt_manhunters"),
- (party_set_icon,":cur_party","icon_gray_knight"),
- (else_try),
-  (eq, ":cur_template", "pt_village_farmers"),
- (party_set_icon,":cur_party","icon_peasant"),
+     (eq, ":cur_template", "pt_manhunters"),
+       (party_set_icon,":cur_party","icon_gray_knight"),
+   (else_try),
+     (eq, ":cur_template", "pt_village_farmers"),
+       (party_set_icon,":cur_party","icon_peasant"),
  # added by mat2rivs
- (else_try),
-  (eq, ":cur_template", "pt_dplmc_spouse"),
-  (party_set_icon,":cur_party","icon_woman"),
+   (else_try),
+     (eq, ":cur_template", "pt_dplmc_spouse"),
+       (party_set_icon,":cur_party","icon_woman"),
  # end
- (else_try),
-  (this_or_next|eq, ":cur_template", "pt_looters"),
- (this_or_next|eq, ":cur_template", "pt_forest_bandits"),
+   (else_try),
+     (this_or_next|eq, ":cur_template", "pt_looters"),
+     (this_or_next|eq, ":cur_template", "pt_forest_bandits"),
 # (this_or_next|eq, ":cur_template", "pt_steppe_bandits"),  # should be kherghit icon
- (this_or_next|eq, ":cur_template", "pt_mountain_bandits"),
+     (this_or_next|eq, ":cur_template", "pt_mountain_bandits"),
  # added by mat2rivs
- (this_or_next|eq, ":cur_template", "pt_desert_bandits"),
- (this_or_next|eq, ":cur_template", "pt_trollocs"),
+     (this_or_next|eq, ":cur_template", "pt_desert_bandits"),
+     (this_or_next|eq, ":cur_template", "pt_trollocs"),
  # end
- (eq, ":cur_template", "pt_sea_raiders"),
- (party_set_icon,":cur_party","icon_axeman"),
+     (eq, ":cur_template", "pt_sea_raiders"),
+       (party_set_icon,":cur_party","icon_axeman"),
  # added by mat2rivs
- (else_try),
-  (this_or_next|eq, ":cur_template", "pt_taiga_bandits"),
-  (eq, ":cur_template", "pt_steppe_bandits"),
-  (party_set_icon,":cur_party","icon_khergit"),
+   (else_try),
+     (this_or_next|eq, ":cur_template", "pt_taiga_bandits"),
+     (eq, ":cur_template", "pt_steppe_bandits"),
+       (party_set_icon,":cur_party","icon_khergit"),
  # end 
- (else_try),
- (eq, ":cur_template", "pt_cattle_herd"),
- (party_set_icon,":cur_party","icon_cattle"),
- (try_end),]),
+   (else_try),
+     (eq, ":cur_template", "pt_cattle_herd"),
+        (party_set_icon,":cur_party","icon_cattle"),
+   (try_end),
+ ]),
 
 ## a little extra trigger added by mat2rivs to keep track of the terrain type the character was on last.
     (0.5, 0, 0, [],

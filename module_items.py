@@ -47401,6 +47401,127 @@ items = [
 2900 , weight(24)|abundance(100)|head_armor(0)|body_armor(48)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
 
 
+## Shara Items
+
+ ["shara_recruit_scout_armor", "Shara Recruit Armor", [("shara_recruit_scout_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
+ ["shara_bowman_armor", "Shara Bowman Armor", [("shara_bowman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
+ 
+ ["shara_armsman_armor", "Shara Armsman Armor", [("shara_armsman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ 600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
+ ["shara_crossbowman_armor", "Shara Crossbowman Armor", [("shara_crossbowman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ 600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
+ ["shara_marksman_armor", "Shara Marksman Armor", [("shara_marksman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ 600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
+
+ ["shara_town_guard_armor", "Shara Town Guard Armor", [("shara_town_guard_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0, 
+ 1200 , weight(15)|abundance(100)|head_armor(0)|body_armor(35)|leg_armor(15)|difficulty(6) ,imodbits_armor ],
+ 
+ ["shara_mid_cavalry_armor", "Shara Cavalry Armor", [("shara_mid_cavalry_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0, 
+ 1200 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
+ ["shara_border_guard_armor", "Shara Border Guard Armor", [("shara_border_guard_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0, 
+ 1200 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
+ 
+ ["shara_elite_armor", "Shara Elite Armor", [("shara_elite_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
+ 1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
+ ["shara_shbo_guardsman_armor", "Shara Sh'bo Guardsman Armor", [("shara_shbo_guardsman_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
+ 1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
+
+ ["ayyad_villager_tunic", "Ayyad Villager Tunic", [("ayyad_villager_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+750 , weight(10)|abundance(100)|head_armor(0)|body_armor(12)|leg_armor(6)|difficulty(4) ,imodbits_armor ],
+ ["ayyad_village_leader_tunic", "Ayyad Village Leader Tunic", [("ayyad_village_leader_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+1000 , weight(15)|abundance(100)|head_armor(0)|body_armor(14)|leg_armor(7)|difficulty(6) ,imodbits_armor ],
+ ["ayyad_counsel_member_tunic", "Ayyad Counsel Member Tunic", [("ayyad_counsel_member_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+1500 , weight(15)|abundance(100)|head_armor(0)|body_armor(16)|leg_armor(8)|difficulty(6) ,imodbits_armor ],
+
+ ["black_turban", "Black Turban", [("tuareg_open_black",0)], itp_merchandise| itp_type_head_armor   ,0,
+  200 , weight(1)|abundance(100)|head_armor(20)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
+ 
+ ["black_turban_helmet", "Black Turban with Cap", [("black_sar_helmet1",0)], itp_merchandise| itp_type_head_armor   ,0,
+  500 , weight(1)|abundance(100)|head_armor(30)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
+ ["black_turban_helmet2", "Black Turban with Cap", [("tuareg_helmet_black",0)], itp_merchandise| itp_type_head_armor   ,0,
+  500 , weight(1)|abundance(100)|head_armor(30)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
+ 
+ ["helmet2_brass", "Brass Chain Helmet", [("sar_helmet2_brass",0)], itp_merchandise| itp_type_head_armor   ,0,
+  700 , weight(1)|abundance(100)|head_armor(35)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
+ 
+ ["helmet5_brass", "Brass Veil Helmet", [("sar_helmet5",0)], itp_merchandise| itp_type_head_armor   ,0,
+  800 , weight(1)|abundance(100)|head_armor(40)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
+
+ ["brass_veil_helm", "Brass Veil Helm", [("brass_veil_helm",0)], itp_merchandise| itp_type_head_armor   ,0,
+  900 , weight(2)|abundance(100)|head_armor(45)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
+ ["noken_helmet", "Shara Elite Helmet", [("khergit_noken_helmet",0)], itp_merchandise| itp_type_head_armor   ,0,
+  900 , weight(2)|abundance(100)|head_armor(45)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
+
+ ["brass_boots", "Brass Chain Boots", [("sar_brass_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature|itp_civilian,0,
+ 500 , weight(2.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(7) ,imodbits_plate ],
+
+ ["brass_shield", "Brass Shield", [("brass_shield2",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
+ 600 , weight(3.5)|hit_points(300)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
+ ["dec_steel_shield", "Decorated Steel Shield", [("dec_steel_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
+ 1000 , weight(3.5)|hit_points(500)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
+ ["brass_shield_elite", "Brass Shield", [("brass_shield1",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
+ 1200 , weight(3.5)|hit_points(600)|body_armor(3)|spd_rtng(80)|shield_width(50),imodbits_shield ],
+
+ ["camel","Camel", [("camel",0)], itp_merchandise|itp_type_horse, 0,
+ 1000,abundance(45)|hit_points(150)|body_armor(25)|difficulty(4)|horse_speed(42)|horse_maneuver(42)|horse_charge(18)|horse_scale(100),imodbits_horse_basic],
+
+ 
+## Sea Folk Items
+
+ ["sea_folk_tunic", "Sea Folk Tunic", [("sea_folk_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
+# ["sea_folk_armor", "Sea Folk Armor", [("sea_folk_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+#600 , weight(15)|abundance(100)|head_armor(0)|body_armor(28)|leg_armor(15)|difficulty(6) ,imodbits_armor ],
+ ["sea_folk_padded_armor", "Sea Folk Padded Armor", [("sea_folk_armor_b",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+800 , weight(15)|abundance(100)|head_armor(0)|body_armor(38)|leg_armor(20)|difficulty(6) ,imodbits_armor ], 
+ ["sea_folk_elite_armor", "Sea Folk Elite Armor", [("sea_folk_armor_elite",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
+ 1200 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(23)|difficulty(8) ,imodbits_armor ],
+
+ ["sea_folk_elite_helmet", "Sea Folk Helmet", [("sea_folk_elite_helmet",0)], itp_merchandise| itp_type_head_armor   ,0,
+  800 , weight(2)|abundance(100)|head_armor(40)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
+
+ ["sea_folk_female_tunic", "Sea Folk Tunic", [("sea_folk_female_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
+ ["sea_folk_female_tunic_2", "Sea Folk Tunic", [("sea_folk_female_tunic_2",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+600 , weight(15)|abundance(100)|head_armor(0)|body_armor(28)|leg_armor(15)|difficulty(6) ,imodbits_armor ],
+ ["sea_folk_female_armor", "Sea Folk Padded Armor", [("sea_folk_female_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+800 , weight(15)|abundance(100)|head_armor(0)|body_armor(38)|leg_armor(20)|difficulty(6) ,imodbits_armor ],  
+
+["wooden_round_shield", "Wooden Round Shield", [("shield_round_g",0)], itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  80 , weight(2.5)|hit_points(310)|body_armor(8)|spd_rtng(96)|shield_width(40),imodbits_shield ],
+
+
+## Madmen Items
+ 
+  ["madmen_paint_1", "Madmen Warpaint", [("mad_men_1",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
+  ["madmen_paint_2", "Madmen Warpaint", [("mad_men_2",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
+  ["madmen_paint_3", "Madmen Warpaint", [("mad_men_3",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
+  ["madmen_paint_4", "Madmen Warpaint", [("mad_men_4",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
+
+  ["madmen_rawhide_coat", "Clansman Coat", [("coat_of_plates_b",0)], itp_merchandise| itp_type_body_armor |itp_civilian |itp_covers_legs ,0,
+   500 , weight(5)|abundance(100)|head_armor(0)|body_armor(35)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
+
+
+## Toman Head Items
+ 
+  ["toman_head_recruit_tunic", "Toman Head Recruit Tunic", [("toman_head_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
+ ["toman_head_army_armor", "Toman Head Army Armor", [("toman_head_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+500 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
+ ["toman_head_mail_and_plate", "Toman Head Mail and Plate", [("toman_head_mail_and_plate",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
+ 1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
+["toman_head_shield_weak", "Toman Head Shield", [("toman_head_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
+ 200 , weight(3.5)|hit_points(100)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
+ ["toman_head_shield_normal", "Toman Head Shield", [("toman_head_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
+ 600 , weight(3.5)|hit_points(300)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
+ 
+
+
 #Mat Cauthon's Items
 
 ["mats_hat", "Mat Cauthon's Hat", [("mats_hat",0)],itp_unique|itp_type_head_armor|itp_doesnt_cover_hair|itp_civilian,0,9, weight(1)|head_armor(10)|body_armor(0)|leg_armor(0)|difficulty(0),imodbits_cloth],

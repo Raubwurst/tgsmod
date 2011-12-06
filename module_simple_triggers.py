@@ -817,7 +817,7 @@ simple_triggers = [
    ## TGS: mat: ADDED to remove random war declarations for the first 170 days
    (store_current_hours, ":number_game_hours_passed"),
    (try_begin),
-   (gt, ":number_game_hours_passed", 24*170),
+   (gt, ":number_game_hours_passed", 24*170-6),
    ## TGS: mat: END
    
        (call_script, "script_randomly_start_war_peace_new", 1),
@@ -851,9 +851,7 @@ simple_triggers = [
             (try_end),
        (try_end),
 
-   ## TGS: mat: BEGIN
-#   (try_end),
-   ## TGS: mat: END   
+   
 
    (try_for_range, ":faction_1", kingdoms_begin, kingdoms_end),
 		(faction_slot_eq, ":faction_1", slot_faction_state, sfs_active),
@@ -929,7 +927,7 @@ simple_triggers = [
 		(call_script, "script_update_faction_notes", ":faction_1"),
 	(try_end),
 
-   ## TGS: mat: BEGIN
+   ## TGS: mat: BEGIN (try_end), for statement at beginning of trigger
    (try_end),
    ## TGS: mat: END   
    
@@ -1286,6 +1284,11 @@ simple_triggers = [
           (try_end),
         (try_end),
 
+## TGS: mat: disabled for the first 170 days: First part
+      (store_current_hours, ":number_game_hours_passed"),
+      (try_begin),
+      (gt, ":number_game_hours_passed", 24*170-6),
+## TGS: mat: End        
         #Auto-indictment or defection
         (try_begin),
 			(this_or_next|troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
@@ -1427,6 +1430,11 @@ simple_triggers = [
 		(try_end),
 		(assign, reg0, ":save_reg0"),
 		##diplomacy end+
+
+## TGS: mat: Disable for the first 170 days:  Second part
+      (try_end),
+## TGS: mat: End
+        
         ]),
 
 #TEMPORARILY DISABLED, AS READINESS IS NOW A PRODUCT OF NPC_DECISION_CHECKLIST

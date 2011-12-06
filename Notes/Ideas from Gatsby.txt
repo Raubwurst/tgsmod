@@ -1,0 +1,32 @@
+Right here we go, so my first question is how much dialogue one can add to a NPC, can we have specific quests for specific lords, Actual quests started by companions. Can say a companion have a dialogue options open up at a specific relation score?
+These are just some rough Ideas, over the next few weeks I can come up with both more specific and unique version of each as well as whole new stuff but I wanted to show you the kind of things I’m interested in implementing.  And please excuse the spelling errors, I am just the worst at spelling, and rather tired.
+
+So I will break down the rest by the quest giver.
+
+Village:
+Right so I feel villages have a lot of unexplored opportunity, for now I will focus on quests we could add to a village owned by the player
+
+Hunt for a channeler: So this can go two ways, essentially like the hunt for a criminal except the town elder or Stewart warns you there is a channeler, you can either hunt through the villagers trying to find them and then kill or capturer them, or you can find them and recruit them. Could be a interesting way of getting channelers at all, makes them more rare, and thus justifies the great power they can grow into.
+We can also add a good amount of fluff to the “bandit’s attack” quest, We have a huge amount of cool bandit factions that can vary in danger. We can have the easy dragon sworn wanderers attack trying to loot food, if they win perhaps the town is not fully looted rather prosperity just goes down a notch. Second the White Cloaks attack, a slightly harder fight since they have them horses lances and armor, and finally we can have Trolloc attack, get the whole amens field thing going.
+City
+1. Robberies, for bandit character this could be a nice alternative to raiding caravans, essentially break into a shop with say one companion and kill some guards, then take things. Or even kill and robs some people in the streets.
+the same channeler thing as for a town, would be much harder in a city
+Dark friend attack, same as bandit attack, except perhaps with a Mydrall or something
+Search for a relic, would need a new scene of a warehouse or something, but if you remember in the books they spent quite a lot of time hunting for angreal or Ter’angreal we would have to add these items i suppose, or just make it for hard armor
+gray man attack, this could be a interesting one for the owner of the city, Like a bandit attack except a single very tough foe, perhaps in the palace or in a new scene, could make it feel more unique of an experience. Not sure how many scene people you have at the moment.
+Traveling
+Ruins: we have a good amount this already made with those bandit hideouts, if we can rework the scenes a bit we could add some cool places like Shadar Logoth or Manetheren, fight some monsters, find some old artifacts, I’m not sure how hard it would be to add some textures for older stuff, not age of legends just some Manetheren armor or Shadar Logoth weapons. If those are hard then there is always the “Loot” chests, makes treasure hunting a profitable deal in the early game.
+2.Random Events: you have the scripted story events, I wonder how hard it would be to work in some “bubble of darkness” stuff, kill some of your men, perhaps damage the player. Or have them run across a wandering Aes Sadai, or Hunters for the horn that they can recruit. This should help give the living world kinda feel.
+Wife
+So this is one of those things that I really think has a lot of possibility to be improved upon, if it is possible to add quests to the wife character, or even perhaps have her as a companion, it would really ad a true connection to the character.
+some more unique poems, I can probably write some alright ones, though I am not a poet exactly. but we can use Dance with Jack of the shadows and the other songs used in the books. Same with book names I can come up with some from the books.
+Along the same line, some more things to talk about with wife to be, maybe quests that can increase relation with said lady. something along the lines of retrieve a family artifact, save a family member from bandits, or Trolloc or the like. 
+Kidnaping: Wife gets kidnapped by shadowspawn, or aiel I guess, you have to hunt down that specific group to get her back.
+Cultural acceptance: as we see in the books the many different cultures are highly important, we could add a quest to gain cultural acceptance from your wife to be, give a unique type of quest for each factions.
+These are only rough Ideas, I think I can come up with a lot of dialogue for this line of quests, as have always felt if any NPC should really be most important to your character it should be your Wife.
+
+Companions
+Once I come up with some new companions, i will come up with quests for them if thats something we can actually do with the system.
+Solo: quests for just the player char. Though the books have plenty of massive combat, they also have rand runnin around doinin stuff. I think if we can get some new scenes we could eventually have some interesting and fun quests that will improve the wheel of timeishness. I will give some examples of these kind of things if we can get around to finding a group of scene people that can pull em off. I feel that the Heron marked sword quest could be one of those, small dungeon crawl then kill a blade master kinda deal.
+
+And on the companions/ Pretenders, I will try to find some pretenders for the new factions and write em up. I more meant adding new companions then working on the current ones, they seem pretty good and I would hate to mess with another writers characters before I worked on some other stuff. 

@@ -372,7 +372,7 @@ skins = [
   (
     "ogier_male", 0,
     "man_body", "man_calf_l", "m_handL",
-    "male_head", man_face_keys,
+    "male_head", ogier_male_face_keys,
     ["man_hair_s","man_hair_m","man_hair_n","man_hair_o", "man_hair_y10", "man_hair_y12","man_hair_p","man_hair_r","man_hair_q","man_hair_v","man_hair_t","man_hair_y6","man_hair_y3","man_hair_y7","man_hair_y9","man_hair_y11","man_hair_u","man_hair_y","man_hair_y2","man_hair_y4"], #man_hair_meshes ,"man_hair_y5","man_hair_y8",
     ["beard_e","beard_d","beard_k","beard_l","beard_i","beard_j","beard_z","beard_m","beard_n","beard_y","beard_p","beard_o",   "beard_v", "beard_f", "beard_b", "beard_c","beard_t","beard_u","beard_r","beard_s","beard_a","beard_h","beard_g",], #beard meshes ,"beard_q"
     ["hair_blonde", "hair_red", "hair_brunette", "hair_black", "hair_white"], #hair textures
@@ -401,7 +401,8 @@ skins = [
      [0.7, comp_greater_than, (1.0,nose_size), (-1.0,nose_shape)],
      [2.7, comp_greater_than, (1.0,chin_size), (1.0,mouth_nose_distance), (1.0,nose_height), (-1.0,face_width)],
      ]
-  ),  
+  ),
+
 
 # end added for TGS  
   

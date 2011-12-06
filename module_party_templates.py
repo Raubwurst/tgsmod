@@ -341,8 +341,46 @@ party_templates = [
   ("kingdom_24_reinforcements_g", "{!}kingdom_24_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_darkfriend_initiate,15,25),(trp_darkfriend_murderer,6,10),(trp_darkfriend_assassin,4,8),(trp_darkfriend_ambusher,6,10),(trp_darkfriend_leader,4,8),(trp_darkfriend_marksman,8,14)]),
   ("kingdom_24_reinforcements_h", "{!}kingdom_24_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_darkfriend_initiate,15,25),(trp_darkfriend_murderer,6,10),(trp_darkfriend_assassin,4,8),(trp_darkfriend_ambusher,6,10),(trp_darkfriend_leader,4,8),(trp_darkfriend_marksman,8,14)]),
 
-  # add 25 - 28 later
-  
+  # shara
+  ("kingdom_25_reinforcements_a", "{!}kingdom_25_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_ayyad_villager,2,4),(trp_ayyad_village_leader,3,5),(trp_ayyad_counsel_member,2,3)]),
+  ("kingdom_25_reinforcements_b", "{!}kingdom_25_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_ayyad_villager,2,4),(trp_ayyad_village_leader,3,5),(trp_ayyad_counsel_member,2,3)]),
+  ("kingdom_25_reinforcements_c", "{!}kingdom_25_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_shara_recruit,5,10),(trp_shara_armsman,4,8),(trp_shara_town_guard,3,6),(trp_shara_border_guard,2,4),(trp_shara_defender,1,2)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
+  ("kingdom_25_reinforcements_d", "{!}kingdom_25_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_shara_swordsman,2,4),(trp_shara_captain,1,2),(trp_shara_bowman,3,6),(trp_shara_marksman,2,4),(trp_shara_crossbowman,2,4)]),
+  ("kingdom_25_reinforcements_e", "{!}kingdom_25_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_shara_scout,4,8),(trp_shara_man_at_arms,3,6),(trp_shara_shbo_guardsman,2,4),(trp_shara_skirmisher,3,6)]),
+  ("kingdom_25_reinforcements_f", "{!}kingdom_25_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_shara_recruit,5,10),(trp_shara_armsman,4,8),(trp_shara_town_guard,3,6),(trp_shara_border_guard,2,4),(trp_shara_defender,1,2)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
+  ("kingdom_25_reinforcements_g", "{!}kingdom_25_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_shara_swordsman,2,4),(trp_shara_captain,1,2),(trp_shara_bowman,3,6),(trp_shara_marksman,2,4),(trp_shara_crossbowman,2,4)]),
+  ("kingdom_25_reinforcements_h", "{!}kingdom_25_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_shara_scout,4,8),(trp_shara_man_at_arms,3,6),(trp_shara_shbo_guardsman,2,4),(trp_shara_skirmisher,3,6)]),
+
+  # sea folk
+  ("kingdom_26_reinforcements_a", "{!}kingdom_26_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit_channeler,2,4),(trp_sea_folk_pupil,3,5),(trp_sea_folk_windfinder,2,3)]),
+  ("kingdom_26_reinforcements_b", "{!}kingdom_26_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit_channeler,2,4),(trp_sea_folk_pupil,3,5),(trp_sea_folk_windfinder,2,3)]),
+  ("kingdom_26_reinforcements_c", "{!}kingdom_26_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit,5,10),(trp_sea_folk_bilge_hand,4,8),(trp_sea_folk_deck_hand,3,6),(trp_sea_folk_boatswain,2,4),(trp_sea_folk_cargomaster,1,2)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
+  ("kingdom_26_reinforcements_d", "{!}kingdom_26_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_sea_folk_dogwatcher,3,6),(trp_sea_folk_deck_defender,2,4),(trp_sea_folk_weatherly,4,8),(trp_sea_folk_quarterling,3,6),(trp_sea_folk_sailmistress,2,4),(trp_sea_folk_wavemistress,1,2)]),
+  ("kingdom_26_reinforcements_e", "{!}kingdom_26_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit,5,10),(trp_sea_folk_bilge_hand,4,8),(trp_sea_folk_deck_hand,3,6),(trp_sea_folk_boatswain,2,4),(trp_sea_folk_cargomaster,1,2)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
+  ("kingdom_26_reinforcements_f", "{!}kingdom_26_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_sea_folk_dogwatcher,3,6),(trp_sea_folk_deck_defender,2,4),(trp_sea_folk_weatherly,4,8),(trp_sea_folk_quarterling,3,6),(trp_sea_folk_sailmistress,2,4),(trp_sea_folk_wavemistress,1,2)]),
+  ("kingdom_26_reinforcements_g", "{!}kingdom_26_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit,5,10),(trp_sea_folk_bilge_hand,4,8),(trp_sea_folk_deck_hand,3,6),(trp_sea_folk_boatswain,2,4),(trp_sea_folk_cargomaster,1,2)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
+  ("kingdom_26_reinforcements_h", "{!}kingdom_26_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_sea_folk_dogwatcher,3,6),(trp_sea_folk_deck_defender,2,4),(trp_sea_folk_weatherly,4,8),(trp_sea_folk_quarterling,3,6),(trp_sea_folk_sailmistress,2,4),(trp_sea_folk_wavemistress,1,2)]),
+
+  # madmen
+  ("kingdom_27_reinforcements_a", "{!}kingdom_27_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_madmen_air_shifter,2,4),(trp_madmen_fire_tamer,3,5),(trp_madmen_storm_caller,2,3)]),
+  ("kingdom_27_reinforcements_b", "{!}kingdom_27_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_madmen_air_shifter,2,4),(trp_madmen_fire_tamer,3,5),(trp_madmen_storm_caller,2,3)]),
+  ("kingdom_27_reinforcements_c", "{!}kingdom_27_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_madmen_recruit,5,10),(trp_madmen_wanderer,4,8),(trp_madmen_villager,3,6),(trp_madmen_clansman,2,4),(trp_madmen_chieftan,1,2)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
+  ("kingdom_27_reinforcements_d", "{!}kingdom_27_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_madmen_looter,2,4),(trp_madmen_pillager,1,2),(trp_madmen_hunter,3,6),(trp_madmen_ambusher,2,4),(trp_madmen_assassin,1,2)]),
+  ("kingdom_27_reinforcements_e", "{!}kingdom_27_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_madmen_horse_tamer,4,8),(trp_madmen_slave_catcher,3,6),(trp_madmen_thunderhoof,2,4),(trp_madmen_plains_rider,3,6)]),
+  ("kingdom_27_reinforcements_f", "{!}kingdom_27_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_madmen_recruit,5,10),(trp_madmen_wanderer,4,8),(trp_madmen_villager,3,6),(trp_madmen_clansman,2,4),(trp_madmen_chieftan,1,2)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
+  ("kingdom_27_reinforcements_g", "{!}kingdom_27_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_madmen_looter,2,4),(trp_madmen_pillager,1,2),(trp_madmen_hunter,3,6),(trp_madmen_ambusher,2,4),(trp_madmen_assassin,1,2)]),
+  ("kingdom_27_reinforcements_h", "{!}kingdom_27_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_madmen_horse_tamer,4,8),(trp_madmen_slave_catcher,3,6),(trp_madmen_thunderhoof,2,4),(trp_madmen_plains_rider,3,6)]),
+
+  # toman head
+  ("kingdom_28_reinforcements_a", "{!}kingdom_28_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_toman_head_recruit,5,10),(trp_toman_head_footman,4,8),(trp_toman_head_city_guard,3,6),(trp_toman_head_bowman,3,6),(trp_toman_head_scout,4,8)]),  
+  ("kingdom_28_reinforcements_b", "{!}kingdom_28_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_toman_head_recruit,5,10),(trp_toman_head_footman,4,8),(trp_toman_head_city_guard,3,6),(trp_toman_head_bowman,3,6),(trp_toman_head_scout,4,8)]),
+  ("kingdom_28_reinforcements_c", "{!}kingdom_28_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_toman_head_recruit,5,10),(trp_toman_head_footman,4,8),(trp_toman_head_city_guard,3,6),(trp_toman_head_bowman,3,6),(trp_toman_head_scout,4,8)]),
+  ("kingdom_28_reinforcements_d", "{!}kingdom_28_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_toman_head_recruit,5,10),(trp_toman_head_footman,4,8),(trp_toman_head_city_guard,3,6),(trp_toman_head_bowman,3,6),(trp_toman_head_scout,4,8)]),
+  ("kingdom_28_reinforcements_e", "{!}kingdom_28_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_toman_head_recruit,5,10),(trp_toman_head_footman,4,8),(trp_toman_head_city_guard,3,6),(trp_toman_head_bowman,3,6),(trp_toman_head_scout,4,8)]),
+  ("kingdom_28_reinforcements_f", "{!}kingdom_28_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_toman_head_recruit,5,10),(trp_toman_head_footman,4,8),(trp_toman_head_city_guard,3,6),(trp_toman_head_bowman,3,6),(trp_toman_head_scout,4,8)]),
+  ("kingdom_28_reinforcements_g", "{!}kingdom_28_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_toman_head_recruit,5,10),(trp_toman_head_footman,4,8),(trp_toman_head_city_guard,3,6),(trp_toman_head_bowman,3,6),(trp_toman_head_scout,4,8)]),
+  ("kingdom_28_reinforcements_h", "{!}kingdom_28_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_toman_head_recruit,5,10),(trp_toman_head_footman,4,8),(trp_toman_head_city_guard,3,6),(trp_toman_head_bowman,3,6),(trp_toman_head_scout,4,8)]),
+
   #end edited for TGS
   
 ##  ("kingdom_1_reinforcements_a", "kingdom_1_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_swadian_footman,3,7),(trp_swadian_skirmisher,5,10),(trp_swadian_militia,11,26)]),

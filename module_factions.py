@@ -54,10 +54,10 @@ factions = [
   ("culture_22",  "{!}culture_22", 0, 0.9, [], []), # aiel nation
   ("culture_23",  "{!}culture_23", 0, 0.9, [], []), # seanchan
   ("culture_24",  "{!}culture_24", 0, 0.9, [], []), # shadowspawn
-#  ("culture_25",  "{!}culture_25", 0, 0.9, [], []), # shara
-#  ("culture_26",  "{!}culture_26", 0, 0.9, [], []), # sea folk
-#  ("culture_27",  "{!}culture_27", 0, 0.9, [], []), # land of madmen
-#  ("culture_28",  "{!}culture_28", 0, 0.9, [], []), # almoth plain
+  ("culture_25",  "{!}culture_25", 0, 0.9, [], []), # shara
+  ("culture_26",  "{!}culture_26", 0, 0.9, [], []), # sea folk
+  ("culture_27",  "{!}culture_27", 0, 0.9, [], []), # land of madmen
+  ("culture_28",  "{!}culture_28", 0, 0.9, [], []), # almoth plain
   #end added for TGS  
 
 #  ("swadian_caravans","Swadian Caravans", 0, 0.5,[("outlaws",-0.8), ("dark_knights",-0.2)], []),
@@ -90,10 +90,10 @@ factions = [
   ("kingdom_22",  "the Aiel Nation",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0xFFFF66),#New Faction
   ("kingdom_23",  "the Seanchan Empire",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x660099),#New Faction
   ("kingdom_24",  "the Shadowspawn",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", 0.5)], [], 0x000000),#New Faction
-#  ("kingdom_25",  "the Nation of Shara",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x363333),#New Faction
-#  ("kingdom_26",  "the Sea Folk",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x007D47),#New Faction
-#  ("kingdom_27",  "the Land of Madmen",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x006B6B),#New Faction
-#  ("kingdom_28",  "the Land of Toman Head",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x00CC00),#New Faction
+  ("kingdom_25",  "the Nation of Shara",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x363333),#New Faction
+  ("kingdom_26",  "the Sea Folk",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x007D47),#New Faction
+  ("kingdom_27",  "the Land of Madmen",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x006B6B),#New Faction
+  ("kingdom_28",  "the Land of Toman Head",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x00CC00),#New Faction
   #end edited for TGS
   
 ##  ("kingdom_1_rebels",  "Swadian rebels", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0xCC2211),

@@ -3047,7 +3047,7 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (is_between, ":channeling_proficiency",225,250),
                  (assign, "$g_number_weaves_known", 13),
              (else_try),
-             (gt, ":channeling_proficiency", 250),
+             (ge, ":channeling_proficiency", 250),
                  (assign, "$g_number_weaves_known", 14),
              (try_end),
 
@@ -3214,7 +3214,7 @@ common_wot_initialize_channeling_weave_variables_2 = (
                  (is_between, ":channeling_proficiency",225,250),
                  (assign, "$g_number_weaves_known", 13),
              (else_try),
-             (gt, ":channeling_proficiency", 250),
+             (ge, ":channeling_proficiency", 250),
                  (assign, "$g_number_weaves_known", 14),
              (try_end),
 

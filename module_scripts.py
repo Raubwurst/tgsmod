@@ -331,7 +331,7 @@ scripts = [
       (faction_set_slot, "fac_culture_20", slot_faction_tier_5_troop, "trp_saldaea_quartermaster"),        
 
       # white tower
-      (faction_set_slot, "fac_culture_21", slot_faction_tier_1_troop, "trp_warder_trainee"),
+      (faction_set_slot, "fac_culture_21", slot_faction_tier_1_troop, "trp_sedai_recruit_soldier"),
       (faction_set_slot, "fac_culture_21", slot_faction_tier_2_troop, "trp_accepted_academic"),
       (faction_set_slot, "fac_culture_21", slot_faction_tier_3_troop, "trp_tower_guard_infantry"),
       (faction_set_slot, "fac_culture_21", slot_faction_tier_4_troop, "trp_aes_sedai_yellow"),
@@ -345,7 +345,7 @@ scripts = [
       (faction_set_slot, "fac_culture_22", slot_faction_tier_5_troop, "trp_stone_dog"),
       
       # seanchan
-      (faction_set_slot, "fac_culture_23", slot_faction_tier_1_troop, "trp_seanchan_recruit_channeler"),
+      (faction_set_slot, "fac_culture_23", slot_faction_tier_1_troop, "trp_seanchan_armsman"),
       (faction_set_slot, "fac_culture_23", slot_faction_tier_2_troop, "trp_seanchan_swordsman"),
       (faction_set_slot, "fac_culture_23", slot_faction_tier_3_troop, "trp_suldam"),
       (faction_set_slot, "fac_culture_23", slot_faction_tier_4_troop, "trp_seanchan_marksman"),
@@ -359,32 +359,32 @@ scripts = [
       (faction_set_slot, "fac_culture_24", slot_faction_tier_5_troop, "trp_myrddraal"),
 
       # shara
-#      (faction_set_slot, "fac_culture_25", slot_faction_tier_1_troop, "trp_warder_trainee"),
-#      (faction_set_slot, "fac_culture_25", slot_faction_tier_2_troop, "trp_accepted_academic"),
-#      (faction_set_slot, "fac_culture_25", slot_faction_tier_3_troop, "trp_tower_guard_infantry"),
-#      (faction_set_slot, "fac_culture_25", slot_faction_tier_4_troop, "trp_aes_sedai_yellow"),
-#      (faction_set_slot, "fac_culture_25", slot_faction_tier_5_troop, "trp_aes_sedai_green_veteran"),
+      (faction_set_slot, "fac_culture_25", slot_faction_tier_1_troop, "trp_shara_recruit"),
+      (faction_set_slot, "fac_culture_25", slot_faction_tier_2_troop, "trp_ayyad_villager"),
+      (faction_set_slot, "fac_culture_25", slot_faction_tier_3_troop, "trp_shara_crossbowman"),
+      (faction_set_slot, "fac_culture_25", slot_faction_tier_4_troop, "trp_shara_border_guard"),
+      (faction_set_slot, "fac_culture_25", slot_faction_tier_5_troop, "trp_shara_shbo_guardsman"),
       
       # sea folk
-#      (faction_set_slot, "fac_culture_26", slot_faction_tier_1_troop, "trp_aiel_recruit_lithe"),
-#      (faction_set_slot, "fac_culture_26", slot_faction_tier_2_troop, "trp_aiel_raider"),
-#      (faction_set_slot, "fac_culture_26", slot_faction_tier_3_troop, "trp_wise_one"),
-#      (faction_set_slot, "fac_culture_26", slot_faction_tier_4_troop, "trp_maiden_of_the_spear"),
-#      (faction_set_slot, "fac_culture_26", slot_faction_tier_5_troop, "trp_stone_dog"),
+      (faction_set_slot, "fac_culture_26", slot_faction_tier_1_troop, "trp_sea_folk_recruit"),
+      (faction_set_slot, "fac_culture_26", slot_faction_tier_2_troop, "trp_sea_folk_dogwatcher"),
+      (faction_set_slot, "fac_culture_26", slot_faction_tier_3_troop, "trp_sea_folk_pupil"),
+      (faction_set_slot, "fac_culture_26", slot_faction_tier_4_troop, "trp_sea_folk_sailmistress"),
+      (faction_set_slot, "fac_culture_26", slot_faction_tier_5_troop, "trp_sea_folk_cargomaster"),
       
       # land of madmen
-#      (faction_set_slot, "fac_culture_27", slot_faction_tier_1_troop, "trp_seanchan_recruit_channeler"),
-#      (faction_set_slot, "fac_culture_27", slot_faction_tier_2_troop, "trp_seanchan_swordsman"),
-#      (faction_set_slot, "fac_culture_27", slot_faction_tier_3_troop, "trp_suldam"),
-#      (faction_set_slot, "fac_culture_27", slot_faction_tier_4_troop, "trp_seanchan_marksman"),
-#      (faction_set_slot, "fac_culture_27", slot_faction_tier_5_troop, "trp_seanchan_captain"),
+      (faction_set_slot, "fac_culture_27", slot_faction_tier_1_troop, "trp_madmen_recruit"),
+      (faction_set_slot, "fac_culture_27", slot_faction_tier_2_troop, "trp_madmen_horse_tamer"),
+      (faction_set_slot, "fac_culture_27", slot_faction_tier_3_troop, "trp_madmen_looter"),
+      (faction_set_slot, "fac_culture_27", slot_faction_tier_4_troop, "trp_madmen_ambusher"),
+      (faction_set_slot, "fac_culture_27", slot_faction_tier_5_troop, "trp_madmen_storm_caller"),
       
       # toman head
-#      (faction_set_slot, "fac_culture_28", slot_faction_tier_1_troop, "trp_darkfriend_initiate"),
-#      (faction_set_slot, "fac_culture_28", slot_faction_tier_2_troop, "trp_trolloc_hewer"),
-#      (faction_set_slot, "fac_culture_28", slot_faction_tier_3_troop, "trp_trolloc_stalker"),
-#      (faction_set_slot, "fac_culture_28", slot_faction_tier_4_troop, "trp_aes_sedai_black"),
-#      (faction_set_slot, "fac_culture_28", slot_faction_tier_5_troop, "trp_myrddraal"),      
+      (faction_set_slot, "fac_culture_28", slot_faction_tier_1_troop, "trp_toman_head_recruit"),
+      (faction_set_slot, "fac_culture_28", slot_faction_tier_2_troop, "trp_toman_head_footman"),
+      (faction_set_slot, "fac_culture_28", slot_faction_tier_3_troop, "trp_toman_head_scout"),
+      (faction_set_slot, "fac_culture_28", slot_faction_tier_4_troop, "trp_toman_head_bowman"),
+      (faction_set_slot, "fac_culture_28", slot_faction_tier_5_troop, "trp_toman_head_city_guard"),      
 
   # end altered/added for TGS
 
@@ -559,33 +559,33 @@ scripts = [
       (faction_set_slot, "fac_culture_24", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
       (faction_set_slot, "fac_culture_24", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
 
-#      (faction_set_slot, "fac_culture_25", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
-#      (faction_set_slot, "fac_culture_25", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
-#      (faction_set_slot, "fac_culture_25", slot_faction_village_walker_male_troop, "trp_village_walker_1"),
-#      (faction_set_slot, "fac_culture_25", slot_faction_village_walker_female_troop, "trp_village_walker_2"),
-#      (faction_set_slot, "fac_culture_25", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
-#      (faction_set_slot, "fac_culture_25", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
+      (faction_set_slot, "fac_culture_25", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
+      (faction_set_slot, "fac_culture_25", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_25", slot_faction_village_walker_male_troop, "trp_village_walker_1"),
+      (faction_set_slot, "fac_culture_25", slot_faction_village_walker_female_troop, "trp_village_walker_2"),
+      (faction_set_slot, "fac_culture_25", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
+      (faction_set_slot, "fac_culture_25", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
 
-#      (faction_set_slot, "fac_culture_26", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
-#      (faction_set_slot, "fac_culture_26", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
-#      (faction_set_slot, "fac_culture_26", slot_faction_village_walker_male_troop, "trp_village_walker_1"),
-#      (faction_set_slot, "fac_culture_26", slot_faction_village_walker_female_troop, "trp_village_walker_2"),
-#      (faction_set_slot, "fac_culture_26", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
-#      (faction_set_slot, "fac_culture_26", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
+      (faction_set_slot, "fac_culture_26", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
+      (faction_set_slot, "fac_culture_26", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_26", slot_faction_village_walker_male_troop, "trp_village_walker_1"),
+      (faction_set_slot, "fac_culture_26", slot_faction_village_walker_female_troop, "trp_village_walker_2"),
+      (faction_set_slot, "fac_culture_26", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
+      (faction_set_slot, "fac_culture_26", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
 
-#      (faction_set_slot, "fac_culture_27", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
-#      (faction_set_slot, "fac_culture_27", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
-#      (faction_set_slot, "fac_culture_27", slot_faction_village_walker_male_troop, "trp_village_walker_1"),
-#      (faction_set_slot, "fac_culture_27", slot_faction_village_walker_female_troop, "trp_village_walker_2"),
-#      (faction_set_slot, "fac_culture_27", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
-#      (faction_set_slot, "fac_culture_27", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
+      (faction_set_slot, "fac_culture_27", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
+      (faction_set_slot, "fac_culture_27", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_27", slot_faction_village_walker_male_troop, "trp_village_walker_1"),
+      (faction_set_slot, "fac_culture_27", slot_faction_village_walker_female_troop, "trp_village_walker_2"),
+      (faction_set_slot, "fac_culture_27", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
+      (faction_set_slot, "fac_culture_27", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
 
-#      (faction_set_slot, "fac_culture_28", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
-#      (faction_set_slot, "fac_culture_28", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
-#      (faction_set_slot, "fac_culture_28", slot_faction_village_walker_male_troop, "trp_village_walker_1"),
-#      (faction_set_slot, "fac_culture_28", slot_faction_village_walker_female_troop, "trp_village_walker_2"),
-#      (faction_set_slot, "fac_culture_28", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
-#      (faction_set_slot, "fac_culture_28", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),      
+      (faction_set_slot, "fac_culture_28", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
+      (faction_set_slot, "fac_culture_28", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_28", slot_faction_village_walker_male_troop, "trp_village_walker_1"),
+      (faction_set_slot, "fac_culture_28", slot_faction_village_walker_female_troop, "trp_village_walker_2"),
+      (faction_set_slot, "fac_culture_28", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
+      (faction_set_slot, "fac_culture_28", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),      
 
   # end added / altered for TGS            
 
@@ -694,21 +694,21 @@ scripts = [
       (faction_set_slot, "fac_kingdom_24",  slot_faction_leader, "trp_kingdom_24_lord"),
 	  (troop_set_slot, "trp_kingdom_24_lord", slot_troop_renown, 1200),
 
-#      (faction_set_slot, "fac_kingdom_25",  slot_faction_culture, "fac_culture_25"),
-#      (faction_set_slot, "fac_kingdom_25",  slot_faction_leader, "trp_kingdom_25_lord"),
-#	  (troop_set_slot, "trp_kingdom_25_lord", slot_troop_renown, 1200),
+      (faction_set_slot, "fac_kingdom_25",  slot_faction_culture, "fac_culture_25"),
+      (faction_set_slot, "fac_kingdom_25",  slot_faction_leader, "trp_kingdom_25_lord"),
+	  (troop_set_slot, "trp_kingdom_25_lord", slot_troop_renown, 1200),
 
-#      (faction_set_slot, "fac_kingdom_26",  slot_faction_culture, "fac_culture_26"),
-#      (faction_set_slot, "fac_kingdom_26",  slot_faction_leader, "trp_kingdom_26_lord"),
-#	  (troop_set_slot, "trp_kingdom_26_lord", slot_troop_renown, 1200),
+      (faction_set_slot, "fac_kingdom_26",  slot_faction_culture, "fac_culture_26"),
+      (faction_set_slot, "fac_kingdom_26",  slot_faction_leader, "trp_kingdom_26_lord"),
+	  (troop_set_slot, "trp_kingdom_26_lord", slot_troop_renown, 1200),
 
-#      (faction_set_slot, "fac_kingdom_27",  slot_faction_culture, "fac_culture_27"),
-#      (faction_set_slot, "fac_kingdom_27",  slot_faction_leader, "trp_kingdom_27_lord"),
-#	  (troop_set_slot, "trp_kingdom_27_lord", slot_troop_renown, 1200),
+      (faction_set_slot, "fac_kingdom_27",  slot_faction_culture, "fac_culture_27"),
+      (faction_set_slot, "fac_kingdom_27",  slot_faction_leader, "trp_kingdom_27_lord"),
+	  (troop_set_slot, "trp_kingdom_27_lord", slot_troop_renown, 1200),
 
-#      (faction_set_slot, "fac_kingdom_28",  slot_faction_culture, "fac_culture_28"),
-#      (faction_set_slot, "fac_kingdom_28",  slot_faction_leader, "trp_kingdom_28_lord"),
-#	  (troop_set_slot, "trp_kingdom_28_lord", slot_troop_renown, 1200),      
+      (faction_set_slot, "fac_kingdom_28",  slot_faction_culture, "fac_culture_28"),
+      (faction_set_slot, "fac_kingdom_28",  slot_faction_leader, "trp_kingdom_28_lord"),
+	  (troop_set_slot, "trp_kingdom_28_lord", slot_troop_renown, 1200),      
 
   # end added for TGS         
 
@@ -960,10 +960,10 @@ scripts = [
       (faction_set_slot, "fac_kingdom_22", slot_faction_banner, "mesh_banner_kingdom_e"),
       (faction_set_slot, "fac_kingdom_23", slot_faction_banner, "mesh_banner_kingdom_e"),
       (faction_set_slot, "fac_kingdom_24", slot_faction_banner, "mesh_banner_kingdom_e"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_banner, "mesh_banner_kingdom_e"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_banner, "mesh_banner_kingdom_e"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_banner, "mesh_banner_kingdom_e"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_banner, "mesh_banner_kingdom_e"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_banner, "mesh_banner_kingdom_e"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_banner, "mesh_banner_kingdom_e"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_banner, "mesh_banner_kingdom_e"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_banner, "mesh_banner_kingdom_e"),
   # end added for TGS
 
       (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
@@ -1069,7 +1069,7 @@ scripts = [
 	  (call_script, "script_give_center_to_faction_aux", "p_town_4", "fac_kingdom_8"), # Ebou Dar
 	  (call_script, "script_give_center_to_faction_aux", "p_town_5", "fac_kingdom_7"), # Lugard
 	  (call_script, "script_give_center_to_faction_aux", "p_town_6", "fac_kingdom_9"), # Bandar Eban
-	  (call_script, "script_give_center_to_faction_aux", "p_town_7", "fac_kingdom_23"), # Falme give to Seanchan for now
+	  (call_script, "script_give_center_to_faction_aux", "p_town_7", "fac_kingdom_28"), # Falme give to Seanchan for now (now to toman head)
 	  (call_script, "script_give_center_to_faction_aux", "p_town_8", "fac_kingdom_14"), # Tanchico
 	  (call_script, "script_give_center_to_faction_aux", "p_town_9", "fac_kingdom_18"), # Shol Arbela
 	  (call_script, "script_give_center_to_faction_aux", "p_town_10", "fac_kingdom_10"), # Tear
@@ -1085,7 +1085,24 @@ scripts = [
 	  (call_script, "script_give_center_to_faction_aux", "p_town_20", "fac_kingdom_24"), # Shayol Ghul
 	  (call_script, "script_give_center_to_faction_aux", "p_town_21", "fac_kingdom_22"), # Rhuidean
 	  (call_script, "script_give_center_to_faction_aux", "p_town_22", "fac_kingdom_7"), # Illian
-  
+      # new
+	  (call_script, "script_give_center_to_faction_aux", "p_town_23", "fac_kingdom_1"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_24", "fac_kingdom_2"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_25", "fac_kingdom_22"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_26", "fac_kingdom_23"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_27", "fac_kingdom_23"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_28", "fac_kingdom_23"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_29", "fac_kingdom_24"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_30", "fac_kingdom_25"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_31", "fac_kingdom_25"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_32", "fac_kingdom_25"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_33", "fac_kingdom_26"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_34", "fac_kingdom_26"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_35", "fac_kingdom_26"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_36", "fac_kingdom_27"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_37", "fac_kingdom_27"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_38", "fac_kingdom_27"), # 
+
 	  
       (call_script, "script_give_center_to_faction_aux", "p_castle_1", "fac_kingdom_10"), # culmarr castle - tear
       (call_script, "script_give_center_to_faction_aux", "p_castle_2", "fac_kingdom_15"), # Bellon - Amadicia
@@ -1098,7 +1115,6 @@ scripts = [
       (call_script, "script_give_center_to_faction_aux", "p_castle_9", "fac_kingdom_6"), # jamiche castle - illian
       (call_script, "script_give_center_to_faction_aux", "p_castle_10", "fac_kingdom_3"), # taren ferry - two rivers
       (call_script, "script_give_center_to_faction_aux", "p_castle_11", "fac_kingdom_7"), # trustair - murandy
-
       (call_script, "script_give_center_to_faction_aux", "p_castle_12", "fac_kingdom_8"), # malden - altara
       (call_script, "script_give_center_to_faction_aux", "p_castle_13", "fac_kingdom_5"), # kelredan castle - cairhien
       (call_script, "script_give_center_to_faction_aux", "p_castle_14", "fac_kingdom_11"), # aringill - andor
@@ -1108,32 +1124,26 @@ scripts = [
       (call_script, "script_give_center_to_faction_aux", "p_castle_18", "fac_kingdom_17"), # fal eisen - shienar
       (call_script, "script_give_center_to_faction_aux", "p_castle_19", "fac_kingdom_19"), # canluum - kandor
       (call_script, "script_give_center_to_faction_aux", "p_castle_20", "fac_kingdom_9"), # derchios castle - arad doman
-
-      (call_script, "script_give_center_to_faction_aux", "p_castle_21", "fac_kingdom_1"), # ibdeles castle - andor (temporarily give to the legion)
+      (call_script, "script_give_center_to_faction_aux", "p_castle_21", "fac_kingdom_11"), # ibdeles castle - andor (temporarily give to the legion) (give back to andor)
       (call_script, "script_give_center_to_faction_aux", "p_castle_22", "fac_kingdom_10"), # slezkh castle - tear
       (call_script, "script_give_center_to_faction_aux", "p_castle_23", "fac_kingdom_5"), # tevarin castle - cairhien
       (call_script, "script_give_center_to_faction_aux", "p_castle_24", "fac_kingdom_8"), # Reindi Castle - altara
-
       (call_script, "script_give_center_to_faction_aux", "p_castle_25", "fac_kingdom_8"), # Alkindar - altara
       (call_script, "script_give_center_to_faction_aux", "p_castle_26", "fac_kingdom_8"), # cormaed - altara
       (call_script, "script_give_center_to_faction_aux", "p_castle_27", "fac_kingdom_6"), # rindyar castle - illian
       (call_script, "script_give_center_to_faction_aux", "p_castle_28", "fac_kingdom_15"), # grunwalder castle - amadicia
-
       (call_script, "script_give_center_to_faction_aux", "p_castle_29", "fac_kingdom_17"), # fal dara - shienar
       (call_script, "script_give_center_to_faction_aux", "p_castle_30", "fac_kingdom_15"), # sienda - amadicia
       (call_script, "script_give_center_to_faction_aux", "p_castle_31", "fac_kingdom_11"), # vyincourd castle - andor
-
       (call_script, "script_give_center_to_faction_aux", "p_castle_32", "fac_kingdom_9"), # katar - arad doman
       (call_script, "script_give_center_to_faction_aux", "p_castle_33", "fac_kingdom_10"), # etrosq castle - tear
       (call_script, "script_give_center_to_faction_aux", "p_castle_34", "fac_kingdom_8"), # salidar - altara
-      (call_script, "script_give_center_to_faction_aux", "p_castle_35", "fac_kingdom_2"), # haringoth castle - cairhien (temporarily give to the band)
-      
+      (call_script, "script_give_center_to_faction_aux", "p_castle_35", "fac_kingdom_5"), # haringoth castle - cairhien (temporarily give to the band) (give back to cairhien)
       (call_script, "script_give_center_to_faction_aux", "p_castle_36", "fac_kingdom_8"), # jurador - altara
       (call_script, "script_give_center_to_faction_aux", "p_castle_37", "fac_kingdom_10"), # godan - tear
       (call_script, "script_give_center_to_faction_aux", "p_castle_38", "fac_kingdom_22"), # red water hold - aiel
       (call_script, "script_give_center_to_faction_aux", "p_castle_39", "fac_kingdom_20"), # unuzdaq castle - saldaea
       (call_script, "script_give_center_to_faction_aux", "p_castle_40", "fac_kingdom_20"), # irinjavar - saldaea
-      
       (call_script, "script_give_center_to_faction_aux", "p_castle_41", "fac_kingdom_21"), # luagde - white tower
       (call_script, "script_give_center_to_faction_aux", "p_castle_42", "fac_kingdom_21"), # darein - white tower
       (call_script, "script_give_center_to_faction_aux", "p_castle_43", "fac_kingdom_22"), # two spires hold - aiel
@@ -1142,6 +1152,29 @@ scripts = [
       (call_script, "script_give_center_to_faction_aux", "p_castle_46", "fac_kingdom_22"), # hot springs hold - aiel
       (call_script, "script_give_center_to_faction_aux", "p_castle_47", "fac_kingdom_21"), # alindaer - white tower
       (call_script, "script_give_center_to_faction_aux", "p_castle_48", "fac_kingdom_22"), # spine ridge hold - aiel
+      # new
+      (call_script, "script_give_center_to_faction_aux", "p_castle_49", "fac_kingdom_1"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_50", "fac_kingdom_2"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_51", "fac_kingdom_14"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_52", "fac_kingdom_15"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_53", "fac_kingdom_16"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_54", "fac_kingdom_22"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_55", "fac_kingdom_23"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_56", "fac_kingdom_23"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_57", "fac_kingdom_23"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_58", "fac_kingdom_24"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_59", "fac_kingdom_24"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_60", "fac_kingdom_25"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_61", "fac_kingdom_25"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_62", "fac_kingdom_25"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_63", "fac_kingdom_26"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_64", "fac_kingdom_26"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_65", "fac_kingdom_26"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_66", "fac_kingdom_27"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_67", "fac_kingdom_27"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_68", "fac_kingdom_27"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_69", "fac_kingdom_28"), # 
+
 
   # end altered for TGS
 
@@ -1155,8 +1188,7 @@ scripts = [
       (call_script, "script_give_center_to_lord", "p_town_4",  "trp_kingdom_8_lord", 0),#Ebou Dar
       (call_script, "script_give_center_to_lord", "p_town_5",  "trp_kingdom_7_lord", 0),#Lugard
       (call_script, "script_give_center_to_lord", "p_town_6",  "trp_kingdom_9_lord", 0),#Bandar Eban
-      (call_script, "script_give_center_to_lord", "p_town_7",  "trp_kingdom_23_lord", 0),#Falme
-      
+      (call_script, "script_give_center_to_lord", "p_town_7",  "trp_kingdom_28_lord", 0),#Falme (to toman head now)
       (call_script, "script_give_center_to_lord", "p_town_8",  "trp_kingdom_14_lord", 0),#Tanchico
       (call_script, "script_give_center_to_lord", "p_town_9",  "trp_kingdom_18_lord", 0),#Shol Arbela trp_knight_4_2
       (call_script, "script_give_center_to_lord", "p_town_10", "trp_knight_10_1", 0),#Tear trp_knight_3_6
@@ -1164,16 +1196,32 @@ scripts = [
       (call_script, "script_give_center_to_lord", "p_town_12", "trp_kingdom_4_lord", 0),#Mayene
       (call_script, "script_give_center_to_lord", "p_town_13", "trp_kingdom_15_lord", 0),#Amador
       (call_script, "script_give_center_to_lord", "p_town_14", "trp_kingdom_12_lord", 0),#Jehannah trp_knight_3_5
-
       (call_script, "script_give_center_to_lord", "p_town_15", "trp_kingdom_13_lord", 0),#Far Madding
       (call_script, "script_give_center_to_lord", "p_town_16", "trp_knight_8_1", 0),#So Habor
       (call_script, "script_give_center_to_lord", "p_town_17", "trp_kingdom_19_lord", 0),#Chachin
       (call_script, "script_give_center_to_lord", "p_town_18", "trp_kingdom_20_lord", 0),#Maradon	  
-	  
       (call_script, "script_give_center_to_lord", "p_town_19", "trp_kingdom_21_lord", 0),#Tar Valon
       (call_script, "script_give_center_to_lord", "p_town_20", "trp_kingdom_24_lord", 0), #Shayol Ghul
       (call_script, "script_give_center_to_lord", "p_town_21", "trp_kingdom_22_lord", 0),#Rhuidean
       (call_script, "script_give_center_to_lord", "p_town_22", "trp_kingdom_6_lord", 0),#Illian trp_knight_2_1
+      # new
+      (call_script, "script_give_center_to_lord", "p_town_23",  "trp_kingdom_1_lord", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_24",  "trp_kingdom_2_lord", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_25",  "trp_knight_22_8", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_26",  "trp_kingdom_23_lord", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_27",  "trp_knight_23_1", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_28",  "trp_knight_23_2", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_29",  "trp_knight_24_1", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_30",  "trp_kingdom_25_lord", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_31",  "trp_knight_25_1", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_32", "trp_knight_25_2", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_33", "trp_kingdom_26_lord", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_34", "trp_knight_26_1", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_35", "trp_knight_26_2", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_36", "trp_kingdom_27_lord", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_37", "trp_knight_27_1", 0),#
+      (call_script, "script_give_center_to_lord", "p_town_38", "trp_knight_27_2", 0),#
+
 
       # Give family castles to certain nobles.
       (call_script, "script_give_center_to_lord", "p_castle_1", "trp_knight_10_2", 0), #Culmarr Castle
@@ -1196,7 +1244,7 @@ scripts = [
       (call_script, "script_give_center_to_lord", "p_castle_18", "trp_knight_17_2", 0), #Fal Eisen trp_knight_4_9
       (call_script, "script_give_center_to_lord", "p_castle_19", "trp_knight_19_1", 0), #Canluum trp_knight_4_10
       (call_script, "script_give_center_to_lord", "p_castle_20", "trp_knight_9_2", 0), #Derchios Castle
-      (call_script, "script_give_center_to_lord", "p_castle_21", "trp_kingdom_1_lord", 0), #Ibdeles Castle
+      (call_script, "script_give_center_to_lord", "p_castle_21", "trp_knight_11_7", 0), #Ibdeles Castle
       (call_script, "script_give_center_to_lord", "p_castle_22", "trp_knight_10_3", 0), #Slezkh Castle trp_knight_3_38
       (call_script, "script_give_center_to_lord", "p_castle_23", "trp_knight_5_2", 0), #Tevarin Castle
       (call_script, "script_give_center_to_lord", "p_castle_24", "trp_knight_8_3", 0), #Reindi Castle
@@ -1210,7 +1258,7 @@ scripts = [
       (call_script, "script_give_center_to_lord", "p_castle_32", "trp_knight_9_3", 0), #Katar
       (call_script, "script_give_center_to_lord", "p_castle_33", "trp_knight_10_4", 0), #Etrosq Castle
       (call_script, "script_give_center_to_lord", "p_castle_34", "trp_knight_8_6", 0), #Salidar
-      (call_script, "script_give_center_to_lord", "p_castle_35", "trp_kingdom_2_lord", 0), #Haringoth Castle
+      (call_script, "script_give_center_to_lord", "p_castle_35", "trp_knight_5_6", 0), #Haringoth Castle
       (call_script, "script_give_center_to_lord", "p_castle_36", "trp_knight_8_7", 0), #Jurador
       (call_script, "script_give_center_to_lord", "p_castle_37", "trp_knight_10_5", 0), #Godan
       (call_script, "script_give_center_to_lord", "p_castle_38", "trp_knight_22_1", 0), #Red Water Hold
@@ -1224,6 +1272,29 @@ scripts = [
       (call_script, "script_give_center_to_lord", "p_castle_46", "trp_knight_22_4", 0), #Hot Springs Hold
       (call_script, "script_give_center_to_lord", "p_castle_47", "trp_knight_21_3", 0), #Alindaer
       (call_script, "script_give_center_to_lord", "p_castle_48", "trp_knight_22_5", 0), #Spine Ridge Hold
+      # new
+      (call_script, "script_give_center_to_lord", "p_castle_49", "trp_knight_1_1", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_50", "trp_knight_2_1", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_51", "trp_knight_14_1", 0), # 
+      (call_script, "script_give_center_to_lord", "p_castle_52", "trp_knight_15_2", 0), # 
+      (call_script, "script_give_center_to_lord", "p_castle_53", "trp_knight_16_1", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_54", "trp_knight_22_9", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_55", "trp_knight_23_3", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_56", "trp_knight_23_4", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_57", "trp_knight_23_5", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_58", "trp_knight_24_2", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_59", "trp_knight_24_3", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_60", "trp_knight_25_3", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_61", "trp_knight_25_4", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_62", "trp_knight_25_5", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_63", "trp_knight_26_3", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_64", "trp_knight_26_4", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_65", "trp_knight_26_5", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_66", "trp_knight_27_3", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_67", "trp_knight_27_4", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_68", "trp_knight_27_5", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_69", "trp_knight_28_1", 0), #
+
 
   # end altered for TGS
 
@@ -1809,7 +1880,6 @@ scripts = [
   (party_set_slot, "p_town_13", slot_center_volunteer_troop, "trp_amadicia_recruit"),
   (party_set_slot, "p_castle_2", slot_center_volunteer_troop, "trp_amadicia_recruit"),
   (party_set_slot, "p_castle_30", slot_center_volunteer_troop, "trp_amadicia_recruit"),
-  (party_set_slot, "p_village_42", slot_center_volunteer_troop, "trp_amadicia_recruit"),
   (party_set_slot, "p_village_108", slot_center_volunteer_troop, "trp_amadicia_recruit"),
   (party_set_slot, "p_village_105", slot_center_volunteer_troop, "trp_amadicia_recruit"),
   (party_set_slot, "p_castle_28", slot_center_volunteer_troop, "trp_amadicia_recruit"),
@@ -1817,6 +1887,7 @@ scripts = [
 
   #whitecloaks # Whitecloaks will be grabbing one of the nearby villages when they become a faction. (probably one from Amadicia)
   (party_set_slot, "p_castle_3", slot_center_volunteer_troop, "trp_whitecloak_recruit"),
+  (party_set_slot, "p_village_42", slot_center_volunteer_troop, "trp_whitecloak_recruit"),
 
   #ghealdan
   (party_set_slot, "p_village_104", slot_center_volunteer_troop, "trp_ghealdan_recruit"),
@@ -1846,7 +1917,7 @@ scripts = [
   (party_set_slot, "p_castle_34", slot_center_volunteer_troop, "trp_altara_recruit"),
   (party_set_slot, "p_village_2", slot_center_volunteer_troop, "trp_altara_recruit"),
   (party_set_slot, "p_village_61", slot_center_volunteer_troop, "trp_altara_recruit"),
-  (party_set_slot, "p_castle_5", slot_center_volunteer_troop, "trp_altara_recruit"),
+  (party_set_slot, "p_town_16", slot_center_volunteer_troop, "trp_altara_recruit"),
   (party_set_slot, "p_village_13", slot_center_volunteer_troop, "trp_altara_recruit"),
   (party_set_slot, "p_village_29", slot_center_volunteer_troop, "trp_altara_recruit"),
   (party_set_slot, "p_village_38", slot_center_volunteer_troop, "trp_altara_recruit"),
@@ -1980,7 +2051,7 @@ scripts = [
   (party_set_slot, "p_village_59", slot_center_volunteer_troop, "trp_andor_recruit"),
   (party_set_slot, "p_village_9", slot_center_volunteer_troop, "trp_andor_recruit"),
   (party_set_slot, "p_castle_31", slot_center_volunteer_troop, "trp_andor_recruit"),
-  (party_set_slot, "p_town_16", slot_center_volunteer_troop, "trp_andor_recruit"),
+  (party_set_slot, "p_castle_5", slot_center_volunteer_troop, "trp_andor_recruit"),
   (party_set_slot, "p_village_12", slot_center_volunteer_troop, "trp_andor_recruit"),
   (party_set_slot, "p_castle_21", slot_center_volunteer_troop, "trp_andor_recruit"),
   (party_set_slot, "p_village_23", slot_center_volunteer_troop, "trp_andor_recruit"),
@@ -2119,26 +2190,26 @@ scripts = [
   # added for TGS
       (faction_set_slot, "fac_kingdom_7", slot_faction_adjective, "str_kingdom_7_adjective"),
       (faction_set_slot, "fac_kingdom_8", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_9", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_10", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_11", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_12", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_13", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_14", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_15", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_16", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_17", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_18", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_19", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_20", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_21", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_22", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_23", slot_faction_adjective, "str_kingdom_8_adjective"),
-      (faction_set_slot, "fac_kingdom_24", slot_faction_adjective, "str_kingdom_8_adjective"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_adjective, "str_kingdom_8_adjective"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_adjective, "str_kingdom_8_adjective"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_adjective, "str_kingdom_8_adjective"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_adjective, "str_kingdom_8_adjective"),
+      (faction_set_slot, "fac_kingdom_9", slot_faction_adjective, "str_kingdom_9_adjective"),
+      (faction_set_slot, "fac_kingdom_10", slot_faction_adjective, "str_kingdom_10_adjective"),
+      (faction_set_slot, "fac_kingdom_11", slot_faction_adjective, "str_kingdom_11_adjective"),
+      (faction_set_slot, "fac_kingdom_12", slot_faction_adjective, "str_kingdom_12_adjective"),
+      (faction_set_slot, "fac_kingdom_13", slot_faction_adjective, "str_kingdom_13_adjective"),
+      (faction_set_slot, "fac_kingdom_14", slot_faction_adjective, "str_kingdom_14_adjective"),
+      (faction_set_slot, "fac_kingdom_15", slot_faction_adjective, "str_kingdom_15_adjective"),
+      (faction_set_slot, "fac_kingdom_16", slot_faction_adjective, "str_kingdom_16_adjective"),
+      (faction_set_slot, "fac_kingdom_17", slot_faction_adjective, "str_kingdom_17_adjective"),
+      (faction_set_slot, "fac_kingdom_18", slot_faction_adjective, "str_kingdom_18_adjective"),
+      (faction_set_slot, "fac_kingdom_19", slot_faction_adjective, "str_kingdom_19_adjective"),
+      (faction_set_slot, "fac_kingdom_20", slot_faction_adjective, "str_kingdom_20_adjective"),
+      (faction_set_slot, "fac_kingdom_21", slot_faction_adjective, "str_kingdom_21_adjective"),
+      (faction_set_slot, "fac_kingdom_22", slot_faction_adjective, "str_kingdom_22_adjective"),
+      (faction_set_slot, "fac_kingdom_23", slot_faction_adjective, "str_kingdom_23_adjective"),
+      (faction_set_slot, "fac_kingdom_24", slot_faction_adjective, "str_kingdom_24_adjective"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_adjective, "str_kingdom_25_adjective"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_adjective, "str_kingdom_26_adjective"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_adjective, "str_kingdom_27_adjective"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_adjective, "str_kingdom_28_adjective"),
   # end added for TGS
 
 ##      (assign, "$players_kingdom", "fac_kingdom_1"),
@@ -2984,92 +3055,92 @@ scripts = [
       (faction_set_slot, "fac_kingdom_24", slot_faction_quick_battle_tier_6_cavalry, "trp_myrddraal"),
 
       # Shara 
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_1_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_2_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_3_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_4_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_5_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_6_infantry, "trp_"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_1_infantry, "trp_shara_armsman"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_2_infantry, "trp_shara_town_guard"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_3_infantry, "trp_shara_border_guard"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_4_infantry, "trp_shara_swordsman"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_5_infantry, "trp_shara_defender"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_6_infantry, "trp_shara_captain"),
       
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_1_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_2_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_3_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_4_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_5_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_6_archer, "trp_"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_1_archer, "trp_shara_bowman"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_2_archer, "trp_ayyad_villager"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_3_archer, "trp_shara_crossbowman"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_4_archer, "trp_ayyad_village_leader"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_5_archer, "trp_shara_marksman"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_6_archer, "trp_ayyad_counsel_member"),
       
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_1_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_2_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_3_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_4_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_5_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_6_cavalry, "trp_"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_1_cavalry, "trp_shara_scout"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_2_cavalry, "trp_shara_scout"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_3_cavalry, "trp_shara_man_at_arms"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_4_cavalry, "trp_shara_man_at_arms"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_5_cavalry, "trp_shara_skirmisher"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_quick_battle_tier_6_cavalry, "trp_shara_shbo_guardsman"),
 
       # Sea Folk 
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_1_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_2_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_3_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_4_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_5_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_6_infantry, "trp_"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_1_infantry, "trp_sea_folk_recruit"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_2_infantry, "trp_sea_folk_bilge_hand"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_3_infantry, "trp_sea_folk_deck_hand"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_4_infantry, "trp_sea_folk_deck_hand"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_5_infantry, "trp_sea_folk_boatswain"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_6_infantry, "trp_sea_folk_cargomaster"),
       
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_1_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_2_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_3_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_4_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_5_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_6_archer, "trp_"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_1_archer, "trp_sea_folk_dogwatcher"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_2_archer, "trp_sea_folk_recruit_channeler"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_3_archer, "trp_sea_folk_dogwatcher"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_4_archer, "trp_sea_folk_pupil"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_5_archer, "trp_sea_folk_deck_defender"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_6_archer, "trp_sea_folk_windfinder"),
       
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_1_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_2_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_3_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_4_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_5_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_6_cavalry, "trp_"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_1_cavalry, "trp_sea_folk_weatherly"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_2_cavalry, "trp_sea_folk_weatherly"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_3_cavalry, "trp_sea_folk_quarterling"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_4_cavalry, "trp_sea_folk_quarterling"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_5_cavalry, "trp_sea_folk_sailmistress"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_quick_battle_tier_6_cavalry, "trp_sea_folk_wavemistress"),
 
       # Land of Madmen
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_1_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_2_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_3_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_4_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_5_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_6_infantry, "trp_"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_1_infantry, "trp_madmen_wanderer"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_2_infantry, "trp_madmen_villager"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_3_infantry, "trp_madmen_looter"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_4_infantry, "trp_madmen_clansman"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_5_infantry, "trp_madmen_pillager"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_6_infantry, "trp_madmen_chieftan"),
       
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_1_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_2_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_3_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_4_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_5_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_6_archer, "trp_"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_1_archer, "trp_madmen_hunter"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_2_archer, "trp_madmen_air_shifter"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_3_archer, "trp_madmen_ambusher"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_4_archer, "trp_madmen_fire_tamer"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_5_archer, "trp_madmen_assassin"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_6_archer, "trp_madmen_storm_caller"),
       
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_1_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_2_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_3_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_4_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_5_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_6_cavalry, "trp_"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_1_cavalry, "trp_madmen_horse_tamer"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_2_cavalry, "trp_madmen_horse_tamer"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_3_cavalry, "trp_madmen_slave_catcher"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_4_cavalry, "trp_madmen_slave_catcher"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_5_cavalry, "trp_madmen_plains_rider"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_quick_battle_tier_6_cavalry, "trp_madmen_thunderhoof"),
 
       # Toman Head
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_1_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_2_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_3_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_4_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_5_infantry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_6_infantry, "trp_"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_1_infantry, "trp_toman_head_recruit"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_2_infantry, "trp_toman_head_recruit"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_3_infantry, "trp_toman_head_footman"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_4_infantry, "trp_toman_head_footman"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_5_infantry, "trp_toman_head_city_guard"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_6_infantry, "trp_toman_head_city_guard"),
     
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_1_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_2_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_3_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_4_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_5_archer, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_6_archer, "trp_"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_1_archer, "trp_toman_head_bowman"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_2_archer, "trp_toman_head_bowman"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_3_archer, "trp_toman_head_bowman"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_4_archer, "trp_toman_head_bowman"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_5_archer, "trp_toman_head_bowman"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_6_archer, "trp_toman_head_bowman"),
       
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_1_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_2_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_3_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_4_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_5_cavalry, "trp_"),
-#      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_6_cavalry, "trp_"),    
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_1_cavalry, "trp_toman_head_scout"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_2_cavalry, "trp_toman_head_scout"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_3_cavalry, "trp_toman_head_scout"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_4_cavalry, "trp_toman_head_scout"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_5_cavalry, "trp_toman_head_scout"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_quick_battle_tier_6_cavalry, "trp_toman_head_scout"),    
 
       #end added for TGS
 
@@ -10642,7 +10713,191 @@ scripts = [
     (troop_set_slot, "trp_kingdom_24_lady_18", slot_troop_guardian, "trp_knight_24_19"),
     (troop_set_slot, "trp_kingdom_24_lady_19", slot_troop_guardian, "trp_knight_24_19"),
     (troop_set_slot, "trp_kingdom_24_lady_20", slot_troop_guardian, "trp_knight_24_20"),
-    # end     
+    # end
+
+
+#-##-###-####-#####-- SHARA FAMILY STRUCTRE --#####-####-###-##-#
+
+    # lord 0
+    (troop_set_slot, "trp_kingdom_25_lord", slot_troop_age,35),  #   Sh'botay
+	(troop_set_slot, "trp_kingdom_25_lord", slot_troop_spouse, "trp_knight_25_1"), # Sh'boan
+    # lord 1
+    (troop_set_slot, "trp_knight_25_1", slot_troop_age,30),  # Sh'boan
+	(troop_set_slot, "trp_knight_25_1", slot_troop_spouse, "trp_kingdom_25_lord"), # Sh'botay
+	# lord 2
+	(troop_set_slot, "trp_knight_25_2", slot_troop_age,20),  # Sharipe
+    # lord 3
+	(troop_set_slot, "trp_knight_25_3", slot_troop_age,63),  # Tanule    
+    # lord 4
+    (troop_set_slot, "trp_knight_25_4", slot_troop_age,36),  # Bahryma
+    # lord 5
+    (troop_set_slot, "trp_knight_25_5", slot_troop_age,60),  # Alamar
+	(troop_set_slot, "trp_knight_25_5", slot_troop_spouse, "trp_kingdom_25_lady_1"), #
+	# lord 6
+	(troop_set_slot, "trp_knight_25_6", slot_troop_age,41),  # Dentan    
+	(troop_set_slot, "trp_knight_25_6", slot_troop_spouse, "trp_kingdom_25_lady_4"),
+	# lord 7
+	(troop_set_slot, "trp_knight_25_7", slot_troop_age,24),  # Rym
+    # lord 8
+	(troop_set_slot, "trp_knight_25_8", slot_troop_age,58),  # Ebal    
+	# lord 9
+	(troop_set_slot, "trp_knight_25_9", slot_troop_age,46),  # Seerah    
+	# lord 10
+	(troop_set_slot, "trp_knight_25_10", slot_troop_age,23),  # Muntid
+
+# Shara Ladies
+    # lady 1
+    (troop_set_slot, "trp_kingdom_25_lady_1", slot_troop_age,57),
+	(troop_set_slot, "trp_kingdom_25_lady_1", slot_troop_spouse, "trp_knight_25_5"),
+    # lady 2
+    (troop_set_slot, "trp_kingdom_25_lady_2", slot_troop_father, "trp_knight_25_5"),
+    (troop_set_slot, "trp_kingdom_25_lady_2", slot_troop_mother, "trp_kingdom_25_lady_1"),
+    # lady 3
+    (troop_set_slot, "trp_kingdom_25_lady_3", slot_troop_father, "trp_knight_25_5"),
+    (troop_set_slot, "trp_kingdom_25_lady_3", slot_troop_mother, "trp_kingdom_25_lady_1"),
+    # lady 4
+    (troop_set_slot, "trp_kingdom_25_lady_4", slot_troop_age,38),
+	(troop_set_slot, "trp_kingdom_25_lady_4", slot_troop_spouse, "trp_knight_25_6"),
+    # lady 5
+    (troop_set_slot, "trp_kingdom_25_lady_5", slot_troop_father, "trp_knight_25_6"),
+    (troop_set_slot, "trp_kingdom_25_lady_5", slot_troop_mother, "trp_kingdom_25_lady_4"),
+    # ladies 6 & 7
+    (troop_set_slot, "trp_kingdom_25_lady_6", slot_troop_guardian, "trp_knight_25_7"),
+    (troop_set_slot, "trp_kingdom_25_lady_7", slot_troop_guardian, "trp_knight_25_7"),
+    # ladies 8 - 10
+    (troop_set_slot, "trp_kingdom_25_lady_8", slot_troop_guardian, "trp_knight_25_8"),
+    (troop_set_slot, "trp_kingdom_25_lady_9", slot_troop_guardian, "trp_knight_25_9"),
+    (troop_set_slot, "trp_kingdom_25_lady_10", slot_troop_guardian, "trp_knight_25_10"),
+
+
+#-##-###-####-#####-- SEA FOLK FAMILY STRUCTRE --#####-####-###-##-#
+
+    # lord 0
+    (troop_set_slot, "trp_kingdom_26_lord", slot_troop_age,48),  #   Zaida
+	(troop_set_slot, "trp_kingdom_26_lord", slot_troop_spouse, "trp_knight_26_3"), # Amel
+    # lord 1
+    (troop_set_slot, "trp_knight_26_1", slot_troop_age,52),  # Harine
+	(troop_set_slot, "trp_knight_26_1", slot_troop_spouse, "trp_knight_26_6"), # Moad
+	# lord 2
+	(troop_set_slot, "trp_knight_26_2", slot_troop_age,71),  # Malin
+    # lord 3
+	(troop_set_slot, "trp_knight_26_3", slot_troop_age,49),  # Amel
+	(troop_set_slot, "trp_knight_26_3", slot_troop_spouse, "trp_kingdom_26_lord"), # Zaida
+    # lord 4
+    (troop_set_slot, "trp_knight_26_4", slot_troop_age,36),  # Cemaille
+    # lord 5
+    (troop_set_slot, "trp_knight_26_5", slot_troop_age,43),  # Shalon
+	# lord 6
+	(troop_set_slot, "trp_knight_26_6", slot_troop_age,55),  # Moad    
+	(troop_set_slot, "trp_knight_26_6", slot_troop_spouse, "trp_knight_26_1"), # Harine
+	# lord 7
+	(troop_set_slot, "trp_knight_26_7", slot_troop_age,24),  # Toram
+	(troop_set_slot, "trp_knight_26_7", slot_troop_spouse, "trp_kingdom_26_lady_4"), # Coine
+    # lord 8
+	(troop_set_slot, "trp_knight_26_8", slot_troop_age,58),  # Milis    
+	# lord 9
+	(troop_set_slot, "trp_knight_26_9", slot_troop_age,63),  # Renaile    
+	# lord 10
+	(troop_set_slot, "trp_knight_26_10", slot_troop_age,48),  # Caire
+
+# Sea Folk Ladies
+    # lady 1
+    (troop_set_slot, "trp_kingdom_26_lady_1", slot_troop_age,17), # Talaan
+	(troop_set_slot, "trp_kingdom_26_lady_1", slot_troop_mother, "trp_knight_26_10"), # Caire
+    # ladies 2 & 3
+    (troop_set_slot, "trp_kingdom_26_lady_2", slot_troop_guardian, "trp_knight_26_2"),
+    (troop_set_slot, "trp_kingdom_26_lady_3", slot_troop_guardian, "trp_knight_26_3"),
+    # lady 4
+    (troop_set_slot, "trp_kingdom_26_lady_4", slot_troop_age,38), # Coine
+	(troop_set_slot, "trp_kingdom_26_lady_4", slot_troop_spouse, "trp_knight_26_7"), # Toram
+    # ladies 5 - 10
+    (troop_set_slot, "trp_kingdom_26_lady_5", slot_troop_guardian, "trp_knight_26_6"),
+    (troop_set_slot, "trp_kingdom_26_lady_6", slot_troop_guardian, "trp_knight_26_7"),
+    (troop_set_slot, "trp_kingdom_26_lady_7", slot_troop_guardian, "trp_knight_26_7"),
+    (troop_set_slot, "trp_kingdom_26_lady_8", slot_troop_guardian, "trp_knight_26_8"),
+    (troop_set_slot, "trp_kingdom_26_lady_9", slot_troop_guardian, "trp_knight_26_9"),
+    (troop_set_slot, "trp_kingdom_26_lady_10", slot_troop_guardian, "trp_knight_26_10"),
+
+
+#-##-###-####-#####-- MADMEN FAMILY STRUCTRE --#####-####-###-##-#
+
+    # lord 0
+    (troop_set_slot, "trp_kingdom_27_lord", slot_troop_age,55),  #  
+	(troop_set_slot, "trp_kingdom_27_lord", slot_troop_spouse, "trp_kingdom_27_lady_1"), #
+    # lord 1
+    (troop_set_slot, "trp_knight_27_1", slot_troop_age,49),  # 
+	(troop_set_slot, "trp_knight_27_1", slot_troop_spouse, "trp_kingdom_27_lady_4"), # 
+	# lord 2
+	(troop_set_slot, "trp_knight_27_2", slot_troop_age,48),  # 
+	(troop_set_slot, "trp_knight_27_2", slot_troop_spouse, "trp_kingdom_27_lady_5"), # 
+    # lord 3
+	(troop_set_slot, "trp_knight_27_3", slot_troop_age,35),  #     
+    # lord 4
+    (troop_set_slot, "trp_knight_27_4", slot_troop_age,36),  # 
+    # lord 5
+    (troop_set_slot, "trp_knight_27_5", slot_troop_age,28),  # 
+	# lord 6
+	(troop_set_slot, "trp_knight_27_6", slot_troop_age,41),  #     
+	# lord 7
+	(troop_set_slot, "trp_knight_27_7", slot_troop_age,24),  # 
+    # lord 8
+	(troop_set_slot, "trp_knight_27_8", slot_troop_age,23),  #     
+	# lord 9
+	(troop_set_slot, "trp_knight_27_9", slot_troop_age,25),  #     
+	# lord 10
+	(troop_set_slot, "trp_knight_27_10", slot_troop_age,23),  # 
+
+# Madmen Ladies
+    # lady 1
+    (troop_set_slot, "trp_kingdom_27_lady_1", slot_troop_age,51),
+	(troop_set_slot, "trp_kingdom_27_lady_1", slot_troop_spouse, "trp_kingdom_27_lord"),
+    # lady 2
+    (troop_set_slot, "trp_kingdom_27_lady_2", slot_troop_age,20),
+    (troop_set_slot, "trp_kingdom_27_lady_2", slot_troop_father, "trp_kingdom_27_lord"),
+    (troop_set_slot, "trp_kingdom_27_lady_2", slot_troop_mother, "trp_kingdom_27_lady_1"),
+    # lady 3
+    (troop_set_slot, "trp_kingdom_27_lady_3", slot_troop_age,18),
+    (troop_set_slot, "trp_kingdom_27_lady_3", slot_troop_father, "trp_kingdom_27_lord"),
+    (troop_set_slot, "trp_kingdom_27_lady_3", slot_troop_mother, "trp_kingdom_27_lady_1"),
+    # lady 4
+    (troop_set_slot, "trp_kingdom_27_lady_4", slot_troop_age,38),
+	(troop_set_slot, "trp_kingdom_27_lady_4", slot_troop_spouse, "trp_knight_27_1"),
+    # lady 5
+    (troop_set_slot, "trp_kingdom_27_lady_5", slot_troop_age,43),
+	(troop_set_slot, "trp_kingdom_27_lady_5", slot_troop_spouse, "trp_knight_27_2"),
+    # lady 6
+    (troop_set_slot, "trp_kingdom_27_lady_6", slot_troop_father, "trp_knight_27_2"),
+    (troop_set_slot, "trp_kingdom_27_lady_6", slot_troop_mother, "trp_kingdom_27_lady_5"),
+    # ladies 7 - 10
+    (troop_set_slot, "trp_kingdom_27_lady_7", slot_troop_guardian, "trp_knight_27_7"),
+    (troop_set_slot, "trp_kingdom_27_lady_8", slot_troop_guardian, "trp_knight_27_8"),
+    (troop_set_slot, "trp_kingdom_27_lady_9", slot_troop_guardian, "trp_knight_27_9"),
+    (troop_set_slot, "trp_kingdom_27_lady_10", slot_troop_guardian, "trp_knight_27_10"),
+
+
+#-##-###-####-#####-- TOMAN HEAD FAMILY STRUCTRE --#####-####-###-##-#
+
+    # lord 0
+    (troop_set_slot, "trp_kingdom_28_lord", slot_troop_age,54),  #  
+	(troop_set_slot, "trp_kingdom_28_lord", slot_troop_spouse, "trp_kingdom_28_lady_1"), #
+    # lord 1
+    (troop_set_slot, "trp_knight_28_1", slot_troop_age,48),  # 
+	# lord 2
+	(troop_set_slot, "trp_knight_28_2", slot_troop_age,44),  # 
+    # lord 3
+	(troop_set_slot, "trp_knight_28_3", slot_troop_age,28),  #     
+
+# Toman Head Ladies
+    # lady 1
+    (troop_set_slot, "trp_kingdom_28_lady_1", slot_troop_age,49),
+	(troop_set_slot, "trp_kingdom_28_lady_1", slot_troop_spouse, "trp_kingdom_28_lord"),
+    # lady 2
+    (troop_set_slot, "trp_kingdom_28_lady_2", slot_troop_age,19),
+    (troop_set_slot, "trp_kingdom_28_lady_2", slot_troop_father, "trp_knight_28_1"),
+    # lady 3
+    (troop_set_slot, "trp_kingdom_28_lady_3", slot_troop_age,22),
+    (troop_set_slot, "trp_kingdom_28_lady_3", slot_troop_guardian, "trp_knight_28_3"),
+    
     
 
 ###############################################################################################################
@@ -10783,18 +11038,18 @@ scripts = [
                     (else_try),
                     (eq, ":cur_lady_faction", "fac_kingdom_24"),
                         (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_24_lord"),
-#                    (else_try),
-#                    (eq, ":cur_lady_faction", "fac_kingdom_25"),
-#                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_25_lord"),
-#                    (else_try),
-#                    (eq, ":cur_lady_faction", "fac_kingdom_26"),
-#                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_26_lord"),
-#                    (else_try),
-#                    (eq, ":cur_lady_faction", "fac_kingdom_27"),
-#                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_27_lord"),
-#                    (else_try),
-#                    (eq, ":cur_lady_faction", "fac_kingdom_28"),
-#                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_28_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_25"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_25_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_26"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_26_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_27"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_27_lord"),
+                    (else_try),
+                    (eq, ":cur_lady_faction", "fac_kingdom_28"),
+                        (troop_set_slot, ":cur_lady", slot_troop_guardian, "trp_kingdom_28_lord"),
                     (try_end),
                 (try_end),
 
@@ -11665,74 +11920,74 @@ scripts = [
           (faction_set_slot, ":faction_no",  slot_faction_reinforcements_f, "pt_kingdom_24_reinforcements_f"),
           (faction_set_slot, ":faction_no",  slot_faction_reinforcements_g, "pt_kingdom_24_reinforcements_g"),
           (faction_set_slot, ":faction_no",  slot_faction_reinforcements_h, "pt_kingdom_24_reinforcements_h"),
-#      (else_try),
-#          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_25"),
+      (else_try),
+          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_25"),
       
       # shara
-#          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_shara_deserter"),
-#          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_shara_castle_guard"),
-#          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_shara_messenger"),
-#          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_shara_prison_guard"),
-#          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_shara_castle_guard"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_25_reinforcements_a"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_25_reinforcements_b"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_25_reinforcements_c"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_d, "pt_kingdom_25_reinforcements_d"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_e, "pt_kingdom_25_reinforcements_e"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_f, "pt_kingdom_25_reinforcements_f"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_g, "pt_kingdom_25_reinforcements_g"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_h, "pt_kingdom_25_reinforcements_h"),
-#      (else_try),
-#          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_26"),
+          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_shara_deserter"),
+          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_shara_castle_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_shara_messenger"),
+          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_shara_prison_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_shara_castle_guard"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_25_reinforcements_a"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_25_reinforcements_b"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_25_reinforcements_c"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_d, "pt_kingdom_25_reinforcements_d"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_e, "pt_kingdom_25_reinforcements_e"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_f, "pt_kingdom_25_reinforcements_f"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_g, "pt_kingdom_25_reinforcements_g"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_h, "pt_kingdom_25_reinforcements_h"),
+      (else_try),
+          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_26"),
       
       # sea folk
-#          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_sea_folk_deserter"),
-#          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_sea_folk_castle_guard"),
-#          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_sea_folk_messenger"),
-#          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_sea_folk_prison_guard"),
-#          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_sea_folk_castle_guard"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_26_reinforcements_a"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_26_reinforcements_b"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_26_reinforcements_c"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_d, "pt_kingdom_26_reinforcements_d"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_e, "pt_kingdom_26_reinforcements_e"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_f, "pt_kingdom_26_reinforcements_f"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_g, "pt_kingdom_26_reinforcements_g"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_h, "pt_kingdom_26_reinforcements_h"),
-#      (else_try),
-#          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_27"),
+          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_sea_folk_deserter"),
+          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_sea_folk_castle_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_sea_folk_messenger"),
+          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_sea_folk_prison_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_sea_folk_castle_guard"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_26_reinforcements_a"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_26_reinforcements_b"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_26_reinforcements_c"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_d, "pt_kingdom_26_reinforcements_d"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_e, "pt_kingdom_26_reinforcements_e"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_f, "pt_kingdom_26_reinforcements_f"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_g, "pt_kingdom_26_reinforcements_g"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_h, "pt_kingdom_26_reinforcements_h"),
+      (else_try),
+          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_27"),
       
       # land of madmen
-#          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_land_of_madmen_deserter"),
-#          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_land_of_madmen_castle_guard"),
-#          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_land_of_madmen_messenger"),
-#          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_land_of_madmen_prison_guard"),
-#          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_land_of_madmen_castle_guard"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_27_reinforcements_a"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_27_reinforcements_b"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_27_reinforcements_c"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_d, "pt_kingdom_27_reinforcements_d"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_e, "pt_kingdom_27_reinforcements_e"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_f, "pt_kingdom_27_reinforcements_f"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_g, "pt_kingdom_27_reinforcements_g"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_h, "pt_kingdom_27_reinforcements_h"),
-#      (else_try),
-#          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_28"),
+          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_madmen_deserter"),
+          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_madmen_castle_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_madmen_messenger"),
+          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_madmen_prison_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_madmen_castle_guard"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_27_reinforcements_a"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_27_reinforcements_b"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_27_reinforcements_c"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_d, "pt_kingdom_27_reinforcements_d"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_e, "pt_kingdom_27_reinforcements_e"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_f, "pt_kingdom_27_reinforcements_f"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_g, "pt_kingdom_27_reinforcements_g"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_h, "pt_kingdom_27_reinforcements_h"),
+      (else_try),
+          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_28"),
       
       # toman head
-#          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_toman_head_deserter"),
-#          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_toman_head_castle_guard"),
-#          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_toman_head_messenger"),
-#          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_toman_head_prison_guard"),
-#          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_toman_head_castle_guard"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_28_reinforcements_a"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_28_reinforcements_b"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_28_reinforcements_c"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_d, "pt_kingdom_28_reinforcements_d"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_e, "pt_kingdom_28_reinforcements_e"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_f, "pt_kingdom_28_reinforcements_f"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_g, "pt_kingdom_28_reinforcements_g"),
-#          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_h, "pt_kingdom_28_reinforcements_h"),
+          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_toman_head_deserter"),
+          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_toman_head_castle_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_toman_head_messenger"),
+          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_toman_head_prison_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_toman_head_castle_guard"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_28_reinforcements_a"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_28_reinforcements_b"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_28_reinforcements_c"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_d, "pt_kingdom_28_reinforcements_d"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_e, "pt_kingdom_28_reinforcements_e"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_f, "pt_kingdom_28_reinforcements_f"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_g, "pt_kingdom_28_reinforcements_g"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_h, "pt_kingdom_28_reinforcements_h"),
       
         (try_end),
       # end added for TGS
@@ -46181,269 +46436,270 @@ scripts = [
     [
 
 # set strings
-
-        (troop_set_slot, "trp_npc1", slot_troop_morality_type, tmt_egalitarian),  #borcha
+## TGS: mat: Updated for wheel of time companions
+        (troop_set_slot, "trp_npc1", slot_troop_morality_type, tmt_humanitarian),  #seinen
         (troop_set_slot, "trp_npc1", slot_troop_morality_value, 4),  #borcha
-        (troop_set_slot, "trp_npc1", slot_troop_2ary_morality_type, tmt_aristocratic),  #borcha
-        (troop_set_slot, "trp_npc1", slot_troop_2ary_morality_value, -1),
-        (troop_set_slot, "trp_npc1", slot_troop_personalityclash_object, "trp_npc7"),  #borcha - deshavi
+        (troop_set_slot, "trp_npc1", slot_troop_2ary_morality_type, tmt_honest),  #borcha
+        (troop_set_slot, "trp_npc1", slot_troop_2ary_morality_value, 1),
+        (troop_set_slot, "trp_npc1", slot_troop_personalityclash_object, "trp_npc5"),  #damane
         (troop_set_slot, "trp_npc1", slot_troop_personalityclash2_object, "trp_npc16"),  #borcha - klethi
-        (troop_set_slot, "trp_npc1", slot_troop_personalitymatch_object, "trp_npc2"),  #borcha - marnid
-        (troop_set_slot, "trp_npc1", slot_troop_home, "p_village_25"), #Dashbiga
-        (troop_set_slot, "trp_npc1", slot_troop_payment_request, 300),
+        (troop_set_slot, "trp_npc1", slot_troop_personalitymatch_object, "trp_npc14"),  #borcha - marnid
+        (troop_set_slot, "trp_npc1", slot_troop_home, "p_village_9"), #Dashbiga
+        (troop_set_slot, "trp_npc1", slot_troop_payment_request, 200),
 		(troop_set_slot, "trp_npc1", slot_troop_kingsupport_argument, argument_ruler),
 		(troop_set_slot, "trp_npc1", slot_troop_kingsupport_opponent, "trp_npc14"), #lezalit
-		(troop_set_slot, "trp_npc1", slot_troop_town_with_contacts, "p_town_17"), #ichamur
+		(troop_set_slot, "trp_npc1", slot_troop_town_with_contacts, "p_town_3"), #ichamur
 		(troop_set_slot, "trp_npc1", slot_troop_original_faction, "fac_kingdom_11"), #ichamur
-		(troop_set_slot, "trp_npc1", slot_lord_reputation_type, lrep_roguish), #
+		(troop_set_slot, "trp_npc1", slot_lord_reputation_type, lrep_upstanding), #
 
 
 
-        (troop_set_slot, "trp_npc2", slot_troop_morality_type, tmt_humanitarian), #marnid
-        (troop_set_slot, "trp_npc2", slot_troop_morality_value, 2),
-        (troop_set_slot, "trp_npc2", slot_troop_2ary_morality_type, tmt_honest),
-        (troop_set_slot, "trp_npc2", slot_troop_2ary_morality_value, 1),
-        (troop_set_slot, "trp_npc2", slot_troop_personalityclash_object, "trp_npc5"), #marnid - beheshtur
-        (troop_set_slot, "trp_npc2", slot_troop_personalityclash2_object, "trp_npc9"), #marnid - alayen
-        (troop_set_slot, "trp_npc2", slot_troop_personalitymatch_object, "trp_npc1"),  #marnid - borcha
-        (troop_set_slot, "trp_npc2", slot_troop_home, "p_town_1"), #Sargoth
-        (troop_set_slot, "trp_npc2", slot_troop_payment_request, 0),
+        (troop_set_slot, "trp_npc2", slot_troop_morality_type, tmt_egalitarian), #darlaan
+        (troop_set_slot, "trp_npc2", slot_troop_morality_value, 3),
+        (troop_set_slot, "trp_npc2", slot_troop_2ary_morality_type, -1),
+        (troop_set_slot, "trp_npc2", slot_troop_2ary_morality_value, 0),
+        (troop_set_slot, "trp_npc2", slot_troop_personalityclash_object, "trp_npc4"), #marnid - beheshtur
+        (troop_set_slot, "trp_npc2", slot_troop_personalityclash2_object, "trp_npc14"), #marnid - alayen
+        (troop_set_slot, "trp_npc2", slot_troop_personalitymatch_object, "trp_npc12"),  #marnid - borcha
+        (troop_set_slot, "trp_npc2", slot_troop_home, "p_castle_19"), #Sargoth
+        (troop_set_slot, "trp_npc2", slot_troop_payment_request, 300),
 		(troop_set_slot, "trp_npc2", slot_troop_kingsupport_argument, argument_victory),
 		(troop_set_slot, "trp_npc2", slot_troop_kingsupport_opponent, "trp_npc16"), #klethi
-		(troop_set_slot, "trp_npc2", slot_troop_town_with_contacts, "p_town_1"), #Sargoth
+		(troop_set_slot, "trp_npc2", slot_troop_town_with_contacts, "p_town_17"), #Sargoth
 		(troop_set_slot, "trp_npc2", slot_troop_original_faction, "fac_kingdom_19"), #ichamur
-		(troop_set_slot, "trp_npc2", slot_lord_reputation_type, lrep_custodian), #
+		(troop_set_slot, "trp_npc2", slot_lord_reputation_type, lrep_roguish), #
 
 #
-        (troop_set_slot, "trp_npc3", slot_troop_morality_type, tmt_humanitarian), #Ymira
+        (troop_set_slot, "trp_npc3", slot_troop_morality_type, tmt_aristocratic), #cetaleen
         (troop_set_slot, "trp_npc3", slot_troop_morality_value, 4),
-        (troop_set_slot, "trp_npc3", slot_troop_2ary_morality_type, tmt_aristocratic),
-        (troop_set_slot, "trp_npc3", slot_troop_2ary_morality_value, -1),
-        (troop_set_slot, "trp_npc3", slot_troop_personalityclash_object, "trp_npc14"), #Ymira - artimenner
-        (troop_set_slot, "trp_npc3", slot_troop_personalityclash2_object, "trp_npc8"), #Ymira - matheld
-        (troop_set_slot, "trp_npc3", slot_troop_personalitymatch_object, "trp_npc9"), #Ymira - alayen
-        (troop_set_slot, "trp_npc3", slot_troop_home, "p_town_3"), #Veluca
-        (troop_set_slot, "trp_npc3", slot_troop_payment_request, 0),
+        (troop_set_slot, "trp_npc3", slot_troop_2ary_morality_type, -1),
+        (troop_set_slot, "trp_npc3", slot_troop_2ary_morality_value, 0),
+        (troop_set_slot, "trp_npc3", slot_troop_personalityclash_object, "trp_npc6"), #Ymira - artimenner
+        (troop_set_slot, "trp_npc3", slot_troop_personalityclash2_object, "trp_npc15"), #Ymira - matheld
+        (troop_set_slot, "trp_npc3", slot_troop_personalitymatch_object, "trp_npc7"), #Ymira - alayen
+        (troop_set_slot, "trp_npc3", slot_troop_home, "p_castle_26"), #Veluca
+        (troop_set_slot, "trp_npc3", slot_troop_payment_request, 350),
 		(troop_set_slot, "trp_npc3", slot_troop_kingsupport_argument, argument_lords),
 		(troop_set_slot, "trp_npc3", slot_troop_kingsupport_opponent, "trp_npc5"), #klethi
-		(troop_set_slot, "trp_npc3", slot_troop_town_with_contacts, "p_town_15"), #yalen
+		(troop_set_slot, "trp_npc3", slot_troop_town_with_contacts, "p_town_19"), #yalen
 		(troop_set_slot, "trp_npc3", slot_troop_original_faction, "fac_kingdom_21"), #ichamur
-		(troop_set_slot, "trp_npc3", slot_lord_reputation_type, lrep_benefactor), #
+		(troop_set_slot, "trp_npc3", slot_lord_reputation_type, lrep_custodian), #
 
 
 
-        (troop_set_slot, "trp_npc4", slot_troop_morality_type, tmt_aristocratic), #Rolf
-        (troop_set_slot, "trp_npc4", slot_troop_morality_value, 4),
-        (troop_set_slot, "trp_npc4", slot_troop_2ary_morality_type, tmt_honest),
-        (troop_set_slot, "trp_npc4", slot_troop_2ary_morality_value, -1),
-        (troop_set_slot, "trp_npc4", slot_troop_personalityclash_object, "trp_npc10"), #Rolf - bunduk
-        (troop_set_slot, "trp_npc4", slot_troop_personalityclash2_object, "trp_npc7"), #Rolf - deshavi
+        (troop_set_slot, "trp_npc4", slot_troop_morality_type, tmt_egalitarian), #Jayn
+        (troop_set_slot, "trp_npc4", slot_troop_morality_value, 3),
+        (troop_set_slot, "trp_npc4", slot_troop_2ary_morality_type, -1),
+        (troop_set_slot, "trp_npc4", slot_troop_2ary_morality_value, 0),
+        (troop_set_slot, "trp_npc4", slot_troop_personalityclash_object, "trp_npc2"), #Rolf - bunduk
+        (troop_set_slot, "trp_npc4", slot_troop_personalityclash2_object, "trp_npc8"), #Rolf - deshavi
         (troop_set_slot, "trp_npc4", slot_troop_personalitymatch_object, "trp_npc5"), #Rolf - beheshtur
-        (troop_set_slot, "trp_npc4", slot_troop_home, "p_village_34"), #Ehlerdah
-        (troop_set_slot, "trp_npc4", slot_troop_payment_request, 300),
+        (troop_set_slot, "trp_npc4", slot_troop_home, "p_town_1"), #Ehlerdah
+        (troop_set_slot, "trp_npc4", slot_troop_payment_request, 400),
 		(troop_set_slot, "trp_npc4", slot_troop_kingsupport_argument, argument_claim),
 		(troop_set_slot, "trp_npc4", slot_troop_kingsupport_opponent, "trp_npc6"), #firentis
-		(troop_set_slot, "trp_npc4", slot_troop_town_with_contacts, "p_town_3"), #veluca
+		(troop_set_slot, "trp_npc4", slot_troop_town_with_contacts, "p_town_16"), #veluca
 		(troop_set_slot, "trp_npc4", slot_troop_original_faction, "fac_kingdom_5"), #ichamur
-		(troop_set_slot, "trp_npc4", slot_lord_reputation_type, lrep_cunning), #
+		(troop_set_slot, "trp_npc4", slot_lord_reputation_type, lrep_martial), #
 
 
-        (troop_set_slot, "trp_npc5", slot_troop_morality_type, tmt_egalitarian),  #beheshtur
+        (troop_set_slot, "trp_npc5", slot_troop_morality_type, tmt_egalitarian),  #zonnein
         (troop_set_slot, "trp_npc5", slot_troop_morality_value, 3),  #beheshtur
         (troop_set_slot, "trp_npc5", slot_troop_2ary_morality_type, -1),
         (troop_set_slot, "trp_npc5", slot_troop_2ary_morality_value, 0),
-        (troop_set_slot, "trp_npc5", slot_troop_personalityclash_object, "trp_npc2"),  #beheshtur - marnid
-        (troop_set_slot, "trp_npc5", slot_troop_personalityclash2_object, "trp_npc11"),  #beheshtur- katrin
+        (troop_set_slot, "trp_npc5", slot_troop_personalityclash_object, "trp_npc1"),  #beheshtur - marnid
+        (troop_set_slot, "trp_npc5", slot_troop_personalityclash2_object, "trp_npc6"),  #beheshtur- katrin
         (troop_set_slot, "trp_npc5", slot_troop_personalitymatch_object, "trp_npc4"),  #beheshtur - rolf
-        (troop_set_slot, "trp_npc5", slot_troop_home, "p_town_14"), #Halmar
-        (troop_set_slot, "trp_npc5", slot_troop_payment_request, 400),
+        (troop_set_slot, "trp_npc5", slot_troop_home, "p_town_7"), #Halmar
+        (troop_set_slot, "trp_npc5", slot_troop_payment_request, 150),
 		(troop_set_slot, "trp_npc5", slot_troop_kingsupport_argument, argument_ruler),
 		(troop_set_slot, "trp_npc5", slot_troop_kingsupport_opponent, "trp_npc9"), #firentis
-		(troop_set_slot, "trp_npc5", slot_troop_town_with_contacts, "p_town_10"), #tulga
+		(troop_set_slot, "trp_npc5", slot_troop_town_with_contacts, "p_town_7"), #tulga
 		(troop_set_slot, "trp_npc5", slot_troop_original_faction, "fac_kingdom_23"), #khergit
-		(troop_set_slot, "trp_npc5", slot_lord_reputation_type, lrep_cunning), #
+		(troop_set_slot, "trp_npc5", slot_lord_reputation_type, lrep_martial), #
 
 
 
-        (troop_set_slot, "trp_npc6", slot_troop_morality_type, tmt_humanitarian), #firenz
+        (troop_set_slot, "trp_npc6", slot_troop_morality_type, tmt_aristocratic), #eldriva
         (troop_set_slot, "trp_npc6", slot_troop_morality_value, 2),  #beheshtur
         (troop_set_slot, "trp_npc6", slot_troop_2ary_morality_type, tmt_honest),
         (troop_set_slot, "trp_npc6", slot_troop_2ary_morality_value, 1),
-        (troop_set_slot, "trp_npc6", slot_troop_personalityclash_object, "trp_npc11"), #firenz
-        (troop_set_slot, "trp_npc6", slot_troop_personalityclash2_object, "trp_npc13"), #firenz - nizar
-        (troop_set_slot, "trp_npc6", slot_troop_personalitymatch_object, "trp_npc12"),  #firenz - jeremus
-        (troop_set_slot, "trp_npc6", slot_troop_home, "p_town_4"), #Suno
-        (troop_set_slot, "trp_npc6", slot_troop_payment_request, 0),
+        (troop_set_slot, "trp_npc6", slot_troop_personalityclash_object, "trp_npc3"), #firenz
+        (troop_set_slot, "trp_npc6", slot_troop_personalityclash2_object, "trp_npc5"), #firenz - nizar
+        (troop_set_slot, "trp_npc6", slot_troop_personalitymatch_object, "trp_npc10"),  #firenz - jeremus
+        (troop_set_slot, "trp_npc6", slot_troop_home, "p_town_8"), #Suno
+        (troop_set_slot, "trp_npc6", slot_troop_payment_request, 300),
 		(troop_set_slot, "trp_npc6", slot_troop_kingsupport_argument, argument_victory),
 		(troop_set_slot, "trp_npc6", slot_troop_kingsupport_opponent, "trp_npc8"), #firentis
-		(troop_set_slot, "trp_npc6", slot_troop_town_with_contacts, "p_town_7"), #uxkhal
+		(troop_set_slot, "trp_npc6", slot_troop_town_with_contacts, "p_town_8"), #uxkhal
 		(troop_set_slot, "trp_npc6", slot_troop_original_faction, 0), #swadia
-		(troop_set_slot, "trp_npc6", slot_lord_reputation_type, lrep_upstanding), #
+		(troop_set_slot, "trp_npc6", slot_lord_reputation_type, lrep_custodian), #
 
 
 
-        (troop_set_slot, "trp_npc7", slot_troop_morality_type, tmt_egalitarian),  #deshavi
+        (troop_set_slot, "trp_npc7", slot_troop_morality_type, tmt_humanitarian),  #haludar
         (troop_set_slot, "trp_npc7", slot_troop_morality_value, 3),  #beheshtur
-        (troop_set_slot, "trp_npc7", slot_troop_2ary_morality_type, -1),
-        (troop_set_slot, "trp_npc7", slot_troop_2ary_morality_value, 0),
-        (troop_set_slot, "trp_npc7", slot_troop_personalityclash_object, "trp_npc1"),  #deshavi
-        (troop_set_slot, "trp_npc7", slot_troop_personalityclash2_object, "trp_npc4"),  #deshavi - rolf
-        (troop_set_slot, "trp_npc7", slot_troop_personalitymatch_object, "trp_npc16"),  #deshavi - klethi
-        (troop_set_slot, "trp_npc7", slot_troop_home, "p_village_5"), #Kulum
-#        (troop_set_slot, "trp_npc7", slot_troop_payment_request, 300),
+        (troop_set_slot, "trp_npc7", slot_troop_2ary_morality_type, tmt_honest),
+        (troop_set_slot, "trp_npc7", slot_troop_2ary_morality_value, 1),
+        (troop_set_slot, "trp_npc7", slot_troop_personalityclash_object, "trp_npc10"),  #deshavi
+        (troop_set_slot, "trp_npc7", slot_troop_personalityclash2_object, "trp_npc8"),  #deshavi - rolf
+        (troop_set_slot, "trp_npc7", slot_troop_personalitymatch_object, "trp_npc3"),  #deshavi - klethi
+        (troop_set_slot, "trp_npc7", slot_troop_home, "p_village_6"), #Kulum
+        (troop_set_slot, "trp_npc7", slot_troop_payment_request, 300),
 		(troop_set_slot, "trp_npc7", slot_troop_kingsupport_argument, argument_victory),
 		(troop_set_slot, "trp_npc7", slot_troop_kingsupport_opponent, "trp_npc3"), #ymira
-		(troop_set_slot, "trp_npc7", slot_troop_town_with_contacts, "p_town_2"), #tihr
+		(troop_set_slot, "trp_npc7", slot_troop_town_with_contacts, "p_town_18"), #tihr
 		(troop_set_slot, "trp_npc7", slot_troop_original_faction, 0), #swadia
-		(troop_set_slot, "trp_npc7", slot_lord_reputation_type, lrep_custodian), #
+		(troop_set_slot, "trp_npc7", slot_lord_reputation_type, lrep_upstanding), #
 
 
 
-        (troop_set_slot, "trp_npc8", slot_troop_morality_type, tmt_aristocratic), #matheld
+        (troop_set_slot, "trp_npc8", slot_troop_morality_type, tmt_aristocratic), #peluir
         (troop_set_slot, "trp_npc8", slot_troop_morality_value, 3),  #beheshtur
-        (troop_set_slot, "trp_npc8", slot_troop_2ary_morality_type, -1),
-        (troop_set_slot, "trp_npc8", slot_troop_2ary_morality_value, 0),
-        (troop_set_slot, "trp_npc8", slot_troop_personalityclash_object, "trp_npc12"), #matheld
-        (troop_set_slot, "trp_npc8", slot_troop_personalityclash2_object, "trp_npc3"), #matheld - ymira
-        (troop_set_slot, "trp_npc8", slot_troop_personalitymatch_object, "trp_npc13"),  #matheld - nizar
-        (troop_set_slot, "trp_npc8", slot_troop_home, "p_sea_raider_spawn_point_2"), #Gundig's Point
-        (troop_set_slot, "trp_npc8", slot_troop_payment_request, 500),
+        (troop_set_slot, "trp_npc8", slot_troop_2ary_morality_type, tmt_honest),
+        (troop_set_slot, "trp_npc8", slot_troop_2ary_morality_value, -1),
+        (troop_set_slot, "trp_npc8", slot_troop_personalityclash_object, "trp_npc4"), #matheld
+        (troop_set_slot, "trp_npc8", slot_troop_personalityclash2_object, "trp_npc7"), #matheld - ymira
+        (troop_set_slot, "trp_npc8", slot_troop_personalitymatch_object, "trp_npc16"),  #matheld - nizar
+        (troop_set_slot, "trp_npc8", slot_troop_home, "p_village_14"), #Gundig's Point
+        (troop_set_slot, "trp_npc8", slot_troop_payment_request, 250),
 		(troop_set_slot, "trp_npc8", slot_troop_kingsupport_argument, argument_lords),
 		(troop_set_slot, "trp_npc8", slot_troop_kingsupport_opponent, "trp_npc2"), #marnid
-		(troop_set_slot, "trp_npc8", slot_troop_town_with_contacts, "p_town_12"), #wercheg
+		(troop_set_slot, "trp_npc8", slot_troop_town_with_contacts, "p_town_20"), #wercheg
 		(troop_set_slot, "trp_npc8", slot_troop_original_faction, "fac_kingdom_24"), #nords
-		(troop_set_slot, "trp_npc8", slot_lord_reputation_type, lrep_martial), #
+		(troop_set_slot, "trp_npc8", slot_lord_reputation_type, lrep_cunning), #
 
 
-        (troop_set_slot, "trp_npc9", slot_troop_morality_type, tmt_aristocratic), #alayen
+        (troop_set_slot, "trp_npc9", slot_troop_morality_type, tmt_egalitarian), #celin
         (troop_set_slot, "trp_npc9", slot_troop_morality_value, 2),  #beheshtur
-        (troop_set_slot, "trp_npc9", slot_troop_2ary_morality_type, tmt_honest),
-        (troop_set_slot, "trp_npc9", slot_troop_2ary_morality_value, 1),
-        (troop_set_slot, "trp_npc9", slot_troop_personalityclash_object, "trp_npc13"), #alayen vs nizar
-        (troop_set_slot, "trp_npc9", slot_troop_personalityclash2_object, "trp_npc2"), #alayen vs marnid
-        (troop_set_slot, "trp_npc9", slot_troop_personalitymatch_object, "trp_npc3"),  #alayen - ymira
-        (troop_set_slot, "trp_npc9", slot_troop_home, "p_town_13"), #Rivacheg
-        (troop_set_slot, "trp_npc9", slot_troop_payment_request, 300),
+        (troop_set_slot, "trp_npc9", slot_troop_2ary_morality_type, -1),
+        (troop_set_slot, "trp_npc9", slot_troop_2ary_morality_value, 0),
+        (troop_set_slot, "trp_npc9", slot_troop_personalityclash_object, "trp_npc15"), #alayen vs nizar
+        (troop_set_slot, "trp_npc9", slot_troop_personalityclash2_object, "trp_npc10"), #alayen vs marnid
+        (troop_set_slot, "trp_npc9", slot_troop_personalitymatch_object, "trp_npc11"),  #alayen - ymira
+        (troop_set_slot, "trp_npc9", slot_troop_home, "p_village_99"), #Rivacheg
+        (troop_set_slot, "trp_npc9", slot_troop_payment_request, 150),
 		(troop_set_slot, "trp_npc9", slot_troop_kingsupport_argument, argument_lords),
 		(troop_set_slot, "trp_npc9", slot_troop_kingsupport_opponent, "trp_npc1"), #borcha
-		(troop_set_slot, "trp_npc9", slot_troop_town_with_contacts, "p_town_8"), #reyvadin
+		(troop_set_slot, "trp_npc9", slot_troop_town_with_contacts, "p_town_2"), #reyvadin
 		(troop_set_slot, "trp_npc9", slot_troop_original_faction, "fac_kingdom_3"), #vaegirs
-		(troop_set_slot, "trp_npc9", slot_lord_reputation_type, lrep_martial), #
+		(troop_set_slot, "trp_npc9", slot_lord_reputation_type, lrep_benefactor), #
 
 
-        (troop_set_slot, "trp_npc10", slot_troop_morality_type, tmt_humanitarian), #bunduk
+        (troop_set_slot, "trp_npc10", slot_troop_morality_type, tmt_egalitarian), #maigue
         (troop_set_slot, "trp_npc10", slot_troop_morality_value, 2),
-        (troop_set_slot, "trp_npc10", slot_troop_2ary_morality_type, tmt_egalitarian),
-        (troop_set_slot, "trp_npc10", slot_troop_2ary_morality_value, 1),
-        (troop_set_slot, "trp_npc10", slot_troop_personalityclash_object, "trp_npc4"), #bunduk vs rolf
-        (troop_set_slot, "trp_npc10", slot_troop_personalityclash2_object, "trp_npc14"), #bunduk vs lazalet
-        (troop_set_slot, "trp_npc10", slot_troop_personalitymatch_object, "trp_npc11"),  #bunduk likes katrin
-        (troop_set_slot, "trp_npc10", slot_troop_home, "p_castle_28"), #Grunwalder Castle
-        (troop_set_slot, "trp_npc10", slot_troop_payment_request, 200),
+        (troop_set_slot, "trp_npc10", slot_troop_2ary_morality_type, tmt_honest),
+        (troop_set_slot, "trp_npc10", slot_troop_2ary_morality_value, -1),
+        (troop_set_slot, "trp_npc10", slot_troop_personalityclash_object, "trp_npc9"), #bunduk vs rolf
+        (troop_set_slot, "trp_npc10", slot_troop_personalityclash2_object, "trp_npc7"), #bunduk vs lazalet
+        (troop_set_slot, "trp_npc10", slot_troop_personalitymatch_object, "trp_npc6"),  #bunduk likes katrin
+        (troop_set_slot, "trp_npc10", slot_troop_home, "p_town_22"), #Grunwalder Castle
+        (troop_set_slot, "trp_npc10", slot_troop_payment_request, 300),
 		(troop_set_slot, "trp_npc10", slot_troop_kingsupport_argument, argument_ruler),
 		(troop_set_slot, "trp_npc10", slot_troop_kingsupport_opponent, "trp_npc7"), #nizar
-		(troop_set_slot, "trp_npc10", slot_troop_town_with_contacts, "p_town_5"), #jelkala
+		(troop_set_slot, "trp_npc10", slot_troop_town_with_contacts, "p_town_7"), #jelkala
 		(troop_set_slot, "trp_npc10", slot_troop_original_faction, "fac_kingdom_6"), #rhodoks
-		(troop_set_slot, "trp_npc10", slot_lord_reputation_type, lrep_benefactor), #
+		(troop_set_slot, "trp_npc10", slot_lord_reputation_type, lrep_selfrighteous), #
 
 
 
-        (troop_set_slot, "trp_npc11", slot_troop_morality_type, tmt_egalitarian),  #katrin
+        (troop_set_slot, "trp_npc11", slot_troop_morality_type, tmt_humanitarian),  #aloien
         (troop_set_slot, "trp_npc11", slot_troop_morality_value, 3),
         (troop_set_slot, "trp_npc11", slot_troop_2ary_morality_type, -1),
         (troop_set_slot, "trp_npc11", slot_troop_2ary_morality_value, 0),
-        (troop_set_slot, "trp_npc11", slot_troop_personalityclash_object, "trp_npc6"),  #katrin vs firenz
-        (troop_set_slot, "trp_npc11", slot_troop_personalityclash2_object, "trp_npc5"),  #katrin - beheshtur
-        (troop_set_slot, "trp_npc11", slot_troop_personalitymatch_object, "trp_npc10"),  #katrin likes bunduk
-        (troop_set_slot, "trp_npc11", slot_troop_home, "p_town_6"), #Praven
-        (troop_set_slot, "trp_npc11", slot_troop_payment_request, 100),
+        (troop_set_slot, "trp_npc11", slot_troop_personalityclash_object, "trp_npc13"),  #katrin vs firenz
+        (troop_set_slot, "trp_npc11", slot_troop_personalityclash2_object, "trp_npc12"),  #katrin - beheshtur
+        (troop_set_slot, "trp_npc11", slot_troop_personalitymatch_object, "trp_npc9"),  #katrin likes bunduk
+        (troop_set_slot, "trp_npc11", slot_troop_home, "p_village_56"), #Praven
+        (troop_set_slot, "trp_npc11", slot_troop_payment_request, 200),
 		(troop_set_slot, "trp_npc11", slot_troop_kingsupport_argument, argument_claim),
 		(troop_set_slot, "trp_npc11", slot_troop_kingsupport_opponent, "trp_npc15"), #borcha
-		(troop_set_slot, "trp_npc11", slot_troop_town_with_contacts, "p_town_6"), #praven
+		(troop_set_slot, "trp_npc11", slot_troop_town_with_contacts, "p_town_1"), #praven
 		(troop_set_slot, "trp_npc11", slot_troop_original_faction, "fac_kingdom_5"), #
 		(troop_set_slot, "trp_npc11", slot_lord_reputation_type, lrep_custodian), #
 
 
-        (troop_set_slot, "trp_npc12", slot_troop_morality_type, tmt_humanitarian), #jeremus
-        (troop_set_slot, "trp_npc12", slot_troop_morality_value, 3),
+        (troop_set_slot, "trp_npc12", slot_troop_morality_type, tmt_humanitarian), #lalea
+        (troop_set_slot, "trp_npc12", slot_troop_morality_value, 2),
         (troop_set_slot, "trp_npc12", slot_troop_2ary_morality_type, -1),
         (troop_set_slot, "trp_npc12", slot_troop_2ary_morality_value, 0),
-        (troop_set_slot, "trp_npc12", slot_troop_personalityclash_object, "trp_npc8"), #jerem
-        (troop_set_slot, "trp_npc12", slot_troop_personalityclash2_object, "trp_npc15"), #jeremus - artimenner
-        (troop_set_slot, "trp_npc12", slot_troop_personalitymatch_object, "trp_npc6"),  #jeremus - firenz
-        (troop_set_slot, "trp_npc12", slot_troop_home, "p_castle_16"), #undetermined #University
-        (troop_set_slot, "trp_npc12", slot_troop_payment_request, 0),
+        (troop_set_slot, "trp_npc12", slot_troop_personalityclash_object, "trp_npc11"), #jerem
+        (troop_set_slot, "trp_npc12", slot_troop_personalityclash2_object, "trp_npc16"), #jeremus - artimenner
+        (troop_set_slot, "trp_npc12", slot_troop_personalitymatch_object, "trp_npc2"),  #jeremus - firenz
+        (troop_set_slot, "trp_npc12", slot_troop_home, "p_village_84"), #undetermined #University
+        (troop_set_slot, "trp_npc12", slot_troop_payment_request, 100),
 		(troop_set_slot, "trp_npc12", slot_troop_kingsupport_argument, argument_claim),
 		(troop_set_slot, "trp_npc12", slot_troop_kingsupport_opponent, "trp_npc13"), #nizar
-		(troop_set_slot, "trp_npc12", slot_troop_town_with_contacts, "p_town_14"), #halmar
+		(troop_set_slot, "trp_npc12", slot_troop_town_with_contacts, "p_town_15"), #halmar
 		(troop_set_slot, "trp_npc12", slot_troop_original_faction, "fac_kingdom_13"), #
-		(troop_set_slot, "trp_npc12", slot_lord_reputation_type, lrep_benefactor), #
+		(troop_set_slot, "trp_npc12", slot_lord_reputation_type, lrep_upstanding), #
 
 
 
-        (troop_set_slot, "trp_npc13", slot_troop_morality_type, tmt_aristocratic), #nizar
+        (troop_set_slot, "trp_npc13", slot_troop_morality_type, tmt_pious), #lasan
         (troop_set_slot, "trp_npc13", slot_troop_morality_value, 3),
-        (troop_set_slot, "trp_npc13", slot_troop_2ary_morality_type, -1),
-        (troop_set_slot, "trp_npc13", slot_troop_2ary_morality_value, 0),
-        (troop_set_slot, "trp_npc13", slot_troop_personalityclash_object, "trp_npc9"), #nizar
-        (troop_set_slot, "trp_npc13", slot_troop_personalityclash2_object, "trp_npc6"), #nizar - firenz
-        (troop_set_slot, "trp_npc13", slot_troop_personalitymatch_object, "trp_npc8"), #nizar - matheld
-        (troop_set_slot, "trp_npc13", slot_troop_home, "p_castle_15"), #Ergellon Castle
-        (troop_set_slot, "trp_npc13", slot_troop_payment_request, 300),
+        (troop_set_slot, "trp_npc13", slot_troop_2ary_morality_type, tmt_aristocratic),
+        (troop_set_slot, "trp_npc13", slot_troop_2ary_morality_value, 1),
+        (troop_set_slot, "trp_npc13", slot_troop_personalityclash_object, "trp_npc14"), #nizar
+        (troop_set_slot, "trp_npc13", slot_troop_personalityclash2_object, "trp_npc11"), #nizar - firenz
+        (troop_set_slot, "trp_npc13", slot_troop_personalitymatch_object, "trp_npc15"), #nizar - matheld
+        (troop_set_slot, "trp_npc13", slot_troop_home, "p_castle_29"), #Ergellon Castle
+        (troop_set_slot, "trp_npc13", slot_troop_payment_request, 400),
 		(troop_set_slot, "trp_npc13", slot_troop_kingsupport_argument, argument_claim),
 		(troop_set_slot, "trp_npc13", slot_troop_kingsupport_opponent, "trp_npc10"), #nizar
-		(troop_set_slot, "trp_npc13", slot_troop_town_with_contacts, "p_town_4"), #suno
+		(troop_set_slot, "trp_npc13", slot_troop_town_with_contacts, "p_town_11"), #suno
 		(troop_set_slot, "trp_npc13", slot_troop_original_faction, "fac_kingdom_17"), #
-		(troop_set_slot, "trp_npc13", slot_lord_reputation_type, lrep_roguish), #
+		(troop_set_slot, "trp_npc13", slot_lord_reputation_type, lrep_martial), #
 
 
 
-        (troop_set_slot, "trp_npc14", slot_troop_morality_type, tmt_aristocratic), #lezalit
-        (troop_set_slot, "trp_npc14", slot_troop_morality_value, 4),
-        (troop_set_slot, "trp_npc14", slot_troop_2ary_morality_type, tmt_egalitarian),
-        (troop_set_slot, "trp_npc14", slot_troop_2ary_morality_value, -1),
-        (troop_set_slot, "trp_npc14", slot_troop_personalityclash_object, "trp_npc3"), #lezalit
-        (troop_set_slot, "trp_npc14", slot_troop_personalityclash2_object, "trp_npc10"), #lezalit - bunduk
-        (troop_set_slot, "trp_npc14", slot_troop_personalitymatch_object, "trp_npc15"), #lezalit - artimenner
-        (troop_set_slot, "trp_npc14", slot_troop_home, "p_castle_18"), #Ismirala Castle
-        (troop_set_slot, "trp_npc14", slot_troop_payment_request, 400),
+        (troop_set_slot, "trp_npc14", slot_troop_morality_type, tmt_egalitarian), #nienlea
+        (troop_set_slot, "trp_npc14", slot_troop_morality_value, 2),
+        (troop_set_slot, "trp_npc14", slot_troop_2ary_morality_type, tmt_honest),
+        (troop_set_slot, "trp_npc14", slot_troop_2ary_morality_value, 1),
+        (troop_set_slot, "trp_npc14", slot_troop_personalityclash_object, "trp_npc2"), #lezalit
+        (troop_set_slot, "trp_npc14", slot_troop_personalityclash2_object, "trp_npc13"), #lezalit - bunduk
+        (troop_set_slot, "trp_npc14", slot_troop_personalitymatch_object, "trp_npc1"), #lezalit - artimenner
+        (troop_set_slot, "trp_npc14", slot_troop_home, "p_village_92"), #Ismirala Castle
+        (troop_set_slot, "trp_npc14", slot_troop_payment_request, 350),
 		(troop_set_slot, "trp_npc14", slot_troop_kingsupport_argument, argument_victory),
 		(troop_set_slot, "trp_npc14", slot_troop_kingsupport_opponent, "trp_npc11"), #nizar
-		(troop_set_slot, "trp_npc14", slot_troop_town_with_contacts, "p_town_16"), #dhirim
+		(troop_set_slot, "trp_npc14", slot_troop_town_with_contacts, "p_town_21"), #dhirim
 		(troop_set_slot, "trp_npc14", slot_troop_original_faction, "fac_kingdom_22"), #
-		(troop_set_slot, "trp_npc14", slot_lord_reputation_type, lrep_selfrighteous), #
+		(troop_set_slot, "trp_npc14", slot_lord_reputation_type, lrep_martial), #
 
 
-        (troop_set_slot, "trp_npc15", slot_troop_morality_type, tmt_egalitarian),  #artimenner
+        (troop_set_slot, "trp_npc15", slot_troop_morality_type, tmt_egalitarian),  #sedrar
         (troop_set_slot, "trp_npc15", slot_troop_morality_value, 2),
-        (troop_set_slot, "trp_npc15", slot_troop_2ary_morality_type, tmt_honest),
-        (troop_set_slot, "trp_npc15", slot_troop_2ary_morality_value, 1),
-        (troop_set_slot, "trp_npc15", slot_troop_personalityclash_object, "trp_npc16"), #artimenner - klethi
-        (troop_set_slot, "trp_npc15", slot_troop_personalityclash2_object, "trp_npc12"), #artimenner - jeremus
-        (troop_set_slot, "trp_npc15", slot_troop_personalitymatch_object, "trp_npc14"), #lazalit - artimenner
-        (troop_set_slot, "trp_npc15", slot_troop_home, "p_castle_1"), #Culmarr Castle
-        (troop_set_slot, "trp_npc15", slot_troop_payment_request, 300),
+        (troop_set_slot, "trp_npc15", slot_troop_2ary_morality_type, -1),
+        (troop_set_slot, "trp_npc15", slot_troop_2ary_morality_value, 0),
+        (troop_set_slot, "trp_npc15", slot_troop_personalityclash_object, "trp_npc3"), #artimenner - klethi
+        (troop_set_slot, "trp_npc15", slot_troop_personalityclash2_object, "trp_npc9"), #artimenner - jeremus
+        (troop_set_slot, "trp_npc15", slot_troop_personalitymatch_object, "trp_npc13"), #lazalit - artimenner
+        (troop_set_slot, "trp_npc15", slot_troop_home, "p_town_7"), #Culmarr Castle
+        (troop_set_slot, "trp_npc15", slot_troop_payment_request, 50),
 		(troop_set_slot, "trp_npc15", slot_troop_kingsupport_argument, argument_ruler),
 		(troop_set_slot, "trp_npc15", slot_troop_kingsupport_opponent, "trp_npc4"), #nizar
- 		(troop_set_slot, "trp_npc15", slot_troop_town_with_contacts, "p_town_18"), #narra
+ 		(troop_set_slot, "trp_npc15", slot_troop_town_with_contacts, "p_town_13"), #narra
         (troop_set_slot, "trp_npc15", slot_troop_original_faction, "fac_kingdom_23"), #
-		(troop_set_slot, "trp_npc15", slot_lord_reputation_type, lrep_custodian), #
+		(troop_set_slot, "trp_npc15", slot_lord_reputation_type, lrep_benefactor), #
 
 
-        (troop_set_slot, "trp_npc16", slot_troop_morality_type, tmt_aristocratic), #klethi
-        (troop_set_slot, "trp_npc16", slot_troop_morality_value, 4),
-        (troop_set_slot, "trp_npc16", slot_troop_2ary_morality_type, tmt_humanitarian),
-        (troop_set_slot, "trp_npc16", slot_troop_2ary_morality_value, -1),
-        (troop_set_slot, "trp_npc16", slot_troop_personalityclash_object, "trp_npc15"), #klethi
-        (troop_set_slot, "trp_npc16", slot_troop_personalityclash2_object, "trp_npc1"), #klethi - borcha
-        (troop_set_slot, "trp_npc16", slot_troop_personalitymatch_object, "trp_npc7"),  #deshavi - klethi
-        (troop_set_slot, "trp_npc16", slot_troop_home, "p_village_20"), #Uslum
+        (troop_set_slot, "trp_npc16", slot_troop_morality_type, tmt_humanitarian), #hammaes
+        (troop_set_slot, "trp_npc16", slot_troop_morality_value, 2),
+        (troop_set_slot, "trp_npc16", slot_troop_2ary_morality_type, -1),
+        (troop_set_slot, "trp_npc16", slot_troop_2ary_morality_value, 0),
+        (troop_set_slot, "trp_npc16", slot_troop_personalityclash_object, "trp_npc1"), #klethi
+        (troop_set_slot, "trp_npc16", slot_troop_personalityclash2_object, "trp_npc12"), #klethi - borcha
+        (troop_set_slot, "trp_npc16", slot_troop_personalitymatch_object, "trp_npc8"),  #deshavi - klethi
+        (troop_set_slot, "trp_npc16", slot_troop_home, "p_castle_32"), #Uslum
         (troop_set_slot, "trp_npc16", slot_troop_payment_request, 200),
 		(troop_set_slot, "trp_npc16", slot_troop_kingsupport_argument, argument_lords),
 		(troop_set_slot, "trp_npc16", slot_troop_kingsupport_opponent, "trp_npc12"), #nizar
- 		(troop_set_slot, "trp_npc16", slot_troop_town_with_contacts, "p_town_9"), #khudan
+ 		(troop_set_slot, "trp_npc16", slot_troop_town_with_contacts, "p_town_6"), #khudan
         (troop_set_slot, "trp_npc16", slot_troop_original_faction, "fac_kingdom_9"), #
 		(troop_set_slot, "trp_npc16", slot_lord_reputation_type, lrep_roguish), #
+## TGS: mat: END: Updated for wheel of time companions
 
 
 
@@ -46495,10 +46751,10 @@ scripts = [
         (troop_set_slot, "trp_kingdom_22_pretender",  slot_troop_original_faction, "fac_kingdom_22"),
         (troop_set_slot, "trp_kingdom_23_pretender",  slot_troop_original_faction, "fac_kingdom_23"),
         (troop_set_slot, "trp_kingdom_24_pretender",  slot_troop_original_faction, "fac_kingdom_24"),
-#        (troop_set_slot, "trp_kingdom_25_pretender",  slot_troop_original_faction, "fac_kingdom_25"),
-#        (troop_set_slot, "trp_kingdom_26_pretender",  slot_troop_original_faction, "fac_kingdom_26"),
-#        (troop_set_slot, "trp_kingdom_27_pretender",  slot_troop_original_faction, "fac_kingdom_27"),
-#        (troop_set_slot, "trp_kingdom_28_pretender",  slot_troop_original_faction, "fac_kingdom_28"),
+        (troop_set_slot, "trp_kingdom_25_pretender",  slot_troop_original_faction, "fac_kingdom_25"),
+        (troop_set_slot, "trp_kingdom_26_pretender",  slot_troop_original_faction, "fac_kingdom_26"),
+        (troop_set_slot, "trp_kingdom_27_pretender",  slot_troop_original_faction, "fac_kingdom_27"),
+        (troop_set_slot, "trp_kingdom_28_pretender",  slot_troop_original_faction, "fac_kingdom_28"),
         #end added for TGS
 
 #        (troop_set_slot, "trp_kingdom_1_pretender", slot_troop_support_base,     "p_town_4"), #suno
@@ -50717,18 +50973,18 @@ scripts = [
              (else_try),	
 				(eq, ":faction_object", "fac_kingdom_24"),
 				(str_store_string, s39, "str_kingdom_24"),
-#             (else_try),	
-#				(eq, ":faction_object", "fac_kingdom_25"),
-#				(str_store_string, s39, "str_kingdom_25"),
-#             (else_try),	
-#				(eq, ":faction_object", "fac_kingdom_26"),
-#				(str_store_string, s39, "str_kingdom_26"),
-#             (else_try),	
-#				(eq, ":faction_object", "fac_kingdom_27"),
-#				(str_store_string, s39, "str_kingdom_27"),
-#             (else_try),	
-#				(eq, ":faction_object", "fac_kingdom_28"),
-#				(str_store_string, s39, "str_kingdom_28"),
+             (else_try),	
+				(eq, ":faction_object", "fac_kingdom_25"),
+				(str_store_string, s39, "str_kingdom_25"),
+             (else_try),	
+				(eq, ":faction_object", "fac_kingdom_26"),
+				(str_store_string, s39, "str_kingdom_26"),
+             (else_try),	
+				(eq, ":faction_object", "fac_kingdom_27"),
+				(str_store_string, s39, "str_kingdom_27"),
+             (else_try),	
+				(eq, ":faction_object", "fac_kingdom_28"),
+				(str_store_string, s39, "str_kingdom_28"),
         # end added for TGS
 			(else_try),
 				(eq, ":faction_object", "fac_player_supporters_faction"),

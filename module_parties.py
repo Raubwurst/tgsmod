@@ -101,6 +101,31 @@ parties = [
   ("town_20","Shayol Ghul", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(91.34, 160.15),[], 270),#Durquba
   ("town_21","Rhuidean", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(176.05, -2.68),[], 330),#Ahmerrad
   ("town_22","Illian", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(18.85, -156.00),[], 225),#Bariyye
+  
+  ##TGS New Towns
+  ("town_23","Town",  icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(81.23, -6.60),[], 170),#Sargoth
+  
+  ("town_24","Town",     icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-47.91, -48.91),[], 120),#Tihr
+  
+  ("town_25","Town",   icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(31.23, -58.38),[], 80),#Veluca
+  
+  ("town_26","Town",     icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-29.87, -152.01),[], 290),#Suno
+  ("town_27","Town",  icon_town_steppe|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(0.98, -102.90),[], 90),#Jelkala
+  ("town_28","Town",   icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-143.28, 4.79),[], 155),#Praven
+  
+  ("town_29","Town",   icon_town_snow|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-150.20, -38.12),[], 240),#Uxkhal
+
+  ("town_30","Town", icon_town_steppe|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-143.16, -85.25),[], 175),#Reyvadin
+  ("town_31","Town",   icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(55.94, 71.63),[], 90),#Khudan
+  ("town_32","Town",   icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(60.93, -132.61),[], 310),#Tulga
+  
+  ("town_33","Town",   icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(98.18, 86.23),[], 150),#Curaw
+  ("town_34","Town", icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(133.49, -147.96),[], 25),#Wercheg
+  ("town_35","Town", icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-70.85, -125.06),[], 60),#Rivacheg
+  
+  ("town_36","Town",  icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-57.76, -86.65),[], 135),#Halmar
+  ("town_37","Town",  icon_town_steppe|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(26.23, -97.43),[], 45),#Yalen
+  ("town_38","Town",  icon_town_steppe|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-20.74, -115.63),[], 0),#Dhirim
 
 #   Aztaq_Castle       
 #  Malabadi_Castle
@@ -154,6 +179,41 @@ parties = [
   ("castle_46","Hot Springs Hold",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(185.95, 13.71),[],260),#Weyyah
   ("castle_47","Alindaer",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(54.63, 0.98),[],260),#Samarra
   ("castle_48","Spine Ridge Hold",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(175.18, 65.34),[],260),#Bardaq
+
+## TGS New Castles
+  ("castle_49","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(79.79, -127.56),[],50),#Culmarr
+  
+  ("castle_50","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-67.74, -126.03),[],75),#Malayurg
+  
+  ("castle_51","Castle",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-67.75, -130.99),[],100),#Bulugha
+  
+  ("castle_52","Castle",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(60.97, -129.15),[],180),#Radoghir
+  
+  ("castle_53","Castle",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-3.36, -74.72),[],90),#Tehlrog
+  
+  ("castle_54","Castle",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-80.52, -17.90),[],55),#Tilbaut
+  
+  ("castle_55","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-23.52, 47.51),[],45),#Sungetche
+  ("castle_56","Castle",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-40.49, -100.34),[],30),#Jeirbe
+  ("castle_57","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(20.49, -115.41),[],100),#Jamiche
+  
+  ("castle_58","Castle",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-53.96, -57.06),[],110),#Alburq
+  ("castle_59","Castle",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(7.71, -87.09),[],75),#Curin
+  
+  ("castle_60","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-14.41, -130.72),[],95),#Chalbek
+  ("castle_61","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(95.67, -22.26),[],115),#Kelredan
+  ("castle_62","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(50.35, -60.84),[],90),#Maras
+  
+  ("castle_63","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(28.42, -46.13),[],235),#Ergellon
+  ("castle_64","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(33.42, -46.69),[],45),#Almerra
+  ("castle_65","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-50.46, -93.81),[],15),#Distar
+  
+  ("castle_66","Castle",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(82.97, 79.20),[],300),#Ismirala
+  ("castle_67","Castle",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(34.09, 69.01),[],280),#Yruma
+  ("castle_68","Castle",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-103.69, -4.32),[],260),#Derchios
+  
+  ("castle_69","Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-19.25, -62.45),[],260),#Ibdeles
+
  
 
 #     Rinimad      
@@ -280,6 +340,62 @@ parties = [
   ("village_108","Mazen",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-50.38, -116.34),[], 180),#Mit Nun
   ("village_109","Nassad",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-85.63, -115.33),[], 0),#Tilimsal
   ("village_110","Selean",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(119.95, 10.41),[], 40),#Rushdigh
+
+## TGS New Villages
+  ("village_111", "Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(96.78, -124.79),[], 100),#Yaragar
+  ("village_112", "Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-21.24, -124.07),[], 110),#Burglen
+  
+  ("village_113", "Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-119.52, -21.80),[], 120),#Azgad
+  ("village_114", "Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(21.33, -63.55),[], 130),#Nomar
+  
+  ("village_115", "Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-123.28, -9.36),[], 170),#Kulum
+  ("village_116", "Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-14.35, 21.63),[], 100),#Emirin
+  
+  ("village_117", "Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-6.78, 42.54),[], 110),#Amere
+  
+  ("village_118", "Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(26.72, -136.32),[], 120),#Haen
+  
+  ("village_119", "Village",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(8.35, -70.95),[], 130),#Buvran
+  
+  ("village_120", "Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(51.14, -133.86),[], 170),#Mechin
+  
+  ("village_121","Village",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(29.19, 66.93),[], 100),#Dusturil
+  ("village_122","Village",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-13.22, -73.34),[], 110),#Emer
+  
+  ("village_123","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-9.55, -123.90),[], 120),#Nemeja
+  ("village_124","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-40.66, -86.71),[], 130),#Sumbuja
+  ("village_125","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(68.72, -35.95),[], 170),#Ryibelet
+  ("village_126","Village",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-37.21, 54.49),[], 170),#Shapeshte
+  ("village_127","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(49.15, 63.43),[], 35),#Mazen
+  ("village_128","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(37.36, 55.54),[], 170),#Ulburban
+  
+  ("village_129","Village",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(98.82, 74.78),[], 170),#Hanun
+  ("village_130","Village",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-26.61, 60.03),[], 170),#Uslum
+  ("village_131","Village",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(13.57, 64.97),[], 100),#Bazeck
+  ("village_132","Village",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(89.72, 63.08),[], 110),#Shulus
+  
+  ("village_133","Village",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-25.41, -57.99),[], 120),#Ilvia
+  ("village_134","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(20.50, -44.91),[], 130),#Ruldi
+  ("village_135","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(15.43, -117.99),[], 170),#Dashbigha
+  ("village_136","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-28.96, -145.11),[], 170),#Pagundur
+  ("village_137","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(52.51, -124.51),[], 170),#Glunmar
+  ("village_138","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(22.40, -140.85),[], 170),#Tash_Kulun
+  
+  ("village_139","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-5.27, -119.51),[], 170),#Buillin
+  ("village_140","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-14.99, 40.06),[], 170),#Ruvar
+  ("village_141","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(4.07, -132.23),[], 100),#Ambean
+  ("village_142","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-43.82, -90.93),[], 110),#Tosdhar
+  ("village_143","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-23.81, -141.73),[], 120),#Ruluns
+  ("village_144","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(68.09, 24.98),[], 130),#Ehlerdah
+  
+  ("village_145","Village",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-109.80, 8.76),[], 170),#Fearichen
+  ("village_146","Village",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-80.27, -38.25),[], 170),#Jayek
+  ("village_147","Village",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(115.29, -136.64),[], 170),#Ada_Kulun
+  ("village_148","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-6.40, -135.83),[], 170),#Ibiran
+  ("village_149","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(47.55, -64.21),[], 170),#Reveran
+  ("village_150","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(93.44, -92.82),[], 170),#Saren
+  
+  ("village_151","Village",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-101.22, -75.32),[], 100),#Dugan
 
 # end edited for TGS
 

@@ -1013,15 +1013,15 @@ troops = [
    [itm_channeler_dagger, itm_legion_recruit_tunic, itm_wrapping_boots],
    def_attrib_wot_infantry_1 ,wp(60),knows_wot_infantry_1 ,far_madding_man_face_younger, illian_man_face_older],
   
-    ["ashaman_soldier","Ashaman Soldier","Ashaman Soldiers",tf_guarantee_all,0,0,fac_kingdom_1,
+    ["ashaman_soldier","Asha'man Soldier","Asha'man Soldiers",tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_ashaman_soldier_ranged, itm_power_ammo, itm_sword_secondary, itm_ashaman_soldier_coat, itm_black_leather_boots],
    def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2,murandy_man_face_young, altara_man_face_older],
   
-    ["ashaman_dedicated","Ashaman Dedicated","Ashaman Dedicated",tf_guarantee_all,0,0,fac_kingdom_1,
+    ["ashaman_dedicated","Asha'man Dedicated","Asha'man Dedicated",tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_ashaman_dedicated_ranged, itm_power_ammo, itm_sword_secondary, itm_ashaman_dedicated_coat, itm_black_leather_boots],
    def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3,ghealdan_man_face_younger, amadicia_man_face_older],
   
-    ["ashaman","Ashaman","Ashaman",tf_guarantee_all,0,0,fac_kingdom_1,
+    ["ashaman","Asha'man","Asha'man",tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_ashaman_ranged, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
    def_attrib_wot_infantry_2,wp_firearm(165)|wp_one_handed(110)|wp(90),knows_wot_infantry_2|knows_power_draw_4,tarabon_man_face_younger, arad_doman_man_face_older],
   
@@ -1897,14 +1897,156 @@ troops = [
    [itm_sword_viking_3, itm_darkfriend_shield_normal, itm_darkfriend_armor, itm_leather_boots, itm_mail_mittens, itm_guard_helmet, itm_saddle_horse],
    def_attrib_wot_cavalry_2 ,wp_one_handed(105)|wp(75),knows_wot_cavalry_2, man_face_young_1, man_face_old_2],
 
+##################
 ## Shara
+##################
 
-## Sea Folk
+    ["shara_recruit","Shara Recruit","Shara Recruits",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_25,
+   [itm_sword_medieval_a, itm_shara_recruit_scout_armor, itm_sarranid_boots_b],
+   def_attrib_wot_infantry_1 ,wp(65),knows_wot_infantry_1 ,man_face_young_1, man_face_old_2],
 
-## Land of Madmen
+    ["shara_armsman","Shara Armsman","Shara Armsmen",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_25,
+   [itm_red_arm_club, itm_shara_armsman_armor, itm_black_leather_boots, itm_leather_gloves, itm_black_turban],
+   def_attrib_wot_infantry_2 ,wp_one_handed(110)|wp(75),knows_wot_infantry_2 ,man_face_young_1, man_face_old_2],
 
-## Falme  
+    ["shara_town_guard","Shara Town Guard","Shara Town Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_25,
+   [itm_war_spear, itm_sword_medieval_b, itm_shara_town_guard_armor, itm_black_leather_boots, itm_scale_gauntlets, itm_black_turban_helmet2],
+   def_attrib_wot_infantry_3 ,wp_polearm(125)|wp(80),knows_wot_infantry_3 ,man_face_young_1, man_face_old_2],
+
+  ["shara_border_guard","Shara Border Guard","Shara Border Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_25,
+   [itm_halberd, itm_sword_medieval_b, itm_shara_border_guard_armor, itm_splinted_greaves_nospurs_wot, itm_scale_gauntlets, itm_vaegir_spiked_helmet],
+   def_attrib_wot_infantry_4 ,wp_polearm(135)|wp(90),knows_wot_infantry_4, man_face_young_1, man_face_old_2],
+
+  ["shara_swordsman","Shara Swordsman","Shara Swordsmen",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_25,
+   [itm_sword_medieval_c_long, itm_dec_steel_shield, itm_shara_border_guard_armor, itm_splinted_greaves_nospurs_wot, itm_scale_gauntlets, itm_vaegir_spiked_helmet],
+   def_attrib_wot_infantry_3 ,wp_one_handed(120)|wp(80),knows_wot_infantry_3, man_face_young_1, man_face_old_2],
+
+  ["shara_bowman","Shara Bowman","Shara Bowmen",tf_guarantee_all,0,0,fac_kingdom_25,
+   [itm_strong_bow, itm_arrows, itm_sword_secondary, itm_shara_bowman_armor, itm_sarranid_boots_b, itm_leather_gloves, itm_black_turban_helmet],
+   def_attrib_wot_infantry_3 ,wp_archery(100)|wp_one_handed(90)|wp(80),knows_wot_archer_3, man_face_young_1, man_face_old_2],
+
+  ["shara_scout","Shara Scout","Shara Scouts",tf_guarantee_all_cavalry,0,0,fac_kingdom_25,
+   [itm_war_spear, itm_sword_medieval_a, itm_shara_recruit_scout_armor, itm_leather_boots, itm_leather_gloves, itm_black_turban, itm_saddle_horse, itm_courser],
+   def_attrib_wot_cavalry_2 ,wp_polearm(110)|wp_one_handed(100)|wp(75),knows_wot_cavalry_2, man_face_young_1, man_face_old_2],
   
+  ["shara_man_at_arms","Shara Man at Arms","Shara Man at Arms",tf_guarantee_all_cavalry,0,0,fac_kingdom_25,
+   [itm_sword_medieval_c_long, itm_brass_shield, itm_shara_mid_cavalry_armor, itm_brass_boots, itm_scale_gauntlets, itm_helmet5_brass, itm_hunter, itm_warhorse, itm_camel],
+   def_attrib_wot_cavalry_3 ,wp_one_handed(135)|wp(110),knows_wot_cavalry_3 ,man_face_young_1, man_face_old_2],
+
+  ["ayyad_villager","Ayyad Villager","Ayyad Villagers",tf_female|tf_guarantee_all,0,0,fac_kingdom_25,
+   [itm_power_aiel_wise_one_apprentice_ranged, itm_power_ammo, itm_ayyad_villager_tunic, itm_sarranid_boots_b],
+  def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2, woman_face_1, woman_face_2],
+  
+  ["ayyad_village_leader","Ayyad Village Leader","Ayyad Village Leaders",tf_female|tf_guarantee_all,0,0,fac_kingdom_25,
+   [itm_power_aiel_wise_one_ranged, itm_power_ammo, itm_ayyad_village_leader_tunic, itm_sarranid_boots_b],
+   def_attrib|level(16),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3, woman_face_1, woman_face_2],
+  
+
+#############
+## Sea Folk
+#############
+
+    ["sea_folk_recruit","Sea Folk Recruit","Sea Folk Recruits",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_hand_axe],
+   def_attrib_wot_infantry_1 ,wp(65),knows_wot_infantry_1 ,seanchan_2_man_face_younger, seanchan_2_man_face_old],
+
+    ["sea_folk_bilge_hand","Sea Folk Bilge Hand","Sea Folk Bilge Hands",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_one_handed_war_axe_b, itm_sea_folk_tunic],
+   def_attrib_wot_infantry_2 ,wp_one_handed(110)|wp(75),knows_wot_infantry_2 ,seanchan_2_man_face_younger, seanchan_2_man_face_old],
+
+    ["sea_folk_deck_hand","Sea Folk Deck Hand","Sea Folk Deck Hands",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_scimitar, itm_sea_folk_padded_armor, itm_spiked_helmet],
+   def_attrib_wot_infantry_3 ,wp_one_handed(125)|wp(80),knows_wot_infantry_3 ,seanchan_2_man_face_younger, seanchan_2_man_face_old],
+
+  ["sea_folk_boatswain","Sea Folk Boatswain","Sea Folk Boatswains",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_scimitar_b, itm_wooden_round_shield, itm_sea_folk_padded_armor, itm_leather_gloves, itm_vaegir_spiked_helmet],
+   def_attrib_wot_infantry_4 ,wp_one_handed(135)|wp(90),knows_wot_infantry_4, seanchan_2_man_face_younger, seanchan_2_man_face_old],
+
+  ["sea_folk_dogwatcher","Sea Folk Dogwatcher","Sea Folk Dogwatchers",tf_guarantee_all,0,0,fac_kingdom_26,
+   [itm_strong_bow, itm_arrows, itm_sword_secondary, itm_sea_folk_tunic, itm_spiked_helmet],
+   def_attrib_wot_infantry_3 ,wp_archery(100)|wp_one_handed(90)|wp(80),knows_wot_archer_3, seanchan_2_man_face_younger, seanchan_2_man_face_old],
+
+    ["sea_folk_weatherly","Sea Folk Weatherly","Sea Folk Weatherlies",tf_female|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_spear, itm_sea_folk_female_tunic],
+   def_attrib_wot_infantry_2 ,wp_polearm(110)|wp(75),knows_wot_infantry_2 ,seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+
+    ["sea_folk_quarterling","Sea Folk Quarterling","Sea Folk Quarterlings",tf_female|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_war_spear, itm_sea_folk_female_tunic_2 ,itm_wooden_round_shield],
+   def_attrib_wot_infantry_3 ,wp_polearm(125)|wp(80),knows_wot_infantry_3 ,seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+
+  ["sea_folk_sailmistress","Sea Folk Sailmistress","Sea Folk Sailmistresses",tf_female|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_scimitar_b, itm_sea_folk_female_tunic_2, itm_leather_gloves, itm_spiked_helmet],
+   def_attrib_wot_infantry_4 ,wp_one_handed(135)|wp(90),knows_wot_infantry_4, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+
+  ["sea_folk_recruit_channeler","Sea Folk Recruit (Channeler)","Sea Folk Recruits (Channeler)",tf_female|tf_guarantee_all,0,0,fac_kingdom_26,
+   [itm_power_aiel_wise_one_apprentice_ranged, itm_power_ammo, itm_sea_folk_female_tunic],
+  def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  
+  ["sea_folk_pupil","Sea Folk Pupil","Sea Folk Pupils",tf_female|tf_guarantee_all,0,0,fac_kingdom_26,
+   [itm_power_aiel_wise_one_ranged, itm_power_ammo, itm_sea_folk_female_tunic_2],
+   def_attrib|level(16),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],  
+  
+
+#####################
+## Land of Madmen
+#####################
+
+    ["madmen_recruit","Madmen Recruit","Madmen Recruits",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_27,
+   [itm_cudgel, itm_madmen_paint_2, itm_madmen_paint_1],
+   def_attrib_wot_infantry_1 ,wp(65),knows_wot_infantry_1 ,man_face_young_1, man_face_old_2],
+
+    ["madmen_wanderer","Madmen Wanderer","Madmen Wanderers",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_27,
+   [itm_war_spear, itm_madmen_paint_3, itm_madmen_paint_2, itm_hide_boots],
+   def_attrib_wot_infantry_2 ,wp_polearm(110)|wp(75),knows_wot_infantry_2 ,man_face_young_1, man_face_old_2],
+
+    ["madmen_villager","Madmen Villager","Madmen Villagers",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_27,
+   [itm_hammer, itm_nomad_vest, itm_hide_boots, itm_steppe_cap],
+   def_attrib_wot_infantry_3 ,wp_one_handed(125)|wp(80),knows_wot_infantry_3 ,man_face_young_1, man_face_old_2],
+
+  ["madmen_clansman","Madmen Clansman","Madmen Clansmen",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_27,
+   [itm_long_hafted_knobbed_mace, itm_long_hafted_spiked_mace, itm_madmen_rawhide_coat, itm_hide_boots, itm_nomad_cap, itm_leather_gloves],
+   def_attrib_wot_infantry_4 ,wp_polearm(135)|wp(90),knows_wot_infantry_4, man_face_young_1, man_face_old_2],
+
+  ["madmen_looter","Madmen Looter","Madmen Looters",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_27,
+   [itm_one_handed_battle_axe_b, itm_madmen_rawhide_coat, itm_hide_boots, itm_nomad_cap, itm_leather_gloves],
+   def_attrib_wot_infantry_3 ,wp_one_handed(120)|wp(80),knows_wot_infantry_3, man_face_young_1, man_face_old_2],
+
+  ["madmen_hunter","Madmen Hunter","Madmen Hunters",tf_guarantee_all,0,0,fac_kingdom_27,
+   [itm_throwing_spears, itm_throwing_spears, itm_one_handed_battle_axe_a, itm_pelt_coat, itm_hunter_boots, itm_nomad_cap_b],
+   def_attrib_wot_infantry_2 ,wp_throwing(75)|wp_one_handed(70)|wp(60),knows_wot_archer_2, man_face_young_1, man_face_old_2],  
+
+  ["madmen_ambusher","Madmen Ambusher","Madmen Ambushers",tf_guarantee_all,0,0,fac_kingdom_27,
+   [itm_strong_bow, itm_arrows, itm_one_handed_battle_axe_a, itm_ragged_outfit, itm_hunter_boots, itm_leather_steppe_cap_a],
+   def_attrib_wot_infantry_3 ,wp_archery(100)|wp_one_handed(90)|wp(80),knows_wot_archer_3, man_face_young_1, man_face_old_2],
+
+  ["madmen_horse_tamer","Madmen Horse Tamer","Madmen Horse Tamers",tf_guarantee_all_cavalry,0,0,fac_kingdom_27,
+   [itm_war_spear, itm_one_handed_battle_axe_a, itm_pelt_coat, itm_hunter_boots, itm_nomad_cap_b, itm_steppe_horse],
+   def_attrib_wot_cavalry_2 ,wp_polearm(110)|wp_one_handed(100)|wp(75),knows_wot_cavalry_2, man_face_young_1, man_face_old_2],
+  
+  ["madmen_slave_catcher","Madmen Slave Catcher","Madmen Slave Catchers",tf_guarantee_all_cavalry,0,0,fac_kingdom_27,
+   [itm_long_hafted_knobbed_mace, itm_one_handed_battle_axe_a, itm_ragged_outfit, itm_hunter_boots, itm_leather_steppe_cap_a, itm_arabian_horse_a],
+   def_attrib_wot_cavalry_3 ,wp_polearm(135)|wp_one_handed(110)|wp(85),knows_wot_cavalry_3 ,man_face_young_1, man_face_old_2],
+
+    ["madmen_air_shifter","Madman Air Shifter","Madmen Air Shifters",tf_guarantee_all,0,0,fac_kingdom_27,
+   [itm_power_ashaman_dedicated_ranged, itm_power_ammo, itm_one_handed_battle_axe_a, itm_madmen_paint_4, itm_hide_boots],
+   def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2,man_face_young_1, man_face_old_2],
+  
+    ["madmen_fire_tamer","Madmen Fire Tamer","Madmen Fire Tamers",tf_guarantee_all,0,0,fac_kingdom_27,
+   [itm_power_aiel_wise_one_ranged, itm_power_ammo, itm_one_handed_battle_axe_a, itm_ragged_outfit, itm_hide_boots],
+   def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3,man_face_young_1, man_face_old_2],  
+
+  
+##################
+## Toman Head
+##################
+
+    ["toman_head_recruit","Toman Head Recruit","Toman Head Recruits",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_28,
+   [itm_sword_medieval_a, itm_toman_head_recruit_tunic, itm_wrapping_boots],
+   def_attrib_wot_infantry_1 ,wp(65),knows_wot_infantry_1 ,arad_doman_man_face_younger, tarabon_man_face_old],
+
+    ["toman_head_footman","Toman Head Footman","Toman Head Footmen",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_28,
+   [itm_red_arm_club, itm_toman_head_army_armor, itm_toman_head_shield_normal, itm_leather_boots, itm_leather_gloves, itm_nordic_archer_helmet],
+   def_attrib_wot_infantry_2 ,wp_one_handed(110)|wp(75),knows_wot_infantry_2 ,arad_doman_man_face_younger, tarabon_man_face_old],  
 
 
   
@@ -1930,7 +2072,7 @@ troops = [
 ##########################################
 
 # Legion of the Dragon
-    ["ashaman_veteran","Ashaman Veteran","Ashaman Veterans",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_1,
+    ["ashaman_veteran","Asha'man Veteran","Asha'man Veterans",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_ashaman_veteran_ranged, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
    def_attrib_wot_infantry_3,wp_firearm(200)|wp_one_handed(150)|wp(125),knows_wot_infantry_3|knows_power_draw_5,man_face_young_1, man_face_old_2],
   
@@ -2853,7 +2995,172 @@ troops = [
    [itm_great_sword, itm_darkfriend_plate, itm_black_leather_boots, itm_black_mail_gauntlets, itm_bascinet_3],
    def_attrib_wot_infantry_4 ,wp_two_handed(155)|wp(100),knows_wot_infantry_4, man_face_young_1, man_face_old_2],
 
+############
+## Shara
+############
 
+  ["shara_defender","Shara Defender","Shara Defenders",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_25,
+   [itm_awlpike, itm_sword_secondary, itm_shara_elite_armor, itm_black_greaves, itm_wisby_gauntlets_black_wot, itm_noken_helmet],
+   def_attrib_wot_infantry_5 ,wp_polearm(175)|wp(150),knows_wot_infantry_5, man_face_young_1, man_face_old_2],
+
+  ["shara_captain","Shara Captain","Shara Captains",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_25,
+   [itm_khergit_sword_two_handed_b, itm_shara_elite_armor, itm_black_greaves, itm_wisby_gauntlets_black_wot, itm_noken_helmet],
+   def_attrib_wot_infantry_4 ,wp_two_handed(180)|wp(100),knows_wot_infantry_4 ,man_face_young_1, man_face_old_2],
+
+  ["shara_marksman","Shara Marksman","Shara Marksmen",tf_guarantee_all,0,0,fac_kingdom_25,
+   [itm_war_bow, itm_bodkin_arrows, itm_sword_secondary, itm_shara_marksman_armor, itm_leather_boots, itm_helmet2_brass],
+   def_attrib_wot_infantry_4 ,wp_archery(155)|wp_one_handed(125)|wp(105),knows_wot_archer_4, man_face_young_1, man_face_old_2],
+
+  ["shara_crossbowman","Shara Crossbowman","Shara Crossbowmen",tf_guarantee_all,0,0,fac_kingdom_25,
+   [itm_crossbow, itm_bolts, itm_sword_secondary, itm_brass_shield, itm_shara_crossbowman_armor, itm_brass_boots, itm_lamellar_gauntlets, itm_helmet5_brass],
+   def_attrib_wot_infantry_3 ,wp_crossbow(125)|wp_one_handed(110)|wp(85),knows_wot_archer_3 ,man_face_young_1, man_face_old_2],
+
+  ["shara_shbo_guardsman","Shara Sh'bo Guardsman","Shara Sh'bo Guarsman",tf_guarantee_all_cavalry,0,0,fac_kingdom_25,
+   [itm_heavy_lance, itm_brass_shield_elite, itm_sword_khergit_3, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm, itm_lord_warhorse_8],
+   def_attrib_wot_cavalry_4 ,wp_polearm(170)|wp_one_handed(145)|wp(100),knows_wot_cavalry_4 ,man_face_young_1, man_face_old_2],
+
+  ["shara_skirmisher","Shara Skirmisher","Shara Skirmishers",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_25,
+   [itm_khergit_bow, itm_arrows, itm_sword_secondary, itm_shara_mid_cavalry_armor, itm_brass_boots, itm_scale_gauntlets, itm_helmet5_brass, itm_hunter, itm_camel],
+   def_attrib_wot_cavalry_3 ,wp_archery(145)|wp_one_handed(115)|wp(85),knows_wot_horse_archer_3 ,man_face_young_1, man_face_old_2],
+
+  ["ayyad_counsel_member","Ayyad Counsel Member","Ayyad Counsel Members",tf_female|tf_guarantee_all,0,0,fac_kingdom_25,
+   [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b],
+   def_attrib|level(20),wp_firearm(200)|wp_one_handed(125)|wp(90),knows_common|knows_power_draw_3, woman_face_1, woman_face_2],
+  # Other
+  ["shara_messenger","Shara Messenger","Shara Messengers",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_25,
+   [itm_khergit_bow, itm_arrows, itm_sword_secondary, itm_shara_mid_cavalry_armor, itm_brass_boots, itm_scale_gauntlets, itm_helmet5_brass, itm_hunter, itm_camel],
+   def_attrib_wot_cavalry_3 ,wp_archery(145)|wp_one_handed(115)|wp(85),knows_wot_horse_archer_3 ,man_face_young_1, man_face_old_2],
+
+  ["shara_deserter","Shara Deserter","Shara Deserters",tf_guarantee_all,0,0,fac_kingdom_25,
+   [itm_crossbow, itm_bolts, itm_sword_secondary, itm_brass_shield, itm_shara_crossbowman_armor, itm_brass_boots, itm_lamellar_gauntlets, itm_helmet5_brass],
+   def_attrib_wot_infantry_3 ,wp_crossbow(125)|wp_one_handed(110)|wp(85),knows_wot_archer_3 ,man_face_young_1, man_face_old_2],
+
+  ["shara_prison_guard","Prison Guard","Prison Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_25,
+   [itm_heavy_lance, itm_brass_shield_elite, itm_sword_khergit_3, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm, itm_lord_warhorse_8],
+   def_attrib_wot_cavalry_4 ,wp_polearm(170)|wp_one_handed(145)|wp(100),knows_wot_cavalry_4 ,man_face_young_1, man_face_old_2],
+
+  ["shara_castle_guard","Castle Guard","Castle Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_25,
+   [itm_khergit_sword_two_handed_b, itm_shara_elite_armor, itm_black_greaves, itm_wisby_gauntlets_black_wot, itm_noken_helmet],
+   def_attrib_wot_infantry_4 ,wp_two_handed(180)|wp(100),knows_wot_infantry_4 ,man_face_young_1, man_face_old_2],
+
+
+##############
+## Sea Folk
+##############
+
+  ["sea_folk_cargomaster","Sea Folk Cargomaster","Sea Folk Cargomasters",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_khergit_sword_two_handed_b, itm_sea_folk_elite_armor, itm_leather_gloves, itm_sea_folk_elite_helmet],
+   def_attrib_wot_infantry_4 ,wp_two_handed(180)|wp(100),knows_wot_infantry_4 ,seanchan_2_man_face_young, seanchan_2_man_face_old],
+
+  ["sea_folk_deck_defender","Sea Folk Deck Defenders","Sea Folk Deck Defenders",tf_guarantee_all,0,0,fac_kingdom_26,
+   [itm_war_bow, itm_bodkin_arrows, itm_sword_secondary, itm_sea_folk_padded_armor, itm_leather_gloves, itm_vaegir_spiked_helmet],
+   def_attrib_wot_infantry_4 ,wp_archery(155)|wp_one_handed(125)|wp(105),knows_wot_archer_4, seanchan_2_man_face_young, seanchan_2_man_face_old],
+
+  ["sea_folk_wavemistress","Sea Folk Wavemistress","Sea Folk Wavemistresses",tf_female|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves, itm_vaegir_spiked_helmet],
+   def_attrib_wot_infantry_4 ,wp_two_handed(180)|wp(100),knows_wot_infantry_4 ,seanchan_2_woman_face_young, seanchan_2_woman_face_old],  
+  
+  ["sea_folk_windfinder","Sea Folk Windfinder","Sea Folk Windfinders",tf_female|tf_guarantee_all,0,0,fac_kingdom_26,
+   [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_sea_folk_female_armor],
+   def_attrib|level(20),wp_firearm(200)|wp_one_handed(125)|wp(90),knows_common|knows_power_draw_3, seanchan_2_woman_face_young, seanchan_2_woman_face_old],
+  # Other
+    ["sea_folk_messenger","Sea Folk Messenger","Sea Folk Messengers",tf_female|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_spear, itm_sea_folk_female_tunic],
+   def_attrib_wot_infantry_2 ,wp_polearm(110)|wp(75),knows_wot_infantry_2 ,seanchan_2_woman_face_younger, seanchan_2_woman_face_old],  
+
+  ["sea_folk_deserter","Sea Folk Deserter","Sea Folk Deserters",tf_guarantee_all,0,0,fac_kingdom_26,
+   [itm_strong_bow, itm_arrows, itm_sword_secondary, itm_sea_folk_padded_armor, itm_spiked_helmet],
+   def_attrib_wot_infantry_3 ,wp_archery(100)|wp_one_handed(90)|wp(80),knows_wot_archer_3, seanchan_2_man_face_younger, seanchan_2_man_face_old],
+
+  ["sea_folk_prison_guard","Prison Guard","Prison Guards",tf_female|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves, itm_vaegir_spiked_helmet],
+   def_attrib_wot_infantry_4 ,wp_two_handed(180)|wp(100),knows_wot_infantry_4 ,seanchan_2_woman_face_young, seanchan_2_woman_face_old],  
+
+  ["sea_folk_castle_guard","Castle Guard","Castle Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
+   [itm_khergit_sword_two_handed_b, itm_sea_folk_elite_armor, itm_leather_gloves, itm_sea_folk_elite_helmet],
+   def_attrib_wot_infantry_4 ,wp_two_handed(180)|wp(100),knows_wot_infantry_4 ,seanchan_2_man_face_young, seanchan_2_man_face_old],
+
+
+####################
+## Land of Madmen
+####################
+
+  ["madmen_chieftan","Madmen Chieftan","Madman Chieftans",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_27,
+   [itm_great_long_bardiche, itm_hammer, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet],
+   def_attrib_wot_infantry_5 ,wp_polearm(185)|wp(150),knows_wot_infantry_5, man_face_young_1, man_face_old_2],
+
+  ["madmen_pillager","Madmen Pillager","Madmen Pillagers",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_27,
+   [itm_one_handed_battle_axe_b, itm_leather_covered_round_shield, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet],
+   def_attrib_wot_infantry_4 ,wp_one_handed(180)|wp(100),knows_wot_infantry_4 ,man_face_young_1, man_face_old_2],
+
+  ["madmen_assassin","Madmen Assassin","Madmen Assassins",tf_guarantee_all,0,0,fac_kingdom_27,
+   [itm_war_bow, itm_bodkin_arrows, itm_one_handed_war_axe_b, itm_tribal_warrior_outfit, itm_hide_boots, itm_leather_gloves, itm_leather_steppe_cap_b],
+   def_attrib_wot_infantry_4 ,wp_archery(155)|wp_one_handed(125)|wp(105),knows_wot_archer_4, man_face_young_1, man_face_old_2],
+
+  ["madmen_thunderhoof","Madmen Thunderhoof","Madmen Thunderhooves",tf_guarantee_all_cavalry,0,0,fac_kingdom_27,
+   [itm_lance, itm_one_handed_war_axe_b, itm_leather_covered_round_shield, itm_tribal_warrior_outfit, itm_hide_boots, itm_leather_gloves, itm_leather_steppe_cap_b, itm_hunter],
+   def_attrib_wot_cavalry_4 ,wp_polearm(155)|wp_one_handed(120)|wp(100),knows_wot_cavalry_4 ,man_face_young_1, man_face_old_2],
+
+  ["madmen_plains_rider","Madmen Plains Rider","Madmen Plains Riders",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_27,
+   [itm_khergit_bow, itm_arrows, itm_one_handed_war_axe_b, itm_ragged_outfit, itm_hide_boots, itm_leather_gloves, itm_steppe_horse],
+   def_attrib_wot_cavalry_3 ,wp_archery(145)|wp_one_handed(115)|wp(85),knows_wot_horse_archer_3 ,man_face_young_1, man_face_old_2],
+
+    ["madmen_storm_caller","Madmen Storm Caller","Madmen Storm Callers",tf_guarantee_all,0,0,fac_kingdom_27,
+   [itm_power_dreadlord_ranged, itm_power_ammo, itm_one_handed_war_axe_b, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet],
+   def_attrib_wot_infantry_2,wp_firearm(180)|wp_one_handed(110)|wp(90),knows_wot_infantry_2|knows_power_draw_4,man_face_young_1, man_face_old_2],
+  # Other
+  ["madmen_messenger","Madmen Messenger","Madmen Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_27,
+   [itm_lance, itm_one_handed_war_axe_b, itm_leather_covered_round_shield, itm_tribal_warrior_outfit, itm_hide_boots, itm_leather_gloves, itm_leather_steppe_cap_b, itm_hunter],
+   def_attrib_wot_cavalry_4 ,wp_polearm(155)|wp_one_handed(120)|wp(100),knows_wot_cavalry_4 ,man_face_young_1, man_face_old_2],
+
+  ["madmen_deserter","Madmen Deserter","Madmen Deserters",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_27,
+   [itm_war_spear, itm_madmen_paint_3, itm_madmen_paint_2, itm_hide_boots],
+   def_attrib_wot_infantry_2 ,wp_polearm(110)|wp(75),knows_wot_infantry_2 ,man_face_young_1, man_face_old_2],
+
+  ["madmen_prison_guard","Prison Guard","Prison Guards",tf_guarantee_all,0,0,fac_kingdom_27,
+   [itm_war_bow, itm_bodkin_arrows, itm_one_handed_war_axe_b, itm_tribal_warrior_outfit, itm_hide_boots, itm_leather_gloves, itm_leather_steppe_cap_b],
+   def_attrib_wot_infantry_4 ,wp_archery(155)|wp_one_handed(125)|wp(105),knows_wot_archer_4, man_face_young_1, man_face_old_2],
+
+  ["madmen_castle_guard","Castle Guard","Castle Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_27,
+   [itm_great_long_bardiche, itm_hammer, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet],
+   def_attrib_wot_infantry_5 ,wp_polearm(185)|wp(150),knows_wot_infantry_5, man_face_young_1, man_face_old_2],
+
+  
+##################
+## Toman Head
+##################
+
+  ["toman_head_city_guard","Toman Head City Guard","Toman Head City Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_28,
+   [itm_halberd, itm_sword_medieval_a, itm_toman_head_mail_and_plate, itm_mail_chausses, itm_leather_gloves, itm_nasal_helmet],
+   def_attrib_wot_infantry_3 ,wp_polearm(150)|wp(100),knows_wot_infantry_3 ,arad_doman_man_face_younger, tarabon_man_face_old],
+  
+  ["toman_head_bowman","Toman Head Bowman","Toman Head Bowmen",tf_guarantee_all,0,0,fac_kingdom_28,
+   [itm_strong_bow, itm_arrows, itm_sword_secondary, itm_toman_head_shield_weak, itm_toman_head_army_armor, itm_leather_boots, itm_leather_gloves, itm_nordic_archer_helmet],
+   def_attrib_wot_infantry_3 ,wp_archery(125)|wp_one_handed(110)|wp(85),knows_wot_archer_3 ,arad_doman_man_face_younger, tarabon_man_face_old],
+
+    ["toman_head_scout","Toman Head Scout","Toman Head Scouts",tf_guarantee_all_cavalry,0,0,fac_kingdom_28,
+   [itm_war_spear, itm_sword_medieval_c, itm_toman_head_shield_weak, itm_toman_head_recruit_tunic, itm_leather_boots, itm_leather_gloves, itm_leather_cap, itm_saddle_horse, itm_courser],
+   def_attrib_wot_cavalry_2 ,wp_polearm(125)|wp(80),knows_wot_cavalry_2, arad_doman_man_face_younger, tarabon_man_face_old],
+  # Other
+    ["toman_head_messenger","Toman Head Messenger","Toman Head Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_28,
+   [itm_war_spear, itm_sword_medieval_c, itm_toman_head_shield_weak, itm_toman_head_recruit_tunic, itm_leather_boots, itm_leather_gloves, itm_leather_cap, itm_saddle_horse, itm_courser],
+   def_attrib_wot_cavalry_2 ,wp_polearm(125)|wp(80),knows_wot_cavalry_2, arad_doman_man_face_younger, tarabon_man_face_old],
+
+    ["toman_head_deserter","Toman Head Deserter","Toman Head Deserters",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_28,
+   [itm_sword_medieval_a, itm_toman_head_recruit_tunic, itm_wrapping_boots],
+   def_attrib_wot_infantry_1 ,wp(65),knows_wot_infantry_1 ,arad_doman_man_face_younger, tarabon_man_face_old],
+
+  ["toman_head_prison_guard","Prison Guard","Prison Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_28,
+   [itm_red_arm_club, itm_toman_head_army_armor, itm_toman_head_shield_normal, itm_leather_boots, itm_leather_gloves, itm_nordic_archer_helmet],
+   def_attrib_wot_infantry_2 ,wp_one_handed(110)|wp(75),knows_wot_infantry_2 ,arad_doman_man_face_younger, tarabon_man_face_old],  
+  
+  ["toman_head_castle_guard","Castle Guard","Castle Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_28,
+   [itm_halberd, itm_sword_medieval_a, itm_toman_head_mail_and_plate, itm_mail_chausses, itm_leather_gloves, itm_nasal_helmet],
+   def_attrib_wot_infantry_3 ,wp_polearm(150)|wp(100),knows_wot_infantry_3 ,arad_doman_man_face_younger, tarabon_man_face_old],
+
+
+   
+  
   
 
 #  ["draghkar","Draghkar","Draghkar",tf_guarantee_armor,0,0,fac_kingdom_1,
@@ -3212,7 +3519,7 @@ troops = [
    0x0000000af900139338cb5488dc9948de00000000001ed4cd0000000000000000],
 
   # Female Gleeman
-  ["npc12","Lelea","Lelea",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_pilgrim_disguise,itm_nomad_boots, itm_throwing_knives],
+  ["npc12","Lalea","Lalea",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_pilgrim_disguise,itm_nomad_boots, itm_throwing_knives],
    str_8|agi_7|int_13|cha_14|level(4),wp_throwing(65)|wp(45),knows_merchant_npc|
    knows_ironflesh_1|knows_power_throw_3|knows_wound_treatment_1|knows_athletics_1|knows_persuasion_3|knows_leadership_2,
    0x00000001ee0c00064f1d99c95552672b00000000001e47140000000000000000],
@@ -3275,10 +3582,10 @@ troops = [
   ["kingdom_23_lord",  "Empress Fortuona Athaem Devi Paendrig",  "Fortuona",  tf_hero|tf_female, 0,reserved,  fac_kingdom_23,[itm_lord_warhorse_7, itm_sarranid_lady_dress, itm_novice_accepted_damane_shoes, itm_seanchan_sword], knight_attrib_4,wp_two_handed(260)|wp(250),knight_skills_4|knows_trainer_5, 0x00000000050c40003325c5331dc8b5a300000000001e44a40000000000000000],
   ["kingdom_24_lord",  "Shaidar Haran",  "Shaidar Haran",  tf_hero, 0,reserved,  fac_kingdom_24,[itm_myrddraal_horse, itm_myrddraal_armor, itm_black_leather_boots, itm_myrddraal_hood_helmet, itm_black_mail_gauntlets, itm_myrddraal_blade], knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_5, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
 
-#  ["kingdom_25_lord",  "Kingdom_25",  "Kingdom",  tf_hero, 0,reserved,  fac_kingdom_25,[itm_linen_coat, itm_leather_boots], knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_5, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
-#  ["kingdom_25_lord",  "Kingdom_26",  "Kingdom",  tf_hero, 0,reserved,  fac_kingdom_26,[itm_linen_coat, itm_leather_boots], knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_5, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
-#  ["kingdom_25_lord",  "Kingdom_27",  "Kingdom",  tf_hero, 0,reserved,  fac_kingdom_27,[itm_linen_coat, itm_leather_boots], knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_5, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
-#  ["kingdom_25_lord",  "Kingdom_28",  "Kingdom",  tf_hero, 0,reserved,  fac_kingdom_28,[itm_linen_coat, itm_leather_boots], knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_5, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
+  ["kingdom_25_lord",  "Sh'botay Shaofan",  "Shofan",  tf_hero, 0,reserved,  fac_kingdom_25,[itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(300)|wp(300),knight_skills_5|knows_trainer_5, seanchan_2_man_face_middle],
+  ["kingdom_26_lord",  "Mistress of the Ships Zaida din Parede Blackwing",  "Zaida",  tf_hero|tf_female, 0,reserved,  fac_kingdom_26,[itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves], knight_attrib_5,wp_one_handed(275)|wp(300),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_middle],
+  ["kingdom_27_lord",  "High Chief Pergath",  "Pergath",  tf_hero, 0,reserved,  fac_kingdom_27,[itm_hunter, itm_great_long_bardiche, itm_hammer, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(325)|wp(300),knight_skills_5|knows_trainer_5, kandor_man_face_older],
+  ["kingdom_28_lord",  "First Watcher Baladum",  "Baladum",  tf_hero, 0,reserved,  fac_kingdom_28,[itm_charger, itm_great_sword, itm_toman_head_mail_and_plate, itm_mail_chausses, itm_leather_gloves, itm_nasal_helmet], knight_attrib_5,wp_two_handed(310)|wp(300),knight_skills_5|knows_trainer_5, arad_doman_man_face_old],
   
 # V: New faces for Rand, Semaradrid, Lan, Rhuarc
 
@@ -3567,13 +3874,51 @@ troops = [
   ["knight_24_20", "Lady Anaiyella Narencelona", "Anaiyella", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_hunter, itm_sarranid_common_dress, itm_aes_sedai_black_ajah_shoes, itm_illian_seax], knight_attrib_3,wp_one_handed(200)|wp(130),knight_skills_3|knows_trainer_4, saldaea_woman_face_older],
 
 
-# Shara
+# Shara (10)
+  ["knight_25_1", "Sh'boan Chiape", "Chiape", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_sword_khergit_3, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_one_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_young],
+  ["knight_25_2", "Counsellor Sharipe", "Sharipe", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_power_female_good_ranged, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_firearm(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_woman_face_older],
+  ["knight_25_3", "Counsellor Tanule", "Tanule", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_power_female_good_ranged, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_firearm(270)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_woman_face_middle],
+  ["knight_25_4", "Counsellor Bahryma", "Bahryma", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_power_female_good_ranged, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_firearm(265)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_older],
+  ["knight_25_5", "Lord Alamar", "Alamar", tf_hero, 0, reserved,  fac_kingdom_25, [itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_man_face_older],
+  ["knight_25_6", "Lord Dentan", "Dentan", tf_hero, 0, reserved,  fac_kingdom_25, [itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(270)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_man_face_middle],
+  ["knight_25_7", "Lord Rym", "Rym", tf_hero, 0, reserved,  fac_kingdom_25, [itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(265)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_man_face_younger],
+  ["knight_25_8", "Lord Ebal", "Ebal", tf_hero, 0, reserved,  fac_kingdom_25, [itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(260)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_man_face_older],
+  ["knight_25_9", "Lord Seerah", "Seerah", tf_hero, 0, reserved,  fac_kingdom_25, [itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(270)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_man_face_middle],
+  ["knight_25_10", "Lord Muntid", "Muntid", tf_hero, 0, reserved,  fac_kingdom_25, [itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_man_face_younger],
 
-# Sea Folk
 
-# Land of Madmen
+# Sea Folk (10)  itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves
+  ["knight_26_1", "Wavemistress Harine din Togara Two Winds", "Harine", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves], knight_attrib_5,wp_one_handed(250)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_old],
+  ["knight_26_2", "Wavemistress Malin din Toral Breaking Wave", "Malin", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves], knight_attrib_5,wp_one_handed(265)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_older],
+  ["knight_26_3", "Master of the Blades Amel", "Amel", tf_hero, 0, reserved,  fac_kingdom_26, [itm_khergit_sword_two_handed_b, itm_sea_folk_elite_armor, itm_leather_gloves, itm_sea_folk_elite_helmet], knight_attrib_5,wp_two_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_man_face_old],
+  ["knight_26_4", "Sailmistress Cemeille din Selaan Long Eyes", "Cemeille", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves], knight_attrib_5,wp_one_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_young],
+  ["knight_26_5", "Windfinder Shalon din Togara Morning Tide", "Shalon", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_sea_folk_female_armor], knight_attrib_5,wp_firearm(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_middle],
+  ["knight_26_6", "Swordmaster Moad", "Moad", tf_hero, 0, reserved,  fac_kingdom_26, [itm_khergit_sword_two_handed_b, itm_sea_folk_elite_armor, itm_leather_gloves, itm_sea_folk_elite_helmet], knight_attrib_5,wp_two_handed(285)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_man_face_young],
+  ["knight_26_7", "Cargo Master Toram", "Toram", tf_hero, 0, reserved,  fac_kingdom_26, [itm_khergit_sword_two_handed_b, itm_sea_folk_elite_armor, itm_leather_gloves, itm_sea_folk_elite_helmet], knight_attrib_5,wp_two_handed(280)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_man_face_middle],
+  ["knight_26_8", "Sailmistress Milis din Shalada Three Stars", "Milis", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves], knight_attrib_5,wp_one_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_young],
+  ["knight_26_9", "Windfinder Renaile din Calon Blue Star", "Renaile", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_sea_folk_female_armor], knight_attrib_5,wp_firearm(260)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_younger],
+  ["knight_26_10", "Windfinder Caire din Gelyn Running Wave", "Caire", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_sea_folk_female_armor], knight_attrib_5,wp_firearm(255)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_young],
 
-# Toman Head  
+
+# Island of Madmen (10)
+  ["knight_27_1", "Chief Berend", "Berend", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_great_long_bardiche, itm_hammer, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+  ["knight_27_2", "Chief Detlef", "Detlef", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_great_long_bardiche, itm_hammer, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+  ["knight_27_3", "Chief Emeric", "Emeric", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_great_long_bardiche, itm_hammer, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+  ["knight_27_4", "Chief Hraban", "Hraban", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_great_long_bardiche, itm_hammer, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+  ["knight_27_5", "Chief Jakobi", "Jakob", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_great_long_bardiche, itm_hammer, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+  ["knight_27_6", "Chief Kayetan", "Harine", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_one_handed_battle_axe_b, itm_leather_covered_round_shield, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+  ["knight_27_7", "Chief Merten", "Merten", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_one_handed_battle_axe_b, itm_leather_covered_round_shield, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+  ["knight_27_8", "Chief Rikert", "Rikert", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_one_handed_battle_axe_b, itm_leather_covered_round_shield, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+  ["knight_27_9", "Chief Sikke", "Sikke", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_one_handed_battle_axe_b, itm_leather_covered_round_shield, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+  ["knight_27_10", "Chief Wotan", "Wotan", tf_hero, 0, reserved,  fac_kingdom_27, [itm_hunter, itm_one_handed_battle_axe_b, itm_leather_covered_round_shield, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(250)|wp(230),knight_skills_5|knows_trainer_5, shienar_man_face_middle, kandor_man_face_older],
+
+
+# Toman Head (3)  itm_charger, itm_great_sword, itm_toman_head_mail_and_plate, itm_mail_chausses, itm_leather_gloves, itm_nasal_helmet
+  
+  ["knight_28_1", "Second Watcher Shibaul", "Shibaul", tf_hero, 0, reserved,  fac_kingdom_28, [itm_charger, itm_great_sword, itm_toman_head_mail_and_plate, itm_mail_chausses, itm_leather_gloves, itm_nasal_helmet], knight_attrib_5,wp_two_handed(250)|wp(230),knight_skills_5|knows_trainer_5, arad_doman_man_face_young, tarabon_man_face_old],
+  ["knight_28_2", "Governor Terulam", "Terulam", tf_hero, 0, reserved,  fac_kingdom_28, [itm_charger, itm_great_sword, itm_toman_head_mail_and_plate, itm_mail_chausses, itm_leather_gloves, itm_nasal_helmet], knight_attrib_5,wp_two_handed(250)|wp(230),knight_skills_5|knows_trainer_5, arad_doman_man_face_young, tarabon_man_face_old],
+  ["knight_28_3", "Lord Hartzul", "Hartzul", tf_hero, 0, reserved,  fac_kingdom_28, [itm_charger, itm_great_sword, itm_toman_head_mail_and_plate, itm_mail_chausses, itm_leather_gloves, itm_nasal_helmet], knight_attrib_5,wp_two_handed(250)|wp(230),knight_skills_5|knows_trainer_5, arad_doman_man_face_young, tarabon_man_face_old],
+
 
   
 # V: New names for generics and unknowns
@@ -3621,10 +3966,10 @@ troops = [
 #complete
   ["kingdom_24_pretender",  "Padan Fain",       "Padan Fain",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_24,[itm_saddle_horse, itm_nobleman_outfit, itm_leather_boots, itm_leather_gloves, itm_padan_fain_dagger], lord_attrib,wp(220),knows_lord_1, murandy_man_face_middle],
 
-#  ["kingdom_25_pretender",  "Kingdom_25",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_25,[itm_linen_shirt, leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
-#  ["kingdom_26_pretender",  "Kingdom_26",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_26,[itm_linen_shirt, leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
-#  ["kingdom_27_pretender",  "Kingdom_27",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_27,[itm_linen_shirt, leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
-#  ["kingdom_28_pretender",  "Kingdom_28",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_28,[itm_linen_shirt, leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
+  ["kingdom_25_pretender",  "Kingdom_25",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_25,[itm_linen_shirt, itm_leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
+  ["kingdom_26_pretender",  "Kingdom_26",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_26,[itm_linen_shirt, itm_leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
+  ["kingdom_27_pretender",  "Kingdom_27",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_27,[itm_linen_shirt, itm_leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
+  ["kingdom_28_pretender",  "Kingdom_28",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_28,[itm_linen_shirt, itm_leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
 
 ## TGS: mat: Pretenders end
   
@@ -3931,7 +4276,7 @@ troops = [
 
 # Seanchan Empire "Spouses"
   
-  ["kingdom_23_lady_1","Lady Essin Loune","Essin",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_23, [itm_sarranid_lady_dress,  itm_sarranid_head_cloth,        itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000055910200107632d675a92b92d00000000001e45620000000000000000],
+  ["kingdom_23_lady_1","Lady Essin Loune","Essin",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_23, [itm_sarranid_lady_dress,        itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000055910200107632d675a92b92d00000000001e45620000000000000000],
   ["kingdom_23_lady_2","Lady Forsal Najirah","Forsal",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_23, [itm_sarranid_lady_dress_b,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000054f08100232636aa90d6e194b00000000001e43130000000000000000],
   ["kingdom_23_lady_3","Lady Busein Najirah","Busein",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_23,  [itm_sarranid_lady_dress,       itm_leather_boots], def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000018f0410064854c742db74b52200000000001d448b0000000000000000],
   ["kingdom_23_lady_4","Lady Darsaen Faloun","Laer",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_23,  [itm_sarranid_lady_dress,       itm_leather_boots], def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000000204200629b131e90d6a8ae400000000001e28dd0000000000000000],
@@ -3955,7 +4300,7 @@ troops = [
 
 # Shadowspawn "Spouses"
   
-  ["kingdom_24_lady_1","Lady Eldrene","Eldrene",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_24, [itm_sarranid_lady_dress,  itm_sarranid_head_cloth,        itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000055910200107632d675a92b92d00000000001e45620000000000000000],
+  ["kingdom_24_lady_1","Lady Eldrene","Eldrene",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_24, [itm_sarranid_lady_dress,        itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000055910200107632d675a92b92d00000000001e45620000000000000000],
   ["kingdom_24_lady_2","Lady Tianua","Tianua",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_24, [itm_sarranid_lady_dress_b,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000054f08100232636aa90d6e194b00000000001e43130000000000000000],
   ["kingdom_24_lady_3","Lady Bany","Bany",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_24,  [itm_sarranid_lady_dress,       itm_leather_boots], def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000018f0410064854c742db74b52200000000001d448b0000000000000000],
   ["kingdom_24_lady_4","Lady Emruia","Emruia",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_24,  [itm_sarranid_lady_dress,       itm_leather_boots], def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000000204200629b131e90d6a8ae400000000001e28dd0000000000000000],
@@ -3976,13 +4321,55 @@ troops = [
   ["kingdom_24_lady_19","Lady Pusanin","Pusanin",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_24, [itm_sarranid_lady_dress_b,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, swadian_woman_face_1],
   ["kingdom_24_lady_20","Lady Sheriaen","Sheriaen",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_24, [itm_sarranid_lady_dress,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, swadian_woman_face_2],
 
-# Shara (10)
 
-# Sea Folk (10)
+# Shara "Spouses"
+  
+  ["kingdom_25_lady_1","Lady Adibah","Adibah",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25, [itm_sarranid_lady_dress,        itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_25_lady_2","Lady Fareeha","Fareeha",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25, [itm_sarranid_lady_dress_b,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_25_lady_3","Lady Mahasen","Mahasen",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25,  [itm_sarranid_lady_dress,       itm_leather_boots], def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_25_lady_4","Lady Rashidah","Rashidah",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25,  [itm_sarranid_lady_dress,       itm_leather_boots], def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_25_lady_5","Lady Shimah","Shimah",tf_hero|tf_randomize_face|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25, [itm_sarranid_lady_dress,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_25_lady_6","Lady Kamila","Kamila",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25, [itm_sarranid_lady_dress_b,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2,   woman_face_1, woman_face_2],
+  ["kingdom_25_lady_7","Lady Duriyah","Duriyah",tf_hero|tf_randomize_face|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25, [itm_sarranid_lady_dress,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, swadian_woman_face_1, swadian_woman_face_2],
+  ["kingdom_25_lady_8","Lady Zahrah","Zahrah",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25, [itm_sarranid_lady_dress_b,        itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_25_lady_9","Lady Nadia","Nadia",tf_hero|tf_randomize_face|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25, [itm_sarranid_lady_dress_b,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, swadian_woman_face_1, swadian_woman_face_2],
+  ["kingdom_25_lady_10","Lady Thara","Thara",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_25, [itm_sarranid_lady_dress,       itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2,   woman_face_1, woman_face_2],
 
-# Island of Madmen (10)
 
-# Toman Head (2)
+# Sea Folk "Spouses"
+
+  ["kingdom_26_lady_1","Talaan din Gelyn","Talaan",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  ["kingdom_26_lady_2","Ehvon","Ehvon",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  ["kingdom_26_lady_3","Jadein","Jadein",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  ["kingdom_26_lady_4","Coine de Jubai Wild Winds","Coine",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  ["kingdom_26_lady_5","Kurin","Kurin",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  ["kingdom_26_lady_6","Naime","Naime",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic_2],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  ["kingdom_26_lady_7","Rysael","Rysael",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic_2],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  ["kingdom_26_lady_8","Senine","Senine",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic_2],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  ["kingdom_26_lady_9","Serile","Serile",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic_2],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  ["kingdom_26_lady_10","Turane","Turane",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_26, [itm_sea_folk_female_tunic_2],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+  
+
+# Island of Madmen "Spouses"
+
+  ["kingdom_27_lady_1","Amalie","Amalie",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_27_lady_2","Bruna","Bruna",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_27_lady_3","Gerde","Gerde",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_27_lady_4","Hedda","Hedda",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_27_lady_5","Ilse","Ilse",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_27_lady_6","Katrin","Katrin",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_27_lady_7","Madde","Madde",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_27_lady_8","Nadja","Nadja",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_27_lady_9","Senta","Senta",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+  ["kingdom_27_lady_10","Verena","Verena",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_27, [itm_khergit_lady_dress_b],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, woman_face_1, woman_face_2],
+
+
+# Toman Head "Spouses"
+
+  ["kingdom_28_lady_1","Lady Sharine","Sharine",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_28, [      itm_green_dress,       itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, arad_doman_woman_face_middle, tarabon_woman_face_old],
+  ["kingdom_28_lady_2","Lady Jesslyn","Jesslyn",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_28, [      itm_green_dress,       itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, arad_doman_woman_face_young, tarabon_woman_face_middle],
+  ["kingdom_28_lady_3","Lady Karyn","Karyn",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_28, [      itm_green_dress,       itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, arad_doman_woman_face_middle, tarabon_woman_face_old],
+  
 
 
 ################## Ladies End ####################  
@@ -4039,7 +4426,7 @@ troops = [
   ["town_12_seneschal", "{!}Town 12 Seneschal", "{!}Town 12 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000000000c13ce01dc4723ab936c82],
   ["town_13_seneschal", "{!}Town 13 Seneschal", "{!}Town 13 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000008548e01d952a9b25d6d5a],
   ["town_14_seneschal", "{!}Town 14 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
-  ["town_15_seneschal", "{!}Town 15 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
+  ["town_15_seneschal", "{!}Town 15 Seneschal", "{!}Town 1 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
   ["town_16_seneschal", "{!}Town 16 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
   ["town_17_seneschal", "{!}Town17 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
   ["town_18_seneschal", "{!}Town 18 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
@@ -4047,6 +4434,24 @@ troops = [
   ["town_20_seneschal", "{!}Town 20 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
   ["town_21_seneschal", "{!}Town 21 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
   ["town_22_seneschal", "{!}Town 22 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
+## TGS: mat: Added for new Towns
+  ["town_23_seneschal", "{!}Town 23 Seneschal", "{!}Town 23 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000000000c218501ef4f5d2ccb0026],
+  ["town_24_seneschal", "{!}Town 24 Seneschal", "{!}Town 24 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_padded_leather,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000c03cc01cc34a9a467fdfd],
+  ["town_25_seneschal", "{!}Town 25 Seneschal", "{!}Town 25 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000000000c500e01dbb2115a55f3cd],
+  ["town_26_seneschal", "{!}Town 26 Seneschal", "{!}Town 26 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000008035201e6eebaf3f3eb2b],
+  ["town_27_seneschal", "{!}Town 27 Seneschal", "{!}Town 27 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000000249101e7898999ac54c6],
+  ["town_28_seneschal", "{!}Town 28 Seneschal", "{!}Town 28 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_red_gambeson,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x000000000010360b01cef8b57553d34e],
+  ["town_29_seneschal", "{!}Town 29 Seneschal", "{!}Town 29 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000000018101f9487aa831dce4],
+  ["town_30_seneschal", "{!}Town 30 Seneschal", "{!}Town 30 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_red_gambeson,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x000000000004715201ea236c60a2bcae],
+  ["town_31_seneschal", "{!}Town 31 Seneschal", "{!}Town 31 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
+  ["town_32_seneschal", "{!}Town 32 Seneschal", "{!}Town 32 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000010230c01ef41badb50465e],
+  ["town_33_seneschal", "{!}Town 33 Seneschal", "{!}Town 33 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jacket,     itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x000000000008061301fb89acfb95332f],
+  ["town_34_seneschal", "{!}Town 34 Seneschal", "{!}Town 34 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000000000c13ce01dc4723ab936c82],
+  ["town_35_seneschal", "{!}Town 35 Seneschal", "{!}Town 35 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000008548e01d952a9b25d6d5a],
+  ["town_36_seneschal", "{!}Town 36 Seneschal", "{!}Town 36 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
+  ["town_37_seneschal", "{!}Town 37 Seneschal", "{!}Town 37 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
+  ["town_38_seneschal", "{!}Town 38 Seneschal", "{!}Town 38 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
+## TGS: mat: End
 
   ["castle_1_seneschal", "{!}Castle 1 Seneschal", "{!}Castle 1 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_coarse_tunic,          itm_hide_boots],    def_attrib|level(2),wp(20),knows_common, 0x000000000010360b01cef8b57553d34e],
   ["castle_2_seneschal", "{!}Castle 2 Seneschal", "{!}Castle 2 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_nomad_armor,           itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000008061301fb89acfb95332f],
@@ -4096,6 +4501,30 @@ troops = [
   ["castle_46_seneschal", "{!}Castle 20 Seneschal", "{!}Castle 20 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
   ["castle_47_seneschal", "{!}Castle 20 Seneschal", "{!}Castle 20 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
   ["castle_48_seneschal", "{!}Castle 20 Seneschal", "{!}Castle 20 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
+## TGS: mat: Added for new Castles
+  ["castle_49_seneschal", "{!}Castle 49 Seneschal", "{!}Castle 49 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_coarse_tunic,          itm_hide_boots],    def_attrib|level(2),wp(20),knows_common, 0x000000000010360b01cef8b57553d34e],
+  ["castle_50_seneschal", "{!}Castle 50 Seneschal", "{!}Castle 50 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_nomad_armor,           itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000008061301fb89acfb95332f],
+  ["castle_51_seneschal", "{!}Castle 51 Seneschal", "{!}Castle 51 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,        itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000000008548e01d952a9b25d6d5a],
+  ["castle_52_seneschal", "{!}Castle 52 Seneschal", "{!}Castle 52 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_linen_tunic,           itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000004715201ea236c60a2bcae],
+  ["castle_53_seneschal", "{!}Castle 53 Seneschal", "{!}Castle 53 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_leather_jerkin,        itm_hide_boots],    def_attrib|level(2),wp(20),knows_common, 0x00000000000c500e01dbb2115a55f3cd],
+  ["castle_54_seneschal", "{!}Castle 54 Seneschal", "{!}Castle 54 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_coarse_tunic,          itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000000000c03cc01cc34a9a467fdfd],
+  ["castle_55_seneschal", "{!}Castle 55 Seneschal", "{!}Castle 55 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_blue_gambeson,         itm_blue_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000c13ce01dc4723ab936c82],
+  ["castle_56_seneschal", "{!}Castle 56 Seneschal", "{!}Castle 56 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,        itm_hide_boots],    def_attrib|level(2),wp(20),knows_common, 0x00000000000c218501ef4f5d2ccb0026],
+  ["castle_57_seneschal", "{!}Castle 57 Seneschal", "{!}Castle 57 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_leather_jacket,        itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000000008035201e6eebaf3f3eb2b],
+  ["castle_58_seneschal", "{!}Castle 58 Seneschal", "{!}Castle 58 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
+  ["castle_59_seneschal", "{!}Castle 59 Seneschal", "{!}Castle 59 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
+  ["castle_60_seneschal", "{!}Castle 60 Seneschal", "{!}Castle 60 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_nomad_armor,           itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000008061301fb89acfb95332f],
+  ["castle_61_seneschal", "{!}Castle 61 Seneschal", "{!}Castle 61 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,        itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000000008548e01d952a9b25d6d5a],
+  ["castle_62_seneschal", "{!}Castle 62 Seneschal", "{!}Castle 62 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_linen_tunic,           itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000004715201ea236c60a2bcae],
+  ["castle_63_seneschal", "{!}Castle 63 Seneschal", "{!}Castle 63 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_leather_jerkin,        itm_hide_boots],    def_attrib|level(2),wp(20),knows_common, 0x00000000000c500e01dbb2115a55f3cd],
+  ["castle_64_seneschal", "{!}Castle 64 Seneschal", "{!}Castle 64 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_coarse_tunic,          itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000000000c03cc01cc34a9a467fdfd],
+  ["castle_65_seneschal", "{!}Castle 65 Seneschal", "{!}Castle 65 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_blue_gambeson,         itm_blue_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000c13ce01dc4723ab936c82],
+  ["castle_66_seneschal", "{!}Castle 66 Seneschal", "{!}Castle 66 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,        itm_hide_boots],    def_attrib|level(2),wp(20),knows_common, 0x00000000000c218501ef4f5d2ccb0026],
+  ["castle_67_seneschal", "{!}Castle 67 Seneschal", "{!}Castle 67 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_leather_jacket,        itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000000008035201e6eebaf3f3eb2b],
+  ["castle_68_seneschal", "{!}Castle 68 Seneschal", "{!}Castle 68 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
+  ["castle_69_seneschal", "{!}Castle 69 Seneschal", "{!}Castle 69 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
+## TGS: mat: End
+
 
 #Arena Masters
   ["town_1_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_1_arena|entry(52),reserved,   fac_commoners,[itm_coarse_tunic,      itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
@@ -4120,7 +4549,24 @@ troops = [
   ["town_20_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_20_arena|entry(52),reserved,  fac_commoners,[itm_fur_coat,    itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
   ["town_21_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_21_arena|entry(52),reserved,  fac_commoners,[itm_padded_leather,    itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
   ["town_22_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_22_arena|entry(52),reserved,  fac_commoners,[itm_padded_leather,    itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
-
+## TGS: mat: Added for new Towns
+  ["town_23_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_23_arena|entry(52),reserved,   fac_commoners,[itm_coarse_tunic,      itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_24_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_24_arena|entry(52),reserved,   fac_commoners,[itm_linen_tunic,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_25_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_25_arena|entry(52),reserved,   fac_commoners,[itm_nomad_armor,       itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_26_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_26_arena|entry(52),reserved,   fac_commoners,[itm_coarse_tunic,      itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_27_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_27_arena|entry(52),reserved,   fac_commoners,[itm_linen_tunic,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_28_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_28_arena|entry(52),reserved,   fac_commoners,[itm_leather_jerkin,    itm_leather_boots], def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_29_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_29_arena|entry(52),reserved,   fac_commoners,[itm_padded_leather,    itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_30_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_30_arena|entry(52),reserved,   fac_commoners,[itm_linen_tunic,       itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_31_arena_master", "Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_31_arena|entry(52),reserved,   fac_commoners,[itm_padded_leather,    itm_leather_boots], def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_32_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_32_arena|entry(52),reserved,  fac_commoners,[itm_nomad_armor,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_33_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_33_arena|entry(52),reserved,  fac_commoners,[itm_coarse_tunic,      itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_34_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_34_arena|entry(52),reserved,  fac_commoners,[itm_leather_jerkin,    itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_35_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_35_arena|entry(52),reserved,  fac_commoners,[itm_coarse_tunic,      itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_36_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_36_arena|entry(52),reserved,  fac_commoners,[itm_padded_leather,    itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_37_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_37_arena|entry(52),reserved,  fac_commoners,[itm_padded_leather,    itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+  ["town_38_arena_master","Tournament Master","{!}Tournament Master",tf_hero|tf_randomize_face, scn_town_38_arena|entry(52),reserved,  fac_commoners,[itm_fur_coat,    itm_hide_boots],    def_attrib|level(2),wp(20),knows_common,man_face_middle_1, man_face_older_2],
+## TGS: mat: End
 
 
 # Underground 
@@ -4166,7 +4612,25 @@ troops = [
   ["town_20_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_fur_coat,         itm_nomad_boots     ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
   ["town_21_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_fur_coat,       itm_hide_boots      ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
   ["town_22_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|tf_female|tf_is_merchant, 0, 0, fac_commoners,[itm_sarranid_common_dress,         itm_sarranid_head_cloth       ],def_attrib|level(5),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
-
+## TGS: mat: Added for new Towns
+  ["town_23_armorer","Armorer",  "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_linen_tunic,           itm_leather_boots   ],def_attrib|level(2),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_24_armorer","Armorer",  "{!}Armorer",  tf_hero|tf_randomize_face|tf_female|tf_is_merchant, 0, 0, fac_commoners,[itm_woolen_dress,          itm_straw_hat       ],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_25_armorer","Armorer",  "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_arena_tunic_red,        itm_hide_boots      ],def_attrib|level(2),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_26_armorer","Armorer",  "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_red_gambeson,         itm_leather_boots   ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_27_armorer","Armorer",  "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_linen_tunic,          itm_nomad_boots     ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_28_armorer","Armorer",  "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_fur_coat,       itm_nomad_boots     ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_29_armorer","Armorer",  "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_leather_jerkin,       itm_blue_hose       ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_30_armorer","Armorer",  "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_padded_leather,       itm_leather_boots   ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_31_armorer","Armorer",  "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_blue_gambeson,        itm_nomad_boots     ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_32_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_leather_jerkin,       itm_hide_boots      ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_33_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_fur_coat,        itm_leather_boots   ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_34_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_red_gambeson,         itm_nomad_boots     ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_35_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_leather_jacket,       itm_hide_boots      ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_36_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|tf_female|tf_is_merchant, 0, 0, fac_commoners,[itm_woolen_dress,         itm_headcloth       ],def_attrib|level(5),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_37_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_blue_gambeson,        itm_leather_boots   ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_38_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_fur_coat,         itm_nomad_boots     ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+## TGS: mat: End
+  
 # Weapon merchants
 
   ["town_1_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|tf_female|tf_is_merchant, 0, 0, fac_commoners,[itm_linen_tunic,      itm_hide_boots,itm_straw_hat],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
@@ -4191,7 +4655,25 @@ troops = [
   ["town_20_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_shirt,           itm_sarranid_boots_a],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
   ["town_21_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_arena_tunic_green,     itm_sarranid_boots_a],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
   ["town_22_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_linen_tunic,     itm_sarranid_boots_a],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
-
+## TGS: mat: Added for new Towns
+  ["town_23_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|tf_female|tf_is_merchant, 0, 0, fac_commoners,[itm_linen_tunic,      itm_hide_boots,itm_straw_hat],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_24_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_shirt,     itm_nomad_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_25_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_fur_coat,   itm_hide_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_26_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_shirt,            itm_hide_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_27_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_leather_jerkin,   itm_wrapping_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_28_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_linen_tunic,      itm_hide_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_29_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_shirt,            itm_hide_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_30_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|tf_female|tf_is_merchant, 0, 0, fac_commoners,[itm_woolen_dress,     itm_wrapping_boots,itm_straw_hat],def_attrib|level(5),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_31_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_leather_jerkin,   itm_leather_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_32_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_linen_tunic,     itm_hide_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_33_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_leather_jacket,  itm_woolen_hose],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_34_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_shirt,           itm_hide_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_35_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_arena_tunic_red,     itm_wrapping_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_36_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_arena_tunic_blue,     itm_wrapping_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_37_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_leather_jacket,  itm_woolen_hose],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+  ["town_38_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_shirt,           itm_hide_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
+## TGS: mat: End
+  
 #Tavern keepers
 
   ["town_1_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_1_tavern|entry(9),0,   fac_commoners,[itm_leather_apron,       itm_wrapping_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
@@ -4216,7 +4698,25 @@ troops = [
   ["town_20_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_20_tavern|entry(9),0,  fac_commoners,[itm_sarranid_cloth_robe,       itm_sarranid_boots_a],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
   ["town_21_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_21_tavern|entry(9),0,  fac_commoners,[itm_sarranid_common_dress,        itm_sarranid_boots_a,     itm_headcloth],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
   ["town_22_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_22_tavern|entry(9),0,  fac_commoners,[itm_sarranid_cloth_robe_b,               itm_sarranid_boots_a],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
-
+## TGS: mat: Added for new Towns
+  ["town_23_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_1_tavern|entry(9),0,   fac_commoners,[itm_leather_apron,       itm_wrapping_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
+  ["town_24_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_2_tavern|entry(9),0,   fac_commoners,[itm_leather_apron,       itm_leather_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
+  ["town_25_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_3_tavern|entry(9),0,   fac_commoners,[itm_woolen_dress,        itm_hide_boots],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
+  ["town_26_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_4_tavern|entry(9),0,   fac_commoners,[itm_leather_apron,       itm_leather_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
+  ["town_27_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_5_tavern|entry(9),0,   fac_commoners,[itm_leather_apron,       itm_hide_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
+  ["town_28_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_6_tavern|entry(9),0,   fac_commoners,[itm_woolen_dress,        itm_hide_boots],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
+  ["town_29_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_7_tavern|entry(9),0,   fac_commoners,[itm_woolen_dress,        itm_leather_boots,      itm_headcloth],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
+  ["town_30_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_8_tavern|entry(9),0,   fac_commoners,[itm_leather_apron,      itm_leather_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
+  ["town_31_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_9_tavern|entry(9),0,   fac_commoners,[itm_woolen_dress,        itm_nomad_boots],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
+  ["town_32_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_10_tavern|entry(9),0,  fac_commoners,[itm_woolen_dress,        itm_hide_boots],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
+  ["town_33_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_11_tavern|entry(9),0,  fac_commoners,[itm_woolen_dress,        itm_nomad_boots],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
+  ["town_34_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_12_tavern|entry(9),0,  fac_commoners,[itm_leather_apron,       itm_hide_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
+  ["town_35_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_13_tavern|entry(9),0,  fac_commoners,[itm_woolen_dress,        itm_hide_boots,     itm_headcloth],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
+  ["town_36_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_14_tavern|entry(9),0,  fac_commoners,[itm_shirt,               itm_leather_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
+  ["town_37_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_15_tavern|entry(9),0,  fac_commoners,[itm_woolen_dress,        itm_nomad_boots],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
+  ["town_38_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_16_tavern|entry(9),0,  fac_commoners,[itm_leather_apron,       itm_hide_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
+## TGS: mat: End
+  
 #Goods Merchants
 
   ["town_1_merchant", "Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_1_store|entry(9),0, fac_commoners,     [itm_coarse_tunic,  itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
@@ -4241,6 +4741,24 @@ troops = [
   ["town_20_merchant","Merchant","{!}Merchant",tf_female|tf_hero|tf_randomize_face|tf_is_merchant, scn_town_20_store|entry(9),0, fac_commoners,    [itm_sarranid_common_dress_b,  itm_sarranid_boots_a, itm_sarranid_felt_head_cloth_b  ],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
   ["town_21_merchant","Merchant","{!}Merchant",tf_female|tf_hero|tf_randomize_face|tf_is_merchant, scn_town_21_store|entry(9),0, fac_commoners,    [itm_sarranid_dress_a,         itm_sarranid_boots_a,  itm_sarranid_felt_head_cloth  ],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
   ["town_22_merchant","Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_22_store|entry(9),0, fac_commoners,    [itm_leather_apron, itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+## TGS: mat: Added for new Towns
+  ["town_23_merchant", "Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_1_store|entry(9),0, fac_commoners,     [itm_coarse_tunic,  itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_24_merchant", "Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_2_store|entry(9),0, fac_commoners,     [itm_leather_apron, itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_25_merchant", "Merchant","{!}Merchant",tf_female|tf_hero|tf_randomize_face|tf_is_merchant, scn_town_3_store|entry(9),0, fac_commoners,     [itm_dress,         itm_leather_boots,  itm_straw_hat   ],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_26_merchant", "Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_4_store|entry(9),0, fac_commoners,     [itm_leather_apron, itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_27_merchant", "Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_5_store|entry(9),0, fac_commoners,     [itm_nomad_armor,   itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_28_merchant", "Merchant","{!}Merchant",tf_female|tf_hero|tf_randomize_face|tf_is_merchant, scn_town_6_store|entry(9),0, fac_commoners,     [itm_woolen_dress,  itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_29_merchant", "Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_7_store|entry(9),0, fac_commoners,     [itm_leather_jerkin,itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_30_merchant", "Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_8_store|entry(9),0, fac_commoners,     [itm_leather_apron, itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_31_merchant", "Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_9_store|entry(9),0, fac_commoners,     [itm_leather_apron, itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_32_merchant","Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_10_store|entry(9),0, fac_commoners,    [itm_leather_jerkin,itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_33_merchant","Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_11_store|entry(9),0, fac_commoners,    [itm_leather_apron, itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_34_merchant","Merchant","{!}Merchant",tf_female|tf_hero|tf_randomize_face|tf_is_merchant, scn_town_12_store|entry(9),0, fac_commoners,    [itm_woolen_dress,  itm_leather_boots,  itm_female_hood ],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_35_merchant","Merchant","{!}Merchant",tf_female|tf_hero|tf_randomize_face|tf_is_merchant, scn_town_13_store|entry(9),0, fac_commoners,    [itm_dress,         itm_leather_boots,  itm_straw_hat   ],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_36_merchant","Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_14_store|entry(9),0, fac_commoners,    [itm_leather_apron, itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_37_merchant","Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_15_store|entry(9),0, fac_commoners,    [itm_leather_apron, itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_38_merchant","Merchant","{!}Merchant",tf_female|tf_hero|tf_randomize_face|tf_is_merchant, scn_town_16_store|entry(9),0, fac_commoners,    [itm_woolen_dress,  itm_leather_boots,  itm_female_hood ],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+## TGS: mat: End
 
   ["salt_mine_merchant","Barezan","Barezan",                tf_hero|tf_is_merchant, scn_salt_mine|entry(1),0, fac_commoners,        [itm_leather_apron, itm_leather_boots],def_attrib|level(2),wp(20),knows_inventory_management_10, 0x00000000000c528601ea69b6e46dbdb6],
 
@@ -4268,7 +4786,24 @@ troops = [
   ["town_20_horse_merchant","Horse Merchant","{!}Town 16 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,            0, 0, fac_commoners,[itm_sarranid_cloth_robe,      itm_sarranid_boots_a],                        def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
   ["town_21_horse_merchant","Horse Merchant","{!}Town 17 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,            0, 0, fac_commoners,[itm_sarranid_cloth_robe_b,        itm_sarranid_boots_a],                       def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
   ["town_22_horse_merchant","Horse Merchant","{!}Town 18 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant|tf_female,  0, 0, fac_commoners,[itm_sarranid_common_dress_b,       itm_blue_hose,      itm_sarranid_felt_head_cloth_b],     def_attrib|level(5),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
-
+## TGS: mat: Added for new Towns
+  ["town_23_horse_merchant","Horse Merchant","{!}Town 1 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant|tf_female,    0, 0, fac_commoners,[itm_blue_dress,           itm_blue_hose,      itm_female_hood],   def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_24_horse_merchant","Horse Merchant","{!}Town 2 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,              0, 0, fac_commoners,[itm_linen_tunic,          itm_nomad_boots,],                      def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_25_horse_merchant","Horse Merchant","{!}Town 3 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,              0, 0, fac_commoners,[itm_nomad_armor,          itm_hide_boots],                        def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_26_horse_merchant","Horse Merchant","{!}Town 4 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,              0, 0, fac_commoners,[itm_leather_jerkin,       itm_nomad_boots],                       def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_27_horse_merchant","Horse Merchant","{!}Town 5 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant|tf_female,    0, 0, fac_commoners,[itm_dress,                itm_woolen_hose,    itm_woolen_hood],   def_attrib|level(5),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_28_horse_merchant","Horse Merchant","{!}Town 6 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,              0, 0, fac_commoners,[itm_coarse_tunic,         itm_hide_boots],                        def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_29_horse_merchant","Horse Merchant","{!}Town 7 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,              0, 0, fac_commoners,[itm_coarse_tunic,         itm_leather_boots],                     def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_30_horse_merchant","Horse Merchant","{!}Town 8 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,              0, 0, fac_commoners,[itm_coarse_tunic,         itm_hide_boots],                        def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_31_horse_merchant","Horse Merchant","{!}Town 9 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,              0, 0, fac_commoners,[itm_leather_jerkin,       itm_woolen_hose],                       def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_32_horse_merchant","Horse Merchant","{!}Town 10 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant|tf_female,  0, 0, fac_commoners,[itm_blue_dress,          itm_blue_hose,      itm_straw_hat],     def_attrib|level(5),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_33_horse_merchant","Horse Merchant","{!}Town 11 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,            0, 0, fac_commoners,[itm_nomad_armor,         itm_leather_boots],                     def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_34_horse_merchant","Horse Merchant","{!}Town 12 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,            0, 0, fac_commoners,[itm_leather_jacket,      itm_hide_boots],                        def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_35_horse_merchant","Horse Merchant","{!}Town 13 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,            0, 0, fac_commoners,[itm_coarse_tunic,        itm_nomad_boots],                       def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_36_horse_merchant","Horse Merchant","{!}Town 14 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant|tf_female,  0, 0, fac_commoners,[itm_peasant_dress,       itm_blue_hose,      itm_headcloth],     def_attrib|level(5),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
+  ["town_37_horse_merchant","Horse Merchant","{!}Town 15 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,            0, 0, fac_commoners,[itm_nomad_armor,         itm_leather_boots],                     def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+  ["town_38_horse_merchant","Horse Merchant","{!}Town 16 Horse Merchant",tf_hero|tf_randomize_face|tf_is_merchant,            0, 0, fac_commoners,[itm_leather_jacket,      itm_hide_boots],                        def_attrib|level(5),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
+## TGS: mat: End
 
 #Town Mayors    #itm_courtly_outfit itm_gambeson itm_blue_gambeson itm_red_gambeson itm_nobleman_outfit itm_rich_outfit
   ["town_1_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_courtly_outfit, itm_leather_boots], def_attrib|level(2),wp(20),knows_common, man_face_middle_1, mercenary_face_2],
@@ -4293,7 +4828,24 @@ troops = [
   ["town_20_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe,       itm_sarranid_boots_a], def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
   ["town_21_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe,    itm_sarranid_boots_a],   def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
   ["town_22_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe,      itm_sarranid_boots_a],     def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
-
+## TGS: mat: Added for new Towns
+  ["town_23_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_courtly_outfit, itm_leather_boots], def_attrib|level(2),wp(20),knows_common, man_face_middle_1, mercenary_face_2],
+  ["town_24_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_gambeson,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_25_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_blue_gambeson,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_26_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_fur_coat,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_27_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_nobleman_outfit,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_28_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_red_gambeson,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_29_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_rich_outfit,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_30_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_red_gambeson,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_31_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[     itm_courtly_outfit,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_32_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_blue_hose],     def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_33_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_leather_jacket,     itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_34_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_red_gambeson,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_35_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_nobleman_outfit,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_36_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_37_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_leather_jacket,     itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+  ["town_38_mayor", "Guild_Master", "{!}Guild_Master", tf_hero|tf_randomize_face, 0,reserved,  fac_neutral,[ itm_fur_coat,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common,  man_face_middle_1, mercenary_face_2],
+## TGS: mat: End
 
 #Village stores
   ["village_1_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots, itm_felt_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,            man_face_old_1, man_face_older_2],
@@ -4406,33 +4958,96 @@ troops = [
   ["village_108_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_sarranid_cloth_robe_b, itm_hide_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                          man_face_old_1, man_face_older_2],
   ["village_109_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_sarranid_cloth_robe_b, itm_nomad_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                         man_face_old_1, man_face_older_2],
   ["village_110_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+## TGS: mat: Added for new Villages
+  ["village_111_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots, itm_felt_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,            man_face_old_1, man_face_older_2],
+  ["village_112_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+  ["village_113_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_nomad_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                         man_face_old_1, man_face_older_2],
+  ["village_114_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_nomad_boots, itm_leather_cap],def_attrib|level(2),wp(20),knows_inventory_management_10,        man_face_old_1, man_face_older_2],
+  ["village_115_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                      man_face_old_1, man_face_older_2],
+  ["village_116_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                          man_face_old_1, man_face_older_2],
+  ["village_117_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_fur_coat, itm_nomad_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                         man_face_old_1, man_face_older_2],
+  ["village_118_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_wrapping_boots, itm_felt_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,        man_face_old_1, man_face_older_2],
+  ["village_119_elder", "Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots, itm_leather_cap],def_attrib|level(2),wp(20),knows_inventory_management_10,         man_face_old_1, man_face_older_2],
+  ["village_120_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+  ["village_121_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_nomad_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                         man_face_old_1, man_face_older_2],
+  ["village_122_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots, itm_leather_cap],def_attrib|level(2),wp(20),knows_inventory_management_10,             man_face_old_1, man_face_older_2],
+  ["village_123_eder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_nomad_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                         man_face_old_1, man_face_older_2],
+  ["village_124_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+  ["village_125_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots, itm_felt_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,            man_face_old_1, man_face_older_2],
+  ["village_126_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots, itm_leather_warrior_cap],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_old_1, man_face_older_2],
+  ["village_127_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_fur_coat, itm_nomad_boots,itm_fur_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,             man_face_old_1, man_face_older_2],
+  ["village_128_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots, itm_leather_warrior_cap],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_old_1, man_face_older_2],
+  ["village_129_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_nomad_boots, itm_fur_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,            man_face_old_1, man_face_older_2],
+  ["village_130_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots, itm_leather_warrior_cap],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_old_1, man_face_older_2],
+  ["village_131_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots, itm_leather_cap],def_attrib|level(2),wp(20),knows_inventory_management_10,             man_face_old_1, man_face_older_2],
+  ["village_132_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_fur_coat, itm_nomad_boots,itm_fur_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,             man_face_old_1, man_face_older_2],
+  ["village_133_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots, itm_felt_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,            man_face_old_1, man_face_older_2],
+  ["village_134_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+  ["village_135_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_fur_coat, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                      man_face_old_1, man_face_older_2],
+  ["village_136_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots, itm_leather_cap],def_attrib|level(2),wp(20),knows_inventory_management_10,             man_face_old_1, man_face_older_2],
+  ["village_137_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_wrapping_boots, itm_felt_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,        man_face_old_1, man_face_older_2],
+  ["village_138_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+  ["village_139_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                          man_face_old_1, man_face_older_2],
+  ["village_140_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots, itm_leather_cap],def_attrib|level(2),wp(20),knows_inventory_management_10,             man_face_old_1, man_face_older_2],
+  ["village_141_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_nomad_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                         man_face_old_1, man_face_older_2],
+  ["village_142_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+  ["village_143_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots, itm_leather_cap],def_attrib|level(2),wp(20),knows_inventory_management_10,             man_face_old_1, man_face_older_2],
+  ["village_144_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_nomad_boots,itm_fur_hat],def_attrib|level(2),wp(20),knows_inventory_management_10,             man_face_old_1, man_face_older_2],
+  ["village_145_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+  ["village_146_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                          man_face_old_1, man_face_older_2],
+  ["village_147_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+  ["village_148_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_hide_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                          man_face_old_1, man_face_older_2],
+  ["village_149_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_nomad_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                         man_face_old_1, man_face_older_2],
+  ["village_150_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_robe, itm_wrapping_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                              man_face_old_1, man_face_older_2],
+  ["village_151_elder","Village_Elder", "{!}village_1_elder",tf_hero|tf_randomize_face|tf_is_merchant, 0,0, fac_commoners,[itm_coarse_tunic, itm_nomad_boots],def_attrib|level(2),wp(20),knows_inventory_management_10,                         man_face_old_1, man_face_older_2],
+## TGS: mat: End
+
 # Place extra merchants before this point
   ["merchants_end","merchants_end","merchants_end",tf_hero, 0,0, fac_commoners,[],def_attrib|level(2),wp(20),knows_inventory_management_10,0],
 
   #Used for player enterprises
-  ["town_1_master_craftsman", "{!}Town 1 Craftsman", "{!}Town 1 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000003a0c629346edb2335a82b6e300000000000d634a0000000000000000],
-  ["town_2_master_craftsman", "{!}Town 2 Craftsman", "{!}Town 2 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_padded_leather,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x0000000f010811c92d3295e46a96c72300000000001f5a980000000000000000],
-  ["town_3_master_craftsman", "{!}Town 3 Craftsman", "{!}Town 3 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000001b083203151d2ad5648e52b400000000001b172e0000000000000000],
-  ["town_4_master_craftsman", "{!}Town 4 Craftsman", "{!}Town 4 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000001a10114f091b2c259cd4c92300000000000228dd0000000000000000],
-  ["town_5_master_craftsman", "{!}Town 5 Craftsman", "{!}Town 5 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000d1044c578598cd92b5256db00000000001f23340000000000000000],
-  ["town_6_master_craftsman", "{!}Town 6 Craftsman", "{!}Town 6 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x000000001f046285493eaf1b048abcdb00000000001a8aad0000000000000000],
-  ["town_7_master_craftsman", "{!}Town 7 Craftsman", "{!}Town 7 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000002b0052c34c549225619356d400000000001cc6e60000000000000000],
-  ["town_8_master_craftsman", "{!}Town 8 Craftsman", "{!}Town 8 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x0000000fdb0c20465b6e51e8a12c82d400000000001e148c0000000000000000],
-  ["town_9_master_craftsman", "{!}Town 9 Craftsman", "{!}Town 9 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000009f7005246071db236e296a45300000000001a8b0a0000000000000000],
-  ["town_10_master_craftsman", "{!}Town 10 Craftsman", "{!}Town 10 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000009f71012c2456a921aa379321a000000000012c6d90000000000000000],
-  ["town_11_master_craftsman", "{!}Town 11 Craftsman", "{!}Town 11 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,     itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x00000009f308514428db71b9ad70b72400000000001dc9140000000000000000],
-  ["town_12_master_craftsman", "{!}Town 12 Seneschal", "{!}Town 12 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000009e90825863853a5b91cd71a5b00000000000598db0000000000000000],
-  ["town_13_master_craftsman", "{!}Town 13 Seneschal", "{!}Town 13 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000009fa0c708f274c8eb4c64e271300000000001eb69a0000000000000000],
-  ["town_14_master_craftsman", "{!}Town 14 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000007590c3206155c8b475a4e439a00000000001f489a0000000000000000],
-  ["town_15_master_craftsman", "{!}Town 15 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000007440022d04b2c6cb7d3723d5a00000000001dc90a0000000000000000],
-  ["town_16_master_craftsman", "{!}Town 16 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000007680c3586054b8e372e4db65c00000000001db7230000000000000000],
-  ["town_17_master_craftsman", "{!}Town 17 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x0000000766046186591b564cec85d2e200000000001e4cea0000000000000000],
-  ["town_18_master_craftsman", "{!}Town 18 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x0000000e7e0075523a6aa9b6da61e8dd00000000001d96d30000000000000000],
-  ["town_19_master_craftsman", "{!}Town 19 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000002408314852a432e88aaa42e100000000001e284e0000000000000000],
-  ["town_20_master_craftsman", "{!}Town 20 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe_b,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000001104449136e44cbd1c9352bc000000000005e8d10000000000000000],
-  ["town_21_master_craftsman", "{!}Town 21 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000000131032d3351c6e43226ec96c000000000005b5240000000000000000],
-  ["town_22_master_craftsman", "{!}Town 22 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe_b,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000000200c658a5723b1a3148dc455000000000015ab920000000000000000],
-  
+## Corrected for TGS
+  ["town_1_master_craftsman", "{!}Town 1 Craftsman", "{!}Town 1 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000003a0c629346edb2335a82b6e300000000000d634a0000000000000000],
+  ["town_2_master_craftsman", "{!}Town 2 Craftsman", "{!}Town 2 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_padded_leather,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x0000000f010811c92d3295e46a96c72300000000001f5a980000000000000000],
+  ["town_3_master_craftsman", "{!}Town 3 Craftsman", "{!}Town 3 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000001b083203151d2ad5648e52b400000000001b172e0000000000000000],
+  ["town_4_master_craftsman", "{!}Town 4 Craftsman", "{!}Town 4 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000001a10114f091b2c259cd4c92300000000000228dd0000000000000000],
+  ["town_5_master_craftsman", "{!}Town 5 Craftsman", "{!}Town 5 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000d1044c578598cd92b5256db00000000001f23340000000000000000],
+  ["town_6_master_craftsman", "{!}Town 6 Craftsman", "{!}Town 6 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x000000001f046285493eaf1b048abcdb00000000001a8aad0000000000000000],
+  ["town_7_master_craftsman", "{!}Town 7 Craftsman", "{!}Town 7 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000002b0052c34c549225619356d400000000001cc6e60000000000000000],
+  ["town_8_master_craftsman", "{!}Town 8 Craftsman", "{!}Town 8 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x0000000fdb0c20465b6e51e8a12c82d400000000001e148c0000000000000000],
+  ["town_9_master_craftsman", "{!}Town 9 Craftsman", "{!}Town 9 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000009f7005246071db236e296a45300000000001a8b0a0000000000000000],
+  ["town_10_master_craftsman", "{!}Town 10 Craftsman", "{!}Town 10 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000009f71012c2456a921aa379321a000000000012c6d90000000000000000],
+  ["town_11_master_craftsman", "{!}Town 11 Craftsman", "{!}Town 11 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,     itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x00000009f308514428db71b9ad70b72400000000001dc9140000000000000000],
+  ["town_12_master_craftsman", "{!}Town 12 Craftsman", "{!}Town 12 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000009e90825863853a5b91cd71a5b00000000000598db0000000000000000],
+  ["town_13_master_craftsman", "{!}Town 13 Craftsman", "{!}Town 13 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000009fa0c708f274c8eb4c64e271300000000001eb69a0000000000000000],
+  ["town_14_master_craftsman", "{!}Town 14 Craftsman", "{!}Town 14 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000007590c3206155c8b475a4e439a00000000001f489a0000000000000000],
+  ["town_15_master_craftsman", "{!}Town 15 Craftsman", "{!}Town 14 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000007440022d04b2c6cb7d3723d5a00000000001dc90a0000000000000000],
+  ["town_16_master_craftsman", "{!}Town 16 Craftsman", "{!}Town 14 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000007680c3586054b8e372e4db65c00000000001db7230000000000000000],
+  ["town_17_master_craftsman", "{!}Town 17 Craftsman", "{!}Town 14 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x0000000766046186591b564cec85d2e200000000001e4cea0000000000000000],
+  ["town_18_master_craftsman", "{!}Town 18 Craftsman", "{!}Town 14 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x0000000e7e0075523a6aa9b6da61e8dd00000000001d96d30000000000000000],
+  ["town_19_master_craftsman", "{!}Town 19 Craftsman", "{!}Town 14 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000002408314852a432e88aaa42e100000000001e284e0000000000000000],
+  ["town_20_master_craftsman", "{!}Town 20 Craftsman", "{!}Town 14 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe_b,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000001104449136e44cbd1c9352bc000000000005e8d10000000000000000],
+  ["town_21_master_craftsman", "{!}Town 21 Craftsman", "{!}Town 14 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000000131032d3351c6e43226ec96c000000000005b5240000000000000000],
+  ["town_22_master_craftsman", "{!}Town 22 Craftsman", "{!}Town 14 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_sarranid_cloth_robe_b,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000000200c658a5723b1a3148dc455000000000015ab920000000000000000],
+## End
+## TGS: mat: Added for new Towns
+  ["town_23_master_craftsman", "{!}Town 23 Craftsman", "{!}Town 23 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000003a0c629346edb2335a82b6e300000000000d634a0000000000000000],
+  ["town_24_master_craftsman", "{!}Town 24 Craftsman", "{!}Town 24 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_padded_leather,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x0000000f010811c92d3295e46a96c72300000000001f5a980000000000000000],
+  ["town_25_master_craftsman", "{!}Town 25 Craftsman", "{!}Town 25 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000001b083203151d2ad5648e52b400000000001b172e0000000000000000],
+  ["town_26_master_craftsman", "{!}Town 26 Craftsman", "{!}Town 26 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000001a10114f091b2c259cd4c92300000000000228dd0000000000000000],
+  ["town_27_master_craftsman", "{!}Town 27 Craftsman", "{!}Town 27 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000d1044c578598cd92b5256db00000000001f23340000000000000000],
+  ["town_28_master_craftsman", "{!}Town 28 Craftsman", "{!}Town 28 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x000000001f046285493eaf1b048abcdb00000000001a8aad0000000000000000],
+  ["town_29_master_craftsman", "{!}Town 29 Craftsman", "{!}Town 29 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000002b0052c34c549225619356d400000000001cc6e60000000000000000],
+  ["town_30_master_craftsman", "{!}Town 30 Craftsman", "{!}Town 30 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_leather_apron,       itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x0000000fdb0c20465b6e51e8a12c82d400000000001e148c0000000000000000],
+  ["town_31_master_craftsman", "{!}Town 31 Craftsman", "{!}Town 31 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[     itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000009f7005246071db236e296a45300000000001a8b0a0000000000000000],
+  ["town_32_master_craftsman", "{!}Town 32 Craftsman", "{!}Town 32 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000009f71012c2456a921aa379321a000000000012c6d90000000000000000],
+  ["town_33_master_craftsman", "{!}Town 33 Craftsman", "{!}Town 33 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,     itm_nomad_boots],   def_attrib|level(2),wp(20),knows_common, 0x00000009f308514428db71b9ad70b72400000000001dc9140000000000000000],
+  ["town_34_master_craftsman", "{!}Town 34 Seneschal", "{!}Town 34 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000009e90825863853a5b91cd71a5b00000000000598db0000000000000000],
+  ["town_35_master_craftsman", "{!}Town 35 Seneschal", "{!}Town 35 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000009fa0c708f274c8eb4c64e271300000000001eb69a0000000000000000],
+  ["town_36_master_craftsman", "{!}Town 36 Seneschal", "{!}Town 36 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000007590c3206155c8b475a4e439a00000000001f489a0000000000000000],
+  ["town_37_master_craftsman", "{!}Town 37 Seneschal", "{!}Town 37 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000007440022d04b2c6cb7d3723d5a00000000001dc90a0000000000000000],
+  ["town_38_master_craftsman", "{!}Town 38 Seneschal", "{!}Town 38 Craftsman", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_apron,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x00000007680c3586054b8e372e4db65c00000000001db7230000000000000000],
+## TGS: mat: End
   
   
 # Chests
@@ -6141,6 +6756,58 @@ upgrade(troops,"aes_sedai_black","dreadlord")
 upgrade2(troops,"darkfriend_initiate","darkfriend_murderer","darkfriend_ambusher")
 upgrade(troops,"darkfriend_murderer","darkfriend_assassin")
 upgrade2(troops,"darkfriend_ambusher","darkfriend_leader","darkfriend_marksman")
+
+
+##### Shara
+
+upgrade2(troops,"shara_recruit","shara_armsman","shara_scout"),
+upgrade2(troops,"shara_armsman","shara_town_guard","shara_bowman"),
+upgrade2(troops,"shara_town_guard","shara_border_guard","shara_swordsman"),
+upgrade(troops,"shara_border_guard","shara_defender"),
+upgrade(troops,"shara_swordsman","shara_captain"),
+upgrade2(troops,"shara_bowman","shara_marksman","shara_crossbowman"),
+upgrade2(troops,"shara_scout","shara_man_at_arms","shara_skirmisher"),
+upgrade(troops,"shara_man_at_arms","shara_shbo_guardsman"),
+
+upgrade(troops,"ayyad_villager","ayyad_village_leader"),
+upgrade(troops,"ayyad_village_leader","ayyad_counsel_member"),
+
+
+##### Sea Folk
+
+upgrade2(troops,"sea_folk_recruit","sea_folk_bilge_hand","sea_folk_weatherly"),
+upgrade2(troops,"sea_folk_bilge_hand","sea_folk_deck_hand","sea_folk_dogwatcher"),
+upgrade(troops,"sea_folk_deck_hand","sea_folk_boatswain"),
+upgrade(troops,"sea_folk_boatswain","sea_folk_cargomaster"),
+upgrade(troops,"sea_folk_dogwatcher","sea_folk_deck_defender"),
+upgrade(troops,"sea_folk_weatherly","sea_folk_quarterling"),
+upgrade(troops,"sea_folk_quarterling","sea_folk_sailmistress"),
+upgrade(troops,"sea_folk_sailmistress","sea_folk_wavemistress"),
+
+upgrade(troops,"sea_folk_recruit_channeler","sea_folk_pupil"),
+upgrade(troops,"sea_folk_pupil","sea_folk_windfinder"),
+
+
+##### Land of Madmen
+
+upgrade2(troops,"madmen_recruit","madmen_wanderer","madmen_horse_tamer"),
+upgrade2(troops,"madmen_wanderer","madmen_villager","madmen_hunter"),
+upgrade2(troops,"madmen_villager","madmen_clansman","madmen_looter"),
+upgrade(troops,"madmen_clansman","madmen_chieftan"),
+upgrade(troops,"madmen_looter","madmen_pillager"),
+upgrade(troops,"madmen_hunter","madmen_ambusher"),
+upgrade(troops,"madmen_ambusher","madmen_assassin"),
+upgrade2(troops,"madmen_horse_tamer","madmen_slave_catcher","madmen_plains_rider"),
+upgrade(troops,"madmen_slave_catcher","madmen_thunderhoof"),
+
+upgrade(troops,"madmen_air_shifter","madmen_fire_tamer"),
+upgrade(troops,"madmen_fire_tamer","madmen_storm_caller"),
+
+
+##### Toman Head
+
+upgrade2(troops,"toman_head_recruit","toman_head_footman","toman_head_scout"),
+upgrade2(troops,"toman_head_footman","toman_head_city_guard","toman_head_bowman"),
 
 
 #################################
