@@ -19073,8 +19073,10 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           (party_get_slot, ":town_lord","$g_encountered_party", slot_town_lord),
           (troop_get_slot, ":cur_banner", ":town_lord", slot_troop_banner_scene_prop),
           (gt, ":cur_banner", 0),
-          (val_sub, ":cur_banner", banner_scene_props_begin),
-          (val_add, ":cur_banner", banner_map_icons_begin),
+        ## TGS: mat: Modified for TGS banners
+          (val_sub, ":cur_banner", tgs_banner_scene_props_begin),
+          (val_add, ":cur_banner", tgs_banner_map_icons_begin),
+        ## TGS: mat: End
           (party_set_banner_icon, "$g_encountered_party", ":cur_banner"),   
         (try_end),    
         (jump_to_menu, "mnu_castle_outside"),

@@ -261,13 +261,13 @@ pt_kingdom_28_reinforcements_e {!}kingdom_28_reinforcements_e 0 0 1 0 242 5 10 0
 pt_kingdom_28_reinforcements_f {!}kingdom_28_reinforcements_f 0 0 1 0 242 5 10 0 243 4 8 0 489 3 6 0 490 3 6 0 491 4 8 0 -1 
 pt_kingdom_28_reinforcements_g {!}kingdom_28_reinforcements_g 0 0 1 0 242 5 10 0 243 4 8 0 489 3 6 0 490 3 6 0 491 4 8 0 -1 
 pt_kingdom_28_reinforcements_h {!}kingdom_28_reinforcements_h 0 0 1 0 242 5 10 0 243 4 8 0 489 3 6 0 490 3 6 0 491 4 8 0 -1 
-pt_steppe_bandit_lair Dragonsworn_Bandit_Lair 562949955519822 0 3 312 87 10 30 0 113 10 30 0 500 10 20 0 115 10 20 0 499 10 20 0 28 15 20 0 
-pt_taiga_bandit_lair Dragonsworn_Bandit_Lair 562949955519822 0 3 312 87 10 30 0 113 10 30 0 500 10 20 0 115 10 20 0 499 10 20 0 28 15 20 0 
-pt_desert_bandit_lair Aiel_Renegades_Lair 562949955519822 0 3 312 176 10 45 0 178 10 45 0 424 5 10 0 426 5 10 0 -1 -1 
-pt_forest_bandit_lair Forest_Raiders_Camp 562949955519822 0 3 312 500 15 58 0 79 10 20 0 75 5 15 0 127 5 10 0 105 10 20 0 -1 
-pt_mountain_bandit_lair Bandit_Hideout 562949955519822 0 3 312 499 15 58 0 152 10 20 0 167 10 20 0 78 10 20 0 100 10 20 0 280 10 20 0 
-pt_sea_raider_lair Coastal_Raider_Landing 562949955519822 0 3 312 70 10 50 0 90 10 25 0 83 10 25 0 301 10 20 0 114 10 20 0 271 5 20 0 
-pt_looter_lair Kidnappers'_Hideout 562949955519822 0 3 312 496 15 25 0 -1 -1 -1 -1 -1 
+pt_steppe_bandit_lair Dragonsworn_Bandit_Lair 562949955519762 0 3 312 87 10 30 0 113 10 30 0 500 10 20 0 115 10 20 0 499 10 20 0 28 15 20 0 
+pt_taiga_bandit_lair Dragonsworn_Bandit_Lair 562949955519762 0 3 312 87 10 30 0 113 10 30 0 500 10 20 0 115 10 20 0 499 10 20 0 28 15 20 0 
+pt_desert_bandit_lair Aiel_Renegades_Lair 562949955519762 0 3 312 176 10 45 0 178 10 45 0 424 5 10 0 426 5 10 0 -1 -1 
+pt_forest_bandit_lair Forest_Raiders_Camp 562949955519762 0 3 312 500 15 58 0 79 10 20 0 75 5 15 0 127 5 10 0 105 10 20 0 -1 
+pt_mountain_bandit_lair Bandit_Hideout 562949955519762 0 3 312 499 15 58 0 152 10 20 0 167 10 20 0 78 10 20 0 100 10 20 0 280 10 20 0 
+pt_sea_raider_lair Coastal_Raider_Landing 562949955519762 0 3 312 70 10 50 0 90 10 25 0 83 10 25 0 301 10 20 0 114 10 20 0 271 5 20 0 
+pt_looter_lair Kidnappers'_Hideout 562949955519762 0 3 312 496 15 25 0 -1 -1 -1 -1 -1 
 pt_bandit_lair_templates_end {!}bandit_lair_templates_end 562949953422345 0 2 312 501 15 50 0 -1 -1 -1 -1 -1 
 pt_leaded_looters Band_of_robbers 2251799813947401 0 3 312 1988 1 1 0 496 3 3 0 -1 -1 -1 -1 
 pt_dplmc_spouse Your_spouse 71303178 0 3 7 -1 -1 -1 -1 -1 -1 

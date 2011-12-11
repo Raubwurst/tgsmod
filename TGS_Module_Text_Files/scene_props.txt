@@ -1,5 +1,5 @@
 scene_propsfile version 1
- 1138
+ 1194
 spr_invalid_object 0 0 question_mark 0 0
 
 
@@ -3509,5 +3509,173 @@ spr_ship_protect 0 0 0 bo_gourd_spike 0
 
 
 spr_enemy_ship_protect 0 0 0 bo_gourd_spike 0
+
+
+spr_banner_legion 0 0 banner_legion 0 0
+
+
+spr_banner_band 0 0 banner_band 0 0
+
+
+spr_banner_two_rivers 0 0 banner_two_rivers 0 0
+
+
+spr_banner_mayene 0 0 banner_mayene 0 0
+
+
+spr_banner_cairhien 0 0 banner_cairhien 0 0
+
+
+spr_banner_illian 0 0 banner_illian 0 0
+
+
+spr_banner_murandy 0 0 banner_murandy 0 0
+
+
+spr_banner_altara 0 0 banner_altara 0 0
+
+
+spr_banner_arad_doman 0 0 banner_arad_doman 0 0
+
+
+spr_banner_tear 0 0 banner_tear 0 0
+
+
+spr_banner_andor 0 0 banner_andor 0 0
+
+
+spr_banner_ghealdan 0 0 banner_ghealdan 0 0
+
+
+spr_banner_far_madding 0 0 banner_far_madding 0 0
+
+
+spr_banner_tarabon 0 0 banner_tarabon 0 0
+
+
+spr_banner_amadicia 0 0 banner_amadicia 0 0
+
+
+spr_banner_whitecloaks 0 0 banner_whitecloaks 0 0
+
+
+spr_banner_shienar 0 0 banner_shienar 0 0
+
+
+spr_banner_arafel 0 0 banner_arafel 0 0
+
+
+spr_banner_kandor 0 0 banner_kandor 0 0
+
+
+spr_banner_saldaea 0 0 banner_saldaea 0 0
+
+
+spr_banner_white_tower 0 0 banner_white_tower 0 0
+
+
+spr_banner_aiel 0 0 banner_aiel 0 0
+
+
+spr_banner_seanchan 0 0 banner_seanchan 0 0
+
+
+spr_banner_shadowspawn 0 0 banner_shadowspawn 0 0
+
+
+spr_banner_shara 0 0 banner_shara 0 0
+
+
+spr_banner_sea_folk 0 0 banner_sea_folk 0 0
+
+
+spr_banner_madmen 0 0 banner_madmen 0 0
+
+
+spr_banner_toman_head 0 0 banner_toman_head 0 0
+
+
+spr_banner_tgs_kingdom_a 0 0 banner_legion 0 0
+
+
+spr_banner_tgs_kingdom_b 0 0 banner_band 0 0
+
+
+spr_banner_tgs_kingdom_c 0 0 banner_two_rivers 0 0
+
+
+spr_banner_tgs_kingdom_d 0 0 banner_mayene 0 0
+
+
+spr_banner_tgs_kingdom_e 0 0 banner_cairhien 0 0
+
+
+spr_banner_tgs_kingdom_f 0 0 banner_illian 0 0
+
+
+spr_banner_tgs_kingdom_g 0 0 banner_murandy 0 0
+
+
+spr_banner_tgs_kingdom_h 0 0 banner_altara 0 0
+
+
+spr_banner_tgs_kingdom_i 0 0 banner_arad_doman 0 0
+
+
+spr_banner_tgs_kingdom_j 0 0 banner_tear 0 0
+
+
+spr_banner_tgs_kingdom_k 0 0 banner_andor 0 0
+
+
+spr_banner_tgs_kingdom_l 0 0 banner_ghealdan 0 0
+
+
+spr_banner_tgs_kingdom_m 0 0 banner_far_madding 0 0
+
+
+spr_banner_tgs_kingdom_n 0 0 banner_tarabon 0 0
+
+
+spr_banner_tgs_kingdom_o 0 0 banner_amadicia 0 0
+
+
+spr_banner_tgs_kingdom_p 0 0 banner_whitecloaks 0 0
+
+
+spr_banner_tgs_kingdom_q 0 0 banner_shienar 0 0
+
+
+spr_banner_tgs_kingdom_r 0 0 banner_arafel 0 0
+
+
+spr_banner_tgs_kingdom_s 0 0 banner_kandor 0 0
+
+
+spr_banner_tgs_kingdom_t 0 0 banner_saldaea 0 0
+
+
+spr_banner_tgs_kingdom_u 0 0 banner_white_tower 0 0
+
+
+spr_banner_tgs_kingdom_v 0 0 banner_aiel 0 0
+
+
+spr_banner_tgs_kingdom_w 0 0 banner_seanchan 0 0
+
+
+spr_banner_tgs_kingdom_x 0 0 banner_shadowspawn 0 0
+
+
+spr_banner_tgs_kingdom_y 0 0 banner_shara 0 0
+
+
+spr_banner_tgs_kingdom_z 0 0 banner_sea_folk 0 0
+
+
+spr_banner_tgs_kingdom_aa 0 0 banner_madmen 0 0
+
+
+spr_banner_tgs_kingdom_ab 0 0 banner_toman_head 0 0
 
 

@@ -305,7 +305,9 @@ presentations = [
       (store_add, ":ending_banner", ":starting_banner", 16),
       (store_add, "$g_presentation_banner_start", "$g_presentation_obj_profile_banner_selection_2", 1),
       (assign, ":num_valid_banners", 0),
-      (try_for_range, ":cur_banner_mesh", banner_meshes_begin, banner_meshes_end_minus_one),
+      ## TGS: mat: Modified for TGS banners
+      (try_for_range, ":cur_banner_mesh", tgs_banner_meshes_begin, tgs_banner_meshes_end),
+      ## TGS: mat: End
         (assign, ":already_used", 0),
         (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
           (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
@@ -347,8 +349,10 @@ presentations = [
         (store_mul, ":page_adder", 16, "$g_presentation_page_no"),
         (val_add, ":selected_banner", ":page_adder"),
         (assign, ":num_valid_banners", 0),
-        (assign, ":end_cond", banner_meshes_end_minus_one),
-        (try_for_range, ":cur_banner_mesh", banner_meshes_begin, ":end_cond"),
+      ## TGS: mat: Modified for TGS banners
+        (assign, ":end_cond", tgs_banner_meshes_end),
+        (try_for_range, ":cur_banner_mesh", tgs_banner_meshes_begin, ":end_cond"),
+      ## TGS: mat: End
           (assign, ":already_used", 0),
           (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
             (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
@@ -357,7 +361,9 @@ presentations = [
           (eq, ":already_used", 0),
           (try_begin),
             (eq, ":selected_banner", ":num_valid_banners"),
-            (store_sub, ":selected_banner_index", ":cur_banner_mesh", banner_meshes_begin),
+      ## TGS: mat: Modified for TGS banners
+            (store_sub, ":selected_banner_index", ":cur_banner_mesh", tgs_banner_meshes_begin),
+      ## TGS: mat: End
             (profile_set_banner_id, ":selected_banner_index"),
             (assign, ":end_cond", 0), #break
           (try_end),
@@ -7559,11 +7565,15 @@ presentations = [
 
         (assign, ":x_pos", 150),
         (assign, ":y_pos", 575),
-        (assign, ":try_end", banner_meshes_end_minus_one),
+        ## TGS: mat: Modified for TGS banners
+        (assign, ":try_end", tgs_banner_meshes_end),
+        ## TGS: mat: End
         (store_sub, ":num_npc_kingdoms", npc_kingdoms_end, npc_kingdoms_begin),
         (val_sub, ":try_end", ":num_npc_kingdoms"), #do not allow kingdom banners to be selected
         (store_mul, ":begin_mesh", 16, "$g_presentation_page_no"),
-        (val_add, ":begin_mesh", banner_meshes_begin),
+        ## TGS: mat: Modified for TGS banners
+        (val_add, ":begin_mesh", tgs_banner_meshes_begin),
+        ## TGS: mat: End
         (store_add, ":try_end_2", ":begin_mesh", 16),
         (val_min, ":try_end", ":try_end_2"),
         (store_add, "$g_presentation_banner_start", "$g_presentation_obj_banner_selection_1", 1),
@@ -7593,9 +7603,11 @@ presentations = [
           (store_sub, ":selected_banner", ":object", "$g_presentation_banner_start"),
           (store_mul, ":page_adder", 16, "$g_presentation_page_no"),
           (val_add, ":selected_banner", ":page_adder"),
-          (store_add, ":selected_banner_map_icon", ":selected_banner", banner_map_icons_begin),
+        ## TGS: mat: Modified for TGS banners
+          (store_add, ":selected_banner_map_icon", ":selected_banner", tgs_banner_map_icons_begin),
           (party_set_banner_icon, "p_main_party", ":selected_banner_map_icon"),
-          (store_add, ":selected_banner_spr", ":selected_banner", banner_scene_props_begin),
+          (store_add, ":selected_banner_spr", ":selected_banner", tgs_banner_scene_props_begin),
+        ## TGS: mat: End
           (troop_set_slot, "trp_player", slot_troop_banner_scene_prop, ":selected_banner_spr"),
                     
           #Correcting banners according to the player banner
@@ -7615,10 +7627,11 @@ presentations = [
             (troop_slot_eq, ":cur_troop", slot_troop_banner_scene_prop, ":selected_banner_spr"),
             (assign, ":troop_to_change", ":cur_troop"),
             (assign, ":end_cond", 0),
-            (troop_set_slot, ":cur_troop", slot_troop_banner_scene_prop, banner_scene_props_end_minus_one),
+        ## TGS: mat: Modified for TGS banners
+            (troop_set_slot, ":cur_troop", slot_troop_banner_scene_prop, tgs_banner_scene_props_end),
             (troop_get_slot, ":cur_party", ":cur_troop", slot_troop_leaded_party),
             (gt, ":cur_party", 0),
-            (party_set_banner_icon, ":cur_party", banner_map_icons_end_minus_one),             
+            (party_set_banner_icon, ":cur_party", tgs_banner_map_icons_end),             
           (try_end),
           (try_for_range, ":cur_center", walled_centers_begin, walled_centers_end),
             (try_begin),
@@ -7626,7 +7639,8 @@ presentations = [
               (party_set_banner_icon, ":cur_center", ":selected_banner_map_icon"),
             (else_try),
               (party_slot_eq, ":cur_center", slot_town_lord, ":troop_to_change"),
-              (party_set_banner_icon, ":cur_center", banner_map_icons_end_minus_one), 
+              (party_set_banner_icon, ":cur_center", tgs_banner_map_icons_end),
+        ## TGS: mat: End
             (try_end),
           (try_end),
         (try_end),

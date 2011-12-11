@@ -935,42 +935,46 @@ scripts = [
 ## TGS: mat: Note: I need to make kingdom banners that fit wheel of time      
 
       #faction banners
-      (faction_set_slot, "fac_kingdom_1", slot_faction_banner, "mesh_banner_kingdom_f"),
-      (faction_set_slot, "fac_kingdom_2", slot_faction_banner, "mesh_banner_kingdom_b"),
-      (faction_set_slot, "fac_kingdom_3", slot_faction_banner, "mesh_banner_kingdom_c"),
-      (faction_set_slot, "fac_kingdom_4", slot_faction_banner, "mesh_banner_kingdom_a"),
-      (faction_set_slot, "fac_kingdom_5", slot_faction_banner, "mesh_banner_kingdom_d"),
-      (faction_set_slot, "fac_kingdom_6", slot_faction_banner, "mesh_banner_kingdom_e"),
+      (faction_set_slot, "fac_kingdom_1", slot_faction_banner, "mesh_banner_tgs_kingdom_a"),
+      (faction_set_slot, "fac_kingdom_2", slot_faction_banner, "mesh_banner_tgs_kingdom_b"),
+      (faction_set_slot, "fac_kingdom_3", slot_faction_banner, "mesh_banner_tgs_kingdom_c"),
+      (faction_set_slot, "fac_kingdom_4", slot_faction_banner, "mesh_banner_tgs_kingdom_d"),
+      (faction_set_slot, "fac_kingdom_5", slot_faction_banner, "mesh_banner_tgs_kingdom_e"),
+      (faction_set_slot, "fac_kingdom_6", slot_faction_banner, "mesh_banner_tgs_kingdom_f"),
   # added for TGS
-      (faction_set_slot, "fac_kingdom_7", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_8", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_9", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_10", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_11", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_12", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_13", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_14", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_15", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_16", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_17", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_18", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_19", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_20", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_21", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_22", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_23", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_24", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_25", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_26", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_27", slot_faction_banner, "mesh_banner_kingdom_e"),
-      (faction_set_slot, "fac_kingdom_28", slot_faction_banner, "mesh_banner_kingdom_e"),
+      (faction_set_slot, "fac_kingdom_7", slot_faction_banner, "mesh_banner_tgs_kingdom_g"),
+      (faction_set_slot, "fac_kingdom_8", slot_faction_banner, "mesh_banner_tgs_kingdom_h"),
+      (faction_set_slot, "fac_kingdom_9", slot_faction_banner, "mesh_banner_tgs_kingdom_i"),
+      (faction_set_slot, "fac_kingdom_10", slot_faction_banner, "mesh_banner_tgs_kingdom_j"),
+      (faction_set_slot, "fac_kingdom_11", slot_faction_banner, "mesh_banner_tgs_kingdom_k"),
+      (faction_set_slot, "fac_kingdom_12", slot_faction_banner, "mesh_banner_tgs_kingdom_l"),
+      (faction_set_slot, "fac_kingdom_13", slot_faction_banner, "mesh_banner_tgs_kingdom_m"),
+      (faction_set_slot, "fac_kingdom_14", slot_faction_banner, "mesh_banner_tgs_kingdom_n"),
+      (faction_set_slot, "fac_kingdom_15", slot_faction_banner, "mesh_banner_tgs_kingdom_o"),
+      (faction_set_slot, "fac_kingdom_16", slot_faction_banner, "mesh_banner_tgs_kingdom_p"),
+      (faction_set_slot, "fac_kingdom_17", slot_faction_banner, "mesh_banner_tgs_kingdom_q"),
+      (faction_set_slot, "fac_kingdom_18", slot_faction_banner, "mesh_banner_tgs_kingdom_r"),
+      (faction_set_slot, "fac_kingdom_19", slot_faction_banner, "mesh_banner_tgs_kingdom_s"),
+      (faction_set_slot, "fac_kingdom_20", slot_faction_banner, "mesh_banner_tgs_kingdom_t"),
+      (faction_set_slot, "fac_kingdom_21", slot_faction_banner, "mesh_banner_tgs_kingdom_u"),
+      (faction_set_slot, "fac_kingdom_22", slot_faction_banner, "mesh_banner_tgs_kingdom_v"),
+      (faction_set_slot, "fac_kingdom_23", slot_faction_banner, "mesh_banner_tgs_kingdom_w"),
+      (faction_set_slot, "fac_kingdom_24", slot_faction_banner, "mesh_banner_tgs_kingdom_x"),
+      (faction_set_slot, "fac_kingdom_25", slot_faction_banner, "mesh_banner_tgs_kingdom_y"),
+      (faction_set_slot, "fac_kingdom_26", slot_faction_banner, "mesh_banner_tgs_kingdom_z"),
+      (faction_set_slot, "fac_kingdom_27", slot_faction_banner, "mesh_banner_tgs_kingdom_aa"),
+      (faction_set_slot, "fac_kingdom_28", slot_faction_banner, "mesh_banner_tgs_kingdom_ab"),
   # end added for TGS
 
       (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
         (faction_get_slot, ":cur_faction_king", ":cur_faction", slot_faction_leader),
         (faction_get_slot, ":cur_faction_banner", ":cur_faction", slot_faction_banner),
-        (val_sub, ":cur_faction_banner", banner_meshes_begin),
-        (val_add, ":cur_faction_banner", banner_scene_props_begin),
+      ## TGS: mat: Modified for TGS banners
+#        (val_sub, ":cur_faction_banner", banner_meshes_begin),
+#        (val_add, ":cur_faction_banner", banner_scene_props_begin),
+        (val_sub, ":cur_faction_banner", tgs_banner_meshes_begin),
+        (val_add, ":cur_faction_banner", tgs_banner_scene_props_begin),
+      ## TGS: mat: End
         (troop_set_slot, ":cur_faction_king", slot_troop_banner_scene_prop, ":cur_faction_banner"),
       (try_end),
 
@@ -1002,7 +1006,11 @@ scripts = [
 #          (troop_set_slot, ":kingdom_hero", slot_troop_banner_scene_prop, ":banner_id"),
 #          (val_add, ":num_sarranid_lords_assigned", 1),
 #        (else_try),
-          (assign, ":hero_offset", ":num_other_lords_assigned"),
+
+#####Remove the following line for now      
+#          (assign, ":hero_offset", ":num_other_lords_assigned"),
+
+      
 #          (try_begin),
 #            (gt, ":hero_offset", khergit_banners_begin_offset),#Do not add khergit banners to other lords
 #            (val_add, ":hero_offset", khergit_banners_end_offset),
@@ -1013,17 +1021,109 @@ scripts = [
 #            (val_add, ":hero_offset", sarranid_banners_end_offset),
 #            (val_sub, ":hero_offset", sarranid_banners_begin_offset),
 #          (try_end),
-          (store_add, ":banner_id", banner_scene_props_begin, ":hero_offset"),
+
+## Major banner changes start here:      
+#          (store_add, ":banner_id", banner_scene_props_begin, ":hero_offset"),
+      
+          (try_begin),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_1"),
+              (assign, ":banner_id", "spr_banner_legion"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_2"),
+              (assign, ":banner_id", "spr_banner_band"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_3"),
+              (assign, ":banner_id", "spr_banner_two_rivers"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_4"),
+              (assign, ":banner_id", "spr_banner_mayene"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_5"),
+              (assign, ":banner_id", "spr_banner_cairhien"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_6"),
+              (assign, ":banner_id", "spr_banner_illian"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_7"),
+              (assign, ":banner_id", "spr_banner_murandy"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_8"),
+              (assign, ":banner_id", "spr_banner_altara"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_9"),
+              (assign, ":banner_id", "spr_banner_arad_doman"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_10"),
+              (assign, ":banner_id", "spr_banner_tear"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_11"),
+              (assign, ":banner_id", "spr_banner_andor"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_12"),
+              (assign, ":banner_id", "spr_banner_ghealdan"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_13"),
+              (assign, ":banner_id", "spr_banner_far_madding"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_14"),
+              (assign, ":banner_id", "spr_banner_tarabon"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_15"),
+              (assign, ":banner_id", "spr_banner_amadicia"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_16"),
+              (assign, ":banner_id", "spr_banner_whitecloaks"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_17"),
+              (assign, ":banner_id", "spr_banner_shienar"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_18"),
+              (assign, ":banner_id", "spr_banner_arafel"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_19"),
+              (assign, ":banner_id", "spr_banner_kandor"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_20"),
+              (assign, ":banner_id", "spr_banner_saldaea"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_21"),
+              (assign, ":banner_id", "spr_banner_white_tower"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_22"),
+              (assign, ":banner_id", "spr_banner_aiel"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_23"),
+              (assign, ":banner_id", "spr_banner_seanchan"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_24"),
+              (assign, ":banner_id", "spr_banner_shadowspawn"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_25"),
+              (assign, ":banner_id", "spr_banner_shara"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_26"),
+              (assign, ":banner_id", "spr_banner_sea_folk"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_27"),
+              (assign, ":banner_id", "spr_banner_madmen"),
+          (else_try),
+          (eq, ":kingdom_hero_faction", "fac_kingdom_28"),
+              (assign, ":banner_id", "spr_banner_toman_head"),
+          (try_end),
+
           (troop_set_slot, ":kingdom_hero", slot_troop_banner_scene_prop, ":banner_id"),
-          (val_add, ":num_other_lords_assigned", 1),
+          (val_add, ":num_other_lords_assigned", 1), # don't really need to do this but it doesn't hurt anything
 #        (try_end),
       ## TGS: mat: DEBUG: End
-      
-        (try_begin),
-          (this_or_next|lt, ":banner_id", banner_scene_props_begin),
-          (gt, ":banner_id", banner_scene_props_end_minus_one),
-          (display_message, "@{!}ERROR: Not enough banners for heroes!"),
-        (try_end),
+
+
+## TGS: mat: Remove this check      
+#        (try_begin),
+#          (this_or_next|lt, ":banner_id", banner_scene_props_begin),
+#          (gt, ":banner_id", banner_scene_props_end_minus_one),
+#          (display_message, "@{!}ERROR: Not enough banners for heroes!"),
+#        (try_end),
+## TGS: mat: End
 
         (store_character_level, ":level", ":kingdom_hero"),
         (store_mul, ":renown", ":level", ":level"),
@@ -1096,7 +1196,7 @@ scripts = [
 	  (call_script, "script_give_center_to_faction_aux", "p_town_30", "fac_kingdom_25"), # 
 	  (call_script, "script_give_center_to_faction_aux", "p_town_31", "fac_kingdom_25"), # 
 	  (call_script, "script_give_center_to_faction_aux", "p_town_32", "fac_kingdom_25"), # 
-	  (call_script, "script_give_center_to_faction_aux", "p_town_33", "fac_kingdom_26"), # 
+	  (call_script, "script_give_center_to_faction_aux", "p_town_33", "fac_kingdom_26"), # The Sea Folk town on Tremalking (will be taken by Seanchan after the events at Falme)
 	  (call_script, "script_give_center_to_faction_aux", "p_town_34", "fac_kingdom_26"), # 
 	  (call_script, "script_give_center_to_faction_aux", "p_town_35", "fac_kingdom_26"), # 
 	  (call_script, "script_give_center_to_faction_aux", "p_town_36", "fac_kingdom_27"), # 
@@ -1115,6 +1215,7 @@ scripts = [
       (call_script, "script_give_center_to_faction_aux", "p_castle_9", "fac_kingdom_6"), # jamiche castle - illian
       (call_script, "script_give_center_to_faction_aux", "p_castle_10", "fac_kingdom_3"), # taren ferry - two rivers
       (call_script, "script_give_center_to_faction_aux", "p_castle_11", "fac_kingdom_7"), # trustair - murandy
+
       (call_script, "script_give_center_to_faction_aux", "p_castle_12", "fac_kingdom_8"), # malden - altara
       (call_script, "script_give_center_to_faction_aux", "p_castle_13", "fac_kingdom_5"), # kelredan castle - cairhien
       (call_script, "script_give_center_to_faction_aux", "p_castle_14", "fac_kingdom_11"), # aringill - andor
@@ -1128,13 +1229,16 @@ scripts = [
       (call_script, "script_give_center_to_faction_aux", "p_castle_22", "fac_kingdom_10"), # slezkh castle - tear
       (call_script, "script_give_center_to_faction_aux", "p_castle_23", "fac_kingdom_5"), # tevarin castle - cairhien
       (call_script, "script_give_center_to_faction_aux", "p_castle_24", "fac_kingdom_8"), # Reindi Castle - altara
+
       (call_script, "script_give_center_to_faction_aux", "p_castle_25", "fac_kingdom_8"), # Alkindar - altara
       (call_script, "script_give_center_to_faction_aux", "p_castle_26", "fac_kingdom_8"), # cormaed - altara
       (call_script, "script_give_center_to_faction_aux", "p_castle_27", "fac_kingdom_6"), # rindyar castle - illian
       (call_script, "script_give_center_to_faction_aux", "p_castle_28", "fac_kingdom_15"), # grunwalder castle - amadicia
+
       (call_script, "script_give_center_to_faction_aux", "p_castle_29", "fac_kingdom_17"), # fal dara - shienar
       (call_script, "script_give_center_to_faction_aux", "p_castle_30", "fac_kingdom_15"), # sienda - amadicia
       (call_script, "script_give_center_to_faction_aux", "p_castle_31", "fac_kingdom_11"), # vyincourd castle - andor
+
       (call_script, "script_give_center_to_faction_aux", "p_castle_32", "fac_kingdom_9"), # katar - arad doman
       (call_script, "script_give_center_to_faction_aux", "p_castle_33", "fac_kingdom_10"), # etrosq castle - tear
       (call_script, "script_give_center_to_faction_aux", "p_castle_34", "fac_kingdom_8"), # salidar - altara
@@ -1196,10 +1300,12 @@ scripts = [
       (call_script, "script_give_center_to_lord", "p_town_12", "trp_kingdom_4_lord", 0),#Mayene
       (call_script, "script_give_center_to_lord", "p_town_13", "trp_kingdom_15_lord", 0),#Amador
       (call_script, "script_give_center_to_lord", "p_town_14", "trp_kingdom_12_lord", 0),#Jehannah trp_knight_3_5
+
       (call_script, "script_give_center_to_lord", "p_town_15", "trp_kingdom_13_lord", 0),#Far Madding
       (call_script, "script_give_center_to_lord", "p_town_16", "trp_knight_8_1", 0),#So Habor
       (call_script, "script_give_center_to_lord", "p_town_17", "trp_kingdom_19_lord", 0),#Chachin
       (call_script, "script_give_center_to_lord", "p_town_18", "trp_kingdom_20_lord", 0),#Maradon	  
+	  
       (call_script, "script_give_center_to_lord", "p_town_19", "trp_kingdom_21_lord", 0),#Tar Valon
       (call_script, "script_give_center_to_lord", "p_town_20", "trp_kingdom_24_lord", 0), #Shayol Ghul
       (call_script, "script_give_center_to_lord", "p_town_21", "trp_kingdom_22_lord", 0),#Rhuidean
@@ -11334,161 +11440,366 @@ scripts = [
 
 	("initialize_trade_routes",
 	[
-	  #SARGOTH - 10 routes
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_2"), #Sargoth - Tihr
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_4"), #Sargoth - Suno
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_12"), #Sargoth - Wercheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_11"), #Sargoth - Curaw
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_8"), #Sargoth - Reyvadin
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_13"), #Sargoth - Rivacheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_7"), #Sargoth - Uxkhal
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_9"), #Sargoth - Khudan
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_6"), #Sargoth - Praven
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_15"), #Sargoth - Yalen
-      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_16"), #Sargoth - Dhirim
+	  #Cairhien - 14
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_2"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_3"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_4"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_5"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_9"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_10"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_11"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_13"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_19"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_22"), #
 
-	  #TIHR- 8 Routes
-      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_4"), #Tihr- Suno
-      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_6"), #Tihr - Praven
-      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_7"), #Tihr - Uxkhal
-      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_15"), #Tihr - Yalen
-      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_12"), #Tihr - Wercheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_8"), #Tihr - Reyvadin
-      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_11"), #Tihr - Curaw
-      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_16"), #Thir - Dhirim
 
-	  #VELUCA - 8 Routes
-      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_7"), #Veluca- Uxkhal
-      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_5"), #Veluca - Jelkala
-      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_15"), #Veluca - Yalen
-      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_16"), #Veluca - Dhirim
-      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_14"), #Veluca - Halmar
-      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_4"), #Veluca - Suno
-      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_19"), #Veluca - Shariz
-      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_6"), #Veluca - Praven
+	  #Baerlon - 13
+#      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_2"), # understood
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_3"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_5"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_10"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_13"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_17"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_18"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_19"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_22"), #
 
-	  #SUNO - 11 routes
-	  #Sargoth, Tihr, Veluca
-      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_12"), #Suno - Wercheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_8"), #Suno - Reyvadin
-      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_11"), #Suno - Curaw
-      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_6"), #Suno - Praven
-      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_7"), #Suno - Uxkhal
-      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_16"), #Suno - Dhirim
-      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_5"), #Suno - Jelkala
-      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_15"), #Suno - Yalen
+	  #Caemlyn - 
+#      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_3"), # understood
+#      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_3"), # understood
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_4"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_5"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_9"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_10"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_11"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_13"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_19"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_34"), #
 
-	  #JELKALA - 6 ROUTES
-      #Veluca, Suno
-      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_15"), #Jelkala - Yalen
-      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_6"), #Jelkala - Praven
-      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_7"), #Jelkala - Uxkhal
-      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_19"), #Jelkala - Shariz
 
-	  #PRAVEN - 7 ROUTES
-	  #Tihr, Veluca, Suno, Jelkala
-      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_7"), #Praven - Uxkhal
-      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_15"), #Praven - Yalen
-      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_16"), #Praven - Dhirim
+	  #Ebou Dar
+#      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_4"), # understood
+#      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_4"), # understood
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_5"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_10"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_13"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_19"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_33"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_34"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_35"), #
 
-	  #UXKHAL - 9 Routes
-	  #Sargoth, Tihr, Suno, Jelkala, Praven
-      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_15"), #Yalen
-      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_16"), #Dhirim
-      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_19"), #Shariz
-      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_14"), #Halmar
+	  #Lugard
+#      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_5"), #
+#      (call_script, "script_set_trade_route_between_centers", "p_town_2", "p_town_5"), #
+#      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_5"), #
+#      (call_script, "script_set_trade_route_between_centers", "p_town_4", "p_town_5"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_9"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_10"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_11"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_13"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_19"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_24"), #
 
-	  #REYVADIN - 9 Routes
-	  #Suno, Sargoth
-      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_9"), #Khudan
-      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_11"), #Curaw
-      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_12"), #Wercheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_13"), #Rivacheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_16"), #Dhirim
-      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_18"), #Narra
-      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_17"), #Ichamur
 
-	  #KHUDAN - 9 Routes
-	  #Sargoth, Reyvadin
-      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_11"), #Curaw
-      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_13"), #Rivacheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_12"), #Wercheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_17"), #Ichamur
-      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_10"), #Tulga
-      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_16"), #Dhirim
-      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_18"), #Narra
+	  #Bandar Eban
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_7"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_8"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_10"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_13"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_17"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_18"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_33"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_34"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_35"), #
 
-	  #TULGA - 7 Routes
-	  #Khudan
-      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_17"), #Ichamur
-      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_18"), #Narra
-      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_22"), #Bariyye
-      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_21"), #Ahmerrad
-      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_14"), #Halmar
-      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_20"), #Durquba
 
-	  #CURAW - 9 Routes
-	  #Khudan, Reyvadin, Sargoth, Suno
-      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_12"), #Wercheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_13"), #Rivacheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_14"), #Halmar
-      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_16"), #Dhirim
-      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_17"), #Ichamur
+	  #Falme
+#      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_7"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_8"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_10"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_13"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_17"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_18"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_33"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_34"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_35"), #
 
-	  #WERCHEG - 7 Routes
-	  #Sargoth, Suno, Reyvadin, Khudan, Curaw, Tihr
-      (call_script, "script_set_trade_route_between_centers", "p_town_12", "p_town_13"), #Rivacheg
 
-	  #RIVACHEG - 6 Routes
-	  #Sargoth, Reyvadin, Khudan, Curaw, Wercheg
-      (call_script, "script_set_trade_route_between_centers", "p_town_13", "p_town_17"), #Ichamur
+	  #Tanchico
+#      (call_script, "script_set_trade_route_between_centers", "p_town_6", "p_town_8"), #
+#      (call_script, "script_set_trade_route_between_centers", "p_town_7", "p_town_8"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_10"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_13"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_17"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_18"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_33"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_34"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_8", "p_town_35"), #
+      
 
-	  #HALMAR- 11 Routes
-	  #Veluca, Uxkhal, Tulga, Curaw
-      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_17"), #Ichamur
-      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_18"), #Narra
-      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_21"), #Ahmerrad
-      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_22"), #Bariyye
-      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_20"), #Durquba
-      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_19"), #Shariz
-      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_16"), #Dhirim
+	  #Shol Arbela
+#      (call_script, "script_set_trade_route_between_centers", "p_town_1", "p_town_9"), #
+#      (call_script, "script_set_trade_route_between_centers", "p_town_3", "p_town_9"), #
+#      (call_script, "script_set_trade_route_between_centers", "p_town_5", "p_town_9"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_10"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_11"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_17"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_18"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_19"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_9", "p_town_25"), #
 
-	  #YALEN - 7 Routes
-	  #Sargoth, Tihr, Veluca, Suno, Jelkala, Praven, Uxkhal
+      
 
-	  #DHIRIM - 13 Routes
-	  #Sargoth, Thir, Veluca, Suno, Praven, Uxkhal, Reyvadin, Khudan, Curaw, Halmar
-      (call_script, "script_set_trade_route_between_centers", "p_town_16", "p_town_18"), #Narra
-      (call_script, "script_set_trade_route_between_centers", "p_town_16", "p_town_20"), #Durquba
-      (call_script, "script_set_trade_route_between_centers", "p_town_16", "p_town_19"), #Shariz
+	  #Tear
+      #1,2,3,4,5,6,7,8,9
+      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_13"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_19"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_10", "p_town_34"), #
 
-	  #ICHAMUR - 7 Routes
-      #Reyvadin, Khudan, Tulga, Curaw, Rivacheg, Halmar
-      (call_script, "script_set_trade_route_between_centers", "p_town_17", "p_town_18"), #Narra
+      
 
-	  #NARRA - 9 Routes
-      #Reyvadin, Khudan, Tulga, Halmar, Dhirim, Ichamur
-      (call_script, "script_set_trade_route_between_centers", "p_town_18", "p_town_20"), #Durquba
-      (call_script, "script_set_trade_route_between_centers", "p_town_18", "p_town_21"), #Ahmerrad
-      (call_script, "script_set_trade_route_between_centers", "p_town_18", "p_town_22"), #Bariyye
+	  #Fal Moran
+      #1,3,5,9
+      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_12"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_17"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_18"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_19"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_11", "p_town_35"), #
 
-	  #SHARIZ - 8 Routes
-      #Veluca, Jelkala, Uxkhal, Halmar, Dhirim
-      (call_script, "script_set_trade_route_between_centers", "p_town_19", "p_town_20"), #Durquba
-      (call_script, "script_set_trade_route_between_centers", "p_town_19", "p_town_21"), #Ahmerrad
-      (call_script, "script_set_trade_route_between_centers", "p_town_19", "p_town_22"), #Bariyye
 
-	  #DURQUBA - 7 Routes
-      #Tulga, Halmar, Dhirim, Narra, Shariz
-      (call_script, "script_set_trade_route_between_centers", "p_town_20", "p_town_21"), #Ahmerrad
-      (call_script, "script_set_trade_route_between_centers", "p_town_20", "p_town_22"), #Bariyye
+	  #Mayene
+      #1,2,3,4,5,6,7,8,9,10,11
+      (call_script, "script_set_trade_route_between_centers", "p_town_12", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_12", "p_town_19"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_12", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_12", "p_town_34"), #
 
-	  #AHMERRAD - 6 Routes
-      #Tulga, Halmar, Narra, Shariz, Durquba
-      (call_script, "script_set_trade_route_between_centers", "p_town_21", "p_town_22"), #Bariyye
 
-	  #BARIYYE - 6 Routes
-      #Tulga, Halmar, Narra, Shariz, Durquba, Ahmerrad
+
+	  #Amador
+      #1,2,3,4,5,6,7,8,10
+      (call_script, "script_set_trade_route_between_centers", "p_town_13", "p_town_14"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_13", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_13", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_13", "p_town_33"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_13", "p_town_34"), #
+      
+
+	  #Jehannah
+      #1,2,3,4,5,6,7,8,9,10,14
+      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_15"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_16"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_14", "p_town_33"), #
+      
+
+	  #Far Madding
+      #1-14
+      (call_script, "script_set_trade_route_between_centers", "p_town_15", "p_town_19"), #
+
+
+	  #So Habor
+      #1,2,3,4,5,6,7,8,11,14
+      (call_script, "script_set_trade_route_between_centers", "p_town_16", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_16", "p_town_23"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_16", "p_town_24"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_16", "p_town_33"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_16", "p_town_34"), #
+      
+
+      
+	  #Chachin
+      #2,6,7,8,9,11
+      (call_script, "script_set_trade_route_between_centers", "p_town_17", "p_town_18"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_17", "p_town_19"), #
+
+
+	  #Maradon
+      #2,6,7,8,9,11,17
+      (call_script, "script_set_trade_route_between_centers", "p_town_18", "p_town_19"), #
+      
+
+	  #Tar Valon
+      #1,2,3,4,5,9,10,11,12,15,16,17
+      (call_script, "script_set_trade_route_between_centers", "p_town_19", "p_town_22"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_19", "p_town_34"), #
+
+      
+
+	  #Shayol Ghul
+      (call_script, "script_set_trade_route_between_centers", "p_town_20", "p_town_29"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_20", "p_town_36"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_20", "p_town_37"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_20", "p_town_38"), #
+
+      
+
+	  #Rhuidean
+      (call_script, "script_set_trade_route_between_centers", "p_town_21", "p_town_23"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_21", "p_town_24"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_21", "p_town_25"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_21", "p_town_31"), #
+
+
+	  #Illian
+      #1,2,3,4,5,6,7,8,12,13,14,16,19
+      (call_script, "script_set_trade_route_between_centers", "p_town_22", "p_town_23"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_22", "p_town_34"), #
+
+      
+      #Black Tower
+      #16,21,22
+      (call_script, "script_set_trade_route_between_centers", "p_town_23", "p_town_24"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_23", "p_town_25"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_23", "p_town_33"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_23", "p_town_34"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_23", "p_town_35"), #
+
+      
+      #Red Hand Encampment
+      #5,16,21,23
+      (call_script, "script_set_trade_route_between_centers", "p_town_24", "p_town_25"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_24", "p_town_33"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_24", "p_town_34"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_24", "p_town_35"), #
+
+
+      #Cold Rocks Hold
+      #9,21,23,24
+      (call_script, "script_set_trade_route_between_centers", "p_town_25", "p_town_31"), #
+
+      
+      #Seandar
+      (call_script, "script_set_trade_route_between_centers", "p_town_26", "p_town_27"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_26", "p_town_28"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_26", "p_town_36"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_26", "p_town_37"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_26", "p_town_38"), #
+
+      
+      #Shon Kifar
+      #26
+      (call_script, "script_set_trade_route_between_centers", "p_town_27", "p_town_28"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_27", "p_town_36"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_27", "p_town_37"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_27", "p_town_38"), #
+
+      
+      #Rampore
+      #26,27
+      (call_script, "script_set_trade_route_between_centers", "p_town_28", "p_town_36"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_28", "p_town_37"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_28", "p_town_38"), #
+
+      
+      #Moridin's Fortress
+      #20
+      (call_script, "script_set_trade_route_between_centers", "p_town_29", "p_town_36"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_29", "p_town_37"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_29", "p_town_38"), #
+
+      
+      #Paranfur
+      (call_script, "script_set_trade_route_between_centers", "p_town_30", "p_town_31"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_30", "p_town_32"), #
+
+      
+      #Kyutamar
+      #21,25
+      (call_script, "script_set_trade_route_between_centers", "p_town_31", "p_town_32"), #
+
+      
+      #Sen'Lomar
+      #30,31
+      (call_script, "script_set_trade_route_between_centers", "p_town_32", "p_town_33"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_32", "p_town_34"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_32", "p_town_35"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_32", "p_town_36"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_32", "p_town_37"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_32", "p_town_38"), #
+
+      
+      #Tremalking
+      #4,6,7,8,13,14,16,19,23,24,32
+      (call_script, "script_set_trade_route_between_centers", "p_town_33", "p_town_34"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_33", "p_town_35"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_33", "p_town_36"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_33", "p_town_37"), #
+
+      
+      #Quaim
+      #3,4,6,7,8,10,12,13,16,22,23,24,32,33
+      (call_script, "script_set_trade_route_between_centers", "p_town_34", "p_town_35"), #
+
+      
+      #Somera
+      #4,6,7,8,11,23,24,32,33,34
+      (call_script, "script_set_trade_route_between_centers", "p_town_35", "p_town_36"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_35", "p_town_37"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_35", "p_town_38"), #
+
+      
+      #Wendale
+      #20,29,32,33,35
+      (call_script, "script_set_trade_route_between_centers", "p_town_36", "p_town_37"), #
+      (call_script, "script_set_trade_route_between_centers", "p_town_36", "p_town_38"), #
+
+      
+      #Kaldeske
+      #20,29,32,33,35,36
+      (call_script, "script_set_trade_route_between_centers", "p_town_36", "p_town_38"), #
+
+      
+      #Ebene
+      #20,29,32,35,36,37
+      #No new routes to add
+      
 	]),
 
 
@@ -30116,8 +30427,12 @@ scripts = [
 #normal_banner_begin
         (troop_get_slot, ":cur_banner", ":lord_troop_id", slot_troop_banner_scene_prop),
         (gt, ":cur_banner", 0),
-        (val_sub, ":cur_banner", banner_scene_props_begin),
-        (val_add, ":cur_banner", banner_map_icons_begin),
+      ## TGS: mat: Modified for TGS banners
+#        (val_sub, ":cur_banner", banner_scene_props_begin),
+#        (val_add, ":cur_banner", banner_map_icons_begin),
+        (val_sub, ":cur_banner", tgs_banner_scene_props_begin),
+        (val_add, ":cur_banner", tgs_banner_map_icons_begin),
+      ## TGS: mat: End
         (party_set_banner_icon, ":center_no", ":cur_banner"),
 # custom_banner_begin
 #        (troop_get_slot, ":flag_icon", ":lord_troop_id", slot_troop_custom_banner_map_flag_type),
@@ -31760,8 +32075,12 @@ scripts = [
       (troop_get_slot, ":cur_banner", ":troop_no", slot_troop_banner_scene_prop),
       (try_begin),
         (gt, ":cur_banner", 0),
-        (val_sub, ":cur_banner", banner_scene_props_begin),
-        (val_add, ":cur_banner", banner_map_icons_begin),
+      ## TGS: mat: Modified for new banners
+#        (val_sub, ":cur_banner", banner_scene_props_begin),
+#        (val_add, ":cur_banner", banner_map_icons_begin),
+        (val_sub, ":cur_banner", tgs_banner_scene_props_begin),
+        (val_add, ":cur_banner", tgs_banner_map_icons_begin),
+      ## TGS: mat: End
         (party_set_banner_icon, "$pout_party", ":cur_banner"),
       #custom_banner_begin
       #(troop_get_slot, ":flag_icon", ":troop_no", slot_troop_custom_banner_map_flag_type),
@@ -40099,62 +40418,66 @@ scripts = [
 	(try_end),
 	##diplomacy start+
 	##Add relations for rulers not already encoded
-	(try_begin),
-		(eq, ":relation_strength", 0),
-		(neq, ":troop_1", ":troop_2"),
-		(try_begin),
+
+## TGS: mat: removed to keep these relationships from being set    
+#	(try_begin),
+#		(eq, ":relation_strength", 0),
+#		(neq, ":troop_1", ":troop_2"),
+#		(try_begin),
 			#Lady Isolla of Suno's father King Esterich was King Harlaus's cousin,
 			#making them first cousins once removed.  Assign a weight of "1"
 			#to this (for reference, the lowest value normally given in Native is 2).
-			(this_or_next|eq, ":troop_1", "trp_kingdom_1_lord"),
-			    (eq, ":troop_1", "trp_kingdom_1_pretender"),
-			(this_or_next|eq, ":troop_2", "trp_kingdom_1_lord"),
-			    (eq, ":troop_2", "trp_kingdom_1_pretender"),
-			(assign, ":relation_strength", 1),
-			(str_store_string, s11, "str_cousin"),
-		(else_try),
+#			(this_or_next|eq, ":troop_1", "trp_kingdom_1_lord"),
+#			    (eq, ":troop_1", "trp_kingdom_1_pretender"),
+#			(this_or_next|eq, ":troop_2", "trp_kingdom_1_lord"),
+#			    (eq, ":troop_2", "trp_kingdom_1_pretender"),
+#			(assign, ":relation_strength", 1),
+#			(str_store_string, s11, "str_cousin"),
+#		(else_try),
 			#Prince Valdym's uncle was Regent Burelek, father of King Yaroglek,
 			#making the two of them first cousins.
-			(this_or_next|eq, ":troop_1", "trp_kingdom_2_lord"),
-			    (eq, ":troop_1", "trp_kingdom_2_pretender"),
-			(this_or_next|eq, ":troop_2", "trp_kingdom_2_lord"),
-				(eq, ":troop_2", "trp_kingdom_2_pretender"),
-			(assign, ":relation_strength", 2),
-			(str_store_string, s11, "str_cousin"),
-		(else_try),
+#			(this_or_next|eq, ":troop_1", "trp_kingdom_2_lord"),
+#			    (eq, ":troop_1", "trp_kingdom_2_pretender"),
+#			(this_or_next|eq, ":troop_2", "trp_kingdom_2_lord"),
+#				(eq, ":troop_2", "trp_kingdom_2_pretender"),
+#			(assign, ":relation_strength", 2),
+#			(str_store_string, s11, "str_cousin"),
+#		(else_try),
 			#Sanjar Khan and Dustum Khan were both sons of Janakir Khan
 			#(although by different mothers) making them half-brothers.
-			(this_or_next|eq, ":troop_1", "trp_kingdom_3_lord"),
-			    (eq, ":troop_1", "trp_kingdom_3_pretender"),
-			(this_or_next|eq, ":troop_2", "trp_kingdom_3_lord"),
-				(eq, ":troop_2", "trp_kingdom_3_pretender"),
-			(assign, ":relation_strength", 10),
-			(str_store_string, s11, "str_dplmc_half_brother"),
+#			(this_or_next|eq, ":troop_1", "trp_kingdom_3_lord"),
+#			    (eq, ":troop_1", "trp_kingdom_3_pretender"),
+#			(this_or_next|eq, ":troop_2", "trp_kingdom_3_lord"),
+#				(eq, ":troop_2", "trp_kingdom_3_pretender"),
+#			(assign, ":relation_strength", 10),
+#			(str_store_string, s11, "str_dplmc_half_brother"),
 			#Adjust their parentage to make this work automatically
-			(try_begin),
-		      		(troop_slot_eq, ":troop_1", slot_troop_father, -1),
-				(troop_slot_eq, ":troop_2", slot_troop_father, -1),
+#			(try_begin),
+#		      		(troop_slot_eq, ":troop_1", slot_troop_father, -1),
+#				(troop_slot_eq, ":troop_2", slot_troop_father, -1),
 				#Set their "father" slot to a number guaranteed not to have spurious collisions
-				(store_mul, ":janakir_khan", "trp_kingdom_3_lord", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),#defined in module_constants.py
-				(val_add, ":janakir_khan", DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET),#defined in module_constants.py
-				(troop_set_slot, ":troop_1", slot_troop_father, ":janakir_khan"),
-				(troop_set_slot, ":troop_2", slot_troop_father, ":janakir_khan"),
+#				(store_mul, ":janakir_khan", "trp_kingdom_3_lord", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),#defined in module_constants.py
+#				(val_add, ":janakir_khan", DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET),#defined in module_constants.py
+#				(troop_set_slot, ":troop_1", slot_troop_father, ":janakir_khan"),
+#				(troop_set_slot, ":troop_2", slot_troop_father, ":janakir_khan"),
 				#Differentiate their mothers, so they are half-brothers instead of full-brothers
-				(try_begin),
-					(troop_slot_eq, ":troop_1", slot_troop_mother, -1),
-					(store_mul, reg0, ":troop_1", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
-					(val_add, reg0, DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
-					(troop_set_slot, ":troop_1", slot_troop_mother, reg0),
-				(try_end),
-				(try_begin),
-					(troop_slot_eq, ":troop_2", slot_troop_mother, -1),
-					(store_mul, reg0, ":troop_2", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
-					(val_add, reg0, DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
-					(troop_set_slot, ":troop_2", slot_troop_mother, reg0),
-				(try_end),				
-			(try_end),
-		(try_end),
-	(try_end),
+#				(try_begin),
+#					(troop_slot_eq, ":troop_1", slot_troop_mother, -1),
+#					(store_mul, reg0, ":troop_1", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
+#					(val_add, reg0, DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
+#					(troop_set_slot, ":troop_1", slot_troop_mother, reg0),
+#				(try_end),
+#				(try_begin),
+#					(troop_slot_eq, ":troop_2", slot_troop_mother, -1),
+#					(store_mul, reg0, ":troop_2", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
+#					(val_add, reg0, DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
+#					(troop_set_slot, ":troop_2", slot_troop_mother, reg0),
+#				(try_end),				
+#			(try_end),
+#		(try_end),
+#	(try_end),
+## TGS: mat: End: removed to keep these relationships from being set 
+    
 	##Add uncles and aunts by marriage.
 	##In Native, the relation strength for blood uncles/aunts is 4, and for cousins is 2.
 	##In light of this I've decided to set the relation strength for aunts/uncles by marriage to 2.
@@ -40663,9 +40986,11 @@ scripts = [
 #normal_banner_begin
        (troop_get_slot, ":troop_banner_object", ":cur_leader", slot_troop_banner_scene_prop),
        (gt, ":troop_banner_object", 0),
-       (replace_scene_props, banner_scene_props_begin, ":troop_banner_object"),
+     ## TGS: mat: Modified for TGS banners
+       (replace_scene_props, tgs_banner_scene_props_begin, ":troop_banner_object"),
      (else_try),
-       (replace_scene_props, banner_scene_props_begin, "spr_empty"),
+       (replace_scene_props, tgs_banner_scene_props_begin, "spr_empty"),
+     ## TGS: mat: End
 #custom_banner_begin
 #       (troop_get_slot, ":flag_spr", ":cur_leader", slot_troop_custom_banner_flag_type),
 #       (ge, ":flag_spr", 0),
@@ -43464,8 +43789,10 @@ scripts = [
 		  (party_set_slot, ":cur_center", slot_town_lord, "trp_player"),
           (troop_get_slot, ":cur_banner", "trp_player", slot_troop_banner_scene_prop),
           (gt, ":cur_banner", 0),
-          (val_sub, ":cur_banner", banner_scene_props_begin),
-          (val_add, ":cur_banner", banner_map_icons_begin),
+      ## TGS: mat: Modified for TGS banners
+          (val_sub, ":cur_banner", tgs_banner_scene_props_begin),
+          (val_add, ":cur_banner", tgs_banner_map_icons_begin),
+      ## TGS: mat: End
           (party_set_banner_icon, ":cur_center", ":cur_banner"),
         (try_end),
 
@@ -44970,7 +45297,9 @@ scripts = [
            (player_is_active, ":agent_group"),
            (player_get_banner_id, ":player_banner", ":agent_group"),
            (ge, ":player_banner", 0),
-           (store_add, ":banner_mesh", ":player_banner", arms_meshes_begin),
+       ## TGS: mat: Modified for TGS banners
+           (store_add, ":banner_mesh", ":player_banner", tgs_arms_meshes_begin),
+       ## TGS: mat: End
            (assign, ":already_used", 0),
            (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end), #wrong client data check
              (faction_slot_eq, ":cur_faction", slot_faction_banner, ":banner_mesh"),
@@ -45060,11 +45389,13 @@ scripts = [
            (neg|troop_slot_ge, ":banner_troop", slot_troop_banner_scene_prop, 1),
            (assign, ":banner_mesh", "mesh_banners_default_b"),
          (else_try),
+       ## TGS: mat: Modified for TGS banners
            (troop_get_slot, ":banner_spr", ":banner_troop", slot_troop_banner_scene_prop),
-           (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
-           (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
-           (val_sub, ":banner_spr", banner_scene_props_begin),
-           (store_add, ":banner_mesh", ":banner_spr", arms_meshes_begin),
+#           (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
+           (is_between, ":banner_spr", tgs_banner_scene_props_begin, tgs_banner_scene_props_end),
+           (val_sub, ":banner_spr", tgs_banner_scene_props_begin),
+           (store_add, ":banner_mesh", ":banner_spr", tgs_arms_meshes_begin),
+       ## TGS: mat: End
          (try_end),
        (try_end),
        (assign, reg0, ":banner_mesh"),
@@ -45163,15 +45494,18 @@ scripts = [
   ("add_troop_to_cur_tableau",
     [
        (store_script_param, ":troop_no",1),
+       
 
        (set_fixed_point_multiplier, 100),
        (assign, ":banner_mesh", -1),
        (troop_get_slot, ":banner_spr", ":troop_no", slot_troop_banner_scene_prop),
-       (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
+       ## TGS: mat: Modified for TGS banners
+#       (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
        (try_begin),
-         (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
-         (val_sub, ":banner_spr", banner_scene_props_begin),
-         (store_add, ":banner_mesh", ":banner_spr", banner_meshes_begin),
+         (is_between, ":banner_spr", tgs_banner_scene_props_begin, tgs_banner_scene_props_end),
+         (val_sub, ":banner_spr", tgs_banner_scene_props_begin),
+         (store_add, ":banner_mesh", ":banner_spr", tgs_banner_meshes_begin),
+       ## TGS: mat: End
        (try_end),
 
        (cur_tableau_clear_override_items),
@@ -45387,7 +45721,9 @@ scripts = [
        (try_begin),
          (ge, ":profile_banner", 0),
          (init_position, pos2),
-         (val_add, ":profile_banner", banner_meshes_begin),
+       ## TGS: mat: Modified for TGS banners
+         (val_add, ":profile_banner", tgs_banner_meshes_begin),
+       ## TGS: mat: End
          (position_set_x, pos2, -175),
          (position_set_y, pos2, -300),
          (position_set_z, pos2, 180),
@@ -46765,15 +47101,35 @@ scripts = [
         
         ## Modified for TGS
         ##diplomacy start+
-		(troop_set_slot, "trp_kingdom_1_pretender", slot_troop_home, "p_town_2"),#Mazrim - Baerlon
-		(troop_set_slot, "trp_kingdom_2_pretender", slot_troop_home, "p_town_1"),#Colavere - Cairhien
-		(troop_set_slot, "trp_kingdom_3_pretender", slot_troop_home, "p_town_3"),#Arymilla - Caemlyn
-		(troop_set_slot, "trp_kingdom_4_pretender", slot_troop_home, "p_town_11"),#Isam - Fal Moran
-		(troop_set_slot, "trp_kingdom_5_pretender", slot_troop_home, "p_town_19"),#Elaida - Tar Valon
-		(troop_set_slot, "trp_kingdom_6_pretender", slot_troop_home, "p_town_21"),#Sevana - Rhuidean
+        (troop_set_slot, "trp_kingdom_1_pretender", slot_troop_home, "p_town_23"),#
+        (troop_set_slot, "trp_kingdom_2_pretender", slot_troop_home, "p_town_24"),#
+        (troop_set_slot, "trp_kingdom_3_pretender", slot_troop_home, "p_town_2"),#
+        (troop_set_slot, "trp_kingdom_4_pretender", slot_troop_home, "p_town_12"),#
+        (troop_set_slot, "trp_kingdom_5_pretender", slot_troop_home, "p_town_1"),#
+        (troop_set_slot, "trp_kingdom_6_pretender", slot_troop_home, "p_town_22"),#
         # added for TGS
-        (troop_set_slot, "trp_kingdom_7_pretender", slot_troop_home, "p_town_7"),#Suroth - Falme
-        (troop_set_slot, "trp_kingdom_8_pretender", slot_troop_home, "p_town_20"),#Padan Fain - Shayol Ghul
+        (troop_set_slot, "trp_kingdom_7_pretender", slot_troop_home, "p_town_5"),#
+        (troop_set_slot, "trp_kingdom_8_pretender", slot_troop_home, "p_town_4"),#
+        (troop_set_slot, "trp_kingdom_9_pretender", slot_troop_home, "p_town_6"),#
+        (troop_set_slot, "trp_kingdom_10_pretender", slot_troop_home, "p_town_10"),#
+        (troop_set_slot, "trp_kingdom_11_pretender", slot_troop_home, "p_town_3"),#
+        (troop_set_slot, "trp_kingdom_12_pretender", slot_troop_home, "p_town_14"),#
+        (troop_set_slot, "trp_kingdom_13_pretender", slot_troop_home, "p_town_15"),#
+        (troop_set_slot, "trp_kingdom_14_pretender", slot_troop_home, "p_town_8"),#
+        (troop_set_slot, "trp_kingdom_15_pretender", slot_troop_home, "p_town_13"),#
+        (troop_set_slot, "trp_kingdom_16_pretender", slot_troop_home, "p_castle_3"),# Not sure if the pretender can stay in a castle
+        (troop_set_slot, "trp_kingdom_17_pretender", slot_troop_home, "p_town_11"),#
+        (troop_set_slot, "trp_kingdom_18_pretender", slot_troop_home, "p_town_9"),#
+        (troop_set_slot, "trp_kingdom_19_pretender", slot_troop_home, "p_town_17"),#
+        (troop_set_slot, "trp_kingdom_20_pretender", slot_troop_home, "p_town_18"),#
+        (troop_set_slot, "trp_kingdom_21_pretender", slot_troop_home, "p_town_19"),#
+        (troop_set_slot, "trp_kingdom_22_pretender", slot_troop_home, "p_town_21"),#
+        (troop_set_slot, "trp_kingdom_23_pretender", slot_troop_home, "p_town_26"),#
+        (troop_set_slot, "trp_kingdom_24_pretender", slot_troop_home, "p_town_20"),#
+        (troop_set_slot, "trp_kingdom_25_pretender", slot_troop_home, "p_town_30"),#
+        (troop_set_slot, "trp_kingdom_26_pretender", slot_troop_home, "p_town_33"),#
+        (troop_set_slot, "trp_kingdom_27_pretender", slot_troop_home, "p_town_36"),#
+        (troop_set_slot, "trp_kingdom_28_pretender", slot_troop_home, "p_town_7"),#
         # end added for TGS
         ##diplomacy end+
         ## End modified for TGS
@@ -47340,7 +47696,9 @@ scripts = [
      (else_try),
        (init_position, pos1),
        (position_move_z, pos1, -1000000),
-       (scene_prop_get_instance, ":flag_object", banner_scene_props_begin, 0),
+        ## TGS: mat: Modified for TGS banners
+       (scene_prop_get_instance, ":flag_object", tgs_banner_scene_props_begin, 0),
+        ## TGS: mat: End
        (try_begin),
          (ge, ":flag_object", 0),
          (prop_instance_set_position, ":flag_object", pos1),
@@ -47365,7 +47723,9 @@ scripts = [
      (try_begin),
     	    	#normal_banner_begin
        (gt, ":troop_banner_object", 0),
-       (replace_scene_props, banner_scene_props_begin, ":troop_banner_object"),
+        ## TGS: mat: Modified for TGS banners
+       (replace_scene_props, tgs_banner_scene_props_begin, ":troop_banner_object"),
+        ## TGS: mat: End
     	    	#custom_banner_begin
 #       (ge, ":flag_spr", 0),
 #       (val_add, ":flag_spr", custom_banner_flag_scene_props_begin),

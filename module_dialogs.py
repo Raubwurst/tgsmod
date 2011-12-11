@@ -3494,7 +3494,9 @@ whereas {reg21?{s9} still has {reg21} {s0} supporting {reg0?her:him}:{s9} has no
           (assign, ":banner_offset", banners_end_offset),
           (val_sub, ":banner_offset", 1),
           (val_sub, ":banner_offset", "$g_companions_banner_id"),
-          (store_add, ":banner_id", banner_scene_props_begin, ":banner_offset"),
+        ## TGS: mat: Modified for TSG banners
+          (store_add, ":banner_id", tgs_banner_scene_props_begin, ":banner_offset"),
+        ## TGS: mat: ENd
           (troop_set_slot, "$g_talk_troop", slot_troop_banner_scene_prop, ":banner_id"),
           (val_add, "$g_companions_banner_id", 1),
 
@@ -22785,8 +22787,10 @@ and give my regards to {s9} when you see {reg0?her:him} again.", "lord_pretalk",
          (is_between, ":give_fief", walled_centers_begin, walled_centers_end),
          (troop_get_slot, ":cur_banner", ":to_lord", slot_troop_banner_scene_prop),
          (gt, ":cur_banner", 0),
-         (val_sub, ":cur_banner", banner_scene_props_begin),
-         (val_add, ":cur_banner", banner_map_icons_begin),
+    ## TGS: mat: Modified for TGS banners
+         (val_sub, ":cur_banner", tgs_banner_scene_props_begin),
+         (val_add, ":cur_banner", tgs_banner_map_icons_begin),
+    ## TGS: mat: End
          (party_set_banner_icon, ":give_fief", ":cur_banner"),
      (try_end),
      #transfer to lord
@@ -22807,8 +22811,10 @@ and give my regards to {s9} when you see {reg0?her:him} again.", "lord_pretalk",
          (is_between, ":give_fief", walled_centers_begin, walled_centers_end),
          (troop_get_slot, ":cur_banner", ":to_lord", slot_troop_banner_scene_prop),
          (gt, ":cur_banner", 0),
-         (val_sub, ":cur_banner", banner_scene_props_begin),
-         (val_add, ":cur_banner", banner_map_icons_begin),
+    ## TGS: mat: Modified for TGS banners
+         (val_sub, ":cur_banner", tgs_banner_scene_props_begin),
+         (val_add, ":cur_banner", tgs_banner_map_icons_begin),
+    ## TGS: mat: End
          (party_set_banner_icon, ":give_fief", ":cur_banner"),
      (try_end),
      #transfer to lord

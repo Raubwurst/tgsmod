@@ -4777,40 +4777,40 @@ simple_triggers = [
 	  #
 	  #Because relations may already exist, only call this in instances where
 	  #they are 0 or 1 (the latter just means "met" between NPCs).
-#     (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
-#		(troop_slot_eq, ":lady", slot_troop_occupation, slto_kingdom_lady),
-#		(troop_get_slot, ":lady_faction", ":lady", slot_troop_original_faction),
-#		(ge, ":lady_faction", 1),
+     (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
+		(troop_slot_eq, ":lady", slot_troop_occupation, slto_kingdom_lady),
+		(troop_get_slot, ":lady_faction", ":lady", slot_troop_original_faction),
+		(ge, ":lady_faction", 1),
 
-#		(try_for_range, ":other_hero", heroes_begin, heroes_end),
-#		   (this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_lady),
-#			(this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_hero),
-#				(troop_slot_eq, ":other_hero", slot_troop_occupation, slto_inactive_pretender),
-#			(troop_slot_eq, ":other_hero", slot_troop_original_faction, ":lady_faction"),
+		(try_for_range, ":other_hero", heroes_begin, heroes_end),
+		   (this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_lady),
+			(this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_hero),
+				(troop_slot_eq, ":other_hero", slot_troop_occupation, slto_inactive_pretender),
+			(troop_slot_eq, ":other_hero", slot_troop_original_faction, ":lady_faction"),
 
 			#Because this is not a new game: first check if relations have developed
-#			(call_script, "script_troop_get_relation_with_troop", ":lady", ":other_hero"),
-#			(is_between, reg0, 0, 2),#0 or 1
+			(call_script, "script_troop_get_relation_with_troop", ":lady", ":other_hero"),
+			(is_between, reg0, 0, 2),#0 or 1
 
-#			(try_begin),
-#				(this_or_next|troop_slot_eq, ":lady", slot_troop_spouse, ":other_hero"),
-#				(troop_slot_eq, ":other_hero", slot_troop_spouse, ":lady"),
-#				(store_random_in_range, reg0, 0, 11),
-#			(else_try),
+			(try_begin),
+				(this_or_next|troop_slot_eq, ":lady", slot_troop_spouse, ":other_hero"),
+				(troop_slot_eq, ":other_hero", slot_troop_spouse, ":lady"),
+				(store_random_in_range, reg0, 0, 11),
+			(else_try),
 				#(call_script, "script_troop_get_family_relation_to_troop", ":lady", ":other_hero"),
-#				(call_script, "script_dplmc_troop_get_family_relation_to_troop", ":lady", ":other_hero"),
-#			(try_end),
+				(call_script, "script_dplmc_troop_get_family_relation_to_troop", ":lady", ":other_hero"),
+			(try_end),
 			
-#			(call_script, "script_troop_change_relation_with_troop", ":lady", ":other_hero", reg0),
+			(call_script, "script_troop_change_relation_with_troop", ":lady", ":other_hero", reg0),
 
 			#This relation change only applies between kingdom ladies.
-#			(troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_lady),
-#			(is_between, ":other_hero", kingdom_ladies_begin, kingdom_ladies_end),
+			(troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_lady),
+			(is_between, ":other_hero", kingdom_ladies_begin, kingdom_ladies_end),
 
-#			(store_random_in_range, ":random", 0, 11),
-#			(call_script, "script_troop_change_relation_with_troop", ":lady", ":other_hero", ":random"),
-#		(try_end),
-#	  (try_end),
+			(store_random_in_range, ":random", 0, 11),
+			(call_script, "script_troop_change_relation_with_troop", ":lady", ":other_hero", ":random"),
+		(try_end),
+	  (try_end),
 ## TGS: mat: End   
    
    #Change the occupation of exiled lords (not including pretenders or kings)

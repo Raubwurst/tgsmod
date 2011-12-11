@@ -372,7 +372,9 @@ tableaus = [
        (store_script_param, ":banner_mesh", 1),
 
        (set_fixed_point_multiplier, 100),
-       (store_sub, ":background_slot", ":banner_mesh", arms_meshes_begin), #banner_meshes_begin),
+       ## TGS: mat: Modified for TGS banners
+       (store_sub, ":background_slot", ":banner_mesh", tgs_arms_meshes_begin), #banner_meshes_begin),
+       ## TGS: mat: End
        (troop_get_slot, ":background_color", "trp_banner_background_color_array", ":background_slot"),
        (cur_tableau_set_background_color, ":background_color"),
 
@@ -397,7 +399,9 @@ tableaus = [
        (store_script_param, ":banner_mesh", 1),
 
        (set_fixed_point_multiplier, 100),
-       (store_sub, ":background_slot", ":banner_mesh", arms_meshes_begin),
+       ## TGS: mat: Modified for TGS banners
+       (store_sub, ":background_slot", ":banner_mesh", tgs_arms_meshes_begin), #banner_meshes_begin),
+       ## TGS: mat: End
        (troop_get_slot, ":background_color", "trp_banner_background_color_array", ":background_slot"),
        (cur_tableau_set_background_color, ":background_color"),
 
@@ -420,7 +424,9 @@ tableaus = [
        (store_script_param, ":banner_mesh", 1),
 
        (set_fixed_point_multiplier, 100),
-       (store_sub, ":background_slot", ":banner_mesh", arms_meshes_begin), #banner_meshes_begin),
+       ## TGS: mat: Modified for TGS banners
+       (store_sub, ":background_slot", ":banner_mesh", tgs_arms_meshes_begin), #banner_meshes_begin),
+       ## TGS: mat: End
        (troop_get_slot, ":background_color", "trp_banner_background_color_array", ":background_slot"),
        (cur_tableau_set_background_color, ":background_color"),
 
@@ -443,7 +449,9 @@ tableaus = [
        (store_script_param, ":banner_mesh", 1),
 
        (set_fixed_point_multiplier, 100),
-        (store_sub, ":background_slot", ":banner_mesh", arms_meshes_begin), #banner_meshes_begin),
+       ## TGS: mat: Modified for TGS banners
+       (store_sub, ":background_slot", ":banner_mesh", tgs_arms_meshes_begin), #banner_meshes_begin),
+       ## TGS: mat: End
        (troop_get_slot, ":background_color", "trp_banner_background_color_array", ":background_slot"),
        (cur_tableau_set_background_color, ":background_color"),
 
@@ -668,10 +676,12 @@ tableaus = [
        (faction_get_slot, ":leader_troop", ":faction_no", slot_faction_leader),
        (ge, ":leader_troop", 0),
        (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
-       (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
-       (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
-       (val_sub, ":banner_spr", banner_scene_props_begin),
-       (store_add, ":banner_mesh", ":banner_spr", banner_meshes_begin),
+     ## TGS: mat: Modified for TGS banners
+#       (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
+       (is_between, ":banner_spr", tgs_banner_scene_props_begin, tgs_banner_scene_props_end),
+       (val_sub, ":banner_spr", tgs_banner_scene_props_begin),
+       (store_add, ":banner_mesh", ":banner_spr", tgs_banner_meshes_begin),
+     ## TGS: mat: End
        (init_position, pos1),
        (position_set_y, pos1, 100),
        (cur_tableau_add_mesh, ":banner_mesh", pos1, 0, 0),
@@ -691,10 +701,12 @@ tableaus = [
        (faction_get_slot, ":leader_troop", ":faction_no", slot_faction_leader),
        (ge, ":leader_troop", 0),
        (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
-       (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
-       (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
-       (val_sub, ":banner_spr", banner_scene_props_begin),
-       (store_add, ":banner_mesh", ":banner_spr", banner_meshes_begin),
+     ## TGS: mat: Modified for TGS banners
+#       (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
+       (is_between, ":banner_spr", tgs_banner_scene_props_begin, tgs_banner_scene_props_end),
+       (val_sub, ":banner_spr", tgs_banner_scene_props_begin),
+       (store_add, ":banner_mesh", ":banner_spr", tgs_banner_meshes_begin),
+     ## TGS: mat: End
        (init_position, pos1),
        (position_set_x, pos1, -50),
        (position_set_y, pos1, 100),
@@ -704,10 +716,12 @@ tableaus = [
        (faction_get_slot, ":leader_troop", ":faction_no_2", slot_faction_leader),
        (ge, ":leader_troop", 0),
        (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
-       (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
-       (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
-       (val_sub, ":banner_spr", banner_scene_props_begin),
-       (store_add, ":banner_mesh", ":banner_spr", banner_meshes_begin),
+     ## TGS: mat: Modified for TGS banners
+#       (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
+       (is_between, ":banner_spr", tgs_banner_scene_props_begin, tgs_banner_scene_props_end),
+       (val_sub, ":banner_spr", tgs_banner_scene_props_begin),
+       (store_add, ":banner_mesh", ":banner_spr", tgs_banner_meshes_begin),
+     ## TGS: mat: End
        (init_position, pos1),
        (position_set_x, pos1, 50),
        (position_set_y, pos1, 100),

@@ -1365,6 +1365,8 @@ scene_props = [
   ("banner_kingdom_g", 0, "banner_kingdom_f", "0", []),#TGS
   ("banner_kingdom_h", 0, "banner_kingdom_f", "0", []),#TGS
   ("banner_f21", 0, "banner_a15", "0", []),
+  
+
 
   ("tavern_chair_a",0,"tavern_chair_a","bo_tavern_chair_a", []),
   ("tavern_chair_b",0,"tavern_chair_b","bo_tavern_chair_b", []),
@@ -3157,7 +3159,70 @@ scene_props = [
  ("enemy_ship_protect",0,0,"bo_gourd_spike",[]),
 #################################################
 #########SEA BATTLES END
-#################################################  
+#################################################
+
+
+## TGS: mat: Start new banners here
+  ("banner_legion",0,"banner_legion","0", []),
+  ("banner_band",0,"banner_band","0", []),
+  ("banner_two_rivers",0,"banner_two_rivers","0", []),
+  ("banner_mayene",0,"banner_mayene","0", []),
+  ("banner_cairhien",0,"banner_cairhien","0", []),
+  ("banner_illian",0,"banner_illian","0", []),
+  ("banner_murandy",0,"banner_murandy","0", []),
+  ("banner_altara",0,"banner_altara","0", []),
+  ("banner_arad_doman",0,"banner_arad_doman","0", []),
+  ("banner_tear",0,"banner_tear","0", []),
+  ("banner_andor",0,"banner_andor","0", []),
+  ("banner_ghealdan",0,"banner_ghealdan","0", []),
+  ("banner_far_madding",0,"banner_far_madding","0", []),
+  ("banner_tarabon",0,"banner_tarabon","0", []),
+  ("banner_amadicia",0,"banner_amadicia","0", []),
+  ("banner_whitecloaks",0,"banner_whitecloaks","0", []),
+  ("banner_shienar",0,"banner_shienar","0", []),
+  ("banner_arafel",0,"banner_arafel","0", []),
+  ("banner_kandor",0,"banner_kandor","0", []),
+  ("banner_saldaea",0,"banner_saldaea","0", []),
+  ("banner_white_tower",0,"banner_white_tower","0", []),
+  ("banner_aiel",0,"banner_aiel","0", []),
+  ("banner_seanchan",0,"banner_seanchan","0", []),
+  ("banner_shadowspawn",0,"banner_shadowspawn","0", []),
+  ("banner_shara",0,"banner_shara","0", []),
+  ("banner_sea_folk",0,"banner_sea_folk","0", []),
+  ("banner_madmen",0,"banner_madmen","0", []),
+  ("banner_toman_head",0,"banner_toman_head","0", []),
+## TGS: mat: End  
+
+## TGS: mat: New kingdom banners
+  ("banner_tgs_kingdom_a",0,"banner_legion","0", []),
+  ("banner_tgs_kingdom_b",0,"banner_band","0", []),
+  ("banner_tgs_kingdom_c",0,"banner_two_rivers","0", []),
+  ("banner_tgs_kingdom_d",0,"banner_mayene","0", []),
+  ("banner_tgs_kingdom_e",0,"banner_cairhien","0", []),
+  ("banner_tgs_kingdom_f",0,"banner_illian","0", []),
+  ("banner_tgs_kingdom_g",0,"banner_murandy","0", []),
+  ("banner_tgs_kingdom_h",0,"banner_altara","0", []),
+  ("banner_tgs_kingdom_i",0,"banner_arad_doman","0", []),
+  ("banner_tgs_kingdom_j",0,"banner_tear","0", []),
+  ("banner_tgs_kingdom_k",0,"banner_andor","0", []),
+  ("banner_tgs_kingdom_l",0,"banner_ghealdan","0", []),
+  ("banner_tgs_kingdom_m",0,"banner_far_madding","0", []),
+  ("banner_tgs_kingdom_n",0,"banner_tarabon","0", []),
+  ("banner_tgs_kingdom_o",0,"banner_amadicia","0", []),
+  ("banner_tgs_kingdom_p",0,"banner_whitecloaks","0", []),
+  ("banner_tgs_kingdom_q",0,"banner_shienar","0", []),
+  ("banner_tgs_kingdom_r",0,"banner_arafel","0", []),
+  ("banner_tgs_kingdom_s",0,"banner_kandor","0", []),
+  ("banner_tgs_kingdom_t",0,"banner_saldaea","0", []),
+  ("banner_tgs_kingdom_u",0,"banner_white_tower","0", []),
+  ("banner_tgs_kingdom_v",0,"banner_aiel","0", []),
+  ("banner_tgs_kingdom_w",0,"banner_seanchan","0", []),
+  ("banner_tgs_kingdom_x",0,"banner_shadowspawn","0", []),
+  ("banner_tgs_kingdom_y",0,"banner_shara","0", []),
+  ("banner_tgs_kingdom_z",0,"banner_sea_folk","0", []),
+  ("banner_tgs_kingdom_aa",0,"banner_madmen","0", []),
+  ("banner_tgs_kingdom_ab",0,"banner_toman_head","0", []),
+## TGS: mat: End  
 
 ## End added for TGS (Sea Battles)  
   

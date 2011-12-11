@@ -243,7 +243,7 @@ meshes = [
 
   ("outer_terrain_plain_1", 0, "ter_border_a", -90, 0, 0, 0, 0, 0, 1, 1, 1),
 
-  
+
 # edited for TGS
   ("banner_a01", 0, "banner_a01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_a02", 0, "banner_a02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -467,85 +467,18 @@ meshes = [
   ("banner_h20", 0, "banner_d20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_h21", 0, "banner_d21", 0, 0, 0, -90, 0, 0, 1, 1, 1),
 #End Shadowspawn
-
-## Add 60 more banners for the new factions
-  ("banner_i01", 0, "banner_d01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i02", 0, "banner_d02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i03", 0, "banner_d03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i04", 0, "banner_d04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i05", 0, "banner_d05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i06", 0, "banner_d06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i07", 0, "banner_d07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i08", 0, "banner_d08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i09", 0, "banner_d09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i10", 0, "banner_d10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i11", 0, "banner_d11", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i12", 0, "banner_d12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i13", 0, "banner_d13", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i14", 0, "banner_d14", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i15", 0, "banner_d15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i16", 0, "banner_d16", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i17", 0, "banner_d17", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i18", 0, "banner_d18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i19", 0, "banner_d19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i20", 0, "banner_d20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_i21", 0, "banner_d21", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   
-  ("banner_j01", 0, "banner_e01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j02", 0, "banner_e02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j03", 0, "banner_e03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j04", 0, "banner_e04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j05", 0, "banner_e05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j06", 0, "banner_e06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j07", 0, "banner_e07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j08", 0, "banner_e08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j09", 0, "banner_e09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j10", 0, "banner_e10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j11", 0, "banner_e11", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j12", 0, "banner_e12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j13", 0, "banner_e13", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j14", 0, "banner_e14", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j15", 0, "banner_e15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j16", 0, "banner_e16", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j17", 0, "banner_e17", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j18", 0, "banner_e18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j19", 0, "banner_e19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j20", 0, "banner_e20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_j21", 0, "banner_e21", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-
-  ("banner_k01", 0, "banner_f01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k02", 0, "banner_f02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k03", 0, "banner_f03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k04", 0, "banner_f04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k05", 0, "banner_f05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k06", 0, "banner_f06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k07", 0, "banner_f07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k08", 0, "banner_f08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k09", 0, "banner_f09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k10", 0, "banner_f10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k11", 0, "banner_f11", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k12", 0, "banner_f12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k13", 0, "banner_f13", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k14", 0, "banner_f14", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k15", 0, "banner_f15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k16", 0, "banner_f16", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k17", 0, "banner_f17", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k18", 0, "banner_f18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k19", 0, "banner_f19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_k20", 0, "banner_f20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-## End  
-  
-#changed those after this from banner_g01... to banner_m01...
-  ("banner_m01", 0, "banner_f01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_m02", 0, "banner_f02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_m03", 0, "banner_f03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_m04", 0, "banner_f04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_m05", 0, "banner_f05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_m06", 0, "banner_f06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_m07", 0, "banner_f07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_m08", 0, "banner_f08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_m09", 0, "banner_f09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("banner_m10", 0, "banner_f10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+#changed those after this from banner_g01... to banner_i01...
+  ("banner_i01", 0, "banner_f01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_i02", 0, "banner_f02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_i03", 0, "banner_f03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_i04", 0, "banner_f04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_i05", 0, "banner_f05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_i06", 0, "banner_f06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_i07", 0, "banner_f07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_i08", 0, "banner_f08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_i09", 0, "banner_f09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_i10", 0, "banner_f10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
 
   ("banner_kingdom_a", 0, "banner_kingdom_a", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_kingdom_b", 0, "banner_kingdom_b", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -781,84 +714,17 @@ meshes = [
   ("arms_h21", 0, "arms_d21", 0, 0, 0, -90, 0, 0, 1, 1, 1),
 #Shadowspawn End
 
-## 60 more for the new factions
-  ("arms_i01", 0, "banner_d01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i02", 0, "arms_d02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i03", 0, "arms_d03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i04", 0, "arms_d04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i05", 0, "banner_d05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i06", 0, "arms_d06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i07", 0, "arms_d07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i08", 0, "arms_d08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i09", 0, "arms_d09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i10", 0, "banner_d10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i11", 0, "arms_d11", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i12", 0, "arms_d12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i13", 0, "arms_d13", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i14", 0, "arms_d14", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i15", 0, "arms_d15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i16", 0, "arms_d16", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i17", 0, "arms_d17", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i18", 0, "arms_d18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i19", 0, "arms_d19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i20", 0, "arms_d20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_i21", 0, "arms_d21", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  
-  ("arms_j01", 0, "banner_e01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j02", 0, "arms_e02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j03", 0, "banner_e03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j04", 0, "banner_e04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j05", 0, "banner_e05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j06", 0, "banner_e06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j07", 0, "banner_e07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j08", 0, "banner_e08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j09", 0, "banner_e09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j10", 0, "banner_e10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j11", 0, "banner_e11", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j12", 0, "banner_e12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j13", 0, "banner_e13", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j14", 0, "banner_e14", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j15", 0, "banner_e15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j16", 0, "banner_e16", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j17", 0, "banner_e17", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j18", 0, "banner_e18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j19", 0, "banner_e19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j20", 0, "banner_e20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_j21", 0, "banner_e21", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-
-  ("arms_k01", 0, "banner_f01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k02", 0, "banner_f02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k03", 0, "banner_f03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k04", 0, "banner_f04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k05", 0, "banner_f05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k06", 0, "banner_f06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k07", 0, "banner_f07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k08", 0, "banner_f08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k09", 0, "banner_f09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k10", 0, "banner_f10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k11", 0, "banner_f11", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k12", 0, "banner_f12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k13", 0, "banner_f13", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k14", 0, "banner_f14", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k15", 0, "banner_f15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k16", 0, "banner_f16", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k17", 0, "banner_f17", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k18", 0, "banner_f18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k19", 0, "banner_f19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_k20", 0, "banner_f20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-# End  
-
-#Change to m if add more factions
-  ("arms_m01", 0, "banner_f01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_m02", 0, "banner_f02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_m03", 0, "banner_f03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_m04", 0, "banner_f04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_m05", 0, "banner_f05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_m06", 0, "banner_f06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_m07", 0, "banner_f07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_m08", 0, "banner_f08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_m09", 0, "banner_f09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-  ("arms_m10", 0, "banner_f10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+#Change to i if add more factions
+  ("arms_i01", 0, "banner_f01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_i02", 0, "banner_f02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_i03", 0, "banner_f03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_i04", 0, "banner_f04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_i05", 0, "banner_f05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_i06", 0, "banner_f06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_i07", 0, "banner_f07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_i08", 0, "banner_f08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_i09", 0, "banner_f09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_i10", 0, "banner_f10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   
   ("arms_kingdom_a", 0, "banner_kingdom_a", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_kingdom_b", 0, "banner_kingdom_b", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -871,6 +737,8 @@ meshes = [
 # end edited for TGS
   
   ("arms_f21", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+
+
 
   ("banners_default_a", 0, "banners_default_a", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banners_default_b", 0, "banners_default_b", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -889,6 +757,27 @@ meshes = [
   ("ui_kingdom_shield_7", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
   ("ui_kingdom_shield_8", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
   ("ui_kingdom_shield_9", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_10", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_11", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_12", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_13", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_14", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_15", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_16", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_17", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_18", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_19", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_20", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_21", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_22", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_23", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_24", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_25", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_26", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_27", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_28", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+  ("ui_kingdom_shield_29", 0, "ui_kingdom_shield_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),  #TGS
+
 
   #("flag_swadian", 0, "banner_a01", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   #("flag_vaegir", 0, "banner_a02", 0, 0, 0, 0, 0, 0, 1, 1, 1),
@@ -1011,7 +900,131 @@ meshes = [
   ("weave_select_all", 0, "weave_select_all", 0, 0, 0, 0, 0, 0, 0.3, 0.3, 1),
 ##################################################
 ##### end channeling_weave_select_symbols
-##################################################  
+##################################################
+
+## TGS: mat: Start new banners here
+  ("banner_legion",0,"banner_legion", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_band",0,"banner_band", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_two_rivers",0,"banner_two_rivers", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_mayene",0,"banner_mayene", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_cairhien",0,"banner_cairhien", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_illian",0,"banner_illian", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_murandy",0,"banner_murandy", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_altara",0,"banner_altara", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_arad_doman",0,"banner_arad_doman", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tear",0,"banner_tear", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_andor",0,"banner_andor", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_ghealdan",0,"banner_ghealdan", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_far_madding",0,"banner_far_madding", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tarabon",0,"banner_tarabon", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_amadicia",0,"banner_amadicia", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_whitecloaks",0,"banner_whitecloaks", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_shienar",0,"banner_shienar", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_arafel",0,"banner_arafel", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_kandor",0,"banner_kandor", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_saldaea",0,"banner_saldaea", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_white_tower",0,"banner_white_tower", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_aiel",0,"banner_aiel", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_seanchan",0,"banner_seanchan", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_shadowspawn",0,"banner_shadowspawn", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_shara",0,"banner_shara", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_sea_folk",0,"banner_sea_folk", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_madmen",0,"banner_madmen", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_toman_head",0,"banner_toman_head", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+## TGS: mat: End  
+
+## TGS: mat: Start new kingdom banners here
+  ("banner_tgs_kingdom_a",0,"banner_legion", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_b",0,"banner_band", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_c",0,"banner_two_rivers", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_d",0,"banner_mayene", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_e",0,"banner_cairhien", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_f",0,"banner_illian", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_g",0,"banner_murandy", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_h",0,"banner_altara", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_i",0,"banner_arad_doman", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_j",0,"banner_tear", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_k",0,"banner_andor", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_l",0,"banner_ghealdan", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_m",0,"banner_far_madding", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_n",0,"banner_tarabon", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_o",0,"banner_amadicia", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_p",0,"banner_whitecloaks", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_q",0,"banner_shienar", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_r",0,"banner_arafel", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_s",0,"banner_kandor", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_t",0,"banner_saldaea", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_u",0,"banner_white_tower", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_v",0,"banner_aiel", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_w",0,"banner_seanchan", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_x",0,"banner_shadowspawn", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_y",0,"banner_shara", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_z",0,"banner_sea_folk", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_aa",0,"banner_madmen", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_tgs_kingdom_ab",0,"banner_toman_head", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+## TGS: mat: End  
+
+## TGS: mat: Start new arms here
+  ("arms_legion",0,"arms_legion", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_band",0,"arms_band", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_two_rivers",0,"arms_two_rivers", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_mayene",0,"arms_mayene", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_cairhien",0,"arms_cairhien", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_illian",0,"arms_illian", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_murandy",0,"arms_murandy", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_altara",0,"arms_altara", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_arad_doman",0,"arms_arad_doman", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tear",0,"arms_tear", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_andor",0,"arms_andor", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_ghealdan",0,"arms_ghealdan", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_far_madding",0,"arms_far_madding", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tarabon",0,"arms_tarabon", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_amadicia",0,"arms_amadicia", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_whitecloaks",0,"arms_whitecloaks", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_shienar",0,"arms_shienar", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_arafel",0,"arms_arafel", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_kandor",0,"arms_kandor", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_saldaea",0,"arms_saldaea", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_white_tower",0,"arms_white_tower", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_aiel",0,"arms_aiel", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_seanchan",0,"arms_seanchan", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_shadowspawn",0,"arms_shadowspawn", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_shara",0,"arms_shara", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_sea_folk",0,"arms_sea_folk", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_madmen",0,"arms_madmen", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_toman_head",0,"arms_toman_head", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+## TGS: mat: End    
+
+## TGS: mat: Start new kingdom arms here
+  ("arms_tgs_kingdom_a",0,"arms_legion", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_b",0,"arms_band", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_c",0,"arms_two_rivers", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_d",0,"arms_mayene", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_e",0,"arms_cairhien", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_f",0,"arms_illian", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_g",0,"arms_murandy", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_h",0,"arms_altara", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_i",0,"arms_arad_doman", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_j",0,"arms_tear", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_k",0,"arms_andor", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_l",0,"arms_ghealdan", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_m",0,"arms_far_madding", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_n",0,"arms_tarabon", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_o",0,"arms_amadicia", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_p",0,"arms_whitecloaks", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_q",0,"arms_shienar", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_r",0,"arms_arafel", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_s",0,"arms_kandor", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_t",0,"arms_saldaea", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_u",0,"arms_white_tower", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_v",0,"arms_aiel", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_w",0,"arms_seanchan", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_x",0,"arms_shadowspawn", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_y",0,"arms_shara", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_z",0,"arms_sea_folk", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_aa",0,"arms_madmen", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_tgs_kingdom_ab",0,"arms_toman_head", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+# end edited for TGS  
 
 # end added for TGS
   

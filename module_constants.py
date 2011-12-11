@@ -1893,6 +1893,21 @@ sarranid_banners_end_offset = 125
 ## TGS: mat: Note: End
 
 banners_end_offset = 136
+## End
+
+## TGS: mat: New TGS banner constants
+tgs_banner_map_icons_begin = "icon_banner_legion"
+tgs_banner_map_icons_end = "icon_map_flag_tgs_kingdom_a"
+
+tgs_banner_meshes_begin = "mesh_banner_legion"
+tgs_banner_meshes_end = "mesh_banner_tgs_kingdom_a"
+
+tgs_arms_meshes_begin = "mesh_arms_legion"
+tgs_arms_meshes_end = "mesh_arms_tgs_kingdom_a"
+
+tgs_banner_scene_props_begin = "spr_banner_legion"
+tgs_banner_scene_props_end = "spr_banner_tgs_kingdom_a"
+## TGS: mat: End
 
 # Some constants for merchant invenotries
 merchant_inventory_space = 30

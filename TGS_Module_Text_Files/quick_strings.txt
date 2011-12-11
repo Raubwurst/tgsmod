@@ -1,4 +1,4 @@
-1228
+1227
 qstr_You_are_too_tired_to You_are_too_tired_to_channel...
 qstr_No_active_weaves_to_ No_active_weaves_to_unravel...
 qstr_Too_many_active_seek Too_many_active_seekers!!
@@ -247,7 +247,6 @@ qstr_Follow Follow
 qstr_Free Free
 qstr_{!}{s0}_Mode:_{s1} {!}{s0}_Mode:_{s1}
 qstr_{!}DEBUG_:_Completed {!}DEBUG_:_Completed_faction_troop_assignments,_cheat_mode:_{reg3}
-qstr_{!}ERROR:_Not_enough {!}ERROR:_Not_enough_banners_for_heroes!
 qstr_{!}DEBUG_:_Completed_ {!}DEBUG_:_Completed_political_events,_cheat_mode:_{reg3}
 qstr_{!}DEBUG_:_Assigned_ {!}DEBUG_:_Assigned_love_interests._Attraction_seed:_{reg3}
 qstr_{!}DEBUG_:_Located_k {!}DEBUG_:_Located_kingdom_ladies,_cheat_mode:_{reg3}

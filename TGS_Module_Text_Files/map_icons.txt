@@ -1,5 +1,5 @@
 map_icons_file version 1
-335
+331
 player 0 player 0.150000 17 0.150000 0.173000 0.000000 0
 
 
@@ -768,214 +768,34 @@ banner_206 0 map_flag_d20 0.300000 0 0 0 0 0
 banner_207 0 map_flag_d21 0.300000 0 0 0 0 0
 
 
-banner_208 0 map_flag_f03 0.300000 0 0 0 0 0
+banner_208 0 map_flag_f01 0.300000 0 0 0 0 0
 
 
-banner_209 0 map_flag_f04 0.300000 0 0 0 0 0
+banner_209 0 map_flag_f02 0.300000 0 0 0 0 0
 
 
-banner_210 0 map_flag_f05 0.300000 0 0 0 0 0
+banner_210 0 map_flag_f03 0.300000 0 0 0 0 0
 
 
-banner_211 0 map_flag_f06 0.300000 0 0 0 0 0
+banner_211 0 map_flag_f04 0.300000 0 0 0 0 0
 
 
-banner_212 0 map_flag_f07 0.300000 0 0 0 0 0
+banner_212 0 map_flag_f05 0.300000 0 0 0 0 0
 
 
-banner_213 0 map_flag_f08 0.300000 0 0 0 0 0
+banner_213 0 map_flag_f06 0.300000 0 0 0 0 0
 
 
-banner_214 0 map_flag_f09 0.300000 0 0 0 0 0
+banner_214 0 map_flag_f07 0.300000 0 0 0 0 0
 
 
-banner_215 0 map_flag_f10 0.300000 0 0 0 0 0
+banner_215 0 map_flag_f08 0.300000 0 0 0 0 0
 
 
-banner_216 0 map_flag_f11 0.300000 0 0 0 0 0
+banner_216 0 map_flag_f09 0.300000 0 0 0 0 0
 
 
-banner_217 0 map_flag_f12 0.300000 0 0 0 0 0
-
-
-banner_218 0 map_flag_f13 0.300000 0 0 0 0 0
-
-
-banner_219 0 map_flag_f14 0.300000 0 0 0 0 0
-
-
-banner_220 0 map_flag_f15 0.300000 0 0 0 0 0
-
-
-banner_221 0 map_flag_f16 0.300000 0 0 0 0 0
-
-
-banner_222 0 map_flag_f17 0.300000 0 0 0 0 0
-
-
-banner_223 0 map_flag_f18 0.300000 0 0 0 0 0
-
-
-banner_224 0 map_flag_f19 0.300000 0 0 0 0 0
-
-
-banner_225 0 map_flag_f20 0.300000 0 0 0 0 0
-
-
-banner_226 0 map_flag_f01 0.300000 0 0 0 0 0
-
-
-banner_227 0 map_flag_f02 0.300000 0 0 0 0 0
-
-
-banner_228 0 map_flag_f03 0.300000 0 0 0 0 0
-
-
-banner_229 0 map_flag_f04 0.300000 0 0 0 0 0
-
-
-banner_230 0 map_flag_f05 0.300000 0 0 0 0 0
-
-
-banner_231 0 map_flag_f06 0.300000 0 0 0 0 0
-
-
-banner_232 0 map_flag_f07 0.300000 0 0 0 0 0
-
-
-banner_233 0 map_flag_f08 0.300000 0 0 0 0 0
-
-
-banner_234 0 map_flag_f09 0.300000 0 0 0 0 0
-
-
-banner_235 0 map_flag_f10 0.300000 0 0 0 0 0
-
-
-banner_236 0 map_flag_f11 0.300000 0 0 0 0 0
-
-
-banner_237 0 map_flag_f12 0.300000 0 0 0 0 0
-
-
-banner_238 0 map_flag_f13 0.300000 0 0 0 0 0
-
-
-banner_239 0 map_flag_f14 0.300000 0 0 0 0 0
-
-
-banner_240 0 map_flag_f15 0.300000 0 0 0 0 0
-
-
-banner_241 0 map_flag_f16 0.300000 0 0 0 0 0
-
-
-banner_242 0 map_flag_f17 0.300000 0 0 0 0 0
-
-
-banner_243 0 map_flag_f18 0.300000 0 0 0 0 0
-
-
-banner_244 0 map_flag_f19 0.300000 0 0 0 0 0
-
-
-banner_245 0 map_flag_f20 0.300000 0 0 0 0 0
-
-
-banner_246 0 map_flag_f01 0.300000 0 0 0 0 0
-
-
-banner_247 0 map_flag_f02 0.300000 0 0 0 0 0
-
-
-banner_248 0 map_flag_f03 0.300000 0 0 0 0 0
-
-
-banner_249 0 map_flag_f04 0.300000 0 0 0 0 0
-
-
-banner_250 0 map_flag_f05 0.300000 0 0 0 0 0
-
-
-banner_251 0 map_flag_f06 0.300000 0 0 0 0 0
-
-
-banner_252 0 map_flag_f07 0.300000 0 0 0 0 0
-
-
-banner_253 0 map_flag_f08 0.300000 0 0 0 0 0
-
-
-banner_254 0 map_flag_f09 0.300000 0 0 0 0 0
-
-
-banner_255 0 map_flag_f10 0.300000 0 0 0 0 0
-
-
-banner_256 0 map_flag_f11 0.300000 0 0 0 0 0
-
-
-banner_257 0 map_flag_f12 0.300000 0 0 0 0 0
-
-
-banner_258 0 map_flag_f13 0.300000 0 0 0 0 0
-
-
-banner_259 0 map_flag_f14 0.300000 0 0 0 0 0
-
-
-banner_260 0 map_flag_f15 0.300000 0 0 0 0 0
-
-
-banner_261 0 map_flag_f16 0.300000 0 0 0 0 0
-
-
-banner_262 0 map_flag_f17 0.300000 0 0 0 0 0
-
-
-banner_263 0 map_flag_f18 0.300000 0 0 0 0 0
-
-
-banner_264 0 map_flag_f19 0.300000 0 0 0 0 0
-
-
-banner_265 0 map_flag_f20 0.300000 0 0 0 0 0
-
-
-banner_266 0 map_flag_f11 0.300000 0 0 0 0 0
-
-
-banner_267 0 map_flag_f12 0.300000 0 0 0 0 0
-
-
-banner_268 0 map_flag_f01 0.300000 0 0 0 0 0
-
-
-banner_269 0 map_flag_f02 0.300000 0 0 0 0 0
-
-
-banner_270 0 map_flag_f03 0.300000 0 0 0 0 0
-
-
-banner_271 0 map_flag_f04 0.300000 0 0 0 0 0
-
-
-banner_272 0 map_flag_f05 0.300000 0 0 0 0 0
-
-
-banner_273 0 map_flag_f06 0.300000 0 0 0 0 0
-
-
-banner_274 0 map_flag_f07 0.300000 0 0 0 0 0
-
-
-banner_275 0 map_flag_f08 0.300000 0 0 0 0 0
-
-
-banner_276 0 map_flag_f09 0.300000 0 0 0 0 0
-
-
-banner_277 0 map_flag_f10 0.300000 0 0 0 0 0
+banner_217 0 map_flag_f10 0.300000 0 0 0 0 0
 
 
 map_flag_kingdom_a 0 map_flag_kingdom_a 0.300000 0 0 0 0 0
@@ -1006,5 +826,173 @@ banner_136 0 map_flag_15 0.300000 0 0 0 0 0
 
 
 bandit_lair 1 map_bandit_lair 0.450000 0 0 0 0 0
+
+
+banner_legion 0 map_flag_legion 0.300000 0 0 0 0 0
+
+
+banner_band 0 map_flag_band 0.300000 0 0 0 0 0
+
+
+banner_two_rivers 0 map_flag_two_rivers 0.300000 0 0 0 0 0
+
+
+banner_mayene 0 map_flag_mayene 0.300000 0 0 0 0 0
+
+
+banner_cairhien 0 map_flag_cairhien 0.300000 0 0 0 0 0
+
+
+banner_illian 0 map_flag_illian 0.300000 0 0 0 0 0
+
+
+banner_murandy 0 map_flag_murandy 0.300000 0 0 0 0 0
+
+
+banner_altara 0 map_flag_altara 0.300000 0 0 0 0 0
+
+
+banner_arad_doman 0 map_flag_arad_doman 0.300000 0 0 0 0 0
+
+
+banner_tear 0 map_flag_tear 0.300000 0 0 0 0 0
+
+
+banner_andor 0 map_flag_andor 0.300000 0 0 0 0 0
+
+
+banner_ghealdan 0 map_flag_ghealdan 0.300000 0 0 0 0 0
+
+
+banner_far_madding 0 map_flag_far_madding 0.300000 0 0 0 0 0
+
+
+banner_tarabon 0 map_flag_tarabon 0.300000 0 0 0 0 0
+
+
+banner_amadicia 0 map_flag_amadicia 0.300000 0 0 0 0 0
+
+
+banner_whitecloaks 0 map_flag_whitecloaks 0.300000 0 0 0 0 0
+
+
+banner_shienar 0 map_flag_shienar 0.300000 0 0 0 0 0
+
+
+banner_arafel 0 map_flag_arafel 0.300000 0 0 0 0 0
+
+
+banner_kandor 0 map_flag_kandor 0.300000 0 0 0 0 0
+
+
+banner_saldaea 0 map_flag_saldaea 0.300000 0 0 0 0 0
+
+
+banner_white_tower 0 map_flag_white_tower 0.300000 0 0 0 0 0
+
+
+banner_aiel 0 map_flag_aiel 0.300000 0 0 0 0 0
+
+
+banner_seanchan 0 map_flag_seanchan 0.300000 0 0 0 0 0
+
+
+banner_shadowspawn 0 map_flag_shadowspawn 0.300000 0 0 0 0 0
+
+
+banner_shara 0 map_flag_shara 0.300000 0 0 0 0 0
+
+
+banner_sea_folk 0 map_flag_sea_folk 0.300000 0 0 0 0 0
+
+
+banner_madmen 0 map_flag_madmen 0.300000 0 0 0 0 0
+
+
+banner_toman_head 0 map_flag_toman_head 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_a 0 map_flag_legion 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_b 0 map_flag_band 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_c 0 map_flag_two_rivers 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_d 0 map_flag_mayene 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_e 0 map_flag_cairhien 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_f 0 map_flag_illian 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_g 0 map_flag_murandy 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_h 0 map_flag_altara 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_i 0 map_flag_arad_doman 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_j 0 map_flag_tear 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_k 0 map_flag_andor 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_l 0 map_flag_ghealdan 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_m 0 map_flag_far_madding 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_n 0 map_flag_tarabon 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_o 0 map_flag_amadicia 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_p 0 map_flag_whitecloaks 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_q 0 map_flag_shienar 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_r 0 map_flag_arafel 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_s 0 map_flag_kandor 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_t 0 map_flag_saldaea 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_u 0 map_flag_white_tower 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_v 0 map_flag_aiel 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_w 0 map_flag_seanchan 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_x 0 map_flag_shadowspawn 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_y 0 map_flag_shara 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_z 0 map_flag_sea_folk 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_aa 0 map_flag_madmen 0.300000 0 0 0 0 0
+
+
+map_flag_tgs_kingdom_ab 0 map_flag_toman_head 0.300000 0 0 0 0 0
 
 
