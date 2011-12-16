@@ -1261,93 +1261,22 @@ items = [
                 (assign,":distance",":dist"),
             (try_end),
 
-            (agent_get_horse, ":chosen_horse", ":chosen"),
-            (agent_get_team, ":chosen_team", ":chosen"),
+
 
 ## Run the channeling code only if the channeling agent is not shielded
             (agent_get_slot, ":agent_is_shielded", ":chosen", slot_agent_is_shielded),
 
             (try_begin),
             (eq, ":agent_is_shielded", 0),
+            (agent_get_troop_id,":chosen_troop",":chosen"),
+			(try_begin),
+            (eq, ":chosen_troop", troop_player),
+			(call_script, "script_tgs_select_weave",":agent"),
+			(else_try),
+			# TODO: NPC code
+			(try_end),
 
-########################################## Stamina Check
-            (call_script,"script_tgs_pay_stamina","$g_active_channeling_weave"),
-            (assign,":staminapaid",reg0),
-
-            (try_begin),
-            (neq, ":staminapaid",0),
-########################################## Weave 1
-                (try_begin),
-                     (eq, "$g_active_channeling_weave", 1),
-                     (call_script,"script_tgs_weave_airblast",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 2
-                (else_try),
-                      (eq, "$g_active_channeling_weave", 2),
-                      (call_script,"script_tgs_weave_freeze",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 3
-                (else_try),
-                (eq, "$g_active_channeling_weave", 3),
-                      (call_script,"script_tgs_weave_heal_nearest",":chosen",":chosen_horse",":chosen_team"),
-            
-########################################### Weave 4
-                (else_try),
-                (eq, "$g_active_channeling_weave", 4),
-                      (call_script,"script_tgs_weave_fireball",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 5
-                (else_try),
-                (eq, "$g_active_channeling_weave", 5),
-                      (call_script,"script_tgs_weave_unravel",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 6
-                (else_try),
-                (eq, "$g_active_channeling_weave", 6),
-                      (call_script,"script_tgs_weave_defensive_blast",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 7
-                (else_try),
-                (eq, "$g_active_channeling_weave", 7),
-                      (call_script,"script_tgs_weave_ranged_earth_blast",":chosen",":chosen_horse",":chosen_team"),
-
-##################################3####### Weave 8
-                (else_try),
-                (eq, "$g_active_channeling_weave", 8),
-                      (call_script,"script_tgs_weave_bind",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 9
-                (else_try),
-                (eq, "$g_active_channeling_weave", 9),
-                      (call_script,"script_tgs_weave_chain_lightning",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 10
-                (else_try),
-                (eq, "$g_active_channeling_weave", 10),
-                      (call_script,"script_tgs_weave_fire_curtain",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 11
-                (else_try),
-                (eq, "$g_active_channeling_weave", 11),
-                      (call_script,"script_tgs_weave_shield",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 12
-                (else_try),
-                (eq, "$g_active_channeling_weave", 12),
-                      (call_script,"script_tgs_weave_seeker",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 13
-                (else_try),
-                (eq, "$g_active_channeling_weave", 13),
-                      (call_script,"script_tgs_weave_compulsion",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 14
-                (else_try),
-                (eq, "$g_active_channeling_weave", 14),
-                      (call_script,"script_tgs_weave_balefire",":chosen",":chosen_horse",":chosen_team"),
-         (try_end),
-### Be sure to leave this (try_end), at the end of the active weave code
-                (try_end),
+            (try_end),
 
 ######################################### Run the "Shield Breaker" code if the channeler is shielded...
             (else_try),
