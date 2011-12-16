@@ -5067,6 +5067,7 @@ triggers = [
    (party_get_current_terrain, ":terrain", ":cur_party"),
    (eq, ":terrain", 7), # 7 = rt_bridge
       (party_get_template_id, ":cur_template", ":cur_party"),
+      (party_get_slot, ":party_type", ":cur_party", slot_party_type),
       (this_or_next|eq, ":cur_template", "pt_kingdom_hero_party"),
       (this_or_next|eq, ":cur_template", "pt_kingdom_caravan_party"),
       (this_or_next|eq, ":cur_template", "pt_manhunters"),
@@ -5084,6 +5085,7 @@ triggers = [
       (this_or_next|eq, ":cur_template", "pt_dplmc_spouse"),#
       (this_or_next|eq, ":cur_template", "pt_dplmc_gift_caravan"),#
       (this_or_next|eq, ":cur_template", "pt_dplmc_recruiter"),#
+      (this_or_next|eq, ":party_type", spt_patrol), # for new town patrols
  # end
       (eq, ":cur_template", "pt_sea_raiders"),
         (party_set_icon, ":cur_party", "icon_ship"),
@@ -5106,6 +5108,7 @@ triggers = [
  # added by mat2rivs
      (this_or_next|eq, ":cur_template", "pt_dplmc_recruiter"),
  # end
+     (this_or_next|eq, ":party_type", spt_patrol), # for new town patrols
      (eq, ":cur_template", "pt_manhunters"),
        (party_set_icon,":cur_party","icon_gray_knight"),
    (else_try),

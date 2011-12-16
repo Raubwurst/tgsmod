@@ -990,7 +990,9 @@ scripts = [
         (troop_slot_eq, ":kingdom_hero", slot_troop_occupation, slto_inactive_pretender),
 
         (store_troop_faction, ":kingdom_hero_faction", ":kingdom_hero"),
-        (neg|faction_slot_eq, ":kingdom_hero_faction", slot_faction_leader, ":kingdom_hero"),
+      ## TGS: mat: try removing this
+        #(neg|faction_slot_eq, ":kingdom_hero_faction", slot_faction_leader, ":kingdom_hero"),
+      ## TGS: mat: End
       
       ## TGS: mat: DEBUG: try to remove special treatment for Khergits and Sarranids
 #        (try_begin),
@@ -1971,6 +1973,10 @@ scripts = [
   (faction_set_slot, "fac_kingdom_22", slot_faction_channeler_troop, "trp_aiel_recruit_channeler"),
   (faction_set_slot, "fac_kingdom_23", slot_faction_channeler_troop, "trp_seanchan_recruit_channeler"),
   (faction_set_slot, "fac_kingdom_24", slot_faction_channeler_troop, "trp_darkfriend_channeler"),
+  (faction_set_slot, "fac_kingdom_25", slot_faction_channeler_troop, "trp_ayyad_villager"),
+  (faction_set_slot, "fac_kingdom_26", slot_faction_channeler_troop, "trp_sea_folk_recruit_channeler"),
+  (faction_set_slot, "fac_kingdom_27", slot_faction_channeler_troop, "trp_madmen_air_shifter"),
+
   # end assign channeler troop for factions
   
   #####################################################################
@@ -9533,6 +9539,33 @@ scripts = [
 
 ## V: BEGIN CODEBLOCK FOR TGS KNIGHT AGES, FAMILY AND REPUTATION
 
+# mat: Begin  (Will want to go back and re-define the lords who we know their actual personality below this code block.)
+    (try_for_range, ":cur_troop", lords_begin, lords_end),
+        (store_random_in_range, ":random", 1, 100),
+        (try_begin),
+        (lt, ":random", 20),
+            (troop_set_slot, ":cur_troop", slot_lord_reputation_type, lrep_martial),
+        (else_try),
+        (lt, ":random", 30),
+            (troop_set_slot, ":cur_troop", slot_lord_reputation_type, lrep_quarrelsome),
+        (else_try),
+        (lt, ":random", 40),
+            (troop_set_slot, ":cur_troop", slot_lord_reputation_type, lrep_selfrighteous),
+        (else_try),
+        (lt, ":random", 50),
+            (troop_set_slot, ":cur_troop", slot_lord_reputation_type, lrep_cunning),
+        (else_try),
+        (lt, ":random", 70),
+            (troop_set_slot, ":cur_troop", slot_lord_reputation_type, lrep_goodnatured),
+        (else_try),
+        (lt, ":random", 80),
+            (troop_set_slot, ":cur_troop", slot_lord_reputation_type, lrep_debauched),
+        (else_try),
+            (troop_set_slot, ":cur_troop", slot_lord_reputation_type, lrep_upstanding),
+        (try_end),
+    (try_end),
+# mat: End
+
 
 
 #-##-###-####-#####-- DRAGON LEGION FACTION FAMILY STRUCTRE --#####-####-###-##-#
@@ -10301,7 +10334,7 @@ scripts = [
     (troop_set_slot, "trp_knight_21_2", slot_troop_spouse, "trp_knight_21_7"), # Siuan
     # lord 3
 	(troop_set_slot, "trp_knight_21_3", slot_troop_age,45),  # Lan    
-	(troop_set_slot, "trp_knight_21_3", slot_troop_spouse, "trp_knight_5_4"), # Nynaeve
+	(troop_set_slot, "trp_knight_21_3", slot_troop_spouse, "trp_knight_21_6"), # Nynaeve
     # lord 4
     (troop_set_slot, "trp_knight_21_4", slot_troop_age,36),  # Chubain
     # lord 5
@@ -11208,10 +11241,8 @@ scripts = [
 	  
 	  (try_for_range, ":cur_troop", pretenders_begin, pretenders_end),
 		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_inactive_pretender),
-		(store_random_in_range, ":age", 25, 30),
+		(store_random_in_range, ":age", 25, 45),
 		(troop_set_slot, ":cur_troop", slot_troop_age, ":age"),
-		(eq, ":cur_troop", "trp_kingdom_5_pretender"),
-		(troop_set_slot, ":cur_troop", slot_troop_age, 45),
 	  (try_end),
 	]),
 
@@ -12409,162 +12440,25 @@ scripts = [
       (try_for_range, ":town_no", towns_begin, towns_end),
         (party_set_slot, ":town_no", slot_town_tournament_max_teams, 4),
         (party_set_slot, ":town_no", slot_town_tournament_max_team_size, 8),
-      (try_end),
-      (party_set_slot, "p_town_6", slot_town_tournament_max_team_size, 2),
 
-      (party_set_slot,"p_town_1", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_1", slot_town_arena_melee_1_team_size,   1),
-      (party_set_slot,"p_town_1", slot_town_arena_melee_2_num_teams,   4),
-      (party_set_slot,"p_town_1", slot_town_arena_melee_2_team_size,   1),
-      (party_set_slot,"p_town_1", slot_town_arena_melee_3_num_teams,   4),
-      (party_set_slot,"p_town_1", slot_town_arena_melee_3_team_size,   1),
+        (store_random_in_range, ":random", 2,5),
+        (party_set_slot,":town_no", slot_town_arena_melee_1_num_teams,   ":random"),
 
-      (party_set_slot,"p_town_2", slot_town_arena_melee_1_num_teams,   4),
-      (party_set_slot,"p_town_2", slot_town_arena_melee_1_team_size,   4),
-      (party_set_slot,"p_town_2", slot_town_arena_melee_2_num_teams,   4),
-      (party_set_slot,"p_town_2", slot_town_arena_melee_2_team_size,   6),
-      (party_set_slot,"p_town_2", slot_town_arena_melee_3_num_teams,   4),
-      (party_set_slot,"p_town_2", slot_town_arena_melee_3_team_size,   8),
+        (store_random_in_range, ":random", 1,9),      
+        (party_set_slot,":town_no", slot_town_arena_melee_1_team_size,   ":random"),
 
-      (party_set_slot,"p_town_3", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_3", slot_town_arena_melee_1_team_size,   8),
-      (party_set_slot,"p_town_3", slot_town_arena_melee_2_num_teams,   2),
-      (party_set_slot,"p_town_3", slot_town_arena_melee_2_team_size,   8),
-      (party_set_slot,"p_town_3", slot_town_arena_melee_3_num_teams,   2),
-      (party_set_slot,"p_town_3", slot_town_arena_melee_3_team_size,   8),
+        (store_random_in_range, ":random", 2,5),      
+        (party_set_slot,":town_no", slot_town_arena_melee_2_num_teams,   ":random"),
 
-      (party_set_slot,"p_town_4", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_4", slot_town_arena_melee_1_team_size,   8),
-      (party_set_slot,"p_town_4", slot_town_arena_melee_2_num_teams,   3),
-      (party_set_slot,"p_town_4", slot_town_arena_melee_2_team_size,   8),
-      (party_set_slot,"p_town_4", slot_town_arena_melee_3_num_teams,   2),
-      (party_set_slot,"p_town_4", slot_town_arena_melee_3_team_size,   5),
+        (store_random_in_range, ":random", 1,9),      
+        (party_set_slot,":town_no", slot_town_arena_melee_2_team_size,   ":random"),
 
-      (party_set_slot,"p_town_5", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_5", slot_town_arena_melee_1_team_size,   3),
-      (party_set_slot,"p_town_5", slot_town_arena_melee_2_num_teams,   2),
-      (party_set_slot,"p_town_5", slot_town_arena_melee_2_team_size,   5),
-      (party_set_slot,"p_town_5", slot_town_arena_melee_3_num_teams,   2),
-      (party_set_slot,"p_town_5", slot_town_arena_melee_3_team_size,   8),
+        (store_random_in_range, ":random", 2,5),      
+        (party_set_slot,":town_no", slot_town_arena_melee_3_num_teams,   ":random"),
 
-      (party_set_slot,"p_town_6", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_6", slot_town_arena_melee_1_team_size,   4),
-      (party_set_slot,"p_town_6", slot_town_arena_melee_2_num_teams,   3),
-      (party_set_slot,"p_town_6", slot_town_arena_melee_2_team_size,   4),
-      (party_set_slot,"p_town_6", slot_town_arena_melee_3_num_teams,   3),
-      (party_set_slot,"p_town_6", slot_town_arena_melee_3_team_size,   6),
-
-      (party_set_slot,"p_town_7", slot_town_arena_melee_1_num_teams,   4),
-      (party_set_slot,"p_town_7", slot_town_arena_melee_1_team_size,   4),
-      (party_set_slot,"p_town_7", slot_town_arena_melee_2_num_teams,   4),
-      (party_set_slot,"p_town_7", slot_town_arena_melee_2_team_size,   6),
-      (party_set_slot,"p_town_7", slot_town_arena_melee_3_num_teams,   4),
-      (party_set_slot,"p_town_7", slot_town_arena_melee_3_team_size,   8),
-
-      (party_set_slot,"p_town_8", slot_town_arena_melee_1_num_teams,   3),
-      (party_set_slot,"p_town_8", slot_town_arena_melee_1_team_size,   1),
-      (party_set_slot,"p_town_8", slot_town_arena_melee_2_num_teams,   3),
-      (party_set_slot,"p_town_8", slot_town_arena_melee_2_team_size,   3),
-      (party_set_slot,"p_town_8", slot_town_arena_melee_3_num_teams,   3),
-      (party_set_slot,"p_town_8", slot_town_arena_melee_3_team_size,   7),
-
-      (party_set_slot,"p_town_9", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_9", slot_town_arena_melee_1_team_size,   2),
-      (party_set_slot,"p_town_9", slot_town_arena_melee_2_num_teams,   2),
-      (party_set_slot,"p_town_9", slot_town_arena_melee_2_team_size,   5),
-      (party_set_slot,"p_town_9", slot_town_arena_melee_3_num_teams,   2),
-      (party_set_slot,"p_town_9", slot_town_arena_melee_3_team_size,   8),
-
-      (party_set_slot,"p_town_10", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_10", slot_town_arena_melee_1_team_size,   3),
-      (party_set_slot,"p_town_10", slot_town_arena_melee_2_num_teams,   2),
-      (party_set_slot,"p_town_10", slot_town_arena_melee_2_team_size,   5),
-      (party_set_slot,"p_town_10", slot_town_arena_melee_3_num_teams,   2),
-      (party_set_slot,"p_town_10", slot_town_arena_melee_3_team_size,   8),
-
-      (party_set_slot,"p_town_11", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_11", slot_town_arena_melee_1_team_size,   8),
-      (party_set_slot,"p_town_11", slot_town_arena_melee_2_num_teams,   3),
-      (party_set_slot,"p_town_11", slot_town_arena_melee_2_team_size,   4),
-      (party_set_slot,"p_town_11", slot_town_arena_melee_3_num_teams,   3),
-      (party_set_slot,"p_town_11", slot_town_arena_melee_3_team_size,   6),
-
-      (party_set_slot,"p_town_12", slot_town_arena_melee_1_num_teams,   3),
-      (party_set_slot,"p_town_12", slot_town_arena_melee_1_team_size,   8),
-      (party_set_slot,"p_town_12", slot_town_arena_melee_2_num_teams,   4),
-      (party_set_slot,"p_town_12", slot_town_arena_melee_2_team_size,   6),
-      (party_set_slot,"p_town_12", slot_town_arena_melee_3_num_teams,   4),
-      (party_set_slot,"p_town_12", slot_town_arena_melee_3_team_size,   5),
-
-      (party_set_slot,"p_town_13", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_13", slot_town_arena_melee_1_team_size,   8),
-      (party_set_slot,"p_town_13", slot_town_arena_melee_2_num_teams,   4),
-      (party_set_slot,"p_town_13", slot_town_arena_melee_2_team_size,   5),
-      (party_set_slot,"p_town_13", slot_town_arena_melee_3_num_teams,   4),
-      (party_set_slot,"p_town_13", slot_town_arena_melee_3_team_size,   7),
-
-      (party_set_slot,"p_town_14", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_14", slot_town_arena_melee_1_team_size,   4),
-      (party_set_slot,"p_town_14", slot_town_arena_melee_2_num_teams,   2),
-      (party_set_slot,"p_town_14", slot_town_arena_melee_2_team_size,   5),
-      (party_set_slot,"p_town_14", slot_town_arena_melee_3_num_teams,   2),
-      (party_set_slot,"p_town_14", slot_town_arena_melee_3_team_size,   6),
-
-      (party_set_slot,"p_town_15", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_15", slot_town_arena_melee_1_team_size,   8),
-      (party_set_slot,"p_town_15", slot_town_arena_melee_2_num_teams,   3),
-      (party_set_slot,"p_town_15", slot_town_arena_melee_2_team_size,   4),
-      (party_set_slot,"p_town_15", slot_town_arena_melee_3_num_teams,   3),
-      (party_set_slot,"p_town_15", slot_town_arena_melee_3_team_size,   6),
-
-      (party_set_slot,"p_town_16", slot_town_arena_melee_1_num_teams,   3),
-      (party_set_slot,"p_town_16", slot_town_arena_melee_1_team_size,   8),
-      (party_set_slot,"p_town_16", slot_town_arena_melee_2_num_teams,   4),
-      (party_set_slot,"p_town_16", slot_town_arena_melee_2_team_size,   6),
-      (party_set_slot,"p_town_16", slot_town_arena_melee_3_num_teams,   4),
-      (party_set_slot,"p_town_16", slot_town_arena_melee_3_team_size,   5),
-
-      (party_set_slot,"p_town_17", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_17", slot_town_arena_melee_1_team_size,   8),
-      (party_set_slot,"p_town_17", slot_town_arena_melee_2_num_teams,   4),
-      (party_set_slot,"p_town_17", slot_town_arena_melee_2_team_size,   5),
-      (party_set_slot,"p_town_17", slot_town_arena_melee_3_num_teams,   4),
-      (party_set_slot,"p_town_17", slot_town_arena_melee_3_team_size,   7),
-
-      (party_set_slot,"p_town_18", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_18", slot_town_arena_melee_1_team_size,   4),
-      (party_set_slot,"p_town_18", slot_town_arena_melee_2_num_teams,   2),
-      (party_set_slot,"p_town_18", slot_town_arena_melee_2_team_size,   5),
-      (party_set_slot,"p_town_18", slot_town_arena_melee_3_num_teams,   2),
-      (party_set_slot,"p_town_18", slot_town_arena_melee_3_team_size,   6),
-
-      (party_set_slot,"p_town_19", slot_town_arena_melee_1_num_teams,   2),
-      (party_set_slot,"p_town_19", slot_town_arena_melee_1_team_size,   8),
-      (party_set_slot,"p_town_19", slot_town_arena_melee_2_num_teams,   4),
-      (party_set_slot,"p_town_19", slot_town_arena_melee_2_team_size,   4),
-      (party_set_slot,"p_town_19", slot_town_arena_melee_3_num_teams,   4),
-      (party_set_slot,"p_town_19", slot_town_arena_melee_3_team_size,   6),
-
-      (party_set_slot,"p_town_20", slot_town_arena_melee_1_num_teams,   4),
-      (party_set_slot,"p_town_20", slot_town_arena_melee_1_team_size,   2),
-      (party_set_slot,"p_town_20", slot_town_arena_melee_2_num_teams,   4),
-      (party_set_slot,"p_town_20", slot_town_arena_melee_2_team_size,   4),
-      (party_set_slot,"p_town_20", slot_town_arena_melee_3_num_teams,   4),
-      (party_set_slot,"p_town_20", slot_town_arena_melee_3_team_size,   6),
-
-      (party_set_slot,"p_town_21", slot_town_arena_melee_1_num_teams,   3),
-      (party_set_slot,"p_town_21", slot_town_arena_melee_1_team_size,   3),
-      (party_set_slot,"p_town_21", slot_town_arena_melee_2_num_teams,   2),
-      (party_set_slot,"p_town_21", slot_town_arena_melee_2_team_size,   6),
-      (party_set_slot,"p_town_21", slot_town_arena_melee_3_num_teams,   2),
-      (party_set_slot,"p_town_21", slot_town_arena_melee_3_team_size,   8),
-
-      (party_set_slot,"p_town_22", slot_town_arena_melee_1_num_teams,   4),
-      (party_set_slot,"p_town_22", slot_town_arena_melee_1_team_size,   3),
-      (party_set_slot,"p_town_22", slot_town_arena_melee_2_num_teams,   3),
-      (party_set_slot,"p_town_22", slot_town_arena_melee_2_team_size,   4),
-      (party_set_slot,"p_town_22", slot_town_arena_melee_3_num_teams,   2),
-      (party_set_slot,"p_town_22", slot_town_arena_melee_3_team_size,   6),
+        (store_random_in_range, ":random", 1,9),      
+        (party_set_slot,":town_no", slot_town_arena_melee_3_team_size,   ":random"),
+      (try_end),      
 	]),
 
 	("initialize_banner_info",
@@ -54386,6 +54280,10 @@ scripts = [
 	(troop_equip_items, ":lady_no"),
 
 	(store_faction_of_troop, ":faction_no", ":lady_no"),
+    ## TGS: mat: Added
+    (troop_add_item, ":lady_no", "itm_brown_dress"),
+    (troop_add_item, ":lady_no", "itm_leather_boots"),
+    ## TGS: mat: End
 
 	(store_random_in_range, ":random", 0, 6),
 
@@ -65833,25 +65731,96 @@ scripts = [
     (faction_get_slot, ":party_template_a", ":template_faction", slot_faction_reinforcements_a),
     (faction_get_slot, ":party_template_b", ":template_faction", slot_faction_reinforcements_b),
     (faction_get_slot, ":party_template_c", ":template_faction", slot_faction_reinforcements_c),
+    ## TGS: mat: Added for TGS
+    (faction_get_slot, ":party_template_d", ":template_faction", slot_faction_reinforcements_d),
+    (faction_get_slot, ":party_template_e", ":template_faction", slot_faction_reinforcements_e),
+    (faction_get_slot, ":party_template_f", ":template_faction", slot_faction_reinforcements_f),
+    (faction_get_slot, ":party_template_g", ":template_faction", slot_faction_reinforcements_g),
+    (faction_get_slot, ":party_template_h", ":template_faction", slot_faction_reinforcements_h),
+    ## TGS: mat: End
+
 
     (try_begin),
       (eq, ":size", 3),
-      (party_add_template, ":spawned_party", ":party_template_c"),
-      (party_add_template, ":spawned_party", ":party_template_c"),
+    ## TGS: mat: Edited
+      #(party_add_template, ":spawned_party", ":party_template_c"),
+      #(party_add_template, ":spawned_party", ":party_template_c"),
+        (store_random_in_range, ":random", 1, 9),
+        (try_begin),
+        (eq, ":random", 1),
+            (party_add_template, ":spawned_party", ":party_template_a"),
+            (party_add_template, ":spawned_party", ":party_template_a"),
+        (else_try),
+        (eq, ":random", 2),
+            (party_add_template, ":spawned_party", ":party_template_b"),
+            (party_add_template, ":spawned_party", ":party_template_b"),
+        (else_try),
+        (eq, ":random", 3),
+            (party_add_template, ":spawned_party", ":party_template_c"),
+            (party_add_template, ":spawned_party", ":party_template_c"),
+        (else_try),
+        (eq, ":random", 4),
+            (party_add_template, ":spawned_party", ":party_template_d"),
+            (party_add_template, ":spawned_party", ":party_template_d"),
+        (else_try),
+        (eq, ":random", 5),
+            (party_add_template, ":spawned_party", ":party_template_e"),
+            (party_add_template, ":spawned_party", ":party_template_e"),
+        (else_try),
+        (eq, ":random", 6),
+            (party_add_template, ":spawned_party", ":party_template_f"),
+            (party_add_template, ":spawned_party", ":party_template_f"),
+        (else_try),
+        (eq, ":random", 7),
+            (party_add_template, ":spawned_party", ":party_template_g"),
+            (party_add_template, ":spawned_party", ":party_template_g"),
+        (else_try),
+            (party_add_template, ":spawned_party", ":party_template_h"),
+            (party_add_template, ":spawned_party", ":party_template_h"),
+        (try_end),
+    ## TGS: mat: End
     (else_try),
       (val_add, ":size", 1),
       (val_mul, ":size", 2),
       (try_for_range, ":cur_i", 0, ":size"),
-        (store_random_in_range, ":random", 0, 3),
-        (try_begin),
-          (eq, ":random", 0),
-          (party_add_template, ":spawned_party", ":party_template_a"),
-        (else_try),
-          (eq, ":random", 1),
-          (party_add_template, ":spawned_party", ":party_template_b"),
-        (else_try),
-          (party_add_template, ":spawned_party", ":party_template_c"),
-        (try_end),
+    ## TGS: mat: Edited
+#        (store_random_in_range, ":random", 0, 3),
+#        (try_begin),
+#          (eq, ":random", 0),
+#          (party_add_template, ":spawned_party", ":party_template_a"),
+#        (else_try),
+#          (eq, ":random", 1),
+#          (party_add_template, ":spawned_party", ":party_template_b"),
+#        (else_try),
+#          (party_add_template, ":spawned_party", ":party_template_c"),
+#        (try_end),
+            (store_random_in_range, ":random", 1, 9),
+            (try_begin),
+            (eq, ":random", 1),
+                (party_add_template, ":spawned_party", ":party_template_a"),
+            (else_try),
+            (eq, ":random", 2),
+                (party_add_template, ":spawned_party", ":party_template_b"),
+            (else_try),
+            (eq, ":random", 3),
+                (party_add_template, ":spawned_party", ":party_template_c"),
+            (else_try),
+            (eq, ":random", 4),
+                (party_add_template, ":spawned_party", ":party_template_d"),
+            (else_try),
+            (eq, ":random", 5),
+                (party_add_template, ":spawned_party", ":party_template_e"),
+            (else_try),
+            (eq, ":random", 6),
+                (party_add_template, ":spawned_party", ":party_template_f"),
+            (else_try),
+            (eq, ":random", 7),
+                (party_add_template, ":spawned_party", ":party_template_g"),
+            (else_try),
+                (party_add_template, ":spawned_party", ":party_template_h"),
+            (try_end),
+    
+    ## TGS: mat: End
 
         (try_begin), #debug
           (eq, "$cheat_mode", 1),
@@ -70516,62 +70485,66 @@ scripts = [
 	(try_end),
 	##diplomacy start+
 	##Add relations for rulers not already encoded
-	(try_begin),
-		(eq, ":relation_strength", 0),
-		(neq, ":troop_1", ":troop_2"),
-		(try_begin),
+    
+## TGS: mat: Removed to fix some non-intended relationships
+#	(try_begin),
+#		(eq, ":relation_strength", 0),
+#		(neq, ":troop_1", ":troop_2"),
+#		(try_begin),
 			#Lady Isolla of Suno's father King Esterich was King Harlaus's cousin,
 			#making them first cousins once removed.  Assign a weight of "1"
 			#to this (for reference, the lowest value normally given in Native is 2).
-			(this_or_next|eq, ":troop_1", "trp_kingdom_1_lord"),
-			    (eq, ":troop_1", "trp_kingdom_1_pretender"),
-			(this_or_next|eq, ":troop_2", "trp_kingdom_1_lord"),
-			    (eq, ":troop_2", "trp_kingdom_1_pretender"),
-			(assign, ":relation_strength", 1),
-			(assign, ":relation_string", "str_cousin"),
-		(else_try),
+#			(this_or_next|eq, ":troop_1", "trp_kingdom_1_lord"),
+#			    (eq, ":troop_1", "trp_kingdom_1_pretender"),
+#			(this_or_next|eq, ":troop_2", "trp_kingdom_1_lord"),
+#			    (eq, ":troop_2", "trp_kingdom_1_pretender"),
+#			(assign, ":relation_strength", 1),
+#			(assign, ":relation_string", "str_cousin"),
+#		(else_try),
 			#Prince Valdym's uncle was Regent Burelek, father of King Yaroglek,
 			#making the two of them first cousins.
-			(this_or_next|eq, ":troop_1", "trp_kingdom_2_lord"),
-			    (eq, ":troop_1", "trp_kingdom_2_pretender"),
-			(this_or_next|eq, ":troop_2", "trp_kingdom_2_lord"),
-				(eq, ":troop_2", "trp_kingdom_2_pretender"),
-			(assign, ":relation_strength", 2),
-			(assign, ":relation_string", "str_cousin"),
-		(else_try),
+#			(this_or_next|eq, ":troop_1", "trp_kingdom_2_lord"),
+#			    (eq, ":troop_1", "trp_kingdom_2_pretender"),
+#			(this_or_next|eq, ":troop_2", "trp_kingdom_2_lord"),
+#				(eq, ":troop_2", "trp_kingdom_2_pretender"),
+#			(assign, ":relation_strength", 2),
+#			(assign, ":relation_string", "str_cousin"),
+#		(else_try),
 			#Sanjar Khan and Dustum Khan were both sons of Janakir Khan
 			#(although by different mothers) making them half-brothers.
-			(this_or_next|eq, ":troop_1", "trp_kingdom_3_lord"),
-			    (eq, ":troop_1", "trp_kingdom_3_pretender"),
-			(this_or_next|eq, ":troop_2", "trp_kingdom_3_lord"),
-				(eq, ":troop_2", "trp_kingdom_3_pretender"),
-			(assign, ":relation_strength", 10),
-			(assign, ":relation_string", "str_dplmc_half_brother"),
+#			(this_or_next|eq, ":troop_1", "trp_kingdom_3_lord"),
+#			    (eq, ":troop_1", "trp_kingdom_3_pretender"),
+#			(this_or_next|eq, ":troop_2", "trp_kingdom_3_lord"),
+#				(eq, ":troop_2", "trp_kingdom_3_pretender"),
+#			(assign, ":relation_strength", 10),
+#			(assign, ":relation_string", "str_dplmc_half_brother"),
 			#Adjust their parentage to make this work automatically
-			(try_begin),
-		      		(troop_slot_eq, ":troop_1", slot_troop_father, -1),
-				(troop_slot_eq, ":troop_2", slot_troop_father, -1),
+#			(try_begin),
+#		      		(troop_slot_eq, ":troop_1", slot_troop_father, -1),
+#				(troop_slot_eq, ":troop_2", slot_troop_father, -1),
 				#Set their "father" slot to a number guaranteed not to have spurious collisions
-				(store_mul, ":janakir_khan", "trp_kingdom_3_lord", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),#defined in module_constants.py
-				(val_add, ":janakir_khan", DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET),#defined in module_constants.py
-				(troop_set_slot, ":troop_1", slot_troop_father, ":janakir_khan"),
-				(troop_set_slot, ":troop_2", slot_troop_father, ":janakir_khan"),
+#				(store_mul, ":janakir_khan", "trp_kingdom_3_lord", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),#defined in module_constants.py
+#				(val_add, ":janakir_khan", DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET),#defined in module_constants.py
+#				(troop_set_slot, ":troop_1", slot_troop_father, ":janakir_khan"),
+#				(troop_set_slot, ":troop_2", slot_troop_father, ":janakir_khan"),
 				#Differentiate their mothers, so they are half-brothers instead of full-brothers
-				(try_begin),
-					(troop_slot_eq, ":troop_1", slot_troop_mother, -1),
-					(store_mul, reg0, ":troop_1", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
-					(val_add, reg0, DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
-					(troop_set_slot, ":troop_1", slot_troop_mother, reg0),
-				(try_end),
-				(try_begin),
-					(troop_slot_eq, ":troop_2", slot_troop_mother, -1),
-					(store_mul, reg0, ":troop_2", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
-					(val_add, reg0, DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
-					(troop_set_slot, ":troop_2", slot_troop_mother, reg0),
-				(try_end),				
-			(try_end),
-		(try_end),
-	(try_end),
+#				(try_begin),
+#					(troop_slot_eq, ":troop_1", slot_troop_mother, -1),
+#					(store_mul, reg0, ":troop_1", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
+#					(val_add, reg0, DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
+#					(troop_set_slot, ":troop_1", slot_troop_mother, reg0),
+#				(try_end),
+#				(try_begin),
+#					(troop_slot_eq, ":troop_2", slot_troop_mother, -1),
+#					(store_mul, reg0, ":troop_2", DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
+#					(val_add, reg0, DPLMC_VIRTUAL_RELATIVE_MULTIPLIER),
+#					(troop_set_slot, ":troop_2", slot_troop_mother, reg0),
+#				(try_end),				
+#			(try_end),
+#		(try_end),
+#	(try_end),
+## TGS: mat: End - Removed to fix some non-intended relationships
+    
 	##Add uncles and aunts by marriage.
 	##In Native, the relation strength for blood uncles/aunts is 4, and for cousins is 2.
 	##In light of this I've decided to set the relation strength for aunts/uncles by marriage to 2.

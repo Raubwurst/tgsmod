@@ -1740,6 +1740,7 @@ game_menus = [
              (eq,"$character_gender",0),
              (troop_raise_attribute, "trp_player",ca_strength,1),
              (troop_raise_attribute, "trp_player",ca_charisma,1),
+             (troop_add_item, "trp_player","itm_shirt",imod_battered),
            (else_try),
              (troop_raise_attribute, "trp_player",ca_agility,1),
              (troop_raise_attribute, "trp_player",ca_intelligence,1),
