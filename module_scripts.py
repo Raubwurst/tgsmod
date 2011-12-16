@@ -73468,6 +73468,21 @@ scripts = [
 	#           (neg|agent_is_ally,":agent"), ## add this to avoid killing allies
 				(agent_is_alive,":agent"), ## add this to not re-kill dead people
 				(neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
+				
+				#partial friendly fire protection
+				(agent_get_team, ":agent_team_ff", ":agent"),
+				(assign, ":deliver_damage", 1),
+				(try_begin),
+				(neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+					(store_random_in_range, ":random", 1, 5),
+					(try_begin),
+					(gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+						(assign, ":deliver_damage", 0),
+					(try_end),
+				(try_end),
+				(eq, ":deliver_damage", 1),
+				#end partial friendly fire protection
+
 				(agent_get_look_position,pos2,":agent"),
 				(get_distance_between_positions,":dist",pos3,pos2),
 				(store_agent_hit_points,":target_health",":agent",1),
@@ -73546,6 +73561,22 @@ scripts = [
 		(eq, ":times_near_ground", 0),
 			(particle_system_burst, "psys_freeze_blast", pos1, 10),
 			(position_move_y,pos1,20), # was 10
+
+			#added for gravity effect and flight randomness
+			(store_mod, ":fall", reg5, 2),
+			(try_begin),
+			(eq, ":fall", 0),
+				(position_move_x,pos1,3),
+			(try_end),
+
+			(store_mod, ":weave", reg5, 5),
+			(try_begin),
+			(eq, ":weave", 0),
+				(store_random_in_range, ":random", -7, 8),
+				(position_move_z,pos1,":random"),
+			(try_end),
+			#end added for gravity effect and flight randomness
+			
 			(copy_position,pos2,pos1),
 			(position_set_z_to_ground_level, pos2),
 			(get_distance_between_positions,":dist",pos1,pos2),
@@ -73562,6 +73593,7 @@ scripts = [
 				(teams_are_enemies, ":chosen_team", ":agent_team"),
 				(agent_is_alive, ":agent"),
 				(neg|agent_is_wounded, ":agent"),
+
 				(agent_get_look_position, pos4, ":agent"),
 				(get_distance_between_positions, ":dist_2", pos2, pos4),
 				(position_get_z, ":z_attack_trail", pos1),
@@ -73702,6 +73734,22 @@ scripts = [
                         (eq, ":times_near_ground", 0),
                             (particle_system_burst, "psys_torch_fire", pos1, 15),
                             (position_move_y,pos1,20),
+
+                            #added for gravity effect and flight randomness
+                            (store_mod, ":fall", reg5, 2),
+                            (try_begin),
+                            (eq, ":fall", 0),
+                                (position_move_x,pos1,3),
+                            (try_end),
+
+                            (store_mod, ":weave", reg5, 5),
+                            (try_begin),
+                            (eq, ":weave", 0),
+                                (store_random_in_range, ":random", -7, 8),
+                                (position_move_z,pos1,":random"),
+                            (try_end),
+                            #end added for gravity effect and flight randomness
+            
                             (copy_position,pos2,pos1),
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
@@ -73718,6 +73766,7 @@ scripts = [
                                 (teams_are_enemies, ":chosen_team", ":agent_team"),
                                 (agent_is_alive, ":agent"),
                                 (neg|agent_is_wounded, ":agent"),
+
                                 (agent_get_look_position, pos4, ":agent"),
                                 (get_distance_between_positions, ":dist_2", pos2, pos4),
                                 (position_get_z, ":z_attack_trail", pos1),
@@ -74711,6 +74760,21 @@ scripts = [
 #                            (neg|agent_is_ally,":agent"), ## don't hurt allies
                             (neq,":chosen",":agent"), ## don't hurt self
                             (neq, ":chosen_horse", ":agent"),
+                            
+                            #partial friendly fire protection
+                            (agent_get_team, ":agent_team_ff", ":agent"),
+                            (assign, ":deliver_damage", 1),
+                            (try_begin),
+                            (neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+                                (store_random_in_range, ":random", 1, 5),
+                                (try_begin),
+                                (gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+                                    (assign, ":deliver_damage", 0),
+                                (try_end),
+                            (try_end),
+                            (eq, ":deliver_damage", 1),
+                            #end partial friendly fire protection
+
                             (agent_get_look_position, pos2, ":agent"),
                             (get_distance_between_positions,":dist",pos1,pos2),
                             (store_agent_hit_points,":target_health",":agent",1),
@@ -74814,6 +74878,22 @@ scripts = [
                         (eq, ":times_near_ground", 0),
                             (particle_system_burst, "psys_dust_blast", pos1, 10),
                             (position_move_y,pos1,20),
+
+                            #added for gravity effect and flight randomness
+                            (store_mod, ":fall", reg5, 2),
+                            (try_begin),
+                            (eq, ":fall", 0),
+                                (position_move_x,pos1,3),
+                            (try_end),
+
+                            (store_mod, ":weave", reg5, 5),
+                            (try_begin),
+                            (eq, ":weave", 0),
+                                (store_random_in_range, ":random", -7, 8),
+                                (position_move_z,pos1,":random"),
+                            (try_end),
+                            #end added for gravity effect and flight randomness
+            
                             (copy_position,pos2,pos1),
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
@@ -75113,6 +75193,22 @@ scripts = [
                         (eq, ":times_near_ground", 0),
                             (particle_system_burst, "psys_electricity_blast", pos1, 10),
                             (position_move_y,pos1,20),
+
+                            #added for gravity effect and flight randomness
+                            (store_mod, ":fall", reg5, 2),
+                            (try_begin),
+                            (eq, ":fall", 0),
+                                (position_move_x,pos1,3),
+                            (try_end),
+
+                            (store_mod, ":weave", reg5, 5),
+                            (try_begin),
+                            (eq, ":weave", 0),
+                                (store_random_in_range, ":random", -7, 8),
+                                (position_move_z,pos1,":random"),
+                            (try_end),
+                            #end added for gravity effect and flight randomness
+            
                             (copy_position,pos2,pos1),
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
@@ -76044,6 +76140,22 @@ scripts = [
                         (eq, ":times_near_ground", 0),
                             (particle_system_burst, "psys_balefire_beam", pos1, 15), ## need balefire trail
                             (position_move_y,pos1,20),
+
+                            #added for gravity effect and flight randomness
+                            (store_mod, ":fall", reg5, 2),
+                            (try_begin),
+                            (eq, ":fall", 0),
+                                (position_move_x,pos1,3),
+                            (try_end),
+
+                            (store_mod, ":weave", reg5, 5),
+                            (try_begin),
+                            (eq, ":weave", 0),
+                                (store_random_in_range, ":random", -7, 8),
+                                (position_move_z,pos1,":random"),
+                            (try_end),
+                            #end added for gravity effect and flight randomness
+            
                             (copy_position,pos2,pos1),
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
