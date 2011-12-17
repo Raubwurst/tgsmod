@@ -134,6 +134,38 @@ slot_agent_draghkar_kiss_by       = 62    ## ID of Draghkar that kissed agent
 
 slot_agent_bound_duration         = 63    ## How long will the agent be bound (Counts from 10 to 0)
 
+## Situational Awareness Weave Slots ##
+
+slot_agent_sa_freeze_loi                = 100
+slot_agent_sa_heal_loi                  = 101
+slot_agent_sa_fireball_loi              = 102
+slot_agent_sa_unravel_loi               = 103
+slot_agent_sa_ranged_earth_blast_loi    = 104
+slot_agent_sa_bind_loi                  = 105
+slot_agent_sa_chain_lightning_loi       = 106
+slot_agent_sa_shield_loi                = 107
+slot_agent_sa_seeker_loi                = 108
+slot_agent_sa_compulsion_loi            = 109
+slot_agent_sa_balefire_loi              = 110
+
+## Situational Awareness Weave Slots ##
+
+## Natural Inclination Weave Slots ##
+
+slot_agent_ni_freeze_loi                = 150
+slot_agent_ni_heal_loi                  = 151
+slot_agent_ni_fireball_loi              = 152
+slot_agent_ni_unravel_loi               = 153
+slot_agent_ni_ranged_earth_blast_loi    = 154
+slot_agent_ni_bind_loi                  = 155
+slot_agent_ni_chain_lightning_loi       = 156
+slot_agent_ni_shield_loi                = 157
+slot_agent_ni_seeker_loi                = 158
+slot_agent_ni_compulsion_loi            = 159
+slot_agent_ni_balefire_loi              = 160
+
+## Natural Inclination Weave Slots ##
+
 ### End TGS Slots
     
 ########################################################

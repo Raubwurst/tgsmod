@@ -73539,7 +73539,69 @@ scripts = [
             (try_end),
         
         (else_try), # ":chosen_troop" is not equal to "trp_player" so we need to add the weave selection algorithm here
+
+            ### Vaerraent's code that will determine ":chosen"'s natural inclination towards certain weaves
+            ### based on gender, channeling society affiliation (white tower, black tower, etc), distribution of
+            ### skill in the Five Power, and any other factors we want to include.
+            ###
+            ### Output should be a value for each of the 11 weaves between 1 and 10.
+
+
+## you can use the following script, and agent_slots if you like.  Check my code to see how I set it up  
+
+
+            #(call_script, "script_tgs_npc_channeler_natural_inclination", ":chosen", ":chosen_horse", ":chosen_team"),
+
+            ## Get values for ":chosen" Natural Inclination slots ##
+            (agent_get_slot, ":ni_freeze_loi", ":chosen", slot_agent_ni_freeze_loi),
+            (agent_get_slot, ":ni_heal_loi", ":chosen", slot_agent_ni_heal_loi),
+            (agent_get_slot, ":ni_fireball_loi", ":chosen", slot_agent_ni_fireball_loi),
+            (agent_get_slot, ":ni_unravel_loi", ":chosen", slot_agent_ni_unravel_loi),
+            (agent_get_slot, ":ni_ranged_earth_blast_loi", ":chosen", slot_agent_ni_ranged_earth_blast_loi),
+            (agent_get_slot, ":ni_bind_loi", ":chosen", slot_agent_ni_bind_loi),
+            (agent_get_slot, ":ni_chain_lightning_loi", ":chosen", slot_agent_ni_chain_lightning_loi),
+            (agent_get_slot, ":ni_shield_loi", ":chosen", slot_agent_ni_shield_loi),
+            (agent_get_slot, ":ni_seeker_loi", ":chosen", slot_agent_ni_seeker_loi),
+            (agent_get_slot, ":ni_compulsion_loi", ":chosen", slot_agent_ni_compulsion_loi),
+            (agent_get_slot, ":ni_balefire_loi", ":chosen", slot_agent_ni_balefire_loi),          
+
         
+            ####### End Vaerraent's code #########
+
+        
+            # mat2rivs's code for situational awareness
+        
+            (call_script, "script_tgs_npc_channeler_situational_awareness", ":chosen", ":chosen_horse", ":chosen_team"),
+
+            ## Get values for ":chosen" Situational Awareness slots ##
+            (agent_get_slot, ":sa_freeze_loi", ":chosen", slot_agent_sa_freeze_loi),
+            (agent_get_slot, ":sa_heal_loi", ":chosen", slot_agent_sa_heal_loi),
+            (agent_get_slot, ":sa_fireball_loi", ":chosen", slot_agent_sa_fireball_loi),
+            (agent_get_slot, ":sa_unravel_loi", ":chosen", slot_agent_sa_unravel_loi),
+            (agent_get_slot, ":sa_ranged_earth_blast_loi", ":chosen", slot_agent_sa_ranged_earth_blast_loi),
+            (agent_get_slot, ":sa_bind_loi", ":chosen", slot_agent_sa_bind_loi),
+            (agent_get_slot, ":sa_chain_lightning_loi", ":chosen", slot_agent_sa_chain_lightning_loi),
+            (agent_get_slot, ":sa_shield_loi", ":chosen", slot_agent_sa_shield_loi),
+            (agent_get_slot, ":sa_seeker_loi", ":chosen", slot_agent_sa_seeker_loi),
+            (agent_get_slot, ":sa_compulsion_loi", ":chosen", slot_agent_sa_compulsion_loi),
+            (agent_get_slot, ":sa_balefire_loi", ":chosen", slot_agent_sa_balefire_loi),
+
+
+            ## Final Code to determine which weave to use ##
+            (store_mul, ":final_freeze_loi", ":ni_freeze_loi", ":sa_freeze_loi"),
+            (store_mul, ":final_heal_loi", ":ni_heal_loi", ":sa_heal_loi"),
+            (store_mul, ":final_fireball_loi", ":ni_fireball_loi", ":sa_fireball_loi"),
+            (store_mul, ":final_unravel_loi", ":ni_unravel_loi", ":sa_unravel_loi"),
+            (store_mul, ":final_ranged_earth_blast_loi", ":ni_ranged_earth_blast_loi", ":sa_ranged_earth_blast_loi"),
+            (store_mul, ":final_bind_loi", ":ni_bind_loi", ":sa_bind_loi"),
+            (store_mul, ":final_chain_lightning_loi", ":ni_chain_lightning_loi", ":sa_chain_lightning_loi"),
+            (store_mul, ":final_shield_loi", ":ni_shield_loi", ":sa_shield_loi"),
+            (store_mul, ":final_seeker_loi", ":ni_seeker_loi", ":sa_seeker_loi"),
+            (store_mul, ":final_compulsion_loi", ":ni_compulsion_loi", ":sa_compulsion_loi"),
+            (store_mul, ":final_balefire_loi", ":ni_balefire_loi", ":sa_balefire_loi"),        
+        
+            # Now need code to find the largest ":final..." - not sure yet what to do in the event of a tie
+
         
         
         (try_end),
@@ -76551,13 +76613,132 @@ scripts = [
 	(store_script_param_1,":chosen"),
 	(store_script_param_2,":chosen_horse"),
     (store_script_param,":chosen_team",3),
-
-
-## We may need some sort of 'Aggression level' variable that weighs into this.  It could determine whether a troop tends to use Supporting or Offensive weaves most of the time.
     
+    # Clear ":chosen" slots
+    (agent_set_slot, ":chosen", slot_agent_sa_freeze_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_heal_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_fireball_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_unravel_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_ranged_earth_blast_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_bind_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_chain_lightning_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_shield_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_seeker_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_compulsion_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_sa_balefire_loi, 0),
+
+## We may need some sort of 'Aggression level' variable that weighs into this.  It could determine
+## whether a troop tends to use Supporting or Offensive weaves most of the time.
+
+    
+    ## Scan ally/enemy make-up and active effects ##
+    
+    (assign, ":total_active_allies", 0),
+    (assign, ":num_allies_needing_healing", 0),
+    (assign, ":unravel_ally_seeker_check", 0),
+    (assign, ":unravel_ally_on_fire_check", 0),
+    (assign, ":unravel_ally_bound_check", 0),
+
+    (assign, ":total_active_enemies", 0),
+    (assign, ":unravel_ally_compulsion_check", 0),
+    (assign, ":num_enemy_unbound_cavalry", 0),
+    (assign, ":num_enemy_unshielded_channelers", 0),
+    (assign, ":num_high_tier_enemies", 0),
+        
     (try_for_agents, ":agent"),
         (agent_is_alive, ":agent"),
-        (neg|agent_is_wounded,":agent"),
+        (neg|agent_is_wounded, ":agent"),
+        (agent_is_human, ":agent"), # don't scan horses
+        (neg|agent_is_routed, ":agent"),
+        (agent_get_team, ":agent_team", ":agent"),
+    
+        (try_begin),
+        (neg|teams_are_enemies, ":chosen_team", ":agent_team"), # Check ally status
+    
+            (val_add, ":total_active_allies", 1),
+    
+            # Heal Check
+            (store_agent_hit_points,":health",":agent",0), 
+            (try_begin),
+            (le,":health",50),
+                (val_add, ":num_allies_needing_healing", 1),
+            (try_end),
+    
+            # Unravel Check - Seeker
+            (agent_get_slot, ":seeker_check", ":agent", slot_agent_has_active_seeker),
+            (try_begin),
+            (eq, ":seeker_check", 1),
+                (val_add, ":unravel_ally_seeker_check", 1),
+            (try_end),
+    
+            # Unravel Check - On Fire
+            (agent_get_slot, ":on_fire_check", ":agent", slot_agent_on_fire),
+            (try_begin),
+            (eq, ":on_fire_check", 1),
+                (val_add, ":unravel_ally_on_fire_check", 1),
+            (try_end),
+    
+            # Unravel Check - Bound
+            (agent_get_slot, ":bound_check", ":agent", slot_agent_is_bound),
+            (try_begin),
+            (eq, ":bound_check", 1),
+                (val_add, ":unravel_ally_bound_check", 1),
+            (try_end),
+
+        (else_try), # Check enemy status
+    
+            (val_add, ":total_active_enemies", 1),
+    
+            # Unravel Check - Compulsion
+            (agent_get_slot, ":compulsion_check", ":agent", slot_agent_under_compulsion),
+            (try_begin),
+            (eq, ":compulsion_check", 1),
+                (val_add, ":unravel_ally_compulsion_check", 1),
+            (try_end),
+    
+            # Bind Check
+            (agent_get_slot, ":bound_check", ":agent", slot_agent_is_bound),
+            (try_begin),
+            (neq, ":bound_check", 1),
+                (agent_get_horse, ":agent_horse", ":agent"),
+                (try_begin),
+                (gt, ":agent_horse", -1), # means agent actually has a horse
+                    (val_add, ":num_enemy_unbound_cavalry", 1),
+                (try_end),
+            (try_end),
+    
+            # Shield Check
+            (agent_get_slot, ":channeler_check", ":agent", slot_agent_is_channeler),
+            (try_begin),
+            (eq, ":channeler_check", 1),
+                (agent_get_slot, ":shielded_check", ":agent", slot_agent_is_shielded),
+                (try_begin),
+                (neq, ":shielded_check", 1),
+                    (val_add, ":num_enemy_unshielded_channelers", 1),
+                (try_end),
+            (try_end),
+    
+            # Compulsion Check
+            (agent_get_slot, ":compulsion_check", ":agent", slot_agent_under_compulsion),
+            (try_begin),
+            (neq, ":compulsion_check", 1),
+                (agent_get_troop_id, ":agent_troop", ":agent"),
+                (troop_get_xp, ":agent_xp", ":agent_troop"),
+                (call_script, "script_tgs_determine_level_from_xp", ":agent_xp"),
+                (assign, ":agent_level", reg0),
+                (agent_get_slot, ":channeler_check", ":agent", slot_agent_is_channeler),
+                (try_begin),
+                (eq, ":channeler_check", 1),
+                (ge, ":agent_level", 12),
+                    (val_add, ":num_high_tier_enemies", 1),
+                (else_try),
+                (ge, ":agent_level", 16),
+                    (val_add, ":num_high_tier_enemies", 1),
+                (try_end),
+            (try_end),
+                
+        (try_end),
+    
     (try_end),
 
 
@@ -76577,9 +76758,40 @@ scripts = [
         # If over 70% of living allies are at 50% health or below:      Healing Level of Importance: 7
         # If over 80% of living allies are at 50% health or below:      Healing Level of Importance: 8
         # If over 90% of living allies are at 50% health or below:      Healing Level of Importance: 9
-
-
-
+    
+    (assign, ":heal_level_of_importance", 0),
+    
+    (store_mul, ":num_allies_needing_healing_alt", ":num_allies_needing_healing", 100),
+    (store_div, ":wounded_ally_percentage", ":num_allies_needing_healing_alt", ":total_active_allies"),
+    
+    (try_begin),
+    (is_between, ":wounded_ally_percentage", 10, 20),
+        (assign, ":heal_level_of_importance", 1),
+    (else_try),
+    (is_between, ":wounded_ally_percentage", 20, 30),
+        (assign, ":heal_level_of_importance", 2),
+    (else_try),
+    (is_between, ":wounded_ally_percentage", 30, 40),
+        (assign, ":heal_level_of_importance", 3),
+    (else_try),
+    (is_between, ":wounded_ally_percentage", 40, 50),
+        (assign, ":heal_level_of_importance", 4),
+    (else_try),
+    (is_between, ":wounded_ally_percentage", 50, 60),
+        (assign, ":heal_level_of_importance", 5),
+    (else_try),
+    (is_between, ":wounded_ally_percentage", 60, 70),
+        (assign, ":heal_level_of_importance", 6),
+    (else_try),
+    (is_between, ":wounded_ally_percentage", 70, 80),
+        (assign, ":heal_level_of_importance", 7),
+    (else_try),
+    (is_between, ":wounded_ally_percentage", 80, 90),
+        (assign, ":heal_level_of_importance", 8),
+    (else_try),
+    (ge, ":wounded_ally_percentage", 90),
+        (assign, ":heal_level_of_importance", 9),
+    (try_end),
 
 
 ## When to use Unravel?
@@ -76592,43 +76804,106 @@ scripts = [
                 # If allies have compulsion:    Unravel Level of Importance:    4
                 # If allies are on fire:        Unravel Level of Importance:    3
                 # If allies are bound:          Unravel Level of Importance:    2
-
-
-
+    
+    (assign, ":unravel_level_of_importance", 0),
+    
+    (agent_get_slot, ":chosen_seeker_check", ":chosen", slot_agent_has_active_seeker),
+    (agent_get_slot, ":chosen_on_fire_check", ":chosen", slot_agent_on_fire),
+    (agent_get_slot, ":chosen_bound_check", ":chosen", slot_agent_is_bound),
+    (agent_get_slot, ":chosen_horse_on_fire_check", ":chosen_horse", slot_agent_on_fire),
+    
+    (try_begin),
+    (eq, ":chosen_seeker_check", 1),
+        (assign, ":unravel_level_of_importance", 9),
+    (else_try),
+    (eq, ":chosen_on_fire_check", 1),
+        (assign, ":unravel_level_of_importance", 7),
+    (else_try),
+    (this_or_next|eq, ":chosen_bound_check", 1),
+    (this_or_next|eq, ":chosen_horse_on_fire_check", 1),
+    (gt, ":unravel_ally_seeker_check", 0),
+        (assign, ":unravel_level_of_importance", 5),
+    (else_try),
+    (gt, ":unravel_ally_compulsion_check", 0),
+        (assign, ":unravel_level_of_importance", 4),
+    (else_try),
+    (gt, ":unravel_ally_on_fire_check", 0),
+        (assign, ":unravel_level_of_importance", 3),
+    (else_try),
+    (gt, ":unravel_ally_bound_check", 0),
+        (assign, ":unravel_level_of_importance", 2),
+    (try_end),
 
 
 ## When to use Bind? (re-write bind weave to target cavalry first)
-    # check enemy numbers of (un-bound) cavalry
-        # If 10 - 20 un-bound cavalry:       Bind Level of Importance:   1
-        # If 21 - 30 un-bound cavalry:       Bind Level of Importance:   2
-        # If 31 - 40 un-bound cavalry:       Bind Level of Importance:   3
-        # If 41 - 50 un-bound cavalry:       Bind Level of Importance:   4
-        # If > 51 un-bound cavalry:          Bind Level of Importance:   5
+    # check enemy numbers of (un-bound) cavalry againt total active enemies
+        # If 10% un-bound cavalry:       Bind Level of Importance:   1
+        # If 20% un-bound cavalry:       Bind Level of Importance:   2
+        # If 30% un-bound cavalry:       Bind Level of Importance:   3
+        # If 40% un-bound cavalry:       Bind Level of Importance:   4
+        # If 50% un-bound cavalry:          Bind Level of Importance:   5
     
-
-
-
-
+    (assign, ":bind_level_of_importance", 0),
+    
+    (store_mul, ":num_enemy_unbound_cavalry_alt", ":num_enemy_unbound_cavalry", 100),
+    (store_div, ":unbound_enemy_cavalry_percentage", ":num_enemy_unbound_cavalry_alt", ":total_active_enemies"),
+    
+    (try_begin),
+    (is_between, ":unbound_enemy_cavalry_percentage", 10, 20),
+        (assign, ":bind_level_of_importance", 1),
+    (else_try),
+    (is_between, ":unbound_enemy_cavalry_percentage", 20, 30),
+        (assign, ":bind_level_of_importance", 2),
+    (else_try),
+    (is_between, ":unbound_enemy_cavalry_percentage", 30, 40),
+        (assign, ":bind_level_of_importance", 3),
+    (else_try),
+    (is_between, ":unbound_enemy_cavalry_percentage", 40, 50),
+        (assign, ":bind_level_of_importance", 4),
+    (else_try),
+    (ge, ":unbound_enemy_cavalry_percentage", 50),
+        (assign, ":bind_level_of_importance", 5),
+    (try_end),
+    
 
 ## When to use Shield?
     # check enemy for number of un-shielded channelers
-        # If 1-5 un-shielded channelers:        Shield Level of Importance: 5
-        # If 5-9 un-shielded channelers:        Shield Level of Importance: 6
-        # If 10-14 un-shielded channelers:      Shield Level of Importance: 7
-        # If 15-19 un-shielded channelers:      Shield Level of Importance: 8
-        # If > 20 un-shielded channelers:       Shield Level of Importance: 9
-
-
-
+        # If 5% un-shielded channelers:     Shield Level of Importance: 5
+        # If 10% un-shielded channelers:    Shield Level of Importance: 6
+        # If 15% un-shielded channelers:    Shield Level of Importance: 7
+        # If 20% un-shielded channelers:    Shield Level of Importance: 8
+        # If 25% un-shielded channelers:    Shield Level of Importance: 9
+    
+    (assign, ":shield_level_of_importance", 0),
+    
+    (store_mul, ":num_enemy_unshielded_channelers_alt", ":num_enemy_unshielded_channelers", 100),
+    (store_div, ":unshielded_enemy_channelers_percentage", ":num_enemy_unshielded_channelers_alt", ":total_active_enemies"),
+    
+    (try_begin),
+    (is_between, ":unshielded_enemy_channelers_percentage", 5, 10),
+        (assign, ":shield_level_of_importance", 5),
+    (else_try),
+    (is_between, ":unshielded_enemy_channelers_percentage", 10, 15),
+        (assign, ":shield_level_of_importance", 6),
+    (else_try),
+    (is_between, ":unshielded_enemy_channelers_percentage", 15, 20),
+        (assign, ":shield_level_of_importance", 7),
+    (else_try),
+    (is_between, ":unshielded_enemy_channelers_percentage", 20, 25),
+        (assign, ":shield_level_of_importance", 8),
+    (else_try),
+    (ge, ":unshielded_enemy_channelers_percentage", 25),
+        (assign, ":shield_level_of_importance", 9),
+    (try_end),
 
 
 ## When to use Compulsion? (re-write compulsion weave to target high-tier troops first)
     # check enemy for number of high-tier troops:
-        # If 10 - 20 un-uncompelled high-tier troops:       Compulsion Level of Importance:   3
-        # If 21 - 30 un-uncompelled high-tier troops:       Compulsion Level of Importance:   4
-        # If 31 - 40 un-uncompelled high-tier troops:       Compulsion Level of Importance:   5
-        # If 41 - 50 un-uncompelled high-tier troops:       Compulsion Level of Importance:   6
-        # If > 51 un-uncompelled high-tier troops:          Compulsion Level of Importance:   7
+        # If 10% un-uncompelled high-tier troops:       Compulsion Level of Importance:   3
+        # If 20% un-uncompelled high-tier troops:       Compulsion Level of Importance:   4
+        # If 30% un-uncompelled high-tier troops:       Compulsion Level of Importance:   5
+        # If 40% un-uncompelled high-tier troops:       Compulsion Level of Importance:   6
+        # If 50% un-uncompelled high-tier troops:       Compulsion Level of Importance:   7
 
 # ---------------------------------------------------------------------- #
 # Base Criteria for 'high-tier'  (probably just use the level)
@@ -76644,9 +76919,27 @@ scripts = [
 #def_attrib_wot_infantry_3 = str_13|agi_9|int_6|cha_6|level(12)
 # ---------------------------------------------------------------------- #
     
-
-
+    (assign, ":compulsion_level_of_importance", 0),
     
+    (store_mul, ":num_high_tier_enemies_alt", ":num_high_tier_enemies", 100),
+    (store_div, ":high_tier_enemies_percentage", ":num_high_tier_enemies_alt", ":total_active_enemies"),
+    
+    (try_begin),
+    (is_between, ":high_tier_enemies_percentage", 10, 20),
+        (assign, ":compulsion_level_of_importance", 3),
+    (else_try),
+    (is_between, ":high_tier_enemies_percentage", 20, 30),
+        (assign, ":compulsion_level_of_importance", 4),
+    (else_try),
+    (is_between, ":high_tier_enemies_percentage", 30, 40),
+        (assign, ":compulsion_level_of_importance", 5),
+    (else_try),
+    (is_between, ":high_tier_enemies_percentage", 40, 50),
+        (assign, ":compulsion_level_of_importance", 6),
+    (else_try),
+    (ge, ":high_tier_enemies_percentage", 50),
+        (assign, ":compulsion_level_of_importance", 7),
+    (try_end),
     
 
 ##########################################
@@ -76655,100 +76948,248 @@ scripts = [
 
 ## Since we can't determine who ":chosen" is shooting at before they pull the trigger (at least not without running a watered-
 ## down version of the ranged code itself), it will be sort of hard to determine which weave is 'best' for the situation.
+## So, we can assign Agressive weaves 'randomly' with a preference for stronger weaves.    
     
-## When to use Freeze?
-    # This will probably be a 'novice' level weave unless we can think up some better additional affects for it.
+    ## When to use Freeze? 1,2,3
+    (store_random_in_range, ":random", 1, 4),
+    (assign, ":freeze_level_of_importance", ":random"),
 
+    ## When to use Fireball? 3,4,5,6
+    (store_random_in_range, ":random", 3, 7),
+    (assign, ":fireball_level_of_importance", ":random"),
 
-## Fireball, Ranged Blast, Chain-Lightning, and Balefire
+    ## When to use Ranged Earth Blast? 4,5,6
+    (store_random_in_range, ":random", 4, 7),
+    (assign, ":ranged_earth_blast_level_of_importance", ":random"),
 
+    ## When to use Chain Lightning? 5,6,7
+    (store_random_in_range, ":random", 5, 8),
+    (assign, ":chain_lightning_level_of_importance", ":random"),
 
-## S    
+    ## When to use Seeker? 6,7,8
+    (store_random_in_range, ":random", 6, 9),
+    (assign, ":seeker_level_of_importance", ":random"),
+
+    ## When to use Balefire? 7,8,9
+    (store_random_in_range, ":random", 7, 10),
+    (assign, ":balefire_level_of_importance", ":random"),
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-## Keep the below code for reference
-
-                        (assign, ":distance",99999),
-                        (assign, ":number_of_allies", 0),
-    
-                        (try_for_agents,":agent"),
-                            (agent_is_alive,":agent"), ## don't heal dead
-                            (neg|agent_is_wounded,":agent"), ## don't heal wounded
-                            (agent_is_ally,":agent"), ## don't heal enemies
-                            (agent_is_human,":agent"), ## don't look for horses on the first round
-                            (neq, ":chosen", ":agent"), ## shooter can't heal self
-                            (store_agent_hit_points,":health",":agent",0),
-                            (lt,":health",75),
-                            (agent_get_look_position, pos2, ":agent"),
-                            (get_distance_between_positions,":dist",pos1,pos2),
-                            (lt,":dist",":distance"),
-                            (assign,":nearest_hurt_ally",":agent"),
-                            (assign,":distance",":dist"),
-                            (val_add, ":number_of_allies", 1),
-                        (try_end),
-
-                        (try_begin),
-                        (ge, ":number_of_allies", 1),
-                            (agent_set_hit_points,":nearest_hurt_ally",100,0),
-                            (agent_get_look_position, pos2, ":nearest_hurt_ally"),
-                            (particle_system_burst, "psys_heal_aura", pos2, 50),
-                            (play_sound, "snd_heal"),
-                            (try_begin), # add to channeling multiplier if agent is player
-                            (neg|agent_is_non_player, ":chosen"),
-                                (val_add, "$g_channeling_proficiency_modifier", 80),
-                            (try_end),
-                            (add_xp_to_troop,40,":chosen"),
-                        (else_try),
-                            (assign, ":distance",99999),
-                            (assign, ":number_of_allies", 0),
-
-                            (try_for_agents,":agent"),
-                                (agent_is_alive,":agent"), ## don't heal dead
-                                (neg|agent_is_wounded,":agent"), ## don't heal wounded
-                                (agent_is_ally,":agent"), ## don't heal enemies
-                                (neg|agent_is_human,":agent"), ## look for horses on the second round
-                                (neq, ":chosen", ":agent"), ## shooter can't heal self
-                                (store_agent_hit_points,":health",":agent",0),
-                                (lt,":health",75),
-                                (agent_get_look_position, pos2, ":agent"),
-                                (get_distance_between_positions,":dist",pos1,pos2),
-                                (lt,":dist",":distance"),
-                                (assign,":nearest_hurt_ally",":agent"),
-                                (assign,":distance",":dist"),
-                                (val_add, ":number_of_allies", 1),
-                            (try_end),
-
-                            (try_begin),
-                            (ge, ":number_of_allies", 1),
-                                (agent_set_hit_points,":nearest_hurt_ally",100,0),
-                                (agent_get_look_position, pos2, ":nearest_hurt_ally"),
-                                (particle_system_burst, "psys_heal_aura", pos2, 50),
-                                (play_sound, "snd_heal"),
-                                (try_begin), # add to channeling multiplier if agent is player
-                                (neg|agent_is_non_player, ":chosen"),
-                                    (val_add, "$g_channeling_proficiency_modifier", 80),
-                                (try_end),
-                                (add_xp_to_troop,40,":chosen"),
-                            (try_end),
-                        (try_end),
+    ## Set final values for ":chosen" Situational Awareness slots ##
+    (agent_set_slot, ":chosen", slot_agent_sa_freeze_loi, ":freeze_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_heal_loi, ":heal_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_fireball_loi, ":fireball_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_unravel_loi, ":unravel_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_ranged_earth_blast_loi, ":ranged_earth_blast_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_bind_loi, ":bind_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_chain_lightning_loi, ":chain_lightning_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_shield_loi, ":shield_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_seeker_loi, ":seeker_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_compulsion_loi, ":compulsion_level_of_importance"),
+    (agent_set_slot, ":chosen", slot_agent_sa_balefire_loi, ":balefire_level_of_importance"),
+  
 ]),
   
 ###############################
 # Weaves Scripts End
 # ----------------------------
 ###############################
+
+##"script_tgs_determine_level_from_xp"
+## Function that returns troop level based on XP
+##
+##INPUT:  arg1    :troop_xp
+##
+##OUTPUT: reg0    :troop_level
+("tgs_determine_level_from_xp", [
+	(store_script_param_1, ":troop_xp"),
+    (assign, ":troop_level", 1),
+    
+    (try_begin),
+    (is_between, ":troop_xp", 0, 600),
+        (assign, ":troop_level", 1),
+    (else_try),
+    (is_between, ":troop_xp", 600, 1360),
+        (assign, ":troop_level", 2),
+    (else_try),
+    (is_between, ":troop_xp", 1360, 2269),
+        (assign, ":troop_level", 3),
+    (else_try),
+    (is_between, ":troop_xp", 2269, 3426),
+        (assign, ":troop_level", 4),
+    (else_try),
+    (is_between, ":troop_xp", 3426, 4768),
+        (assign, ":troop_level", 5),
+    (else_try),
+    (is_between, ":troop_xp", 4768, 6345),
+        (assign, ":troop_level", 6),
+    (else_try),
+    (is_between, ":troop_xp", 6345, 8179),
+        (assign, ":troop_level", 7),
+    (else_try),
+    (is_between, ":troop_xp", 8179, 10297),
+        (assign, ":troop_level", 8),
+    (else_try),
+    (is_between, ":troop_xp", 10297, 13010),
+        (assign, ":troop_level", 9),
+    (else_try),
+    (is_between, ":troop_xp", 13010, 16161),
+        (assign, ":troop_level", 10),
+    (else_try),
+    (is_between, ":troop_xp", 16161, 19806),
+        (assign, ":troop_level", 11),
+    (else_try),
+    (is_between, ":troop_xp", 19806, 24007),
+        (assign, ":troop_level", 12),
+    (else_try),
+    (is_between, ":troop_xp", 24007, 28832),
+        (assign, ":troop_level", 13),
+    (else_try),
+    (is_between, ":troop_xp", 28832, 34362),
+        (assign, ":troop_level", 14),
+    (else_try),
+    (is_between, ":troop_xp", 34362, 40682),
+        (assign, ":troop_level", 15),
+    (else_try),
+    (is_between, ":troop_xp", 40682, 47892),
+        (assign, ":troop_level", 16),
+    (else_try),
+    (is_between, ":troop_xp", 47892, 56103),
+        (assign, ":troop_level", 17),
+    (else_try),
+    (is_between, ":troop_xp", 56103, 65441),
+        (assign, ":troop_level", 18),
+    (else_try),
+    (is_between, ":troop_xp", 65441, 77233),
+        (assign, ":troop_level", 19),
+    (else_try),
+    (is_between, ":troop_xp", 77233, 90809),
+        (assign, ":troop_level", 20),
+    (else_try),
+    (is_between, ":troop_xp", 90809, 106425),
+        (assign, ":troop_level", 21),
+    (else_try),
+    (is_between, ":troop_xp", 106425, 124371),
+        (assign, ":troop_level", 22),
+    (else_try),
+    (is_between, ":troop_xp", 124371, 144981),
+        (assign, ":troop_level", 23),
+    (else_try),
+    (is_between, ":troop_xp", 144981, 168636),
+        (assign, ":troop_level", 24),
+    (else_try),
+    (is_between, ":troop_xp", 168636, 195769),
+        (assign, ":troop_level", 25),
+    (else_try),
+    (is_between, ":troop_xp", 195769, 226879),
+        (assign, ":troop_level", 26),
+    (else_try),
+    (is_between, ":troop_xp", 226879, 262533),
+        (assign, ":troop_level", 27),
+    (else_try),
+    (is_between, ":troop_xp", 262533, 303381),
+        (assign, ":troop_level", 28),
+    (else_try),
+    (is_between, ":troop_xp", 303381, 350164),
+        (assign, ":troop_level", 29),
+    (else_try),
+    (is_between, ":troop_xp", 350164, 412091),
+        (assign, ":troop_level", 30),
+    (else_try),
+    (is_between, ":troop_xp", 412091, 484440),
+        (assign, ":troop_level", 31),
+    (else_try),
+    (is_between, ":troop_xp", 484440, 568947),
+        (assign, ":troop_level", 32),
+    (else_try),
+    (is_between, ":troop_xp", 568947, 667638),
+        (assign, ":troop_level", 33),
+    (else_try),
+    (is_between, ":troop_xp", 667638, 782877),
+        (assign, ":troop_level", 34),
+    (else_try),
+    (is_between, ":troop_xp", 782877, 917424),
+        (assign, ":troop_level", 35),
+    (else_try),
+    (is_between, ":troop_xp", 917424, 1074494),
+        (assign, ":troop_level", 36),
+    (else_try),
+    (is_between, ":troop_xp", 1074494, 1257843),
+        (assign, ":troop_level", 37),
+    (else_try),
+    (is_between, ":troop_xp", 1257843, 1471851),
+        (assign, ":troop_level", 38),
+    (else_try),
+    (is_between, ":troop_xp", 1471851, 1721626),
+        (assign, ":troop_level", 39),
+    (else_try),
+    (is_between, ":troop_xp", 1721626, 2070551),
+        (assign, ":troop_level", 40),
+    (else_try),
+    (is_between, ":troop_xp", 2070551, 2489361),
+        (assign, ":troop_level", 41),
+    (else_try),
+    (is_between, ":troop_xp", 2489361, 2992033),
+        (assign, ":troop_level", 42),
+    (else_try),
+    (is_between, ":troop_xp", 2992033, 3595340),
+        (assign, ":troop_level", 43),
+    (else_try),
+    (is_between, ":troop_xp", 3595340, 4319408),
+        (assign, ":troop_level", 44),
+    (else_try),
+    (is_between, ":troop_xp", 4319408, 5188389),
+        (assign, ":troop_level", 45),
+    (else_try),
+    (is_between, ":troop_xp", 5188389, 6231267),
+        (assign, ":troop_level", 46),
+    (else_try),
+    (is_between, ":troop_xp", 6231267, 7482821),
+        (assign, ":troop_level", 47),
+    (else_try),
+    (is_between, ":troop_xp", 7482821, 8984785),
+        (assign, ":troop_level", 48),
+    (else_try),
+    (is_between, ":troop_xp", 8984785, 11236531),
+        (assign, ":troop_level", 49),
+    (else_try),
+    (is_between, ":troop_xp", 11236531, 14051314),
+        (assign, ":troop_level", 50),
+    (else_try),
+    (is_between, ":troop_xp", 14051314, 17569892),
+        (assign, ":troop_level", 51),
+    (else_try),
+    (is_between, ":troop_xp", 17569892, 21968215),
+        (assign, ":troop_level", 52),
+    (else_try),
+    (is_between, ":troop_xp", 21968215, 27466219),
+        (assign, ":troop_level", 53),
+    (else_try),
+    (is_between, ":troop_xp", 27466219, 34338823),
+        (assign, ":troop_level", 54),
+    (else_try),
+    (is_between, ":troop_xp", 34338823, 42929679),
+        (assign, ":troop_level", 55),
+    (else_try),
+    (is_between, ":troop_xp", 42929679, 53668349),
+        (assign, ":troop_level", 56),
+    (else_try),
+    (is_between, ":troop_xp", 53668349, 67091786),
+        (assign, ":troop_level", 57),
+    (else_try),
+    (is_between, ":troop_xp", 67091786, 83871183),
+        (assign, ":troop_level", 58),
+    (else_try),
+    (is_between, ":troop_xp", 83871183, 160204600),
+        (assign, ":troop_level", 59),
+    (else_try),
+    (ge, ":troop_xp", 160204600),
+        (assign, ":troop_level", 60),
+    (try_end),
+
+    (assign, reg0, ":troop_level"),
+]),  
+  
 ###############################
 # TGS Scripts End
 # ---------------------------
