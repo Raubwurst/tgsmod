@@ -73649,11 +73649,15 @@ scripts = [
 			(position_move_y,pos1,20), # was 10
 
 			#added for gravity effect and flight randomness
-			(store_mod, ":fall", reg5, 2),
-			(try_begin),
-			(eq, ":fall", 0),
-				(position_move_x,pos1,3),
-			(try_end),
+            (agent_get_troop_id, ":chosen_troop", ":chosen"),
+            (try_begin),
+            (neg, ":chosen_troop", "trp_player"),
+                (store_mod, ":fall", reg5, 2),
+                (try_begin),
+                (eq, ":fall", 0),
+                    (position_move_x,pos1,3),
+                (try_end),
+            (try_end),
 
 			(store_mod, ":weave", reg5, 5),
 			(try_begin),
@@ -73708,6 +73712,21 @@ scripts = [
 #                            (neg|agent_is_ally,":agent"), ## add this to avoid freezing allies
 			(agent_is_alive,":agent"), ## add this to not freeze dead people
 			(neg|agent_is_wounded,":agent"), ## add this to not freeze wounded people
+
+			#partial friendly fire protection
+			(agent_get_team, ":agent_team_ff", ":agent"),
+			(assign, ":deliver_damage", 1),
+			(try_begin),
+			(neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+				(store_random_in_range, ":random", 1, 5),
+				(try_begin),
+				(gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+					(assign, ":deliver_damage", 0),
+				(try_end),
+			(try_end),
+			(eq, ":deliver_damage", 1),
+			#end partial friendly fire protection
+    
 			(agent_get_position,pos2,":agent"),
 			(get_distance_between_positions,":dist",pos3,pos2),
 
@@ -73743,7 +73762,9 @@ scripts = [
                         (try_for_agents,":agent"),
                             (agent_is_alive,":agent"), ## don't heal dead
                             (neg|agent_is_wounded,":agent"), ## don't heal wounded
-                            (agent_is_ally,":agent"), ## don't heal enemies
+                            #(agent_is_ally,":agent"), ## don't heal enemies
+                            (agent_get_team, ":agent_team", ":agent"),
+                            (neg|teams_are_enemies, ":chosen_team", ":agent_team"),
                             (agent_is_human,":agent"), ## don't look for horses on the first round
                             (neq, ":chosen", ":agent"), ## shooter can't heal self
                             (store_agent_hit_points,":health",":agent",0),
@@ -73774,7 +73795,9 @@ scripts = [
                             (try_for_agents,":agent"),
                                 (agent_is_alive,":agent"), ## don't heal dead
                                 (neg|agent_is_wounded,":agent"), ## don't heal wounded
-                                (agent_is_ally,":agent"), ## don't heal enemies
+                                #(agent_is_ally,":agent"), ## don't heal enemies
+                                (agent_get_team, ":agent_team", ":agent"),
+                                (neg|teams_are_enemies, ":chosen_team", ":agent_team"),
                                 (neg|agent_is_human,":agent"), ## look for horses on the second round
                                 (neq, ":chosen", ":agent"), ## shooter can't heal self
                                 (store_agent_hit_points,":health",":agent",0),
@@ -73822,10 +73845,14 @@ scripts = [
                             (position_move_y,pos1,20),
 
                             #added for gravity effect and flight randomness
-                            (store_mod, ":fall", reg5, 2),
+                            (agent_get_troop_id, ":chosen_troop", ":chosen"),
                             (try_begin),
-                            (eq, ":fall", 0),
-                                (position_move_x,pos1,3),
+                            (neg, ":chosen_troop", "trp_player"),
+                                (store_mod, ":fall", reg5, 2),
+                                (try_begin),
+                                (eq, ":fall", 0),
+                                    (position_move_x,pos1,3),
+                                (try_end),
                             (try_end),
 
                             (store_mod, ":weave", reg5, 5),
@@ -73884,6 +73911,21 @@ scripts = [
 #                            (neg|agent_is_ally,":agent"), ## add this to avoid killing allies
                             (agent_is_alive,":agent"), ## add this to not re-kill dead people
                             (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
+
+                            #partial friendly fire protection
+                            (agent_get_team, ":agent_team_ff", ":agent"),
+                            (assign, ":deliver_damage", 1),
+                            (try_begin),
+                            (neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+                                (store_random_in_range, ":random", 1, 5),
+                                (try_begin),
+                                (gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+                                    (assign, ":deliver_damage", 0),
+                                (try_end),
+                            (try_end),
+                            (eq, ":deliver_damage", 1),
+                            #end partial friendly fire protection
+    
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
                          
@@ -74966,10 +75008,14 @@ scripts = [
                             (position_move_y,pos1,20),
 
                             #added for gravity effect and flight randomness
-                            (store_mod, ":fall", reg5, 2),
+                            (agent_get_troop_id, ":chosen_troop", ":chosen"),
                             (try_begin),
-                            (eq, ":fall", 0),
-                                (position_move_x,pos1,3),
+                            (neg, ":chosen_troop", "trp_player"),
+                                (store_mod, ":fall", reg5, 2),
+                               (try_begin),
+                                (eq, ":fall", 0),
+                                    (position_move_x,pos1,3),
+                                (try_end),
                             (try_end),
 
                             (store_mod, ":weave", reg5, 5),
@@ -75024,6 +75070,21 @@ scripts = [
 #                            (neg|agent_is_ally,":agent"), ## add this to avoid hurting allies
                             (agent_is_alive,":agent"), ## add this to not affect dead people
                             (neg|agent_is_wounded,":agent"), ## add this to not affect wounded people
+
+                            #partial friendly fire protection
+                            (agent_get_team, ":agent_team_ff", ":agent"),
+                            (assign, ":deliver_damage", 1),
+                            (try_begin),
+                            (neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+                                (store_random_in_range, ":random", 1, 5),
+                                (try_begin),
+                                (gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+                                    (assign, ":deliver_damage", 0),
+                                (try_end),
+                            (try_end),
+                            (eq, ":deliver_damage", 1),
+                            #end partial friendly fire protection
+    
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
                             (store_agent_hit_points,":target_health",":agent",1),
@@ -75166,7 +75227,9 @@ scripts = [
                             (agent_is_alive,":agent"), ## don't bind dead
                             (neg|agent_is_wounded,":agent"), ## don't bind wounded
                             (agent_is_human,":agent"), ## don't bind horses
-                            (neg|agent_is_ally,":agent"), ## don't bind allies
+                            #(neg|agent_is_ally,":agent"), ## don't bind allies
+                            (agent_get_team, ":agent_team", ":agent"),
+                            (neg|teams_are_enemies, ":chosen_team", ":agent_team"),
                             (neq, ":chosen", ":agent"), ## shooter can't bind self
                             (agent_get_slot, ":already_bound", ":agent", slot_agent_is_bound),
                             (eq, ":already_bound", 0),
@@ -75281,10 +75344,14 @@ scripts = [
                             (position_move_y,pos1,20),
 
                             #added for gravity effect and flight randomness
-                            (store_mod, ":fall", reg5, 2),
+                            (agent_get_troop_id, ":chosen_troop", ":chosen"),
                             (try_begin),
-                            (eq, ":fall", 0),
-                                (position_move_x,pos1,3),
+                            (neg, ":chosen_troop", "trp_player"),
+                                (store_mod, ":fall", reg5, 2),
+                               (try_begin),
+                                (eq, ":fall", 0),
+                                    (position_move_x,pos1,3),
+                                (try_end),
                             (try_end),
 
                             (store_mod, ":weave", reg5, 5),
@@ -75345,6 +75412,21 @@ scripts = [
                                 (neg|agent_is_wounded,":agent"), ## add this to not shock wounded people
                                 (agent_get_slot, ":already_shocked", ":agent", slot_agent_has_been_shocked),
                                 (eq, ":already_shocked", 0),
+
+                                #partial friendly fire protection
+                                (agent_get_team, ":agent_team_ff", ":agent"),
+                                (assign, ":deliver_damage", 1),
+                                (try_begin),
+                                (neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+                                    (store_random_in_range, ":random", 1, 5),
+                                    (try_begin),
+                                    (gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+                                        (assign, ":deliver_damage", 0),
+                                    (try_end),
+                                (try_end),
+                                (eq, ":deliver_damage", 1),
+                                #end partial friendly fire protection
+    
                                 (agent_get_position,pos2,":agent"),
                                 (get_distance_between_positions,":dist",pos3,pos2),
                                 (lt,":dist",":distance"),
@@ -75589,6 +75671,21 @@ scripts = [
 #                                (neg|agent_is_ally,":agent"),## added this to avoid killing allies
                                 (agent_is_alive,":agent"), ## add this to not re-kill dead people
                                 (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
+
+                                #partial friendly fire protection
+                                (agent_get_team, ":agent_team_ff", ":agent"),
+                                (assign, ":deliver_damage", 1),
+                                (try_begin),
+                                (neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+                                    (store_random_in_range, ":random", 1, 5),
+                                    (try_begin),
+                                    (gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+                                        (assign, ":deliver_damage", 0),
+                                    (try_end),
+                                (try_end),
+                                (eq, ":deliver_damage", 1),
+                                #end partial friendly fire protection
+    
                                 (agent_get_position,pos2,":agent"),
                                 (get_distance_between_positions,":dist",pos1,pos2),
                     
@@ -75747,7 +75844,9 @@ scripts = [
                             (agent_is_alive,":agent"), ## don't shield dead
                             (neg|agent_is_wounded,":agent"), ## don't shield wounded
                             (agent_is_human,":agent"), ## don't shield horses
-                            (neg|agent_is_ally,":agent"), ## don't shield allies
+                            #(neg|agent_is_ally,":agent"), ## don't shield allies
+                            (agent_get_team, ":agent_team", ":agent"),
+                            (teams_are_enemies, ":chosen_team", ":agent_team"),
                             (neq, ":chosen", ":agent"), ## shooter can't shield self
                             (agent_get_slot, ":channeler", ":agent", slot_agent_is_channeler),
                             (eq, ":channeler", 1),
@@ -75817,7 +75916,9 @@ scripts = [
                             (agent_is_alive,":agent"), ## don't hurt dead
                             (neg|agent_is_wounded,":agent"), ## don't hurt wounded
                             (agent_is_human,":agent"), ## don't hurt horses
-                            (neg|agent_is_ally,":agent"), ## don't hurt allies
+                            #(neg|agent_is_ally,":agent"), ## don't hurt allies
+                            (agent_get_team, ":agent_team", ":agent"),
+                            (teams_are_enemies, ":chosen_team", ":agent_team"),
                             (neq, ":chosen", ":agent"), ## shooter can't hurt self
                             (agent_get_slot, ":already_targeted", ":agent", slot_agent_has_active_seeker),
                             (eq, ":already_targeted", 0),
@@ -76103,7 +76204,9 @@ scripts = [
                             (agent_is_alive,":agent"), ## don't compel dead
                             (neg|agent_is_wounded,":agent"), ## don't compel wounded
                             (agent_is_human,":agent"), ## don't compel horses
-                            (neg|agent_is_ally,":agent"), ## don't compel allies
+                            #(neg|agent_is_ally,":agent"), ## don't compel allies
+                            (agent_get_team, ":agent_team", ":agent"),
+                            (teams_are_enemies, ":chosen_team", ":agent_team"),
                             (neq, ":chosen", ":agent"), ## shooter can't compel self
                             (get_player_agent_no,":player_agent"),
                             (neq, ":agent", ":player_agent"), ## shooter can't compel player (too many complications)
@@ -76228,18 +76331,22 @@ scripts = [
                             (position_move_y,pos1,20),
 
                             #added for gravity effect and flight randomness
-                            (store_mod, ":fall", reg5, 2),
+                            (agent_get_troop_id, ":chosen_troop", ":chosen"),
                             (try_begin),
-                            (eq, ":fall", 0),
-                                (position_move_x,pos1,3),
+                            (neg, ":chosen_troop", "trp_player"),
+                                (store_mod, ":fall", reg5, 2),
+                               (try_begin),
+                                (eq, ":fall", 0),
+                                    (position_move_x,pos1,3),
+                                (try_end),
                             (try_end),
 
-                            (store_mod, ":weave", reg5, 5),
-                            (try_begin),
-                            (eq, ":weave", 0),
-                                (store_random_in_range, ":random", -7, 8),
-                                (position_move_z,pos1,":random"),
-                            (try_end),
+                            #(store_mod, ":weave", reg5, 5), # No weaving for Balefire
+                            #(try_begin),
+                            #(eq, ":weave", 0),
+                            #    (store_random_in_range, ":random", -7, 8),
+                            #    (position_move_z,pos1,":random"),
+                            #(try_end),
                             #end added for gravity effect and flight randomness
             
                             (copy_position,pos2,pos1),
@@ -76408,21 +76515,161 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_npc_channeler_situational_awareness", [
+
+########## Weave Numerical Order ##########
+
+# Weave 1: Air Blast - for player only
+# Weave 2: Freeze - both
+# Weave 3: Heal - Both
+# Weave 4: Fireball - both
+# Weave 5: Unravel - both
+# Weave 6: Defensive Blast - for player only
+# Weave 7: Ranged Earth Blast - both
+# Weave 8: Bind - both
+# Weave 9: Chain Lightning - both
+# Weave 10: Fire Curtain - for player only
+# Weave 11: Shield - both
+# Weave 12: Seeker - both
+# Weave 13: Compulsion - both
+# Weave 14: Balefire - both
+
+    
+    # get script params
 	(store_script_param_1,":chosen"),
 	(store_script_param_2,":chosen_horse"),
-        (store_script_param,":chosen_team",3),
+    (store_script_param,":chosen_team",3),
+
+
+## We may need some sort of 'Aggression level' variable that weighs into this.  It could determine whether a troop tends to use Supporting or Offensive weaves most of the time.
+    
+    (try_for_agents, ":agent"),
+        (agent_is_alive, ":agent"),
+        (neg|agent_is_wounded,":agent"),
+    (try_end),
+
+
+#######################################  
+## Level One Checks - Support Weaves ##
+#######################################
+
+
+## When to use Healing?
+    # check allies (including ":chosen_horse") for number of wounded
+        # If over 10% of living allies are at 50% health or below:      Healing Level of Importance: 1
+        # If over 20% of living allies are at 50% health or below:      Healing Level of Importance: 2
+        # If over 30% of living allies are at 50% health or below:      Healing Level of Importance: 3
+        # If over 40% of living allies are at 50% health or below:      Healing Level of Importance: 4
+        # If over 50% of living allies are at 50% health or below:      Healing Level of Importance: 5
+        # If over 60% of living allies are at 50% health or below:      Healing Level of Importance: 6
+        # If over 70% of living allies are at 50% health or below:      Healing Level of Importance: 7
+        # If over 80% of living allies are at 50% health or below:      Healing Level of Importance: 8
+        # If over 90% of living allies are at 50% health or below:      Healing Level of Importance: 9
+
+
+
+
+
+## When to use Unravel?
+    # check ":chosen" for detectable active effects (seeker, on fire, bound), check horse for detectable effects (on fire), check allies for detectable active effects (seeker, compulsion, on fire, bound)
+        # If ":chosen" has seeker:              Unravel Level of Importance:    9
+        # If ":chosen" on fire:                 Unravel Level of Importance:    7
+        # If ":chosen" is bound:                Unravel Level of Importance:    5
+            # If ":chosen_horse" is on fire:     Unravel Level of Importance:    5
+                # If allies have seekers:       Unravel Level of Importance:    5
+                # If allies have compulsion:    Unravel Level of Importance:    4
+                # If allies are on fire:        Unravel Level of Importance:    3
+                # If allies are bound:          Unravel Level of Importance:    2
+
+
+
+
+
+## When to use Bind? (re-write bind weave to target cavalry first)
+    # check enemy numbers of (un-bound) cavalry
+        # If 10 - 20 un-bound cavalry:       Bind Level of Importance:   1
+        # If 21 - 30 un-bound cavalry:       Bind Level of Importance:   2
+        # If 31 - 40 un-bound cavalry:       Bind Level of Importance:   3
+        # If 41 - 50 un-bound cavalry:       Bind Level of Importance:   4
+        # If > 51 un-bound cavalry:          Bind Level of Importance:   5
+    
+
+
+
+
+
+## When to use Shield?
+    # check enemy for number of un-shielded channelers
+        # If 1-5 un-shielded channelers:        Shield Level of Importance: 5
+        # If 5-9 un-shielded channelers:        Shield Level of Importance: 6
+        # If 10-14 un-shielded channelers:      Shield Level of Importance: 7
+        # If 15-19 un-shielded channelers:      Shield Level of Importance: 8
+        # If > 20 un-shielded channelers:       Shield Level of Importance: 9
+
+
+
+
+
+## When to use Compulsion? (re-write compulsion weave to target high-tier troops first)
+    # check enemy for number of high-tier troops:
+        # If 10 - 20 un-uncompelled high-tier troops:       Compulsion Level of Importance:   3
+        # If 21 - 30 un-uncompelled high-tier troops:       Compulsion Level of Importance:   4
+        # If 31 - 40 un-uncompelled high-tier troops:       Compulsion Level of Importance:   5
+        # If 41 - 50 un-uncompelled high-tier troops:       Compulsion Level of Importance:   6
+        # If > 51 un-uncompelled high-tier troops:          Compulsion Level of Importance:   7
+
+# ---------------------------------------------------------------------- #
+# Base Criteria for 'high-tier'  (probably just use the level)
+
+#def_attrib_wot_infantry_4 = str_16|agi_11|int_7|cha_7|level(16)
+#def_attrib_wot_infantry_5 = str_20|agi_14|int_8|cha_8|level(20)
+#def_attrib_wot_super_infantry_4 = str_20|agi_23|int_9|cha_9|level(18)
+#def_attrib_wot_super_infantry_5 = str_25|agi_30|int_10|cha_10|level(22)    
+#def_attrib_wot_cavalry_4 = str_19|agi_8|int_9|cha_9|level(20)
+#def_attrib_wot_cavalry_5 = str_24|agi_10|int_10|cha_10|level(25)
+
+# or, if they are a channeler    
+#def_attrib_wot_infantry_3 = str_13|agi_9|int_6|cha_6|level(12)
+# ---------------------------------------------------------------------- #
+    
+
+
+    
+    
+
+##########################################
+## Level Two Checks - Aggressive Weaves ##
+##########################################
+
+## Since we can't determine who ":chosen" is shooting at before they pull the trigger (at least not without running a watered-
+## down version of the ranged code itself), it will be sort of hard to determine which weave is 'best' for the situation.
+    
+## When to use Freeze?
+    # This will probably be a 'novice' level weave unless we can think up some better additional affects for it.
+
+
+## Fireball, Ranged Blast, Chain-Lightning, and Balefire
+
+
+## S    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+## Keep the below code for reference
+
                         (assign, ":distance",99999),
                         (assign, ":number_of_allies", 0),
-
-
-## When to use healing?
-    # poll allies and check their health.
-        # If over 10% of living allies are at 50% health or below, then healing importance is level 1
-        # If over 20% of living allies are at 50% health or below, then healing importance is level 2
-        # IF over 40% of living allies are at 50% health or below, then healing importance is level 3
-
-
-## Keep the below code for reference    
+    
                         (try_for_agents,":agent"),
                             (agent_is_alive,":agent"), ## don't heal dead
                             (neg|agent_is_wounded,":agent"), ## don't heal wounded

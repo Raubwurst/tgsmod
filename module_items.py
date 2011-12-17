@@ -1276,15 +1276,16 @@ items = [
 
             (try_begin),
             (eq, ":agent_is_shielded", 0),
-            (agent_get_troop_id,":chosen_troop",":chosen"),
-			(try_begin),
-            (eq, ":chosen_troop", troop_player),
-			(call_script, "script_tgs_select_weave",":agent"),
-			(else_try),
-			# TODO: NPC code
-			(try_end),
+            
+                (agent_get_troop_id,":chosen_troop",":chosen"),
+                (try_begin),
+                (eq, ":chosen_troop", 'trp_player'),
+                    (call_script, "script_tgs_select_weave",":chosen"),
+                (else_try),
+                # TODO: NPC code
+                (try_end),
 
-            (try_end),
+            #(try_end), ## TGS: mat: I think you don't want this statement
 
 ######################################### Run the "Shield Breaker" code if the channeler is shielded...
             (else_try),
