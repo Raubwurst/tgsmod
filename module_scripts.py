@@ -73452,9 +73452,14 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_select_weave", [
-(store_script_param_1,":chosen"),
-            (agent_get_horse, ":chosen_horse", ":chosen"),
-            (agent_get_team, ":chosen_team", ":chosen"),
+        (store_script_param_1,":chosen"),
+        (agent_get_horse, ":chosen_horse", ":chosen"),
+        (agent_get_team, ":chosen_team", ":chosen"),
+    
+        (agent_get_troop_id, ":chosen_troop", ":chosen"),
+    
+        (try_begin),
+        (eq, ":chosen_troop", "trp_player"),
 ########################################## Stamina Check
             (call_script,"script_tgs_pay_stamina","$g_active_channeling_weave"),
             (assign,":staminapaid",reg0),
@@ -73463,12 +73468,12 @@ scripts = [
             (neq, ":staminapaid",0),
 ########################################## Weave 1
                 (try_begin),
-                     (eq, "$g_active_channeling_weave", 1),
+                (eq, "$g_active_channeling_weave", 1),
                      (call_script,"script_tgs_weave_airblast",":chosen",":chosen_horse",":chosen_team"),
 
 ########################################## Weave 2
                 (else_try),
-                      (eq, "$g_active_channeling_weave", 2),
+                (eq, "$g_active_channeling_weave", 2),
                       (call_script,"script_tgs_weave_freeze",":chosen",":chosen_horse",":chosen_team"),
 
 ########################################## Weave 3
@@ -73530,7 +73535,15 @@ scripts = [
                 (else_try),
                 (eq, "$g_active_channeling_weave", 14),
                       (call_script,"script_tgs_weave_balefire",":chosen",":chosen_horse",":chosen_team"),
-         (try_end),
+                (try_end),
+            (try_end),
+        
+        (else_try), # ":chosen_troop" is not equal to "trp_player" so we need to add the weave selection algorithm here
+        
+        
+        
+        (try_end),
+    
 ]),
 ##"script_tgs_weave_airblast"
 ## Function to cast an air blast weave, pushes agents and causes a little damage
