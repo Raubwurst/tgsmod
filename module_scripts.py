@@ -76312,6 +76312,93 @@ scripts = [
             (val_sub, "$g_current_channeling_stamina", ":result"),
             (assign,reg0,1),
 ]),
+
+##"script_tgs_npc_channeler_situational_awareness"
+## Return which weave could best help the current situation
+##
+##INPUT:  arg1    :chosen
+##        arg2    :chosen_horse
+##        arg3    :chosen_team
+##
+##OUTPUT: none
+("tgs_npc_channeler_situational_awareness", [
+	(store_script_param_1,":chosen"),
+	(store_script_param_2,":chosen_horse"),
+        (store_script_param,":chosen_team",3),
+                        (assign, ":distance",99999),
+                        (assign, ":number_of_allies", 0),
+
+
+## When to use healing?
+    # poll allies and check their health.
+        # If over 10% of living allies are at 50% health or below, then healing importance is level 1
+        # If over 20% of living allies are at 50% health or below, then healing importance is level 2
+        # IF over 40% of living allies are at 50% health or below, then healing importance is level 3
+
+
+## Keep the below code for reference    
+                        (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## don't heal dead
+                            (neg|agent_is_wounded,":agent"), ## don't heal wounded
+                            (agent_is_ally,":agent"), ## don't heal enemies
+                            (agent_is_human,":agent"), ## don't look for horses on the first round
+                            (neq, ":chosen", ":agent"), ## shooter can't heal self
+                            (store_agent_hit_points,":health",":agent",0),
+                            (lt,":health",75),
+                            (agent_get_look_position, pos2, ":agent"),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+                            (lt,":dist",":distance"),
+                            (assign,":nearest_hurt_ally",":agent"),
+                            (assign,":distance",":dist"),
+                            (val_add, ":number_of_allies", 1),
+                        (try_end),
+
+                        (try_begin),
+                        (ge, ":number_of_allies", 1),
+                            (agent_set_hit_points,":nearest_hurt_ally",100,0),
+                            (agent_get_look_position, pos2, ":nearest_hurt_ally"),
+                            (particle_system_burst, "psys_heal_aura", pos2, 50),
+                            (play_sound, "snd_heal"),
+                            (try_begin), # add to channeling multiplier if agent is player
+                            (neg|agent_is_non_player, ":chosen"),
+                                (val_add, "$g_channeling_proficiency_modifier", 80),
+                            (try_end),
+                            (add_xp_to_troop,40,":chosen"),
+                        (else_try),
+                            (assign, ":distance",99999),
+                            (assign, ":number_of_allies", 0),
+
+                            (try_for_agents,":agent"),
+                                (agent_is_alive,":agent"), ## don't heal dead
+                                (neg|agent_is_wounded,":agent"), ## don't heal wounded
+                                (agent_is_ally,":agent"), ## don't heal enemies
+                                (neg|agent_is_human,":agent"), ## look for horses on the second round
+                                (neq, ":chosen", ":agent"), ## shooter can't heal self
+                                (store_agent_hit_points,":health",":agent",0),
+                                (lt,":health",75),
+                                (agent_get_look_position, pos2, ":agent"),
+                                (get_distance_between_positions,":dist",pos1,pos2),
+                                (lt,":dist",":distance"),
+                                (assign,":nearest_hurt_ally",":agent"),
+                                (assign,":distance",":dist"),
+                                (val_add, ":number_of_allies", 1),
+                            (try_end),
+
+                            (try_begin),
+                            (ge, ":number_of_allies", 1),
+                                (agent_set_hit_points,":nearest_hurt_ally",100,0),
+                                (agent_get_look_position, pos2, ":nearest_hurt_ally"),
+                                (particle_system_burst, "psys_heal_aura", pos2, 50),
+                                (play_sound, "snd_heal"),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 80),
+                                (try_end),
+                                (add_xp_to_troop,40,":chosen"),
+                            (try_end),
+                        (try_end),
+]),
+  
 ###############################
 # Weaves Scripts End
 # ----------------------------
