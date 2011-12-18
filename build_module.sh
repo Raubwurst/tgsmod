@@ -9,7 +9,7 @@ fi
 echo "export_dir = \"The Gathering Storm/\"" > ./module_info.py
 
 echo "moving module folder to build..."
-mv ~/mb-warband/drive_c/Program\ Files/Mount\&Blade\ Warband/Modules/The\ Gathering\ Storm/ .
+mv ~/.wine/drive_c/Program\ Files\ \(x86\)/Mount\&Blade\ Warband/Modules/The\ Gathering\ Storm/ .
 
 echo "copying resources..."
 
@@ -59,7 +59,7 @@ if [ -f ./module_info.py.bak ] ; then
 	echo "moving old module_info back"
 	mv ./module_info.py.bak ./module_info.py 
 fi
-mv ./The\ Gathering\ Storm ~/mb-warband/drive_c/Program\ Files/Mount\&Blade\ Warband/Modules/
+mv ./The\ Gathering\ Storm ~/.wine/drive_c/Program\ Files\ \(x86\)/Mount\&Blade\ Warband/Modules/
 rm *.pyc
 echo ''
 echo '______________________________'
