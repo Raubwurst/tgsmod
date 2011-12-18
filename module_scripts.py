@@ -76317,25 +76317,40 @@ scripts = [
 
                         (assign, ":times_near_ground", 0),
 
-                        (try_for_range,reg5,1,333),  ###was 1000
+                        (try_for_range,reg5,1,250),  ###was 1000
                         (eq, ":times_near_ground", 0),
+
+                            (agent_get_troop_id, ":chosen_troop", ":chosen"),
+    
+                            (particle_system_burst, "psys_balefire_beam", pos1, 15), ## need balefire trail
+                            (position_move_y,pos1,20), # was 20
+                            (try_begin),
+                            (neq, ":chosen_troop", "trp_player"),
+                                (position_move_x,pos1,3), # was 3
+                            (try_end),
+                            (copy_position,pos2,pos1),
                             (particle_system_burst, "psys_balefire_beam", pos1, 15), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
                             (particle_system_burst, "psys_balefire_beam", pos1, 15), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
+                            (try_begin),
+                            (neq, ":chosen_troop", "trp_player"),
+                                (position_move_x,pos1,3), # was 3
+                            (try_end),
+                            (copy_position,pos3,pos1),
                             (particle_system_burst, "psys_balefire_beam", pos1, 15), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
 
                             #added for gravity effect and flight randomness
-                            (agent_get_troop_id, ":chosen_troop", ":chosen"),
-                            (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
-                                (store_mod, ":fall", reg5, 2),
-                               (try_begin),
-                                (eq, ":fall", 0),
-                                    (position_move_x,pos1,7), # was 3
-                                (try_end),
-                            (try_end),
+                            #(agent_get_troop_id, ":chosen_troop", ":chosen"),
+                            #(try_begin),
+                            #(neq, ":chosen_troop", "trp_player"),
+                            #    (store_mod, ":fall", reg5, 2),
+                            #    (try_begin),
+                            #    (eq, ":fall", 0),
+                            #        (position_move_x,pos1,7), # was 3
+                            #    (try_end),
+                            #(try_end),
 
                             #(store_mod, ":weave", reg5, 5), # No weaving for Balefire
                             #(try_begin),
@@ -76345,13 +76360,21 @@ scripts = [
                             #(try_end),
                             #end added for gravity effect and flight randomness
             
-                            (copy_position,pos2,pos1),
+                            # first position
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
 
                             (position_get_z, ":z_ground", pos2),
                             (store_add, ":z_ground_low", ":z_ground", 200),
                             (store_add, ":z_ground_high", ":z_ground", 2000),
+
+                            # second position
+                            (position_set_z_to_ground_level, pos3),
+                            (get_distance_between_positions,":dist_secondary",pos1,pos3),
+
+                            (position_get_z, ":z_ground_secondary", pos3),
+                            (store_add, ":z_ground_low_secondary", ":z_ground_secondary", 200),
+                            (store_add, ":z_ground_high_secondary", ":z_ground_secondary", 2000),    
 
                             (try_for_agents, ":agent"),
                                 (neq, ":chosen", ":agent"),
@@ -76361,9 +76384,12 @@ scripts = [
                                 (neg|agent_is_wounded, ":agent"),
                                 (agent_get_look_position, pos4, ":agent"),
                                 (get_distance_between_positions, ":dist_2", pos2, pos4),
+                                (get_distance_between_positions, ":dist_2_secondary", pos3, pos4),
                                 (position_get_z, ":z_attack_trail", pos1),
-                                (lt, ":dist_2", 75), # balefire must be near the agent (x-y radius) # was 50
-                                (is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # balefire must be within the agent's body (z height)
+                                (this_or_next|lt, ":dist_2", 55), # balefire must be near the agent (x-y radius) # was 50
+                                (lt, ":dist_2_secondary", 55), # balefire must be near the agent (x-y radius) # was 50
+                                (this_or_next|is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # balefire must be within the agent's body (z height)
+                                (is_between, ":z_attack_trail", ":z_ground_low_secondary", ":z_ground_high_secondary"), # balefire must be within the agent's body (z height)
                                 (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 1),
                                 (agent_set_slot, ":agent", slot_agent_balefire_shooter, ":chosen"),
                                 (try_for_range, ":unused", 1, 10),
@@ -76373,16 +76399,17 @@ scripts = [
                             (try_end),
                     
                             (try_begin),
-                            (lt,":dist",10), # was 10
+                            (this_or_next|lt,":dist",20), # was 10
+                            (lt,":dist_secondary",20), # was 10
                                 (val_add, ":times_near_ground", 1),
                                 (play_sound,"snd_balefire"),
-                                (copy_position, pos3, pos1),
-                                (scene_prop_get_instance,":instance", "spr_explosion", 0),  #need
-                                (position_copy_origin,pos2,pos1),
-                                (prop_instance_set_position,":instance",pos2),
-                                (position_move_z,pos2,1000),
-                                (prop_instance_animate_to_position,":instance",pos2,175),
-                                (assign,reg5,666),  #was 2000
+                                #(copy_position, pos3, pos1),
+                                #(scene_prop_get_instance,":instance", "spr_explosion", 0),  #need
+                                #(position_copy_origin,pos2,pos1),
+                                #(prop_instance_set_position,":instance",pos2),
+                                #(position_move_z,pos2,1000),
+                                #(prop_instance_animate_to_position,":instance",pos2,175),
+                                (assign,reg5,500),  #was 2000
                             (try_end),
                         (try_end),
 
@@ -76794,9 +76821,9 @@ scripts = [
         # If ":chosen" has seeker:              Unravel Level of Importance:    9
         # If ":chosen" on fire:                 Unravel Level of Importance:    7
         # If ":chosen" is bound:                Unravel Level of Importance:    5
-            # If ":chosen_horse" is on fire:     Unravel Level of Importance:    5
-                # If allies have seekers:       Unravel Level of Importance:    5
-                # If allies have compulsion:    Unravel Level of Importance:    4
+            # If ":chosen_horse" is on fire:    Unravel Level of Importance:    5 
+                # If allies have compulsion:    Unravel Level of Importance:    5
+                # If allies have seeker:        Unravel Level of Importance:    4
                 # If allies are on fire:        Unravel Level of Importance:    3
                 # If allies are bound:          Unravel Level of Importance:    2
     
@@ -76821,10 +76848,10 @@ scripts = [
     (else_try),
     (this_or_next|eq, ":chosen_bound_check", 1),
     (this_or_next|eq, ":chosen_horse_on_fire_check", 1),
-    (gt, ":unravel_ally_seeker_check", 0),
+    (gt, ":unravel_ally_compulsion_check", 0),
         (assign, ":unravel_level_of_importance", 5),
     (else_try),
-    (gt, ":unravel_ally_compulsion_check", 0),
+    (gt, ":unravel_ally_seeker_check", 0),
         (assign, ":unravel_level_of_importance", 4),
     (else_try),
     (gt, ":unravel_ally_on_fire_check", 0),
@@ -76965,20 +76992,20 @@ scripts = [
 ## down version of the ranged code itself), it will be sort of hard to determine which weave is 'best' for the situation.
 ## So, we can assign Agressive weaves 'randomly' with a preference for stronger weaves.    
     
-    ## When to use Freeze? 1,2,3
-    (store_random_in_range, ":random", 1, 4),
+    ## When to use Freeze? 1,2,3,4
+    (store_random_in_range, ":random", 1, 5),
     (assign, ":freeze_level_of_importance", ":random"),
 
-    ## When to use Fireball? 3,4,5,6
-    (store_random_in_range, ":random", 3, 7),
+    ## When to use Fireball? 3,4,5,6,7
+    (store_random_in_range, ":random", 3, 8),
     (assign, ":fireball_level_of_importance", ":random"),
 
-    ## When to use Ranged Earth Blast? 4,5,6
-    (store_random_in_range, ":random", 4, 7),
+    ## When to use Ranged Earth Blast? 4,5,6,7
+    (store_random_in_range, ":random", 4, 8),
     (assign, ":ranged_earth_blast_level_of_importance", ":random"),
 
-    ## When to use Chain Lightning? 5,6,7
-    (store_random_in_range, ":random", 5, 8),
+    ## When to use Chain Lightning? 5,6,7,8
+    (store_random_in_range, ":random", 5, 9),
     (assign, ":chain_lightning_level_of_importance", ":random"),
 
     ## When to use Seeker? 6,7,8

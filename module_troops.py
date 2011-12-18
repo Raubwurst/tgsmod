@@ -584,7 +584,7 @@ tf_guarantee_all_cavalry = tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_g
 troops = [
     # wp(15)
   ["player","Player","Player",tf_hero|tf_unmoveable_in_party_window,no_scene,reserved,fac_player_faction,
-   [],
+   [itm_saddle_horse],
    str_4|agi_4|int_4|cha_4,wp_firearm(300)|wp(15),0,0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
   ["multiplayer_profile_troop_male","multiplayer_profile_troop_male","multiplayer_profile_troop_male", tf_hero|tf_guarantee_all, 0, 0,fac_commoners,
    [itm_leather_jerkin, itm_leather_boots],
