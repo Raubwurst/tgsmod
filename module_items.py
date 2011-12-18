@@ -1292,21 +1292,14 @@ items = [
                       (call_script,"script_tgs_break_shield",":chosen"),
             (try_end),
 
-#   Counts the number of times the player has used the channeling item
-            (val_add, "$g_number_of_weaves_used", 1),
-#            (assign, reg5, "$g_number_of_weaves_used"),
-#            (display_message, "@Player has channeled {reg5} times ..."),
-#   Warns that the player is almost out of 'ammo'
-            (try_begin),
-            (ge, "$g_number_of_weaves_used", 130),
-                (display_message, "str_almost_out_of_ammo"),
-            (try_end),
-#   Displays the player's channeling proficiency modifier
-#            (assign, reg4,"$g_channeling_proficiency_modifier"),
-#            (display_message, "@Current channeling proficiency modifier is {reg4} ..."),
-
+#   Player specific code
             (try_begin),
             (neg|agent_is_non_player, ":chosen"),
+                (val_add, "$g_number_of_weaves_used", 1),
+                (try_begin),
+                (ge, "$g_number_of_weaves_used", 130),
+                    (display_message, "str_almost_out_of_ammo"),
+                (try_end),
                 (val_add, "$g_channeling_proficiency_modifier", 5),
             (try_end),
 

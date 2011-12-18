@@ -4508,7 +4508,7 @@ triggers = [
 
   ## New main map testing hotkeys HACK: make sure this doesn't work in non-development versions
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1), #  to enable cheats, remove the second line in the condition
-                   (eq, "$g_tutorial_complete", 0),
+                   #(eq, "$g_tutorial_complete", 0),
                    ],
          [
             ##Click 'K' to add troops to hero party
@@ -4522,8 +4522,8 @@ triggers = [
                         (try_begin),
                         (eq, "$g_cheat_recruit_add", 1),
 
-#                            (party_add_members, ":party", "trp_ashaman_soldier", 2),
-#                            (party_add_members, ":party", "trp_ashaman_dedicated", 10),
+#                            (party_add_members, ":party", "trp_ashaman_soldier", 10),
+                            (party_add_members, ":party", "trp_ashaman_dedicated", 10),
 #                            (party_add_members, ":party", "trp_ashaman", 2),
             
 #                            (party_add_members, ":party", "trp_legion_recruit_army", 2),
@@ -4638,11 +4638,11 @@ triggers = [
 #            (party_add_members, ":party", "trp_madmen_storm_caller",2),
             
             ## Hack for Toman Head
-            (party_add_members, ":party", "trp_toman_head_recruit",8),
-            (party_add_members, ":party", "trp_toman_head_footman",8),
-            (party_add_members, ":party", "trp_toman_head_city_guard",8),
-            (party_add_members, ":party", "trp_toman_head_bowman",8),
-            (party_add_members, ":party", "trp_toman_head_scout",8), 
+#            (party_add_members, ":party", "trp_toman_head_recruit",8),
+#            (party_add_members, ":party", "trp_toman_head_footman",8),
+#            (party_add_members, ":party", "trp_toman_head_city_guard",8),
+#            (party_add_members, ":party", "trp_toman_head_bowman",8),
+#            (party_add_members, ":party", "trp_toman_head_scout",8), 
 
 
             

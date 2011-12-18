@@ -134,7 +134,7 @@ slot_agent_draghkar_kiss_by       = 62    ## ID of Draghkar that kissed agent
 
 slot_agent_bound_duration         = 63    ## How long will the agent be bound (Counts from 10 to 0)
 
-## Situational Awareness Weave Slots ##
+## Situational Awareness Weave Slots ## (loi = Level of Importance)
 
 slot_agent_sa_freeze_loi                = 100
 slot_agent_sa_heal_loi                  = 101
@@ -148,9 +148,9 @@ slot_agent_sa_seeker_loi                = 108
 slot_agent_sa_compulsion_loi            = 109
 slot_agent_sa_balefire_loi              = 110
 
-## Situational Awareness Weave Slots ##
+## Situational Awareness Weave Slots ## (loi = Level of Importance)
 
-## Natural Inclination Weave Slots ##
+## Natural Inclination Weave Slots ## (loi = Level of Importance)
 
 slot_agent_ni_freeze_loi                = 150
 slot_agent_ni_heal_loi                  = 151
@@ -164,7 +164,7 @@ slot_agent_ni_seeker_loi                = 158
 slot_agent_ni_compulsion_loi            = 159
 slot_agent_ni_balefire_loi              = 160
 
-## Natural Inclination Weave Slots ##
+## Natural Inclination Weave Slots ## (loi = Level of Importance)
 
 ### End TGS Slots
     

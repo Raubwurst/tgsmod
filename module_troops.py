@@ -582,9 +582,10 @@ tf_guarantee_all_cavalry = tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_g
 
 
 troops = [
+    # wp(15)
   ["player","Player","Player",tf_hero|tf_unmoveable_in_party_window,no_scene,reserved,fac_player_faction,
    [],
-   str_4|agi_4|int_4|cha_4,wp(15),0,0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
+   str_4|agi_4|int_4|cha_4,wp_firearm(300)|wp(15),0,0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
   ["multiplayer_profile_troop_male","multiplayer_profile_troop_male","multiplayer_profile_troop_male", tf_hero|tf_guarantee_all, 0, 0,fac_commoners,
    [itm_leather_jerkin, itm_leather_boots],
    0, 0, 0, 0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
@@ -1008,17 +1009,17 @@ troops = [
 #   [itm_scythe,itm_hatchet,itm_stones,itm_leather_cap,itm_felt_hat,
 #    itm_shirt,itm_coarse_tunic,itm_leather_apron,itm_wrapping_boots],
 #   def_attrib|level(2),wp(60),knows_common,mayene_man_face_young, tear_man_face_old],
-  
+
     ["legion_recruit_channeler","Legion Recruit (Channeler)","Legion Recruits (Channeler)",tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_channeler_dagger, itm_legion_recruit_tunic, itm_wrapping_boots],
    def_attrib_wot_infantry_1 ,wp(60),knows_wot_infantry_1 ,far_madding_man_face_younger, illian_man_face_older],
-  
+#   itm_power_ashaman_soldier_ranged
     ["ashaman_soldier","Asha'man Soldier","Asha'man Soldiers",tf_guarantee_all,0,0,fac_kingdom_1,
-   [itm_power_ashaman_soldier_ranged, itm_power_ammo, itm_sword_secondary, itm_ashaman_soldier_coat, itm_black_leather_boots],
+   [itm_power_player, itm_power_ammo, itm_sword_secondary, itm_ashaman_soldier_coat, itm_black_leather_boots],
    def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2,murandy_man_face_young, altara_man_face_older],
-  
+#   itm_power_ashaman_dedicated_ranged
     ["ashaman_dedicated","Asha'man Dedicated","Asha'man Dedicated",tf_guarantee_all,0,0,fac_kingdom_1,
-   [itm_power_ashaman_dedicated_ranged, itm_power_ammo, itm_sword_secondary, itm_ashaman_dedicated_coat, itm_black_leather_boots],
+   [itm_power_player, itm_power_ammo, itm_ashaman_dedicated_coat, itm_black_leather_boots],
    def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3,ghealdan_man_face_younger, amadicia_man_face_older],
   
     ["ashaman","Asha'man","Asha'man",tf_guarantee_all,0,0,fac_kingdom_1,

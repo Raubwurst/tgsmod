@@ -73445,6 +73445,7 @@ scripts = [
 # Weaves Scripts Start
 # ----------------------------
 ###############################
+  
 ##"script_tgs_select_weave"
 ## Function to select the correct weave for a player to cast
 ##
@@ -73460,150 +73461,66 @@ scripts = [
     
         (try_begin),
         (eq, ":chosen_troop", "trp_player"),
-########################################## Stamina Check
-            (call_script,"script_tgs_pay_stamina","$g_active_channeling_weave"),
-            (assign,":staminapaid",reg0),
-
-            (try_begin),
-            (neq, ":staminapaid",0),
-########################################## Weave 1
-                (try_begin),
-                (eq, "$g_active_channeling_weave", 1),
-                     (call_script,"script_tgs_weave_airblast",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 2
-                (else_try),
-                (eq, "$g_active_channeling_weave", 2),
-                      (call_script,"script_tgs_weave_freeze",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 3
-                (else_try),
-                (eq, "$g_active_channeling_weave", 3),
-                      (call_script,"script_tgs_weave_heal_nearest",":chosen",":chosen_horse",":chosen_team"),
-            
-########################################### Weave 4
-                (else_try),
-                (eq, "$g_active_channeling_weave", 4),
-                      (call_script,"script_tgs_weave_fireball",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 5
-                (else_try),
-                (eq, "$g_active_channeling_weave", 5),
-                      (call_script,"script_tgs_weave_unravel",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 6
-                (else_try),
-                (eq, "$g_active_channeling_weave", 6),
-                      (call_script,"script_tgs_weave_defensive_blast",":chosen",":chosen_horse",":chosen_team"),
-
-########################################## Weave 7
-                (else_try),
-                (eq, "$g_active_channeling_weave", 7),
-                      (call_script,"script_tgs_weave_ranged_earth_blast",":chosen",":chosen_horse",":chosen_team"),
-
-##################################3####### Weave 8
-                (else_try),
-                (eq, "$g_active_channeling_weave", 8),
-                      (call_script,"script_tgs_weave_bind",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 9
-                (else_try),
-                (eq, "$g_active_channeling_weave", 9),
-                      (call_script,"script_tgs_weave_chain_lightning",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 10
-                (else_try),
-                (eq, "$g_active_channeling_weave", 10),
-                      (call_script,"script_tgs_weave_fire_curtain",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 11
-                (else_try),
-                (eq, "$g_active_channeling_weave", 11),
-                      (call_script,"script_tgs_weave_shield",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 12
-                (else_try),
-                (eq, "$g_active_channeling_weave", 12),
-                      (call_script,"script_tgs_weave_seeker",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 13
-                (else_try),
-                (eq, "$g_active_channeling_weave", 13),
-                      (call_script,"script_tgs_weave_compulsion",":chosen",":chosen_horse",":chosen_team"),
-
-######################################### Weave 14
-                (else_try),
-                (eq, "$g_active_channeling_weave", 14),
-                      (call_script,"script_tgs_weave_balefire",":chosen",":chosen_horse",":chosen_team"),
-                (try_end),
-            (try_end),
-        
-        (else_try), # ":chosen_troop" is not equal to "trp_player" so we need to add the weave selection algorithm here
-
-            ### Vaerraent's code that will determine ":chosen"'s natural inclination towards certain weaves
-            ### based on gender, channeling society affiliation (white tower, black tower, etc), distribution of
-            ### skill in the Five Power, and any other factors we want to include.
-            ###
-            ### Output should be a value for each of the 11 weaves between 1 and 10.
-
-
-## you can use the following script, and agent_slots if you like.  Check my code to see how I set it up  
-
-
-            #(call_script, "script_tgs_npc_channeler_natural_inclination", ":chosen", ":chosen_horse", ":chosen_team"),
-
-            ## Get values for ":chosen" Natural Inclination slots ##
-            (agent_get_slot, ":ni_freeze_loi", ":chosen", slot_agent_ni_freeze_loi),
-            (agent_get_slot, ":ni_heal_loi", ":chosen", slot_agent_ni_heal_loi),
-            (agent_get_slot, ":ni_fireball_loi", ":chosen", slot_agent_ni_fireball_loi),
-            (agent_get_slot, ":ni_unravel_loi", ":chosen", slot_agent_ni_unravel_loi),
-            (agent_get_slot, ":ni_ranged_earth_blast_loi", ":chosen", slot_agent_ni_ranged_earth_blast_loi),
-            (agent_get_slot, ":ni_bind_loi", ":chosen", slot_agent_ni_bind_loi),
-            (agent_get_slot, ":ni_chain_lightning_loi", ":chosen", slot_agent_ni_chain_lightning_loi),
-            (agent_get_slot, ":ni_shield_loi", ":chosen", slot_agent_ni_shield_loi),
-            (agent_get_slot, ":ni_seeker_loi", ":chosen", slot_agent_ni_seeker_loi),
-            (agent_get_slot, ":ni_compulsion_loi", ":chosen", slot_agent_ni_compulsion_loi),
-            (agent_get_slot, ":ni_balefire_loi", ":chosen", slot_agent_ni_balefire_loi),          
-
-        
-            ####### End Vaerraent's code #########
-
-        
+            (assign, ":active_weave", "$g_active_channeling_weave"), # assign active weave from global
+            (call_script, "script_tgs_pay_stamina", ":active_weave"), # perform stamina check
+            (assign, ":staminapaid", reg0),
+        (else_try),
+            # Vaerraent's code for natural inclination
+            (call_script, "script_tgs_npc_channeler_natural_inclination", ":chosen", ":chosen_horse", ":chosen_team"),
             # mat2rivs's code for situational awareness
-        
             (call_script, "script_tgs_npc_channeler_situational_awareness", ":chosen", ":chosen_horse", ":chosen_team"),
-
-            ## Get values for ":chosen" Situational Awareness slots ##
-            (agent_get_slot, ":sa_freeze_loi", ":chosen", slot_agent_sa_freeze_loi),
-            (agent_get_slot, ":sa_heal_loi", ":chosen", slot_agent_sa_heal_loi),
-            (agent_get_slot, ":sa_fireball_loi", ":chosen", slot_agent_sa_fireball_loi),
-            (agent_get_slot, ":sa_unravel_loi", ":chosen", slot_agent_sa_unravel_loi),
-            (agent_get_slot, ":sa_ranged_earth_blast_loi", ":chosen", slot_agent_sa_ranged_earth_blast_loi),
-            (agent_get_slot, ":sa_bind_loi", ":chosen", slot_agent_sa_bind_loi),
-            (agent_get_slot, ":sa_chain_lightning_loi", ":chosen", slot_agent_sa_chain_lightning_loi),
-            (agent_get_slot, ":sa_shield_loi", ":chosen", slot_agent_sa_shield_loi),
-            (agent_get_slot, ":sa_seeker_loi", ":chosen", slot_agent_sa_seeker_loi),
-            (agent_get_slot, ":sa_compulsion_loi", ":chosen", slot_agent_sa_compulsion_loi),
-            (agent_get_slot, ":sa_balefire_loi", ":chosen", slot_agent_sa_balefire_loi),
-
-
-            ## Final Code to determine which weave to use ##
-            (store_mul, ":final_freeze_loi", ":ni_freeze_loi", ":sa_freeze_loi"),
-            (store_mul, ":final_heal_loi", ":ni_heal_loi", ":sa_heal_loi"),
-            (store_mul, ":final_fireball_loi", ":ni_fireball_loi", ":sa_fireball_loi"),
-            (store_mul, ":final_unravel_loi", ":ni_unravel_loi", ":sa_unravel_loi"),
-            (store_mul, ":final_ranged_earth_blast_loi", ":ni_ranged_earth_blast_loi", ":sa_ranged_earth_blast_loi"),
-            (store_mul, ":final_bind_loi", ":ni_bind_loi", ":sa_bind_loi"),
-            (store_mul, ":final_chain_lightning_loi", ":ni_chain_lightning_loi", ":sa_chain_lightning_loi"),
-            (store_mul, ":final_shield_loi", ":ni_shield_loi", ":sa_shield_loi"),
-            (store_mul, ":final_seeker_loi", ":ni_seeker_loi", ":sa_seeker_loi"),
-            (store_mul, ":final_compulsion_loi", ":ni_compulsion_loi", ":sa_compulsion_loi"),
-            (store_mul, ":final_balefire_loi", ":ni_balefire_loi", ":sa_balefire_loi"),        
+            # mat2rivs's code for npc weave selection final calculations
+            (call_script, "script_tgs_npc_weave_selection_final_calculations", ":chosen"),
+            (assign, ":active_weave", reg0),
+        (try_end),
         
-            # Now need code to find the largest ":final..." - not sure yet what to do in the event of a tie
-
-        
-        
+        # Call correct weave script - player must have paid stamina in advance
+        (try_begin),
+        (this_or_next|neq, ":chosen_troop", "trp_player"), # go ahead if ":chosen" is not the player
+        (neq, ":staminapaid" ,0), # if ":chosen" is the player, make sure they paid
+            (try_begin),
+            (eq, ":active_weave", 1),
+                (call_script,"script_tgs_weave_airblast",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 2),
+                (call_script,"script_tgs_weave_freeze",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 3),
+                (call_script,"script_tgs_weave_heal_nearest",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 4),
+                (call_script,"script_tgs_weave_fireball",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 5),
+                (call_script,"script_tgs_weave_unravel",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 6),
+                (call_script,"script_tgs_weave_defensive_blast",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 7),
+                (call_script,"script_tgs_weave_ranged_earth_blast",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 8),
+                (call_script,"script_tgs_weave_bind",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 9),
+                (call_script,"script_tgs_weave_chain_lightning",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 10),
+                (call_script,"script_tgs_weave_fire_curtain",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 11),
+                (call_script,"script_tgs_weave_shield",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 12),
+                (call_script,"script_tgs_weave_seeker",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 13),
+                (call_script,"script_tgs_weave_compulsion",":chosen",":chosen_horse",":chosen_team"),
+            (else_try),
+            (eq, ":active_weave", 14),
+                (call_script,"script_tgs_weave_balefire",":chosen",":chosen_horse",":chosen_team"),
+            (try_end),
         (try_end),
     
 ]),
@@ -73697,7 +73614,7 @@ scripts = [
 						(add_xp_to_troop,6,":chosen"),
 					(try_end),
 
-                               (try_end),
+            (try_end),
 
 			(particle_system_burst, "psys_massive_pistol_smoke", pos1, 25),
 			(play_sound,"snd_air_blast"),
@@ -73726,7 +73643,7 @@ scripts = [
 			#added for gravity effect and flight randomness
             (agent_get_troop_id, ":chosen_troop", ":chosen"),
             (try_begin),
-            (neg, ":chosen_troop", "trp_player"),
+            (neq, ":chosen_troop", "trp_player"),
                 (store_mod, ":fall", reg5, 2),
                 (try_begin),
                 (eq, ":fall", 0),
@@ -73829,7 +73746,7 @@ scripts = [
 ##OUTPUT: none
 ("tgs_weave_heal_nearest", [
 	(store_script_param_1,":chosen"),
-	(store_script_param_2,":chosen_horse"),
+	#(store_script_param_2,":chosen_horse"),
         (store_script_param,":chosen_team",3),
                         (assign, ":distance",99999),
                         (assign, ":number_of_allies", 0),
@@ -73922,7 +73839,7 @@ scripts = [
                             #added for gravity effect and flight randomness
                             (agent_get_troop_id, ":chosen_troop", ":chosen"),
                             (try_begin),
-                            (neg, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "trp_player"),
                                 (store_mod, ":fall", reg5, 2),
                                 (try_begin),
                                 (eq, ":fall", 0),
@@ -75085,7 +75002,7 @@ scripts = [
                             #added for gravity effect and flight randomness
                             (agent_get_troop_id, ":chosen_troop", ":chosen"),
                             (try_begin),
-                            (neg, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "trp_player"),
                                 (store_mod, ":fall", reg5, 2),
                                (try_begin),
                                 (eq, ":fall", 0),
@@ -75293,7 +75210,7 @@ scripts = [
 ##OUTPUT: none
 ("tgs_weave_bind", [
 	(store_script_param_1,":chosen"),
-	(store_script_param_2,":chosen_horse"),
+	#(store_script_param_2,":chosen_horse"),
         (store_script_param,":chosen_team",3),
                         (assign, ":distance",99999),
                         (assign, ":number_of_enemies", 0),
@@ -75421,7 +75338,7 @@ scripts = [
                             #added for gravity effect and flight randomness
                             (agent_get_troop_id, ":chosen_troop", ":chosen"),
                             (try_begin),
-                            (neg, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "trp_player"),
                                 (store_mod, ":fall", reg5, 2),
                                (try_begin),
                                 (eq, ":fall", 0),
@@ -75910,7 +75827,7 @@ scripts = [
 ##OUTPUT: none
 ("tgs_weave_shield", [
 	(store_script_param_1,":chosen"),
-	(store_script_param_2,":chosen_horse"),
+	#(store_script_param_2,":chosen_horse"),
         (store_script_param,":chosen_team",3),
                         (assign, ":distance",99999),
                         (assign, ":number_of_enemies", 0),
@@ -75982,7 +75899,7 @@ scripts = [
 ##OUTPUT: none
 ("tgs_weave_seeker", [
 	(store_script_param_1,":chosen"),
-	(store_script_param_2,":chosen_horse"),
+	#(store_script_param_2,":chosen_horse"),
         (store_script_param,":chosen_team",3),
                         (assign, ":distance",99999),
                         (assign, ":number_of_enemies", 0),
@@ -76270,7 +76187,7 @@ scripts = [
 ##OUTPUT: none
 ("tgs_weave_compulsion", [
 	(store_script_param_1,":chosen"),
-	(store_script_param_2,":chosen_horse"),
+	#(store_script_param_2,":chosen_horse"),
         (store_script_param,":chosen_team",3),
                         (assign, ":distance",99999),
                         (assign, ":number_of_enemies", 0),
@@ -76396,23 +76313,27 @@ scripts = [
 ("tgs_weave_balefire", [
 	(store_script_param_1,":chosen"),
 	(store_script_param_2,":chosen_horse"),
-        (store_script_param,":chosen_team",3),
+        #(store_script_param,":chosen_team",3),
 
                         (assign, ":times_near_ground", 0),
 
-                        (try_for_range,reg5,1,1000),  ###was 500
+                        (try_for_range,reg5,1,333),  ###was 1000
                         (eq, ":times_near_ground", 0),
                             (particle_system_burst, "psys_balefire_beam", pos1, 15), ## need balefire trail
-                            (position_move_y,pos1,20),
+                            (position_move_y,pos1,20), # was 20
+                            (particle_system_burst, "psys_balefire_beam", pos1, 15), ## need balefire trail
+                            (position_move_y,pos1,20), # was 20
+                            (particle_system_burst, "psys_balefire_beam", pos1, 15), ## need balefire trail
+                            (position_move_y,pos1,20), # was 20
 
                             #added for gravity effect and flight randomness
                             (agent_get_troop_id, ":chosen_troop", ":chosen"),
                             (try_begin),
-                            (neg, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "trp_player"),
                                 (store_mod, ":fall", reg5, 2),
                                (try_begin),
                                 (eq, ":fall", 0),
-                                    (position_move_x,pos1,3),
+                                    (position_move_x,pos1,7), # was 3
                                 (try_end),
                             (try_end),
 
@@ -76441,7 +76362,7 @@ scripts = [
                                 (agent_get_look_position, pos4, ":agent"),
                                 (get_distance_between_positions, ":dist_2", pos2, pos4),
                                 (position_get_z, ":z_attack_trail", pos1),
-                                (lt, ":dist_2", 50), # balefire must be near the agent (x-y radius)
+                                (lt, ":dist_2", 75), # balefire must be near the agent (x-y radius) # was 50
                                 (is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # balefire must be within the agent's body (z height)
                                 (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 1),
                                 (agent_set_slot, ":agent", slot_agent_balefire_shooter, ":chosen"),
@@ -76452,7 +76373,7 @@ scripts = [
                             (try_end),
                     
                             (try_begin),
-                            (lt,":dist",10),
+                            (lt,":dist",10), # was 10
                                 (val_add, ":times_near_ground", 1),
                                 (play_sound,"snd_balefire"),
                                 (copy_position, pos3, pos1),
@@ -76461,7 +76382,7 @@ scripts = [
                                 (prop_instance_set_position,":instance",pos2),
                                 (position_move_z,pos2,1000),
                                 (prop_instance_animate_to_position,":instance",pos2,175),
-                                (assign,reg5,2000),  #was 1000
+                                (assign,reg5,666),  #was 2000
                             (try_end),
                         (try_end),
 
@@ -76580,7 +76501,76 @@ scripts = [
             (val_sub, "$g_current_channeling_stamina", ":result"),
             (assign,reg0,1),
 ]),
+##"script_tgs_npc_channeler_natural_inclination"
+## Return which weave fits the channelers 'One Power DNA'
+##
+##INPUT:  arg1    :chosen
+##        arg2    :chosen_horse
+##        arg3    :chosen_team
+##
+##OUTPUT: set agent_slots
+("tgs_npc_channeler_natural_inclination", [
 
+########## Weave Numerical Order ##########
+
+# Weave 1: Air Blast - for player only
+# Weave 2: Freeze - both
+# Weave 3: Heal - Both
+# Weave 4: Fireball - both
+# Weave 5: Unravel - both
+# Weave 6: Defensive Blast - for player only
+# Weave 7: Ranged Earth Blast - both
+# Weave 8: Bind - both
+# Weave 9: Chain Lightning - both
+# Weave 10: Fire Curtain - for player only
+# Weave 11: Shield - both
+# Weave 12: Seeker - both
+# Weave 13: Compulsion - both
+# Weave 14: Balefire - both
+
+    
+    # get script params
+	(store_script_param_1,":chosen"),
+	#(store_script_param_2,":chosen_horse"),
+    #(store_script_param,":chosen_team",3),
+    
+    # Clear ":chosen" slots
+    (agent_set_slot, ":chosen", slot_agent_ni_freeze_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_heal_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_fireball_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_unravel_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_ranged_earth_blast_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_bind_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_chain_lightning_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_shield_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_seeker_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_compulsion_loi, 0),
+    (agent_set_slot, ":chosen", slot_agent_ni_balefire_loi, 0),
+    
+    ## VAERRAENT ## Your code starts here. It's 'output' is to set the slots shown below.
+    ## VAERRAENT ## My script put a value from 1 to 9 in the slot, if you need a larger range, that's ok.
+
+    
+
+
+
+    ## temp slot value so I could test my side of the code
+    (assign, ":test", 10),
+    
+    ## Set final values for ":chosen" Natural Inclination slots ## (loi = Level of Importance)
+    (agent_set_slot, ":chosen", slot_agent_ni_freeze_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_heal_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_fireball_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_unravel_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_ranged_earth_blast_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_bind_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_chain_lightning_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_shield_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_seeker_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_compulsion_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_balefire_loi, ":test"),
+  
+]),
 ##"script_tgs_npc_channeler_situational_awareness"
 ## Return which weave could best help the current situation
 ##
@@ -76588,7 +76578,7 @@ scripts = [
 ##        arg2    :chosen_horse
 ##        arg3    :chosen_team
 ##
-##OUTPUT: none
+##OUTPUT: set agent_slots
 ("tgs_npc_channeler_situational_awareness", [
 
 ########## Weave Numerical Order ##########
@@ -76762,7 +76752,12 @@ scripts = [
     (assign, ":heal_level_of_importance", 0),
     
     (store_mul, ":num_allies_needing_healing_alt", ":num_allies_needing_healing", 100),
-    (store_div, ":wounded_ally_percentage", ":num_allies_needing_healing_alt", ":total_active_allies"),
+    (try_begin),
+    (gt, ":total_active_allies", 0),
+        (store_div, ":wounded_ally_percentage", ":num_allies_needing_healing_alt", ":total_active_allies"),
+    (else_try),
+        (assign, ":wounded_ally_percentage", 0),
+    (try_end),
     
     (try_begin),
     (is_between, ":wounded_ally_percentage", 10, 20),
@@ -76810,7 +76805,12 @@ scripts = [
     (agent_get_slot, ":chosen_seeker_check", ":chosen", slot_agent_has_active_seeker),
     (agent_get_slot, ":chosen_on_fire_check", ":chosen", slot_agent_on_fire),
     (agent_get_slot, ":chosen_bound_check", ":chosen", slot_agent_is_bound),
-    (agent_get_slot, ":chosen_horse_on_fire_check", ":chosen_horse", slot_agent_on_fire),
+    (try_begin),
+    (gt, ":chosen_horse", -1),
+        (agent_get_slot, ":chosen_horse_on_fire_check", ":chosen_horse", slot_agent_on_fire),
+    (else_try),
+        (assign, ":chosen_horse_on_fire_check", 0),
+    (try_end),
     
     (try_begin),
     (eq, ":chosen_seeker_check", 1),
@@ -76846,7 +76846,12 @@ scripts = [
     (assign, ":bind_level_of_importance", 0),
     
     (store_mul, ":num_enemy_unbound_cavalry_alt", ":num_enemy_unbound_cavalry", 100),
-    (store_div, ":unbound_enemy_cavalry_percentage", ":num_enemy_unbound_cavalry_alt", ":total_active_enemies"),
+    (try_begin),
+    (gt, ":total_active_enemies", 0),
+        (store_div, ":unbound_enemy_cavalry_percentage", ":num_enemy_unbound_cavalry_alt", ":total_active_enemies"),
+    (else_try),
+        (assign, ":unbound_enemy_cavalry_percentage", 0),
+    (try_end),
     
     (try_begin),
     (is_between, ":unbound_enemy_cavalry_percentage", 10, 20),
@@ -76877,7 +76882,12 @@ scripts = [
     (assign, ":shield_level_of_importance", 0),
     
     (store_mul, ":num_enemy_unshielded_channelers_alt", ":num_enemy_unshielded_channelers", 100),
-    (store_div, ":unshielded_enemy_channelers_percentage", ":num_enemy_unshielded_channelers_alt", ":total_active_enemies"),
+    (try_begin),
+    (gt, ":total_active_enemies", 0),
+        (store_div, ":unshielded_enemy_channelers_percentage", ":num_enemy_unshielded_channelers_alt", ":total_active_enemies"),
+    (else_try),
+        (assign, ":unshielded_enemy_channelers_percentage", 0),
+    (try_end),
     
     (try_begin),
     (is_between, ":unshielded_enemy_channelers_percentage", 5, 10),
@@ -76922,7 +76932,12 @@ scripts = [
     (assign, ":compulsion_level_of_importance", 0),
     
     (store_mul, ":num_high_tier_enemies_alt", ":num_high_tier_enemies", 100),
-    (store_div, ":high_tier_enemies_percentage", ":num_high_tier_enemies_alt", ":total_active_enemies"),
+    (try_begin),
+    (gt, ":total_active_enemies", 0),
+        (store_div, ":high_tier_enemies_percentage", ":num_high_tier_enemies_alt", ":total_active_enemies"),
+    (else_try),
+        (assign, ":high_tier_enemies_percentage", 0),
+    (try_end),
     
     (try_begin),
     (is_between, ":high_tier_enemies_percentage", 10, 20),
@@ -76975,7 +76990,7 @@ scripts = [
     (assign, ":balefire_level_of_importance", ":random"),
 
     
-    ## Set final values for ":chosen" Situational Awareness slots ##
+    ## Set final values for ":chosen" Situational Awareness slots ## (loi = Level of Importance)
     (agent_set_slot, ":chosen", slot_agent_sa_freeze_loi, ":freeze_level_of_importance"),
     (agent_set_slot, ":chosen", slot_agent_sa_heal_loi, ":heal_level_of_importance"),
     (agent_set_slot, ":chosen", slot_agent_sa_fireball_loi, ":fireball_level_of_importance"),
@@ -76987,6 +77002,284 @@ scripts = [
     (agent_set_slot, ":chosen", slot_agent_sa_seeker_loi, ":seeker_level_of_importance"),
     (agent_set_slot, ":chosen", slot_agent_sa_compulsion_loi, ":compulsion_level_of_importance"),
     (agent_set_slot, ":chosen", slot_agent_sa_balefire_loi, ":balefire_level_of_importance"),
+  
+]),
+##"script_tgs_npc_weave_selection_final_calculations"
+## Takes the Natural Inclination and Situational Awareness Data and returns ":active_weave"
+##
+##INPUT:  ARG_1: ":chosen"
+##
+##OUTPUT: return reg0 (":active_weave")
+("tgs_npc_weave_selection_final_calculations", [
+
+            # get script params
+            (store_script_param_1,":chosen"),    
+
+            ## Get values for ":chosen" Natural Inclination slots ## (loi = Level of Importance)
+            (agent_get_slot, ":ni_freeze_loi", ":chosen", slot_agent_ni_freeze_loi),
+            (agent_get_slot, ":ni_heal_loi", ":chosen", slot_agent_ni_heal_loi),
+            (agent_get_slot, ":ni_fireball_loi", ":chosen", slot_agent_ni_fireball_loi),
+            (agent_get_slot, ":ni_unravel_loi", ":chosen", slot_agent_ni_unravel_loi),
+            (agent_get_slot, ":ni_ranged_earth_blast_loi", ":chosen", slot_agent_ni_ranged_earth_blast_loi),
+            (agent_get_slot, ":ni_bind_loi", ":chosen", slot_agent_ni_bind_loi),
+            (agent_get_slot, ":ni_chain_lightning_loi", ":chosen", slot_agent_ni_chain_lightning_loi),
+            (agent_get_slot, ":ni_shield_loi", ":chosen", slot_agent_ni_shield_loi),
+            (agent_get_slot, ":ni_seeker_loi", ":chosen", slot_agent_ni_seeker_loi),
+            (agent_get_slot, ":ni_compulsion_loi", ":chosen", slot_agent_ni_compulsion_loi),
+            (agent_get_slot, ":ni_balefire_loi", ":chosen", slot_agent_ni_balefire_loi),          
+
+            ## Get values for ":chosen" Situational Awareness slots ## (loi = Level of Importance)
+            (agent_get_slot, ":sa_freeze_loi", ":chosen", slot_agent_sa_freeze_loi),
+            (agent_get_slot, ":sa_heal_loi", ":chosen", slot_agent_sa_heal_loi),
+            (agent_get_slot, ":sa_fireball_loi", ":chosen", slot_agent_sa_fireball_loi),
+            (agent_get_slot, ":sa_unravel_loi", ":chosen", slot_agent_sa_unravel_loi),
+            (agent_get_slot, ":sa_ranged_earth_blast_loi", ":chosen", slot_agent_sa_ranged_earth_blast_loi),
+            (agent_get_slot, ":sa_bind_loi", ":chosen", slot_agent_sa_bind_loi),
+            (agent_get_slot, ":sa_chain_lightning_loi", ":chosen", slot_agent_sa_chain_lightning_loi),
+            (agent_get_slot, ":sa_shield_loi", ":chosen", slot_agent_sa_shield_loi),
+            (agent_get_slot, ":sa_seeker_loi", ":chosen", slot_agent_sa_seeker_loi),
+            (agent_get_slot, ":sa_compulsion_loi", ":chosen", slot_agent_sa_compulsion_loi),
+            (agent_get_slot, ":sa_balefire_loi", ":chosen", slot_agent_sa_balefire_loi),
+
+
+            ## Multiply the above values to get a 'weighted' Level of Importance ##
+            (store_mul, ":final_freeze_loi", ":ni_freeze_loi", ":sa_freeze_loi"),
+            (store_mul, ":final_heal_loi", ":ni_heal_loi", ":sa_heal_loi"),
+            (store_mul, ":final_fireball_loi", ":ni_fireball_loi", ":sa_fireball_loi"),
+            (store_mul, ":final_unravel_loi", ":ni_unravel_loi", ":sa_unravel_loi"),
+            (store_mul, ":final_ranged_earth_blast_loi", ":ni_ranged_earth_blast_loi", ":sa_ranged_earth_blast_loi"),
+            (store_mul, ":final_bind_loi", ":ni_bind_loi", ":sa_bind_loi"),
+            (store_mul, ":final_chain_lightning_loi", ":ni_chain_lightning_loi", ":sa_chain_lightning_loi"),
+            (store_mul, ":final_shield_loi", ":ni_shield_loi", ":sa_shield_loi"),
+            (store_mul, ":final_seeker_loi", ":ni_seeker_loi", ":sa_seeker_loi"),
+            (store_mul, ":final_compulsion_loi", ":ni_compulsion_loi", ":sa_compulsion_loi"),
+            (store_mul, ":final_balefire_loi", ":ni_balefire_loi", ":sa_balefire_loi"),        
+        
+            # find largest value (could be a tie)
+            (assign, ":maximum", 0),            
+            (val_max, ":maximum", ":final_freeze_loi"),
+            (val_max, ":maximum", ":final_heal_loi"),
+            (val_max, ":maximum", ":final_fireball_loi"),
+            (val_max, ":maximum", ":final_unravel_loi"),
+            (val_max, ":maximum", ":final_ranged_earth_blast_loi"),
+            (val_max, ":maximum", ":final_bind_loi"),
+            (val_max, ":maximum", ":final_chain_lightning_loi"),
+            (val_max, ":maximum", ":final_shield_loi"),
+            (val_max, ":maximum", ":final_seeker_loi"),
+            (val_max, ":maximum", ":final_compulsion_loi"),
+            (val_max, ":maximum", ":final_balefire_loi"),        
+
+            # See if there was a tie
+            (assign, ":weave_2", 0),
+            (assign, ":weave_3", 0),
+            (assign, ":weave_4", 0),
+            (assign, ":weave_5", 0),
+            (assign, ":weave_7", 0),
+            (assign, ":weave_8", 0),
+            (assign, ":weave_9", 0),
+            (assign, ":weave_11", 0),
+            (assign, ":weave_12", 0),
+            (assign, ":weave_13", 0),
+            (assign, ":weave_14", 0),
+                
+            (try_begin),
+            (eq, ":maximum", ":final_freeze_loi"),
+                (assign, ":weave_2", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_heal_loi"),
+                (assign, ":weave_3", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_fireball_loi"),
+                (assign, ":weave_4", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_unravel_loi"),
+                (assign, ":weave_5", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_ranged_earth_blast_loi"),
+                (assign, ":weave_7", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_bind_loi"),
+                (assign, ":weave_8", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_chain_lightning_loi"),
+                (assign, ":weave_9", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_shield_loi"),
+                (assign, ":weave_11", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_seeker_loi"),
+                (assign, ":weave_12", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_compulsion_loi"),
+                (assign, ":weave_13", 1),
+            (try_end),
+            (try_begin),
+            (eq, ":maximum", ":final_balefire_loi"),
+                (assign, ":weave_14", 1),
+            (try_end),
+        
+
+            (assign, ":num_maximums_plus_one", 1),
+            (val_add, ":num_maximums_plus_one", ":weave_2"),
+            (val_add, ":num_maximums_plus_one", ":weave_3"),
+            (val_add, ":num_maximums_plus_one", ":weave_4"),
+            (val_add, ":num_maximums_plus_one", ":weave_5"),
+            (val_add, ":num_maximums_plus_one", ":weave_7"),
+            (val_add, ":num_maximums_plus_one", ":weave_8"),
+            (val_add, ":num_maximums_plus_one", ":weave_9"),
+            (val_add, ":num_maximums_plus_one", ":weave_11"),
+            (val_add, ":num_maximums_plus_one", ":weave_12"),
+            (val_add, ":num_maximums_plus_one", ":weave_13"),
+            (val_add, ":num_maximums_plus_one", ":weave_14"),
+        
+            # If ":num_maximums_plus_one" = 2, then no tie, if 3 then a tie, if 4, then a three way tie, and so on.
+            (store_random_in_range, ":choose_this_weave", 1, ":num_maximums_plus_one"),
+
+            (assign, ":weave_assigned", 0),
+            (assign, ":active_weave", 0),
+        
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_2", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 2),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_3", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 3),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_4", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 4),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_5", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 5),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_7", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 7),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_8", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 8),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_9", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 9),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_11", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 11),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_12", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 12),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_13", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 13),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+
+            (try_begin),
+            (eq, ":weave_assigned", 0),
+            (eq, ":weave_14", 1),
+                (try_begin),
+                (eq, ":choose_this_weave", 1),
+                    (assign, ":active_weave", 14),
+                    (assign, ":weave_assigned", 1),
+                (else_try),
+                    (val_sub, ":choose_this_weave", 1),
+                (try_end),
+            (try_end),
+            
+            (assign, reg0, ":active_weave"),
   
 ]),
   
