@@ -166,6 +166,8 @@ slot_agent_ni_balefire_loi              = 160
 
 ## Natural Inclination Weave Slots ## (loi = Level of Importance)
 
+
+
 ### End TGS Slots
     
 ########################################################
@@ -1107,6 +1109,71 @@ slot_troop_npc_companion_primary_weave    = 171  # (0, or the number of one of t
 slot_troop_npc_companion_secondary_weave  = 172  # (0, or the number of one of the ranged/support/advanced weaves)
 slot_troop_npc_companion_known_weaves     = 173  # number of weaves the companion knows. (1 to 11, since short range weaves aren't an option)
 slot_troop_npc_companion_is_channeler     = 174  # (0 if false, 1 if true) Added because I could not look up firearm (channeling) proficiency within the module_item.py file.
+
+slot_troop_num_seekers_active   = 200
+
+slot_troop_seeker_1     = 201
+slot_troop_seeker_2     = 202
+slot_troop_seeker_3     = 203
+slot_troop_seeker_4     = 204
+slot_troop_seeker_5     = 205
+slot_troop_seeker_6     = 206
+slot_troop_seeker_7     = 207
+slot_troop_seeker_8     = 208
+slot_troop_seeker_9     = 209
+slot_troop_seeker_10    = 210
+slot_troop_seeker_11    = 211
+slot_troop_seeker_12    = 212
+slot_troop_seeker_13    = 213
+slot_troop_seeker_14    = 214
+slot_troop_seeker_15    = 215
+slot_troop_seeker_16    = 216
+slot_troop_seeker_17    = 217
+slot_troop_seeker_18    = 218
+slot_troop_seeker_19    = 219
+slot_troop_seeker_20    = 220
+
+slot_troop_seeker_1_target      = 221
+slot_troop_seeker_2_target      = 222
+slot_troop_seeker_3_target      = 223
+slot_troop_seeker_4_target      = 224
+slot_troop_seeker_5_target      = 225
+slot_troop_seeker_6_target      = 226
+slot_troop_seeker_7_target      = 227
+slot_troop_seeker_8_target      = 228
+slot_troop_seeker_9_target      = 229
+slot_troop_seeker_10_target     = 230
+slot_troop_seeker_11_target     = 231
+slot_troop_seeker_12_target     = 232
+slot_troop_seeker_13_target     = 233
+slot_troop_seeker_14_target     = 234
+slot_troop_seeker_15_target     = 235
+slot_troop_seeker_16_target     = 236
+slot_troop_seeker_17_target     = 237
+slot_troop_seeker_18_target     = 238
+slot_troop_seeker_19_target     = 239
+slot_troop_seeker_20_target     = 240
+
+slot_troop_seeker_1_target      = 241
+slot_troop_seeker_2_target      = 242
+slot_troop_seeker_3_target      = 243
+slot_troop_seeker_4_target      = 244
+slot_troop_seeker_5_target      = 245
+slot_troop_seeker_6_target      = 246
+slot_troop_seeker_7_target      = 247
+slot_troop_seeker_8_target      = 248
+slot_troop_seeker_9_target      = 249
+slot_troop_seeker_10_target     = 250
+slot_troop_seeker_11_target     = 251
+slot_troop_seeker_12_target     = 252
+slot_troop_seeker_13_target     = 253
+slot_troop_seeker_14_target     = 254
+slot_troop_seeker_15_target     = 255
+slot_troop_seeker_16_target     = 256
+slot_troop_seeker_17_target     = 257
+slot_troop_seeker_18_target     = 258
+slot_troop_seeker_19_target     = 259
+slot_troop_seeker_20_target     = 260
 
 # end added for TGS
 

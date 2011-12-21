@@ -309,10 +309,11 @@ presentations = [
       (try_for_range, ":cur_banner_mesh", tgs_banner_meshes_begin, tgs_banner_meshes_end),
       ## TGS: mat: End
         (assign, ":already_used", 0),
-        (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
-          (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
-          (assign, ":already_used", 1),
-        (try_end),
+        #(try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
+        #  (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
+        #  (assign, ":already_used", 1),
+        #(try_end),
+      ## TGS: mat: DEBUG End
         (eq, ":already_used", 0),
         (val_add, ":num_valid_banners", 1),
         (gt, ":num_valid_banners", ":starting_banner"),
@@ -354,10 +355,11 @@ presentations = [
         (try_for_range, ":cur_banner_mesh", tgs_banner_meshes_begin, ":end_cond"),
       ## TGS: mat: End
           (assign, ":already_used", 0),
-          (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
-            (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
-            (assign, ":already_used", 1),
-          (try_end),
+          #(try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
+          #  (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
+          #  (assign, ":already_used", 1),
+          #(try_end),
+      ## TGS: mat: DEBUG End
           (eq, ":already_used", 0),
           (try_begin),
             (eq, ":selected_banner", ":num_valid_banners"),
@@ -7568,8 +7570,8 @@ presentations = [
         ## TGS: mat: Modified for TGS banners
         (assign, ":try_end", tgs_banner_meshes_end),
         ## TGS: mat: End
-        (store_sub, ":num_npc_kingdoms", npc_kingdoms_end, npc_kingdoms_begin),
-        (val_sub, ":try_end", ":num_npc_kingdoms"), #do not allow kingdom banners to be selected
+        #(store_sub, ":num_npc_kingdoms", npc_kingdoms_end, npc_kingdoms_begin),
+        #(val_sub, ":try_end", ":num_npc_kingdoms"), #do not allow kingdom banners to be selected
         (store_mul, ":begin_mesh", 16, "$g_presentation_page_no"),
         ## TGS: mat: Modified for TGS banners
         (val_add, ":begin_mesh", tgs_banner_meshes_begin),

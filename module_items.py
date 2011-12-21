@@ -1254,8 +1254,6 @@ items = [
  ["power_player","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(255)|weapon_length(65),imodbits_none,
   [(ti_on_weapon_attack, [
 
-#                    (get_player_agent_no,":player_agent"),
-
             (assign,":distance",99999),
                          
             (try_for_agents,":agent"),
@@ -1269,27 +1267,15 @@ items = [
                 (assign,":distance",":dist"),
             (try_end),
 
-
-
 ## Run the channeling code only if the channeling agent is not shielded
             (agent_get_slot, ":agent_is_shielded", ":chosen", slot_agent_is_shielded),
 
             (try_begin),
             (eq, ":agent_is_shielded", 0),
-            
-#                (agent_get_troop_id,":chosen_troop",":chosen"),
-#                (try_begin),
-#                (eq, ":chosen_troop", "trp_player"),
-                    (call_script, "script_tgs_select_weave",":chosen"),
-#                (else_try),
-                # TODO: NPC code
-#                (try_end),
-
-            #(try_end), ## TGS: mat: I think you don't want this statement
-
+                (call_script, "script_tgs_select_weave",":chosen"),
 ######################################### Run the "Shield Breaker" code if the channeler is shielded...
             (else_try),
-                      (call_script,"script_tgs_break_shield",":chosen"),
+                (call_script,"script_tgs_break_shield",":chosen"),
             (try_end),
 
 #   Player specific code
@@ -1302,7 +1288,6 @@ items = [
                 (try_end),
                 (val_add, "$g_channeling_proficiency_modifier", 5),
             (try_end),
-
 
                          ],),
     ]],

@@ -2922,6 +2922,7 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (agent_is_alive, ":agent"),
              
                  (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
+                 (agent_set_slot, ":agent", slot_agent_seeker_shooter, -1),
              
                  (agent_set_slot, ":agent", slot_agent_on_fire, 0),
                  (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
@@ -2983,26 +2984,35 @@ common_wot_initialize_channeling_weave_variables_1 = (
              (assign, "$g_seeker_slot_19", 0),
              (assign, "$g_seeker_slot_20", 0),
              
-             (assign, "$g_seeker_slot_1_target", 0),
-             (assign, "$g_seeker_slot_2_target", 0),
-             (assign, "$g_seeker_slot_3_target", 0),
-             (assign, "$g_seeker_slot_4_target", 0),
-             (assign, "$g_seeker_slot_5_target", 0),
-             (assign, "$g_seeker_slot_6_target", 0),
-             (assign, "$g_seeker_slot_7_target", 0),
-             (assign, "$g_seeker_slot_8_target", 0),
-             (assign, "$g_seeker_slot_9_target", 0),
-             (assign, "$g_seeker_slot_10_target", 0),
-             (assign, "$g_seeker_slot_11_target", 0),
-             (assign, "$g_seeker_slot_12_target", 0),
-             (assign, "$g_seeker_slot_13_target", 0),
-             (assign, "$g_seeker_slot_14_target", 0),
-             (assign, "$g_seeker_slot_15_target", 0),
-             (assign, "$g_seeker_slot_16_target", 0),
-             (assign, "$g_seeker_slot_17_target", 0),
-             (assign, "$g_seeker_slot_18_target", 0),
-             (assign, "$g_seeker_slot_19_target", 0),
-             (assign, "$g_seeker_slot_20_target", 0),
+             (assign, "$g_seeker_slot_1_target", -1),
+             (assign, "$g_seeker_slot_2_target", -1),
+             (assign, "$g_seeker_slot_3_target", -1),
+             (assign, "$g_seeker_slot_4_target", -1),
+             (assign, "$g_seeker_slot_5_target", -1),
+             (assign, "$g_seeker_slot_6_target", -1),
+             (assign, "$g_seeker_slot_7_target", -1),
+             (assign, "$g_seeker_slot_8_target", -1),
+             (assign, "$g_seeker_slot_9_target", -1),
+             (assign, "$g_seeker_slot_10_target", -1),
+             (assign, "$g_seeker_slot_11_target", -1),
+             (assign, "$g_seeker_slot_12_target", -1),
+             (assign, "$g_seeker_slot_13_target", -1),
+             (assign, "$g_seeker_slot_14_target", -1),
+             (assign, "$g_seeker_slot_15_target", -1),
+             (assign, "$g_seeker_slot_16_target", -1),
+             (assign, "$g_seeker_slot_17_target", -1),
+             (assign, "$g_seeker_slot_18_target", -1),
+             (assign, "$g_seeker_slot_19_target", -1),
+             (assign, "$g_seeker_slot_20_target", -1),
+             
+             # set slots for num seekers active and individual seeker status to zero
+             (try_for_range, ":i", 200, 221),
+                 (troop_set_slot, "trp_player", ":i", 0),
+             (try_end),
+             # set seeker target slots to -1
+             (try_for_range, ":i", 221, 241),
+                 (troop_set_slot, "trp_player", ":i", 1),
+             (try_end),
 
              # determine number of weaves known based off channeling (firearms) proficiency
              (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),
@@ -3085,6 +3095,7 @@ common_wot_initialize_channeling_weave_variables_2 = (
                  (agent_is_alive, ":agent"),
              
                  (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
+                 (agent_set_slot, ":agent", slot_agent_seeker_shooter, -1),
              
                  (agent_set_slot, ":agent", slot_agent_on_fire, 0),
                  (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
@@ -3146,26 +3157,26 @@ common_wot_initialize_channeling_weave_variables_2 = (
              (assign, "$g_seeker_slot_19", 0),
              (assign, "$g_seeker_slot_20", 0),
              
-             (assign, "$g_seeker_slot_1_target", 0),
-             (assign, "$g_seeker_slot_2_target", 0),
-             (assign, "$g_seeker_slot_3_target", 0),
-             (assign, "$g_seeker_slot_4_target", 0),
-             (assign, "$g_seeker_slot_5_target", 0),
-             (assign, "$g_seeker_slot_6_target", 0),
-             (assign, "$g_seeker_slot_7_target", 0),
-             (assign, "$g_seeker_slot_8_target", 0),
-             (assign, "$g_seeker_slot_9_target", 0),
-             (assign, "$g_seeker_slot_10_target", 0),
-             (assign, "$g_seeker_slot_11_target", 0),
-             (assign, "$g_seeker_slot_12_target", 0),
-             (assign, "$g_seeker_slot_13_target", 0),
-             (assign, "$g_seeker_slot_14_target", 0),
-             (assign, "$g_seeker_slot_15_target", 0),
-             (assign, "$g_seeker_slot_16_target", 0),
-             (assign, "$g_seeker_slot_17_target", 0),
-             (assign, "$g_seeker_slot_18_target", 0),
-             (assign, "$g_seeker_slot_19_target", 0),
-             (assign, "$g_seeker_slot_20_target", 0),
+             (assign, "$g_seeker_slot_1_target", -1),
+             (assign, "$g_seeker_slot_2_target", -1),
+             (assign, "$g_seeker_slot_3_target", -1),
+             (assign, "$g_seeker_slot_4_target", -1),
+             (assign, "$g_seeker_slot_5_target", -1),
+             (assign, "$g_seeker_slot_6_target", -1),
+             (assign, "$g_seeker_slot_7_target", -1),
+             (assign, "$g_seeker_slot_8_target", -1),
+             (assign, "$g_seeker_slot_9_target", -1),
+             (assign, "$g_seeker_slot_10_target", -1),
+             (assign, "$g_seeker_slot_11_target", -1),
+             (assign, "$g_seeker_slot_12_target", -1),
+             (assign, "$g_seeker_slot_13_target", -1),
+             (assign, "$g_seeker_slot_14_target", -1),
+             (assign, "$g_seeker_slot_15_target", -1),
+             (assign, "$g_seeker_slot_16_target", -1),
+             (assign, "$g_seeker_slot_17_target", -1),
+             (assign, "$g_seeker_slot_18_target", -1),
+             (assign, "$g_seeker_slot_19_target", -1),
+             (assign, "$g_seeker_slot_20_target", -1),
 
              # determine number of weaves known based off channeling (firearms) proficiency
 
@@ -3264,6 +3275,7 @@ common_wot_initialize_channeling_weave_variables_multi = (
                      (agent_is_alive, ":agent"),
                  
                      (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
+                     (agent_set_slot, ":agent", slot_agent_seeker_shooter, -1),
                  
                      (agent_set_slot, ":agent", slot_agent_on_fire, 0),
                      (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
@@ -3324,26 +3336,26 @@ common_wot_initialize_channeling_weave_variables_multi = (
                  (assign, "$g_seeker_slot_19", 0),
                  (assign, "$g_seeker_slot_20", 0),
                  
-                 (assign, "$g_seeker_slot_1_target", 0),
-                 (assign, "$g_seeker_slot_2_target", 0),
-                 (assign, "$g_seeker_slot_3_target", 0),
-                 (assign, "$g_seeker_slot_4_target", 0),
-                 (assign, "$g_seeker_slot_5_target", 0),
-                 (assign, "$g_seeker_slot_6_target", 0),
-                 (assign, "$g_seeker_slot_7_target", 0),
-                 (assign, "$g_seeker_slot_8_target", 0),
-                 (assign, "$g_seeker_slot_9_target", 0),
-                 (assign, "$g_seeker_slot_10_target", 0),
-                 (assign, "$g_seeker_slot_11_target", 0),
-                 (assign, "$g_seeker_slot_12_target", 0),
-                 (assign, "$g_seeker_slot_13_target", 0),
-                 (assign, "$g_seeker_slot_14_target", 0),
-                 (assign, "$g_seeker_slot_15_target", 0),
-                 (assign, "$g_seeker_slot_16_target", 0),
-                 (assign, "$g_seeker_slot_17_target", 0),
-                 (assign, "$g_seeker_slot_18_target", 0),
-                 (assign, "$g_seeker_slot_19_target", 0),
-                 (assign, "$g_seeker_slot_20_target", 0),
+                 (assign, "$g_seeker_slot_1_target", -1),
+                 (assign, "$g_seeker_slot_2_target", -1),
+                 (assign, "$g_seeker_slot_3_target", -1),
+                 (assign, "$g_seeker_slot_4_target", -1),
+                 (assign, "$g_seeker_slot_5_target", -1),
+                 (assign, "$g_seeker_slot_6_target", -1),
+                 (assign, "$g_seeker_slot_7_target", -1),
+                 (assign, "$g_seeker_slot_8_target", -1),
+                 (assign, "$g_seeker_slot_9_target", -1),
+                 (assign, "$g_seeker_slot_10_target", -1),
+                 (assign, "$g_seeker_slot_11_target", -1),
+                 (assign, "$g_seeker_slot_12_target", -1),
+                 (assign, "$g_seeker_slot_13_target", -1),
+                 (assign, "$g_seeker_slot_14_target", -1),
+                 (assign, "$g_seeker_slot_15_target", -1),
+                 (assign, "$g_seeker_slot_16_target", -1),
+                 (assign, "$g_seeker_slot_17_target", -1),
+                 (assign, "$g_seeker_slot_18_target", -1),
+                 (assign, "$g_seeker_slot_19_target", -1),
+                 (assign, "$g_seeker_slot_20_target", -1),
 
              (try_end), # end of server only initialization
              
@@ -7147,1786 +7159,90 @@ common_wot_burn_over_time_trigger_multi = (
 
 ## Seeker weave triggers ## normal gameplay
 
+## TEST ##
+
 #Seeker 1
 common_wot_seeker_trigger_1 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_1", 1),
-        ],
-	[
-            
-	(try_begin),
-	(eq, "$g_seeker_slot_1", 1),
-	(agent_is_alive, "$g_seeker_slot_1_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_1_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_1, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_1)])
 
-	    (position_get_x, ":current_x", pos31),
-	    (position_get_y, ":current_y", pos31),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_1_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos31, ":current_x"),
-	    (position_set_y, pos31, ":current_y"),
-	    (position_set_z_to_ground_level, pos31),
-            (position_get_z, ":z_temp", pos31),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos31, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_1_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_1_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_1_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos31 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_1", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos31 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_1", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 2
 common_wot_seeker_trigger_2 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_2", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_2", 1),
-	(agent_is_alive, "$g_seeker_slot_2_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_2_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_2, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_2)])
 
-	    (position_get_x, ":current_x", pos32),
-	    (position_get_y, ":current_y", pos32),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_2_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos32, ":current_x"),
-	    (position_set_y, pos32, ":current_y"),
-	    (position_set_z_to_ground_level, pos32),
-            (position_get_z, ":z_temp", pos32),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos32, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_2_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_2_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_2_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos32 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_2", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos32 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_2", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 3
 common_wot_seeker_trigger_3 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_3", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_3", 1),
-	(agent_is_alive, "$g_seeker_slot_3_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_3_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_3, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_3)])
 
-	    (position_get_x, ":current_x", pos33),
-	    (position_get_y, ":current_y", pos33),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_3_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos33, ":current_x"),
-	    (position_set_y, pos33, ":current_y"),
-	    (position_set_z_to_ground_level, pos33),
-            (position_get_z, ":z_temp", pos33),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos33, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_3_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_3_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_3_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos33 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_3", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos33 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_3", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 4
 common_wot_seeker_trigger_4 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_4", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_4", 1),
-	(agent_is_alive, "$g_seeker_slot_4_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_4_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_4, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_4)])
 
-	    (position_get_x, ":current_x", pos34),
-	    (position_get_y, ":current_y", pos34),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_4_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos34, ":current_x"),
-	    (position_set_y, pos34, ":current_y"),
-	    (position_set_z_to_ground_level, pos34),
-            (position_get_z, ":z_temp", pos34),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos34, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_4_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_4_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_4_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos34 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_4", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos34 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_4", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 5
 common_wot_seeker_trigger_5 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_5", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_5", 1),
-	(agent_is_alive, "$g_seeker_slot_5_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_5_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_5, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_5)])
 
-	    (position_get_x, ":current_x", pos35),
-	    (position_get_y, ":current_y", pos35),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_5_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos35, ":current_x"),
-	    (position_set_y, pos35, ":current_y"),
-	    (position_set_z_to_ground_level, pos35),
-            (position_get_z, ":z_temp", pos35),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos35, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_5_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_5_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_5_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos35 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_5", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos35 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_5", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 6
 common_wot_seeker_trigger_6 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_6", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_6", 1),
-	(agent_is_alive, "$g_seeker_slot_6_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_6_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_6, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_6)])
 
-	    (position_get_x, ":current_x", pos36),
-	    (position_get_y, ":current_y", pos36),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_6_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos36, ":current_x"),
-	    (position_set_y, pos36, ":current_y"),
-	    (position_set_z_to_ground_level, pos36),
-            (position_get_z, ":z_temp", pos36),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos36, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_6_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_6_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_6_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos36 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_6", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos36 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_6", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 7
 common_wot_seeker_trigger_7 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_7", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_7", 1),
-	(agent_is_alive, "$g_seeker_slot_7_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_7_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_7, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_7)])
 
-	    (position_get_x, ":current_x", pos37),
-	    (position_get_y, ":current_y", pos37),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_7_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos37, ":current_x"),
-	    (position_set_y, pos37, ":current_y"),
-	    (position_set_z_to_ground_level, pos37),
-            (position_get_z, ":z_temp", pos37),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos37, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_7_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_7_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_7_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos37 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_7", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos37 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_7", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 8
 common_wot_seeker_trigger_8 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_8", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_8", 1),
-	(agent_is_alive, "$g_seeker_slot_8_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_8_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_8, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_8)])
 
-	    (position_get_x, ":current_x", pos38),
-	    (position_get_y, ":current_y", pos38),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_8_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos38, ":current_x"),
-	    (position_set_y, pos38, ":current_y"),
-	    (position_set_z_to_ground_level, pos38),
-            (position_get_z, ":z_temp", pos38),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos38, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_8_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_8_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_8_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos38 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_8", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos38 ,1),
-	    (try_end),
-
-        (else_try),
-	    (assign, "$g_seeker_slot_8", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 9
 common_wot_seeker_trigger_9 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_9", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_9", 1),
-	(agent_is_alive, "$g_seeker_slot_9_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_9_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_9, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_9)])
 
-	    (position_get_x, ":current_x", pos39),
-	    (position_get_y, ":current_y", pos39),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_9_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos39, ":current_x"),
-	    (position_set_y, pos39, ":current_y"),
-	    (position_set_z_to_ground_level, pos39),
-            (position_get_z, ":z_temp", pos39),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos39, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_9_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_9_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_9_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos39 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_9", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos39 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_9", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 10
 common_wot_seeker_trigger_10 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_10", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_10", 1),
-	(agent_is_alive, "$g_seeker_slot_10_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_10_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_10, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_10)])
 
-	    (position_get_x, ":current_x", pos40),
-	    (position_get_y, ":current_y", pos40),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_10_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos40, ":current_x"),
-	    (position_set_y, pos40, ":current_y"),
-	    (position_set_z_to_ground_level, pos40),
-            (position_get_z, ":z_temp", pos40),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos40, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_10_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_10_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_10_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos40 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_10", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos40 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_10", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 11
 common_wot_seeker_trigger_11 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_11", 1),
-        ],
-	[
-            
-	(try_begin),
-	(eq, "$g_seeker_slot_11", 1),
-	(agent_is_alive, "$g_seeker_slot_11_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_11_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_11, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_11)])
 
-	    (position_get_x, ":current_x", pos41),
-	    (position_get_y, ":current_y", pos41),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_11_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos41, ":current_x"),
-	    (position_set_y, pos41, ":current_y"),
-	    (position_set_z_to_ground_level, pos41),
-            (position_get_z, ":z_temp", pos41),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos41, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_11_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_11_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_11_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos41 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_11", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos41 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_11", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 12
 common_wot_seeker_trigger_12 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_12", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_12", 1),
-	(agent_is_alive, "$g_seeker_slot_12_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_12_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_12, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_12)])
 
-	    (position_get_x, ":current_x", pos42),
-	    (position_get_y, ":current_y", pos42),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_12_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos42, ":current_x"),
-	    (position_set_y, pos42, ":current_y"),
-	    (position_set_z_to_ground_level, pos42),
-            (position_get_z, ":z_temp", pos42),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos42, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_12_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_12_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_12_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos42 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_12", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos42 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_12", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 13
 common_wot_seeker_trigger_13 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_13", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_13", 1),
-	(agent_is_alive, "$g_seeker_slot_13_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_13_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_13, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_13)])
 
-	    (position_get_x, ":current_x", pos43),
-	    (position_get_y, ":current_y", pos43),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_13_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos43, ":current_x"),
-	    (position_set_y, pos43, ":current_y"),
-	    (position_set_z_to_ground_level, pos43),
-            (position_get_z, ":z_temp", pos43),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos43, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_13_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_13_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_13_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos43 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_13", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos43 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_13", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 14
 common_wot_seeker_trigger_14 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_14", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_14", 1),
-	(agent_is_alive, "$g_seeker_slot_14_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_14_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_14, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_14)])
 
-	    (position_get_x, ":current_x", pos44),
-	    (position_get_y, ":current_y", pos44),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_14_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos44, ":current_x"),
-	    (position_set_y, pos44, ":current_y"),
-	    (position_set_z_to_ground_level, pos44),
-            (position_get_z, ":z_temp", pos44),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos44, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_14_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_14_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_14_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos44 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_14", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos44 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_14", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 15
 common_wot_seeker_trigger_15 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_15", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_15", 1),
-	(agent_is_alive, "$g_seeker_slot_15_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_15_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_15, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_15)])
 
-	    (position_get_x, ":current_x", pos45),
-	    (position_get_y, ":current_y", pos45),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_15_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos45, ":current_x"),
-	    (position_set_y, pos45, ":current_y"),
-	    (position_set_z_to_ground_level, pos45),
-            (position_get_z, ":z_temp", pos45),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos45, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_15_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_15_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_15_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos45 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_15", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos45 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_15", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 16
 common_wot_seeker_trigger_16 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_16", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_16", 1),
-	(agent_is_alive, "$g_seeker_slot_16_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_16_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_16, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_16)])
 
-	    (position_get_x, ":current_x", pos46),
-	    (position_get_y, ":current_y", pos46),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_16_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos46, ":current_x"),
-	    (position_set_y, pos46, ":current_y"),
-	    (position_set_z_to_ground_level, pos46),
-            (position_get_z, ":z_temp", pos46),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos46, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_16_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_16_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_16_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos46 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_16", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos46 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_16", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 17
 common_wot_seeker_trigger_17 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_17", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_17", 1),
-	(agent_is_alive, "$g_seeker_slot_17_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_17_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_17, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_17)])
 
-	    (position_get_x, ":current_x", pos47),
-	    (position_get_y, ":current_y", pos47),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_17_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos47, ":current_x"),
-	    (position_set_y, pos47, ":current_y"),
-	    (position_set_z_to_ground_level, pos47),
-            (position_get_z, ":z_temp", pos47),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos47, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_17_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_17_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_17_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos47 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_17", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos47 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_17", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 18
 common_wot_seeker_trigger_18 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_18", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_18", 1),
-	(agent_is_alive, "$g_seeker_slot_18_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_18_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_18, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_18)])
 
-	    (position_get_x, ":current_x", pos48),
-	    (position_get_y, ":current_y", pos48),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_18_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos48, ":current_x"),
-	    (position_set_y, pos48, ":current_y"),
-	    (position_set_z_to_ground_level, pos48),
-            (position_get_z, ":z_temp", pos48),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos48, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_18_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_18_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_18_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos48 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_18", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos48 ,1),
-	    (try_end),
-
-        (else_try),
-	    (assign, "$g_seeker_slot_18", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
-
-#Seeker 19
 common_wot_seeker_trigger_19 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_19", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_19", 1),
-	(agent_is_alive, "$g_seeker_slot_19_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_19_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_19, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_19)])
 
-	    (position_get_x, ":current_x", pos49),
-	    (position_get_y, ":current_y", pos49),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_19_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos49, ":current_x"),
-	    (position_set_y, pos49, ":current_y"),
-	    (position_set_z_to_ground_level, pos49),
-            (position_get_z, ":z_temp", pos49),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos49, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_19_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_19_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_19_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos49 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_19", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos49 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_19", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-
-	])
-
-#Seeker 20
 common_wot_seeker_trigger_20 = (
-    0, 0, 0.00025,
-    [
-        (eq, "$g_seeker_slot_20", 1),
-        ],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_20", 1),
-	(agent_is_alive, "$g_seeker_slot_20_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_20_target"),
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_20, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_20)])
 
-	    (position_get_x, ":current_x", pos50),
-	    (position_get_y, ":current_y", pos50),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_20_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos50, ":current_x"),
-	    (position_set_y, pos50, ":current_y"),
-	    (position_set_z_to_ground_level, pos50),
-            (position_get_z, ":z_temp", pos50),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos50, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_20_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_20_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_20_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos50 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_20", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos50 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_20", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	])
+## TEST ##
 
 
 ## Seeker weave triggers ## multiplayer gameplay

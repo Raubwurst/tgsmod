@@ -1454,7 +1454,7 @@ game_menus = [
 	(jump_to_menu,"mnu_start_character_4"),
         ]),
       ("active_wilder",[(eq, "$background_answer_2", cb_childhood_wilder)],"An active Wilder.",[
-        (assign,"$background_answer_3",cb_young_adulthood_accepted),
+        (assign,"$background_answer_3",cb_young_adulthood_active_wilder),
       (str_store_string,s14,"@{reg3?daughter:man}"),
       (str_store_string,s13,"@{reg3?woman:man}"),
       (str_store_string,s12,"@You knew you could channel, but you did everything\
@@ -1740,7 +1740,7 @@ game_menus = [
              (eq,"$character_gender",0),
              (troop_raise_attribute, "trp_player",ca_strength,1),
              (troop_raise_attribute, "trp_player",ca_charisma,1),
-             (troop_add_item, "trp_player","itm_shirt",imod_battered),
+             (troop_add_item, "trp_player","itm_coarse_tunic",imod_battered),
            (else_try),
              (troop_raise_attribute, "trp_player",ca_agility,1),
              (troop_raise_attribute, "trp_player",ca_intelligence,1),
