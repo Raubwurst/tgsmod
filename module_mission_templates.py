@@ -2921,9 +2921,6 @@ common_wot_initialize_channeling_weave_variables_1 = (
 #                 (agent_is_human, ":agent"),
                  (agent_is_alive, ":agent"),
              
-                 (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
-                 (agent_set_slot, ":agent", slot_agent_seeker_shooter, -1),
-             
                  (agent_set_slot, ":agent", slot_agent_on_fire, 0),
                  (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
              
@@ -2958,62 +2955,23 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
                  (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
              (try_end),
-
-             
-             # seeker variables
-             (assign, "$g_number_seekers_active", 0),
-             
-             (assign, "$g_seeker_slot_1", 0),
-             (assign, "$g_seeker_slot_2", 0),
-             (assign, "$g_seeker_slot_3", 0),
-             (assign, "$g_seeker_slot_4", 0),
-             (assign, "$g_seeker_slot_5", 0),
-             (assign, "$g_seeker_slot_6", 0),
-             (assign, "$g_seeker_slot_7", 0),
-             (assign, "$g_seeker_slot_8", 0),
-             (assign, "$g_seeker_slot_9", 0),
-             (assign, "$g_seeker_slot_10", 0),
-             (assign, "$g_seeker_slot_11", 0),
-             (assign, "$g_seeker_slot_12", 0),
-             (assign, "$g_seeker_slot_13", 0),
-             (assign, "$g_seeker_slot_14", 0),
-             (assign, "$g_seeker_slot_15", 0),
-             (assign, "$g_seeker_slot_16", 0),
-             (assign, "$g_seeker_slot_17", 0),
-             (assign, "$g_seeker_slot_18", 0),
-             (assign, "$g_seeker_slot_19", 0),
-             (assign, "$g_seeker_slot_20", 0),
-             
-             (assign, "$g_seeker_slot_1_target", -1),
-             (assign, "$g_seeker_slot_2_target", -1),
-             (assign, "$g_seeker_slot_3_target", -1),
-             (assign, "$g_seeker_slot_4_target", -1),
-             (assign, "$g_seeker_slot_5_target", -1),
-             (assign, "$g_seeker_slot_6_target", -1),
-             (assign, "$g_seeker_slot_7_target", -1),
-             (assign, "$g_seeker_slot_8_target", -1),
-             (assign, "$g_seeker_slot_9_target", -1),
-             (assign, "$g_seeker_slot_10_target", -1),
-             (assign, "$g_seeker_slot_11_target", -1),
-             (assign, "$g_seeker_slot_12_target", -1),
-             (assign, "$g_seeker_slot_13_target", -1),
-             (assign, "$g_seeker_slot_14_target", -1),
-             (assign, "$g_seeker_slot_15_target", -1),
-             (assign, "$g_seeker_slot_16_target", -1),
-             (assign, "$g_seeker_slot_17_target", -1),
-             (assign, "$g_seeker_slot_18_target", -1),
-             (assign, "$g_seeker_slot_19_target", -1),
-             (assign, "$g_seeker_slot_20_target", -1),
              
              # set slots for num seekers active and individual seeker status to zero
-             (try_for_range, ":i", 200, 221),
-                 (troop_set_slot, "trp_player", ":i", 0),
+             (troop_set_slot, "trp_player", slot_troop_num_seekers_active, 0),
+             
+             (try_for_range, ":seeker_no", 200, 221),
+                 (troop_set_slot, "trp_player", ":seeker_no", 0),
              (try_end),
-             # set seeker target slots to -1
-             (try_for_range, ":i", 221, 241),
-                 (troop_set_slot, "trp_player", ":i", 1),
+             
+             # set seeker target and seeker shooter slots to -1
+             (try_for_range, ":target_no", 221, 241),
+                 (troop_set_slot, "trp_player", ":target_no", -1),
              (try_end),
 
+             (try_for_range, ":shooter_no", 241, 261),
+                 (troop_set_slot, "trp_player", ":shooter_no", -1),
+             (try_end),             
+             
              # determine number of weaves known based off channeling (firearms) proficiency
              (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),
                 

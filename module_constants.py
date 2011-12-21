@@ -134,37 +134,77 @@ slot_agent_draghkar_kiss_by       = 62    ## ID of Draghkar that kissed agent
 
 slot_agent_bound_duration         = 63    ## How long will the agent be bound (Counts from 10 to 0)
 
-## Situational Awareness Weave Slots ## (loi = Level of Importance)
-
-slot_agent_sa_freeze_loi                = 100
-slot_agent_sa_heal_loi                  = 101
-slot_agent_sa_fireball_loi              = 102
-slot_agent_sa_unravel_loi               = 103
-slot_agent_sa_ranged_earth_blast_loi    = 104
-slot_agent_sa_bind_loi                  = 105
-slot_agent_sa_chain_lightning_loi       = 106
-slot_agent_sa_shield_loi                = 107
-slot_agent_sa_seeker_loi                = 108
-slot_agent_sa_compulsion_loi            = 109
-slot_agent_sa_balefire_loi              = 110
-
-## Situational Awareness Weave Slots ## (loi = Level of Importance)
 
 ## Natural Inclination Weave Slots ## (loi = Level of Importance)
-
-slot_agent_ni_freeze_loi                = 150
-slot_agent_ni_heal_loi                  = 151
-slot_agent_ni_fireball_loi              = 152
-slot_agent_ni_unravel_loi               = 153
-slot_agent_ni_ranged_earth_blast_loi    = 154
-slot_agent_ni_bind_loi                  = 155
-slot_agent_ni_chain_lightning_loi       = 156
-slot_agent_ni_shield_loi                = 157
-slot_agent_ni_seeker_loi                = 158
-slot_agent_ni_compulsion_loi            = 159
-slot_agent_ni_balefire_loi              = 160
-
+slot_agent_ni_air_blast_loi             = 101
+slot_agent_ni_freeze_loi                = 102
+slot_agent_ni_heal_loi                  = 103
+slot_agent_ni_fireball_loi              = 104
+slot_agent_ni_unravel_loi               = 105
+slot_agent_ni_defensive_blast_loi       = 106
+slot_agent_ni_ranged_earth_blast_loi    = 107
+slot_agent_ni_bind_loi                  = 108
+slot_agent_ni_chain_lightning_loi       = 109
+slot_agent_ni_fire_curtain_loi          = 110
+slot_agent_ni_shield_loi                = 111
+slot_agent_ni_seeker_loi                = 112
+slot_agent_ni_compulsion_loi            = 113
+slot_agent_ni_balefire_loi              = 114
 ## Natural Inclination Weave Slots ## (loi = Level of Importance)
+
+
+## Situational Awareness Weave Slots ## (loi = Level of Importance)
+slot_agent_sa_air_blast_loi             = 151
+slot_agent_sa_freeze_loi                = 152
+slot_agent_sa_heal_loi                  = 153
+slot_agent_sa_fireball_loi              = 154
+slot_agent_sa_unravel_loi               = 155
+slot_agent_sa_defensive_blast_loi       = 156
+slot_agent_sa_ranged_earth_blast_loi    = 157
+slot_agent_sa_bind_loi                  = 158
+slot_agent_sa_chain_lightning_loi       = 159
+slot_agent_sa_fire_curtain_loi          = 160
+slot_agent_sa_shield_loi                = 161
+slot_agent_sa_seeker_loi                = 162
+slot_agent_sa_compulsion_loi            = 163
+slot_agent_sa_balefire_loi              = 164
+## Situational Awareness Weave Slots ## (loi = Level of Importance)
+
+
+## Final Calculation Weave Slots ## (loi = Level of Importance)
+slot_agent_fc_air_blast_loi             = 201
+slot_agent_fc_freeze_loi                = 202
+slot_agent_fc_heal_loi                  = 203
+slot_agent_fc_fireball_loi              = 204
+slot_agent_fc_unravel_loi               = 205
+slot_agent_fc_defensive_blast_loi       = 206
+slot_agent_fc_ranged_earth_blast_loi    = 207
+slot_agent_fc_bind_loi                  = 208
+slot_agent_fc_chain_lightning_loi       = 209
+slot_agent_fc_fire_curtain_loi          = 210
+slot_agent_fc_shield_loi                = 211
+slot_agent_fc_seeker_loi                = 212
+slot_agent_fc_compulsion_loi            = 213
+slot_agent_fc_balefire_loi              = 214
+## Final Calculation Weave Slots ## (loi = Level of Importance)
+
+
+## Final Calculation Weave Slots ## (Tie Check)
+slot_agent_npc_ai_tie_check_weave_1     = 251
+slot_agent_npc_ai_tie_check_weave_2     = 252
+slot_agent_npc_ai_tie_check_weave_3     = 253
+slot_agent_npc_ai_tie_check_weave_4     = 254
+slot_agent_npc_ai_tie_check_weave_5     = 255
+slot_agent_npc_ai_tie_check_weave_6     = 256
+slot_agent_npc_ai_tie_check_weave_7     = 257
+slot_agent_npc_ai_tie_check_weave_8     = 258
+slot_agent_npc_ai_tie_check_weave_9     = 259
+slot_agent_npc_ai_tie_check_weave_10    = 260
+slot_agent_npc_ai_tie_check_weave_11    = 261
+slot_agent_npc_ai_tie_check_weave_12    = 262
+slot_agent_npc_ai_tie_check_weave_13    = 263
+slot_agent_npc_ai_tie_check_weave_14    = 264
+## Final Calculation Weave Slots ## (Tie Check)
 
 
 
@@ -1154,26 +1194,26 @@ slot_troop_seeker_18_target     = 238
 slot_troop_seeker_19_target     = 239
 slot_troop_seeker_20_target     = 240
 
-slot_troop_seeker_1_target      = 241
-slot_troop_seeker_2_target      = 242
-slot_troop_seeker_3_target      = 243
-slot_troop_seeker_4_target      = 244
-slot_troop_seeker_5_target      = 245
-slot_troop_seeker_6_target      = 246
-slot_troop_seeker_7_target      = 247
-slot_troop_seeker_8_target      = 248
-slot_troop_seeker_9_target      = 249
-slot_troop_seeker_10_target     = 250
-slot_troop_seeker_11_target     = 251
-slot_troop_seeker_12_target     = 252
-slot_troop_seeker_13_target     = 253
-slot_troop_seeker_14_target     = 254
-slot_troop_seeker_15_target     = 255
-slot_troop_seeker_16_target     = 256
-slot_troop_seeker_17_target     = 257
-slot_troop_seeker_18_target     = 258
-slot_troop_seeker_19_target     = 259
-slot_troop_seeker_20_target     = 260
+slot_troop_seeker_1_shooter      = 241
+slot_troop_seeker_2_shooter      = 242
+slot_troop_seeker_3_shooter      = 243
+slot_troop_seeker_4_shooter      = 244
+slot_troop_seeker_5_shooter      = 245
+slot_troop_seeker_6_shooter      = 246
+slot_troop_seeker_7_shooter      = 247
+slot_troop_seeker_8_shooter      = 248
+slot_troop_seeker_9_shooter      = 249
+slot_troop_seeker_10_shooter     = 250
+slot_troop_seeker_11_shooter     = 251
+slot_troop_seeker_12_shooter     = 252
+slot_troop_seeker_13_shooter     = 253
+slot_troop_seeker_14_shooter     = 254
+slot_troop_seeker_15_shooter     = 255
+slot_troop_seeker_16_shooter     = 256
+slot_troop_seeker_17_shooter     = 257
+slot_troop_seeker_18_shooter     = 258
+slot_troop_seeker_19_shooter     = 259
+slot_troop_seeker_20_shooter     = 260
 
 # end added for TGS
 

@@ -5106,6 +5106,7 @@ triggers = [
        (party_set_icon,":cur_party","icon_vaegir_knight"),
    (else_try),
  # added by mat2rivs
+     (party_get_slot, ":party_type", ":cur_party", slot_party_type),
      (this_or_next|eq, ":cur_template", "pt_dplmc_recruiter"),
  # end
      (this_or_next|eq, ":party_type", spt_patrol), # for new town patrols
@@ -5142,9 +5143,6 @@ triggers = [
    (try_end),
  ]),
 
-## a little extra trigger added by mat2rivs to keep track of the terrain type the character was on last.
-    (0.5, 0, 0, [],
-   [(party_get_current_terrain, "$g_player_party_previous_terrain_type", "p_main_party")]),  ## If this is non rt_bridge and they are in rt_bridge, then they can fight in the 'Go Ashore' mode
 
   ## New main map distance measuring trigger (Disabled normally)
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1), #  to enable, remove the second line in the condition

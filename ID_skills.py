@@ -26,7 +26,7 @@ skl_riding = 24
 skl_athletics = 25
 skl_shield = 26
 skl_weapon_master = 27
-skl_reserved_9 = 28
+skl_channeling = 28
 skl_reserved_10 = 29
 skl_reserved_11 = 30
 skl_reserved_12 = 31
@@ -35,10 +35,10 @@ skl_power_draw = 33
 skl_power_throw = 34
 skl_power_strike = 35
 skl_ironflesh = 36
-skl_reserved_14 = 37
-skl_reserved_15 = 38
-skl_reserved_16 = 39
-skl_reserved_17 = 40
-skl_reserved_18 = 41
+skl_air = 37
+skl_fire = 38
+skl_water = 39
+skl_earth = 40
+skl_spirit = 41
 
 
