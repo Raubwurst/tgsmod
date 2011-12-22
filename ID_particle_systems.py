@@ -82,3 +82,5 @@ psys_balefire_strike = 80
 psys_game_blood_black = 81
 psys_game_blood_2_black = 82
 psys_fear_aura = 83
+psys_electricity_sparks_lightning_strike = 84
+psys_storm_cloud = 85

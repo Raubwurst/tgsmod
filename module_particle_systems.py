@@ -1342,6 +1342,34 @@ particle_systems = [
      0.5                        #rotation damping
     ),
 
+    ("electricity_sparks_lightning_strike", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_size,  "prt_sparks_mesh_1",
+     5000, 1.5, 0.2, 0, 3, 10,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
+     (0.5, 0.5), (1, 0),        #alpha keys
+     (0.5, 0.7), (1, 0.2),      #red keys
+     (0.5, 0.7),(1, 0.3),       #green keys
+     (0.5, 1.0), (1, 0.9),      #blue keys
+     (0.0, 0.25),   (1, 0.75),    #scale keys
+     (3, 3, 1),           #emit box size
+     (0.5, 0.5, 0.5),                 #emit velocity
+     0.1,                       #emit dir randomness
+     0,
+     0,
+    ),
+
+    ("storm_cloud", psf_billboard_3d, "prtcl_dust_a",
+     10000, 1.0, 0.6, -0.1, 30.0, 1.5,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
+     (0.0, 0.75), (1, 0.25),       #alpha keys
+     (0.0, 0.7), (1, 0.4),      #red keys
+     (0.0, 0.7),(1, 0.4),       #green keys
+     (0.0, 0.7), (1, 0.4),      #blue keys
+     (0, 6),   (1, 100.0),   #scale keys
+     (10, 10, 1),           #emit box size
+     (7, 7, -0.1),                 #emit velocity
+     1  ,                      #emit dir randomness
+     50,                       #rotation speed
+     0.1,                       #rotation damping
+    ),
+
 
 ### end new effects for TGS
     

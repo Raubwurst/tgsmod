@@ -75659,6 +75659,219 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_weave_chain_lightning", [
+                        (store_script_param_1,":chosen"),
+                        (store_script_param_2,":chosen_horse"),
+                        (store_script_param,":chosen_team",3),
+
+                        (assign, ":times_near_ground", 0),
+                        (assign, ":near_enemy", 0),
+
+                        (try_for_range,reg5,1,250),  ###was 1000
+                        (eq, ":times_near_ground", 0),
+
+                            (agent_get_troop_id, ":chosen_troop", ":chosen"),
+    
+                            #(particle_system_burst, "psys_dust_blast", pos1, 10), ## need balefire trail
+                            (position_move_y,pos1,20), # was 20
+                            (try_begin),
+                            (neq, ":chosen_troop", "trp_player"),
+                                (position_move_x,pos1,2), # was 3
+                            (try_end),
+                            (copy_position,pos2,pos1),
+                            #(particle_system_burst, "psys_dust_blast", pos1, 10), ## need balefire trail
+                            (position_move_y,pos1,20), # was 20
+                            #(particle_system_burst, "psys_dust_blast", pos1, 10), ## need balefire trail
+                            (position_move_y,pos1,20), # was 20
+                            (try_begin),
+                            (neq, ":chosen_troop", "trp_player"),
+                                (store_mod, ":fall", reg5, 5),
+                                (try_begin),
+                                (eq, ":fall", 0),
+                                    (position_move_x,pos1,3), # was 3
+                                (else_try),
+                                    (position_move_x,pos1,2), # was 3
+                                (try_end),
+                            (try_end),
+                            (copy_position,pos3,pos1),
+                            #(particle_system_burst, "psys_dust_blast", pos1, 10), ## need balefire trail
+                            (position_move_y,pos1,20), # was 20
+    
+
+                            #added for gravity effect and flight randomness
+                            #(agent_get_troop_id, ":chosen_troop", ":chosen"),
+                            #(try_begin),
+                            #(neq, ":chosen_troop", "trp_player"),
+                            #    (store_mod, ":fall", reg5, 2),
+                            #    (try_begin),
+                            #    (eq, ":fall", 0),
+                            #        (position_move_x,pos1,3),
+                            #    (try_end),
+                            #(try_end),
+
+                            #(store_mod, ":weave", reg5, 5),
+                            #(try_begin),
+                            #(eq, ":weave", 0),
+                                (store_random_in_range, ":random", -7, 8),
+                                (position_move_z,pos1,":random"),
+                            #(try_end),
+                            #end added for gravity effect and flight randomness
+            
+                            # first position
+                            (position_set_z_to_ground_level, pos2),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+
+                            (position_get_z, ":z_ground", pos2),
+                            (store_add, ":z_ground_low", ":z_ground", 200),
+                            (store_add, ":z_ground_high", ":z_ground", 2000),
+
+                            # second position
+                            (position_set_z_to_ground_level, pos3),
+                            (get_distance_between_positions,":dist_secondary",pos1,pos3),
+
+                            (position_get_z, ":z_ground_secondary", pos3),
+                            (store_add, ":z_ground_low_secondary", ":z_ground_secondary", 200),
+                            (store_add, ":z_ground_high_secondary", ":z_ground_secondary", 2000),  
+
+                            (try_for_agents, ":agent"),
+                            (eq, ":near_enemy", 0),
+                                (neq, ":chosen", ":agent"),
+                                (neq, ":chosen_horse", ":agent"),
+                                (agent_get_team, ":agent_team", ":agent"),
+                                (teams_are_enemies, ":chosen_team", ":agent_team"),
+                                (agent_is_alive, ":agent"),
+                                (neg|agent_is_wounded, ":agent"),
+                                (agent_get_look_position, pos4, ":agent"),
+                                (get_distance_between_positions, ":dist_2", pos2, pos4),
+                                (get_distance_between_positions, ":dist_2_secondary", pos3, pos4),
+                                (position_get_z, ":z_attack_trail", pos1),
+                                (this_or_next|lt, ":dist_2", 55), # was 50
+                                (lt, ":dist_2_secondary", 55), # was 50
+                                (this_or_next|is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # balefire must be within the agent's body (z height)
+                                (is_between, ":z_attack_trail", ":z_ground_low_secondary", ":z_ground_high_secondary"), # balefire must be within the agent's body (z height)
+                                (assign, ":dist", 5),
+                                (assign, ":near_enemy", 1),
+                            (try_end),
+                    
+                            (try_begin),
+                            (this_or_next|lt,":dist",35), # was 10
+                            (lt,":dist_secondary",35), # was 10
+                                (val_add, ":times_near_ground", 1),
+                                #(particle_system_burst, "psys_electricity_sparks", pos1, 25),
+                                (play_sound,"snd_chain_lightning"), #
+                                (copy_position, pos3, pos1),
+                                #(scene_prop_get_instance,":instance", "spr_snowy_heap_a", 0),  #need
+                                #(position_copy_origin,pos2,pos1),
+                                #(prop_instance_set_position,":instance",pos2),
+                                (assign,reg5,500),  #was 1000
+                            (try_end),
+                        (try_end),
+                        
+                        # Add Strike
+                        (copy_position, pos4, pos1),
+                        (position_set_z_to_ground_level, pos4),
+                        (position_get_z, ":z", pos4),
+                        (val_add, ":z", 30000),
+                        (position_set_z, pos4, ":z"),
+                        (particle_system_burst, "psys_storm_cloud", pos4, 15),
+                        (try_for_range, ":counter", 1, 751),
+                            (particle_system_burst, "psys_electricity_blast", pos4, 5),
+                            (position_get_z, ":z", pos4),
+                            (val_sub, ":z", 40),
+                            (position_set_z, pos4, ":z"),
+                            (store_mod, ":weave", ":counter", 40),
+                            (try_begin),
+                            # main shift
+                            (eq, ":weave", 0),
+                                (store_random_in_range, ":x_shift", -100, 101),
+                                (position_get_x, ":x", pos4),
+                                (val_sub, ":x", ":x_shift"),
+                                (position_set_x, pos4, ":x"),
+                            (else_try),
+                            (eq, ":weave", 20),
+                                (store_random_in_range, ":y_shift", -100, 101),
+                                (position_get_y, ":y", pos4),
+                                (val_sub, ":y", ":y_shift"),
+                                (position_set_y, pos4, ":y"),
+                            # secondary shift
+                            (else_try),
+                            (eq, ":weave", 30),
+                            (store_random_in_range, ":x_shift", -75, 76),
+                                (position_get_x, ":x", pos4),
+                                (val_sub, ":x", ":x_shift"),
+                                (position_set_x, pos4, ":x"),
+                            (else_try),
+                            (eq, ":weave", 10),
+                                (store_random_in_range, ":y_shift", -75, 76),
+                                (position_get_y, ":y", pos4),
+                                (val_sub, ":y", ":y_shift"),
+                                (position_set_y, pos4, ":y"),
+                            # tertiary shifts
+                            (else_try),
+                            (this_or_next|eq, ":weave", 15),
+                            (eq, ":weave", 25),
+                            (store_random_in_range, ":x_shift", -50, 51),
+                                (position_get_x, ":x", pos4),
+                                (val_sub, ":x", ":x_shift"),
+                                (position_set_x, pos4, ":x"),
+                            (else_try),
+                            (this_or_next|eq, ":weave", 5),
+                            (eq, ":weave", 35),
+                                (store_random_in_range, ":y_shift", -50, 51),
+                                (position_get_y, ":y", pos4),
+                                (val_sub, ":y", ":y_shift"),
+                                (position_set_y, pos4, ":y"),
+                            (try_end),
+                        (try_end),
+                        (particle_system_burst, "psys_electricity_sparks_lightning_strike", pos4, 15),
+                            
+                        
+                        (try_for_agents,":agent"),
+                            (neq,":chosen",":agent"), ## added this to avoid freezing shooter
+                            (neq, ":chosen_horse", ":agent"),
+#                            (neg|agent_is_ally,":agent"), ## add this to avoid freezing allies
+                            (agent_is_alive,":agent"), ## add this to not freeze dead people
+                            (neg|agent_is_wounded,":agent"), ## add this to not freeze wounded people
+
+                            #partial friendly fire protection
+                            (agent_get_team, ":agent_team_ff", ":agent"),
+                            (assign, ":deliver_damage", 1),
+                            (try_begin),
+                            (neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+                                (store_random_in_range, ":random", 1, 5),
+                                (try_begin),
+                                (gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+                                    (assign, ":deliver_damage", 0),
+                                (try_end),
+                            (try_end),
+                            (eq, ":deliver_damage", 1),
+                            #end partial friendly fire protection
+    
+                            (agent_get_position,pos2,":agent"),
+                            (get_distance_between_positions,":dist",pos3,pos2),
+
+                            (try_begin),
+                            (lt,":dist",300),  # freeze (slowed movement) if blast within 250 of agent
+                                (agent_set_speed_limit, ":agent", 0),
+                                (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 80),
+                                (try_end),
+                                (add_xp_to_troop,40,":chosen"),
+                            (try_end),
+                        (try_end),
+
+
+]),
+##"script_tgs_weave_chain_lightning"
+## Function to cast a chain lightning weave
+##
+##INPUT:  arg1    :chosen
+##        arg2    :chosen_horse
+##        arg3    :chosen_team
+##
+##OUTPUT: none
+("tgs_weave_chain_lightning_backup", [
 	(store_script_param_1,":chosen"),
 	(store_script_param_2,":chosen_horse"),
         (store_script_param,":chosen_team",3),
