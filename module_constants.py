@@ -94,7 +94,7 @@ slot_agent_airborne_x_movement    = 32    ## Movement ratio in x direction
 slot_agent_airborne_y_movement    = 33    ## Movement ratio in y direction
 slot_agent_airborne_power_factor  = 34    ## Initial power factor
 
-slot_agent_has_been_shocked       = 35    ## (0 = false, 1 = true)
+#slot_agent_has_been_shocked       = 35    ## (0 = false, positive = yes duration remaining)
 
 slot_agent_is_channeler           = 36    ## (0 = false, 1 = true)
 
@@ -133,6 +133,9 @@ slot_agent_draghkar_cooldown      = 61    ## Determines how long until Draghkar 
 slot_agent_draghkar_kiss_by       = 62    ## ID of Draghkar that kissed agent
 
 slot_agent_bound_duration         = 63    ## How long will the agent be bound (Counts from 10 to 0)
+
+slot_agent_has_been_shocked       = 35    ## (0 = false, positive = yes duration remaining)
+slot_agent_lightning_shooter      = 64    ## ID of shooter
 
 
 ## Natural Inclination Weave Slots ## (loi = Level of Importance)

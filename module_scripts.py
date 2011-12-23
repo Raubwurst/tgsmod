@@ -75850,14 +75850,89 @@ scripts = [
                             (get_distance_between_positions,":dist",pos3,pos2),
 
                             (try_begin),
-                            (lt,":dist",300),  # freeze (slowed movement) if blast within 250 of agent
-                                (agent_set_speed_limit, ":agent", 0),
-                                (agent_deliver_damage_to_agent,":chosen",":agent"),
-                                (try_begin), # add to channeling multiplier if agent is player
-                                (neg|agent_is_non_player, ":chosen"),
-                                    (val_add, "$g_channeling_proficiency_modifier", 80),
+                            (lt,":dist",100),  #
+                                (store_agent_hit_points,":target_health",":agent",1),
+                                (try_begin),
+                                (gt,":target_health",20),
+                                    (val_sub,":target_health",20),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (try_begin), # add to channeling multiplier if agent is player
+                                    (neg|agent_is_non_player, ":chosen"),
+                                        (val_add, "$g_channeling_proficiency_modifier", 80),
+                                    (try_end),
+                                    (add_xp_to_troop,40,":chosen"),
+                                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 12),
+                                    (agent_set_slot, ":agent", slot_agent_lightning_shooter, ":chosen"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (try_begin), # add to channeling multiplier if agent is player
+                                    (neg|agent_is_non_player, ":chosen"),
+                                        (val_add, "$g_channeling_proficiency_modifier", 80),
+                                    (try_end),
+                                    (add_xp_to_troop,40,":chosen"),
+                                    (position_get_z, ":z_temp", pos2),
+                                    (val_add, ":z_temp", 500),
+                                    (position_set_z, pos2, ":z_temp"),
+                                    (particle_system_burst, "psys_electricity_sparks", pos2, 50),
                                 (try_end),
-                                (add_xp_to_troop,40,":chosen"),
+                            (else_try),
+                            (is_between,":dist",100, 200),  #
+                                (store_agent_hit_points,":target_health",":agent",1),
+                                (try_begin),
+                                (gt,":target_health",15),
+                                    (val_sub,":target_health",15),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (try_begin), # add to channeling multiplier if agent is player
+                                    (neg|agent_is_non_player, ":chosen"),
+                                        (val_add, "$g_channeling_proficiency_modifier", 60),
+                                    (try_end),
+                                    (add_xp_to_troop,30,":chosen"),
+                                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 8),
+                                    (agent_set_slot, ":agent", slot_agent_lightning_shooter, ":chosen"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (try_begin), # add to channeling multiplier if agent is player
+                                    (neg|agent_is_non_player, ":chosen"),
+                                        (val_add, "$g_channeling_proficiency_modifier", 60),
+                                    (try_end),
+                                    (add_xp_to_troop,30,":chosen"),
+                                    (position_get_z, ":z_temp", pos2),
+                                    (val_add, ":z_temp", 500),
+                                    (position_set_z, pos2, ":z_temp"),
+                                    (particle_system_burst, "psys_electricity_sparks", pos2, 50),
+                                (try_end),
+                            (else_try),
+                            (is_between,":dist",200, 300),  #
+                                (store_agent_hit_points,":target_health",":agent",1),
+                                (try_begin),
+                                (gt,":target_health",10),
+                                    (val_sub,":target_health",10),
+                                    (agent_set_hit_points,":agent",":target_health",1),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (try_begin), # add to channeling multiplier if agent is player
+                                    (neg|agent_is_non_player, ":chosen"),
+                                        (val_add, "$g_channeling_proficiency_modifier", 40),
+                                    (try_end),
+                                    (add_xp_to_troop,20,":chosen"),
+                                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 4),
+                                    (agent_set_slot, ":agent", slot_agent_lightning_shooter, ":chosen"),
+                                (else_try),
+                                    (agent_set_hit_points,":agent",0,0),
+                                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                    (try_begin), # add to channeling multiplier if agent is player
+                                    (neg|agent_is_non_player, ":chosen"),
+                                        (val_add, "$g_channeling_proficiency_modifier", 40),
+                                    (try_end),
+                                    (add_xp_to_troop,20,":chosen"),
+                                    (position_get_z, ":z_temp", pos2),
+                                    (val_add, ":z_temp", 500),
+                                    (position_set_z, pos2, ":z_temp"),
+                                    (particle_system_burst, "psys_electricity_sparks", pos2, 50),
+                                (try_end),
                             (try_end),
                         (try_end),
 
@@ -77453,8 +77528,8 @@ scripts = [
     (store_random_in_range, ":random", 4, 8),
     (assign, ":ranged_earth_blast_level_of_importance", ":random"),
 
-    ## When to use Chain Lightning? 4,5,6,7,8
-    (store_random_in_range, ":random", 4, 9),
+    ## When to use Chain Lightning? 4,5,6,7,8 # altered for testing
+    (store_random_in_range, ":random", 7, 15), #4, 9
     (assign, ":chain_lightning_level_of_importance", ":random"),
 
     ## When to use Seeker? 5,6,7,8

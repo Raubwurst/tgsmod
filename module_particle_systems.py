@@ -1357,15 +1357,15 @@ particle_systems = [
     ),
 
     ("storm_cloud", psf_billboard_3d, "prtcl_dust_a",
-     10000, 1.0, 0.6, -0.1, 30.0, 1.5,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
-     (0.0, 0.75), (1, 0.25),       #alpha keys
+     5000, 1.0, 0.6, -0.1, 30.0, 1.5,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
+     (0.0, 0.9), (1, 0.95),       #alpha keys
      (0.0, 0.7), (1, 0.4),      #red keys
      (0.0, 0.7),(1, 0.4),       #green keys
      (0.0, 0.7), (1, 0.4),      #blue keys
-     (0, 6),   (1, 100.0),   #scale keys
-     (10, 10, 1),           #emit box size
-     (7, 7, -0.1),                 #emit velocity
-     1  ,                      #emit dir randomness
+     (0, 6),   (1, 50.0),   #scale keys
+     (1, 7, 7),           #emit box size
+     (0, 0, 0),                 #emit velocity
+     0.1  ,                      #emit dir randomness
      50,                       #rotation speed
      0.1,                       #rotation damping
     ),

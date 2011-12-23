@@ -7115,6 +7115,130 @@ common_wot_burn_over_time_trigger_multi = (
 
        ])
 
+## Pass Electrical Charge trigger 1## 
+common_wot_electrical_charge_trigger = (
+    0, 0, 0.1,
+                    [
+                      (assign, ":electricity_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
+                          (gt, ":shocked", 0),
+                          (val_add, ":electricity_check", 1),
+                      (end_try),
+
+                      (ge, ":electricity_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
+            (gt, ":shocked", 0),
+                (agent_get_look_position, pos63, ":agent"),
+                (position_get_z, ":z_temp", pos63),
+                (val_add, ":z_temp", 1000),
+                (position_set_z, pos63, ":z_temp"),
+                (particle_system_burst, "psys_electricity_sparks", pos63, 1),
+                (store_agent_hit_points,":target_health",":agent",1),
+                (agent_get_slot, ":chosen", ":agent", slot_agent_lightning_shooter),
+                 
+                (try_begin),
+                (gt,":target_health",1),
+                    (val_sub,":target_health",1),
+                    (agent_set_hit_points,":agent",":target_health",1),
+                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                 
+                    (try_begin), # add to channeling multiplier if agent is player
+                    (neg|agent_is_non_player, ":chosen"),
+                        (val_add, "$g_channeling_proficiency_modifier", 2),
+                    (try_end),
+#                    (add_xp_to_troop,1,":chosen"),
+                    (agent_get_slot, ":shock_duration", ":agent", slot_agent_has_been_shocked),
+                 
+                    (try_begin), # check burn duration
+                    (gt, ":shock_duration", 0),
+                            (val_sub, ":shock_duration", 1),
+                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, ":shock_duration"),
+                    (else_try),
+                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
+                    (try_end),
+                 
+                (else_try),
+                    (agent_set_hit_points,":agent",0,0),
+                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                 
+                    (try_begin),
+                    (neg|agent_is_non_player, ":chosen"),
+                        (val_add, "$g_channeling_proficiency_modifier", 20),
+                    (try_end),
+                 
+                    (add_xp_to_troop,25,":chosen"),
+                    (val_sub, ":z_temp", 500),
+                    (position_set_z, pos63, ":z_temp"),
+                    (particle_system_burst, "psys_electricity_sparks", pos63, 50),
+                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
+                (try_end),
+
+                (position_set_z_to_ground_level, pos63),
+                (try_for_agents, ":agent_2"),
+                    (gt, ":shocked", 1), # duration from the original agent, check to see if charge can be passed on
+                    (agent_is_alive, ":agent_2"),
+                    (neg|agent_is_wounded, ":agent_2"),
+        
+                    #partial friendly fire protection
+                    (agent_get_team, ":chosen_team", ":chosen"),
+                    (agent_get_team, ":agent_team_ff", ":agent_2"),
+                    (assign, ":deliver_damage", 1),
+                    (try_begin),
+                    (neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+                        (store_random_in_range, ":random", 1, 5),
+                        (try_begin),
+                        (gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+                            (assign, ":deliver_damage", 0),
+                        (try_end),
+                    (try_end),
+                    (eq, ":deliver_damage", 1),
+                    #end partial friendly fire protection
+        
+                    (agent_get_slot, ":shocked_2", ":agent_2", slot_agent_has_been_shocked),
+                    (eq, ":shocked_2", 0),
+                        (agent_get_look_position, pos5, ":agent_2"),
+                        (get_distance_between_positions,":dist",pos5,pos63),
+                        (try_begin),
+                        (lt, ":shocked", 5),
+                            (try_begin),
+                            (lt, ":dist", 100),
+                                (val_sub, ":shocked", 1),
+                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
+                                (agent_set_slot, ":agent_2", slot_agent_lightning_shooter, ":chosen"),
+                            (try_end),
+                        (else_try),
+                        (is_between, ":shocked", 5, 9),
+                            (try_begin),
+                            (lt, ":dist", 200),
+                                (val_sub, ":shocked", 1),
+                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
+                                (agent_set_slot, ":agent_2", slot_agent_lightning_shooter, ":chosen"),
+                            (try_end),
+                        (else_try),
+                        (ge, ":shocked", 9),
+                            (try_begin),
+                            (lt, ":dist", 300),
+                                (val_sub, ":shocked", 1),
+                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
+                                (agent_set_slot, ":agent_2", slot_agent_lightning_shooter, ":chosen"),
+                            (try_end),
+                        (try_end),
+                (try_end),
+        
+        (try_end),
+
+       ])
+
 ## Seeker weave triggers ## normal gameplay
 
 ## TEST ##
@@ -9871,6 +9995,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10035,6 +10160,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10196,6 +10322,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10325,6 +10452,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10501,6 +10629,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10658,6 +10787,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10788,6 +10918,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11119,6 +11250,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11296,6 +11428,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11502,6 +11635,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11856,6 +11990,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12042,6 +12177,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12264,6 +12400,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12435,6 +12572,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12575,6 +12713,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -13506,6 +13645,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -19743,6 +19883,109 @@ mission_templates = [
 
        ]),
 
+## Pass Electrical Charge trigger 1## 
+        (0, 0, 0.25, [
+                      (assign, ":electricity_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
+                          (gt, ":shocked", 0),
+                          (val_add, ":electricity_check", 1),
+                      (end_try),
+
+                      (ge, ":electricity_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
+            (gt, ":shocked", 0),
+                (agent_get_look_position, pos1, ":agent"),
+                (position_get_z, ":z_temp", pos1),
+                (val_add, ":z_temp", 1000),
+                (position_set_z, pos1, ":z_temp"),
+                (particle_system_burst, "psys_electricity_sparks", pos1, 1),
+                (store_agent_hit_points,":target_health",":agent",1),
+                (agent_get_slot, ":chosen", ":agent", slot_agent_fire_starter),
+                 
+                (try_begin),
+                (gt,":target_health",1),
+                    (val_sub,":target_health",1),
+                    (agent_set_hit_points,":agent",":target_health",1),
+                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                 
+                    (try_begin), # add to channeling multiplier if agent is player
+                    (neg|agent_is_non_player, ":chosen"),
+                        (val_add, "$g_channeling_proficiency_modifier", 2),
+                    (try_end),
+#                    (add_xp_to_troop,1,":chosen"),
+                    (agent_get_slot, ":shock_duration", ":agent", slot_agent_has_been_shocked),
+                 
+                    (try_begin), # check burn duration
+                    (gt, ":shock_duration", 0),
+                            (val_sub, ":shock_duration", 1),
+                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, ":shock_duration"),
+                    (else_try),
+                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
+                    (try_end),
+                 
+                (else_try),
+                    (agent_set_hit_points,":agent",0,0),
+                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                 
+                    (try_begin),
+                    (neg|agent_is_non_player, ":chosen"),
+                        (val_add, "$g_channeling_proficiency_modifier", 20),
+                    (try_end),
+                 
+                    (add_xp_to_troop,25,":chosen"),
+                    (val_sub, ":z_temp", 500),
+                    (position_set_z, pos1, ":z_temp"),
+                    (particle_system_burst, "psys_electricity_sparks", pos1, 50),
+                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
+                (try_end),
+
+                (position_set_z_to_ground_level, pos1),
+                (try_for_agents, ":agent_2"),
+                    (gt, ":shocked", 1), # duration from the original agent, check to see if charge can be passed on
+                    (agent_is_alive, ":agent_2"),
+                    (neg|agent_is_wounded, ":agent_2"),
+                    (agent_get_slot, ":shocked_2", ":agent_2", slot_agent_has_been_shocked),
+                    (eq, ":shocked_2", 0),
+                        (agent_get_look_position, pos2, ":agent_2"),
+                        (get_distance_between_positions,":dist",pos1,pos2),
+                        (try_begin),
+                        (lt, ":shocked", 5),
+                            (try_begin),
+                            (lt, ":dist", 100),
+                                (val_sub, ":shocked", 1),
+                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
+                            (try_end),
+                        (else_try),
+                        (is_between, ":shocked", 5, 9),
+                            (try_begin),
+                            (lt, ":dist", 200),
+                                (val_sub, ":shocked", 1),
+                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
+                            (try_end),
+                        (else_try),
+                        (ge, ":shocked", 9),
+                            (try_begin),
+                            (lt, ":dist", 300),
+                                (val_sub, ":shocked", 1),
+                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
+                            (try_end),
+                        (try_end),
+                (try_end),
+        
+        (try_end),
+
+       ]),       
+
       ## Seeker weave triggers ##
 
       #Seeker 1
@@ -23990,6 +24233,109 @@ mission_templates = [
 
        ]),
 
+## Pass Electrical Charge trigger 1## 
+        (0, 0, 0.25, [
+                      (assign, ":electricity_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
+                          (gt, ":shocked", 0),
+                          (val_add, ":electricity_check", 1),
+                      (end_try),
+
+                      (ge, ":electricity_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
+            (gt, ":shocked", 0),
+                (agent_get_look_position, pos1, ":agent"),
+                (position_get_z, ":z_temp", pos1),
+                (val_add, ":z_temp", 1000),
+                (position_set_z, pos1, ":z_temp"),
+                (particle_system_burst, "psys_electricity_sparks", pos1, 1),
+                (store_agent_hit_points,":target_health",":agent",1),
+                (agent_get_slot, ":chosen", ":agent", slot_agent_fire_starter),
+                 
+                (try_begin),
+                (gt,":target_health",1),
+                    (val_sub,":target_health",1),
+                    (agent_set_hit_points,":agent",":target_health",1),
+                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                 
+                    (try_begin), # add to channeling multiplier if agent is player
+                    (neg|agent_is_non_player, ":chosen"),
+                        (val_add, "$g_channeling_proficiency_modifier", 2),
+                    (try_end),
+#                    (add_xp_to_troop,1,":chosen"),
+                    (agent_get_slot, ":shock_duration", ":agent", slot_agent_has_been_shocked),
+                 
+                    (try_begin), # check burn duration
+                    (gt, ":shock_duration", 0),
+                            (val_sub, ":shock_duration", 1),
+                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, ":shock_duration"),
+                    (else_try),
+                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
+                    (try_end),
+                 
+                (else_try),
+                    (agent_set_hit_points,":agent",0,0),
+                    (agent_deliver_damage_to_agent,":chosen",":agent"),
+                 
+                    (try_begin),
+                    (neg|agent_is_non_player, ":chosen"),
+                        (val_add, "$g_channeling_proficiency_modifier", 20),
+                    (try_end),
+                 
+                    (add_xp_to_troop,25,":chosen"),
+                    (val_sub, ":z_temp", 500),
+                    (position_set_z, pos1, ":z_temp"),
+                    (particle_system_burst, "psys_electricity_sparks", pos1, 50),
+                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
+                (try_end),
+
+                (position_set_z_to_ground_level, pos1),
+                (try_for_agents, ":agent_2"),
+                    (gt, ":shocked", 1), # duration from the original agent, check to see if charge can be passed on
+                    (agent_is_alive, ":agent_2"),
+                    (neg|agent_is_wounded, ":agent_2"),
+                    (agent_get_slot, ":shocked_2", ":agent_2", slot_agent_has_been_shocked),
+                    (eq, ":shocked_2", 0),
+                        (agent_get_look_position, pos2, ":agent_2"),
+                        (get_distance_between_positions,":dist",pos1,pos2),
+                        (try_begin),
+                        (lt, ":shocked", 5),
+                            (try_begin),
+                            (lt, ":dist", 100),
+                                (val_sub, ":shocked", 1),
+                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
+                            (try_end),
+                        (else_try),
+                        (is_between, ":shocked", 5, 9),
+                            (try_begin),
+                            (lt, ":dist", 200),
+                                (val_sub, ":shocked", 1),
+                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
+                            (try_end),
+                        (else_try),
+                        (ge, ":shocked", 9),
+                            (try_begin),
+                            (lt, ":dist", 300),
+                                (val_sub, ":shocked", 1),
+                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
+                            (try_end),
+                        (try_end),
+                (try_end),
+        
+        (try_end),
+
+       ]),      
+
       ## Seeker weave triggers ##
 
       #Seeker 1
@@ -26165,6 +26511,8 @@ mission_templates = [
         common_wot_compulsion_trigger_multi,
         common_wot_balefire_trigger_multi,
         common_wot_burn_over_time_trigger_multi,
+      #check this later
+        common_wot_electrical_charge_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -26533,6 +26881,8 @@ mission_templates = [
         common_wot_compulsion_trigger_multi,
         common_wot_balefire_trigger_multi,
         common_wot_burn_over_time_trigger_multi,
+      # check this later
+        common_wot_electrical_charge_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -27643,6 +27993,8 @@ mission_templates = [
         common_wot_compulsion_trigger_multi,
         common_wot_balefire_trigger_multi,
         common_wot_burn_over_time_trigger_multi,
+      # check this later
+        common_wot_electrical_charge_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -28411,6 +28763,8 @@ mission_templates = [
         common_wot_compulsion_trigger_multi,
         common_wot_balefire_trigger_multi,
         common_wot_burn_over_time_trigger_multi,
+      # check this later
+        common_wot_electrical_charge_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -29489,6 +29843,8 @@ mission_templates = [
         common_wot_compulsion_trigger_multi,
         common_wot_balefire_trigger_multi,
         common_wot_burn_over_time_trigger_multi,
+      # check this later
+        common_wot_electrical_charge_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -30713,6 +31069,8 @@ mission_templates = [
         common_wot_compulsion_trigger_multi,
         common_wot_balefire_trigger_multi,
         common_wot_burn_over_time_trigger_multi,
+      # check this later
+        common_wot_electrical_charge_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -31848,6 +32206,8 @@ mission_templates = [
         common_wot_compulsion_trigger_multi,
         common_wot_balefire_trigger_multi,
         common_wot_burn_over_time_trigger_multi,
+      # check this later
+        common_wot_electrical_charge_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -32295,6 +32655,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -33656,6 +34017,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -33976,6 +34338,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -34344,6 +34707,7 @@ mission_templates = [
       # end
       
       common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
