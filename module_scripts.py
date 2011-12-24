@@ -77092,11 +77092,95 @@ scripts = [
         (agent_set_slot, ":chosen", ":ni_slot_no", 0),
     (try_end),
     
-    ## VAERRAENT ## Your code starts here. It's 'output' is to set the slots shown below.
-    ## VAERRAENT ## My script put a value from 1 to 9 in the slot, if you need a larger range, that's ok.
+    (assign,":pref_water",0), # 1 
+    (assign,":pref_fire",0), # 2
+    (assign,":pref_earth",0), # 3
+    (assign,":pref_air",0), # 4
+    (assign,":pref_spirit",0), # 5
 
-    
+    (assign,":pref_aggresive",0), # 0-10, higher numbers are more aggressive 
 
+    # Choose a random favourite element and add a random bonus
+    (store_random_in_range,":favourite_element_bonus",1,3),
+    (store_random_in_range,":favourite_element",1,3),
+    (try_begin),
+    (eq, ":favourite_element", 1),
+    (val_add,":pref_water",":favourite_element_bonus"),
+    (else_try),
+    (eq, ":favourite_element", 2),
+    (val_add,":pref_fire",":favourite_element_bonus"),
+    (else_try),
+    (eq, ":favourite_element", 3),
+    (val_add,":pref_earth",":favourite_element_bonus"),
+    (else_try),
+    (eq, ":favourite_element", 4),
+    (val_add,":pref_air",":favourite_element_bonus"),
+    (else_try),
+    (eq, ":favourite_element", 5),
+    (val_add,":pref_spirit",":favourite_element_bonus"),
+    (try_end),
+
+    # Choose a random aggresiveness bonus
+    (store_random_in_range,":aggresive_bonus",1,5),
+    (val_add,":pref_aggresive",":aggresive_bonus"),    
+
+    # Get chosen's gender for initial weave weighting
+    (agent_get_troop_id, ":ctroop", ":chosen"),
+    (troop_get_type, ":gender", ":ctroop"),
+    (try_begin),
+    (eq, ":gender", 0), # Male
+        (val_add,":pref_fire",4),
+        (val_add,":pref_earth",4),
+        (val_add,":pref_aggresive",2),
+    (else_try),
+    (eq, ":gender", 1), # Female
+        (val_add,":pref_water",4),
+        (val_add,":pref_air",4),
+    (try_end),
+
+    # Get agent team/faction for deciding on faction-based weighting
+    (agent_get_team,":cteam",":chosen"),
+    (team_get_faction,":cfaction",":cteam"),
+    (try_begin),
+    (eq, ":cfaction", "fac_kingdom_1"), # Legion of the Dragon / Asha'man
+        (val_add,":pref_fire",3),
+        (val_add,":pref_earth",3),
+        (val_add,":pref_spirit",3),
+        (val_add,":pref_aggresive",4),
+    (else_try),
+    (eq, ":cfaction", "fac_kingdom_21"), # Aes Sedai
+        (val_add,":pref_air",2),
+        (val_add,":pref_water",3),
+        (val_add,":pref_spirit",2),
+    (else_try),
+    (eq, ":cfaction", "fac_kingdom_22"), # Aiel
+        (val_add,":pref_air",2),
+        (val_add,":pref_fire",2),
+        (val_add,":pref_spirit",2),
+        (val_add,":pref_aggresive",2),
+    (else_try),
+    (eq, ":cfaction", "fac_kingdom_24"), # Shadowspawn
+        (val_add,":pref_fire",3),
+        (val_add,":pref_spirit",3),
+        (val_add,":pref_aggresive",4),
+    (else_try),
+    (eq, ":cfaction", "fac_kingdom_25"), # Shara
+        (val_add,":pref_earth",3),
+        (val_add,":pref_spirit",2),
+        (val_add,":pref_air",2),
+        (val_add,":pref_aggresive",3),
+    (else_try),
+    (eq, ":cfaction", "fac_kingdom_26"), # Sea Folk
+        (val_add,":pref_air",3),
+        (val_add,":pref_water",3),
+        (val_add,":pref_aggresive",1),
+    (else_try),
+    (eq, ":cfaction", "fac_kingdom_27"), # Madmen
+        (val_add,":pref_fire",3),
+        (val_add,":pref_earth",3),
+        (val_add,":pref_aggresive",5),
+    (try_end),
+        
 
 
     ## temp slot value so I could test my side of the code
