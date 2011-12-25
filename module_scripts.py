@@ -73533,11 +73533,52 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_weave_airblast", [
-	(store_script_param_1,":chosen"),
-	(store_script_param_2,":chosen_horse"),
-        (store_script_param,":chosen_team",3),
+            (store_script_param_1,":chosen"),
+            (store_script_param_2,":chosen_horse"),
+            (store_script_param,":chosen_team",3),
+            
+            (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 1),
+            (assign, ":primary_scaling_factor", reg0),
+            #(assign, ":secondary_scaling_modifier", reg1),
+            
+            #affected area scaling
+            (assign, ":base_radius", 200),
+            (store_mul, ":radius_scaler", ":primary_scaling_factor", 50),
+            (store_add, ":affected_radius", ":base_radius", ":radius_scaler"),
+            (store_sub, ":blast_position", ":affected_radius", 50),
+            
+            #damage dealt scaling
+            (store_mul, ":primary_scaling_factor_doubled", ":primary_scaling_factor", 2),
+            (val_add, ":primary_scaling_factor_doubled", 3),
+            (store_random_in_range, ":damage_dealt", ":primary_scaling_factor", ":primary_scaling_factor_doubled"),
+            
+            #knock-down check
+            (assign, ":knockdown", 0),
+            (try_begin),
+            (ge, ":primary_scaling_factor", 5),
+                (assign, ":knockdown", 1),
+            (try_end),
+            
+            #push distance scaling
+            (try_begin),
+            (is_between, ":primary_scaling_factor", 1, 3),
+                (assign, ":push_scaler", 1),
+            (else_try),
+            (is_between, ":primary_scaling_factor", 3, 5),
+                (assign, ":push_scaler", 2),
+            (else_try),
+            (is_between, ":primary_scaling_factor", 5, 7),
+                (assign, ":push_scaler", 3),
+            (else_try),
+            (is_between, ":primary_scaling_factor", 7, 9),
+                (assign, ":push_scaler", 4),
+            (else_try),
+            (ge, ":primary_scaling_factor", 9),
+                (assign, ":push_scaler", 5),
+            (try_end),
+    
 			(copy_position, pos3, pos1),
-			(position_move_y, pos3, 350),
+			(position_move_y, pos3, ":blast_position"),
 			(position_set_z_to_ground_level,pos3),
 
 			(try_for_agents,":agent"),
@@ -73564,7 +73605,7 @@ scripts = [
 				(agent_get_look_position,pos2,":agent"),
 				(get_distance_between_positions,":dist",pos3,pos2),
 				(store_agent_hit_points,":target_health",":agent",1),
-				(lt,":dist",400),
+				(lt,":dist",":affected_radius"),
 
 					(agent_set_slot, ":agent", slot_agent_is_airborne, 1),
 
@@ -73580,30 +73621,36 @@ scripts = [
 					(agent_set_slot, ":agent", slot_agent_airborne_y_movement, ":rise"),
 
 					(get_distance_between_positions, ":dist_from_chosen", pos1, pos2),
-						(try_begin),
-						(lt, ":dist_from_chosen", 100),
-							(agent_set_slot, ":agent", slot_agent_airborne_power_factor, 8),
-		 				(else_try),
-						(is_between, ":dist_from_chosen", 100, 250),
-							(agent_set_slot, ":agent", slot_agent_airborne_power_factor, 6),
-						(else_try),
-						(is_between, ":dist_from_chosen", 250, 450),
-							(agent_set_slot, ":agent", slot_agent_airborne_power_factor, 4),
-						(else_try),
-						(is_between, ":dist_from_chosen", 450, 750),
-							(agent_set_slot, ":agent", slot_agent_airborne_power_factor, 2),
-						(try_end),
+					(try_begin),
+					(lt, ":dist_from_chosen", 100),
+						(assign, ":push_distance_derived", 5),
+		 			(else_try),
+					(is_between, ":dist_from_chosen", 100, 250),
+						(assign, ":push_distance_derived", 4),
+					(else_try),
+					(is_between, ":dist_from_chosen", 250, 450),
+						(assign, ":push_distance_derived", 3),
+					(else_try),
+					(is_between, ":dist_from_chosen", 450, 750),
+						(assign, ":push_distance_derived", 2),
+					(else_try),
+					(ge, ":dist_from_chosen", 750),
+						(assign, ":push_distance_derived", 1),
+					(try_end),
+            
+                    (store_add, ":push_total", ":push_scaler", ":push_distance_derived"),
+                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, ":push_total"),
+                    (agent_set_slot, ":agent", slot_agent_airborne_knockdown, ":knockdown"),
 
 					(try_begin),
-						(gt,":target_health",5),
-						(val_sub,":target_health",5),
+						(gt,":target_health",":damage_dealt"),
+						(val_sub,":target_health",":damage_dealt"),
 						(agent_set_hit_points,":agent",":target_health",1),
 						(agent_deliver_damage_to_agent,":chosen",":agent"),
 						(try_begin), # add to channeling multiplier if agent is player
 						(neg|agent_is_non_player, ":chosen"),
 							(val_add, "$g_channeling_proficiency_modifier", 10),
 						(try_end),
-						(add_xp_to_troop,3,":chosen"),
 					(else_try),
 						(agent_set_hit_points,":agent",0,0),
 						(agent_deliver_damage_to_agent,":chosen",":agent"),
@@ -73611,10 +73658,11 @@ scripts = [
 						(neg|agent_is_non_player, ":chosen"),
 							(val_add, "$g_channeling_proficiency_modifier", 20),
 						(try_end),
-						(add_xp_to_troop,6,":chosen"),
 					(try_end),
 
             (try_end),
+            
+            (add_xp_to_troop, ":damage_dealt", ":chosen"),
 
 			(particle_system_burst, "psys_massive_pistol_smoke", pos1, 25),
 			(play_sound,"snd_air_blast"),

@@ -5020,6 +5020,36 @@ triggers = [
                 (try_end),
             (try_end),
 
+            ##Click '[' to add 'fire skill'
+            (try_begin),
+            (key_clicked, key_open_braces),
+                (troop_raise_skill, "trp_player", skl_fire, 1),
+            (try_end),
+
+            ##Click ']' to add 'earth skill'
+            (try_begin),
+            (key_clicked, key_close_braces),
+                (troop_raise_skill, "trp_player", skl_earth, 1),
+            (try_end),
+
+            ##Click ';' to add 'spirit skill'
+            (try_begin),
+            (key_clicked, key_semicolon),
+                (troop_raise_skill, "trp_player", skl_spirit, 1),
+            (try_end),
+
+            ##Click ',' to add 'water skill'
+            (try_begin),
+            (key_clicked, key_comma),
+                (troop_raise_skill, "trp_player", skl_water, 1),
+            (try_end),
+
+            ##Click '.' to add 'air skill'
+            (try_begin),
+            (key_clicked, key_period),
+                (troop_raise_skill, "trp_player", skl_air, 1),
+            (try_end),                 
+
         ]),
 
 ## TGS: mat: DEGUG: Add Sea Battles

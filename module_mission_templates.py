@@ -2928,6 +2928,7 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (agent_set_slot, ":agent", slot_agent_airborne_x_movement, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 0),
+                 (agent_set_slot, ":agent", slot_agent_airborne_knockdown, 0),
 
                  (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
 
@@ -5210,7 +5211,14 @@ common_wot_airborne_trigger = (
                 # stop agent movement when ":power_factor" is less than zero
                 (try_begin),
                 (lt, ":power_factor", 0),
-                    (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
+                    (agent_get_slot, ":knockdown", ":agent", slot_agent_airborne_knockdown),
+                    (try_begin),
+                    (eq, ":knockdown", 0),
+                        (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
+                    (else_try),
+                        (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
+                        (agent_set_animation, ":agent", "anim_strike_fall_back_rise", 0),
+                    (try_end),
                 (try_end),
         
                 (agent_set_position, ":agent", pos63),

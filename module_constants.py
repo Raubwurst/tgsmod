@@ -82,17 +82,19 @@ slot_agent_walker_occupation      = 25
 
 ### New TGS Slots
 
+# note: mat: will probably end up getting rid of these seeker slot eventually
 slot_agent_has_active_seeker      = 26    ## (0 = false, 1 = true)
 slot_agent_seeker_shooter         = 27    ## ID of agent who shot the seeker
+# end
 
 slot_agent_on_fire                = 28    ## (0 = false, 1 = true)
 slot_agent_fire_starter           = 29    ## ID of agent who started the fire
 slot_agent_fire_duration          = 30    ## How long the fire will burn
 
-slot_agent_is_airborne            = 31    ## (0 = false, 1 = true)
-slot_agent_airborne_x_movement    = 32    ## Movement ratio in x direction
-slot_agent_airborne_y_movement    = 33    ## Movement ratio in y direction
-slot_agent_airborne_power_factor  = 34    ## Initial power factor
+#slot_agent_is_airborne            = 31    ## (0 = false, 1 = true)
+#slot_agent_airborne_x_movement    = 32    ## Movement ratio in x direction
+#slot_agent_airborne_y_movement    = 33    ## Movement ratio in y direction
+#slot_agent_airborne_power_factor  = 34    ## Initial power factor
 
 #slot_agent_has_been_shocked       = 35    ## (0 = false, positive = yes duration remaining)
 
@@ -136,6 +138,12 @@ slot_agent_bound_duration         = 63    ## How long will the agent be bound (C
 
 slot_agent_has_been_shocked       = 35    ## (0 = false, positive = yes duration remaining)
 slot_agent_lightning_shooter      = 64    ## ID of shooter
+
+slot_agent_is_airborne            = 31    ## (0 = false, 1 = true)
+slot_agent_airborne_x_movement    = 32    ## Movement ratio in x direction
+slot_agent_airborne_y_movement    = 33    ## Movement ratio in y direction
+slot_agent_airborne_power_factor  = 34    ## Initial power factor
+slot_agent_airborne_knockdown     = 65    ## (0 = false, 1 = true)
 
 
 ## Natural Inclination Weave Slots ## (loi = Level of Importance)
