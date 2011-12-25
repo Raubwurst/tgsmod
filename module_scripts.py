@@ -77102,7 +77102,7 @@ scripts = [
 
     # Choose a random favourite element and add a random bonus
     (store_random_in_range,":favourite_element_bonus",1,3),
-    (store_random_in_range,":favourite_element",1,3),
+    (store_random_in_range,":favourite_element",1,5),
     (try_begin),
     (eq, ":favourite_element", 1),
     (val_add,":pref_water",":favourite_element_bonus"),
@@ -77180,27 +77180,260 @@ scripts = [
         (val_add,":pref_earth",3),
         (val_add,":pref_aggresive",5),
     (try_end),
-        
+	    
+    #(call_script,"script_tgs_determine_weave_scaling_factors",":chosen",1),
+    #(store_add,":scale",reg0,reg1),
+    #(assign,":airblaston",":scale"),
 
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",2), # Find the multipliers for chosen and weave 2
+    (store_add,":scale",reg0,reg1), # Grab the total of the two multipliers
+    (assign,":freezeon",":scale"), # Assign the total to a new variable
+    (try_begin), 
+    (neq,":freezeon",0), # If the script didn't return 0, the NPC can use this weave
+       (store_add,":elemental_base",":pref_water",":pref_air"), # Let 'elemental_base' be the total of all preference of related weaves
+       (store_div,":elemental_prob",":elemental_base",2), # And divide elemental base by the number of weaves to get a probability (/10)
+
+       (store_add,":comp_base",":elemental_prob",":pref_aggresive"), # Add aggresiveness to the elemental probability, giving us 20 tops
+       (store_div,":comp_prob",":comp_base",2), # Divide by two to get the number back down to a fraction of ten
+
+       (store_add,":scale_base",":freezeon",2), # Add the raw 'level' of the weave, how far up the scale it is from a basic air push to balefire, to it's multiplier
+       (store_div,":scale_prob",":scale_base",3), # Now divide our totally new value by 3 for a reasonable fraction of 10
+
+       (store_add,":freeze_prob",":comp_prob",":scale_prob"), # Put our two probabilites together (perceived preferences)
+       (store_div,":ffreeze_prob",":freeze_prob",2), # Finally, divide the result by 2 and store in the final varible for export.
+    (try_end),
+
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",3),
+    (store_add,":scale",reg0,reg1),
+    (assign,":healon",":scale"),
+    (try_begin),
+    (neq,":healon",0),
+       (store_add,":elemental_base",":pref_water",":pref_spirit"),
+       (val_add,":elemental_base",":pref_air"),
+       (store_div,":elemental_prob",":elemental_base",3),
+
+       (store_sub,":aggresiveinvert",10,":pref_aggresive"), # use invert aggressiveness for healing weave, of course
+
+       (store_add,":comp_base",":elemental_prob",":aggresiveinvert"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":healon",3),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":heal_prob",":comp_prob",":scale_prob"),
+       (store_div,":fheal_prob",":heal_prob",2),
+    (try_end),
+
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",4),
+    (store_add,":scale",reg0,reg1),
+    (assign,":fireballon",":scale"),
+    (try_begin),
+    (neq,":fireballon",0),
+       (store_add,":elemental_base",":pref_fire",":pref_air"),
+       (store_div,":elemental_prob",":elemental_base",2),
+
+       (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":fireballon",4),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":fireball_prob",":comp_prob",":scale_prob"),
+       (store_div,":ffireball_prob",":fireball_prob",2),
+    (try_end),
+
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",5),
+    (store_add,":scale",reg0,reg1),
+    (assign,":unravelon",":scale"),
+    (try_begin),
+    (neq,":unravelon",0),
+       (store_add,":elemental_base",":pref_spirit",":pref_fire"),
+       (store_add,":elemental_base",":pref_air",":pref_spirit"),
+       (val_add,":elemental_base",":pref_water"),
+       (store_div,":elemental_prob",":elemental_base",5),
+
+       (store_sub,":aggresiveinvert",10,":pref_aggresive"), # use invert aggressiveness for unravel weave
+
+       (store_add,":comp_base",":elemental_prob",":aggresiveinvert"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":unravelon",5),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":unravel_prob",":comp_prob",":scale_prob"),
+       (store_div,":funravel_prob",":unravel_prob",2),
+    (try_end),
+
+
+    #(call_script,"script_tgs_determine_weave_scaling_factors",":chosen",6),
+    #(store_add,":scale",reg0,reg1),
+    #(assign,":dblaston",":scale"),
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",7),
+    (store_add,":scale",reg0,reg1),
+    (assign,":reblaston",":scale"),
+    (try_begin),
+    (neq,":reblaston",0),
+       (store_add,":elemental_base",":pref_earth",":pref_air"),
+       (store_div,":elemental_prob",":elemental_base",2),
+
+       (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":reblaston",7),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":reblast_prob",":comp_prob",":scale_prob"),
+       (store_div,":freblast_prob",":reblast_prob",2),
+    (try_end),
+
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",8),
+    (store_add,":scale",reg0,reg1),
+    (assign,":bindon",":scale"),
+    (try_begin),
+    (neq,":bindon",0),
+       (store_add,":elemental_base",":pref_spirit",":pref_air"),
+       (store_div,":elemental_prob",":elemental_base",2),
+
+       (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":bindon",8),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":bind_prob",":comp_prob",":scale_prob"),
+       (store_div,":fbind_prob",":bind_prob",2),
+    (try_end),
+
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",9),
+    (store_add,":scale",reg0,reg1),
+    (assign,":clighton",":scale"),
+    (try_begin),
+    (neq,":clighton",0),
+       (store_add,":elemental_base",":pref_water",":pref_air"),
+       (val_add,":elemental_base",":pref_spirit"),
+       (store_div,":elemental_prob",":elemental_base",3),
+
+       (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":clighton",9),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":clight_prob",":comp_prob",":scale_prob"),
+       (store_div,":fclight_prob",":clight_prob",2),
+    (try_end),
+
+
+    #(call_script,"script_tgs_determine_weave_scaling_factors",":chosen",10),
+    #(store_add,":scale",reg0,reg1),
+    #(assign,":ficurton",":scale"),
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",11),
+    (store_add,":scale",reg0,reg1),
+    (assign,":shieldon",":scale"),
+    (try_begin),
+    (neq,":shieldon",0),
+       (store_add,":elemental_base",":pref_spirit",":pref_fire"),
+       (val_add,":elemental_base",":pref_air"),
+       (store_div,":elemental_prob",":elemental_base",3),
+
+       (store_sub,":aggresiveinvert",10,":pref_aggresive"), # use unaggressiveness for deciding to prioritize shielding
+
+       (store_add,":comp_base",":elemental_prob",":aggresiveinvert"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":shieldon",11),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":shield_prob",":comp_prob",":scale_prob"),
+       (store_div,":fshield_prob",":shield_prob",2),
+    (try_end),
+
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",12),
+    (store_add,":scale",reg0,reg1),
+    (assign,":seekeron",":scale"),
+    (try_begin),
+    (neq,":seekeron",0),
+       (store_add,":elemental_base",":pref_spirit",":pref_fire"),
+       (store_add,":elemental_base",":pref_air",":pref_earth"),
+       (val_add,":elemental_base",":pref_water"),
+       (store_div,":elemental_prob",":elemental_base",5),
+
+       (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":seekeron",12),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":seeker_prob",":comp_prob",":scale_prob"),
+       (store_div,":fseeker_prob",":seeker_prob",2),
+    (try_end),
+
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",13),
+    (store_add,":scale",reg0,reg1),
+    (assign,":compulsionon",":scale"),
+    (try_begin),
+    (neq,":compulsionon",0),
+       (store_add,":elemental_base",":pref_spirit",":pref_water"),
+       (val_add,":elemental_base",":pref_air"),
+       (store_div,":elemental_prob",":elemental_base",3),
+
+       (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":compulsionon",13),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":compulsion_prob",":comp_prob",":scale_prob"),
+       (store_div,":fcompulsion_prob",":compulsion_prob",2),
+    (try_end),
+
+    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",14),
+    (store_add,":scale",reg0,reg1),
+    (assign,":balefireon",":scale"),
+    (try_begin),
+    (neq,":balefireon",0),
+       (store_add,":elemental_base",":pref_fire",":pref_air"),
+       (store_div,":elemental_prob",":elemental_base",2),
+
+       (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
+       (store_div,":comp_prob",":comp_base",2),
+
+       (store_add,":scale_base",":balefireon",14),
+       (store_div,":scale_prob",":scale_base",3),
+
+       (store_add,":balefire_prob",":comp_prob",":scale_prob"),
+       (store_div,":fbalefire_prob",":balefire_prob",2),
+    (try_end),
+       
+       
 
     ## temp slot value so I could test my side of the code
     (assign, ":test", 10),
     
     ## Set final values for ":chosen" Natural Inclination slots ## (loi = Level of Importance)
     (agent_set_slot, ":chosen", slot_agent_ni_air_blast_loi, 0), # unused by npcs
-    (agent_set_slot, ":chosen", slot_agent_ni_freeze_loi, ":test"),
-    (agent_set_slot, ":chosen", slot_agent_ni_heal_loi, ":test"),
-    (agent_set_slot, ":chosen", slot_agent_ni_fireball_loi, ":test"),
-    (agent_set_slot, ":chosen", slot_agent_ni_unravel_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_freeze_loi, ":ffreeze_prob"),
+    (agent_set_slot, ":chosen", slot_agent_ni_heal_loi, ":fheal_prob"),
+    (agent_set_slot, ":chosen", slot_agent_ni_fireball_loi, ":ffireball_prob"),
+    (agent_set_slot, ":chosen", slot_agent_ni_unravel_loi, ":funravel_prob"),
     (agent_set_slot, ":chosen", slot_agent_ni_defensive_blast_loi, 0), # unused by npcs
-    (agent_set_slot, ":chosen", slot_agent_ni_ranged_earth_blast_loi, ":test"),
-    (agent_set_slot, ":chosen", slot_agent_ni_bind_loi, ":test"),
-    (agent_set_slot, ":chosen", slot_agent_ni_chain_lightning_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_ranged_earth_blast_loi, ":freblast_prob"),
+    (agent_set_slot, ":chosen", slot_agent_ni_bind_loi, ":fbind_prob"),
+    (agent_set_slot, ":chosen", slot_agent_ni_chain_lightning_loi, ":fclight_prob"),
     (agent_set_slot, ":chosen", slot_agent_ni_fire_curtain_loi, 0), # unused by npcs
-    (agent_set_slot, ":chosen", slot_agent_ni_shield_loi, ":test"),
-    (agent_set_slot, ":chosen", slot_agent_ni_seeker_loi, ":test"),
-    (agent_set_slot, ":chosen", slot_agent_ni_compulsion_loi, ":test"),
-    (agent_set_slot, ":chosen", slot_agent_ni_balefire_loi, ":test"),
+    (agent_set_slot, ":chosen", slot_agent_ni_shield_loi, ":fshield_prob"),
+    (agent_set_slot, ":chosen", slot_agent_ni_seeker_loi, ":fseeker_prob"),
+    (agent_set_slot, ":chosen", slot_agent_ni_compulsion_loi, ":fcompulsion_prob"),
+    (agent_set_slot, ":chosen", slot_agent_ni_balefire_loi, ":fbalefire_prob"),
   
 ]),
 ##"script_tgs_npc_channeler_situational_awareness"
