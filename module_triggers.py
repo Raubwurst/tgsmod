@@ -5048,7 +5048,18 @@ triggers = [
             (try_begin),
             (key_clicked, key_period),
                 (troop_raise_skill, "trp_player", skl_air, 1),
+            (try_end),
+
+            ##Click '/' to add 'all skill'
+            (try_begin),
+            (key_clicked, key_slash),
+                (troop_raise_skill, "trp_player", skl_fire, 1),
+                (troop_raise_skill, "trp_player", skl_earth, 1),
+                (troop_raise_skill, "trp_player", skl_spirit, 1),
+                (troop_raise_skill, "trp_player", skl_water, 1),
+                (troop_raise_skill, "trp_player", skl_air, 1),
             (try_end),                 
+            
 
         ]),
 

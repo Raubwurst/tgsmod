@@ -73539,7 +73539,7 @@ scripts = [
             
             (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 1),
             (assign, ":primary_scaling_factor", reg0),
-            #(assign, ":secondary_scaling_modifier", reg1),
+            #(assign, ":secondary_scaling_factor", reg1),
             
             #affected area scaling
             (assign, ":base_radius", 200),
@@ -73554,9 +73554,11 @@ scripts = [
             
             #knock-down check
             (assign, ":knockdown", 0),
+            (assign, ":start_knockdown", 0),
             (try_begin),
             (ge, ":primary_scaling_factor", 5),
                 (assign, ":knockdown", 1),
+                (assign, ":start_knockdown", 1),
             (try_end),
             
             #push distance scaling
@@ -73604,7 +73606,6 @@ scripts = [
 
 				(agent_get_look_position,pos2,":agent"),
 				(get_distance_between_positions,":dist",pos3,pos2),
-				(store_agent_hit_points,":target_health",":agent",1),
 				(lt,":dist",":affected_radius"),
 
 					(agent_set_slot, ":agent", slot_agent_is_airborne, 1),
@@ -73641,7 +73642,12 @@ scripts = [
                     (store_add, ":push_total", ":push_scaler", ":push_distance_derived"),
                     (agent_set_slot, ":agent", slot_agent_airborne_power_factor, ":push_total"),
                     (agent_set_slot, ":agent", slot_agent_airborne_knockdown, ":knockdown"),
+                    (agent_set_slot, ":agent", slot_agent_airborne_start_knockdown, ":start_knockdown"),
 
+                    (store_mul, ":max_modifier", ":push_distance_derived", ":push_distance_derived"),
+                    (agent_set_slot, ":agent", slot_agent_airborne_push_modifier, ":max_modifier"),            
+            
+                    (store_agent_hit_points,":target_health",":agent",1),
 					(try_begin),
 						(gt,":target_health",":damage_dealt"),
 						(val_sub,":target_health",":damage_dealt"),
@@ -73677,29 +73683,65 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_weave_freeze", [
-	(store_script_param_1,":chosen"),
-	(store_script_param_2,":chosen_horse"),
+        (store_script_param_1,":chosen"),
+        (store_script_param_2,":chosen_horse"),
         (store_script_param,":chosen_team",3),
+        
+        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 2),
+        (assign, ":primary_scaling_factor", reg0),
+        (assign, ":secondary_scaling_factor", reg1),
+
+        #affected area scaling
+        (assign, ":base_radius", 160),
+        (store_mul, ":radius_scaler", ":primary_scaling_factor", 30),
+        (store_add, ":affected_radius", ":base_radius", ":radius_scaler"),
+            
+        #damage dealt scaling
+        (store_mul, ":damage_1", ":primary_scaling_factor", 3),
+        (store_div, ":damage_dealt", ":damage_1", 2),
+        
+        #freeze duration scaling
+        (store_add, ":freeze_duration", ":primary_scaling_factor", 2),
+        
+        #freeze damage-over-time scaling
+        (assign, ":damage_over_time", ":secondary_scaling_factor"),
+        
+        #particle system scaling
+        (try_begin),
+        (is_between, ":primary_scaling_factor", 1, 4),
+            (assign, ":blast_trail_effect", "psys_freeze_blast"),
+            (assign, ":blast_hit_effect", "psys_tsunami"),
+        (else_try),
+        (is_between, ":primary_scaling_factor", 4, 7),
+            (assign, ":blast_trail_effect", "psys_freeze_blast_medium"),
+            (assign, ":blast_hit_effect", "psys_tsunami_medium"),
+        (else_try),
+        (ge, ":primary_scaling_factor", 7),
+            (assign, ":blast_trail_effect", "psys_freeze_blast_large"),
+            (assign, ":blast_hit_effect", "psys_tsunami_large"),
+        (try_end),
+        
+        # Start base code
 		(assign, ":times_near_ground", 0),
 		(assign, ":near_enemy", 0),
 
 		(try_for_range,reg5,1,250),  ###was 500
 		(eq, ":times_near_ground", 0),
-			(particle_system_burst, "psys_freeze_blast", pos1, 10),
+			(particle_system_burst, ":blast_trail_effect", pos1, 10),
 			(position_move_y,pos1,20), # was 10
 
             (agent_get_troop_id, ":chosen_troop", ":chosen"),
     
-            (particle_system_burst, "psys_freeze_blast", pos1, 10), ## need trail
+            (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
             (position_move_y,pos1,20), # was 20
             (try_begin),
             (neq, ":chosen_troop", "trp_player"),
                 (position_move_x,pos1,2), # was 3
             (try_end),
             (copy_position,pos2,pos1),
-            (particle_system_burst, "psys_freeze_blast", pos1, 10), ## need trail
+            (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
             (position_move_y,pos1,20), # was 20
-            (particle_system_burst, "psys_freeze_blast", pos1, 10), ## need trail
+            (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
             (position_move_y,pos1,20), # was 20
             (try_begin),
             (neq, ":chosen_troop", "trp_player"),
@@ -73712,7 +73754,7 @@ scripts = [
                 (try_end),
             (try_end),
             (copy_position,pos3,pos1),
-            (particle_system_burst, "psys_freeze_blast", pos1, 10), ## need trail
+            (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
             (position_move_y,pos1,20), # was 20    
 
 			#added for gravity effect and flight randomness
@@ -73774,7 +73816,7 @@ scripts = [
             (this_or_next|lt,":dist",35), # was 10
             (lt,":dist_secondary",35), # was 10
 				(val_add, ":times_near_ground", 1),
-				(particle_system_burst, "psys_tsunami", pos1, 75),  # effect needs a long duration
+				(particle_system_burst, ":blast_hit_effect", pos1, 75),  # effect needs a long duration
 				(play_sound,"snd_freeze"), # need a sound for freeze
 				(copy_position, pos3, pos1),
 				#(scene_prop_get_instance,":instance", "spr_snowy_heap_a", 0),  #need
@@ -73809,16 +73851,35 @@ scripts = [
 			(get_distance_between_positions,":dist",pos3,pos2),
 
 			(try_begin),
-			(lt,":dist",250),  # freeze (slowed movement) if blast within 250 of agent
-				(agent_set_speed_limit, ":agent", 0),
-				(agent_deliver_damage_to_agent,":chosen",":agent"),
-				(try_begin), # add to channeling multiplier if agent is player
-				(neg|agent_is_non_player, ":chosen"),
-					(val_add, "$g_channeling_proficiency_modifier", 80),
+			(lt,":dist",":affected_radius"),  # freeze (slowed movement)
+                (store_agent_hit_points,":target_health",":agent",1),
+				(try_begin),
+				(gt,":target_health",":damage_dealt"),
+					(val_sub,":target_health",":damage_dealt"),
+					(agent_set_hit_points,":agent",":target_health",1),
+					(agent_deliver_damage_to_agent,":chosen",":agent"),
+					(try_begin), # add to channeling multiplier if agent is player
+					(neg|agent_is_non_player, ":chosen"),
+						(val_add, "$g_channeling_proficiency_modifier", 10),
+					(try_end),
+                    (agent_set_speed_limit, ":agent", 0),
+                    (agent_set_slot, ":agent", slot_agent_is_frozen, 1),
+                    (agent_set_slot, ":agent", slot_agent_freeze_duration, ":freeze_duration"),
+                    (agent_set_slot, ":agent", slot_agent_freeze_damage, ":damage_over_time"),
+                    (agent_set_slot, ":agent", slot_agent_freeze_starter, ":chosen"),
+				(else_try),
+					(agent_set_hit_points,":agent",0,0),
+					(agent_deliver_damage_to_agent,":chosen",":agent"),
+					(try_begin), # add to channeling multiplier if agent is player
+					(neg|agent_is_non_player, ":chosen"),
+						(val_add, "$g_channeling_proficiency_modifier", 20),
+					(try_end),
 				(try_end),
-				(add_xp_to_troop,40,":chosen"),
 			(try_end),
 		(try_end),
+        
+        (store_mul, ":xp_adder", ":damage_dealt", ":damage_over_time"),
+        (add_xp_to_troop,":xp_adder",":chosen"),
 
 ]),
 
@@ -77465,7 +77526,7 @@ scripts = [
        
 
     ## temp slot value so I could test my side of the code
-    (assign, ":test", 10),
+    #(assign, ":test", 10),
     
     ## Set final values for ":chosen" Natural Inclination slots ## (loi = Level of Importance)
     (agent_set_slot, ":chosen", slot_agent_ni_air_blast_loi, 0), # unused by npcs

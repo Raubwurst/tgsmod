@@ -144,6 +144,13 @@ slot_agent_airborne_x_movement    = 32    ## Movement ratio in x direction
 slot_agent_airborne_y_movement    = 33    ## Movement ratio in y direction
 slot_agent_airborne_power_factor  = 34    ## Initial power factor
 slot_agent_airborne_knockdown     = 65    ## (0 = false, 1 = true)
+slot_agent_airborne_push_modifier = 66    ## Helps balance push effect
+slot_agent_airborne_start_knockdown = 67  ## (0 = false, 1 = true)
+
+slot_agent_freeze_duration          = 68  ## Duration of freeze
+slot_agent_freeze_damage            = 69  ## Amount of damage over time
+slot_agent_freeze_starter           = 70  ## Agent who initiated the weave
+slot_agent_is_frozen                = 71  ## (0 = false, 1 = true)
 
 
 ## Natural Inclination Weave Slots ## (loi = Level of Importance)

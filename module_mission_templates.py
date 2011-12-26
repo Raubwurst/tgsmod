@@ -2929,6 +2929,12 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_knockdown, 0),
+                 (agent_set_slot, ":agent", slot_agent_airborne_push_modifier, 0),
+                 (agent_set_slot, ":agent", slot_agent_airborne_start_knockdown, 0),
+             
+                 (agent_set_slot, ":agent", slot_agent_freeze_duration, 0),
+                 (agent_set_slot, ":agent", slot_agent_freeze_damage, 0),
+                 (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
 
                  (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
 
@@ -5184,11 +5190,22 @@ common_wot_airborne_trigger = (
 
                 (agent_get_slot, ":run", ":agent", slot_agent_airborne_x_movement),
                 (agent_get_slot, ":rise", ":agent", slot_agent_airborne_y_movement),
+                (agent_get_slot, ":power_factor", ":agent", slot_agent_airborne_power_factor),
+                (agent_get_slot, ":push_modifier", ":agent", slot_agent_airborne_push_modifier),
+        
+                (store_mul, ":run_mod_1", ":run", ":push_modifier"),
+                (store_mul, ":rise_mod_1", ":rise", ":push_modifier"),
+
+                # push_modifier_max = 25 for Air Blast        
+                (store_div, ":run_mod_2", ":run_mod_1", 25),
+                (store_div, ":rise_mod_2", ":rise_mod_1", 25),
 
                 # Scale the rise/run so targets will move over a larger number of smaller intervals
                 (assign, ":run_rise_scaler", 3),
-                (store_div, ":run_interval", ":run", ":run_rise_scaler"),
-                (store_div, ":rise_interval", ":rise", ":run_rise_scaler"),
+                #(store_div, ":run_interval", ":run", ":run_rise_scaler"),
+                #(store_div, ":rise_interval", ":rise", ":run_rise_scaler"),
+                (store_div, ":run_interval", ":run_mod_2", ":run_rise_scaler"),
+                (store_div, ":rise_interval", ":rise_mod_2", ":run_rise_scaler"),
 
                 (store_add, ":new_x", ":current_x", ":run_interval"),
                 (store_add, ":new_y", ":current_y", ":rise_interval"),
@@ -5203,22 +5220,35 @@ common_wot_airborne_trigger = (
                 (val_mod, ":reduce_power_factor_check", ":run_rise_scaler"),
                 (try_begin),
                 (eq, ":reduce_power_factor_check", 0),
-                    (agent_get_slot, ":power_factor", ":agent", slot_agent_airborne_power_factor),
                     (val_sub, ":power_factor", 1),
                     (agent_set_slot, ":agent", slot_agent_airborne_power_factor, ":power_factor"),
+                (try_end),
+        
+                # implement knockdown if conditions are met
+                (agent_get_slot, ":knockdown", ":agent", slot_agent_airborne_knockdown),
+                (agent_get_slot, ":start_knockdown", ":agent", slot_agent_airborne_start_knockdown),
+                (try_begin),
+                (eq, ":knockdown", 1),
+                (eq, ":start_knockdown", 1),
+                    (try_begin),
+                    (agent_is_human, ":agent"),
+                        (agent_get_horse, ":agent_horse", ":agent"),
+                        (try_begin),
+                        (lt, ":agent_horse", 0),
+                            (agent_set_animation, ":agent", "anim_strike_fall_back_rise", 0),
+                            (agent_set_slot, ":agent", slot_agent_airborne_start_knockdown, 0),
+                        (try_end),
+                    (else_try),
+                    (neg|agent_is_human, ":agent"),
+                        (agent_set_animation, ":agent", "anim_horse_rear", 0),
+                        (agent_set_slot, ":agent", slot_agent_airborne_start_knockdown, 0),
+                    (try_end),
                 (try_end),
 
                 # stop agent movement when ":power_factor" is less than zero
                 (try_begin),
                 (lt, ":power_factor", 0),
-                    (agent_get_slot, ":knockdown", ":agent", slot_agent_airborne_knockdown),
-                    (try_begin),
-                    (eq, ":knockdown", 0),
-                        (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                    (else_try),
-                        (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                        (agent_set_animation, ":agent", "anim_strike_fall_back_rise", 0),
-                    (try_end),
+                    (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
                 (try_end),
         
                 (agent_set_position, ":agent", pos63),
@@ -7245,6 +7275,88 @@ common_wot_electrical_charge_trigger = (
         
         (try_end),
 
+       ])
+
+## Freeze over time trigger 1## 
+common_wot_freeze_over_time_trigger = (
+    0, 0, 0.01,
+                    [
+                      (assign, ":freeze_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
+                          (eq, ":frozen", 1),
+                          (val_add, ":freeze_check", 1),
+                      (end_try),
+
+                      (ge, ":freeze_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
+            (eq, ":frozen", 1),
+                (agent_get_look_position, pos62, ":agent"),
+                (position_get_z, ":z_temp", pos62),
+                (val_add, ":z_temp", 1000),
+                (position_set_z, pos62, ":z_temp"),
+                (particle_system_burst, "psys_freeze_blast_large", pos62, 1),
+        
+                (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
+                (val_mod, ":one_second_check", 100),
+                (try_begin),
+                (eq, ":one_second_check", 0),  ## true once every second
+                    (agent_get_slot, ":freeze_duration", ":agent", slot_agent_freeze_duration),
+
+                    # reduce the duration
+                    (try_begin),
+                    (gt, ":freeze_duration", 0),
+                        (val_sub, ":freeze_duration", 1),
+                        (agent_set_slot, ":agent", slot_agent_freeze_duration, ":freeze_duration"),
+                    (else_try),
+                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
+                        (agent_set_speed_limit, ":agent", 20),
+                    (try_end),
+                (try_end),
+
+                (assign, ":three_second_check", "$g_one_hundredth_second_timer"),
+                (val_mod, ":three_second_check", 300),        
+                (try_begin),
+                (eq, ":three_second_check", 0),
+                    (store_agent_hit_points,":target_health",":agent",1),
+                    (agent_get_slot, ":chosen", ":agent", slot_agent_freeze_starter),
+                    (agent_get_slot, ":damage", ":agent", slot_agent_freeze_damage),
+
+                    # apply damage
+                    (try_begin),
+                    (gt,":target_health",":damage"),
+                        (val_sub,":target_health",":damage"),
+                        (agent_set_hit_points,":agent",":target_health",1),
+                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                        (try_begin), # add to channeling multiplier if agent is player
+                        (neg|agent_is_non_player, ":chosen"),
+                            (val_add, "$g_channeling_proficiency_modifier", 2),
+                        (try_end),
+                    (else_try),
+                        (agent_set_hit_points,":agent",0,0),
+                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                        (try_begin),
+                        (neg|agent_is_non_player, ":chosen"),
+                            (val_add, "$g_channeling_proficiency_modifier", 20),
+                        (try_end),
+                        (add_xp_to_troop,25,":chosen"),
+                        (val_sub, ":z_temp", 400),
+                        (position_set_z, pos62, ":z_temp"),
+                        (particle_system_burst, "psys_freeze_blast_large", pos62, 100),
+                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
+                    (try_end),
+                (try_end),
+
+        (try_end),
        ])
 
 ## Seeker weave triggers ## normal gameplay
@@ -10004,6 +10116,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10169,6 +10282,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10331,6 +10445,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10461,6 +10576,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10638,6 +10754,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10796,6 +10913,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10927,6 +11045,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11259,6 +11378,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11437,6 +11557,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11644,6 +11765,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11999,6 +12121,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12186,6 +12309,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12409,6 +12533,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12581,6 +12706,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12722,6 +12848,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -13654,6 +13781,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -19992,7 +20120,87 @@ mission_templates = [
         
         (try_end),
 
-       ]),       
+       ]),
+
+## Freeze over time trigger 1## 
+      (0, 0, 0.01,[
+                      (assign, ":freeze_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
+                          (eq, ":frozen", 1),
+                          (val_add, ":freeze_check", 1),
+                      (end_try),
+
+                      (ge, ":freeze_check", 1),
+                    ],
+
+       [
+       (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
+            (eq, ":frozen", 1),
+                (agent_get_look_position, pos62, ":agent"),
+                (position_get_z, ":z_temp", pos62),
+                (val_add, ":z_temp", 1000),
+                (position_set_z, pos62, ":z_temp"),
+                (particle_system_burst, "psys_freeze_blast_large", pos62, 1),
+        
+                (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
+                (val_mod, ":one_second_check", 100),
+                (try_begin),
+                (eq, ":one_second_check", 0),  ## true once every second
+                    (agent_get_slot, ":freeze_duration", ":agent", slot_agent_freeze_duration),
+
+                    # reduce the duration
+                    (try_begin),
+                    (gt, ":freeze_duration", 0),
+                        (val_sub, ":freeze_duration", 1),
+                        (agent_set_slot, ":agent", slot_agent_freeze_duration, ":freeze_duration"),
+                    (else_try),
+                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
+                        (agent_set_speed_limit, ":agent", 20),
+                    (try_end),
+                (try_end),
+
+                (assign, ":three_second_check", "$g_one_hundredth_second_timer"),
+                (val_mod, ":three_second_check", 300),        
+                (try_begin),
+                (eq, ":three_second_check", 0),
+                    (store_agent_hit_points,":target_health",":agent",1),
+                    (agent_get_slot, ":chosen", ":agent", slot_agent_freeze_starter),
+                    (agent_get_slot, ":damage", ":agent", slot_agent_freeze_damage),
+
+                    # apply damage
+                    (try_begin),
+                    (gt,":target_health",":damage"),
+                        (val_sub,":target_health",":damage"),
+                        (agent_set_hit_points,":agent",":target_health",1),
+                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                        (try_begin), # add to channeling multiplier if agent is player
+                        (neg|agent_is_non_player, ":chosen"),
+                            (val_add, "$g_channeling_proficiency_modifier", 2),
+                        (try_end),
+                    (else_try),
+                        (agent_set_hit_points,":agent",0,0),
+                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                        (try_begin),
+                        (neg|agent_is_non_player, ":chosen"),
+                            (val_add, "$g_channeling_proficiency_modifier", 20),
+                        (try_end),
+                        (add_xp_to_troop,25,":chosen"),
+                        (val_sub, ":z_temp", 400),
+                        (position_set_z, pos62, ":z_temp"),
+                        (particle_system_burst, "psys_freeze_blast_large", pos62, 100),
+                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
+                    (try_end),
+                (try_end),
+
+        (try_end),
+       ]),      
 
       ## Seeker weave triggers ##
 
@@ -24342,6 +24550,86 @@ mission_templates = [
         
         (try_end),
 
+       ]),
+
+## Freeze over time trigger 1## 
+      (0, 0, 0.01,[
+                      (assign, ":freeze_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
+                          (eq, ":frozen", 1),
+                          (val_add, ":freeze_check", 1),
+                      (end_try),
+
+                      (ge, ":freeze_check", 1),
+                    ],
+
+       [
+       (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
+            (eq, ":frozen", 1),
+                (agent_get_look_position, pos62, ":agent"),
+                (position_get_z, ":z_temp", pos62),
+                (val_add, ":z_temp", 1000),
+                (position_set_z, pos62, ":z_temp"),
+                (particle_system_burst, "psys_freeze_blast_large", pos62, 1),
+        
+                (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
+                (val_mod, ":one_second_check", 100),
+                (try_begin),
+                (eq, ":one_second_check", 0),  ## true once every second
+                    (agent_get_slot, ":freeze_duration", ":agent", slot_agent_freeze_duration),
+
+                    # reduce the duration
+                    (try_begin),
+                    (gt, ":freeze_duration", 0),
+                        (val_sub, ":freeze_duration", 1),
+                        (agent_set_slot, ":agent", slot_agent_freeze_duration, ":freeze_duration"),
+                    (else_try),
+                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
+                        (agent_set_speed_limit, ":agent", 20),
+                    (try_end),
+                (try_end),
+
+                (assign, ":three_second_check", "$g_one_hundredth_second_timer"),
+                (val_mod, ":three_second_check", 300),        
+                (try_begin),
+                (eq, ":three_second_check", 0),
+                    (store_agent_hit_points,":target_health",":agent",1),
+                    (agent_get_slot, ":chosen", ":agent", slot_agent_freeze_starter),
+                    (agent_get_slot, ":damage", ":agent", slot_agent_freeze_damage),
+
+                    # apply damage
+                    (try_begin),
+                    (gt,":target_health",":damage"),
+                        (val_sub,":target_health",":damage"),
+                        (agent_set_hit_points,":agent",":target_health",1),
+                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                        (try_begin), # add to channeling multiplier if agent is player
+                        (neg|agent_is_non_player, ":chosen"),
+                            (val_add, "$g_channeling_proficiency_modifier", 2),
+                        (try_end),
+                    (else_try),
+                        (agent_set_hit_points,":agent",0,0),
+                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                        (try_begin),
+                        (neg|agent_is_non_player, ":chosen"),
+                            (val_add, "$g_channeling_proficiency_modifier", 20),
+                        (try_end),
+                        (add_xp_to_troop,25,":chosen"),
+                        (val_sub, ":z_temp", 400),
+                        (position_set_z, pos62, ":z_temp"),
+                        (particle_system_burst, "psys_freeze_blast_large", pos62, 100),
+                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
+                    (try_end),
+                (try_end),
+
+        (try_end),
        ]),      
 
       ## Seeker weave triggers ##
@@ -26521,6 +26809,7 @@ mission_templates = [
         common_wot_burn_over_time_trigger_multi,
       #check this later
         common_wot_electrical_charge_trigger,
+        common_wot_freeze_over_time_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -26891,6 +27180,7 @@ mission_templates = [
         common_wot_burn_over_time_trigger_multi,
       # check this later
         common_wot_electrical_charge_trigger,
+        common_wot_freeze_over_time_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -28003,6 +28293,7 @@ mission_templates = [
         common_wot_burn_over_time_trigger_multi,
       # check this later
         common_wot_electrical_charge_trigger,
+        common_wot_freeze_over_time_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -28773,6 +29064,7 @@ mission_templates = [
         common_wot_burn_over_time_trigger_multi,
       # check this later
         common_wot_electrical_charge_trigger,
+        common_wot_freeze_over_time_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -29853,6 +30145,7 @@ mission_templates = [
         common_wot_burn_over_time_trigger_multi,
       # check this later
         common_wot_electrical_charge_trigger,
+        common_wot_freeze_over_time_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -31079,6 +31372,7 @@ mission_templates = [
         common_wot_burn_over_time_trigger_multi,
       # check this later
         common_wot_electrical_charge_trigger,
+        common_wot_freeze_over_time_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -32216,6 +32510,7 @@ mission_templates = [
         common_wot_burn_over_time_trigger_multi,
       # check this later
         common_wot_electrical_charge_trigger,
+        common_wot_freeze_over_time_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -32664,6 +32959,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -34026,6 +34322,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -34347,6 +34644,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -34716,6 +35014,7 @@ mission_templates = [
       
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
