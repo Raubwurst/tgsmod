@@ -73691,9 +73691,10 @@ scripts = [
         (assign, ":primary_scaling_factor", reg0),
         (assign, ":secondary_scaling_factor", reg1),
 
-        #affected area scaling
-        (assign, ":base_radius", 160),
-        (store_mul, ":radius_scaler", ":primary_scaling_factor", 30),
+        #affected area scaling: radius = 5*primary^2 + 100
+        (assign, ":base_radius", 100),
+        (store_mul, ":radius_scaler", ":primary_scaling_factor", ":primary_scaling_factor"),
+        (val_mul, ":radius_scaler", 5),
         (store_add, ":affected_radius", ":base_radius", ":radius_scaler"),
             
         #damage dealt scaling
@@ -73708,7 +73709,7 @@ scripts = [
         
         #particle system scaling
         (try_begin),
-        (is_between, ":primary_scaling_factor", 1, 4),
+        (lt, ":primary_scaling_factor", 4),
             (assign, ":blast_trail_effect", "psys_freeze_blast"),
             (assign, ":blast_hit_effect", "psys_tsunami"),
         (else_try),
@@ -73727,8 +73728,6 @@ scripts = [
 
 		(try_for_range,reg5,1,250),  ###was 500
 		(eq, ":times_near_ground", 0),
-			(particle_system_burst, ":blast_trail_effect", pos1, 10),
-			(position_move_y,pos1,20), # was 10
 
             (agent_get_troop_id, ":chosen_troop", ":chosen"),
     
@@ -73867,6 +73866,8 @@ scripts = [
                     (agent_set_slot, ":agent", slot_agent_freeze_duration, ":freeze_duration"),
                     (agent_set_slot, ":agent", slot_agent_freeze_damage, ":damage_over_time"),
                     (agent_set_slot, ":agent", slot_agent_freeze_starter, ":chosen"),
+                    #remove fire effects
+                    (agent_set_slot, ":agent", slot_agent_on_fire, 0),
 				(else_try),
 					(agent_set_hit_points,":agent",0,0),
 					(agent_deliver_damage_to_agent,":chosen",":agent"),
@@ -73892,9 +73893,28 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_weave_heal_nearest", [
-	(store_script_param_1,":chosen"),
-	#(store_script_param_2,":chosen_horse"),
-        (store_script_param,":chosen_team",3),
+                        (store_script_param_1,":chosen"),
+                        #(store_script_param_2,":chosen_horse"),
+                        (store_script_param,":chosen_team",3),
+
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 3),
+                        (assign, ":primary_scaling_factor", reg0),
+                        (assign, ":secondary_scaling_factor", reg1),
+                        
+                        #heal effectivity scaling
+                        (assign, ":base_healing_percentage", 20),
+                        (store_add, ":healing_modifier", ":primary_scaling_factor", ":secondary_scaling_factor"),
+                        (try_begin),
+                        (le, ":healing_modifier", 10),
+                            (store_mul, ":additional_healing_percentage", ":healing_modifier", 5),
+                            (store_add, ":final_healing_percentage", ":base_healing_percentage", ":additional_healing_percentage"),
+                        (else_try),
+                            (val_add, ":base_healing_percentage", 50),
+                            (val_sub, ":healing_modifier", 10),
+                            (store_mul, ":additional_healing_percentage", ":healing_modifier", 10),
+                            (store_add, ":final_healing_percentage", ":base_healing_percentage", ":additional_healing_percentage"),
+                        (try_end),
+                        
                         (assign, ":distance",99999),
                         (assign, ":number_of_allies", 0),
 
@@ -73907,7 +73927,7 @@ scripts = [
                             (agent_is_human,":agent"), ## don't look for horses on the first round
                             (neq, ":chosen", ":agent"), ## shooter can't heal self
                             (store_agent_hit_points,":health",":agent",0),
-                            (lt,":health",75),
+                            (lt,":health",75), # leave at 75 for now
                             (agent_get_look_position, pos2, ":agent"),
                             (get_distance_between_positions,":dist",pos1,pos2),
                             (lt,":dist",":distance"),
@@ -73918,7 +73938,14 @@ scripts = [
 
                         (try_begin),
                         (ge, ":number_of_allies", 1),
-                            (agent_set_hit_points,":nearest_hurt_ally",100,0),
+                            (store_agent_hit_points, ":hurt_ally_health_percentage", ":nearest_hurt_ally", 0),
+                            (val_add, ":hurt_ally_health_percentage", ":final_healing_percentage"),
+                            (try_begin),
+                            (gt, ":hurt_ally_health_percentage", 100),
+                                (agent_set_hit_points, ":nearest_hurt_ally", 100, 0),
+                            (else_try),
+                                (agent_set_hit_points, ":nearest_hurt_ally", ":hurt_ally_health_percentage", 0),
+                            (try_end),
                             (agent_get_look_position, pos2, ":nearest_hurt_ally"),
                             (particle_system_burst, "psys_heal_aura", pos2, 50),
                             (play_sound, "snd_heal"),
@@ -73926,7 +73953,10 @@ scripts = [
                             (neg|agent_is_non_player, ":chosen"),
                                 (val_add, "$g_channeling_proficiency_modifier", 80),
                             (try_end),
-                            (add_xp_to_troop,40,":chosen"),
+                            (store_mul, ":xp_1", ":final_healing_percentage", 3),
+                            (val_div, ":xp_1", 4),
+                            (val_max, ":xp_1", 30),
+                            (add_xp_to_troop,":xp_1",":chosen"),
                         (else_try),
                             (assign, ":distance",99999),
                             (assign, ":number_of_allies", 0),
@@ -73951,7 +73981,14 @@ scripts = [
 
                             (try_begin),
                             (ge, ":number_of_allies", 1),
-                                (agent_set_hit_points,":nearest_hurt_ally",100,0),
+                                (store_agent_hit_points, ":hurt_ally_health_percentage", ":nearest_hurt_ally", 0),
+                                (val_add, ":hurt_ally_health_percentage", ":final_healing_percentage"),
+                                (try_begin),
+                                (gt, ":hurt_ally_health_percentage", 100),
+                                    (agent_set_hit_points, ":nearest_hurt_ally", 100, 0),
+                                (else_try),
+                                    (agent_set_hit_points, ":nearest_hurt_ally", ":hurt_ally_health_percentage", 0),
+                                (try_end),
                                 (agent_get_look_position, pos2, ":nearest_hurt_ally"),
                                 (particle_system_burst, "psys_heal_aura", pos2, 50),
                                 (play_sound, "snd_heal"),
@@ -73959,7 +73996,10 @@ scripts = [
                                 (neg|agent_is_non_player, ":chosen"),
                                     (val_add, "$g_channeling_proficiency_modifier", 80),
                                 (try_end),
-                                (add_xp_to_troop,40,":chosen"),
+                                (store_mul, ":xp_1", ":final_healing_percentage", 3),
+                                (val_div, ":xp_1", 4),
+                                (val_max, ":xp_1", 30),
+                                (add_xp_to_troop,":xp_1",":chosen"),
                             (try_end),
                         (try_end),
 ]),
@@ -73972,9 +74012,62 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_weave_fireball", [
-	(store_script_param_1,":chosen"),
-	(store_script_param_2,":chosen_horse"),
-        (store_script_param,":chosen_team",3),
+                        (store_script_param_1,":chosen"),
+                        (store_script_param_2,":chosen_horse"),
+                        (store_script_param,":chosen_team",3),
+
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 4),
+                        (assign, ":primary_scaling_factor", reg0),
+                        (assign, ":secondary_scaling_factor", reg1),
+
+                        #affected area scaling: radius = 8*primary^2 + 50*secondary + 100
+                        (assign, ":base_radius", 150),
+                        (store_mul, ":primary_radius_scaler", ":primary_scaling_factor", 50),
+                        (store_mul, ":secondary_radius_scaler", ":secondary_scaling_factor", 40),
+                        (store_add, ":affected_radius", ":base_radius", ":primary_radius_scaler"),
+                        (val_add, ":affected_radius", ":secondary_radius_scaler"),
+                        
+                        (store_div, ":affected_radius_div_8", ":affected_radius", 8),
+                        (store_div, ":affected_radius_div_4", ":affected_radius", 4),
+                        (store_div, ":affected_radius_div_2", ":affected_radius", 2),
+            
+                        #damage dealt scaling: damage = 3*primary + 2*secondary + 12
+                        (assign, ":base_damage", 12),
+                        (store_mul, ":primary_damage", ":primary_scaling_factor", 3),
+                        (store_mul, ":secondary_damage", ":secondary_scaling_factor", 2),
+                        (store_add, ":max_damage_dealt", ":base_damage", ":primary_damage"),
+                        (val_add, ":max_damage_dealt", ":secondary_damage"),
+                        
+                        (store_mul, ":max_damage_dealt_3", ":max_damage_dealt", 3),
+                        (store_div, ":max_damage_dealt_3_5", ":max_damage_dealt_3", 5),
+                        
+                        (store_mul, ":max_damage_dealt_2", ":max_damage_dealt", 2),
+                        (store_div, ":max_damage_dealt_2_5", ":max_damage_dealt_2", 5),
+                        
+                        (store_div, ":max_damage_dealt_1_5", ":max_damage_dealt", 5),
+        
+                        #burn over time duration scaling
+                        (store_add, ":scaled_burn_duration", ":primary_scaling_factor", 3),
+        
+                        #particle system scaling
+                        (try_begin),
+                        (lt, ":primary_scaling_factor", 4),
+                            (assign, ":blast_trail_effect", "psys_torch_fire"),
+                            (assign, ":blast_hit_effect", "psys_massive_fire"),
+                            (assign, ":blast_hit_effect_2", "psys_war_smoke_tall_small"),
+                        (else_try),
+                        (is_between, ":primary_scaling_factor", 4, 6),
+                            (assign, ":blast_trail_effect", "psys_torch_fire_medium"),
+                            (assign, ":blast_hit_effect", "psys_massive_fire_medium"),
+                            (assign, ":blast_hit_effect_2", "psys_war_smoke_tall"),
+                        (else_try),
+                        (ge, ":primary_scaling_factor", 6),
+                            (assign, ":blast_trail_effect", "psys_torch_fire_large"),
+                            (assign, ":blast_hit_effect", "psys_massive_fire_large"),
+                            (assign, ":blast_hit_effect_2", "psys_war_smoke_tall_large"),
+                        (try_end),
+        
+                        # Start base code
                         (assign, ":times_near_ground", 0),
                         (assign, ":near_enemy", 0),
 
@@ -73983,16 +74076,16 @@ scripts = [
 
                             (agent_get_troop_id, ":chosen_troop", ":chosen"),
     
-                            (particle_system_burst, "psys_torch_fire", pos1, 10), ## need trail
+                            (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
                             (neq, ":chosen_troop", "trp_player"),
                                 (position_move_x,pos1,2), # was 3
                             (try_end),
                             (copy_position,pos2,pos1),
-                            (particle_system_burst, "psys_torch_fire", pos1, 10), ## need trail
+                            (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
                             (position_move_y,pos1,20), # was 20
-                            (particle_system_burst, "psys_torch_fire", pos1, 10), ## need trail
+                            (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
                             (neq, ":chosen_troop", "trp_player"),
@@ -74005,7 +74098,7 @@ scripts = [
                                 (try_end),
                             (try_end),
                             (copy_position,pos3,pos1),
-                            (particle_system_burst, "psys_torch_fire", pos1, 10), ## need trail
+                            (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
                             (position_move_y,pos1,20), # was 20
     
 
@@ -74068,8 +74161,8 @@ scripts = [
                             (this_or_next|lt,":dist",35), # was 10
                             (lt,":dist_secondary",35), # was 10
                                 (val_add, ":times_near_ground", 1),
-                                (particle_system_burst, "psys_massive_fire", pos1, 15),  #need
-                                (particle_system_burst, "psys_war_smoke_tall", pos1, 15),  #need
+                                (particle_system_burst, ":blast_hit_effect", pos1, 15),  #need
+                                (particle_system_burst, ":blast_hit_effect_2", pos1, 15),  #need
                                 (play_sound,"snd_fire_ball"),
                                 (copy_position, pos3, pos1),
                                 #(scene_prop_get_instance,":instance", "spr_explosion", 0),  #need
@@ -74105,23 +74198,25 @@ scripts = [
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
                          
-                            # do 25 damage if fireball within 50 of agent
                             (try_begin),
-                                (lt,":dist",50),  #was 300
+                            (lt,":dist",":affected_radius_div_8"),  #was 300
                                 (store_agent_hit_points,":target_health",":agent",1),
                                 (try_begin),
-                                    (gt,":target_health",25),
-                                    (val_sub,":target_health",25),
+                                (gt,":target_health",":max_damage_dealt"),
+                                    (val_sub,":target_health",":max_damage_dealt"),
                                     (agent_set_hit_points,":agent",":target_health",1),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
                                     (try_begin), # add to channeling multiplier if agent is player
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 40),
                                     (try_end),
-                                    (add_xp_to_troop,20,":chosen"),
+                                    (assign, ":proximity_burn_duration", 8),
+                                    (store_add, ":final_burn_duration", ":scaled_burn_duration", ":proximity_burn_duration"),
                                     (agent_set_slot, ":agent", slot_agent_on_fire, 1),
                                     (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
-                                    (agent_set_slot, ":agent", slot_agent_fire_duration, 20),
+                                    (agent_set_slot, ":agent", slot_agent_fire_duration, ":final_burn_duration"),
+                                    #remove freeze effects
+                                    (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
                                 (else_try),
                                     (agent_set_hit_points,":agent",0,0),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
@@ -74129,29 +74224,30 @@ scripts = [
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 50),
                                     (try_end),
-                                    (add_xp_to_troop,25,":chosen"),
                                     (position_get_z, ":z_temp", pos2),
                                     (val_add, ":z_temp", 300),
                                     (position_set_z, pos2, ":z_temp"),
                                     (particle_system_burst, "psys_torch_fire", pos2, 100),
                                 (try_end),
-                            # do 15 damage if fireball within 50 to 125 of agent
                             (else_try),
-                                (is_between,":dist",50,125),  #was 300
+                            (is_between,":dist",":affected_radius_div_8",":affected_radius_div_4"),  #was 300
                                 (store_agent_hit_points,":target_health",":agent",1),
                                 (try_begin),
-                                    (gt,":target_health",15),
-                                    (val_sub,":target_health",15),
+                                (gt,":target_health",":max_damage_dealt_3_5"),
+                                    (val_sub,":target_health",":max_damage_dealt_3_5"),
                                     (agent_set_hit_points,":agent",":target_health",1),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
                                     (try_begin), # add to channeling multiplier if agent is player
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 30),
                                     (try_end),
-                                    (add_xp_to_troop,15,":chosen"),
+                                    (assign, ":proximity_burn_duration", 6),
+                                    (store_add, ":final_burn_duration", ":scaled_burn_duration", ":proximity_burn_duration"),
                                     (agent_set_slot, ":agent", slot_agent_on_fire, 1),
                                     (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
-                                    (agent_set_slot, ":agent", slot_agent_fire_duration, 15),
+                                    (agent_set_slot, ":agent", slot_agent_fire_duration, ":final_burn_duration"),
+                                    #remove freeze effects
+                                    (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
                                 (else_try),
                                     (agent_set_hit_points,":agent",0,0),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
@@ -74159,29 +74255,30 @@ scripts = [
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 40),
                                     (try_end),
-                                    (add_xp_to_troop,20,":chosen"),
                                     (position_get_z, ":z_temp", pos2),
                                     (val_add, ":z_temp", 300),
                                     (position_set_z, pos2, ":z_temp"),
                                     (particle_system_burst, "psys_torch_fire", pos2, 100),
                                 (try_end),
-                            # do 10 damage if fireball within 125 to 225 of agent
                             (else_try),
-                                (is_between,":dist",125,225),  #was 300
+                            (is_between,":dist",":affected_radius_div_4",":affected_radius_div_2"),  #was 300
                                 (store_agent_hit_points,":target_health",":agent",1),
                                 (try_begin),
-                                    (gt,":target_health",10),
-                                    (val_sub,":target_health",10),
+                                (gt,":target_health",":max_damage_dealt_2_5"),
+                                    (val_sub,":target_health",":max_damage_dealt_2_5"),
                                     (agent_set_hit_points,":agent",":target_health",1),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
                                     (try_begin), # add to channeling multiplier if agent is player
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 20),
                                     (try_end),
-                                    (add_xp_to_troop,10,":chosen"),
+                                    (assign, ":proximity_burn_duration", 4),
+                                    (store_add, ":final_burn_duration", ":scaled_burn_duration", ":proximity_burn_duration"),
                                     (agent_set_slot, ":agent", slot_agent_on_fire, 1),
                                     (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
-                                    (agent_set_slot, ":agent", slot_agent_fire_duration, 10),
+                                    (agent_set_slot, ":agent", slot_agent_fire_duration, ":final_burn_duration"),
+                                    #remove freeze effects
+                                    (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
                                 (else_try),
                                     (agent_set_hit_points,":agent",0,0),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
@@ -74189,29 +74286,30 @@ scripts = [
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 30),
                                     (try_end),
-                                    (add_xp_to_troop,15,":chosen"),
                                     (position_get_z, ":z_temp", pos2),
                                     (val_add, ":z_temp", 300),
                                     (position_set_z, pos2, ":z_temp"),
                                     (particle_system_burst, "psys_torch_fire", pos2, 100),
                                 (try_end),
-                            # do 5 damage if fireball within 225 to 350 of agent
                             (else_try),
-                                (is_between,":dist",225,350),  #was 300
+                            (is_between,":dist",":affected_radius_div_2",":affected_radius"),  #was 300
                                 (store_agent_hit_points,":target_health",":agent",1),
                                 (try_begin),
-                                    (gt,":target_health",5),
-                                    (val_sub,":target_health",5),
+                                (gt,":target_health",":max_damage_dealt_1_5"),
+                                    (val_sub,":target_health",":max_damage_dealt_1_5"),
                                     (agent_set_hit_points,":agent",":target_health",1),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
                                     (try_begin), # add to channeling multiplier if agent is player
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 10),
                                     (try_end),
-                                    (add_xp_to_troop,5,":chosen"),
+                                    (assign, ":proximity_burn_duration", 2),
+                                    (store_add, ":final_burn_duration", ":scaled_burn_duration", ":proximity_burn_duration"),
                                     (agent_set_slot, ":agent", slot_agent_on_fire, 1),
                                     (agent_set_slot, ":agent", slot_agent_fire_starter, ":chosen"),
-                                    (agent_set_slot, ":agent", slot_agent_fire_duration, 5),
+                                    (agent_set_slot, ":agent", slot_agent_fire_duration, ":final_burn_duration"),
+                                    #remove freeze effects
+                                    (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
                                 (else_try),
                                     (agent_set_hit_points,":agent",0,0),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
@@ -74219,7 +74317,6 @@ scripts = [
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 20),
                                     (try_end),
-                                    (add_xp_to_troop,10,":chosen"),
                                     (position_get_z, ":z_temp", pos2),
                                     (val_add, ":z_temp", 300),
                                     (position_set_z, pos2, ":z_temp"),
@@ -74228,6 +74325,9 @@ scripts = [
                             (try_end),
 
                         (try_end),
+                        
+                        (add_xp_to_troop,":max_damage_dealt",":chosen"),
+                        
 ]),
 ##"script_tgs_weave_unravel"
 ## Function to cast an unravel weave
@@ -77210,8 +77310,8 @@ scripts = [
     (assign,":pref_aggresive",0), # 0-10, higher numbers are more aggressive 
 
     # Choose a random favourite element and add a random bonus
-    (store_random_in_range,":favourite_element_bonus",1,3),
-    (store_random_in_range,":favourite_element",1,5),
+    (store_random_in_range,":favourite_element_bonus",1,4), # was ...1,3),
+    (store_random_in_range,":favourite_element",1,6), # note, random_in_range will not see 5 as an option, unless you go ...1,6),
     (try_begin),
     (eq, ":favourite_element", 1),
     (val_add,":pref_water",":favourite_element_bonus"),
@@ -77230,7 +77330,7 @@ scripts = [
     (try_end),
 
     # Choose a random aggresiveness bonus
-    (store_random_in_range,":aggresive_bonus",1,5),
+    (store_random_in_range,":aggresive_bonus",1,6), # was ...1,5),
     (val_add,":pref_aggresive",":aggresive_bonus"),    
 
     # Get chosen's gender for initial weave weighting
@@ -77289,12 +77389,28 @@ scripts = [
         (val_add,":pref_earth",3),
         (val_add,":pref_aggresive",5),
     (try_end),
+
+    ## Initialize final_prob values
+    #(assign, ":fair_blast", 0), # unused by npcs
+    (assign, ":ffreeze_prob", 0),
+    (assign, ":fheal_prob", 0),
+    (assign, ":ffireball_prob", 0),
+    (assign, ":funravel_prob", 0),
+    #(assign, ":fdefensive_blast", 0), # unused by npcs
+    (assign, ":freblast_prob", 0),
+    (assign, ":fbind_prob", 0),
+    (assign, ":fclight_prob", 0),
+    #(assign, ":ffire_curtain", 0), # unused by npcs
+    (assign, ":fshield_prob", 0),
+    (assign, ":fseeker_prob", 0),
+    (assign, ":fcompulsion_prob", 0),
+    (assign, ":fbalefire_prob", 0),    
 	    
-    #(call_script,"script_tgs_determine_weave_scaling_factors",":chosen",1),
+    #(call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",1),
     #(store_add,":scale",reg0,reg1),
     #(assign,":airblaston",":scale"),
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",2), # Find the multipliers for chosen and weave 2
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",2), # Find the multipliers for chosen and weave 2
     (store_add,":scale",reg0,reg1), # Grab the total of the two multipliers
     (assign,":freezeon",":scale"), # Assign the total to a new variable
     (try_begin), 
@@ -77313,7 +77429,7 @@ scripts = [
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",3),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",3),
     (store_add,":scale",reg0,reg1),
     (assign,":healon",":scale"),
     (try_begin),
@@ -77335,7 +77451,7 @@ scripts = [
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",4),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",4),
     (store_add,":scale",reg0,reg1),
     (assign,":fireballon",":scale"),
     (try_begin),
@@ -77354,7 +77470,7 @@ scripts = [
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",5),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",5),
     (store_add,":scale",reg0,reg1),
     (assign,":unravelon",":scale"),
     (try_begin),
@@ -77377,11 +77493,11 @@ scripts = [
     (try_end),
 
 
-    #(call_script,"script_tgs_determine_weave_scaling_factors",":chosen",6),
+    #(call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",6),
     #(store_add,":scale",reg0,reg1),
     #(assign,":dblaston",":scale"),
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",7),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",7),
     (store_add,":scale",reg0,reg1),
     (assign,":reblaston",":scale"),
     (try_begin),
@@ -77400,7 +77516,7 @@ scripts = [
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",8),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",8),
     (store_add,":scale",reg0,reg1),
     (assign,":bindon",":scale"),
     (try_begin),
@@ -77419,7 +77535,7 @@ scripts = [
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",9),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",9),
     (store_add,":scale",reg0,reg1),
     (assign,":clighton",":scale"),
     (try_begin),
@@ -77439,11 +77555,11 @@ scripts = [
     (try_end),
 
 
-    #(call_script,"script_tgs_determine_weave_scaling_factors",":chosen",10),
+    #(call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",10),
     #(store_add,":scale",reg0,reg1),
     #(assign,":ficurton",":scale"),
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",11),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",11),
     (store_add,":scale",reg0,reg1),
     (assign,":shieldon",":scale"),
     (try_begin),
@@ -77465,7 +77581,7 @@ scripts = [
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",12),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",12),
     (store_add,":scale",reg0,reg1),
     (assign,":seekeron",":scale"),
     (try_begin),
@@ -77486,7 +77602,7 @@ scripts = [
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",13),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",13),
     (store_add,":scale",reg0,reg1),
     (assign,":compulsionon",":scale"),
     (try_begin),
@@ -77505,7 +77621,7 @@ scripts = [
        (store_div,":fcompulsion_prob",":compulsion_prob",2),
     (try_end),
 
-    (call_script,"script_tgs_determine_weave_scaling_factors",":chosen",14),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",14),
     (store_add,":scale",reg0,reg1),
     (assign,":balefireon",":scale"),
     (try_begin),
@@ -78681,7 +78797,7 @@ scripts = [
         (ge, ":channeling_proficiency", 225),
         (ge, ":spirit", 7),
         (ge, ":water", 3),
-        (ge, ":water", 3),
+        (ge, ":air", 3),
             (store_sub, ":primary_scaling_factor", ":spirit", 6),
             (store_sub, ":water_modifier", ":water", 2),
             (store_sub, ":air_modifier", ":air", 2),
@@ -78719,6 +78835,174 @@ scripts = [
             (ge, ":air_modifier", 5),
                 (assign, ":secondary_scaling_factor", 3),
             (try_end),
+        (try_end),
+    
+    (try_end),
+
+    (assign, reg0, ":primary_scaling_factor"),
+    (assign, reg1, ":secondary_scaling_factor"),
+]),
+##"script_tgs_determine_weave_scaling_factors_with_normalized_outputs"
+## Function that returns agent's ability to use selected weave, and also the level of it's primary element, and an average of the secondary elements
+##
+##INPUT:  arg1    :agent_id (chosen), arg2   :weave_no
+##
+##OUTPUT: reg0    :primary_scaling_factor,  reg1    :secondary_scaling_factor  (both = 0 if min requirements not met)
+("tgs_determine_weave_scaling_factors_with_normalized_outputs", [
+	(store_script_param_1, ":chosen"),
+    (store_script_param_2, ":weave_no"),
+    
+    (agent_get_troop_id, ":chosen_troop", ":chosen"),
+ 
+    (store_skill_level, ":fire", skl_fire, ":chosen_troop"),
+    (store_skill_level, ":earth", skl_earth, ":chosen_troop"),
+    (store_skill_level, ":spirit", skl_spirit, ":chosen_troop"),
+    (store_skill_level, ":water", skl_water, ":chosen_troop"),
+    (store_skill_level, ":air", skl_air, ":chosen_troop"),
+    
+    (assign, ":primary_scaling_factor", 0),
+    (assign, ":secondary_scaling_factor", 0),
+    
+    (try_begin),
+    (eq, ":weave_no", 1),
+        (try_begin),
+        (ge, ":air", 2),
+            (assign, ":primary_scaling_factor", ":air"),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 2),
+        (try_begin),
+        (ge, ":water", 3),
+        (ge, ":air", 1),
+            (assign, ":primary_scaling_factor", ":water"),
+            (assign, ":secondary_scaling_factor", ":air"),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 3),
+        (try_begin),
+        (ge, ":water", 4),
+        (ge, ":spirit", 3),
+        (ge, ":air", 1),
+            (assign, ":primary_scaling_factor", ":water"),
+            (store_add, ":secondary_scaling_factor", ":spirit", ":air"),
+            (val_div, ":secondary_scaling_factor", 2),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 4),
+        (try_begin),
+        (ge, ":fire", 4),
+        (ge, ":air", 1),
+            (assign, ":primary_scaling_factor", ":fire"),
+            (assign, ":secondary_scaling_factor", ":air"),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 5),
+        (try_begin),
+        (ge, ":spirit", 5),
+        (ge, ":fire", 2),
+        (ge, ":air", 2),
+        (ge, ":earth", 2),
+        (ge, ":water", 2),
+            (assign, ":primary_scaling_factor", ":spirit"),
+            (store_add, ":secondary_scaling_factor", ":fire", ":air"),
+            (val_add, ":secondary_scaling_factor", ":earth"),
+            (val_add, ":secondary_scaling_factor", ":water"),
+            (val_div, ":secondary_scaling_factor", 4),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 6),
+        (try_begin),
+        (ge, ":air", 5),
+            (assign, ":primary_scaling_factor", ":air"),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 7),
+        (try_begin),
+        (ge, ":earth", 6),
+        (ge, ":air", 3),
+            (assign, ":primary_scaling_factor", ":earth"),
+            (assign, ":secondary_scaling_factor", ":air"),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 8),
+        (try_begin),
+        (ge, ":spirit", 5),
+        (ge, ":air", 3),
+            (assign, ":primary_scaling_factor", ":spirit"),
+            (assign, ":secondary_scaling_factor", ":air"),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 9),
+        (try_begin),
+        (ge, ":water", 5),
+        (ge, ":air", 4),
+        (ge, ":spirit", 3),
+            (assign, ":primary_scaling_factor", ":water"),
+            (store_add, ":secondary_scaling_factor", ":air", ":spirit"),
+            (val_div, ":secondary_scaling_factor", 2),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 10),
+        (try_begin),
+        (ge, ":fire", 6),
+        (ge, ":air", 5),
+            (assign, ":primary_scaling_factor", ":fire"),
+            (assign, ":secondary_scaling_factor", ":air"),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 11),
+        (try_begin),
+        (ge, ":spirit", 5),
+        (ge, ":fire", 2),
+        (ge, ":air", 2),
+            (assign, ":primary_scaling_factor", ":spirit"),
+            (store_add, ":secondary_scaling_factor", ":fire", ":air"),
+            (val_div, ":secondary_scaling_factor", 2),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 12),
+        (try_begin),
+        (ge, ":spirit", 6),
+        (ge, ":fire", 3),
+        (ge, ":air", 3),
+        (ge, ":earth", 2),
+        (ge, ":water", 2),
+            (assign, ":primary_scaling_factor", ":spirit"),
+            (store_add, ":secondary_scaling_factor", ":fire", ":air"),
+            (val_add, ":secondary_scaling_factor", ":earth"),
+            (val_add, ":secondary_scaling_factor", ":water"),
+            (val_div, ":secondary_scaling_factor", 4),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 13),
+        (try_begin),
+        (ge, ":spirit", 7),
+        (ge, ":water", 3),
+        (ge, ":air", 3),
+            (assign, ":primary_scaling_factor", ":spirit"),
+            (store_add, ":secondary_scaling_factor", ":water", ":air"),
+            (val_div, ":secondary_scaling_factor", 2),
+        (try_end),
+    
+    (else_try),
+    (eq, ":weave_no", 14),
+        (try_begin),
+        (ge, ":fire", 7),
+        (ge, ":air", 5),
+            (assign, ":primary_scaling_factor", ":fire"),
+            (assign, ":secondary_scaling_factor", ":air"),
         (try_end),
     
     (try_end),

@@ -1020,7 +1020,7 @@ troops = [
 #   itm_power_ashaman_dedicated_ranged
     ["ashaman_dedicated","Asha'man Dedicated","Asha'man Dedicated",tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_player, itm_power_ammo, itm_ashaman_dedicated_coat, itm_black_leather_boots],
-   def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3,ghealdan_man_face_younger, amadicia_man_face_older],
+   def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3|knows_fire_5|knows_earth_5|knows_spirit_4|knows_air_4|knows_water_3,ghealdan_man_face_younger, amadicia_man_face_older],
   
     ["ashaman","Asha'man","Asha'man",tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_ashaman_ranged, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
