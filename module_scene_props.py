@@ -3101,11 +3101,8 @@ scene_props = [
 
 ###TGS magic explosion
   
-  ("explosion",0,0,"asplode", [
-(ti_on_scene_prop_hit,
-    [
-     (particle_system_burst,"psys_torch_fire",pos1,15),
-    ]),]),
+  ("explosion",0,0,"asplode", []),
+  ("tgs_empty",0,0,0,[]),
 ###End TGS magic explosion
 
   # Added for TGS waygate

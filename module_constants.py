@@ -152,6 +152,8 @@ slot_agent_freeze_damage            = 69  ## Amount of damage over time
 slot_agent_freeze_starter           = 70  ## Agent who initiated the weave
 slot_agent_is_frozen                = 71  ## (0 = false, 1 = true)
 
+slot_agent_started_firewall         = 72  ## (0 = false, 1 = true)
+slot_agent_firewall_duration        = 73  ## Coundown while firewall burns
 
 ## Natural Inclination Weave Slots ## (loi = Level of Importance)
 slot_agent_ni_air_blast_loi             = 101

@@ -1251,21 +1251,22 @@ items = [
 #####################################
  #["power_player","One Power", [("dagger_b",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
  
- ["power_player","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(255)|weapon_length(65),imodbits_none,
+ ["power_player","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(120) | thrust_damage(1 ,  pierce)|max_ammo(255)|weapon_length(65),imodbits_none,
   [(ti_on_weapon_attack, [
 
-            (assign,":distance",99999),
-                         
-            (try_for_agents,":agent"),
-                (agent_is_alive,":agent"),
-                (neg|agent_is_wounded,":agent"), ## add this to not re-count wounded people
-                (agent_is_human,":agent"),
-                (agent_get_look_position, pos2, ":agent"), 
-                (get_distance_between_positions,":dist",pos1,pos2),
-                (lt,":dist",":distance"),
-                (assign,":chosen",":agent"), # 'chosen' is the shooter
-                (assign,":distance",":dist"),
-            (try_end),
+#            (assign,":distance",99999),   
+#            (try_for_agents,":agent"),
+#                (agent_is_alive,":agent"),
+#                (neg|agent_is_wounded,":agent"), ## add this to not re-count wounded people
+#                (agent_is_human,":agent"),
+#                (agent_get_look_position, pos2, ":agent"), 
+#                (get_distance_between_positions,":dist",pos1,pos2),
+#                (lt,":dist",":distance"),
+#                (assign,":chosen",":agent"), # 'chosen' is the shooter
+#                (assign,":distance",":dist"),
+#            (try_end),
+            
+            (store_trigger_param_1, ":chosen"),
 
 ## Run the channeling code only if the channeling agent is not shielded
             (agent_get_slot, ":agent_is_shielded", ":chosen", slot_agent_is_shielded),

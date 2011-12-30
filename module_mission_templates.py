@@ -2961,6 +2961,10 @@ common_wot_initialize_channeling_weave_variables_1 = (
 
                  (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
                  (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
+             
+                 (agent_set_slot, ":agent", slot_agent_started_firewall, 0),
+                 (agent_set_slot, ":agent", slot_agent_firewall_duration, 0),
+             
              (try_end),
              
              # set slots for num seekers active and individual seeker status to zero
@@ -7359,6 +7363,34 @@ common_wot_freeze_over_time_trigger = (
         (try_end),
        ])
 
+## Explosion Trigger 1## 
+common_wot_firewall_trigger = (
+    0, 0, 0.01,
+                    [
+                      (assign, ":firewall_check", 0),
+                      
+                      (try_for_agents, ":agent"),
+                          (agent_is_alive, ":agent"),
+                          (neg|agent_is_wounded, ":agent"),
+                          (agent_get_slot, ":firewall", ":agent", slot_agent_started_firewall),
+                          (eq, ":firewall", 1),
+                          (val_add, ":firewall_check", 1),
+                      (end_try),
+
+                      (ge, ":firewall_check", 1),
+                    ],
+
+       [
+        (try_for_agents, ":agent"),
+            (agent_is_alive, ":agent"),
+            (neg|agent_is_wounded, ":agent"),
+            (agent_get_slot, ":firewall", ":agent", slot_agent_started_firewall),
+            (eq, ":firewall", 1),
+                
+        (try_end),
+       ])
+
+
 ## Seeker weave triggers ## normal gameplay
 
 ## TEST ##
@@ -10117,6 +10149,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10283,6 +10316,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10446,6 +10480,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10577,6 +10612,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10755,6 +10791,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -10914,6 +10951,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11046,6 +11084,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11379,6 +11418,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11558,6 +11598,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -11766,6 +11807,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12122,6 +12164,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12310,6 +12353,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12534,6 +12578,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12707,6 +12752,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -12849,6 +12895,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -13782,6 +13829,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -26810,6 +26858,7 @@ mission_templates = [
       #check this later
         common_wot_electrical_charge_trigger,
         common_wot_freeze_over_time_trigger,
+        common_wot_firewall_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -27181,6 +27230,7 @@ mission_templates = [
       # check this later
         common_wot_electrical_charge_trigger,
         common_wot_freeze_over_time_trigger,
+        common_wot_firewall_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -28294,6 +28344,7 @@ mission_templates = [
       # check this later
         common_wot_electrical_charge_trigger,
         common_wot_freeze_over_time_trigger,
+        common_wot_firewall_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -29065,6 +29116,7 @@ mission_templates = [
       # check this later
         common_wot_electrical_charge_trigger,
         common_wot_freeze_over_time_trigger,
+        common_wot_firewall_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -30146,6 +30198,7 @@ mission_templates = [
       # check this later
         common_wot_electrical_charge_trigger,
         common_wot_freeze_over_time_trigger,
+        common_wot_firewall_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -31373,6 +31426,7 @@ mission_templates = [
       # check this later
         common_wot_electrical_charge_trigger,
         common_wot_freeze_over_time_trigger,
+        common_wot_firewall_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -32511,6 +32565,7 @@ mission_templates = [
       # check this later
         common_wot_electrical_charge_trigger,
         common_wot_freeze_over_time_trigger,
+        common_wot_firewall_trigger,
 
         common_wot_seeker_trigger_1_multi,
         common_wot_seeker_trigger_2_multi,
@@ -32960,6 +33015,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -34323,6 +34379,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -34645,6 +34702,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
@@ -35015,6 +35073,7 @@ mission_templates = [
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
       
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
