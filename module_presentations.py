@@ -13298,6 +13298,7 @@ presentations = [
     ]),
   ]),
 
+## TGS: mat: Correct Presentation Begin
   # Jrider +
   # REPORTS PRESENTATIONS 1.2 :
   # Factions relations presentation report
@@ -13344,45 +13345,15 @@ presentations = [
         (assign, "$g_jrider_faction_report_Return_to_menu", reg1),
 
     # Set Headlines
-#set column title
-          (assign, ":x_poshl", 250),  
-          (assign, ":y_pos", 620),
-          (position_set_y, pos1, ":y_pos"),
-    (try_for_range, ":faction", kingdoms_begin, kingdoms_end),
-            (faction_slot_eq, ":faction", slot_faction_state, sfs_active), # continue if active
-            (try_begin),
-              (is_between, ":faction", npc_kingdoms_begin, npc_kingdoms_end),
-              (store_sub, ":offset", ":faction", "fac_kingdom_1"),
-              (val_add, ":offset", "str_swadians"),
-              (str_store_string, s1, ":offset"),    
-            (else_try),
-              (str_store_string, s1, "@Your kingdom"),    
-            (try_end),
-            
-            (str_store_string, s11, ":offset"),  
-            (create_text_overlay, reg10, s1, tf_left_align|tf_with_outline),
-            (faction_get_color, ":faction_color", ":faction"),
-            (overlay_set_color, reg10, ":faction_color"),
-      
-            (position_set_x, pos3, 650),
-            (position_set_y, pos3, 800),
-            (overlay_set_size, reg10, pos3),
-
-            (position_set_x, pos1, ":x_poshl"),
-            (overlay_set_position, reg10, pos1),
-            (val_add, ":x_poshl", 90),
-    (try_end),
-
-
     (assign, ":x_poshl", 215),
      (assign, ":y_pos", 597),
      (assign, ":headline_size", 0),
     (position_set_x, ":headline_size", 720),
         (position_set_y, ":headline_size", 775),
-       
+        
         (assign, ":hl_columnsep_size", 50),
-        (position_set_x, ":hl_columnsep_size", 60),
-        (position_set_y, ":hl_columnsep_size", 28000),
+    (position_set_x, ":hl_columnsep_size", 60),
+        (position_set_y, ":hl_columnsep_size", 1600),
 
         (create_text_overlay, reg2, "@Player^Relation", tf_center_justify),
         (overlay_set_size, reg2, ":headline_size"),
@@ -13390,25 +13361,93 @@ presentations = [
         (position_set_y, pos1, ":y_pos"),
         (overlay_set_position, reg2, pos1),
 
-        (val_add, ":x_poshl", 45),
-        (try_for_range, ":count", 0, 7),
-          # create a separator column
-          (create_mesh_overlay, reg1, "mesh_white_plane"),
-          (overlay_set_color, reg1, 0x000000),
-          (overlay_set_size, reg1, ":hl_columnsep_size"),      
-          (store_sub, ":line_x", ":x_poshl", 15), # set it 21 pix left of current column start
-          (store_sub, ":y_pos2", ":y_pos", 500), # set it 21 pix left of current column start
-          (position_set_x, pos2, ":line_x"),
-          (position_set_y, pos2, ":y_pos2"),
-          (overlay_set_position, reg1, pos2),
-          (val_add, ":x_poshl", 90),
-          
-          (try_begin),
-            (eq, "$cheat_mode", 1),
-            (assign, reg20, ":count"),
-            (display_message, "@{!}DEBUG - Drawing line {reg20}"),
-          (try_end),
-        (try_end),
+        # Headlines for Faction 1, 5
+        (create_text_overlay, reg2, "@Status", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 55),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # create a separator column
+        (create_mesh_overlay, reg1, "mesh_white_plane"),
+        (overlay_set_color, reg1, 0x000000),
+        (overlay_set_size, reg1, ":hl_columnsep_size"),
+        (store_sub, ":line_x", ":x_poshl", 21), # set it 21 pix left of current column start
+        (position_set_x, pos2, ":line_x"),
+        (position_set_y, pos2, ":y_pos"),
+        (overlay_set_position, reg1, pos2),
+
+        (create_text_overlay, reg2, "@Relation", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 110),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # Headlines for Faction 2, 6
+        (create_text_overlay, reg2, "@Status", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 55),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # create a separator column
+        (create_mesh_overlay, reg1, "mesh_white_plane"),
+        (overlay_set_color, reg1, 0x000000),
+        (overlay_set_size, reg1, ":hl_columnsep_size"),
+        (store_sub, ":line_x", ":x_poshl", 21), # set it 21 pix left of current column start
+        (position_set_x, pos2, ":line_x"),
+        (position_set_y, pos2, ":y_pos"),
+        (overlay_set_position, reg1, pos2),
+
+        (create_text_overlay, reg2, "@Relation", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 110),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # Headlines Faction 3,7
+        (create_text_overlay, reg2, "@Status", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 55),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # create a separator column
+        (create_mesh_overlay, reg1, "mesh_white_plane"),
+        (overlay_set_color, reg1, 0x000000),
+        (overlay_set_size, reg1, ":hl_columnsep_size"),
+        (store_sub, ":line_x", ":x_poshl", 21), # set it 21 pix left of current column start
+        (position_set_x, pos2, ":line_x"),
+        (position_set_y, pos2, ":y_pos"),
+        (overlay_set_position, reg1, pos2),
+
+        (create_text_overlay, reg2, "@Relation", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 110),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # Headlines Faction 4
+        (create_text_overlay, reg2, "@Status", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 55),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # create a separator column
+        (create_mesh_overlay, reg1, "mesh_white_plane"),
+        (overlay_set_color, reg1, 0x000000),
+        (overlay_set_size, reg1, ":hl_columnsep_size"),
+        (store_sub, ":line_x", ":x_poshl", 21), # set it 21 pix left of current column start
+        (position_set_x, pos2, ":line_x"),
+        (position_set_y, pos2, ":y_pos"),
+        (overlay_set_position, reg1, pos2),
+
+        (create_text_overlay, reg2, "@Relation", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 110),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
 
         # clear the string globals that we'll use
          (str_clear, s9),
@@ -13441,110 +13480,168 @@ presentations = [
 
             # Base position for subheaders
             (assign, ":x_posfhl", 220),
+            (assign, ":y_posfhl", ":y_pos"),
 
             # Loop other factions (columns)
-            (try_for_range, ":faction_column", kingdoms_begin, kingdoms_end),
+            (try_for_range_backwards, ":faction_column", kingdoms_begin, kingdoms_end),
+                (neq, ":faction_column", ":faction_line"),
                 (faction_slot_eq, ":faction_column", slot_faction_state, sfs_active), # continue if active
 
-                (try_begin), # not same faction
-                  (neq, ":faction_column", ":faction_line"),
-                 
-                  (str_store_faction_name, s8, ":faction_column"),
-  
-                  # sub-faction excluding current faction line
-                  (try_begin),
-                      # different from faction line, display status and relation with faction line
-                      (neq, ":faction_column", ":faction_line"),
-                      (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":faction_line", ":faction_column"),
-                      (assign, ":global_diplomatic_status", reg0),
-                      (assign, ":extended_diplomatic_status", reg1),
-  
-                      (try_begin), # War
-                          (eq, ":global_diplomatic_status", -2),
-                          (str_store_string, s60, "@War"),
-                          (assign, reg60, 0xDD0000),
-                          (assign, reg59, 0),
-                      (else_try), # Border incident
-                          (eq, ":global_diplomatic_status", -1),
-                          (str_store_string, s60, "@Casus Belli"),
-                          (assign, reg60, 0xDD8000),
-                          (assign, reg59, ":extended_diplomatic_status"),
-                      (else_try), # Peace
-                          (eq, ":global_diplomatic_status", 0),
-                          (str_store_string, s60, "@Peace"),
-                          (assign, reg60, 0xFFFFFF),
-                          (assign, reg59, 0),
-                      (else_try), # Truce (non aggression)
-                          (eq, ":global_diplomatic_status", 1),
-                          (str_store_string, s60, "@Truce"),
-                          (assign, reg60, 0xDDDDDD),
-                          (assign, reg59, ":extended_diplomatic_status"),
-  
-                          # for Diplomacy, comment if not using
-                          (try_begin),
-                              (ge, ":extended_diplomatic_status", 61),
-                              (str_store_string, s60, "@Alliance"),
-                              (assign, reg60, 0x00FF00),
-                              (store_sub, reg59, ":extended_diplomatic_status", 60),
-                          (else_try),
-                              (ge, ":extended_diplomatic_status", 41),
-                              (str_store_string, s60, "@Defense"),
-                              (assign, reg60, 0x00FFAA),
-                              (store_sub, reg59, ":extended_diplomatic_status", 40),
-                          (else_try),
-                              (ge, ":extended_diplomatic_status", 21),
-                              (str_store_string, s60, "@Trade"),
-                              (assign, reg60, 0x00FFCC),
-                              (store_sub, reg59, ":extended_diplomatic_status", 20),
-                          (try_end),
-                      (try_end),
-  
-                      (val_add, ":x_poshl", 50),
-  
-                      # diplomatic status and duration block (set at current line)
-                      (create_text_overlay, reg10, s60, tf_left_align|tf_with_outline),
-                      (overlay_set_size, reg10, ":line_size"),
-                      (overlay_set_color, reg10, reg60),
-                      (store_sub, ":line_x", ":x_posfhl", 20),
-                      (store_add, ":line_y", ":y_pos", 54),
-                      (position_set_x, pos3, ":line_x"),
-                      (position_set_y, pos3, ":line_y"),
-                      (overlay_set_position, reg10, pos3),
-                      
-                      (create_text_overlay, reg10, "@{reg59?{reg59} days:}", tf_center_justify),
-                      (overlay_set_size, reg10, ":line_size"),                      
-                      (store_add, ":line_y", ":y_pos", 36),
-                      (store_add, ":line_x", ":x_posfhl", 10),
-                      (position_set_x, pos3, ":line_x"),
-                      (position_set_y, pos3, ":line_y"),                      
-                      (overlay_set_position, reg10, pos3),
-                      
-  
-                      # add diplomatic status
-                      (store_relation, ":kingdom_relation", ":faction_line", ":faction_column"),
+                (str_store_faction_name, s8, ":faction_column"),
 
-                      # kingdom relation (same line as faction name)
-                      (assign, reg61, ":kingdom_relation"),
-                      (create_text_overlay, reg10, "@{reg61}", tf_center_justify),
-                      (overlay_set_size, reg10, ":line_size"),
-  
-                      (store_add, ":line_y", ":y_pos", 18),
-                      (store_add, ":line_x", ":x_posfhl", 10),
-                      (position_set_x, pos3, ":line_x"),
-                      (position_set_y, pos3, ":line_y"),
-                      (overlay_set_position, reg10, pos3),
-                  (try_end), # end select alternate display
+                # wrap y_pos if line end reached
+                (try_begin),
+                    (ge, ":x_poshl", 825),
+                    (assign, ":x_poshl", 165),
+                    (val_add, ":y_pos", 18),
                 (try_end),
 
+                # sub-faction excluding current faction line
+                (try_begin),
+                    # different from faction line, display status and relation with faction line
+                    (neq, ":faction_column", ":faction_line"),
+                    (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":faction_line", ":faction_column"),
+                    (assign, ":global_diplomatic_status", reg0),
+                    (assign, ":extended_diplomatic_status", reg1),
+
+                    (try_begin), # War
+                        (eq, ":global_diplomatic_status", -2),
+                        (str_store_string, s60, "@War"),
+                        (assign, reg60, 0xDD0000),
+                        (assign, reg59, 0),
+                    (else_try), # Border incident
+                        (eq, ":global_diplomatic_status", -1),
+                        (str_store_string, s60, "@Casus Belli"),
+                        (assign, reg60, 0xDD8000),
+                        (assign, reg59, ":extended_diplomatic_status"),
+                    (else_try), # Peace
+                        (eq, ":global_diplomatic_status", 0),
+                        (str_store_string, s60, "@Peace"),
+                        (assign, reg60, 0xFFFFFF),
+                        (assign, reg59, 0),
+                    (else_try), # Truce (or agreement if usigng Diplomacy)
+                        (eq, ":global_diplomatic_status", 1),
+                        (str_store_string, s60, "@Truce"),
+                        (assign, reg60, 0xDDDDDD),
+                        (assign, reg59, ":extended_diplomatic_status"),
+
+                        # for Diplomacy, comment if not using
+                        (try_begin),
+                            (ge, ":extended_diplomatic_status", 61),
+                            (str_store_string, s60, "@Alliance"),
+                            (assign, reg60, 0x00FF00),
+                            (store_sub, reg59, ":extended_diplomatic_status", 60),
+                        (else_try),
+                            (ge, ":extended_diplomatic_status", 41),
+                            (str_store_string, s60, "@Defense Pact"),
+                            (assign, reg60, 0x00FFAA),
+                            (store_sub, reg59, ":extended_diplomatic_status", 40),
+                        (else_try),
+                            (ge, ":extended_diplomatic_status", 21),
+                            (str_store_string, s60, "@Trade Agreement"),
+                            (assign, reg60, 0x00FFCC),
+                            (store_sub, reg59, ":extended_diplomatic_status", 20),
+                        (try_end),
+                    (try_end),
+
+                    (val_add, ":x_poshl", 55),
+
+                     # create a sub-separator column
+                     (create_mesh_overlay, reg1, "mesh_white_plane"),
+                     (overlay_set_color, reg1, ":line_color"),
+                     (position_set_x, pos3, 50),
+                     (position_set_y, pos3, 1800),
+                     (overlay_set_size, reg1, pos3),
+        
+                     (store_sub, ":line_x", ":x_posfhl", 20), # set it 20 pix left of current column start
+                     (position_set_x, pos3, ":line_x"),
+                     (store_add, ":line_y", ":y_pos", 2), # set it below 2 pix of current position
+
+                     (position_set_y, pos3, ":line_y"),
+                     (overlay_set_position, reg1, pos3),
+
+                    # diplomatic status and duration block (set at current line)
+                    # add diplomatic status 
+                    (store_relation, ":kingdom_relation", ":faction_line", ":faction_column"),
+                    (create_text_overlay, reg10, "@{s60}", tf_left_align|tf_with_outline),
+                    (overlay_set_size, reg10, ":line_size"),
+                    (overlay_set_color, reg10, reg60),
+
+                    (store_sub, ":line_x", ":x_poshl", 15),
+                    (position_set_x, pos1, ":line_x"),
+                    (position_set_y, pos1, ":y_pos"),
+                    (overlay_set_position, reg10, pos1),
+
+                    # status duration left (same line, shift x to right)
+                    (val_add, ":x_poshl", 110),
+                    (create_text_overlay, reg10, "@{reg59?{reg59} days:}", tf_center_justify),
+                    (overlay_set_size, reg10, ":line_size"),
+
+                    (store_add, ":line_x", ":x_poshl", 5),
+                    (position_set_x, pos1, ":line_x"),
+                    (position_set_y, pos1, ":y_pos"),
+                    (overlay_set_position, reg10, pos1),
+
+                    # Faction name and relation (increase to previous line)
+                    # Faction name headlines
+                    (create_text_overlay, reg10, s8, tf_left_align|tf_with_outline),
+                    (overlay_set_size, reg10, ":line_size"),
+                    (faction_get_color, ":faction_color", ":faction_column"),
+                    (overlay_set_color, reg10, ":faction_color"),
+
+                    (store_sub, ":line_x", ":x_posfhl", 20),
+                    (store_add, ":line_y", ":y_pos", 18),
+                    (position_set_x, pos3, ":line_x"),
+                    (position_set_y, pos3, ":line_y"),
+                    (overlay_set_position, reg10, pos3),
+
+                    # kingdom relation (same line as faction name)
+                    (assign, reg61, ":kingdom_relation"),
+                    (create_text_overlay, reg10, "@{reg61}", tf_center_justify),
+                    (overlay_set_size, reg10, ":line_size"),
+
+                    (store_add, ":line_x", ":x_poshl", 10),
+                    (position_set_x, pos3, ":line_x"),
+                    (position_set_y, pos3, ":line_y"),
+                    (overlay_set_position, reg10, pos3),
+                (try_end), # end select alternate display
+
                 # increase column x position
-                (val_add, ":x_posfhl", 90), # valid values 220, 385, 550, 715
+                (val_add, ":x_posfhl", 165), # valid values 220, 385, 550, 715
+
+                # wrap if line end for faction column name reached
+                (try_begin),
+                    (gt, ":x_posfhl", 715),
+                    (assign, ":x_posfhl", 220),
+                    (assign, ":y_posfhl", ":y_pos"),
+                    (val_add, ":y_posfhl", 18),
+                (try_end),        
+
+                # starting new column
+                (try_begin),
+                    (eq, ":x_posfhl", 220),
+
+                    # create a sub-separator line above current line
+                    (create_mesh_overlay, reg1, "mesh_white_plane"),
+                    (overlay_set_color, reg1, ":line_color"),
+                    (position_set_x, pos1, 32800),
+                    (position_set_y, pos1, 50),
+                    (overlay_set_size, reg1, pos1),
+        
+                    (position_set_x, pos1, 200),
+                    (store_add, ":line_y", ":y_pos", 38), # set it 20 pix above current line
+                    (position_set_y, pos1, ":line_y"),
+                    (overlay_set_position, reg1, pos1),
+
+                    (val_add, ":y_pos", 18),
+                (try_end),
             (try_end), # end of column faction loop
 
             # Faction line information, this is a 4 line block
             # reset x postion for next beginning column and decrease y position according to line count
             (assign, ":x_poshl", 165),
 
-            (val_add, ":y_pos", 54), # linebreak
+            (val_add, ":y_pos", 18), # linebreak
 
             # create a separator for faction line
             (create_mesh_overlay, reg1, "mesh_white_plane"),
@@ -13659,7 +13756,10 @@ presentations = [
             (try_begin),
                 (neq, ":faction_line", "fac_player_supporters_faction"),
                 (store_sub, ":mesh_index", ":faction_line", kingdoms_begin),
-                (val_add, ":mesh_index", "mesh_pic_recruits"),
+## TGS: mat: Altered
+                #(val_add, ":mesh_index", "mesh_pic_recruits"),
+                (val_add, ":mesh_index", "mesh_pic_recruits_tgs"),
+## TGS: mat: End
                 (create_mesh_overlay, reg10, ":mesh_index"),
                 (position_set_x, pos1, 75),
                 (position_set_y, pos1, 75),
@@ -13772,6 +13872,8 @@ presentations = [
   # END presentation run trigger
   # END Faction relation presentation
   # Jrider -
+## TGS: mat: Correct Presentation End
+
 
 ##diplomacy end
 ##diplomacy start+

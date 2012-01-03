@@ -1024,7 +1024,40 @@ meshes = [
   ("arms_tgs_kingdom_z",0,"arms_sea_folk", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_tgs_kingdom_aa",0,"arms_madmen", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_tgs_kingdom_ab",0,"arms_toman_head", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-# end edited for TGS  
+# end edited for TGS
+
+# new tgs faction meshes
+  ("pic_recruits_tgs", 0, "pic_recruits", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_1", 0, "pic_arms_rhodok", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_2", 0, "pic_arms_rhodok", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_3", 0, "pic_arms_vaegir", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_4", 0, "pic_arms_swadian", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_5", 0, "pic_arms_swadian", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_6", 0, "pic_arms_rhodok", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_7", 0, "pic_arms_nord", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_8", 0, "pic_arms_khergit", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_9", 0, "pic_arms_rhodok", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_10", 0, "pic_arms_swadian", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_11", 0, "pic_arms_vaegir", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_12", 0, "pic_sarranid_arms", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_13", 0, "pic_arms_rhodok", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_14", 0, "pic_arms_vaegir", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_15", 0, "pic_arms_rhodok", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_16", 0, "pic_arms_swadian", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_17", 0, "pic_arms_nord", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_18", 0, "pic_arms_vaegir", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_19", 0, "pic_arms_nord", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_20", 0, "pic_arms_khergit", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_21", 0, "pic_arms_rhodok", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_22", 0, "pic_sarranid_arms", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_23", 0, "pic_arms_khergit", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_24", 0, "pic_arms_vaegir", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_25", 0, "pic_sarranid_arms", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_26", 0, "pic_arms_nord", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_27", 0, "pic_arms_nord", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_28", 0, "pic_arms_khergit", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+
+# end tgs faction meshes  
 
 # end added for TGS
   

@@ -2937,10 +2937,13 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
 
                  (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
+                 (agent_set_slot, ":agent", slot_agent_lightning_duration, -16),
 
                  (agent_set_slot, ":agent", slot_agent_is_bound, 0),
                  (agent_set_slot, ":agent", slot_agent_bound_x, 0),
                  (agent_set_slot, ":agent", slot_agent_bound_y, 0),
+                 (agent_set_slot, ":agent", slot_agent_bound_duration, 0),
+                 (agent_set_slot, ":agent", slot_agent_bound_damage_over_time, 0),
 
                  (agent_set_slot, ":agent", slot_agent_is_shielded, 0),
 
@@ -2962,26 +2965,37 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
                  (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
              
-                 (agent_set_slot, ":agent", slot_agent_started_firewall, 0),
-                 (agent_set_slot, ":agent", slot_agent_firewall_duration, 0),
-             
              (try_end),
              
              # set slots for num seekers active and individual seeker status to zero
              (troop_set_slot, "trp_player", slot_troop_num_seekers_active, 0),
              
-             (try_for_range, ":seeker_no", 200, 221),
+             (try_for_range, ":seeker_no", 200, 251),
                  (troop_set_slot, "trp_player", ":seeker_no", 0),
+             
+                 (store_add, ":target_no", ":seeker_no", 50),
+                 (troop_set_slot, "trp_player", ":target_no", -1),
+             
+                 (store_add, ":shooter_no", ":seeker_no", 100),
+                 (troop_set_slot, "trp_player", ":shooter_no", -1),
+
+                 (store_add, ":x_slot_no", ":seeker_no", 150),
+                 (troop_set_slot, "trp_player", ":x_slot_no", 0),
+
+                 (store_add, ":y_slot_no", ":seeker_no", 200),
+                 (troop_set_slot, "trp_player", ":y_slot_no", 0),
+
+                 (store_add, ":speed_no", ":seeker_no", 250),
+                 (troop_set_slot, "trp_player", ":speed_no", 0),
+
+                 (store_add, ":power_no", ":seeker_no", 300),
+                 (troop_set_slot, "trp_player", ":power_no", 0),               
              (try_end),
              
-             # set seeker target and seeker shooter slots to -1
-             (try_for_range, ":target_no", 221, 241),
-                 (troop_set_slot, "trp_player", ":target_no", -1),
+             # set firewall slots to 0
+             (try_for_range, ":slot_no", 300, 361),
+                 (troop_set_slot, "trp_player", ":slot_no", 0),
              (try_end),
-
-             (try_for_range, ":shooter_no", 241, 261),
-                 (troop_set_slot, "trp_player", ":shooter_no", -1),
-             (try_end),             
              
              # determine number of weaves known based off channeling (firearms) proficiency
              (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),
@@ -5295,35 +5309,31 @@ common_wot_bound_trigger = (
                 (try_end),
 
                 (agent_get_slot, ":bound_duration", ":agent", slot_agent_bound_duration),
-
-                (try_begin),
-                (gt, ":bound_duration", 2),
-                    (agent_get_look_position, pos60, ":agent"),
-
-                    (particle_system_burst, "psys_bound_aura", pos60, 25),
-
-                    (agent_get_slot, ":bound_x", ":agent", slot_agent_bound_x),
-                    (agent_get_slot, ":bound_y", ":agent", slot_agent_bound_y),
-        
-                    (position_set_x, pos60, ":bound_x"),
-                    (position_set_y, pos60, ":bound_y"),
-        
-                    (agent_set_scripted_destination, ":agent", pos60, 1),
-                (try_end),
+                (agent_get_look_position, pos60, ":agent"),
+                (particle_system_burst, "psys_bound_aura", pos60, 25),
+                (agent_get_slot, ":bound_x", ":agent", slot_agent_bound_x),
+                (agent_get_slot, ":bound_y", ":agent", slot_agent_bound_y),
+                (position_set_x, pos60, ":bound_x"),
+                (position_set_y, pos60, ":bound_y"),
+                (agent_set_scripted_destination, ":agent", pos60, 1),
 
                 (try_begin),
                 (agent_is_routed, ":agent"),
                     (agent_set_slot, ":agent", slot_agent_is_bound, 0),
                 (try_end),
 
+                (agent_get_slot, ":damage_over_time", ":agent", slot_agent_bound_damage_over_time),
                 (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
                 (val_mod, ":one_second_check", 100),
+        
+                (try_begin),
                 (eq, ":one_second_check", 0),  ## true once every second
+                (gt, ":damage_over_time", 0),
                     (store_agent_hit_points,":target_health",":agent",1),
                     (agent_get_slot, ":chosen", ":agent", slot_agent_bound_by),
                  
                     (try_begin),
-                    (gt,":target_health",1),
+                    (gt,":target_health",":damage_over_time"),
                  
                         (try_begin), # add to channeling multiplier if agent is player
                         (neg|agent_is_non_player, ":chosen"),
@@ -5333,13 +5343,15 @@ common_wot_bound_trigger = (
                  
                         (try_begin), # check burn duration
                         (gt, ":bound_duration", 0),
-                             (val_sub, ":bound_duration", 1),
-                             (agent_set_slot, ":agent", slot_agent_bound_duration, ":bound_duration"),
+                            (val_sub, ":bound_duration", 1),
+                            (agent_set_slot, ":agent", slot_agent_bound_duration, ":bound_duration"),
                         (else_try),
-                             (agent_set_slot, ":agent", slot_agent_is_bound, 0),
+                            (agent_set_slot, ":agent", slot_agent_is_bound, 0),
+                            (agent_clear_scripted_mode, ":agent"),
+                            (agent_force_rethink, ":agent"),
                         (try_end),
 
-                        (val_sub,":target_health",1),
+                        (val_sub,":target_health",":damage_over_time"),
                         (agent_set_hit_points,":agent",":target_health",1),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
                  
@@ -5355,7 +5367,20 @@ common_wot_bound_trigger = (
                         (add_xp_to_troop,25,":chosen"),
                         (agent_set_slot, ":agent", slot_agent_is_bound, 0),
                     (try_end),
-                
+        
+                (else_try),
+                (eq, ":one_second_check", 0),
+                    (try_begin), # check burn duration
+                    (gt, ":bound_duration", 0),
+                        (val_sub, ":bound_duration", 1),
+                        (agent_set_slot, ":agent", slot_agent_bound_duration, ":bound_duration"),
+                    (else_try),
+                        (agent_set_slot, ":agent", slot_agent_is_bound, 0),
+                        (agent_clear_scripted_mode, ":agent"),
+                        (agent_force_rethink, ":agent"),
+                    (try_end),
+                (try_end),
+        
         (try_end),
         
         ])
@@ -7167,7 +7192,7 @@ common_wot_electrical_charge_trigger = (
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
                           (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
-                          (gt, ":shocked", 0),
+                          (eq, ":shocked", 1),
                           (val_add, ":electricity_check", 1),
                       (end_try),
 
@@ -7179,7 +7204,7 @@ common_wot_electrical_charge_trigger = (
             (agent_is_alive, ":agent"),
             (neg|agent_is_wounded, ":agent"),
             (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
-            (gt, ":shocked", 0),
+            (eq, ":shocked", 1),
                 (agent_get_look_position, pos63, ":agent"),
                 (position_get_z, ":z_temp", pos63),
                 (val_add, ":z_temp", 1000),
@@ -7187,94 +7212,99 @@ common_wot_electrical_charge_trigger = (
                 (particle_system_burst, "psys_electricity_sparks", pos63, 1),
                 (store_agent_hit_points,":target_health",":agent",1),
                 (agent_get_slot, ":chosen", ":agent", slot_agent_lightning_shooter),
-                 
-                (try_begin),
-                (gt,":target_health",1),
-                    (val_sub,":target_health",1),
-                    (agent_set_hit_points,":agent",":target_health",1),
-                    (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                    (try_begin), # add to channeling multiplier if agent is player
-                    (neg|agent_is_non_player, ":chosen"),
-                        (val_add, "$g_channeling_proficiency_modifier", 2),
-                    (try_end),
-#                    (add_xp_to_troop,1,":chosen"),
-                    (agent_get_slot, ":shock_duration", ":agent", slot_agent_has_been_shocked),
-                 
-                    (try_begin), # check burn duration
-                    (gt, ":shock_duration", 0),
-                            (val_sub, ":shock_duration", 1),
-                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, ":shock_duration"),
-                    (else_try),
-                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-                    (try_end),
-                 
-                (else_try),
-                    (agent_set_hit_points,":agent",0,0),
-                    (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                    (try_begin),
-                    (neg|agent_is_non_player, ":chosen"),
-                        (val_add, "$g_channeling_proficiency_modifier", 20),
-                    (try_end),
-                 
-                    (add_xp_to_troop,25,":chosen"),
-                    (val_sub, ":z_temp", 500),
-                    (position_set_z, pos63, ":z_temp"),
-                    (particle_system_burst, "psys_electricity_sparks", pos63, 50),
-                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-                (try_end),
 
-                (position_set_z_to_ground_level, pos63),
-                (try_for_agents, ":agent_2"),
-                    (gt, ":shocked", 1), # duration from the original agent, check to see if charge can be passed on
-                    (agent_is_alive, ":agent_2"),
-                    (neg|agent_is_wounded, ":agent_2"),
-        
-                    #partial friendly fire protection
-                    (agent_get_team, ":chosen_team", ":chosen"),
-                    (agent_get_team, ":agent_team_ff", ":agent_2"),
-                    (assign, ":deliver_damage", 1),
+                (agent_get_slot, ":shock_duration", ":agent", slot_agent_lightning_duration),
+                (try_begin),
+                (gt, ":shock_duration", 0),
                     (try_begin),
-                    (neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
-                        (store_random_in_range, ":random", 1, 5),
-                        (try_begin),
-                        (gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
-                            (assign, ":deliver_damage", 0),
+                    (gt,":target_health",1),
+                        (val_sub,":target_health",1),
+                        (agent_set_hit_points,":agent",":target_health",1),
+                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                        (try_begin), # add to channeling multiplier if agent is player
+                        (neg|agent_is_non_player, ":chosen"),
+                            (val_add, "$g_channeling_proficiency_modifier", 2),
                         (try_end),
+#                       (add_xp_to_troop,1,":chosen"),
+                    (else_try),
+                        (agent_set_hit_points,":agent",0,0),
+                        (agent_deliver_damage_to_agent,":chosen",":agent"),
+                        (try_begin),
+                        (neg|agent_is_non_player, ":chosen"),
+                            (val_add, "$g_channeling_proficiency_modifier", 20),
+                        (try_end),
+                        (add_xp_to_troop,25,":chosen"),
+                        (val_sub, ":z_temp", 500),
+                        (position_set_z, pos63, ":z_temp"),
+                        (particle_system_burst, "psys_electricity_sparks", pos63, 50),
+                        (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
                     (try_end),
-                    (eq, ":deliver_damage", 1),
-                    #end partial friendly fire protection
+
+                    (val_sub, ":shock_duration", 1),
+                    (agent_set_slot, ":agent", slot_agent_lightning_duration, ":shock_duration"),
+
+                    (position_set_z_to_ground_level, pos63),
+                    (try_for_agents, ":agent_2"),
+                        (gt, ":shock_duration", 1), # duration from the original agent, check to see if charge can be passed on
+                        (agent_is_alive, ":agent_2"),
+                        (neg|agent_is_wounded, ":agent_2"),
         
-                    (agent_get_slot, ":shocked_2", ":agent_2", slot_agent_has_been_shocked),
-                    (eq, ":shocked_2", 0),
-                        (agent_get_look_position, pos5, ":agent_2"),
-                        (get_distance_between_positions,":dist",pos5,pos63),
+                        #partial friendly fire protection
+                        (agent_get_team, ":chosen_team", ":chosen"),
+                        (agent_get_team, ":agent_team_ff", ":agent_2"),
+                        (assign, ":deliver_damage", 1),
                         (try_begin),
-                        (lt, ":shocked", 5),
+                        (neg|teams_are_enemies, ":chosen_team", ":agent_team_ff"),
+                            (store_random_in_range, ":random", 1, 5),
                             (try_begin),
-                            (lt, ":dist", 100),
-                                (val_sub, ":shocked", 1),
-                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
-                                (agent_set_slot, ":agent_2", slot_agent_lightning_shooter, ":chosen"),
-                            (try_end),
-                        (else_try),
-                        (is_between, ":shocked", 5, 9),
-                            (try_begin),
-                            (lt, ":dist", 200),
-                                (val_sub, ":shocked", 1),
-                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
-                                (agent_set_slot, ":agent_2", slot_agent_lightning_shooter, ":chosen"),
-                            (try_end),
-                        (else_try),
-                        (ge, ":shocked", 9),
-                            (try_begin),
-                            (lt, ":dist", 300),
-                                (val_sub, ":shocked", 1),
-                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
-                                (agent_set_slot, ":agent_2", slot_agent_lightning_shooter, ":chosen"),
+                            (gt, ":random", 1), # 3 in 4 chance that ally will not be hurt by damaging weave that is targeting enemy
+                                (assign, ":deliver_damage", 0),
                             (try_end),
                         (try_end),
+                        (eq, ":deliver_damage", 1),
+                        #end partial friendly fire protection
+        
+                        (agent_get_slot, ":shocked_2", ":agent_2", slot_agent_has_been_shocked),
+                        (eq, ":shocked_2", 0),
+                            (agent_get_look_position, pos5, ":agent_2"),
+                            (get_distance_between_positions,":dist",pos5,pos63),
+                            (try_begin),
+                            (is_between, ":shock_duration", 1, 6),
+                                (try_begin),
+                                (lt, ":dist", 100),
+                                    (val_sub, ":shock_duration", 1),
+                                    (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, 1),
+                                    (agent_set_slot, ":agent_2", slot_agent_lightning_shooter, ":chosen"),
+                                    (agent_set_slot, ":agent_2", slot_agent_lightning_duration, ":shock_duration"),
+                                (try_end),
+                            (else_try),
+                            (is_between, ":shock_duration", 6, 11),
+                                (try_begin),
+                                (lt, ":dist", 200),
+                                    (val_sub, ":shock_duration", 1),
+                                    (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, 1),
+                                    (agent_set_slot, ":agent_2", slot_agent_lightning_shooter, ":chosen"),
+                                    (agent_set_slot, ":agent_2", slot_agent_lightning_duration, ":shock_duration"),
+                                (try_end),
+                            (else_try),
+                            (ge, ":shock_duration", 11),
+                                (try_begin),
+                                (lt, ":dist", 300),
+                                    (val_sub, ":shock_duration", 1),
+                                    (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, 1),
+                                    (agent_set_slot, ":agent_2", slot_agent_lightning_shooter, ":chosen"),
+                                    (agent_set_slot, ":agent_2", slot_agent_lightning_duration, ":shock_duration"),
+                                (try_end),
+                            (try_end),
+                    (try_end),
+        
+                (else_try),
+                (is_between, ":shock_duration", -15, 1), # -16 is where 'cool-down' ends
+                    (val_sub, ":shock_duration", 1),
+                    (agent_set_slot, ":agent", slot_agent_lightning_duration, ":shock_duration"),
+                (else_try),
+                (lt, ":shock_duration", -15),
+                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
                 (try_end),
         
         (try_end),
@@ -7367,27 +7397,11 @@ common_wot_freeze_over_time_trigger = (
 common_wot_firewall_trigger = (
     0, 0, 0.01,
                     [
-                      (assign, ":firewall_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":firewall", ":agent", slot_agent_started_firewall),
-                          (eq, ":firewall", 1),
-                          (val_add, ":firewall_check", 1),
-                      (end_try),
 
-                      (ge, ":firewall_check", 1),
                     ],
 
        [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":firewall", ":agent", slot_agent_started_firewall),
-            (eq, ":firewall", 1),
-                
-        (try_end),
+
        ])
 
 
@@ -7476,8 +7490,127 @@ common_wot_seeker_trigger_20 = (
     0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_20, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_20)])
 
-## TEST ##
+common_wot_seeker_trigger_21 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_21, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_21)])
 
+common_wot_seeker_trigger_22 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_22, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_22)])
+
+common_wot_seeker_trigger_23 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_23, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_23)])
+
+common_wot_seeker_trigger_24 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_24, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_24)])
+
+common_wot_seeker_trigger_25 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_25, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_25)])
+
+common_wot_seeker_trigger_26 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_26, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_26)])
+
+common_wot_seeker_trigger_27 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_27, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_27)])
+
+common_wot_seeker_trigger_28 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_28, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_28)])
+
+common_wot_seeker_trigger_29 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_29, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_29)])
+
+common_wot_seeker_trigger_30 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_30, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_30)])
+
+common_wot_seeker_trigger_31 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_31, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_31)])
+
+common_wot_seeker_trigger_32 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_32, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_32)])
+
+common_wot_seeker_trigger_33 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_33, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_33)])
+
+common_wot_seeker_trigger_34 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_34, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_34)])
+
+common_wot_seeker_trigger_35 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_35, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_35)])
+
+common_wot_seeker_trigger_36 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_36, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_36)])
+
+common_wot_seeker_trigger_37 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_37, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_37)])
+
+common_wot_seeker_trigger_38 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_38, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_38)])
+
+common_wot_seeker_trigger_39 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_39, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_39)])
+
+common_wot_seeker_trigger_40 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_40, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_40)])
+
+common_wot_seeker_trigger_41 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_41, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_41)])
+
+common_wot_seeker_trigger_42 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_42, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_42)])
+
+common_wot_seeker_trigger_43 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_43, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_43)])
+
+common_wot_seeker_trigger_44 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_44, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_44)])
+
+common_wot_seeker_trigger_45 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_45, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_45)])
+
+common_wot_seeker_trigger_46 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_46, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_46)])
+
+common_wot_seeker_trigger_47 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_47, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_47)])
+
+common_wot_seeker_trigger_48 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_48, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_48)])
+
+common_wot_seeker_trigger_49 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_49, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_49)])
+
+common_wot_seeker_trigger_50 = (
+    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_50, 1)],
+	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_50)])
+
+## TEST ##
 
 ## Seeker weave triggers ## multiplayer gameplay
 
@@ -9222,6 +9355,51 @@ common_wot_seeker_trigger_20_multi = (
 
 	])
 
+## Firewall triggers ##
+
+#Firewall 1
+common_wot_firewall_trigger_1 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_1, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_1)])
+
+common_wot_firewall_trigger_2 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_2, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_2)])
+
+common_wot_firewall_trigger_3 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_3, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_3)])
+
+common_wot_firewall_trigger_4 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_4, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_4)])
+
+common_wot_firewall_trigger_5 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_5, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_5)])
+
+common_wot_firewall_trigger_6 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_6, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_6)])
+
+common_wot_firewall_trigger_7 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_7, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_7)])
+
+common_wot_firewall_trigger_8 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_8, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_8)])
+
+common_wot_firewall_trigger_9 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_9, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_9)])
+
+common_wot_firewall_trigger_10 = (
+    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_10, 1)],
+	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_10)])
+
+## Firewall triggers end ##
+
 
 
 #################################################
@@ -10172,6 +10350,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,      
+      # end
+
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -10339,7 +10560,51 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
       # end
+
+
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
+      # end      
  
       #########################################################################
       ###### end TGS triggers
@@ -10503,6 +10768,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -10635,6 +10943,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -10814,6 +11165,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -10974,6 +11368,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -11107,6 +11544,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -11441,6 +11921,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -11621,6 +12144,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -11830,6 +12396,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -12187,6 +12796,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -12376,6 +13028,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -12601,6 +13296,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -12775,6 +13513,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -12918,6 +13699,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -13852,6 +14676,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -33038,6 +33905,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -34402,6 +35312,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+                common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+                
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -34725,6 +35678,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################
@@ -35096,6 +36092,49 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
       # end
  
       #########################################################################

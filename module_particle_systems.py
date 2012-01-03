@@ -1278,6 +1278,34 @@ particle_systems = [
      0.5                        #rotation damping
     ),
 
+    ("electricity_blast_medium", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_size|psf_randomize_rotation, "prt_mesh_fire_1",
+     50, 0.35, 0.2, 0.03, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
+     (0.5, 0.5), (1, 0),        #alpha keys
+     (0.5, 0.7), (1, 0.3),      #red keys
+     (0.5, 0.7),(1, 0.3),       #green keys
+     (0.5, 1.0), (1, 0.9),      #blue keys
+     (0, 0.22),   (0.4, 0.45),   #scale keys
+     (0.04, 0.04, 0.01),      #emit box size
+     (0, 0, 0.5),               #emit velocity
+     0.0,                       #emit dir randomness
+     200,                       #rotation speed
+     0.5                        #rotation damping
+    ),
+
+    ("electricity_blast_large", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_size|psf_randomize_rotation, "prt_mesh_fire_1",
+     50, 0.35, 0.2, 0.03, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
+     (0.5, 0.5), (1, 0),        #alpha keys
+     (0.5, 0.7), (1, 0.3),      #red keys
+     (0.5, 0.7),(1, 0.3),       #green keys
+     (0.5, 1.0), (1, 0.9),      #blue keys
+     (0, 0.3),   (0.4, 0.6),   #scale keys
+     (0.04, 0.04, 0.01),      #emit box size
+     (0, 0, 0.5),               #emit velocity
+     0.0,                       #emit dir randomness
+     200,                       #rotation speed
+     0.5                        #rotation damping
+    ),    
+
 
     ("electricity_sparks", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_size,  "prt_sparks_mesh_1",
      10, 1.5, 0.2, 0, 3, 10,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength

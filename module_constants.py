@@ -87,74 +87,6 @@ slot_agent_has_active_seeker      = 26    ## (0 = false, 1 = true)
 slot_agent_seeker_shooter         = 27    ## ID of agent who shot the seeker
 # end
 
-slot_agent_on_fire                = 28    ## (0 = false, 1 = true)
-slot_agent_fire_starter           = 29    ## ID of agent who started the fire
-slot_agent_fire_duration          = 30    ## How long the fire will burn
-
-#slot_agent_is_airborne            = 31    ## (0 = false, 1 = true)
-#slot_agent_airborne_x_movement    = 32    ## Movement ratio in x direction
-#slot_agent_airborne_y_movement    = 33    ## Movement ratio in y direction
-#slot_agent_airborne_power_factor  = 34    ## Initial power factor
-
-#slot_agent_has_been_shocked       = 35    ## (0 = false, positive = yes duration remaining)
-
-slot_agent_is_channeler           = 36    ## (0 = false, 1 = true)
-
-slot_agent_is_bound               = 37    ## (0 = false, 1 = true)
-slot_agent_bound_by               = 38    ## ID of agent who did the binding
-slot_agent_bound_x                = 39    ## x-coordinate
-slot_agent_bound_y                = 40    ## y-coordinate
-
-slot_agent_is_shielded            = 41    ## (0 = false, 1 = true)
-slot_agent_shielded_by            = 42    ## ID of agent who made the shield
-
-slot_agent_under_compulsion       = 43    ## (0 = false, 1 = true)
-slot_agent_compelled_by           = 44    ## ID of agent who did the compelling
-slot_agent_compelled_start_team   = 45    ## Original team of agent who is compelled
-
-slot_agent_hit_by_balefire        = 46    ## (0 = false, 1 = true)
-slot_agent_balefire_shooter       = 47    ## ID of agent who shot the balefire
-
-slot_agent_spawn_party            = 48    ## Party of agents who are spawned by Wheel of Time Code
-
-slot_agent_has_warders_spawned    = 49    ## (0 = false, 1 = true, 2 = failed attempt (for suldam))
-slot_agent_is_warder_for_agent    = 50    ## (0 = false, 1 = aes sedai, 2 = suldam, 3 = ashaman)
-slot_agent_warder_bond_holder     = 51    ## ID of agent who 'summoned' the warder
-slot_agent_aes_sedai_warder_1     = 52    ## ID of first warder
-slot_agent_aes_sedai_warder_2     = 53    ## ID of second warder
-slot_agent_aes_sedai_warder_3     = 54    ## ID of third warder
-slot_agent_aes_sedai_warder_4     = 55    ## ID of fourth warder
-slot_agent_warder_is_leader       = 56    ## (0 = false, 1 = true),
-slot_agent_warders_incapacitated  = 57    ## (0 = false, 1 = true),
-
-slot_agent_myrddraal_fear_counter   = 58  ## Goes to 10 every time agent is near myrddraal
-slot_agent_myrddraal_fear_magnitude = 59  ## (number of myrddraal nearby)
-
-slot_agent_has_draghkar_kiss      = 60    ## (0 = false, 1 = true),
-slot_agent_draghkar_cooldown      = 61    ## Determines how long until Draghkar can kiss again
-slot_agent_draghkar_kiss_by       = 62    ## ID of Draghkar that kissed agent
-
-slot_agent_bound_duration         = 63    ## How long will the agent be bound (Counts from 10 to 0)
-
-slot_agent_has_been_shocked       = 35    ## (0 = false, positive = yes duration remaining)
-slot_agent_lightning_shooter      = 64    ## ID of shooter
-
-slot_agent_is_airborne            = 31    ## (0 = false, 1 = true)
-slot_agent_airborne_x_movement    = 32    ## Movement ratio in x direction
-slot_agent_airborne_y_movement    = 33    ## Movement ratio in y direction
-slot_agent_airborne_power_factor  = 34    ## Initial power factor
-slot_agent_airborne_knockdown     = 65    ## (0 = false, 1 = true)
-slot_agent_airborne_push_modifier = 66    ## Helps balance push effect
-slot_agent_airborne_start_knockdown = 67  ## (0 = false, 1 = true)
-
-slot_agent_freeze_duration          = 68  ## Duration of freeze
-slot_agent_freeze_damage            = 69  ## Amount of damage over time
-slot_agent_freeze_starter           = 70  ## Agent who initiated the weave
-slot_agent_is_frozen                = 71  ## (0 = false, 1 = true)
-
-slot_agent_started_firewall         = 72  ## (0 = false, 1 = true)
-slot_agent_firewall_duration        = 73  ## Coundown while firewall burns
-
 ## Natural Inclination Weave Slots ## (loi = Level of Importance)
 slot_agent_ni_air_blast_loi             = 101
 slot_agent_ni_freeze_loi                = 102
@@ -226,6 +158,67 @@ slot_agent_npc_ai_tie_check_weave_13    = 263
 slot_agent_npc_ai_tie_check_weave_14    = 264
 ## Final Calculation Weave Slots ## (Tie Check)
 
+
+## General slots
+slot_agent_is_channeler             = 301    ## (0 = false, 1 = true)
+
+slot_agent_spawn_party              = 311    ## Party of agents who are spawned by Wheel of Time Code
+slot_agent_has_warders_spawned      = 312    ## (0 = false, 1 = true, 2 = failed attempt (for suldam))
+slot_agent_is_warder_for_agent      = 313    ## (0 = false, 1 = aes sedai, 2 = suldam, 3 = ashaman)
+slot_agent_warder_bond_holder       = 314    ## ID of agent who 'summoned' the warder
+slot_agent_aes_sedai_warder_1       = 315    ## ID of first warder
+slot_agent_aes_sedai_warder_2       = 316    ## ID of second warder
+slot_agent_aes_sedai_warder_3       = 317    ## ID of third warder
+slot_agent_aes_sedai_warder_4       = 318    ## ID of fourth warder
+slot_agent_warder_is_leader         = 319    ## (0 = false, 1 = true),
+slot_agent_warders_incapacitated    = 320    ## (0 = false, 1 = true),
+
+slot_agent_myrddraal_fear_counter   = 331    ## Goes to 10 every time agent is near myrddraal
+slot_agent_myrddraal_fear_magnitude = 332    ## (number of myrddraal nearby)
+
+slot_agent_has_draghkar_kiss        = 341    ## (0 = false, 1 = true),
+slot_agent_draghkar_cooldown        = 342    ## Determines how long until Draghkar can kiss again
+slot_agent_draghkar_kiss_by         = 343    ## ID of Draghkar that kissed agent
+
+
+## Weave Effect slots
+slot_agent_is_airborne              = 401    ## (0 = false, 1 = true)
+slot_agent_airborne_x_movement      = 402    ## Movement ratio in x direction
+slot_agent_airborne_y_movement      = 403    ## Movement ratio in y direction
+slot_agent_airborne_power_factor    = 404    ## Initial power factor
+slot_agent_airborne_knockdown       = 405    ## (0 = false, 1 = true)
+slot_agent_airborne_push_modifier   = 406    ## Helps balance push effect
+slot_agent_airborne_start_knockdown = 407    ## (0 = false, 1 = true)
+
+slot_agent_freeze_duration          = 411    ## Duration of freeze
+slot_agent_freeze_damage            = 412    ## Amount of damage over time
+slot_agent_freeze_starter           = 413    ## Agent who initiated the weave
+slot_agent_is_frozen                = 414    ## (0 = false, 1 = true)
+
+slot_agent_on_fire                  = 421    ## (0 = false, 1 = true)
+slot_agent_fire_starter             = 422    ## ID of agent who started the fire
+slot_agent_fire_duration            = 423    ## How long the fire will burn
+
+slot_agent_is_bound                 = 431    ## (0 = false, 1 = true)
+slot_agent_bound_by                 = 432    ## ID of agent who did the binding
+slot_agent_bound_x                  = 433    ## x-coordinate
+slot_agent_bound_y                  = 434    ## y-coordinate
+slot_agent_bound_duration           = 435    ## How long will the agent be bound (Counts from 10 to 0)
+slot_agent_bound_damage_over_time   = 436    ## How much damage will the agent take per second
+
+slot_agent_has_been_shocked         = 441    ## (0 = false, 1 = true)
+slot_agent_lightning_shooter        = 442    ## ID of shooter
+slot_agent_lightning_duration       = 443    ## (-16 means off, -15 to 0 + cooldown, 0 to 15 = can pass charge)
+
+slot_agent_is_shielded              = 451    ## (0 = false, 1 = true)
+slot_agent_shielded_by              = 452    ## ID of agent who made the shield
+
+slot_agent_under_compulsion         = 460    ## (0 = false, 1 = true)
+slot_agent_compelled_by             = 461    ## ID of agent who did the compelling
+slot_agent_compelled_start_team     = 462    ## Original team of agent who is compelled
+
+slot_agent_hit_by_balefire          = 471    ## (0 = false, 1 = true)
+slot_agent_balefire_shooter         = 472    ## ID of agent who shot the balefire
 
 
 ### End TGS Slots
@@ -1159,17 +1152,19 @@ tro_failed_to_support_colleague            = 2
 
 slot_troop_will_join_prison_break      = 161
 
-# added for TGS
-slot_troop_recruit_primary             = 163  # this will be a number from 1 to 8 which will determine what recruitment option a lord will use.
-slot_troop_recruit_secondary           = 164
 
-slot_troop_darkfriend_buff             = 170  # (0 if false, 1 if true)# was 165
+## added for TGS
+slot_troop_recruit_primary             = 173  # this will be a number from 1 to 8 which will determine what recruitment option a lord will use.
+slot_troop_recruit_secondary           = 174
 
-slot_troop_npc_companion_primary_weave    = 171  # (0, or the number of one of the ranged/support/advanced weaves)
-slot_troop_npc_companion_secondary_weave  = 172  # (0, or the number of one of the ranged/support/advanced weaves)
-slot_troop_npc_companion_known_weaves     = 173  # number of weaves the companion knows. (1 to 11, since short range weaves aren't an option)
-slot_troop_npc_companion_is_channeler     = 174  # (0 if false, 1 if true) Added because I could not look up firearm (channeling) proficiency within the module_item.py file.
+slot_troop_darkfriend_buff             = 180  # (0 if false, 1 if true)# was 165
 
+slot_troop_npc_companion_primary_weave    = 191  # (0, or the number of one of the ranged/support/advanced weaves)
+slot_troop_npc_companion_secondary_weave  = 192  # (0, or the number of one of the ranged/support/advanced weaves)
+slot_troop_npc_companion_known_weaves     = 193  # number of weaves the companion knows. (1 to 11, since short range weaves aren't an option)
+slot_troop_npc_companion_is_channeler     = 194  # (0 if false, 1 if true) Added because I could not look up firearm (channeling) proficiency within the module_item.py file.
+
+# Seeker slots
 slot_troop_num_seekers_active   = 200
 
 slot_troop_seeker_1     = 201
@@ -1192,50 +1187,414 @@ slot_troop_seeker_17    = 217
 slot_troop_seeker_18    = 218
 slot_troop_seeker_19    = 219
 slot_troop_seeker_20    = 220
+slot_troop_seeker_21    = 221
+slot_troop_seeker_22    = 222
+slot_troop_seeker_23    = 223
+slot_troop_seeker_24    = 224
+slot_troop_seeker_25    = 225
+slot_troop_seeker_26    = 226
+slot_troop_seeker_27    = 227
+slot_troop_seeker_28    = 228
+slot_troop_seeker_29    = 229
+slot_troop_seeker_30    = 230
+slot_troop_seeker_31    = 231
+slot_troop_seeker_32    = 232
+slot_troop_seeker_33    = 233
+slot_troop_seeker_34    = 234
+slot_troop_seeker_35    = 235
+slot_troop_seeker_36    = 236
+slot_troop_seeker_37    = 237
+slot_troop_seeker_38    = 238
+slot_troop_seeker_39    = 239
+slot_troop_seeker_40    = 240
+slot_troop_seeker_41    = 241
+slot_troop_seeker_42    = 242
+slot_troop_seeker_43    = 243
+slot_troop_seeker_44    = 244
+slot_troop_seeker_45    = 245
+slot_troop_seeker_46    = 246
+slot_troop_seeker_47    = 247
+slot_troop_seeker_48    = 248
+slot_troop_seeker_49    = 249
+slot_troop_seeker_50    = 250
 
-slot_troop_seeker_1_target      = 221
-slot_troop_seeker_2_target      = 222
-slot_troop_seeker_3_target      = 223
-slot_troop_seeker_4_target      = 224
-slot_troop_seeker_5_target      = 225
-slot_troop_seeker_6_target      = 226
-slot_troop_seeker_7_target      = 227
-slot_troop_seeker_8_target      = 228
-slot_troop_seeker_9_target      = 229
-slot_troop_seeker_10_target     = 230
-slot_troop_seeker_11_target     = 231
-slot_troop_seeker_12_target     = 232
-slot_troop_seeker_13_target     = 233
-slot_troop_seeker_14_target     = 234
-slot_troop_seeker_15_target     = 235
-slot_troop_seeker_16_target     = 236
-slot_troop_seeker_17_target     = 237
-slot_troop_seeker_18_target     = 238
-slot_troop_seeker_19_target     = 239
-slot_troop_seeker_20_target     = 240
+slot_troop_seeker_1_target      = 251
+slot_troop_seeker_2_target      = 252
+slot_troop_seeker_3_target      = 253
+slot_troop_seeker_4_target      = 254
+slot_troop_seeker_5_target      = 255
+slot_troop_seeker_6_target      = 256
+slot_troop_seeker_7_target      = 257
+slot_troop_seeker_8_target      = 258
+slot_troop_seeker_9_target      = 259
+slot_troop_seeker_10_target     = 260
+slot_troop_seeker_11_target     = 261
+slot_troop_seeker_12_target     = 262
+slot_troop_seeker_13_target     = 263
+slot_troop_seeker_14_target     = 264
+slot_troop_seeker_15_target     = 265
+slot_troop_seeker_16_target     = 266
+slot_troop_seeker_17_target     = 267
+slot_troop_seeker_18_target     = 268
+slot_troop_seeker_19_target     = 269
+slot_troop_seeker_20_target     = 270
+slot_troop_seeker_21_target     = 271
+slot_troop_seeker_22_target     = 272
+slot_troop_seeker_23_target     = 273
+slot_troop_seeker_24_target     = 274
+slot_troop_seeker_25_target     = 275
+slot_troop_seeker_26_target     = 276
+slot_troop_seeker_27_target     = 277
+slot_troop_seeker_28_target     = 278
+slot_troop_seeker_29_target     = 279
+slot_troop_seeker_30_target     = 280
+slot_troop_seeker_31_target     = 281
+slot_troop_seeker_32_target     = 282
+slot_troop_seeker_33_target     = 283
+slot_troop_seeker_34_target     = 284
+slot_troop_seeker_35_target     = 285
+slot_troop_seeker_36_target     = 286
+slot_troop_seeker_37_target     = 287
+slot_troop_seeker_38_target     = 288
+slot_troop_seeker_39_target     = 289
+slot_troop_seeker_40_target     = 290
+slot_troop_seeker_41_target     = 291
+slot_troop_seeker_42_target     = 292
+slot_troop_seeker_43_target     = 293
+slot_troop_seeker_44_target     = 294
+slot_troop_seeker_45_target     = 295
+slot_troop_seeker_46_target     = 296
+slot_troop_seeker_47_target     = 297
+slot_troop_seeker_48_target     = 298
+slot_troop_seeker_49_target     = 299
+slot_troop_seeker_50_target     = 300
 
-slot_troop_seeker_1_shooter      = 241
-slot_troop_seeker_2_shooter      = 242
-slot_troop_seeker_3_shooter      = 243
-slot_troop_seeker_4_shooter      = 244
-slot_troop_seeker_5_shooter      = 245
-slot_troop_seeker_6_shooter      = 246
-slot_troop_seeker_7_shooter      = 247
-slot_troop_seeker_8_shooter      = 248
-slot_troop_seeker_9_shooter      = 249
-slot_troop_seeker_10_shooter     = 250
-slot_troop_seeker_11_shooter     = 251
-slot_troop_seeker_12_shooter     = 252
-slot_troop_seeker_13_shooter     = 253
-slot_troop_seeker_14_shooter     = 254
-slot_troop_seeker_15_shooter     = 255
-slot_troop_seeker_16_shooter     = 256
-slot_troop_seeker_17_shooter     = 257
-slot_troop_seeker_18_shooter     = 258
-slot_troop_seeker_19_shooter     = 259
-slot_troop_seeker_20_shooter     = 260
+slot_troop_seeker_1_shooter      = 301
+slot_troop_seeker_2_shooter      = 302
+slot_troop_seeker_3_shooter      = 303
+slot_troop_seeker_4_shooter      = 304
+slot_troop_seeker_5_shooter      = 305
+slot_troop_seeker_6_shooter      = 306
+slot_troop_seeker_7_shooter      = 307
+slot_troop_seeker_8_shooter      = 308
+slot_troop_seeker_9_shooter      = 309
+slot_troop_seeker_10_shooter     = 310
+slot_troop_seeker_11_shooter     = 311
+slot_troop_seeker_12_shooter     = 312
+slot_troop_seeker_13_shooter     = 313
+slot_troop_seeker_14_shooter     = 314
+slot_troop_seeker_15_shooter     = 315
+slot_troop_seeker_16_shooter     = 316
+slot_troop_seeker_17_shooter     = 317
+slot_troop_seeker_18_shooter     = 318
+slot_troop_seeker_19_shooter     = 319
+slot_troop_seeker_20_shooter     = 320
+slot_troop_seeker_21_shooter     = 321
+slot_troop_seeker_22_shooter     = 322
+slot_troop_seeker_23_shooter     = 323
+slot_troop_seeker_24_shooter     = 324
+slot_troop_seeker_25_shooter     = 325
+slot_troop_seeker_26_shooter     = 326
+slot_troop_seeker_27_shooter     = 327
+slot_troop_seeker_28_shooter     = 328
+slot_troop_seeker_29_shooter     = 329
+slot_troop_seeker_30_shooter     = 330
+slot_troop_seeker_31_shooter     = 331
+slot_troop_seeker_32_shooter     = 332
+slot_troop_seeker_33_shooter     = 333
+slot_troop_seeker_34_shooter     = 334
+slot_troop_seeker_35_shooter     = 335
+slot_troop_seeker_36_shooter     = 336
+slot_troop_seeker_37_shooter     = 337
+slot_troop_seeker_38_shooter     = 338
+slot_troop_seeker_39_shooter     = 339
+slot_troop_seeker_40_shooter     = 340
+slot_troop_seeker_41_shooter     = 341
+slot_troop_seeker_42_shooter     = 342
+slot_troop_seeker_43_shooter     = 343
+slot_troop_seeker_44_shooter     = 344
+slot_troop_seeker_45_shooter     = 345
+slot_troop_seeker_46_shooter     = 346
+slot_troop_seeker_47_shooter     = 347
+slot_troop_seeker_48_shooter     = 348
+slot_troop_seeker_49_shooter     = 349
+slot_troop_seeker_50_shooter     = 350
 
-# end added for TGS
+slot_troop_seeker_1_current_x    = 351
+slot_troop_seeker_2_current_x    = 352
+slot_troop_seeker_3_current_x    = 353
+slot_troop_seeker_4_current_x    = 354
+slot_troop_seeker_5_current_x    = 355
+slot_troop_seeker_6_current_x    = 356
+slot_troop_seeker_7_current_x    = 357
+slot_troop_seeker_8_current_x    = 358
+slot_troop_seeker_9_current_x    = 359
+slot_troop_seeker_10_current_x   = 360
+slot_troop_seeker_11_current_x   = 361
+slot_troop_seeker_12_current_x   = 362
+slot_troop_seeker_13_current_x   = 363
+slot_troop_seeker_14_current_x   = 364
+slot_troop_seeker_15_current_x   = 365
+slot_troop_seeker_16_current_x   = 366
+slot_troop_seeker_17_current_x   = 367
+slot_troop_seeker_18_current_x   = 368
+slot_troop_seeker_19_current_x   = 369
+slot_troop_seeker_20_current_x   = 370
+slot_troop_seeker_21_current_x   = 371
+slot_troop_seeker_22_current_x   = 372
+slot_troop_seeker_23_current_x   = 373
+slot_troop_seeker_24_current_x   = 374
+slot_troop_seeker_25_current_x   = 375
+slot_troop_seeker_26_current_x   = 376
+slot_troop_seeker_27_current_x   = 377
+slot_troop_seeker_28_current_x   = 378
+slot_troop_seeker_29_current_x   = 379
+slot_troop_seeker_30_current_x   = 380
+slot_troop_seeker_31_current_x   = 381
+slot_troop_seeker_32_current_x   = 382
+slot_troop_seeker_33_current_x   = 383
+slot_troop_seeker_34_current_x   = 384
+slot_troop_seeker_35_current_x   = 385
+slot_troop_seeker_36_current_x   = 386
+slot_troop_seeker_37_current_x   = 387
+slot_troop_seeker_38_current_x   = 388
+slot_troop_seeker_39_current_x   = 389
+slot_troop_seeker_40_current_x   = 390
+slot_troop_seeker_41_current_x   = 391
+slot_troop_seeker_42_current_x   = 392
+slot_troop_seeker_43_current_x   = 393
+slot_troop_seeker_44_current_x   = 394
+slot_troop_seeker_45_current_x   = 395
+slot_troop_seeker_46_current_x   = 396
+slot_troop_seeker_47_current_x   = 397
+slot_troop_seeker_48_current_x   = 398
+slot_troop_seeker_49_current_x   = 399
+slot_troop_seeker_50_current_x   = 400
+
+slot_troop_seeker_1_current_y    = 401
+slot_troop_seeker_2_current_y    = 402
+slot_troop_seeker_3_current_y    = 403
+slot_troop_seeker_4_current_y    = 404
+slot_troop_seeker_5_current_y    = 405
+slot_troop_seeker_6_current_y    = 406
+slot_troop_seeker_7_current_y    = 407
+slot_troop_seeker_8_current_y    = 408
+slot_troop_seeker_9_current_y    = 409
+slot_troop_seeker_10_current_y   = 410
+slot_troop_seeker_11_current_y   = 411
+slot_troop_seeker_12_current_y   = 412
+slot_troop_seeker_13_current_y   = 413
+slot_troop_seeker_14_current_y   = 414
+slot_troop_seeker_15_current_y   = 415
+slot_troop_seeker_16_current_y   = 416
+slot_troop_seeker_17_current_y   = 417
+slot_troop_seeker_18_current_y   = 418
+slot_troop_seeker_19_current_y   = 419
+slot_troop_seeker_20_current_y   = 420
+slot_troop_seeker_21_current_y   = 421
+slot_troop_seeker_22_current_y   = 422
+slot_troop_seeker_23_current_y   = 423
+slot_troop_seeker_24_current_y   = 424
+slot_troop_seeker_25_current_y   = 425
+slot_troop_seeker_26_current_y   = 426
+slot_troop_seeker_27_current_y   = 427
+slot_troop_seeker_28_current_y   = 428
+slot_troop_seeker_29_current_y   = 429
+slot_troop_seeker_30_current_y   = 430
+slot_troop_seeker_31_current_y   = 431
+slot_troop_seeker_32_current_y   = 432
+slot_troop_seeker_33_current_y   = 433
+slot_troop_seeker_34_current_y   = 434
+slot_troop_seeker_35_current_y   = 435
+slot_troop_seeker_36_current_y   = 436
+slot_troop_seeker_37_current_y   = 437
+slot_troop_seeker_38_current_y   = 438
+slot_troop_seeker_39_current_y   = 439
+slot_troop_seeker_40_current_y   = 440
+slot_troop_seeker_41_current_y   = 441
+slot_troop_seeker_42_current_y   = 442
+slot_troop_seeker_43_current_y   = 443
+slot_troop_seeker_44_current_y   = 444
+slot_troop_seeker_45_current_y   = 445
+slot_troop_seeker_46_current_y   = 446
+slot_troop_seeker_47_current_y   = 447
+slot_troop_seeker_48_current_y   = 448
+slot_troop_seeker_49_current_y   = 449
+slot_troop_seeker_50_current_y   = 450
+
+slot_troop_seeker_1_speed        = 451
+slot_troop_seeker_2_speed        = 452
+slot_troop_seeker_3_speed        = 453
+slot_troop_seeker_4_speed        = 454
+slot_troop_seeker_5_speed        = 455
+slot_troop_seeker_6_speed        = 456
+slot_troop_seeker_7_speed        = 457
+slot_troop_seeker_8_speed        = 458
+slot_troop_seeker_9_speed        = 459
+slot_troop_seeker_10_speed       = 460
+slot_troop_seeker_11_speed       = 461
+slot_troop_seeker_12_speed       = 462
+slot_troop_seeker_13_speed       = 463
+slot_troop_seeker_14_speed       = 464
+slot_troop_seeker_15_speed       = 465
+slot_troop_seeker_16_speed       = 466
+slot_troop_seeker_17_speed       = 467
+slot_troop_seeker_18_speed       = 468
+slot_troop_seeker_19_speed       = 469
+slot_troop_seeker_20_speed       = 470
+slot_troop_seeker_21_speed       = 471
+slot_troop_seeker_22_speed       = 472
+slot_troop_seeker_23_speed       = 473
+slot_troop_seeker_24_speed       = 474
+slot_troop_seeker_25_speed       = 475
+slot_troop_seeker_26_speed       = 476
+slot_troop_seeker_27_speed       = 477
+slot_troop_seeker_28_speed       = 478
+slot_troop_seeker_29_speed       = 479
+slot_troop_seeker_30_speed       = 480
+slot_troop_seeker_31_speed       = 481
+slot_troop_seeker_32_speed       = 482
+slot_troop_seeker_33_speed       = 483
+slot_troop_seeker_34_speed       = 484
+slot_troop_seeker_35_speed       = 485
+slot_troop_seeker_36_speed       = 486
+slot_troop_seeker_37_speed       = 487
+slot_troop_seeker_38_speed       = 488
+slot_troop_seeker_39_speed       = 489
+slot_troop_seeker_40_speed       = 490
+slot_troop_seeker_41_speed       = 491
+slot_troop_seeker_42_speed       = 492
+slot_troop_seeker_43_speed       = 493
+slot_troop_seeker_44_speed       = 494
+slot_troop_seeker_45_speed       = 495
+slot_troop_seeker_46_speed       = 496
+slot_troop_seeker_47_speed       = 497
+slot_troop_seeker_48_speed       = 498
+slot_troop_seeker_49_speed       = 499
+slot_troop_seeker_50_speed       = 500
+
+slot_troop_seeker_1_power        = 501
+slot_troop_seeker_2_power        = 502
+slot_troop_seeker_3_power        = 503
+slot_troop_seeker_4_power        = 504
+slot_troop_seeker_5_power        = 505
+slot_troop_seeker_6_power        = 506
+slot_troop_seeker_7_power        = 507
+slot_troop_seeker_8_power        = 508
+slot_troop_seeker_9_power        = 509
+slot_troop_seeker_10_power       = 510
+slot_troop_seeker_11_power       = 511
+slot_troop_seeker_12_power       = 512
+slot_troop_seeker_13_power       = 513
+slot_troop_seeker_14_power       = 514
+slot_troop_seeker_15_power       = 515
+slot_troop_seeker_16_power       = 516
+slot_troop_seeker_17_power       = 517
+slot_troop_seeker_18_power       = 518
+slot_troop_seeker_19_power       = 519
+slot_troop_seeker_20_power       = 520
+slot_troop_seeker_21_power       = 521
+slot_troop_seeker_22_power       = 522
+slot_troop_seeker_23_power       = 523
+slot_troop_seeker_24_power       = 524
+slot_troop_seeker_25_power       = 525
+slot_troop_seeker_26_power       = 526
+slot_troop_seeker_27_power       = 527
+slot_troop_seeker_28_power       = 528
+slot_troop_seeker_29_power       = 529
+slot_troop_seeker_30_power       = 530
+slot_troop_seeker_31_power       = 531
+slot_troop_seeker_32_power       = 532
+slot_troop_seeker_33_power       = 533
+slot_troop_seeker_34_power       = 534
+slot_troop_seeker_35_power       = 535
+slot_troop_seeker_36_power       = 536
+slot_troop_seeker_37_power       = 537
+slot_troop_seeker_38_power       = 538
+slot_troop_seeker_39_power       = 539
+slot_troop_seeker_40_power       = 540
+slot_troop_seeker_41_power       = 541
+slot_troop_seeker_42_power       = 542
+slot_troop_seeker_43_power       = 543
+slot_troop_seeker_44_power       = 544
+slot_troop_seeker_45_power       = 545
+slot_troop_seeker_46_power       = 546
+slot_troop_seeker_47_power       = 547
+slot_troop_seeker_48_power       = 548
+slot_troop_seeker_49_power       = 549
+slot_troop_seeker_50_power       = 550
+
+# Firewall slots
+slot_troop_num_firewalls_active     = 600
+
+slot_troop_firewall_1               = 601
+slot_troop_firewall_2               = 602
+slot_troop_firewall_3               = 603
+slot_troop_firewall_4               = 604
+slot_troop_firewall_5               = 605
+slot_troop_firewall_6               = 606
+slot_troop_firewall_7               = 607
+slot_troop_firewall_8               = 608
+slot_troop_firewall_9               = 609
+slot_troop_firewall_10              = 610
+
+slot_troop_firewall_1_initial_power = 611
+slot_troop_firewall_2_initial_power = 612
+slot_troop_firewall_3_initial_power = 613
+slot_troop_firewall_4_initial_power = 614
+slot_troop_firewall_5_initial_power = 615
+slot_troop_firewall_6_initial_power = 616
+slot_troop_firewall_7_initial_power = 617
+slot_troop_firewall_8_initial_power = 618
+slot_troop_firewall_9_initial_power = 619
+slot_troop_firewall_10_initial_power = 620
+
+slot_troop_firewall_1_length        = 621
+slot_troop_firewall_2_length        = 622
+slot_troop_firewall_3_length        = 623
+slot_troop_firewall_4_length        = 624
+slot_troop_firewall_5_length        = 625
+slot_troop_firewall_6_length        = 626
+slot_troop_firewall_7_length        = 627
+slot_troop_firewall_8_length        = 628
+slot_troop_firewall_9_length        = 629
+slot_troop_firewall_10_length       = 630
+
+slot_troop_firewall_1_radius        = 631
+slot_troop_firewall_2_radius        = 632
+slot_troop_firewall_3_radius        = 633
+slot_troop_firewall_4_radius        = 634
+slot_troop_firewall_5_radius        = 635
+slot_troop_firewall_6_radius        = 636
+slot_troop_firewall_7_radius        = 637
+slot_troop_firewall_8_radius        = 638
+slot_troop_firewall_9_radius        = 639
+slot_troop_firewall_10_radius       = 640
+
+slot_troop_firewall_1_duration      = 641
+slot_troop_firewall_2_duration      = 642
+slot_troop_firewall_3_duration      = 643
+slot_troop_firewall_4_duration      = 644
+slot_troop_firewall_5_duration      = 645
+slot_troop_firewall_6_duration      = 646
+slot_troop_firewall_7_duration      = 647
+slot_troop_firewall_8_duration      = 648
+slot_troop_firewall_9_duration      = 649
+slot_troop_firewall_10_duration     = 650
+
+slot_troop_firewall_1_damage        = 651
+slot_troop_firewall_2_damage        = 652
+slot_troop_firewall_3_damage        = 653
+slot_troop_firewall_4_damage        = 654
+slot_troop_firewall_5_damage        = 655
+slot_troop_firewall_6_damage        = 656
+slot_troop_firewall_7_damage        = 657
+slot_troop_firewall_8_damage        = 658
+slot_troop_firewall_9_damage        = 659
+slot_troop_firewall_10_damage       = 660
+
+
+## end added for TGS
 
 
 troop_slots_reserved_for_relations_start        = 165 #this is based on id_troops, and might change
