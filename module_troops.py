@@ -1011,20 +1011,20 @@ troops = [
 #   def_attrib|level(2),wp(60),knows_common,mayene_man_face_young, tear_man_face_old],
 
     ["legion_recruit_channeler","Legion Recruit (Channeler)","Legion Recruits (Channeler)",tf_guarantee_all,0,0,fac_kingdom_1,
-   [itm_channeler_dagger, itm_legion_recruit_tunic, itm_wrapping_boots],
-   def_attrib_wot_infantry_1 ,wp(60),knows_wot_infantry_1 ,far_madding_man_face_younger, illian_man_face_older],
+   [itm_power_player, itm_power_ammo,itm_channeler_dagger, itm_legion_recruit_tunic, itm_wrapping_boots],
+   def_attrib_wot_infantry_1 ,wp_firearm(65)|wp(60),knows_wot_infantry_1|knows_power_draw_1|knows_fire_1|knows_earth_1|knows_spirit_1|knows_water_3|knows_air_1 ,far_madding_man_face_younger, illian_man_face_older],
 #   itm_power_ashaman_soldier_ranged
     ["ashaman_soldier","Asha'man Soldier","Asha'man Soldiers",tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_player, itm_power_ammo, itm_sword_secondary, itm_ashaman_soldier_coat, itm_black_leather_boots],
-   def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2,murandy_man_face_young, altara_man_face_older],
+   def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2|knows_fire_4|knows_earth_2|knows_spirit_3|knows_water_4|knows_air_2,murandy_man_face_young, altara_man_face_older],
 #   itm_power_ashaman_dedicated_ranged
     ["ashaman_dedicated","Asha'man Dedicated","Asha'man Dedicated",tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_player, itm_power_ammo, itm_ashaman_dedicated_coat, itm_black_leather_boots],
-   def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3|knows_fire_5|knows_earth_5|knows_spirit_4|knows_air_4|knows_water_3,ghealdan_man_face_younger, amadicia_man_face_older],
+   def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3|knows_fire_5|knows_earth_6|knows_spirit_5|knows_water_4|knows_air_4,ghealdan_man_face_younger, amadicia_man_face_older],
   
     ["ashaman","Asha'man","Asha'man",tf_guarantee_all,0,0,fac_kingdom_1,
-   [itm_power_ashaman_ranged, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
-   def_attrib_wot_infantry_2,wp_firearm(165)|wp_one_handed(110)|wp(90),knows_wot_horse_archer_2|knows_power_draw_4,tarabon_man_face_younger, arad_doman_man_face_older],
+   [itm_power_player, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
+   def_attrib_wot_infantry_2,wp_firearm(175)|wp_one_handed(110)|wp(90),knows_wot_horse_archer_2|knows_power_draw_4|knows_fire_7|knows_earth_6|knows_spirit_6|knows_water_5|knows_air_4,tarabon_man_face_younger, arad_doman_man_face_older],
   
 #    ["legion_recruit_soldier","Legion Recruit Soldier","Legion Recruits (Soldier)",tf_guarantee_all,0,0,fac_kingdom_1,
 #   [itm_sword_medieval_a, itm_legion_recruit_tunic, itm_wrapping_boots],
@@ -2074,8 +2074,8 @@ troops = [
 
 # Legion of the Dragon
     ["ashaman_veteran","Asha'man Veteran","Asha'man Veterans",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_1,
-   [itm_power_ashaman_veteran_ranged, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
-   def_attrib_wot_infantry_3,wp_firearm(200)|wp_one_handed(150)|wp(125),knows_wot_horse_archer_3|knows_power_draw_5,man_face_young_1, man_face_old_2],
+   [itm_power_player, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
+   def_attrib_wot_infantry_3,wp_firearm(200)|wp_one_handed(150)|wp(125),knows_wot_horse_archer_3|knows_power_draw_5|knows_fire_7|knows_earth_7|knows_spirit_6|knows_water_5|knows_air_5,man_face_young_1, man_face_old_2],
   
     ["legion_blademaster","Legion Blademaster","Legion Blademasters",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_1,
    [itm_great_sword, itm_legion_plate, itm_shynbaulds_wot, itm_mail_gauntlets_wot, itm_andoran_helmet],

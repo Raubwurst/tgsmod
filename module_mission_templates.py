@@ -2708,8 +2708,11 @@ common_battle_check_victory_condition = (
     ### Added for TGS
     (try_for_agents, ":agent"),
         (agent_slot_eq, ":agent", slot_agent_under_compulsion, 1),
+            (agent_get_slot, ":original_team", ":agent", slot_agent_compelled_start_team),
+            (agent_set_team, ":agent", ":original_team"),
+            (agent_get_slot, ":chosen", ":agent", slot_agent_compelled_by),
             (agent_set_hit_points,":agent",0,0),
-            (agent_deliver_damage_to_agent,":agent",":agent"),
+            (agent_deliver_damage_to_agent,":chosen",":agent"),
     (try_end),
     ### End added for TGS
     (call_script, "script_play_victorious_sound"),

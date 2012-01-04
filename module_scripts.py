@@ -76478,7 +76478,7 @@ scripts = [
                              (position_move_y,pos3,2000),  # how far out the flame wall is  (was 500)
                              (copy_position, pos5, pos3),
                         
-                             (play_sound,"snd_fire_curtain"),
+                             (play_sound_at_position,"snd_fire_curtain", pos3),
                              (assign,":mul",1),
                              (try_for_range,":num",1,":total_length"),  # was (try_for_range,":num",1,11),
                                 (val_mul,":num",":mul"),
@@ -77059,11 +77059,27 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_weave_compulsion", [
-	(store_script_param_1,":chosen"),
-	#(store_script_param_2,":chosen_horse"),
-        (store_script_param,":chosen_team",3),
-                        (assign, ":distance",99999),
+                        (store_script_param_1,":chosen"),
+                        #(store_script_param_2,":chosen_horse"),
+                        (store_script_param,":chosen_team",3),
+
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 13),
+                        (assign, ":primary_scaling_factor", reg0),
+                        (assign, ":secondary_scaling_factor", reg1),
+                        (store_add, ":total_scaling_factor", ":primary_scaling_factor", ":secondary_scaling_factor"),
+                        
+                        #effectivity scaling
+                        (assign, ":base_percentage", 12),
+                        (store_mul, ":scaled_percentage", ":total_scaling_factor", 6),
+                        (store_add, ":total_percentage", ":base_percentage", ":scaled_percentage"),
+                        
+                        #start base code
+                        (assign, ":high_level_distance",99999),                        
+                        (assign, ":low_level_distance",99999),
                         (assign, ":number_of_enemies", 0),
+                        (assign, ":number_of_high_level_enemies", 0),                        
+                        (assign, ":number_of_low_level_enemies", 0),
+
 
                         (try_for_agents,":agent"),
                             (agent_is_alive,":agent"), ## don't compel dead
@@ -77077,102 +77093,109 @@ scripts = [
                             (neq, ":agent", ":player_agent"), ## shooter can't compel player (too many complications)
                             (agent_get_slot, ":already_compelled", ":agent", slot_agent_under_compulsion),
                             (eq, ":already_compelled", 0),
+                            (agent_get_troop_id, ":agent_troop", ":agent"),
+                            (troop_get_xp, ":agent_xp", ":agent_troop"),
+                            (call_script, "script_tgs_determine_level_from_xp", ":agent_xp"),
+                            (assign, ":agent_level", reg0),
+                            (agent_get_slot, ":agent_is_channeler", ":agent", slot_agent_is_channeler),
                             (agent_get_look_position, pos2, ":agent"),
                             (get_distance_between_positions,":dist",pos1,pos2),
-                            (lt,":dist",":distance"),
-                            (assign,":target",":agent"),
-                            (assign,":distance",":dist"),
-                            (val_add, ":number_of_enemies", 1),
+                            (try_begin),
+                            (eq, ":agent_is_channeler", 1),
+                            (ge, ":agent_level", 12),
+                                (lt,":dist",":high_level_distance"),
+                                (assign,":high_level_target",":agent"),
+                                (assign,":high_level_distance",":dist"),
+                                (val_add, ":number_of_high_level_enemies", 1),
+                                (val_add, ":number_of_enemies", 1),
+                            (else_try),
+                            (ge, ":agent_level", 16),
+                                (lt,":dist",":high_level_distance"),
+                                (assign,":high_level_target",":agent"),
+                                (assign,":high_level_distance",":dist"),
+                                (val_add, ":number_of_high_level_enemies", 1),
+                                (val_add, ":number_of_enemies", 1),
+                            (else_try),
+                                (lt,":dist",":low_level_distance"),
+                                (assign,":low_level_target",":agent"),
+                                (assign,":low_level_distance",":dist"),
+                                (val_add, ":number_of_low_level_enemies", 1),
+                                (val_add, ":number_of_enemies", 1),
+                            (try_end),
                         (try_end),
 
                         (try_begin),
                         (ge, ":number_of_enemies", 1),
+                            (try_begin),
+                            (gt, ":number_of_high_level_enemies", 0),
+                                (assign, ":target", ":high_level_target"),
+                            (else_try),
+                                (assign, ":target", ":low_level_target"),
+                            (try_end),
+                        
                             (agent_get_troop_id, ":target_id", ":target"),
                             (troop_get_xp, ":target_xp", ":target_id"),
                             (agent_get_troop_id, ":chosen_id", ":chosen"),
                             (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                             (agent_get_slot, ":channeler", ":agent", slot_agent_is_channeler),
+                            (try_begin),
+                            (eq, ":channeler", 1),
+                                (agent_get_slot, ":shielded", ":agent", slot_agent_is_shielded),
+                            (try_end),
+                        
+                            (assign, ":target_based_percentage_adder", 0),
+                            (try_begin),
+                            (eq, ":channeler", 1),
+                            (eq, ":shielded", 0),
+                                (try_begin),
+                                (gt, ":target_xp", ":chosen_xp"),
+                                    (store_random_in_range, ":target_based_percentage_adder", 1, 11),
+                                (else_try),
+                                    (store_random_in_range, ":target_based_percentage_adder", 11, 21),
+                                (try_end),
+                            (else_try),
+                                (try_begin),
+                                (gt, ":target_xp", ":chosen_xp"),
+                                    (store_random_in_range, ":target_based_percentage_adder", 21, 31),
+                                (else_try),
+                                    (store_random_in_range, ":target_based_percentage_adder", 31, 41),
+                                (try_end),
+                            (try_end),
+                            (val_add, ":total_percentage", ":target_based_percentage_adder"),
 
                             (agent_get_team, ":chosen_team", ":chosen"),
                             (agent_get_team, ":target_team", ":target"),
-                    
+
+                            (store_random_in_range, ":random", 1, 101),                    
                             (try_begin),
-                            (eq, ":channeler", 1), # target is channeler
-                                (try_begin),
-                                (gt, ":chosen_xp", ":target_xp"), # target less experienced
-                                    (store_random_in_range, ":random", 1, 100),
-                                    (gt, ":random", 60),
-                                        (agent_set_team, ":target", ":chosen_team"),
-                                        (agent_clear_scripted_mode, ":target"),
+                            (ge, ":total_percentage", ":random"),
+                                (agent_set_team, ":target", ":chosen_team"),
+                                (agent_clear_scripted_mode, ":target"),
+                                (agent_force_rethink, ":target"),
                 
-                                        # set slot
-                                        (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
-                                        (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
-                                        (agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
+                                # set slot
+                                (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
+                                (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
 
-                                        (try_begin), # add to channeling multiplier if agent is player
-                                        (neg|agent_is_non_player, ":chosen"),
-                                            (val_add, "$g_channeling_proficiency_modifier", 150),
-                                        (try_end),
-                                        (add_xp_to_troop,75,":chosen"),
-                                        (play_sound, "snd_compulsion"),
-                                (else_try), # target more experienced
-                                    (store_random_in_range, ":random", 1, 100),
-                                    (gt, ":random", 85),
-                                        (agent_set_team, ":target", ":chosen_team"),
-                                        (agent_clear_scripted_mode, ":target"),
-                
-                                        # set slot
-                                        (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
-                                        (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
-                                        (agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
-
-                                        (try_begin), # add to channeling multiplier if agent is player
-                                        (neg|agent_is_non_player, ":chosen"),
-                                            (val_add, "$g_channeling_proficiency_modifier", 200),
-                                        (try_end),
-                                        (add_xp_to_troop,100,":chosen"),
-                                        (play_sound, "snd_compulsion"),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 150),
                                 (try_end),
-                            (else_try), # target is non-channeler
-                                (try_begin),
-                                (gt, ":chosen_xp", ":target_xp"), # target less experienced
-                                    (store_random_in_range, ":random", 1, 100),
-                                    (gt, ":random", 10),
-                                        (agent_set_team, ":target", ":chosen_team"),
-                                        (agent_clear_scripted_mode, ":target"),
-                
-                                        # set slot
-                                        (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
-                                        (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
-                                        (agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
-
-                                        (try_begin), # add to channeling multiplier if agent is player
-                                        (neg|agent_is_non_player, ":chosen"),
-                                            (val_add, "$g_channeling_proficiency_modifier", 50),
-                                        (try_end),
-                                        (add_xp_to_troop,25,":chosen"),
-                                        (play_sound, "snd_compulsion"),
-                                (else_try), # target more experienced
-                                    (store_random_in_range, ":random", 1, 100),
-                                    (gt, ":random", 35),
-                                        (agent_set_team, ":target", ":chosen_team"),
-                                        (agent_clear_scripted_mode, ":target"),
-                
-                                        # set slot
-                                        (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
-                                        (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
-                                        (agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
-
-                                        (try_begin), # add to channeling multiplier if agent is player
-                                        (neg|agent_is_non_player, ":chosen"),
-                                            (val_add, "$g_channeling_proficiency_modifier", 100),
-                                        (try_end),
-                                        (add_xp_to_troop,50,":chosen"),
-                                        (play_sound, "snd_compulsion"),
+                                (val_max, ":total_percentage", 50),
+                                (add_xp_to_troop,":total_percentage",":chosen"),
+                                (play_sound, "snd_compulsion"),
+                            (else_try),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 75),
                                 (try_end),
+                                (val_div, ":total_percentage", 2),
+                                (val_max, ":total_percentage", 25),
+                                (add_xp_to_troop,":total_percentage",":chosen"),
                             (try_end),
+                        
                         (try_end),
 ]),
 ##"script_tgs_weave_balefire"
@@ -77184,10 +77207,33 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_weave_balefire", [
-	(store_script_param_1,":chosen"),
-	(store_script_param_2,":chosen_horse"),
-        #(store_script_param,":chosen_team",3),
+                        (store_script_param_1,":chosen"),
+                        (store_script_param_2,":chosen_horse"),
+                        (store_script_param,":chosen_team",3),
 
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 14),
+                        (assign, ":primary_scaling_factor", reg0),
+                        (assign, ":secondary_scaling_factor", reg1),
+                        (store_add, ":total_scaling_factor", ":primary_scaling_factor", ":secondary_scaling_factor"),
+                        
+                        #balefire stream width scaling
+                        (assign, ":base_width", -5),
+                        (store_mul, ":scaled_width", ":total_scaling_factor", 25),
+                        (store_add, ":total_width", ":base_width", ":scaled_width"),
+                        
+                        #particle effect scaling
+                        (try_begin),
+                        (lt, ":total_scaling_factor", 4),
+                            (assign, ":blast_effect", "psys_balefire_beam"),
+                        (else_try),
+                        (is_between, ":total_scaling_factor", 4, 6),
+                            (assign, ":blast_effect", "psys_balefire_beam_medium"),
+                        (else_try),
+                        (ge, ":total_scaling_factor", 6),
+                            (assign, ":blast_effect", "psys_balefire_beam_large"),
+                        (try_end),
+
+                        # start base code
                         (assign, ":times_near_ground", 0),
 
                         (try_for_range,reg5,1,250),  ###was 1000
@@ -77195,16 +77241,16 @@ scripts = [
 
                             (agent_get_troop_id, ":chosen_troop", ":chosen"),
     
-                            (particle_system_burst, "psys_balefire_beam", pos1, 5), ## need balefire trail
+                            (particle_system_burst, ":blast_effect", pos1, 5), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
                             (neq, ":chosen_troop", "trp_player"),
                                 (position_move_x,pos1,2), # was 3
                             (try_end),
                             (copy_position,pos2,pos1),
-                            (particle_system_burst, "psys_balefire_beam", pos1, 5), ## need balefire trail
+                            (particle_system_burst, ":blast_effect", pos1, 5), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
-                            (particle_system_burst, "psys_balefire_beam", pos1, 5), ## need balefire trail
+                            (particle_system_burst, ":blast_effect", pos1, 5), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
                             (neq, ":chosen_troop", "trp_player"),
@@ -77217,7 +77263,7 @@ scripts = [
                                 (try_end),
                             (try_end),
                             (copy_position,pos3,pos1),
-                            (particle_system_burst, "psys_balefire_beam", pos1, 5), ## need balefire trail
+                            (particle_system_burst, ":blast_effect", pos1, 5), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
 
                             #added for gravity effect and flight randomness
@@ -77259,14 +77305,22 @@ scripts = [
                                 (neq, ":chosen", ":agent"),
                                 (neq, ":chosen_horse", ":agent"),
 #                                (neg|agent_is_ally, ":agent"),
+                                # so npc channelers in ranks won't balefire their allies beside them
+                                (store_add, ":agent_team", ":chosen_team", 100), # to make sure they are different before the check
+                                (try_begin),
+                                (lt, reg5, 5), # so it disregards allies for 5 iterations of the loop
+                                    (agent_get_team, ":agent_team", ":agent"),
+                                (try_end),
+                                # end
+                                (neq, ":chosen_team", ":agent_team"),
                                 (agent_is_alive, ":agent"),
                                 (neg|agent_is_wounded, ":agent"),
                                 (agent_get_look_position, pos4, ":agent"),
                                 (get_distance_between_positions, ":dist_2", pos2, pos4),
                                 (get_distance_between_positions, ":dist_2_secondary", pos3, pos4),
                                 (position_get_z, ":z_attack_trail", pos1),
-                                (this_or_next|lt, ":dist_2", 55), # balefire must be near the agent (x-y radius) # was 50
-                                (lt, ":dist_2_secondary", 55), # balefire must be near the agent (x-y radius) # was 50
+                                (this_or_next|lt, ":dist_2", ":total_width"), # balefire must be near the agent (x-y radius) # was 50
+                                (lt, ":dist_2_secondary", ":total_width"), # balefire must be near the agent (x-y radius) # was 50
                                 (this_or_next|is_between, ":z_attack_trail", ":z_ground_low", ":z_ground_high"), # balefire must be within the agent's body (z height)
                                 (is_between, ":z_attack_trail", ":z_ground_low_secondary", ":z_ground_high_secondary"), # balefire must be within the agent's body (z height)
                                 (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 1),
@@ -77300,58 +77354,68 @@ scripts = [
 ##
 ##OUTPUT: none
 ("tgs_break_shield", [
-	(store_script_param_1,":chosen"),
+                (store_script_param_1,":chosen"),
+                
+                (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 0),
+                (assign, ":primary_scaling_factor", reg0),
+                
+                #effectivity percentage scaling
+                (assign, ":base_percentage", 5),
+                (store_div, ":scaled_percentage", ":primary_scaling_factor", 2), # 7 to 30
+                (store_random_in_range, ":luck_percentage", -10, 21), # -2 to 50
+                (store_add, ":total_percentage", ":base_percentage", ":scaled_percentage"),
+                (val_add, ":total_percentage", ":luck_percentage"),
+                
+                # start base code
                 (agent_get_slot, ":shield_holder", ":chosen", slot_agent_shielded_by),
 
+                (store_agent_hit_points, ":shield_holder_hp", ":shield_holder", 1),
                 (agent_get_troop_id, ":shield_holder_id", ":shield_holder"),
                 (troop_get_xp, ":shield_holder_xp", ":shield_holder_id"),
                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
-
+                
+                #determine additional modifiers
                 (try_begin),
-                (agent_is_alive, ":shield_holder"), # shield creator is alive
-                (neg|agent_is_wounded, ":shield_holder"),
+                (gt, ":shield_holder_hp", 0),
                     (try_begin),
-                    (gt, ":chosen_xp", ":shield_holder_xp"), # shield holder 'weaker'
-                        (store_random_in_range, ":random", 1, 100),
-                        (gt, ":random", 60),
-                            (agent_set_slot, ":chosen", slot_agent_is_shielded, 0),
-                            (play_sound, "snd_unravel"),
-                            (try_begin), # add to channeling multiplier if agent is player
-                            (neg|agent_is_non_player, ":chosen"),
-                                (val_add, "$g_channeling_proficiency_modifier", 60),
-                                (display_message, "@You are no longer shielded from the One Power!!"),
-                            (try_end),
-                            (add_xp_to_troop,30,":chosen"),
-                    (else_try), # shield holder 'stronger'
-                        (store_random_in_range, ":random", 1, 100),
-                        (gt, ":random", 90),
-                            (agent_set_slot, ":chosen", slot_agent_is_shielded, 0),
-                            (play_sound, "snd_unravel"),
-                            (try_begin), # add to channeling multiplier if agent is player
-                            (neg|agent_is_non_player, ":chosen"),
-                                (val_add, "$g_channeling_proficiency_modifier", 120),
-                                (display_message, "@You are no longer shielded from the One Power!!"),
-                            (try_end),
-                            (add_xp_to_troop,60,":chosen"),
+                    (ge, ":shield_holder_xp", ":chosen_xp"),
+                        (store_random_in_range, ":additional_percentage", -25, 1),
+                    (else_try),
+                        (store_random_in_range, ":additional_percentage", 0, 16),
                     (try_end),
-                (else_try), # shield creator is dead / wounded
-                    (store_random_in_range, ":random", 1, 100),
-                    (gt, ":random", 25),
-                        (agent_set_slot, ":chosen", slot_agent_is_shielded, 0),
-                        (play_sound, "snd_unravel"),
-                        (try_begin), # add to channeling multiplier if agent is player
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 30),
-                            (display_message, "@You are no longer shielded from the One Power!!"),
-                        (try_end),
-                        (add_xp_to_troop,15,":chosen"),
+                (else_try),
+                    (try_begin),
+                    (ge, ":shield_holder_xp", ":chosen_xp"),
+                        (store_random_in_range, ":additional_percentage", -10, 21),
+                    (else_try),
+                        (store_random_in_range, ":additional_percentage", 10, 31),
+                    (try_end),
                 (try_end),
-
-                (store_mod, ":counter", "$g_number_of_weaves_used", 4),
+                
+                (val_add, ":total_percentage", ":additional_percentage"),
+                
+                (store_random_in_range, ":random", 1, 101),
                 (try_begin),
-                (eq, ":counter", 0),
-                    (display_message, "@You are shielded..."),
+                (ge, ":total_percentage", ":random"),
+                    (agent_set_slot, ":chosen", slot_agent_is_shielded, 0),
+                    (play_sound, "snd_unravel"),
+                    (try_begin), # add to channeling multiplier if agent is player
+                    (neg|agent_is_non_player, ":chosen"),
+                        (val_add, "$g_channeling_proficiency_modifier", 60),
+                        (display_message, "@You are no longer shielded from the One Power!!"),
+                    (try_end),
+                    (val_max, ":total_percentage", 30),
+                    (add_xp_to_troop,":total_percentage",":chosen"),
+                (else_try),
+                    (store_mod, ":counter", "$g_number_of_weaves_used", 4),
+                    (try_begin),
+                    (eq, ":counter", 0),
+                    (neg|agent_is_non_player, ":chosen"),
+                        (display_message, "@You are shielded..."),
+                    (try_end),
+                    (val_max, ":total_percentage", 20),
+                    (add_xp_to_troop,":total_percentage",":chosen"),
                 (try_end),
 ]),
 ##"script_tgs_pay_stamina"
@@ -77532,6 +77596,12 @@ scripts = [
         (val_add,":pref_fire",3),
         (val_add,":pref_earth",3),
         (val_add,":pref_aggresive",5),
+    # mat: added for fac_commoners (village wisdoms and kinswomen)
+    (else_try),
+    (eq, ":cfaction", "fac_commoners"),
+        (val_add,":pref_air",2),
+        (val_add,":pref_water",2),
+        (val_add,":pref_spirit",1),
     (try_end),
 
     ## Initialize final_prob values
@@ -77785,8 +77855,21 @@ scripts = [
        
        
 
-    ## temp slot value so I could test my side of the code
-    #(assign, ":test", 10),
+    ## mat: added for troop specific weave preferences (when a faction has differences)
+    (agent_get_troop_id, ":chosen_troop", ":chosen"),
+    (try_begin),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_yellow"),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_yellow_veteran"),
+    (this_or_next|eq, ":chosen_troop", "trp_village_wisdom"),
+    (eq, ":chosen_troop", "trp_kinswoman"),
+        (val_add, ":fheal_prob", 2),
+        (val_min, ":fheal_prob", 10),
+    (else_try),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_red"),
+    (eq, ":chosen_troop", "trp_aes_sedai_red_veteran"),
+        (val_add, ":fshield_prob", 2),
+        (val_min, ":fshield_prob", 10),
+    (try_end),
     
     ## Set final values for ":chosen" Natural Inclination slots ## (loi = Level of Importance)
     (agent_set_slot, ":chosen", slot_agent_ni_air_blast_loi, 0), # unused by npcs
@@ -78688,7 +78771,16 @@ scripts = [
     (assign, ":primary_scaling_factor", 0),
     (assign, ":secondary_scaling_factor", 0),
     
-    (try_begin),
+    (try_begin), # used for shield breaking
+    (eq, ":weave_no", 0),
+        (assign, ":total", ":fire"),
+        (val_add, ":total", ":earth"),
+        (val_add, ":total", ":spirit"),
+        (val_add, ":total", ":water"),
+        (val_add, ":total", ":air"),
+        (assign, ":primary_scaling_factor", ":total"),
+        
+    (else_try),
     (eq, ":weave_no", 1),
         (try_begin),
         (ge, ":air", 2),
@@ -79830,6 +79922,7 @@ scripts = [
 ("tgs_firewall_burn", [
                         (store_mod, ":one_fifth_second_check", "$g_one_tenth_second_timer", 2),
                         (store_mod, ":one_second_check", "$g_one_tenth_second_timer", 10),
+                        (store_mod, ":four_second_check", "$g_one_tenth_second_timer", 40),
                         (try_begin),
                         (eq, ":one_fifth_second_check", 0),
                             (store_script_param_1, ":firewall_no"),
@@ -79854,7 +79947,7 @@ scripts = [
                                     (assign, ":player_found", 1),
                             (try_end),
                         
-                            (agent_get_horse, ":chosen_horse", ":chosen"),
+                            #(agent_get_horse, ":chosen_horse", ":chosen"),
                             (agent_get_team, ":chosen_team", ":chosen"),
         
                             (store_div, ":radius_1_5", ":radius", 5),
@@ -79915,7 +80008,9 @@ scripts = [
                             (eq, ":firewall_no", 610),
                                 (copy_position, pos4, pos40),
                             (try_end),
-
+                        
+                            (copy_position, pos5, pos4),
+                        
                              (assign,":mul",1),
                              (try_for_range,":num",1,":total_length"),  # was (try_for_range,":num",1,11),
                                 (val_mul,":num",":mul"),
@@ -79926,7 +80021,7 @@ scripts = [
                                 (particle_system_burst,":blast_hit_effect_2",pos4,2),
                                 (try_for_agents,":agent"),
                                     (neq,":chosen",":agent"), ### added this to avoid killing shooter
-                                    (neq, ":chosen_horse", ":agent"),
+                                    #(neq, ":chosen_horse", ":agent"),
 #                                   (neg|agent_is_ally,":agent"),## added this to avoid killing allies
                                     (agent_is_alive,":agent"), ## add this to not re-kill dead people
                                     (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
@@ -80038,12 +80133,20 @@ scripts = [
                                     (try_end),
                                 (try_end),
                         
+                                (store_mod, ":num_mod", ":num", 3),
+                                (try_begin),
+                                (eq, ":num_mod", 0),
+                                    (try_begin),
+                                    (eq, ":four_second_check", 0),
+                                        (play_sound_at_position,"snd_fire_curtain", pos4),
+                                    (try_end),
+                                (try_end),
+                        
                                 (val_mul,":mul",-1),
                             (try_end),
                         
                             (try_begin),
                             (eq, ":one_second_check", 0),
-                                (play_sound,"snd_fire_curtain"),
                                 (try_begin),
                                 (gt, ":duration", 0),
                                     (val_sub, ":duration", 1),

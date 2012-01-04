@@ -4521,10 +4521,11 @@ triggers = [
                     (gt, ":player_check", 0),
                         (try_begin),
                         (eq, "$g_cheat_recruit_add", 1),
-
-#                            (party_add_members, ":party", "trp_ashaman_soldier", 10),
-                            (party_add_members, ":party", "trp_ashaman_dedicated", 10),
-#                            (party_add_members, ":party", "trp_ashaman", 2),
+            
+                            (party_add_members, ":party", "trp_legion_recruit_channeler", 5),
+                            (party_add_members, ":party", "trp_ashaman_soldier", 5),
+                            (party_add_members, ":party", "trp_ashaman_dedicated", 5),
+                            (party_add_members, ":party", "trp_ashaman", 5),
             
 #                            (party_add_members, ":party", "trp_legion_recruit_army", 2),
 #                            (party_add_members, ":party", "trp_legion_footman", 2),
@@ -4536,7 +4537,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_legion_lancer", 2),
 #                            (party_add_members, ":party", "trp_legion_man_at_arms", 2),
 
-#                            (party_add_members, ":party", "trp_ashaman_veteran", 4),
+                            (party_add_members, ":party", "trp_ashaman_veteran", 5),
 #                            (party_add_members, ":party", "trp_legion_blademaster", 4),
 #                            (party_add_members, ":party", "trp_legion_bannerman", 4),
 #                            (party_add_members, ":party", "trp_legion_heavy_crossbowman", 4),

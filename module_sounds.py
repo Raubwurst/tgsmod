@@ -212,7 +212,9 @@ sounds = [
 
  ###new sounds for TGS
  ("fire_ball",sf_priority_7|sf_vol_13, ["Fireball2.wav"]),
- ("fire_curtain",sf_priority_7|sf_vol_15, ["Fire_Torch_Loop3.ogg"]),
+# ("fire_curtain",sf_priority_9|sf_vol_15, ["Fire_Torch_Loop3.ogg"]),
+ ("fire_curtain",sf_priority_6|sf_vol_9, ["fire_curtain.wav"]),
+# ("fire_curtain",sf_priority_7|sf_vol_10, ["fire_curtain_2.wav"]),
  ("heal", sf_priority_9|sf_vol_15, ["quest_cancelled2.ogg"]),
  ("air_blast",sf_priority_7|sf_vol_12, ["arrow_pass_by_1.ogg"]),
  ("freeze",sf_priority_7|sf_vol_6, ["arrow_whoosh_1.ogg"]),
