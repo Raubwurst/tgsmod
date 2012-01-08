@@ -104,11 +104,11 @@ def_attrib_multiplayer = str_14 | agi_14 | int_4 | cha_4
 
 
 
-knows_lord_1 = knows_riding_3|knows_trade_2|knows_inventory_management_2|knows_tactics_4|knows_prisoner_management_4|knows_leadership_7|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
+knows_lord_1 = knows_riding_3|knows_trade_2|knows_inventory_management_2|knows_tactics_4|knows_prisoner_management_4|knows_leadership_7
 
-knows_warrior_npc = knows_weapon_master_2|knows_ironflesh_1|knows_athletics_1|knows_power_strike_2|knows_riding_2|knows_shield_1|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_merchant_npc = knows_riding_2|knows_trade_3|knows_inventory_management_3|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1 #knows persuasion
-knows_tracker_npc = knows_weapon_master_1|knows_athletics_2|knows_spotting_2|knows_pathfinding_2|knows_tracking_2|knows_ironflesh_1|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
+knows_warrior_npc = knows_weapon_master_2|knows_ironflesh_1|knows_athletics_1|knows_power_strike_2|knows_riding_2|knows_shield_1|knows_inventory_management_2
+knows_merchant_npc = knows_riding_2|knows_trade_3|knows_inventory_management_3 #knows persuasion
+knows_tracker_npc = knows_weapon_master_1|knows_athletics_2|knows_spotting_2|knows_pathfinding_2|knows_tracking_2|knows_ironflesh_1|knows_inventory_management_2
 
 lord_attrib = str_20|agi_20|int_20|cha_20|level(38)
 
@@ -117,20 +117,20 @@ knight_attrib_2 = str_16|agi_16|int_10|cha_18|level(26)
 knight_attrib_3 = str_18|agi_17|int_12|cha_20|level(30)
 knight_attrib_4 = str_19|agi_19|int_13|cha_22|level(35)
 knight_attrib_5 = str_20|agi_20|int_15|cha_25|level(41)
-knight_skills_1 = knows_riding_3|knows_ironflesh_2|knows_power_strike_3|knows_athletics_1|knows_tactics_2|knows_prisoner_management_1|knows_leadership_3|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knight_skills_2 = knows_riding_4|knows_ironflesh_3|knows_power_strike_4|knows_athletics_2|knows_tactics_3|knows_prisoner_management_2|knows_leadership_5|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knight_skills_3 = knows_riding_5|knows_ironflesh_4|knows_power_strike_5|knows_athletics_3|knows_tactics_4|knows_prisoner_management_2|knows_leadership_6|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knight_skills_4 = knows_riding_6|knows_ironflesh_5|knows_power_strike_6|knows_athletics_4|knows_tactics_5|knows_prisoner_management_3|knows_leadership_7|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knight_skills_5 = knows_riding_7|knows_ironflesh_6|knows_power_strike_7|knows_athletics_5|knows_tactics_6|knows_prisoner_management_3|knows_leadership_9|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
+knight_skills_1 = knows_riding_3|knows_ironflesh_2|knows_power_strike_3|knows_athletics_1|knows_tactics_2|knows_prisoner_management_1|knows_leadership_3
+knight_skills_2 = knows_riding_4|knows_ironflesh_3|knows_power_strike_4|knows_athletics_2|knows_tactics_3|knows_prisoner_management_2|knows_leadership_5
+knight_skills_3 = knows_riding_5|knows_ironflesh_4|knows_power_strike_5|knows_athletics_3|knows_tactics_4|knows_prisoner_management_2|knows_leadership_6
+knight_skills_4 = knows_riding_6|knows_ironflesh_5|knows_power_strike_6|knows_athletics_4|knows_tactics_5|knows_prisoner_management_3|knows_leadership_7
+knight_skills_5 = knows_riding_7|knows_ironflesh_6|knows_power_strike_7|knows_athletics_5|knows_tactics_6|knows_prisoner_management_3|knows_leadership_9
 
 #### Skills and Attributes for TGS #####
 
 #Infantry
-knows_wot_infantry_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_strike_2|knows_shield_1|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_infantry_2 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_2|knows_power_strike_3|knows_shield_2|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_infantry_3 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_3|knows_power_strike_4|knows_shield_3|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_infantry_4 = knows_weapon_master_4|knows_ironflesh_4|knows_athletics_4|knows_power_strike_5|knows_shield_4|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_infantry_5 = knows_weapon_master_5|knows_ironflesh_5|knows_athletics_5|knows_power_strike_6|knows_shield_5|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
+knows_wot_infantry_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_strike_2|knows_shield_1|knows_inventory_management_2
+knows_wot_infantry_2 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_2|knows_power_strike_3|knows_shield_2|knows_inventory_management_2
+knows_wot_infantry_3 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_3|knows_power_strike_4|knows_shield_3|knows_inventory_management_2
+knows_wot_infantry_4 = knows_weapon_master_4|knows_ironflesh_4|knows_athletics_4|knows_power_strike_5|knows_shield_4|knows_inventory_management_2
+knows_wot_infantry_5 = knows_weapon_master_5|knows_ironflesh_5|knows_athletics_5|knows_power_strike_6|knows_shield_5|knows_inventory_management_2
 
 def_attrib_wot_infantry_1 = str_7|agi_5|int_4|cha_4|level(5)
 def_attrib_wot_infantry_2 = str_10|agi_7|int_5|cha_5|level(8)
@@ -139,11 +139,11 @@ def_attrib_wot_infantry_4 = str_16|agi_11|int_7|cha_7|level(16)
 def_attrib_wot_infantry_5 = str_20|agi_14|int_8|cha_8|level(20)
 
 #Cavalry
-knows_wot_cavalry_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_strike_2|knows_shield_1|knows_riding_2|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_cavalry_2 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_1|knows_power_strike_3|knows_shield_1|knows_riding_3|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_cavalry_3 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_2|knows_power_strike_4|knows_shield_2|knows_riding_3|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_cavalry_4 = knows_weapon_master_4|knows_ironflesh_4|knows_athletics_2|knows_power_strike_5|knows_shield_2|knows_riding_4|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_cavalry_5 = knows_weapon_master_5|knows_ironflesh_5|knows_athletics_3|knows_power_strike_6|knows_shield_3|knows_riding_5|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
+knows_wot_cavalry_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_strike_2|knows_shield_1|knows_riding_2|knows_inventory_management_2
+knows_wot_cavalry_2 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_1|knows_power_strike_3|knows_shield_1|knows_riding_3|knows_inventory_management_2
+knows_wot_cavalry_3 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_2|knows_power_strike_4|knows_shield_2|knows_riding_3|knows_inventory_management_2
+knows_wot_cavalry_4 = knows_weapon_master_4|knows_ironflesh_4|knows_athletics_2|knows_power_strike_5|knows_shield_2|knows_riding_4|knows_inventory_management_2
+knows_wot_cavalry_5 = knows_weapon_master_5|knows_ironflesh_5|knows_athletics_3|knows_power_strike_6|knows_shield_3|knows_riding_5|knows_inventory_management_2
 
 def_attrib_wot_cavalry_1 = str_10|agi_5|int_6|cha_6|level(7)
 def_attrib_wot_cavalry_2 = str_13|agi_6|int_7|cha_7|level(10)
@@ -152,32 +152,32 @@ def_attrib_wot_cavalry_4 = str_19|agi_8|int_9|cha_9|level(20)
 def_attrib_wot_cavalry_5 = str_24|agi_10|int_10|cha_10|level(25)
 
 #Archer
-knows_wot_archer_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_draw_1|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_archer_2 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_2|knows_power_draw_2|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_archer_3 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_3|knows_power_draw_3|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_archer_4 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_4|knows_power_draw_4|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_archer_5 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_5|knows_power_draw_5|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
+knows_wot_archer_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_draw_1|knows_inventory_management_2
+knows_wot_archer_2 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_2|knows_power_draw_2|knows_inventory_management_2
+knows_wot_archer_3 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_3|knows_power_draw_3|knows_inventory_management_2
+knows_wot_archer_4 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_4|knows_power_draw_4|knows_inventory_management_2
+knows_wot_archer_5 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_5|knows_power_draw_5|knows_inventory_management_2
 
 #Thrower
-knows_wot_thrower_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_throw_1|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_thrower_2 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_2|knows_power_throw_2|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_thrower_3 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_3|knows_power_throw_3|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_thrower_4 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_4|knows_power_throw_4|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_thrower_5 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_5|knows_power_throw_5|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
+knows_wot_thrower_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_throw_1|knows_inventory_management_2
+knows_wot_thrower_2 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_2|knows_power_throw_2|knows_inventory_management_2
+knows_wot_thrower_3 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_3|knows_power_throw_3|knows_inventory_management_2
+knows_wot_thrower_4 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_4|knows_power_throw_4|knows_inventory_management_2
+knows_wot_thrower_5 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_5|knows_power_throw_5|knows_inventory_management_2
 
 #Horse Archer
-knows_wot_horse_archer_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_strike_2|knows_horse_archery_1|knows_shield_1|knows_riding_2|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_horse_archer_2 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_1|knows_power_strike_3|knows_horse_archery_2|knows_shield_1|knows_riding_3|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_horse_archer_3 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_2|knows_power_strike_4|knows_horse_archery_3|knows_shield_2|knows_riding_3|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_horse_archer_4 = knows_weapon_master_4|knows_ironflesh_4|knows_athletics_2|knows_power_strike_5|knows_horse_archery_4|knows_shield_2|knows_riding_4|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_horse_archer_5 = knows_weapon_master_5|knows_ironflesh_5|knows_athletics_3|knows_power_strike_6|knows_horse_archery_5|knows_shield_3|knows_riding_5|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
+knows_wot_horse_archer_1 = knows_weapon_master_1|knows_ironflesh_1|knows_athletics_1|knows_power_strike_2|knows_horse_archery_1|knows_shield_1|knows_riding_2|knows_inventory_management_2
+knows_wot_horse_archer_2 = knows_weapon_master_2|knows_ironflesh_2|knows_athletics_1|knows_power_strike_3|knows_horse_archery_2|knows_shield_1|knows_riding_3|knows_inventory_management_2
+knows_wot_horse_archer_3 = knows_weapon_master_3|knows_ironflesh_3|knows_athletics_2|knows_power_strike_4|knows_horse_archery_3|knows_shield_2|knows_riding_3|knows_inventory_management_2
+knows_wot_horse_archer_4 = knows_weapon_master_4|knows_ironflesh_4|knows_athletics_2|knows_power_strike_5|knows_horse_archery_4|knows_shield_2|knows_riding_4|knows_inventory_management_2
+knows_wot_horse_archer_5 = knows_weapon_master_5|knows_ironflesh_5|knows_athletics_3|knows_power_strike_6|knows_horse_archery_5|knows_shield_3|knows_riding_5|knows_inventory_management_2
 
 #Aiel/Trolloc
-knows_wot_super_infantry_1 = knows_weapon_master_1|knows_ironflesh_2|knows_athletics_2|knows_power_strike_2|knows_shield_2|knows_power_draw_2|knows_power_throw_2|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_super_infantry_2 = knows_weapon_master_2|knows_ironflesh_3|knows_athletics_3|knows_power_strike_3|knows_shield_3|knows_power_draw_3|knows_power_throw_3|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_super_infantry_3 = knows_weapon_master_3|knows_ironflesh_4|knows_athletics_4|knows_power_strike_4|knows_shield_4|knows_power_draw_4|knows_power_throw_4|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_super_infantry_4 = knows_weapon_master_4|knows_ironflesh_5|knows_athletics_5|knows_power_strike_5|knows_shield_5|knows_power_draw_5|knows_power_throw_5|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
-knows_wot_super_infantry_5 = knows_weapon_master_5|knows_ironflesh_7|knows_athletics_7|knows_power_strike_7|knows_shield_6|knows_power_draw_6|knows_power_throw_6|knows_inventory_management_2|knows_channeling_1|knows_air_1|knows_fire_1|knows_water_1|knows_earth_1|knows_spirit_1
+knows_wot_super_infantry_1 = knows_weapon_master_1|knows_ironflesh_2|knows_athletics_2|knows_power_strike_2|knows_shield_2|knows_power_draw_2|knows_power_throw_2|knows_inventory_management_2
+knows_wot_super_infantry_2 = knows_weapon_master_2|knows_ironflesh_3|knows_athletics_3|knows_power_strike_3|knows_shield_3|knows_power_draw_3|knows_power_throw_3|knows_inventory_management_2
+knows_wot_super_infantry_3 = knows_weapon_master_3|knows_ironflesh_4|knows_athletics_4|knows_power_strike_4|knows_shield_4|knows_power_draw_4|knows_power_throw_4|knows_inventory_management_2
+knows_wot_super_infantry_4 = knows_weapon_master_4|knows_ironflesh_5|knows_athletics_5|knows_power_strike_5|knows_shield_5|knows_power_draw_5|knows_power_throw_5|knows_inventory_management_2
+knows_wot_super_infantry_5 = knows_weapon_master_5|knows_ironflesh_7|knows_athletics_7|knows_power_strike_7|knows_shield_6|knows_power_draw_6|knows_power_throw_6|knows_inventory_management_2
 
 def_attrib_wot_super_infantry_1 = str_8|agi_9|int_6|cha_6|level(5)
 def_attrib_wot_super_infantry_2 = str_12|agi_13|int_7|cha_7|level(9)
@@ -1009,7 +1009,7 @@ troops = [
 #   [itm_scythe,itm_hatchet,itm_stones,itm_leather_cap,itm_felt_hat,
 #    itm_shirt,itm_coarse_tunic,itm_leather_apron,itm_wrapping_boots],
 #   def_attrib|level(2),wp(60),knows_common,mayene_man_face_young, tear_man_face_old],
-
+#
     ["legion_recruit_channeler","Legion Recruit (Channeler)","Legion Recruits (Channeler)",tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_player, itm_power_ammo,itm_channeler_dagger, itm_legion_recruit_tunic, itm_wrapping_boots],
    def_attrib_wot_infantry_1 ,wp_firearm(65)|wp(60),knows_wot_infantry_1|knows_power_draw_1|knows_fire_1|knows_earth_1|knows_spirit_1|knows_water_3|knows_air_1 ,far_madding_man_face_younger, illian_man_face_older],
@@ -1626,60 +1626,60 @@ troops = [
 #   def_attrib|level(2),wp(60),knows_common,tar_valon_man_face_younger, tar_valon_man_face_old],
   
   ["sedai_recruit_channeler","Sedai Recruit (Channeler)","Sedai Recruits (Channeler)",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_channeler_dagger,itm_woolen_dress,itm_wrapping_boots],
-   def_attrib|level(3),wp(60),knows_common,tar_valon_woman_face_younger, mayene_woman_face_middle],
+   [itm_power_player, itm_power_ammo,itm_channeler_dagger,itm_woolen_dress,itm_wrapping_boots],
+   def_attrib|level(3),wp_firearm(65)|wp(60),knows_common|knows_power_draw_1|knows_fire_1|knows_earth_1|knows_spirit_1|knows_water_3|knows_air_1,tar_valon_woman_face_younger, mayene_woman_face_middle],
   
   ["novice_social","Novice (Social)","Novices (Social)",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_novice_ranged, itm_power_ammo, itm_novice_dress, itm_novice_accepted_damane_shoes], # , itm_wig_brown_ponytail
-   def_attrib|level(5),wp_firearm(100)|wp_one_handed(90)|wp(70),knows_common|knows_power_draw_2,tar_valon_woman_face_younger, tear_woman_face_middle],
+   [itm_power_player, itm_power_ammo, itm_novice_dress, itm_novice_accepted_damane_shoes], # , itm_wig_brown_ponytail
+   def_attrib|level(5),wp_firearm(100)|wp_one_handed(90)|wp(70),knows_common|knows_power_draw_2|knows_fire_4|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_4,tar_valon_woman_face_younger, tear_woman_face_middle],
   
   ["accepted_medical","Accepted (Medical)","Accepted (Medical)",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_accepted_ranged, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_blond_longer
-   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2,tar_valon_woman_face_younger, far_madding_woman_face_middle],
+   [itm_power_player, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_blond_longer
+   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_5|knows_air_5,tar_valon_woman_face_younger, far_madding_woman_face_middle],
   
   ["aes_sedai_yellow","Aes Sedai Yellow","Aes Sedai Yellows",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_yellow_ajah_ranged, itm_power_ammo, itm_aes_sedai_yellow_dress, itm_aes_sedai_yellow_shoes], # , itm_wig_black_long
-   def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_younger, illian_woman_face_middle],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_yellow_dress, itm_aes_sedai_yellow_shoes], # , itm_wig_black_long
+   def_attrib|level(15),wp_firearm(175)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_4|knows_fire_5|knows_earth_4|knows_spirit_5|knows_water_6|knows_air_6,tar_valon_woman_face_younger, illian_woman_face_middle],
   
   ["accepted_academic","Accepted (Academic)","Accepted (Academic)",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_accepted_ranged, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_brown_longer
-   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2,tar_valon_woman_face_young, murandy_woman_face_middle],
+   [itm_power_player, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_brown_longer
+   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_5|knows_air_5,tar_valon_woman_face_young, murandy_woman_face_middle],
   
   ["aes_sedai_brown","Aes Sedai Brown","Aes Sedai Browns",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_brown_ajah_ranged, itm_power_ammo, itm_aes_sedai_brown_dress, itm_aes_sedai_brown_shoes], # , itm_wig_red_bun
-   def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_young, altara_woman_face_old],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_brown_dress, itm_aes_sedai_brown_shoes], # , itm_wig_red_bun
+   def_attrib|level(15),wp_firearm(175)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_4|knows_fire_5|knows_earth_4|knows_spirit_5|knows_water_6|knows_air_6,tar_valon_woman_face_young, altara_woman_face_old],
   
   ["aes_sedai_white","Aes Sedai White","Aes Sedai Whites",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_white_ajah_ranged, itm_power_ammo, itm_aes_sedai_white_dress, itm_aes_sedai_white_shoes], # , itm_wig_black_long
-   def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_young, ghealdan_woman_face_old],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_white_dress, itm_aes_sedai_white_shoes], # , itm_wig_black_long
+   def_attrib|level(15),wp_firearm(175)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_4|knows_fire_5|knows_earth_4|knows_spirit_5|knows_water_6|knows_air_6,tar_valon_woman_face_young, ghealdan_woman_face_old],
   
   ["novice_civil","Novice (Civil)","Novices (Civil)",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_novice_ranged, itm_power_ammo, itm_novice_dress, itm_novice_accepted_damane_shoes], # , itm_wig_blond_ponytail
-   def_attrib|level(5),wp_firearm(100)|wp_one_handed(90)|wp(70),knows_common|knows_power_draw_2,tar_valon_woman_face_younger, amadicia_woman_face_young],
+   [itm_power_player, itm_power_ammo, itm_novice_dress, itm_novice_accepted_damane_shoes], # , itm_wig_blond_ponytail
+   def_attrib|level(5),wp_firearm(100)|wp_one_handed(90)|wp(70),knows_common|knows_power_draw_2|knows_fire_4|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_4,tar_valon_woman_face_younger, amadicia_woman_face_young],
   
   ["accepted_political","Accepted (Political)","Accepted (Political)",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_accepted_ranged, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_brown_braid
-   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2,tar_valon_woman_face_young, tarabon_woman_face_middle],
+   [itm_power_player, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_brown_braid
+   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_5|knows_air_5,tar_valon_woman_face_young, tarabon_woman_face_middle],
   
   ["aes_sedai_blue","Aes Sedai Blue","Aes Sedai Blues",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_blue_ajah_ranged, itm_power_ammo, itm_aes_sedai_blue_dress, itm_aes_sedai_blue_shoes], # , itm_wig_blond_braid
-   def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_young, arad_doman_woman_face_old],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_blue_dress, itm_aes_sedai_blue_shoes], # , itm_wig_blond_braid
+   def_attrib|level(15),wp_firearm(175)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_4|knows_fire_5|knows_earth_4|knows_spirit_5|knows_water_6|knows_air_6,tar_valon_woman_face_young, arad_doman_woman_face_old],
   
   ["aes_sedai_grey","Aes Sedai Grey","Aes Sedai Greys",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_grey_ajah_ranged, itm_power_ammo, itm_aes_sedai_grey_dress, itm_aes_sedai_grey_shoes], # , itm_wig_red_braid
-   def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_young, saldaea_woman_face_old],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_grey_dress, itm_aes_sedai_grey_shoes], # , itm_wig_red_braid
+   def_attrib|level(15),wp_firearm(175)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_4|knows_fire_5|knows_earth_4|knows_spirit_5|knows_water_6|knows_air_6,tar_valon_woman_face_young, saldaea_woman_face_old],
   
   ["accepted_military","Accepted (Military)","Accepted (Military)",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_accepted_ranged, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_red_braid
-   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2,tar_valon_woman_face_young, kandor_woman_face_middle],
+   [itm_power_player, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_red_braid
+   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_5|knows_air_5,tar_valon_woman_face_young, kandor_woman_face_middle],
   
   ["aes_sedai_red","Aes Sedai Red","Aes Sedai Reds",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_red_ajah_ranged, itm_power_ammo, itm_aes_sedai_red_dress, itm_aes_sedai_red_shoes], # , itm_wig_brown_bun
-   def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_young, arafel_woman_face_old],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_red_dress, itm_aes_sedai_red_shoes], # , itm_wig_brown_bun
+   def_attrib|level(15),wp_firearm(175)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_4|knows_fire_5|knows_earth_4|knows_spirit_6|knows_water_6|knows_air_6,tar_valon_woman_face_young, arafel_woman_face_old],
   
   ["aes_sedai_green","Aes Sedai Green","Aes Sedai Greens",tf_female|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_green_ajah_ranged, itm_power_ammo, itm_aes_sedai_green_dress, itm_aes_sedai_green_shoes], # , itm_wig_red_long
-   def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_young, shienar_woman_face_old],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_green_dress, itm_aes_sedai_green_shoes], # , itm_wig_red_long
+   def_attrib|level(15),wp_firearm(175)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_4|knows_fire_5|knows_earth_6|knows_spirit_5|knows_water_6|knows_air_6,tar_valon_woman_face_young, shienar_woman_face_old],
   
   ["sedai_recruit_soldier","Sedai Recruit (Soldier)","Sedai Recruits (Soldier)",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_21,
    [itm_club,itm_staff,itm_padded_cloth,itm_leather_cap,itm_leather_boots],
@@ -1705,16 +1705,16 @@ troops = [
 #   def_attrib|level(3),wp(70),knows_common, aiel_1_man_face_younger, aiel_2_man_face_old],
   
   ["aiel_recruit_channeler","Aiel Recruit (Channeler)","Aiel Recruits (Channeler)",tf_female|tf_guarantee_all,0,0,fac_kingdom_22,
-   [itm_channeler_dagger, itm_wise_one_dress, itm_cadinsor_boots],
-   def_attrib|level(5),wp(75),knows_common, aiel_1_woman_face_younger, aiel_2_woman_face_middle],
+   [itm_power_player, itm_power_ammo,itm_channeler_dagger, itm_wise_one_dress, itm_cadinsor_boots],
+   def_attrib|level(5),wp_firearm(80)|wp(75),knows_common|knows_power_draw_2|knows_fire_1|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_1, aiel_1_woman_face_younger, aiel_2_woman_face_middle],
   
   ["wise_one_apprentice","Wise One Apprentice","Wise One Apprentices",tf_female|tf_guarantee_all,0,0,fac_kingdom_22,
-   [itm_power_aiel_wise_one_apprentice_ranged, itm_power_ammo, itm_wise_one_dress, itm_cadinsor_boots],
-  def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2, aiel_1_woman_face_younger, aiel_2_woman_face_middle],
+   [itm_power_player, itm_power_ammo, itm_wise_one_dress, itm_cadinsor_boots],
+  def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_4|knows_air_2, aiel_1_woman_face_younger, aiel_2_woman_face_middle],
   
   ["wise_one","Wise One","Wise Ones",tf_female|tf_guarantee_all,0,0,fac_kingdom_22,
-   [itm_power_aiel_wise_one_ranged, itm_power_ammo, itm_wise_one_dress_with_shawl, itm_cadinsor_boots],
-   def_attrib|level(16),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3, aiel_1_woman_face_young, aiel_2_woman_face_old],
+   [itm_power_player, itm_power_ammo, itm_wise_one_dress_with_shawl, itm_cadinsor_boots],
+   def_attrib|level(16),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_4|knows_fire_6|knows_earth_4|knows_spirit_6|knows_water_5|knows_air_5, aiel_1_woman_face_young, aiel_2_woman_face_old],
   
   ["aiel_recruit_soldier","Aiel Recruit (Soldier)","Aiel Recruits (Soldier)",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_22,
    [itm_aiel_spear, itm_cadinsor_grey, itm_shoufa_grey, itm_cadinsor_boots_grey],
@@ -1879,12 +1879,20 @@ troops = [
 #   def_attrib|level(3),wp(65),knows_common,man_face_young_1, man_face_old_2],
   
   ["darkfriend_channeler","Darkfriend Channeler","Darkfriend Channelers",tf_guarantee_all,0,0,fac_kingdom_24,
-   [itm_power_ashaman_soldier_ranged, itm_power_ammo, itm_sword_secondary, itm_darkfriend_tunic, itm_leather_boots],
-   def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2,man_face_young_1, man_face_old_2],
-  
+   [itm_power_player, itm_power_ammo, itm_sword_secondary, itm_darkfriend_tunic, itm_leather_boots],
+   def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2|knows_fire_4|knows_earth_3|knows_spirit_3|knows_water_4|knows_air_1,man_face_young_1, man_face_old_2],
+
+  ["darkfriend_wilder","Darkfriend Wilder","Darkfriend Wilders",tf_guarantee_all,0,0,fac_kingdom_24,
+   [itm_power_player, itm_power_ammo, itm_darkfriend_tunic, itm_leather_boots],
+   def_attrib|level(15),wp_firearm(175)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3|knows_fire_6|knows_earth_6|knows_spirit_4|knows_water_4|knows_air_3,man_face_young_1, man_face_old_2],
+
+  ["darkfriend_channeler_female","Darkfriend Channeler","Darkfriend Channelers",tf_female|tf_guarantee_all,0,0,fac_kingdom_24,
+   [itm_power_player, itm_power_ammo, itm_channeler_dagger, itm_woolen_dress, itm_leather_boots],
+   def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2|knows_fire_2|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_3,woman_face_1, woman_face_2],
+
   ["aes_sedai_black","Aes Sedai Black","Aes Sedai Blacks",tf_female|tf_guarantee_all,0,0,fac_kingdom_24,
-   [itm_power_black_ajah_ranged, itm_power_ammo, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes], # , itm_wig_brown_bun
-   def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,woman_face_1, woman_face_2],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes], # , itm_wig_brown_bun
+   def_attrib|level(15),wp_firearm(175)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_2|knows_fire_5|knows_earth_3|knows_spirit_5|knows_water_6|knows_air_6,woman_face_1, woman_face_2],
   
   ["darkfriend_initiate","Darkfriend Initiate","Darkfriend Initiates",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_24,
    [itm_mace_3, itm_darkfriend_shield_weak, itm_darkfriend_tunic, itm_skullcap, itm_leather_boots, itm_leather_gloves],
@@ -1935,12 +1943,12 @@ troops = [
    def_attrib_wot_cavalry_3 ,wp_one_handed(135)|wp(110),knows_wot_cavalry_3 ,man_face_young_1, man_face_old_2],
 
   ["ayyad_villager","Ayyad Villager","Ayyad Villagers",tf_female|tf_guarantee_all,0,0,fac_kingdom_25,
-   [itm_power_aiel_wise_one_apprentice_ranged, itm_power_ammo, itm_ayyad_villager_tunic, itm_sarranid_boots_b],
-  def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2, woman_face_1, woman_face_2],
+   [itm_power_player, itm_power_ammo, itm_ayyad_villager_tunic, itm_sarranid_boots_b],
+  def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2|knows_fire_4|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_3, woman_face_1, woman_face_2],
   
   ["ayyad_village_leader","Ayyad Village Leader","Ayyad Village Leaders",tf_female|tf_guarantee_all,0,0,fac_kingdom_25,
-   [itm_power_aiel_wise_one_ranged, itm_power_ammo, itm_ayyad_village_leader_tunic, itm_sarranid_boots_b],
-   def_attrib|level(16),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3, woman_face_1, woman_face_2],
+   [itm_power_player, itm_power_ammo, itm_ayyad_village_leader_tunic, itm_sarranid_boots_b],
+   def_attrib|level(16),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3|knows_fire_5|knows_earth_2|knows_spirit_5|knows_water_5|knows_air_4, woman_face_1, woman_face_2],
   
 
 #############
@@ -1980,12 +1988,12 @@ troops = [
    def_attrib_wot_infantry_4 ,wp_one_handed(135)|wp(90),knows_wot_infantry_4, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
 
   ["sea_folk_recruit_channeler","Sea Folk Recruit (Channeler)","Sea Folk Recruits (Channeler)",tf_female|tf_guarantee_all,0,0,fac_kingdom_26,
-   [itm_power_aiel_wise_one_apprentice_ranged, itm_power_ammo, itm_sea_folk_female_tunic],
-  def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
+   [itm_power_player, itm_power_ammo, itm_sea_folk_female_tunic],
+  def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2|knows_fire_3|knows_earth_1|knows_spirit_3|knows_water_5|knows_air_4, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],
   
   ["sea_folk_pupil","Sea Folk Pupil","Sea Folk Pupils",tf_female|tf_guarantee_all,0,0,fac_kingdom_26,
-   [itm_power_aiel_wise_one_ranged, itm_power_ammo, itm_sea_folk_female_tunic_2],
-   def_attrib|level(16),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],  
+   [itm_power_player, itm_power_ammo, itm_sea_folk_female_tunic_2],
+   def_attrib|level(16),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_5|knows_water_6|knows_air_5, seanchan_2_woman_face_younger, seanchan_2_woman_face_old],  
   
 
 #####################
@@ -2029,12 +2037,12 @@ troops = [
    def_attrib_wot_cavalry_3 ,wp_polearm(135)|wp_one_handed(110)|wp(85),knows_wot_cavalry_3 ,man_face_young_1, man_face_old_2],
 
     ["madmen_air_shifter","Madman Air Shifter","Madmen Air Shifters",tf_guarantee_all,0,0,fac_kingdom_27,
-   [itm_power_ashaman_dedicated_ranged, itm_power_ammo, itm_one_handed_battle_axe_a, itm_madmen_paint_4, itm_hide_boots],
-   def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2,man_face_young_1, man_face_old_2],
+   [itm_power_player, itm_power_ammo, itm_one_handed_battle_axe_a, itm_madmen_paint_4, itm_hide_boots],
+   def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2|knows_fire_3|knows_earth_3|knows_spirit_3|knows_water_4|knows_air_3,man_face_young_1, man_face_old_2],
   
     ["madmen_fire_tamer","Madmen Fire Tamer","Madmen Fire Tamers",tf_guarantee_all,0,0,fac_kingdom_27,
-   [itm_power_aiel_wise_one_ranged, itm_power_ammo, itm_one_handed_battle_axe_a, itm_ragged_outfit, itm_hide_boots],
-   def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3,man_face_young_1, man_face_old_2],  
+   [itm_power_player, itm_power_ammo, itm_one_handed_battle_axe_a, itm_ragged_outfit, itm_hide_boots],
+   def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3|knows_fire_6|knows_earth_6|knows_spirit_4|knows_water_4|knows_air_5,man_face_young_1, man_face_old_2],  
 
   
 ##################
@@ -2072,7 +2080,7 @@ troops = [
 ##### WoT Faction Troops (Non-Upgradeable)
 ##########################################
 
-# Legion of the Dragon
+# Legion of the Dragon #
     ["ashaman_veteran","Asha'man Veteran","Asha'man Veterans",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_1,
    [itm_power_player, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
    def_attrib_wot_infantry_3,wp_firearm(200)|wp_one_handed(150)|wp(125),knows_wot_horse_archer_3|knows_power_draw_5|knows_fire_7|knows_earth_7|knows_spirit_6|knows_water_5|knows_air_5,man_face_young_1, man_face_old_2],
@@ -2759,32 +2767,32 @@ troops = [
 # White Tower
   
   ["aes_sedai_yellow_veteran","Aes Sedai Yellow Veteran","Aes Sedai Yellow Veterans",tf_female|tf_mounted|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_yellow_ajah_ranged, itm_power_ammo, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_courser], # , itm_wig_black_bun
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, cairhien_woman_face_older],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_courser], # , itm_wig_black_bun
+   def_attrib|level(20),wp_firearm(195)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_5|knows_riding_2|knows_fire_6|knows_earth_5|knows_spirit_6|knows_water_7|knows_air_7,tar_valon_woman_face_middle, cairhien_woman_face_older],
   
   ["aes_sedai_brown_veteran","Aes Sedai Brown Veteran","Aes Sedai Brown Veterans",tf_female|tf_mounted|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_brown_ajah_ranged, itm_power_ammo, itm_aes_sedai_brown_dress, itm_veteran_aes_sedai_brown_shoes, itm_courser], # , itm_wig_brown_bun
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, andor_woman_face_older],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_brown_dress, itm_veteran_aes_sedai_brown_shoes, itm_courser], # , itm_wig_brown_bun
+   def_attrib|level(20),wp_firearm(195)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_5|knows_riding_2|knows_fire_6|knows_earth_5|knows_spirit_6|knows_water_7|knows_air_7,tar_valon_woman_face_middle, andor_woman_face_older],
   
   ["aes_sedai_white_veteran","Aes Sedai White Veteran","Aes Sedai White Veterans",tf_female|tf_mounted|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_white_ajah_ranged, itm_power_ammo, itm_aes_sedai_white_dress, itm_veteran_aes_sedai_white_shoes, itm_courser], # , itm_wig_red_bun
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, aiel_1_woman_face_older],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_white_dress, itm_veteran_aes_sedai_white_shoes, itm_courser], # , itm_wig_red_bun
+   def_attrib|level(20),wp_firearm(195)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_5|knows_riding_2|knows_fire_6|knows_earth_5|knows_spirit_6|knows_water_7|knows_air_7,tar_valon_woman_face_middle, aiel_1_woman_face_older],
   
   ["aes_sedai_blue_veteran","Aes Sedai Blue Veteran","Aes Sedai Blue Veterans",tf_female|tf_mounted|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_blue_ajah_ranged, itm_power_ammo, itm_aes_sedai_blue_dress, itm_veteran_aes_sedai_blue_shoes, itm_courser], # , itm_wig_white_longer
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, aiel_2_woman_face_older],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_blue_dress, itm_veteran_aes_sedai_blue_shoes, itm_courser], # , itm_wig_white_longer
+   def_attrib|level(20),wp_firearm(195)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_5|knows_riding_2|knows_fire_6|knows_earth_5|knows_spirit_6|knows_water_7|knows_air_7,tar_valon_woman_face_middle, aiel_2_woman_face_older],
   
   ["aes_sedai_grey_veteran","Aes Sedai Grey Veteran","Aes Sedai Grey Veteran",tf_female|tf_mounted|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_grey_ajah_ranged, itm_power_ammo, itm_aes_sedai_grey_dress, itm_veteran_aes_sedai_grey_shoes, itm_courser], # , itm_wig_white_bun
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, seanchan_1_woman_face_older],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_grey_dress, itm_veteran_aes_sedai_grey_shoes, itm_courser], # , itm_wig_white_bun
+   def_attrib|level(20),wp_firearm(195)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_5|knows_riding_2|knows_fire_6|knows_earth_5|knows_spirit_6|knows_water_7|knows_air_7,tar_valon_woman_face_middle, seanchan_1_woman_face_older],
   
   ["aes_sedai_red_veteran","Aes Sedai Red Veteran","Aes Sedai Red Veteran",tf_female|tf_mounted|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_red_ajah_ranged, itm_power_ammo, itm_aes_sedai_red_dress, itm_veteran_aes_sedai_red_shoes, itm_courser], # , itm_wig_brown_short
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, seanchan_2_woman_face_older],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_red_dress, itm_veteran_aes_sedai_red_shoes, itm_courser], # , itm_wig_brown_short
+   def_attrib|level(20),wp_firearm(195)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_5|knows_riding_2|knows_fire_6|knows_earth_5|knows_spirit_7|knows_water_7|knows_air_7,tar_valon_woman_face_middle, seanchan_2_woman_face_older],
   
   ["aes_sedai_green_veteran","Aes Sedai Green Veteran","Aes Sedai Green Veterans",tf_female|tf_mounted|tf_guarantee_all,0,0,fac_kingdom_21,
-   [itm_power_green_ajah_ranged, itm_power_ammo, itm_aes_sedai_green_dress, itm_veteran_aes_sedai_green_shoes, itm_courser], # , itm_wig_red_long
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, saldaea_woman_face_older],
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_green_dress, itm_veteran_aes_sedai_green_shoes, itm_courser], # , itm_wig_red_long
+   def_attrib|level(20),wp_firearm(195)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_5|knows_riding_2|knows_fire_6|knows_earth_6|knows_spirit_6|knows_water_7|knows_air_7,tar_valon_woman_face_middle, saldaea_woman_face_older],
   
   ["tower_guard_captain","Tower Guard Captain","Tower Guard Captains",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_21,
    [itm_great_sword, itm_sword_viking_2_small, itm_white_tower_captain_armor, itm_guard_helmet, itm_splinted_leather_greaves, itm_leather_gloves],
@@ -2830,8 +2838,8 @@ troops = [
 # Aiel Nation
 
   ["wise_one_dream_walker","Wise One Dream Walker","Wise One Dream Walkers",tf_female|tf_guarantee_all,0,0,fac_kingdom_22,
-   [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_wise_one_dress_with_shawl, itm_cadinsor_boots],
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(125)|wp(90),knows_common|knows_power_draw_3, aiel_1_woman_face_middle, aiel_2_woman_face_older],
+   [itm_power_player, itm_power_ammo, itm_wise_one_dress_with_shawl, itm_cadinsor_boots],
+   def_attrib|level(20),wp_firearm(195)|wp_one_handed(125)|wp(90),knows_common|knows_power_draw_5|knows_fire_7|knows_earth_5|knows_spirit_7|knows_water_6|knows_air_7, aiel_1_woman_face_middle, aiel_2_woman_face_older],
   
   ["knife_hand","Knife Hand","Knife Hands",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_22,
    [itm_aiel_knife, itm_cadinsor, itm_shoufa, itm_cadinsor_boots],
@@ -2905,8 +2913,12 @@ troops = [
    def_attrib_wot_infantry_3,wp_one_handed(135)|wp(90),knows_wot_infantry_3,seanchan_1_woman_face_younger, seanchan_2_woman_face_older],
   
   ["damane","Damane","Damane",tf_female|tf_guarantee_all,0,0,fac_kingdom_23,
-   [itm_power_damane_ranged, itm_power_ammo, itm_damane_dress, itm_damane_boots],
-   def_attrib|level(18),wp_firearm(190)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2, seanchan_1_woman_face_younger, seanchan_2_woman_face_older],
+   [itm_power_player, itm_power_ammo, itm_damane_dress, itm_damane_boots],
+   def_attrib|level(18),wp_firearm(175)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_fire_5|knows_earth_4|knows_spirit_5|knows_water_5|knows_air_6, seanchan_1_woman_face_younger, seanchan_2_woman_face_older],
+
+  ["damane_veteran","Damane Veteran","Damane Veterans",tf_female|tf_guarantee_all,0,0,fac_kingdom_23,
+   [itm_power_player, itm_power_ammo, itm_damane_dress, itm_damane_boots],
+   def_attrib|level(18),wp_firearm(195)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_5|knows_fire_7|knows_earth_6|knows_spirit_7|knows_water_7|knows_air_7, seanchan_1_woman_face_younger, seanchan_2_woman_face_older],
   
   ["seanchan_deathwatch_guard","Seanchan Deathwatch Guard","Seanchan Deathwatch Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_23,
    [itm_seanchan_large_sword, itm_deathwatch_guard_armor, itm_deathwatch_guard_helmet, itm_deathwatch_guard_boots, itm_deathwatch_guard_gloves],
@@ -2965,8 +2977,8 @@ troops = [
    str_10|agi_7|int_5|cha_5|level(20),wp_one_handed(100)|wp(90),knows_wot_infantry_2, man_face_young_1, man_face_old_2],
   
   ["dreadlord","Dreadlord","Dreadlords",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_24,
-   [itm_power_dreadlord_ranged, itm_power_ammo, itm_dreadlord_coat, itm_black_leather_boots, itm_saddle_horse],
-   def_attrib_wot_infantry_3,wp_firearm(200)|wp_one_handed(150)|wp(125),knows_wot_horse_archer_3|knows_power_draw_5,man_face_young_1, man_face_old_2],
+   [itm_power_player, itm_power_ammo, itm_dreadlord_coat, itm_black_leather_boots, itm_saddle_horse],
+   def_attrib_wot_infantry_3,wp_firearm(225)|wp_one_handed(150)|wp(125),knows_wot_horse_archer_3|knows_power_draw_5|knows_fire_6|knows_earth_6|knows_spirit_7|knows_water_5|knows_air_5,man_face_young_1, man_face_old_2],
   
   ["darkfriend_assassin","Darkfriend Assassin","Darkfriend Assassins",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_24,
    [itm_great_sword, itm_darkfriend_plate, itm_black_leather_boots, itm_black_mail_gauntlets, itm_bascinet_3],
@@ -3025,8 +3037,8 @@ troops = [
    def_attrib_wot_cavalry_3 ,wp_archery(145)|wp_one_handed(115)|wp(85),knows_wot_horse_archer_3 ,man_face_young_1, man_face_old_2],
 
   ["ayyad_counsel_member","Ayyad Counsel Member","Ayyad Counsel Members",tf_female|tf_guarantee_all,0,0,fac_kingdom_25,
-   [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b],
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(125)|wp(90),knows_common|knows_power_draw_3, woman_face_1, woman_face_2],
+   [itm_power_player, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b],
+   def_attrib|level(20),wp_firearm(185)|wp_one_handed(125)|wp(90),knows_common|knows_power_draw_4|knows_fire_6|knows_earth_3|knows_spirit_7|knows_water_6|knows_air_6, woman_face_1, woman_face_2],
   # Other
   ["shara_messenger","Shara Messenger","Shara Messengers",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_25,
    [itm_khergit_bow, itm_arrows, itm_sword_secondary, itm_shara_mid_cavalry_armor, itm_brass_boots, itm_scale_gauntlets, itm_helmet5_brass, itm_hunter, itm_camel],
@@ -3062,8 +3074,8 @@ troops = [
    def_attrib_wot_infantry_4 ,wp_two_handed(180)|wp(100),knows_wot_infantry_4 ,seanchan_2_woman_face_young, seanchan_2_woman_face_old],  
   
   ["sea_folk_windfinder","Sea Folk Windfinder","Sea Folk Windfinders",tf_female|tf_guarantee_all,0,0,fac_kingdom_26,
-   [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_sea_folk_female_armor],
-   def_attrib|level(20),wp_firearm(200)|wp_one_handed(125)|wp(90),knows_common|knows_power_draw_3, seanchan_2_woman_face_young, seanchan_2_woman_face_old],
+   [itm_power_player, itm_power_ammo, itm_sea_folk_female_armor],
+   def_attrib|level(20),wp_firearm(185)|wp_one_handed(125)|wp(90),knows_common|knows_power_draw_4|knows_fire_5|knows_earth_4|knows_spirit_6|knows_water_7|knows_air_7, seanchan_2_woman_face_young, seanchan_2_woman_face_old],
   # Other
     ["sea_folk_messenger","Sea Folk Messenger","Sea Folk Messengers",tf_female|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_26,
    [itm_spear, itm_sea_folk_female_tunic],
@@ -3107,8 +3119,8 @@ troops = [
    def_attrib_wot_cavalry_3 ,wp_archery(145)|wp_one_handed(115)|wp(85),knows_wot_horse_archer_3 ,man_face_young_1, man_face_old_2],
 
     ["madmen_storm_caller","Madmen Storm Caller","Madmen Storm Callers",tf_guarantee_all,0,0,fac_kingdom_27,
-   [itm_power_dreadlord_ranged, itm_power_ammo, itm_one_handed_war_axe_b, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet],
-   def_attrib_wot_infantry_2,wp_firearm(180)|wp_one_handed(110)|wp(90),knows_wot_infantry_2|knows_power_draw_4,man_face_young_1, man_face_old_2],
+   [itm_power_player, itm_power_ammo, itm_one_handed_war_axe_b, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet],
+   def_attrib_wot_infantry_2,wp_firearm(185)|wp_one_handed(110)|wp(90),knows_wot_infantry_2|knows_power_draw_4|knows_fire_7|knows_earth_6|knows_spirit_5|knows_water_7|knows_air_6,man_face_young_1, man_face_old_2],
   # Other
   ["madmen_messenger","Madmen Messenger","Madmen Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_27,
    [itm_lance, itm_one_handed_war_axe_b, itm_leather_covered_round_shield, itm_tribal_warrior_outfit, itm_hide_boots, itm_leather_gloves, itm_leather_steppe_cap_b, itm_hunter],
@@ -3293,13 +3305,13 @@ troops = [
   # end modified for TGS
   ### added for TGS
   ["village_wisdom","Village Wisdom","Village Wisdoms",tf_female|tf_guarantee_all,0,0,fac_commoners,
-   [itm_power_accepted_ranged,itm_power_ammo,itm_cudgel,itm_dress,itm_woolen_dress, itm_wrapping_boots],
-   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2,refugee_face1,refugee_face2],
+   [itm_power_player,itm_power_ammo,itm_cudgel,itm_dress,itm_woolen_dress, itm_wrapping_boots],
+   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_5|knows_air_5,refugee_face1,refugee_face2],
   ["kinswoman","Kinswoman","Kinswomen",tf_female|tf_guarantee_all,0,0,fac_commoners,
-   [itm_power_kinswoman_ranged,itm_power_ammo,itm_dagger,itm_blue_dress, itm_dress,itm_peasant_dress,itm_woolen_dress, itm_woolen_hose],
-   def_attrib|level(15),wp_firearm(150)|wp_one_handed(125)|wp(100),knows_common|knows_power_draw_3,refugee_face1,refugee_face2],
+   [itm_power_player,itm_power_ammo,itm_dagger,itm_blue_dress, itm_dress,itm_peasant_dress,itm_woolen_dress, itm_woolen_hose],
+   def_attrib|level(15),wp_firearm(150)|wp_one_handed(125)|wp(100),knows_common|knows_power_draw_4|knows_fire_5|knows_earth_4|knows_spirit_5|knows_water_6|knows_air_6,refugee_face1,refugee_face2],
   ### end added for TGS
-  
+
   ["refugee","Refugee","Refugees",tf_female|tf_guarantee_armor,0,0,fac_commoners,
    [itm_knife,itm_pitch_fork,itm_sickle,itm_hatchet,itm_club,itm_dress,itm_robe,itm_woolen_dress, itm_headcloth, itm_woolen_hood, itm_wrapping_boots],
    def_attrib|level(1),wp(45),knows_common,refugee_face1,refugee_face2],
@@ -3445,46 +3457,46 @@ troops = [
   ["tavern_minstrel_4","Wandering Skald","Minstrel",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_fur_coat, itm_hide_boots, itm_lyre],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2], #No instrument or lyre
   ["tavern_minstrel_5","Wandering Troubadour","Minstrel",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_short_tunic, itm_hide_boots, itm_lute],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2], #Lute or Byzantine/Occitan lyra
   
-#NPC system changes begin 
+#NPC system changes begin
 #Companions
   ["kingdom_heroes_including_player_begin",  "kingdom_heroes_including_player_begin",  "kingdom_heroes_including_player_begin",  tf_hero, 0,reserved,  fac_kingdom_1,[],          lord_attrib,wp(220),knows_lord_1, 0x000000000010918a01f248377289467d],
 
 ########### Channelers ############
   
   # Female Village Wisdom
-  ["npc1","Seinen","Seinen",tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_quarter_staff, itm_woolen_dress, itm_woolen_hose],
-   str_8|agi_7|int_12|cha_7|level(4),wp_polearm(65)|wp_firearm(28)|wp(27),
-   knows_power_strike_1|knows_athletics_2|knows_wound_treatment_2|knows_surgery_3|knows_first_aid_2|knows_leadership_2, #skills 2/3 player at that level
+  ["npc1","Seinen","Seinen",tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_player, itm_power_ammo, itm_quarter_staff, itm_woolen_dress, itm_woolen_hose],
+   str_8|agi_7|int_12|cha_7|level(4),wp_polearm(65)|wp_firearm(35)|wp(27),
+   knows_power_strike_1|knows_athletics_2|knows_wound_treatment_2|knows_surgery_3|knows_first_aid_2|knows_leadership_2|knows_power_draw_2|knows_fire_2|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_2, #skills 2/3 player at that level
    0x0000000d25002001696289574da93b2200000000001ca3480000000000000000],
   
   # Male Rogue Channeler
-  ["npc2","Darlaan","Darlaan", tf_hero|tf_unmoveable_in_party_window, 0,reserved, fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_one_handed_war_axe_b, itm_kandor_shield_weak, itm_leather_jerkin, itm_leather_boots, itm_saddle_horse],
-   str_8|agi_7|int_13|cha_6|level(5),wp_firearm(42)|wp_one_handed(75)|wp(40),knows_warrior_npc|
-   knows_wound_treatment_1|knows_first_aid_1|knows_leadership_1|knows_shield_2,
+  ["npc2","Darlaan","Darlaan", tf_hero|tf_unmoveable_in_party_window, 0,reserved, fac_commoners,[itm_power_player, itm_power_ammo, itm_one_handed_war_axe_b, itm_kandor_shield_weak, itm_leather_jerkin, itm_leather_boots, itm_saddle_horse],
+   str_8|agi_7|int_13|cha_6|level(5),wp_firearm(47)|wp_one_handed(75)|wp(40),knows_warrior_npc|
+   knows_wound_treatment_1|knows_first_aid_1|knows_leadership_1|knows_shield_2|knows_power_draw_2|knows_fire_3|knows_earth_2|knows_spirit_3|knows_water_4|knows_air_2,
    0x00000004b21002d1389b3352d8b22b1a00000000001dd6cb0000000000000000],
   
   # Female Black Ajah
-  ["npc3","Cetaleen","Cetaleen",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_dagger, itm_aes_sedai_grey_dress, itm_aes_sedai_grey_shoes, itm_lady_dress_blue, itm_woolen_hose, itm_courser],
-   str_5|agi_7|int_14|cha_11|level(2),wp_firearm(50)|wp(30),
-   knows_wound_treatment_2|knows_trade_1|knows_first_aid_3|knows_surgery_2|knows_riding_3|knows_persuasion_3|knows_leadership_3,
+  ["npc3","Cetaleen","Cetaleen",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_player, itm_power_ammo, itm_dagger, itm_aes_sedai_grey_dress, itm_aes_sedai_grey_shoes, itm_lady_dress_blue, itm_woolen_hose, itm_courser],
+   str_5|agi_7|int_14|cha_11|level(2),wp_firearm(65)|wp(30),
+   knows_wound_treatment_2|knows_trade_1|knows_first_aid_3|knows_surgery_2|knows_riding_3|knows_persuasion_3|knows_leadership_3|knows_power_draw_2|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_4|knows_air_3,
    0x00000005b904300438e148bb5d8522d300000000001dc4530000000000000000],
 
   # Male Asha'man
-  ["npc4","Jayn","Jayn",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_sword_medieval_a, itm_cairhien_shield_weak, itm_ashaman_soldier_coat, itm_black_leather_boots],
-   str_10|agi_9|int_13|cha_10|level(8),wp_one_handed(95)|wp_firearm(55)|wp(50),knows_warrior_npc|
-   knows_weapon_master_2|knows_power_strike_2|knows_riding_2|knows_athletics_2|knows_power_throw_2|knows_first_aid_1|knows_surgery_1|knows_tactics_2|knows_leadership_2|knows_persuasion_1,
+  ["npc4","Jayn","Jayn",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_player, itm_power_ammo, itm_sword_medieval_a, itm_cairhien_shield_weak, itm_ashaman_soldier_coat, itm_black_leather_boots],
+   str_10|agi_9|int_13|cha_10|level(8),wp_one_handed(95)|wp_firearm(63)|wp(50),knows_warrior_npc|
+   knows_weapon_master_2|knows_power_strike_2|knows_riding_2|knows_athletics_2|knows_power_throw_2|knows_first_aid_1|knows_surgery_1|knows_tactics_2|knows_leadership_2|knows_persuasion_1|knows_power_draw_2|knows_fire_5|knows_earth_3|knows_spirit_3|knows_water_4|knows_air_2,
    0x00000004130041534955d1b35c8ce6d200000000001ce3230000000000000000],
 
   # Female Liberated Damane
-  ["npc5","Zonnein","Zonnein",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_dagger, itm_peasant_dress,itm_woolen_hose],
+  ["npc5","Zonnein","Zonnein",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_player, itm_power_ammo, itm_dagger, itm_peasant_dress,itm_woolen_hose],
    str_9|agi_9|int_12|cha_7|level(5),wp_firearm(72)|wp(35),
-   knows_riding_1|knows_power_strike_1|knows_athletics_2|knows_wound_treatment_1|knows_surgery_1|knows_first_aid_1,
+   knows_riding_1|knows_power_strike_1|knows_athletics_2|knows_wound_treatment_1|knows_surgery_1|knows_first_aid_1|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_4|knows_air_2,
    0x000000058b001003396bb2b6e26dbb6500000000001f56e40000000000000000],
 
   # Female Windfinder
-  ["npc6","Eldriva","Eldriva",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_npc_companion_ranged, itm_power_ammo, itm_scimitar, itm_archers_vest, itm_peasant_dress],
-   str_8|agi_12|int_10|cha_5|level(4),wp_one_handed(80)|wp_firearm(37),
-   knows_weapon_master_1|knows_power_strike_1|knows_athletics_3|knows_trainer_1|knows_leadership_1|knows_spotting_1|knows_trade_1,
+  ["npc6","Eldriva","Eldriva",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_player, itm_power_ammo, itm_scimitar, itm_archers_vest, itm_peasant_dress],
+   str_8|agi_12|int_10|cha_5|level(4),wp_one_handed(80)|wp_firearm(49),
+   knows_weapon_master_1|knows_power_strike_1|knows_athletics_3|knows_trainer_1|knows_leadership_1|knows_spotting_1|knows_trade_3|knows_power_draw_2|knows_fire_4|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_3,
   0x0000000222104003430b75a9265358de00000000001cdb230000000000000000],
 
 ########### Non-Channelers ############
@@ -3554,7 +3566,7 @@ troops = [
 ## Kingdom Leaders
 
 #governers olgrel rasevas                                                                        Horse          Bodywear                Footwear_in                     Footwear_out                    Armor                       Weapon                  Shield                  Headwear
-  ["kingdom_1_lord",  "The Dragon Reborn Rand al'Thor",  "Rand",  tf_hero, 0,reserved,  fac_kingdom_1,[itm_lord_warhorse_5, itm_rich_outfit, itm_leather_boots, itm_shynbaulds_wot, itm_legion_plate, itm_gauntlets, itm_power_male_good_ranged, itm_power_ammo], knight_attrib_5,wp_firearm(350)|wp_one_handed(300)|wp(200),knight_skills_5|knows_trainer_5, 0x000000000b042004492371a51c71b8e400000000001dc6e40000000000000000],
+  ["kingdom_1_lord",  "The Dragon Reborn Rand al'Thor",  "Rand",  tf_hero, 0,reserved,  fac_kingdom_1,[itm_lord_warhorse_5, itm_rich_outfit, itm_leather_boots, itm_shynbaulds_wot, itm_legion_plate, itm_gauntlets, itm_power_player, itm_power_ammo], knight_attrib_5,wp_firearm(350)|wp_one_handed(300)|wp(200),knight_skills_5|knows_trainer_7|knows_power_draw_10|knows_fire_10|knows_earth_10|knows_spirit_10|knows_water_10|knows_air_10, 0x000000000b042004492371a51c71b8e400000000001dc6e40000000000000000],
   ["kingdom_2_lord",  "Matrim Cauthon", "Mat", tf_hero, 0, reserved,  fac_kingdom_2, [itm_hunter, itm_mats_hat, itm_red_hand_plate, itm_red_hand_greaves, itm_leather_gloves, itm_ashandarei], knight_attrib_5,wp_polearm(330)|wp(250),knight_skills_5|knows_trainer_7, 0x000000003d04100448dc92392471c91c00000000001d47250000000000000000],
   ["kingdom_3_lord",  "Perrin Aybara", "Perrin", tf_hero, 0, reserved,  fac_kingdom_3, [itm_hunter, itm_two_rivers_armor, itm_leather_boots, itm_leather_gloves, itm_warhammer], knight_attrib_5,wp_two_handed(300)|wp(250),knight_skills_5|knows_trainer_4, 0x0000000837041181596d91b96c72bb2400000000001ec7550000000000000000],
 
@@ -3566,7 +3578,7 @@ troops = [
   ["kingdom_9_lord",  "King Alsalam Saeed Almadar", "Alsalam", tf_hero, 0, reserved,  fac_kingdom_9, [itm_lord_warhorse_6, itm_arad_doman_elite_armor, itm_splinted_greaves, itm_gauntlets, itm_nasal_helmet, itm_sword_medieval_d_long, itm_arad_doman_shield_strong], knight_attrib_3,wp_one_handed(235)|wp(220),knight_skills_3|knows_trainer_5, arad_doman_man_face_older],
 
   ["kingdom_10_lord", "King Darlin Sisnera", "Darlin", tf_hero, 0, reserved,  fac_kingdom_10, [itm_lord_warhorse_6, itm_tear_gilded_plate, itm_shynbaulds_wot, itm_gauntlets, itm_tear_elite_helmet, itm_sword_two_handed_b], knight_attrib_5,wp_two_handed(250)|wp(160),knight_skills_5|knows_trainer_7, tear_man_face_young],
-  ["kingdom_11_lord", "Queen Elayne Trakand",  "Elayne",  tf_hero|tf_female, 0,reserved,  fac_kingdom_11,[itm_courser, itm_lady_dress_ruby, itm_woolen_hose, itm_novice_accepted_damane_shoes, itm_green_dress, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(225)|wp(220),knight_skills_4|knows_trainer_6, 0x00000002010c000138d4c5339a063ad300000000001ed2d30000000000000000],
+  ["kingdom_11_lord", "Queen Elayne Trakand",  "Elayne",  tf_hero|tf_female, 0,reserved,  fac_kingdom_11,[itm_courser, itm_lady_dress_ruby, itm_woolen_hose, itm_novice_accepted_damane_shoes, itm_green_dress, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(275)|wp_one_handed(225)|wp(220),knight_skills_4|knows_trainer_6|knows_power_draw_8|knows_fire_7|knows_earth_7|knows_spirit_9|knows_water_8|knows_air_8, 0x00000002010c000138d4c5339a063ad300000000001ed2d30000000000000000],
   ["kingdom_12_lord", "Queen Alliandre Maritha Kigarin", "Alliandre", tf_hero|tf_female, 0, reserved,  fac_kingdom_12, [itm_courser, itm_sarranid_lady_dress_b, itm_woolen_hose, itm_sword_medieval_b_small], knight_attrib_2,wp_one_handed(165)|wp(160),knight_skills_2|knows_trainer_3, ghealdan_woman_face_middle],
   ["kingdom_13_lord", "First Counsel Aleis Barsalla", "Aleis", tf_hero|tf_female, 0, reserved,  fac_kingdom_13, [itm_courser, itm_green_dress, itm_woolen_hose, itm_sword_medieval_b_small], knight_attrib_2,wp_one_handed(165)|wp(160),knight_skills_2|knows_trainer_3, far_madding_woman_face_old],
   ["kingdom_14_lord", "Panarch Amathera Aelfdene Casmir Lounault", "Amathera", tf_hero|tf_female, 0, reserved,  fac_kingdom_14, [itm_courser, itm_khergit_lady_dress, itm_woolen_hose, itm_sword_medieval_b_small], knight_attrib_2,wp_one_handed(165)|wp(160),knight_skills_2|knows_trainer_3, tarabon_woman_face_middle],
@@ -3578,7 +3590,7 @@ troops = [
   ["kingdom_19_lord", "Queen Ethenielle Cosaru Noramaga", "Ethenielle", tf_hero|tf_female, 0, reserved,  fac_kingdom_19, [itm_charger, itm_brown_dress, itm_woolen_hose, itm_one_handed_battle_axe_b], knight_attrib_3,wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_4, kandor_woman_face_middle],
   ["kingdom_20_lord", "Queen Tenobia si Bashere Kazadi", "Tenobia", tf_hero|tf_female, 0, reserved,  fac_kingdom_20, [itm_lord_warhorse_1, itm_khergit_lady_dress_b, itm_woolen_hose, itm_arabian_sword_b], knight_attrib_3,wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_4, saldaea_woman_face_young],
 
-  ["kingdom_21_lord",  "Amyrlin Seat Egwene al'Vere",  "Egwene",  tf_hero|tf_female, 0,reserved,  fac_kingdom_21,[itm_hunter, itm_lady_dress_green, itm_woolen_hose, itm_novice_accepted_damane_shoes, itm_red_dress, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(225)|wp(220),knight_skills_4|knows_trainer_5, 0x000000002308200344da719494adc89a00000000001d33130000000000000000],
+  ["kingdom_21_lord",  "Amyrlin Seat Egwene al'Vere",  "Egwene",  tf_hero|tf_female, 0,reserved,  fac_kingdom_21,[itm_hunter, itm_lady_dress_green, itm_woolen_hose, itm_novice_accepted_damane_shoes, itm_red_dress, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(275)|wp_one_handed(225)|wp(220),knight_skills_4|knows_trainer_5|knows_power_draw_8|knows_fire_7|knows_earth_8|knows_spirit_9|knows_water_8|knows_air_8, 0x000000002308200344da719494adc89a00000000001d33130000000000000000],
   ["kingdom_22_lord",  "Clan Chief Rhuarc",  "Rhuarc",  tf_hero, 0,reserved,  fac_kingdom_22,[itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(325)|wp(300),knight_skills_5|knows_trainer_5, 0x0000000db304100536d38db6e46dcae500000000001e492b0000000000000000],
   ["kingdom_23_lord",  "Empress Fortuona Athaem Devi Paendrig",  "Fortuona",  tf_hero|tf_female, 0,reserved,  fac_kingdom_23,[itm_lord_warhorse_7, itm_sarranid_lady_dress, itm_novice_accepted_damane_shoes, itm_seanchan_sword], knight_attrib_4,wp_two_handed(260)|wp(250),knight_skills_4|knows_trainer_5, 0x00000000050c40003325c5331dc8b5a300000000001e44a40000000000000000],
   ["kingdom_24_lord",  "Shaidar Haran",  "Shaidar Haran",  tf_hero, 0,reserved,  fac_kingdom_24,[itm_myrddraal_horse, itm_myrddraal_armor, itm_black_leather_boots, itm_myrddraal_hood_helmet, itm_black_mail_gauntlets, itm_myrddraal_blade], knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_5, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
@@ -3602,13 +3614,13 @@ troops = [
 
 
 # Legion of the Dragon
-  ["knight_1_1", "Damer Flinn", "Flinn", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_male_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, 0x0000000edc08314026a272a7624f522100000000001e491d0000000000000000],
-  ["knight_1_2", "Logain Ablar", "Logain", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_male_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, 0x00000005b104410924dc7238e3725b2d00000000001da9220000000000000000],
-  ["knight_1_3", "Jahar Narishma", "Narishma", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_male_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, far_madding_man_face_younger],
+  ["knight_1_1", "Damer Flinn", "Flinn", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(325)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3|knows_power_draw_9|knows_fire_9|knows_earth_9|knows_spirit_10|knows_water_9|knows_air_9, 0x0000000edc08314026a272a7624f522100000000001e491d0000000000000000],
+  ["knight_1_2", "Logain Ablar", "Logain", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(325)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3|knows_power_draw_10|knows_fire_10|knows_earth_10|knows_spirit_9|knows_water_9|knows_air_9, 0x00000005b104410924dc7238e3725b2d00000000001da9220000000000000000],
+  ["knight_1_3", "Jahar Narishma", "Narishma", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(325)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3|knows_power_draw_9|knows_fire_10|knows_earth_9|knows_spirit_9|knows_water_9|knows_air_9, far_madding_man_face_younger],
   ["knight_1_4", "Elmindreda Farshaw", "Min", tf_hero|tf_female, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_brown_dress, itm_leather_boots, itm_aiel_knife, itm_throwing_knives], knight_attrib_2,wp_throwing(200)|wp_one_handed(150)|wp(130),knight_skills_1, 0x000000006100100748e191b69b8db65900000000001db89b0000000000000000],
-  ["knight_1_5", "Donalo Sandomere", "Donalo", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_male_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, tear_man_face_middle],
-  ["knight_1_6", "Fager Neald", "Neald", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_male_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, murandy_man_face_middle],
-  ["knight_1_7", "Jur Grady", "Grady", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_male_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, andor_man_face_middle],
+  ["knight_1_5", "Donalo Sandomere", "Donalo", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3|knows_power_draw_7|knows_fire_8|knows_earth_8|knows_spirit_7|knows_water_7|knows_air_7, tear_man_face_middle],
+  ["knight_1_6", "Fager Neald", "Neald", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3|knows_power_draw_8|knows_fire_8|knows_earth_7|knows_spirit_7|knows_water_7|knows_air_7, murandy_man_face_middle],
+  ["knight_1_7", "Jur Grady", "Grady", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3|knows_power_draw_8|knows_fire_7|knows_earth_8|knows_spirit_8|knows_water_7|knows_air_7, andor_man_face_middle],
 
 
 # Band of the Red Hand
@@ -3630,13 +3642,13 @@ troops = [
 
   
 #  ["knight_1_21", "Lord Swadian 21", "knight_1_7", tf_hero, 0, reserved,  fac_kingdom_1, [itm_saddle_horse,      itm_ragged_outfit,      itm_heraldic_mail_with_surcoat,           itm_nomad_boots,            itm_splinted_greaves,                itm_great_helmet, itm_gauntlets,           itm_sword_medieval_c,   itm_sword_two_handed_a,   itm_tab_shield_heater_cav_a],   knight_attrib_2,wp(150),knight_skills_2, 0x0000000c4d0840d24a9b2ab4ac2a332400000000001d34db0000000000000000, swadian_face_young_2],
-#  ["knight_1_22", "Lord Swadian 22", "knight_1_8", tf_hero, 0, reserved,  fac_kingdom_1, [itm_saddle_horse,      itm_short_tunic,       itm_heraldic_mail_with_surcoat,           itm_leather_boots,          itm_mail_chausses,                   itm_winged_great_helmet, itm_gauntlets,       itm_bastard_sword_a,  itm_sword_two_handed_a,  itm_tab_shield_heater_d],    knight_attrib_3,wp(180),knight_skills_3|knows_trainer_4, 0x0000000c370c1194546469ca6c4e450e00000000001ebac40000000000000000, swadian_face_older_2],
+ # ["knight_1_22", "Lord Swadian 22", "knight_1_8", tf_hero, 0, reserved,  fac_kingdom_1, [itm_saddle_horse,      itm_short_tunic,       itm_heraldic_mail_with_surcoat,           itm_leather_boots,          itm_mail_chausses,                   itm_winged_great_helmet, itm_gauntlets,       itm_bastard_sword_a,  itm_sword_two_handed_a,  itm_tab_shield_heater_d],    knight_attrib_3,wp(180),knight_skills_3|knows_trainer_4, 0x0000000c370c1194546469ca6c4e450e00000000001ebac40000000000000000, swadian_face_older_2],
 #  ["knight_1_23", "Lord Swadian 23", "knight_1_9", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter,            itm_rich_outfit,        itm_mail_hauberk,                   itm_woolen_hose,            itm_mail_chausses,                   itm_guard_helmet, itm_gauntlets,         itm_sword_medieval_c,    itm_tab_shield_heater_d],      knight_attrib_4,wp(200),knight_skills_4|knows_trainer_6, 0x0000000c0c1064864ba34e2ae291992b00000000001da8720000000000000000, swadian_face_older_2],
 #  ["knight_1_24", "Lord Swadian 24", "knight_1_0", tf_hero, 0, reserved,  fac_kingdom_1, [itm_hunter,            itm_tabard,      itm_heraldic_mail_with_surcoat,               itm_leather_boots,          itm_mail_boots,                      itm_winged_great_helmet, itm_gauntlets, itm_bastard_sword_b, itm_sword_two_handed_b,  itm_tab_shield_heater_cav_b], knight_attrib_5,wp(240),knight_skills_5|knows_trainer_5, 0x0000000c0a08038736db74c6a396a8e500000000001db8eb0000000000000000, swadian_face_older_2],
 
   
 #Southland Coalition (Mayene, Cairhien, Illian, Murandy, Altara, Arad Doman)
-
+  
 # Mayene
   ["knight_4_1", "Captain Bertain Gallenne", "Bertain", tf_hero, 0, reserved,  fac_kingdom_4, [itm_lord_warhorse_2, itm_mayene_plate, itm_mayene_greaves, itm_mayene_gauntlets_red, itm_mayene_winged_guard_helmet, itm_sword_of_war], knight_attrib_4,wp_two_handed(245)|wp(220),knight_skills_4|knows_trainer_3, mayene_man_face_old],
   ["knight_4_2", "Captain Havien Nurelle", "Havien", tf_hero, 0, reserved,  fac_kingdom_4, [itm_lord_warhorse_2, itm_mayene_plate, itm_mayene_greaves, itm_mayene_gauntlets_red, itm_mayene_winged_guard_helmet, itm_sword_of_war], knight_attrib_4,wp_two_handed(245)|wp(220),knight_skills_4|knows_trainer_3, mayene_man_face_young],
@@ -3782,16 +3794,16 @@ troops = [
 
 
 # White Tower
-  ["knight_21_1", "Keeper of the Chronicles Silviana Sedai", "Silviana", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_red_dress, itm_veteran_aes_sedai_red_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, tar_valon_woman_face_middle],
+  ["knight_21_1", "Keeper of the Chronicles Silviana Sedai", "Silviana", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_red_dress, itm_veteran_aes_sedai_red_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(220)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_8|knows_air_8, tar_valon_woman_face_middle],
   ["knight_21_2", "Lord Gareth Bryne", "Gareth", tf_hero, 0, reserved,  fac_kingdom_21, [itm_charger, itm_white_tower_captain_armor, itm_splinted_leather_greaves, itm_leather_gloves, itm_guard_helmet, itm_great_sword], knight_attrib_4,wp_two_handed(250)|wp(200),knight_skills_4|knows_trainer_5, andor_man_face_old],
   ["knight_21_3", "al'Lan Mandragoran",  "Lan",  tf_hero, 0,reserved,  fac_kingdom_21,[itm_heavy_charger, itm_nobleman_outfit, itm_leather_boots, itm_steel_greaves_wot, itm_shienar_captain_armor, itm_shienar_captain_gauntlets, itm_seanchan_large_sword, itm_winged_great_helmet], knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_4, 0x0000000da704414724d38e371c6dc8e500000000001e58eb0000000000000000],
   ["knight_21_4", "Guard Captain Jimar Chubain", "Chubain", tf_hero, 0, reserved,  fac_kingdom_21, [itm_charger, itm_white_tower_captain_armor, itm_splinted_leather_greaves, itm_leather_gloves, itm_guard_helmet, itm_great_sword], knight_attrib_4,wp_two_handed(250)|wp(200),knight_skills_4|knows_trainer_5, tar_valon_man_face_old],
-  ["knight_21_5", "Cadsuane Sedai", "Cadsuane", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_green_dress, itm_veteran_aes_sedai_green_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(245)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, far_madding_woman_face_older],
-  ["knight_21_6", "Nynaeve Sedai", "Nynaeve", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(300)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, andor_woman_face_young],
-  ["knight_21_7", "Siuan Sedai", "Siuan", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_blue_dress, itm_veteran_aes_sedai_blue_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(190)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, tear_woman_face_young],
-  ["knight_21_8", "Leana Sedai", "Leana", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_green_dress, itm_veteran_aes_sedai_green_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(190)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, 0x00000002870800054f1c8ed924a1ad1300000000001eb8e30000000000000000],
-  ["knight_21_9", "Lelaine Sedai", "Lelaine", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_blue_dress, itm_veteran_aes_sedai_blue_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, tar_valon_woman_face_young],
-  ["knight_21_10", "Romanda Sedai", "Romanda", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, far_madding_woman_face_old],
+  ["knight_21_5", "Cadsuane Sedai", "Cadsuane", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_green_dress, itm_veteran_aes_sedai_green_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(250)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_8|knows_fire_8|knows_earth_8|knows_spirit_9|knows_water_8|knows_air_8, far_madding_woman_face_older],
+  ["knight_21_6", "Nynaeve Sedai", "Nynaeve", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(310)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_9|knows_fire_9|knows_earth_8|knows_spirit_10|knows_water_10|knows_air_10, andor_woman_face_young],
+  ["knight_21_7", "Siuan Sedai", "Siuan", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_blue_dress, itm_veteran_aes_sedai_blue_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(195)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_7|knows_water_7|knows_air_7, tear_woman_face_young],
+  ["knight_21_8", "Leana Sedai", "Leana", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_green_dress, itm_veteran_aes_sedai_green_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(195)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_7|knows_water_7|knows_air_7, 0x00000002870800054f1c8ed924a1ad1300000000001eb8e30000000000000000],
+  ["knight_21_9", "Lelaine Sedai", "Lelaine", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_blue_dress, itm_veteran_aes_sedai_blue_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(210)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_8|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_8|knows_air_7, tar_valon_woman_face_young],
+  ["knight_21_10", "Romanda Sedai", "Romanda", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(210)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_8|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_7|knows_air_8, far_madding_woman_face_old],
 
 #  ["knight_21_11", "Pevara Sedai", "Pevara", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_red_dress, itm_veteran_aes_sedai_red_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, kandor_woman_face_old],
 #  ["knight_21_12", "Yukiri Sedai", "Yukiri", tf_hero|tf_female, 0, reserved,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_grey_dress, itm_veteran_aes_sedai_grey_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, arafel_woman_face_middle],
@@ -3818,13 +3830,13 @@ troops = [
   ["knight_22_9", "Clan Chief Jheran", "Jheran", tf_hero, 0, reserved,  fac_kingdom_22, [itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(275)|wp(200),knight_skills_5|knows_trainer_5, aiel_2_man_face_young],
   ["knight_22_10", "Clan Chief Janwin", "Janwin", tf_hero, 0, reserved,  fac_kingdom_22, [itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(275)|wp(200),knight_skills_5|knows_trainer_5, aiel_1_man_face_young],
   ["knight_22_11", "Nandera", "Nandera", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(275)|wp(200),knight_skills_5|knows_trainer_5, aiel_2_woman_face_middle],
-  ["knight_22_12", "Wise One Sorilea", "Sorilea", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(190)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, aiel_1_woman_face_older],
-  ["knight_22_13", "Wise One Amys", "Amys", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(230)|wp_one_handed(200)|wp(130),knight_skills_3|knows_trainer_4, aiel_1_woman_face_old],
+  ["knight_22_12", "Wise One Sorilea", "Sorilea", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(185)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_7|knows_water_7|knows_air_7, aiel_1_woman_face_older],
+  ["knight_22_13", "Wise One Amys", "Amys", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(210)|wp_one_handed(200)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_9|knows_water_8|knows_air_7, aiel_1_woman_face_old],
   ["knight_22_14", "Bain", "Bain", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(275)|wp(200),knight_skills_5|knows_trainer_5, aiel_2_woman_face_younger],
-  ["knight_22_15", "Wise One Melaine", "Melaine", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(230)|wp_one_handed(200)|wp(130),knight_skills_3|knows_trainer_4, aiel_2_woman_face_young],
+  ["knight_22_15", "Wise One Melaine", "Melaine", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(210)|wp_one_handed(200)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_9|knows_water_7|knows_air_8, aiel_2_woman_face_young],
   ["knight_22_16", "Wise One Bair", "Bair", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_aiel_knife], knight_attrib_3,wp_one_handed(200)|wp(130),knight_skills_3|knows_trainer_4, aiel_2_woman_face_older],
   ["knight_22_17", "Gaul", "Gaul", tf_hero, 0, reserved,  fac_kingdom_22, [itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(300)|wp(200),knight_skills_5|knows_trainer_5, aiel_2_man_face_younger],
-  ["knight_22_18", "Aviendha", "Aviendha", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(200)|wp(130),knight_skills_4|knows_trainer_4, aiel_1_woman_face_younger],
+  ["knight_22_18", "Aviendha", "Aviendha", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(280)|wp_one_handed(200)|wp(130),knight_skills_4|knows_trainer_4|knows_power_draw_8|knows_fire_8|knows_earth_8|knows_spirit_9|knows_water_9|knows_air_8, aiel_1_woman_face_younger],
   ["knight_22_19", "Heirn", "Heirn", tf_hero, 0, reserved,  fac_kingdom_22, [itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(275)|wp(200),knight_skills_5|knows_trainer_5, aiel_1_man_face_old],
   ["knight_22_20", "Sulin", "Sulin", tf_hero|tf_female, 0, reserved,  fac_kingdom_22, [itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(275)|wp(200),knight_skills_5|knows_trainer_5, aiel_1_woman_face_older],
 
@@ -3853,20 +3865,20 @@ troops = [
 
 
 #Shadowspawn
-  ["knight_24_1", "Moridin", "Moridin", tf_hero, 0, reserved,  fac_kingdom_24, [itm_myrddraal_horse, itm_dreadlord_coat, itm_black_leather_boots, itm_power_male_bad_ranged, itm_power_ammo], knight_attrib_5,wp_firearm(350)|wp_one_handed(300)|wp(200),knight_skills_5|knows_trainer_5, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
-  ["knight_24_2", "Demandred", "Demandred", tf_hero, 0, reserved,  fac_kingdom_24, [itm_myrddraal_horse, itm_dreadlord_coat, itm_black_leather_boots, itm_power_male_bad_ranged, itm_power_ammo], knight_attrib_5,wp_firearm(340)|wp_one_handed(300)|wp(200),knight_skills_5|knows_trainer_5, far_madding_man_face_middle],
-  ["knight_24_3", "Moghedien", "Moghedien", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_hunter, itm_sarranid_common_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(275)|wp_one_handed(175)|wp(130),knight_skills_4|knows_trainer_4, tear_woman_face_middle],
-  ["knight_24_4", "Mesaana", "Mesaana", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_courser, itm_sarranid_lady_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(300)|wp_one_handed(175)|wp(130),knight_skills_4|knows_trainer_5, tar_valon_woman_face_middle],
-  ["knight_24_5", "Graendal", "Graendal", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_courser, itm_khergit_lady_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(325)|wp_one_handed(175)|wp(130),knight_skills_4|knows_trainer_5, arad_doman_woman_face_middle],
-  ["knight_24_6", "Cyndane", "Cyndane", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_hunter, itm_red_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(340)|wp_one_handed(175)|wp(130),knight_skills_4|knows_trainer_5, kandor_woman_face_middle],
-  ["knight_24_7", "Alviarin Freidhen", "Alviarin", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3, tear_woman_face_old],
-  ["knight_24_8", "Katerine Alruddin", "Katerine", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3, tarabon_woman_face_middle],
-  ["knight_24_9", "Delana Mosalaine", "Delana", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3, shienar_woman_face_old],
-  ["knight_24_10", "Chesmal Emry", "Chesmal", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3, ghealdan_woman_face_middle],
-  ["knight_24_11", "Rianna Andomeran", "Rianna", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3, kandor_woman_face_old],
-  ["knight_24_12", "Falion Bhoda", "Falion", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3, kandor_woman_face_middle],
-  ["knight_24_13", "Marillin Gemalphin", "Marillin", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3, andor_woman_face_old],
-  ["knight_24_14", "Temaile Kinderode", "Temaile", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_female_bad_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3, cairhien_woman_face_middle],
+  ["knight_24_1", "Moridin", "Moridin", tf_hero, 0, reserved,  fac_kingdom_24, [itm_myrddraal_horse, itm_dreadlord_coat, itm_black_leather_boots, itm_power_player, itm_power_ammo], knight_attrib_5,wp_firearm(350)|wp_one_handed(300)|wp(200),knight_skills_5|knows_trainer_5|knows_power_draw_10|knows_fire_10|knows_earth_10|knows_spirit_10|knows_water_10|knows_air_10, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
+  ["knight_24_2", "Demandred", "Demandred", tf_hero, 0, reserved,  fac_kingdom_24, [itm_myrddraal_horse, itm_dreadlord_coat, itm_black_leather_boots, itm_power_player, itm_power_ammo], knight_attrib_5,wp_firearm(340)|wp_one_handed(300)|wp(200),knight_skills_5|knows_trainer_5|knows_power_draw_10|knows_fire_10|knows_earth_10|knows_spirit_10|knows_water_9|knows_air_9, far_madding_man_face_middle],
+  ["knight_24_3", "Moghedien", "Moghedien", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_hunter, itm_sarranid_common_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(290)|wp_one_handed(175)|wp(130),knight_skills_4|knows_trainer_4|knows_power_draw_9|knows_fire_8|knows_earth_8|knows_spirit_10|knows_water_9|knows_air_8, tear_woman_face_middle],
+  ["knight_24_4", "Mesaana", "Mesaana", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_courser, itm_sarranid_lady_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(300)|wp_one_handed(175)|wp(130),knight_skills_4|knows_trainer_5|knows_power_draw_9|knows_fire_8|knows_earth_8|knows_spirit_9|knows_water_9|knows_air_10, tar_valon_woman_face_middle],
+  ["knight_24_5", "Graendal", "Graendal", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_courser, itm_khergit_lady_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(330)|wp_one_handed(175)|wp(130),knight_skills_4|knows_trainer_5|knows_power_draw_10|knows_fire_9|knows_earth_9|knows_spirit_10|knows_water_10|knows_air_10, arad_doman_woman_face_middle],
+  ["knight_24_6", "Cyndane", "Cyndane", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_hunter, itm_red_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(340)|wp_one_handed(175)|wp(130),knight_skills_4|knows_trainer_5|knows_power_draw_10|knows_fire_9|knows_earth_9|knows_spirit_10|knows_water_9|knows_air_10, kandor_woman_face_middle],
+  ["knight_24_7", "Alviarin Freidhen", "Alviarin", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(205)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3|knows_power_draw_8|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_7|knows_air_8, tear_woman_face_old],
+  ["knight_24_8", "Katerine Alruddin", "Katerine", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(205)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3|knows_power_draw_8|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_8|knows_air_7, tarabon_woman_face_middle],
+  ["knight_24_9", "Delana Mosalaine", "Delana", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(195)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_7|knows_water_7|knows_air_8, shienar_woman_face_old],
+  ["knight_24_10", "Chesmal Emry", "Chesmal", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(195)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_7|knows_air_7, ghealdan_woman_face_middle],
+  ["knight_24_11", "Rianna Andomeran", "Rianna", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(195)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_7|knows_water_8|knows_air_7, kandor_woman_face_old],
+  ["knight_24_12", "Falion Bhoda", "Falion", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(195)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_7|knows_air_7, kandor_woman_face_middle],
+  ["knight_24_13", "Marillin Gemalphin", "Marillin", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(195)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_7|knows_water_7|knows_air_8, andor_woman_face_old],
+  ["knight_24_14", "Temaile Kinderode", "Temaile", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_saddle_horse, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(195)|wp_one_handed(200)|wp(160),knight_skills_3|knows_trainer_3|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_7|knows_water_8|knows_air_7, cairhien_woman_face_middle],
   ["knight_24_15", "Mili Skane", "Mili", tf_hero|tf_female, 0, reserved,  fac_kingdom_24, [itm_brown_dress, itm_woolen_hose, itm_illian_seax], knight_attrib_3,wp_one_handed(200)|wp(130),knight_skills_3|knows_trainer_4, andor_woman_face_younger],
   ["knight_24_16", "Daved Hanlon", "Daved", tf_hero, 0, reserved,  fac_kingdom_24, [itm_lord_warhorse_4, itm_andor_plate, itm_steel_greaves_wot, itm_mail_gauntlets_wot, itm_andoran_helmet, itm_great_sword], knight_attrib_4,wp_two_handed(250)|wp(190),knight_skills_4|knows_trainer_4, amadicia_man_face_young],
   ["knight_24_17", "K'vor'chag Vlja Djevik", "K'vor'chag", tf_hero, 0, reserved,  fac_kingdom_24, [itm_trolloc_strong_armor, itm_black_leather_boots, itm_black_mail_gauntlets, itm_trolloc_goat_helmet, itm_great_long_bardiche], knight_attrib_5,wp_polearm(300)|wp(200),knight_skills_5|knows_trainer_5, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
@@ -3877,9 +3889,9 @@ troops = [
 
 # Shara (10)
   ["knight_25_1", "Sh'boan Chiape", "Chiape", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_sword_khergit_3, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_one_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_young],
-  ["knight_25_2", "Counsellor Sharipe", "Sharipe", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_power_female_good_ranged, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_firearm(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_woman_face_older],
-  ["knight_25_3", "Counsellor Tanule", "Tanule", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_power_female_good_ranged, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_firearm(270)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_woman_face_middle],
-  ["knight_25_4", "Counsellor Bahryma", "Bahryma", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_power_female_good_ranged, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_firearm(265)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_older],
+  ["knight_25_2", "Counsellor Sharipe", "Sharipe", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_power_player, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_firearm(205)|wp(230),knight_skills_5|knows_trainer_5|knows_power_draw_8|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_8|knows_air_8, seanchan_1_woman_face_older],
+  ["knight_25_3", "Counsellor Tanule", "Tanule", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_power_player, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_firearm(195)|wp(230),knight_skills_5|knows_trainer_5|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_7|knows_air_8, seanchan_1_woman_face_middle],
+  ["knight_25_4", "Counsellor Bahryma", "Bahryma", tf_hero|tf_female, 0, reserved,  fac_kingdom_25, [itm_arabian_horse_b, itm_power_player, itm_power_ammo, itm_ayyad_counsel_member_tunic, itm_sarranid_boots_b], knight_attrib_5,wp_firearm(195)|wp(230),knight_skills_5|knows_trainer_5|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_7|knows_water_8|knows_air_7, seanchan_2_woman_face_older],
   ["knight_25_5", "Lord Alamar", "Alamar", tf_hero, 0, reserved,  fac_kingdom_25, [itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_man_face_older],
   ["knight_25_6", "Lord Dentan", "Dentan", tf_hero, 0, reserved,  fac_kingdom_25, [itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(270)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_man_face_middle],
   ["knight_25_7", "Lord Rym", "Rym", tf_hero, 0, reserved,  fac_kingdom_25, [itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(265)|wp(230),knight_skills_5|knows_trainer_5, seanchan_1_man_face_younger],
@@ -3893,12 +3905,12 @@ troops = [
   ["knight_26_2", "Wavemistress Malin din Toral Breaking Wave", "Malin", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves], knight_attrib_5,wp_one_handed(265)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_older],
   ["knight_26_3", "Master of the Blades Amel", "Amel", tf_hero, 0, reserved,  fac_kingdom_26, [itm_khergit_sword_two_handed_b, itm_sea_folk_elite_armor, itm_leather_gloves, itm_sea_folk_elite_helmet], knight_attrib_5,wp_two_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_man_face_old],
   ["knight_26_4", "Sailmistress Cemeille din Selaan Long Eyes", "Cemeille", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves], knight_attrib_5,wp_one_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_young],
-  ["knight_26_5", "Windfinder Shalon din Togara Morning Tide", "Shalon", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_sea_folk_female_armor], knight_attrib_5,wp_firearm(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_middle],
+  ["knight_26_5", "Windfinder Shalon din Togara Morning Tide", "Shalon", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_power_player, itm_power_ammo, itm_sea_folk_female_armor], knight_attrib_5,wp_firearm(205)|wp(230),knight_skills_5|knows_trainer_5|knows_power_draw_8|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_9|knows_air_8, seanchan_2_woman_face_middle],
   ["knight_26_6", "Swordmaster Moad", "Moad", tf_hero, 0, reserved,  fac_kingdom_26, [itm_khergit_sword_two_handed_b, itm_sea_folk_elite_armor, itm_leather_gloves, itm_sea_folk_elite_helmet], knight_attrib_5,wp_two_handed(285)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_man_face_young],
   ["knight_26_7", "Cargo Master Toram", "Toram", tf_hero, 0, reserved,  fac_kingdom_26, [itm_khergit_sword_two_handed_b, itm_sea_folk_elite_armor, itm_leather_gloves, itm_sea_folk_elite_helmet], knight_attrib_5,wp_two_handed(280)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_man_face_middle],
   ["knight_26_8", "Sailmistress Milis din Shalada Three Stars", "Milis", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves], knight_attrib_5,wp_one_handed(275)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_young],
-  ["knight_26_9", "Windfinder Renaile din Calon Blue Star", "Renaile", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_sea_folk_female_armor], knight_attrib_5,wp_firearm(260)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_younger],
-  ["knight_26_10", "Windfinder Caire din Gelyn Running Wave", "Caire", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_sea_folk_female_armor], knight_attrib_5,wp_firearm(255)|wp(230),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_young],
+  ["knight_26_9", "Windfinder Renaile din Calon Blue Star", "Renaile", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_power_player, itm_power_ammo, itm_sea_folk_female_armor], knight_attrib_5,wp_firearm(195)|wp(230),knight_skills_5|knows_trainer_5|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_7|knows_air_8, seanchan_2_woman_face_younger],
+  ["knight_26_10", "Windfinder Caire din Gelyn Running Wave", "Caire", tf_hero|tf_female, 0, reserved,  fac_kingdom_26, [itm_power_player, itm_power_ammo, itm_sea_folk_female_armor], knight_attrib_5,wp_firearm(195)|wp(230),knight_skills_5|knows_trainer_5|knows_power_draw_7|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_8|knows_air_7, seanchan_2_woman_face_young],
 
 
 # Island of Madmen (10)
@@ -3927,7 +3939,7 @@ troops = [
 ## TGS: mat: Pretenders Begin
 
 # complete  
-  ["kingdom_1_pretender",  "Mazrim Taim",       "Taim",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_1,[itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_male_good_ranged, itm_power_ammo], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
+  ["kingdom_1_pretender",  "Mazrim Taim",       "Taim",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_1,[itm_hunter, itm_ashaman_coat, itm_black_leather_boots, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(325)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3|knows_power_draw_9|knows_fire_10|knows_earth_10|knows_spirit_9|knows_water_9|knows_air_9, saldaea_man_face_middle],
   
   ["kingdom_2_pretender",  "Kingdom_2",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_2,[itm_linen_shirt, itm_leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
   ["kingdom_3_pretender",  "Kingdom_3",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_3,[itm_linen_shirt, itm_leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
@@ -3959,7 +3971,7 @@ troops = [
   ["kingdom_20_pretender",  "Kingdom_20",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_20,[itm_linen_shirt, itm_leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
 
 # complete
-  ["kingdom_21_pretender",  "Elaida do Avriny a'Roihan",  "Elaida",  tf_hero|tf_female|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_21,[itm_hunter, itm_aes_sedai_red_dress, itm_veteran_aes_sedai_red_shoes, itm_power_female_good_ranged, itm_power_ammo], knight_attrib_3,wp_firearm(225)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4, tar_valon_woman_face_middle],
+  ["kingdom_21_pretender",  "Elaida do Avriny a'Roihan",  "Elaida",  tf_hero|tf_female|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_21,[itm_hunter, itm_aes_sedai_red_dress, itm_veteran_aes_sedai_red_shoes, itm_power_player, itm_power_ammo], knight_attrib_3,wp_firearm(210)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_8|knows_fire_7|knows_earth_7|knows_spirit_8|knows_water_7|knows_air_8, tar_valon_woman_face_middle],
 # complete
   ["kingdom_22_pretender",  "Sevanna",       "Sevanna",  tf_hero|tf_female|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_22,[itm_wise_one_dress_with_shawl, itm_cadinsor_boots, itm_aiel_knife], knight_attrib_3,wp_one_handed(200)|wp(130),knight_skills_3|knows_trainer_4, aiel_2_woman_face_young],
 #complete
@@ -3973,7 +3985,7 @@ troops = [
   ["kingdom_28_pretender",  "Kingdom_28",       "Kingdom",  tf_hero|tf_unmoveable_in_party_window, 0,reserved,  fac_kingdom_28,[itm_linen_shirt, itm_leather_boots], knight_attrib_4,wp_firearm(250)|wp_one_handed(220)|wp(200),knight_skills_4|knows_trainer_3, saldaea_man_face_middle],
 
 ## TGS: mat: Pretenders end
-  
+
 ##  ["kingdom_1_lord_a", "Kingdom 1 Lord A", "Kingdom 1 Lord A", tf_hero, 0,reserved,  fac_kingdom_1,[itm_saddle_horse,itm_leather_jacket,itm_nomad_boots,itm_coat_of_plates],lord_attrib|level(38),wp(220),knows_common, 0x00000000000c710201fa51b7286db721],
 ##  ["kingdom_1_lord_b", "Kingdom 1 Lord B", "Kingdom 1 Lord B", tf_hero, 0,reserved,  fac_kingdom_2,[itm_saddle_horse,itm_leather_jacket,itm_nomad_boots,itm_coat_of_plates],lord_attrib|level(38),wp(220),knows_common, 0x00000000000c710201fa51b7286db721],
 ##  ["kingdom_1_lord_c", "Kingdom 1 Lord C", "Kingdom 1 Lord C", tf_hero, 0,reserved,  fac_kingdom_3,[itm_saddle_horse,itm_leather_jacket,itm_nomad_boots,itm_coat_of_plates],lord_attrib|level(38),wp(220),knows_common, 0x00000000000c710201fa51b7286db721],
@@ -4427,7 +4439,7 @@ troops = [
   ["town_12_seneschal", "{!}Town 12 Seneschal", "{!}Town 12 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_coarse_tunic,       itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x00000000000c13ce01dc4723ab936c82],
   ["town_13_seneschal", "{!}Town 13 Seneschal", "{!}Town 13 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_leather_jerkin,     itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x000000000008548e01d952a9b25d6d5a],
   ["town_14_seneschal", "{!}Town 14 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
-  ["town_15_seneschal", "{!}Town 15 Seneschal", "{!}Town 1 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
+  ["town_15_seneschal", "{!}Town 15 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
   ["town_16_seneschal", "{!}Town 16 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
   ["town_17_seneschal", "{!}Town17 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
   ["town_18_seneschal", "{!}Town 18 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[ itm_blue_gambeson,      itm_blue_hose],     def_attrib|level(2),wp(20),knows_common, 0x000000000004728b01c293c694944b05],
@@ -4631,7 +4643,7 @@ troops = [
   ["town_37_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_blue_gambeson,        itm_leather_boots   ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
   ["town_38_armorer","Armorer", "{!}Armorer",  tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_fur_coat,         itm_nomad_boots     ],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
 ## TGS: mat: End
-  
+
 # Weapon merchants
 
   ["town_1_weaponsmith", "Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|tf_female|tf_is_merchant, 0, 0, fac_commoners,[itm_linen_tunic,      itm_hide_boots,itm_straw_hat],def_attrib|level(2),wp(20),knows_inventory_management_10, woman_face_1, woman_face_2],
@@ -4674,7 +4686,7 @@ troops = [
   ["town_37_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_leather_jacket,  itm_woolen_hose],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
   ["town_38_weaponsmith","Weaponsmith","{!}Weaponsmith",tf_hero|tf_randomize_face|          tf_is_merchant, 0, 0, fac_commoners,[itm_shirt,           itm_hide_boots],def_attrib|level(5),wp(20),knows_inventory_management_10, mercenary_face_1, mercenary_face_2],
 ## TGS: mat: End
-  
+
 #Tavern keepers
 
   ["town_1_tavernkeeper", "Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_1_tavern|entry(9),0,   fac_commoners,[itm_leather_apron,       itm_wrapping_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
@@ -4717,7 +4729,7 @@ troops = [
   ["town_37_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, scn_town_15_tavern|entry(9),0,  fac_commoners,[itm_woolen_dress,        itm_nomad_boots],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
   ["town_38_tavernkeeper","Tavern_Keeper","{!}Tavern_Keeper",tf_hero|tf_randomize_face,           scn_town_16_tavern|entry(9),0,  fac_commoners,[itm_leather_apron,       itm_hide_boots],def_attrib|level(2),wp(20),knows_common, mercenary_face_1, mercenary_face_2],
 ## TGS: mat: End
-  
+
 #Goods Merchants
 
   ["town_1_merchant", "Merchant","{!}Merchant",          tf_hero|tf_randomize_face|tf_is_merchant, scn_town_1_store|entry(9),0, fac_commoners,     [itm_coarse_tunic,  itm_leather_boots                   ],def_attrib|level(2),wp(20),knows_inventory_management_10, man_face_young_1, man_face_older_2],
@@ -5151,16 +5163,16 @@ troops = [
 #    itm_leather_jerkin,itm_leather_armor,itm_ankle_boots,itm_footman_helmet],
 #   def_attrib|level(19),wp_melee(90)|wp_crossbow(100),knows_common|knows_ironflesh_4|knows_athletics_6|knows_shield_5|knows_power_strike_3,swadian_face_young_1, swadian_face_old_2],
     ["swadian_crossbowman_multiplayer_ai","Ashaman Soldier","Ashaman Soldiers",tf_guarantee_all,0,0,fac_kingdom_1,
-   [itm_power_ashaman_soldier_ranged, itm_power_ammo, itm_sword_secondary, itm_ashaman_soldier_coat, itm_black_leather_boots],
+   [itm_power_player, itm_power_ammo, itm_sword_secondary, itm_ashaman_soldier_coat, itm_black_leather_boots],
    def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2,murandy_man_face_young, altara_man_face_older],
     ["ashaman_dedicated_multi","Ashaman Dedicated","Ashaman Dedicated",tf_guarantee_all,0,0,fac_kingdom_1,
-   [itm_power_ashaman_dedicated_ranged, itm_power_ammo, itm_sword_secondary, itm_ashaman_dedicated_coat, itm_black_leather_boots],
+   [itm_power_player, itm_power_ammo, itm_sword_secondary, itm_ashaman_dedicated_coat, itm_black_leather_boots],
    def_attrib_wot_infantry_2,wp_firearm(130)|wp_one_handed(110)|wp(80),knows_wot_infantry_2|knows_power_draw_3,ghealdan_man_face_younger, amadicia_man_face_older],
     ["ashaman_multi","Ashaman","Ashaman",tf_guarantee_all,0,0,fac_kingdom_1,
-   [itm_power_ashaman_ranged, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
+   [itm_power_player, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
    def_attrib_wot_infantry_2,wp_firearm(165)|wp_one_handed(110)|wp(90),knows_wot_infantry_2|knows_power_draw_4,tarabon_man_face_younger, arad_doman_man_face_older],
   ["ashaman_veteran_multi","Ashaman Veteran","Ashaman Veterans",tf_guarantee_all,0,0,fac_kingdom_1,
-   [itm_power_ashaman_ranged, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
+   [itm_power_player, itm_power_ammo, itm_ashaman_coat, itm_black_leather_boots, itm_saddle_horse],
    def_attrib_wot_infantry_3,wp_firearm(200)|wp_one_handed(150)|wp(125),knows_wot_infantry_3|knows_power_draw_5,man_face_young_1, man_face_old_2],
   
     ["legion_crossbowman_multi","Legion Crossbowman","Legion Crossbowmen",tf_guarantee_all,0,0,fac_kingdom_1,
@@ -5787,19 +5799,19 @@ troops = [
 #    itm_leather_cap,itm_padded_leather,itm_nomad_boots],
 #   def_attrib|level(19),wp_melee(100)|wp_crossbow(120),knows_common|knows_ironflesh_4|knows_shield_5|knows_power_strike_3|knows_athletics_6,rhodok_face_middle_1, rhodok_face_older_2],
   ["rhodok_veteran_crossbowman_multiplayer_ai","Novice","Novices",tf_female|tf_guarantee_all,0,0,fac_kingdom_5,
-   [itm_power_novice_ranged, itm_power_ammo, itm_channeler_dagger, itm_novice_dress, itm_novice_accepted_damane_shoes], # , itm_wig_brown_ponytail
+   [itm_power_player, itm_power_ammo, itm_channeler_dagger, itm_novice_dress, itm_novice_accepted_damane_shoes], # , itm_wig_brown_ponytail
    def_attrib|level(5),wp_firearm(100)|wp_one_handed(90)|wp(70),knows_common|knows_power_draw_2,tar_valon_woman_face_younger, tear_woman_face_middle],
   ["accepted_medical_multi","Accepted","Accepted",tf_female|tf_guarantee_all,0,0,fac_kingdom_5,
-   [itm_power_accepted_ranged, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_blond_longer
+   [itm_power_player, itm_power_ammo, itm_accepted_dress, itm_novice_accepted_damane_shoes], # , itm_wig_blond_longer
    def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2,tar_valon_woman_face_younger, far_madding_woman_face_middle],
   ["aes_sedai_white_multi","Aes Sedai White","Aes Sedai Whites",tf_female|tf_guarantee_all,0,0,fac_kingdom_5,
-   [itm_power_white_ajah_ranged, itm_power_ammo, itm_aes_sedai_white_dress, itm_aes_sedai_white_shoes], # , itm_wig_black_long
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_white_dress, itm_aes_sedai_white_shoes], # , itm_wig_black_long
    def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_young, ghealdan_woman_face_old],
   ["aes_sedai_grey_multi","Aes Sedai Grey","Aes Sedai Greys",tf_female|tf_guarantee_all,0,0,fac_kingdom_5,
-   [itm_power_grey_ajah_ranged, itm_power_ammo, itm_aes_sedai_grey_dress, itm_aes_sedai_grey_shoes], # , itm_wig_red_braid
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_grey_dress, itm_aes_sedai_grey_shoes], # , itm_wig_red_braid
    def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_young, saldaea_woman_face_old],
   ["aes_sedai_red_multi","Aes Sedai Red","Aes Sedai Reds",tf_female|tf_guarantee_all,0,0,fac_kingdom_5,
-   [itm_power_red_ajah_ranged, itm_power_ammo, itm_aes_sedai_red_dress, itm_aes_sedai_red_shoes], # , itm_wig_brown_bun
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_red_dress, itm_aes_sedai_red_shoes], # , itm_wig_brown_bun
    def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,tar_valon_woman_face_young, arafel_woman_face_old],
   ["tower_guard_crossbowman_multi","Tower Guard Crossbowman","Tower Guard Crossbowmen",tf_guarantee_all,0,0,fac_kingdom_5,
    [itm_crossbow, itm_bolts, itm_sword_medieval_a, itm_white_tower_guard_armor, itm_segmented_helmet, itm_leather_boots, itm_leather_gloves],
@@ -5835,16 +5847,16 @@ troops = [
 #    itm_skullcap,itm_leather_jerkin,itm_leather_boots,itm_saddle_horse],
 #   def_attrib|level(19),wp(100),knows_riding_5|knows_ironflesh_2|knows_power_strike_2|knows_shield_1|knows_horse_archery_2|knows_power_throw_3,rhodok_face_young_1, rhodok_face_older_2],
   ["rhodok_scout_multiplayer_ai","Aes Sedai Yellow Veteran","Aes Sedai Yellow Veterans",tf_female|tf_guarantee_all,0,0,fac_kingdom_5,
-   [itm_power_yellow_ajah_ranged, itm_power_ammo, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_courser], # , itm_wig_black_bun
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_courser], # , itm_wig_black_bun
    def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, cairhien_woman_face_older],
   ["aes_sedai_brown_veteran_multi","Aes Sedai Brown Veteran","Aes Sedai Brown Veterans",tf_female|tf_guarantee_all,0,0,fac_kingdom_5,
-   [itm_power_brown_ajah_ranged, itm_power_ammo, itm_aes_sedai_brown_dress, itm_veteran_aes_sedai_brown_shoes, itm_courser], # , itm_wig_brown_bun
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_brown_dress, itm_veteran_aes_sedai_brown_shoes, itm_courser], # , itm_wig_brown_bun
    def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, andor_woman_face_older],
   ["aes_sedai_blue_veteran_multi","Aes Sedai Blue Veteran","Aes Sedai Blue Veterans",tf_female|tf_guarantee_all,0,0,fac_kingdom_5,
-   [itm_power_blue_ajah_ranged, itm_power_ammo, itm_aes_sedai_blue_dress, itm_veteran_aes_sedai_blue_shoes, itm_courser], # , itm_wig_white_longer
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_blue_dress, itm_veteran_aes_sedai_blue_shoes, itm_courser], # , itm_wig_white_longer
    def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, aiel_2_woman_face_older],
   ["aes_sedai_green_veteran_multi","Aes Sedai Green Veteran","Aes Sedai Green Veterans",tf_female|tf_guarantee_all,0,0,fac_kingdom_5,
-   [itm_power_green_ajah_ranged, itm_power_ammo, itm_aes_sedai_green_dress, itm_veteran_aes_sedai_green_shoes, itm_courser], # , itm_wig_red_long
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_green_dress, itm_veteran_aes_sedai_green_shoes, itm_courser], # , itm_wig_red_long
    def_attrib|level(20),wp_firearm(200)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2,tar_valon_woman_face_middle, saldaea_woman_face_older],
   ["warder_veteran_multi","Warder Veteran","Warder Veterans",tf_guarantee_all,0,0,fac_kingdom_5,
    [itm_great_sword, itm_sword_viking_2_small, itm_khergit_elite_armor, itm_khergit_guard_helmet, itm_splinted_greaves, itm_lamellar_gauntlets,itm_hunter],
@@ -5887,10 +5899,10 @@ troops = [
 #   [itm_arrows,itm_nomad_bow,itm_arabian_sword_a,itm_archers_vest,itm_sarranid_boots_b,itm_sarranid_helmet1,itm_turban,itm_desert_turban],
 #   def_attrib|level(19),wp_melee(90)|wp_archery(100),knows_common|knows_riding_2|knows_ironflesh_1,swadian_face_young_1, swadian_face_old_2],
   ["sarranid_archer_multiplayer_ai","Wise One Apprentice","Wise One Apprentices",tf_female|tf_guarantee_all,0,0,fac_kingdom_6,
-   [itm_power_aiel_wise_one_apprentice_ranged, itm_power_ammo, itm_wise_one_dress, itm_cadinsor_boots],
+   [itm_power_player, itm_power_ammo, itm_wise_one_dress, itm_cadinsor_boots],
   def_attrib|level(10),wp_firearm(120)|wp_one_handed(110)|wp(75),knows_common|knows_power_draw_2, aiel_1_woman_face_younger, aiel_2_woman_face_middle],
   ["wise_one_multi","Wise One","Wise Ones",tf_female|tf_guarantee_all,0,0,fac_kingdom_6,
-   [itm_power_aiel_wise_one_ranged, itm_power_ammo, itm_wise_one_dress_with_shawl, itm_cadinsor_boots],
+   [itm_power_player, itm_power_ammo, itm_wise_one_dress_with_shawl, itm_cadinsor_boots],
    def_attrib|level(16),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3, aiel_1_woman_face_young, aiel_2_woman_face_old],
   ["aiel_scout_multi","Aiel Scout","Aiel Scouts",tf_guarantee_all,0,0,fac_kingdom_6,
    [itm_nomad_bow, itm_arrows, itm_aiel_spear, itm_cadinsor_green, itm_shoufa_green, itm_cadinsor_boots_green],
@@ -5899,7 +5911,7 @@ troops = [
    [itm_nomad_bow, itm_arrows, itm_aiel_knife, itm_cadinsor_green, itm_shoufa_green, itm_cadinsor_boots_green],
    def_attrib_wot_super_infantry_4 ,wp_archery(165)|wp_one_handed(145)|wp(120),knows_wot_super_infantry_4 ,aiel_1_man_face_younger, aiel_2_man_face_old],
   ["wise_one_dream_walker_multi","Wise One Dream Walker","Wise One Dream Walkers",tf_female|tf_guarantee_all,0,0,fac_kingdom_6,
-   [itm_power_aiel_wise_one_veteran_ranged, itm_power_ammo, itm_wise_one_dress_with_shawl, itm_cadinsor_boots],
+   [itm_power_player, itm_power_ammo, itm_wise_one_dress_with_shawl, itm_cadinsor_boots],
    def_attrib|level(20),wp_firearm(200)|wp_one_handed(125)|wp(90),knows_common|knows_power_draw_3, aiel_1_woman_face_middle, aiel_2_woman_face_older],
   ["maiden_of_the_spear_multi","Maiden of the Spear","Maidens of the Spear",tf_female|tf_guarantee_all,0,0,fac_kingdom_6,
    [itm_khergit_bow, itm_arrows, itm_arrows, itm_aiel_knife, itm_cadinsor, itm_shoufa, itm_cadinsor_boots],
@@ -5954,7 +5966,7 @@ troops = [
    [itm_der_suldam_dagger, itm_suldam_dress, itm_suldam_boots],
    def_attrib_wot_infantry_3,wp_one_handed(135)|wp(90),knows_wot_infantry_3,seanchan_1_woman_face_younger, seanchan_2_woman_face_older],
   ["damane_multi","Damane","Damane",tf_female|tf_guarantee_all,0,0,fac_kingdom_7,
-   [itm_power_damane_ranged, itm_power_ammo, itm_damane_dress, itm_damane_boots],
+   [itm_power_player, itm_power_ammo, itm_damane_dress, itm_damane_boots],
    def_attrib|level(18),wp_firearm(190)|wp_one_handed(110)|wp(90),knows_common|knows_power_draw_3|knows_riding_2, seanchan_1_woman_face_younger, seanchan_2_woman_face_older],
   ["seanchan_marksman_multi","Seanchan Marksman","Seanchan Marksmen",tf_guarantee_all,0,0,fac_kingdom_7,
    [itm_war_bow, itm_arrows, itm_arrows, itm_seanchan_sword, itm_seanchan_middle_armor, itm_seanchan_middle_helmet, itm_seanchan_middle_boots, itm_seanchan_middle_gloves],
@@ -6035,16 +6047,16 @@ troops = [
    [itm_strong_bow,itm_arrows,itm_arrows, itm_sword_secondary, itm_trolloc_goat_helmet, itm_trolloc_weak_armor, itm_black_mail_gauntlets, itm_black_leather_boots],
     def_attrib_wot_super_infantry_4 ,wp_archery(175)|wp_one_handed(145)|wp(70),knows_wot_super_infantry_4,man_face_young_1, man_face_old_2],
   ["darkfriend_channeler_multi","Darkfriend Channeler","Darkfriend Channelers",tf_guarantee_all,0,0,fac_kingdom_8,
-   [itm_power_ashaman_soldier_ranged, itm_power_ammo, itm_sword_secondary, itm_darkfriend_tunic, itm_leather_boots],
+   [itm_power_player, itm_power_ammo, itm_sword_secondary, itm_darkfriend_tunic, itm_leather_boots],
    def_attrib_wot_infantry_1,wp_firearm(105)|wp_one_handed(100)|wp(75),knows_wot_infantry_1|knows_power_draw_2,man_face_young_1, man_face_old_2],
   ["aes_sedai_black_multi","Aes Sedai Black","Aes Sedai Blacks",tf_female|tf_guarantee_all,0,0,fac_kingdom_8,
-   [itm_power_black_ajah_ranged, itm_power_ammo, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes], # , itm_wig_brown_bun
+   [itm_power_player, itm_power_ammo, itm_aes_sedai_black_ajah_dress, itm_aes_sedai_black_ajah_shoes], # , itm_wig_brown_bun
    def_attrib|level(15),wp_firearm(150)|wp_one_handed(110)|wp(80),knows_common|knows_power_draw_3,woman_face_1, woman_face_2],
   ["draghkar_multi","Draghkar","Draghkar",tf_myrddraal|tf_guarantee_all,0,0,fac_kingdom_8,
    [itm_draghkar_dagger, itm_draghkar_tunic, itm_draghkar_helmet, itm_black_leather_boots, itm_draghkar_gloves],
    str_10|agi_7|int_5|cha_5|level(20),wp_one_handed(100)|wp(90),knows_wot_infantry_2, man_face_young_1, man_face_old_2],
   ["dreadlord_multi","Dreadlord","Dreadlords",tf_guarantee_all,0,0,fac_kingdom_8,
-   [itm_power_dreadlord_ranged, itm_power_ammo, itm_dreadlord_coat, itm_black_leather_boots, itm_saddle_horse],
+   [itm_power_player, itm_power_ammo, itm_dreadlord_coat, itm_black_leather_boots, itm_saddle_horse],
    def_attrib_wot_infantry_3,wp_firearm(200)|wp_one_handed(150)|wp(125),knows_wot_infantry_3|knows_power_draw_5,man_face_young_1, man_face_old_2],
   ["darkfriend_marksman_multi","Darkfriend Marksman","Darkfriend Marksmen",tf_guarantee_all,0,0,fac_kingdom_8,
    [itm_strong_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_sword_secondary, itm_darkfriend_armor, itm_leather_boots, itm_mail_mittens, itm_guard_helmet],
@@ -6056,7 +6068,7 @@ troops = [
   ["darkfriend_leader_multi","Darkfriend Leader","Darkfriend Leader",tf_guarantee_all,0,0,fac_kingdom_8,
    [itm_heavy_lance, itm_darkfriend_shield_strong, itm_darkfriend_plate, itm_black_leather_boots, itm_black_mail_gauntlets, itm_bascinet_3, itm_hunter],
    def_attrib_wot_cavalry_4 ,wp_polearm(160)|wp(115),knows_wot_cavalry_4, man_face_young_1, man_face_old_2],
-  
+   
    
 ##############################
 ##############################
@@ -6248,29 +6260,29 @@ troops = [
   ["log_array_faction_object",        "{!}Local Merchant","{!}Local Merchant",tf_guarantee_boots|tf_guarantee_armor, 0,0, fac_commoners,[itm_leather_apron,itm_leather_boots,itm_butchering_knife],def_attrib|level(5),wp(40),knows_power_strike_1, merchant_face_1, merchant_face_2],
 
 # changed for TGS
-  ["quick_battle_troop_1","The Dragon Reborn Rand al'Thor",  "Rand",  tf_hero, 0,0,  fac_kingdom_1,[itm_lord_warhorse_5, itm_rich_outfit, itm_leather_boots, itm_shynbaulds_wot, itm_legion_plate, itm_gauntlets, itm_power_player, itm_large_heron_mark_blade], knight_attrib_5,wpex(100,300,100,100,50,50),knight_skills_5|knows_trainer_5, 0x00000000990c1001271c8dc71a6d36d300000000001db70d0000000000000000],
+  ["quick_battle_troop_1","The Dragon Reborn Rand al'Thor",  "Rand",  tf_hero, 0,0,  fac_kingdom_1,[itm_lord_warhorse_5, itm_rich_outfit, itm_leather_boots, itm_shynbaulds_wot, itm_legion_plate, itm_gauntlets, itm_power_player, itm_large_heron_mark_blade], knight_attrib_5,wpex(100,300,100,100,50,50),knight_skills_5|knows_trainer_5|knows_power_draw_10|knows_channeling_10|knows_fire_10|knows_earth_10|knows_spirit_10|knows_water_10|knows_air_10, 0x00000000990c1001271c8dc71a6d36d300000000001db70d0000000000000000],
   
-  ["quick_battle_troop_2","al'Lan Mandragoran",  "Lan",  tf_hero, 0,0,  fac_kingdom_4,[itm_heavy_charger, itm_nobleman_outfit, itm_leather_boots, itm_steel_greaves_wot, itm_shienar_captain_armor, itm_shienar_captain_gauntlets, itm_winged_great_helmet, itm_seanchan_large_sword, itm_heavy_lance, itm_seanchan_straight_sword, itm_shienar_shield_strong], knight_attrib_5,wpex(250,325,250,150,150,150),knight_skills_5|knows_trainer_4, 0x0000000b2c04500348628a4b5b72259400000000001e453a0000000000000000],
+  ["quick_battle_troop_2","al'Lan Mandragoran",  "Lan",  tf_hero, 0,0,  fac_kingdom_21,[itm_heavy_charger, itm_nobleman_outfit, itm_leather_boots, itm_steel_greaves_wot, itm_shienar_captain_armor, itm_shienar_captain_gauntlets, itm_winged_great_helmet, itm_seanchan_large_sword, itm_heavy_lance, itm_seanchan_straight_sword, itm_shienar_shield_strong], knight_attrib_5,wpex(250,325,250,150,150,150),knight_skills_5|knows_trainer_4, 0x0000000b2c04500348628a4b5b72259400000000001e453a0000000000000000],
   
-  ["quick_battle_troop_3","Clan Chief Rhuarc",  "Rhuarc",  tf_hero, 0,0,  fac_kingdom_6,[itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_aiel_knife, itm_javelin, itm_hide_buckler_strong], knight_attrib_5,wpex(250,100,300,100,100,200),knight_skills_5|knows_trainer_5|knows_athletics_9, 0x0000000dd90c100167f4ef4732ad475400000000001dc74c0000000000000000],
+  ["quick_battle_troop_3","Clan Chief Rhuarc",  "Rhuarc",  tf_hero, 0,0,  fac_kingdom_22,[itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_aiel_knife, itm_javelin, itm_hide_buckler_strong], knight_attrib_5,wpex(250,100,300,100,100,200),knight_skills_5|knows_trainer_5|knows_athletics_9, 0x0000000dd90c100167f4ef4732ad475400000000001dc74c0000000000000000],
   
-  ["quick_battle_troop_4","Shaidar Haran",  "Shaidar Haran",  tf_hero|tf_myrddraal, 0,0,  fac_kingdom_8,[itm_myrddraal_horse, itm_myrddraal_armor, itm_black_leather_boots, itm_myrddraal_hood_helmet, itm_black_mail_gauntlets, itm_myrddraal_blade], knight_attrib_5,wpex(150,300,100,250,100,100),knight_skills_5|knows_trainer_5|knows_athletics_7, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
+  ["quick_battle_troop_4","Shaidar Haran",  "Shaidar Haran",  tf_hero|tf_myrddraal, 0,0,  fac_kingdom_24,[itm_myrddraal_horse, itm_myrddraal_armor, itm_black_leather_boots, itm_myrddraal_hood_helmet, itm_black_mail_gauntlets, itm_myrddraal_blade], knight_attrib_5,wpex(150,300,100,250,100,100),knight_skills_5|knows_trainer_5|knows_athletics_7, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
   
-  ["quick_battle_troop_5","Matrim Cauthon", "Mat", tf_hero, 0, 0,  fac_kingdom_1, [itm_hunter, itm_mats_hat, itm_red_hand_plate, itm_red_hand_greaves, itm_leather_gloves, itm_ashandarei, itm_throwing_knives, itm_throwing_knives], knight_attrib_5,wpex(150,150,350,150,100,200),knight_skills_5|knows_trainer_7, 0x000000003d04100448dc92392471c91c00000000001d47250000000000000000],
+  ["quick_battle_troop_5","Matrim Cauthon", "Mat", tf_hero, 0, 0,  fac_kingdom_2, [itm_hunter, itm_mats_hat, itm_red_hand_plate, itm_red_hand_greaves, itm_leather_gloves, itm_ashandarei, itm_throwing_knives, itm_throwing_knives], knight_attrib_5,wpex(150,150,350,150,100,200),knight_skills_5|knows_trainer_7, 0x000000003d04100448dc92392471c91c00000000001d47250000000000000000],
   
-  ["quick_battle_troop_6","Perrin Aybara", "Perrin", tf_hero, 0, 0,  fac_kingdom_1, [itm_hunter, itm_two_rivers_armor, itm_leather_boots, itm_leather_gloves, itm_warhammer, itm_illian_seax], knight_attrib_5,wpex(250,300,150,100,100,100),knight_skills_5|knows_trainer_4, 0x00000002270022434795b6b9634f66ea00000000001e58d20000000000000000],
+  ["quick_battle_troop_6","Perrin Aybara", "Perrin", tf_hero, 0, 0,  fac_kingdom_3, [itm_hunter, itm_two_rivers_armor, itm_leather_boots, itm_leather_gloves, itm_warhammer, itm_illian_seax], knight_attrib_5,wpex(250,300,150,100,100,100),knight_skills_5|knows_trainer_4, 0x00000002270022434795b6b9634f66ea00000000001e58d20000000000000000],
 
-  ["quick_battle_troop_7","Tam al'Thor", "Tam", tf_hero, 0, 0,  fac_kingdom_1, [itm_hunter, itm_two_rivers_armor, itm_leather_boots, itm_leather_gloves, itm_two_rivers_long_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_seanchan_large_sword], knight_attrib_4,wpex(150,275,300,300,100,100),knight_skills_4|knows_trainer_4, andor_man_face_old],
+  ["quick_battle_troop_7","Tam al'Thor", "Tam", tf_hero, 0, 0,  fac_kingdom_3, [itm_hunter, itm_two_rivers_armor, itm_leather_boots, itm_leather_gloves, itm_two_rivers_long_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_seanchan_large_sword], knight_attrib_4,wpex(150,275,300,300,100,100),knight_skills_4|knows_trainer_4, andor_man_face_old],
   
   ["quick_battle_troop_8","Lord Davram Bashere", "Davram", tf_hero, 0, 0,  fac_kingdom_1, [itm_lord_warhorse_1, itm_vaegir_elite_armor, itm_splinted_greaves, itm_khergit_guard_helmet, itm_lamellar_gauntlets, itm_heavy_lance, itm_khergit_sword_two_handed_b, itm_sword_khergit_4, itm_saldaea_shield_strong], knight_attrib_5,wpex(250,275,250,300,100,100),knight_skills_5|knows_trainer_4, saldaea_man_face_old],
   
-  ["quick_battle_troop_9","Nynaeve Sedai", "Nynaeve", tf_hero|tf_female, 0, 0,  fac_kingdom_5, [itm_hunter, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_power_player, itm_cudgel], knight_attrib_3,wpex(200,100,100,100,100,100),knight_skills_3|knows_trainer_4, andor_woman_face_young],
+  ["quick_battle_troop_9","Nynaeve Sedai", "Nynaeve", tf_hero|tf_female, 0, 0,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_power_player, itm_cudgel], knight_attrib_3,wpex(200,100,100,100,100,100),knight_skills_3|knows_trainer_4|knows_power_draw_9|knows_channeling_9|knows_fire_9|knows_earth_9|knows_spirit_10|knows_water_9|knows_air_9, andor_woman_face_young],
   
-  ["quick_battle_troop_10","Captain General Birgitte Silverbow", "Birgitte", tf_hero|tf_female, 0, reserved,  fac_kingdom_3, [itm_lord_warhorse_4, itm_andor_plate, itm_leather_boots, itm_leather_gloves, itm_war_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_sword_medieval_b_small], knight_attrib_4,wpex(250,100,100,350,100,100),knight_skills_4|knows_trainer_4, 0x00000001800000024cccd288cc39a36e00000000001edd080000000000000000],
+  ["quick_battle_troop_10","Captain General Birgitte Silverbow", "Birgitte", tf_hero|tf_female, 0, reserved,  fac_kingdom_11, [itm_lord_warhorse_4, itm_andor_plate, itm_leather_boots, itm_leather_gloves, itm_war_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_sword_medieval_b_small], knight_attrib_4,wpex(250,100,100,350,100,100),knight_skills_4|knows_trainer_4, 0x00000001800000024cccd288cc39a36e00000000001edd080000000000000000],
   
-  ["quick_battle_troop_11","Banner-General Furyk Karede", "Karede", tf_hero, 0, reserved,  fac_kingdom_7, [itm_arabian_horse_b, itm_deathwatch_guard_armor, itm_deathwatch_guard_helmet, itm_deathwatch_guard_boots, itm_deathwatch_guard_gloves, itm_seanchan_large_sword, itm_heavy_lance], knight_attrib_5,wpex(150,275,275,100,100,100),knight_skills_5|knows_trainer_4, seanchan_1_man_face_old],
+  ["quick_battle_troop_11","Banner-General Furyk Karede", "Karede", tf_hero, 0, reserved,  fac_kingdom_23, [itm_arabian_horse_b, itm_deathwatch_guard_armor, itm_deathwatch_guard_helmet, itm_deathwatch_guard_boots, itm_deathwatch_guard_gloves, itm_seanchan_large_sword, itm_heavy_lance], knight_attrib_5,wpex(150,275,275,100,100,100),knight_skills_5|knows_trainer_4, seanchan_1_man_face_old],
 
-  ["quick_battle_troop_12","Trolloc Clan Chief", "Trolloc Clan Chief", tf_hero|tf_trolloc, 0, reserved,  fac_kingdom_8, [itm_trolloc_strong_armor, itm_black_leather_boots, itm_black_mail_gauntlets, itm_trolloc_goat_helmet, itm_great_long_bardiche, itm_street_patrol_club], knight_attrib_5,wpex(250,150,300,150,100,100),knight_skills_5|knows_trainer_5|knows_athletics_10, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
+  ["quick_battle_troop_12","Trolloc Clan Chief", "Trolloc Clan Chief", tf_hero|tf_trolloc, 0, reserved,  fac_kingdom_24, [itm_trolloc_strong_armor, itm_black_leather_boots, itm_black_mail_gauntlets, itm_trolloc_goat_helmet, itm_great_long_bardiche, itm_street_patrol_club], knight_attrib_5,wpex(250,150,300,150,100,100),knight_skills_5|knows_trainer_5|knows_athletics_10, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000],
 
   ["quick_battle_troops_end","{!}quick_battle_troops_end","{!}quick_battle_troops_end", 0, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
 
@@ -6717,6 +6729,7 @@ upgrade2(troops, "aiel_grappler", "black_eye", "true_blood")
 #Channlers
 upgrade(troops, "seanchan_recruit_channeler", "suldam")
 upgrade(troops, "suldam", "der_suldam") # no upgrade path to damane because they will spawn with their sul'dam
+upgrade(troops, "damane", "damane_veteran") # only upgrade within the damane class
 #Soldiers
 #upgrade2(troops, "seanchan_recruit_soldier", "seanchan_armsman", "seanchan_conquered_ally")
 
@@ -6752,8 +6765,9 @@ upgrade(troops,"trolloc_archer","trolloc_stalker")
 upgrade(troops,"trolloc_stalker","draghkar")
 #Darkfriends
 #upgrade2(troops,"shadowspawn_recruit_human","darkfriend_channeler","darkfriend_initiate")
-upgrade(troops,"darkfriend_channeler","aes_sedai_black")
-upgrade(troops,"aes_sedai_black","dreadlord")
+upgrade(troops,"darkfriend_channeler","darkfriend_wilder")
+upgrade(troops,"darkfriend_wilder","dreadlord")
+upgrade(troops,"darkfriend_channeler_female","aes_sedai_black")
 upgrade2(troops,"darkfriend_initiate","darkfriend_murderer","darkfriend_ambusher")
 upgrade(troops,"darkfriend_murderer","darkfriend_assassin")
 upgrade2(troops,"darkfriend_ambusher","darkfriend_leader","darkfriend_marksman")

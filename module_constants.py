@@ -24,8 +24,8 @@ slot_item_urban_demand             = 11 #consumer demand for a good in town, mea
 slot_item_rural_demand             = 12 #consumer demand in villages, measured in abstract units
 slot_item_desert_demand            = 13 #consumer demand in villages, measured in abstract units
 
-slot_item_production_slot          = 14 
-slot_item_production_string        = 15 
+slot_item_production_slot          = 14
+slot_item_production_string        = 15
 
 slot_item_tied_to_good_price       = 20 #ie, weapons and metal armor to tools, padded to cloth, leather to leatherwork, etc
 
@@ -82,10 +82,7 @@ slot_agent_walker_occupation      = 25
 
 ### New TGS Slots
 
-# note: mat: will probably end up getting rid of these seeker slot eventually
-slot_agent_has_active_seeker      = 26    ## (0 = false, 1 = true)
-slot_agent_seeker_shooter         = 27    ## ID of agent who shot the seeker
-# end
+
 
 ## Natural Inclination Weave Slots ## (loi = Level of Importance)
 slot_agent_ni_air_blast_loi             = 101
@@ -220,6 +217,11 @@ slot_agent_compelled_start_team     = 462    ## Original team of agent who is co
 slot_agent_hit_by_balefire          = 471    ## (0 = false, 1 = true)
 slot_agent_balefire_shooter         = 472    ## ID of agent who shot the balefire
 
+# note: mat: will probably end up getting rid of these seeker slot eventually
+slot_agent_has_active_seeker      = 500    ## (0 = false, 1 = true)
+slot_agent_seeker_shooter         = 501    ## ID of agent who shot the seeker
+# end
+
 
 ### End TGS Slots
     
@@ -242,7 +244,10 @@ slot_faction_temp_slot                  = 12
 ##slot_faction_vassal_of            = 11
 slot_faction_banner                     = 15
 
-slot_faction_number_of_parties    = 20
+##diplomacy start+
+slot_faction_number_of_parties    = 20#Deprecated, use slot_faction_num_parties instead
+slot_faction_num_parties          = slot_faction_number_of_parties
+##diplomacy end+
 slot_faction_state                = 21
 
 slot_faction_adjective            = 22
@@ -342,6 +347,12 @@ slot_faction_truce_days_with_factions_begin 			= 120
 slot_faction_provocation_days_with_factions_begin 		= 130
 slot_faction_war_damage_inflicted_on_factions_begin 	= 140
 slot_faction_sum_advice_about_factions_begin 			= 150
+##diplomacy start+ end-points for the ranges for iteration and range checks
+slot_faction_truce_days_with_factions_end 			= slot_faction_provocation_days_with_factions_begin
+slot_faction_provocation_days_with_factions_end 		= slot_faction_war_damage_inflicted_on_factions_begin
+slot_faction_war_damage_inflicted_on_factions_end 	= slot_faction_sum_advice_about_factions_begin
+slot_faction_sum_advice_about_factions_end			= 160
+##diplomacy end+
 
 # Added for TGS
 # quick battle upgrade
@@ -383,14 +394,14 @@ slot_faction_channeler_troop         = 185
 	# reGonalist/dynastic (based around an alternate ruling house
 	# regionalist/republican
 	# messianic (ie, Canudos)
-	
+
 ##diplomacy start+
 #Treaty lengths.  Use these constants instead of "magic numbers" to make it
 #obvious what code is supposed to do, and also make it easy to change the
 #lengths without having to go through the entire mod.
 
 # Truces (as exist in Native)
-dplmc_treaty_truce_days_initial    = 20 
+dplmc_treaty_truce_days_initial    = 20
 dplmc_treaty_truce_days_expire     =  0
 
 #Trade treaties convert to truces after 20 days.
@@ -402,7 +413,7 @@ dplmc_treaty_defense_days_initial  = 60
 dplmc_treaty_defense_days_expire   = dplmc_treaty_trade_days_initial
 
 #Alliances convert to defensive alliances after 20 days.
-dplmc_treaty_alliance_days_initial = 80 
+dplmc_treaty_alliance_days_initial = 80
 dplmc_treaty_alliance_days_expire  = dplmc_treaty_defense_days_initial
 
 #Define these by name to make them more clear in the source code.
@@ -413,7 +424,7 @@ dplmc_treaty_defense_days_half_done = (dplmc_treaty_defense_days_initial + dplmc
 dplmc_treaty_alliance_days_half_done = (dplmc_treaty_alliance_days_initial + dplmc_treaty_alliance_days_expire) // 2
 
 ##diplomacy end+
-	
+
 ########################################################
 ##  PARTY SLOTS            #############################
 ########################################################
@@ -449,6 +460,10 @@ slot_town_merchant      = 23
 slot_town_horse_merchant= 24
 slot_town_elder         = 25
 slot_center_player_relation = 26
+##diplomacy start+ This range doesn't need to be exhaustive (e.g. the seneschal isn't included), but it should be continuous
+dplmc_slot_town_merchants_begin = slot_town_tavernkeeper
+dplmc_slot_town_merchants_end = slot_town_elder + 1
+##diplomacy end+
 
 slot_center_siege_with_belfry = 27
 slot_center_last_taken_by_troop = 28
@@ -523,7 +538,7 @@ argument_ruler        = 2 #deprecate for commons
 argument_commons      = 2
 
 argument_benefit      = 3 #deprecate for reward
-argument_reward       = 3 
+argument_reward       = 3
 
 argument_victory      = 4
 argument_lords        = 5
@@ -580,7 +595,7 @@ slot_party_home_center            = 123 #Only use with caravans and villagers
 slot_center_current_improvement   = 124
 slot_center_improvement_end_hour  = 125
 
-slot_party_last_traded_center     = 126 
+slot_party_last_traded_center     = 126
 
 
 
@@ -670,18 +685,18 @@ slot_town_trade_routes_end = slot_town_trade_route_15 + 1
 num_trade_goods = itm_siege_supply - itm_spice
 slot_town_trade_good_productions_begin       = 500 #a harmless number, until it can be deprecated
 
-#These affect production but in some cases also demand, so it is perhaps easier to itemize them than to have separate 
+#These affect production but in some cases also demand, so it is perhaps easier to itemize them than to have separate
 
-slot_village_number_of_cattle            = 205
+slot_village_number_of_cattle   = 205
 slot_center_head_cattle         = 205 #dried meat, cheese, hides, butter
 slot_center_head_sheep			= 206 #sausages, wool
-slot_center_head_horses		 	= 207 #horses can be a trade item used in tracking ,but which are never offered for sale
+slot_center_head_horses		 	= 207 #horses can be a trade item used in tracking but which are never offered for sale
 
-slot_center_acres_pasture       = 208
+slot_center_acres_pasture       = 208 #pasture area for grazing of cattles and sheeps, if this value is high then number of cattles and sheeps increase faster
 slot_center_acres_grain			= 209 #grain
-slot_center_acres_olives        = 210 #nothing for now
+slot_center_acres_olives        = 210 #olives
 slot_center_acres_vineyard		= 211 #fruit
-slot_center_acres_flax          = 212 #flax - can be used for sailcloth
+slot_center_acres_flax          = 212 #flax
 slot_center_acres_dates			= 213 #dates
 
 slot_center_fishing_fleet		= 214 #smoked fish
@@ -693,8 +708,6 @@ slot_center_kirmiz_farms		= 218 #dyes
 
 slot_center_iron_deposits       = 219 #iron
 slot_center_fur_traps			= 220 #furs
-#timber
-#pitch
 
 slot_center_mills				= 221 #bread
 slot_center_breweries			= 222 #ale
@@ -851,7 +864,7 @@ slot_troop_occupation          = 2  # 0 = free, 1 = merchant
 #homage_feudal   =              = 3 #
 
 
-slot_troop_state               = 3  
+slot_troop_state               = 3
 slot_troop_last_talk_time      = 4
 slot_troop_met                 = 5 #i also use this for the courtship state -- may become cumbersome
 slot_troop_courtship_state     = 5 #2 professed admiration, 3 agreed to seek a marriage, 4 ended relationship
@@ -906,10 +919,16 @@ slot_troop_father              = 31
 slot_troop_mother              = 32
 slot_troop_guardian            = 33 #Usually siblings are identified by a common parent.This is used for brothers if the father is not an active npc. At some point we might introduce geneologies
 slot_troop_betrothed           = 34 #Obviously superseded once slot_troop_spouse is filled
-#other relations are derived from one's parents 
+#other relations are derived from one's parents
 #slot_troop_daughter            = 33
 #slot_troop_son                 = 34
 #slot_troop_sibling             = 35
+	##diplomacy start+
+	#NOTE TO MODDERS: There is code that depends on these slots appearing in the correct order and being continuous.
+dplmc_slot_troop_relatives_begin = slot_troop_spouse
+dplmc_slot_troop_relatives_end   = slot_troop_betrothed
+dplmc_slot_troop_relatives_including_betrothed_end = slot_troop_betrothed + 1
+	##diplomacy end+
 slot_troop_love_interest_1     = 35 #each unmarried lord has three love interests
 slot_troop_love_interest_2     = 36
 slot_troop_love_interest_3     = 37
@@ -956,6 +975,13 @@ slot_lord_recruitment_argument        = 53 #the last argument proposed by the pl
 slot_lord_recruitment_candidate       = 54 #the last candidate proposed by the player to the lord
 
 slot_troop_change_to_faction          = 55
+
+##diplomacy start+ Use this slot to track owned center points (village = 1, castle = 2, town = 3)
+#The value should be one more than the actual number of center points, because it makes
+#it obvious when the slot has not been initialized.  (It also so happens that we often
+#add 1 to the value anyway to avoid division by 0, so this can be convenient.)
+dplmc_slot_troop_center_points_plus_one = 56
+##diplomacy end+
 
 #slot_troop_readiness_to_join_army     = 57 #possibly deprecate
 #slot_troop_readiness_to_follow_orders = 58 #possibly deprecate
@@ -1125,14 +1151,14 @@ slot_troop_enemy_routed_agents                  = 148
 
 #Special quest slots
 slot_troop_mission_participation        = 149
-mp_unaware                              = 0 
-mp_stay_out                             = 1 
-mp_prison_break_fight                   = 2 
-mp_prison_break_stand_back              = 3 
-mp_prison_break_escaped                 = 4 
-mp_prison_break_caught                  = 5 
+mp_unaware                              = 0
+mp_stay_out                             = 1
+mp_prison_break_fight                   = 2
+mp_prison_break_stand_back              = 3
+mp_prison_break_escaped                 = 4
+mp_prison_break_caught                  = 5
 
-#Below are some constants to expand the political system a bit. The idea is to make quarrels less random, but instead make them serve a rational purpose -- as a disincentive to lords to seek 
+#Below are some constants to expand the political system a bit. The idea is to make quarrels less random, but instead make them serve a rational purpose -- as a disincentive to lords to seek
 
 slot_troop_controversy                     = 150 #Determines whether or not a troop is likely to receive fief or marshalship
 slot_troop_recent_offense_type 	           = 151 #failure to join army, failure to support colleague
@@ -1153,457 +1179,459 @@ tro_failed_to_support_colleague            = 2
 slot_troop_will_join_prison_break      = 161
 
 
+troop_slots_reserved_for_relations_start        = 165 #this is based on id_troops, and might change # trp_kingdom_1_lord
+
+## TGS: trp_heroes_end = 1065  ##  as of version 0.2.7  ## not sure what to do with the above constant
+
 ## added for TGS
-slot_troop_recruit_primary             = 173  # this will be a number from 1 to 8 which will determine what recruitment option a lord will use.
-slot_troop_recruit_secondary           = 174
+slot_troop_recruit_primary             = 1173  # this will be a number from 1 to 8 which will determine what recruitment option a lord will use.
+slot_troop_recruit_secondary           = 1174
 
-slot_troop_darkfriend_buff             = 180  # (0 if false, 1 if true)# was 165
+slot_troop_darkfriend_buff             = 1180  # (0 if false, 1 if true)# was 165
 
-slot_troop_npc_companion_primary_weave    = 191  # (0, or the number of one of the ranged/support/advanced weaves)
-slot_troop_npc_companion_secondary_weave  = 192  # (0, or the number of one of the ranged/support/advanced weaves)
-slot_troop_npc_companion_known_weaves     = 193  # number of weaves the companion knows. (1 to 11, since short range weaves aren't an option)
-slot_troop_npc_companion_is_channeler     = 194  # (0 if false, 1 if true) Added because I could not look up firearm (channeling) proficiency within the module_item.py file.
+slot_troop_npc_companion_primary_weave    = 1191  # (0, or the number of one of the ranged/support/advanced weaves)
+slot_troop_npc_companion_secondary_weave  = 1192  # (0, or the number of one of the ranged/support/advanced weaves)
+slot_troop_npc_companion_known_weaves     = 1193  # number of weaves the companion knows. (1 to 11, since short range weaves aren't an option)
+slot_troop_npc_companion_is_channeler     = 1194  # (0 if false, 1 if true) Added because I could not look up firearm (channeling) proficiency within the module_item.py file.
 
 # Seeker slots
-slot_troop_num_seekers_active   = 200
+slot_troop_num_seekers_active   = 1200
 
-slot_troop_seeker_1     = 201
-slot_troop_seeker_2     = 202
-slot_troop_seeker_3     = 203
-slot_troop_seeker_4     = 204
-slot_troop_seeker_5     = 205
-slot_troop_seeker_6     = 206
-slot_troop_seeker_7     = 207
-slot_troop_seeker_8     = 208
-slot_troop_seeker_9     = 209
-slot_troop_seeker_10    = 210
-slot_troop_seeker_11    = 211
-slot_troop_seeker_12    = 212
-slot_troop_seeker_13    = 213
-slot_troop_seeker_14    = 214
-slot_troop_seeker_15    = 215
-slot_troop_seeker_16    = 216
-slot_troop_seeker_17    = 217
-slot_troop_seeker_18    = 218
-slot_troop_seeker_19    = 219
-slot_troop_seeker_20    = 220
-slot_troop_seeker_21    = 221
-slot_troop_seeker_22    = 222
-slot_troop_seeker_23    = 223
-slot_troop_seeker_24    = 224
-slot_troop_seeker_25    = 225
-slot_troop_seeker_26    = 226
-slot_troop_seeker_27    = 227
-slot_troop_seeker_28    = 228
-slot_troop_seeker_29    = 229
-slot_troop_seeker_30    = 230
-slot_troop_seeker_31    = 231
-slot_troop_seeker_32    = 232
-slot_troop_seeker_33    = 233
-slot_troop_seeker_34    = 234
-slot_troop_seeker_35    = 235
-slot_troop_seeker_36    = 236
-slot_troop_seeker_37    = 237
-slot_troop_seeker_38    = 238
-slot_troop_seeker_39    = 239
-slot_troop_seeker_40    = 240
-slot_troop_seeker_41    = 241
-slot_troop_seeker_42    = 242
-slot_troop_seeker_43    = 243
-slot_troop_seeker_44    = 244
-slot_troop_seeker_45    = 245
-slot_troop_seeker_46    = 246
-slot_troop_seeker_47    = 247
-slot_troop_seeker_48    = 248
-slot_troop_seeker_49    = 249
-slot_troop_seeker_50    = 250
+slot_troop_seeker_1     = 1201
+slot_troop_seeker_2     = 1202
+slot_troop_seeker_3     = 1203
+slot_troop_seeker_4     = 1204
+slot_troop_seeker_5     = 1205
+slot_troop_seeker_6     = 1206
+slot_troop_seeker_7     = 1207
+slot_troop_seeker_8     = 1208
+slot_troop_seeker_9     = 1209
+slot_troop_seeker_10    = 1210
+slot_troop_seeker_11    = 1211
+slot_troop_seeker_12    = 1212
+slot_troop_seeker_13    = 1213
+slot_troop_seeker_14    = 1214
+slot_troop_seeker_15    = 1215
+slot_troop_seeker_16    = 1216
+slot_troop_seeker_17    = 1217
+slot_troop_seeker_18    = 1218
+slot_troop_seeker_19    = 1219
+slot_troop_seeker_20    = 1220
+slot_troop_seeker_21    = 1221
+slot_troop_seeker_22    = 1222
+slot_troop_seeker_23    = 1223
+slot_troop_seeker_24    = 1224
+slot_troop_seeker_25    = 1225
+slot_troop_seeker_26    = 1226
+slot_troop_seeker_27    = 1227
+slot_troop_seeker_28    = 1228
+slot_troop_seeker_29    = 1229
+slot_troop_seeker_30    = 1230
+slot_troop_seeker_31    = 1231
+slot_troop_seeker_32    = 1232
+slot_troop_seeker_33    = 1233
+slot_troop_seeker_34    = 1234
+slot_troop_seeker_35    = 1235
+slot_troop_seeker_36    = 1236
+slot_troop_seeker_37    = 1237
+slot_troop_seeker_38    = 1238
+slot_troop_seeker_39    = 1239
+slot_troop_seeker_40    = 1240
+slot_troop_seeker_41    = 1241
+slot_troop_seeker_42    = 1242
+slot_troop_seeker_43    = 1243
+slot_troop_seeker_44    = 1244
+slot_troop_seeker_45    = 1245
+slot_troop_seeker_46    = 1246
+slot_troop_seeker_47    = 1247
+slot_troop_seeker_48    = 1248
+slot_troop_seeker_49    = 1249
+slot_troop_seeker_50    = 1250
 
-slot_troop_seeker_1_target      = 251
-slot_troop_seeker_2_target      = 252
-slot_troop_seeker_3_target      = 253
-slot_troop_seeker_4_target      = 254
-slot_troop_seeker_5_target      = 255
-slot_troop_seeker_6_target      = 256
-slot_troop_seeker_7_target      = 257
-slot_troop_seeker_8_target      = 258
-slot_troop_seeker_9_target      = 259
-slot_troop_seeker_10_target     = 260
-slot_troop_seeker_11_target     = 261
-slot_troop_seeker_12_target     = 262
-slot_troop_seeker_13_target     = 263
-slot_troop_seeker_14_target     = 264
-slot_troop_seeker_15_target     = 265
-slot_troop_seeker_16_target     = 266
-slot_troop_seeker_17_target     = 267
-slot_troop_seeker_18_target     = 268
-slot_troop_seeker_19_target     = 269
-slot_troop_seeker_20_target     = 270
-slot_troop_seeker_21_target     = 271
-slot_troop_seeker_22_target     = 272
-slot_troop_seeker_23_target     = 273
-slot_troop_seeker_24_target     = 274
-slot_troop_seeker_25_target     = 275
-slot_troop_seeker_26_target     = 276
-slot_troop_seeker_27_target     = 277
-slot_troop_seeker_28_target     = 278
-slot_troop_seeker_29_target     = 279
-slot_troop_seeker_30_target     = 280
-slot_troop_seeker_31_target     = 281
-slot_troop_seeker_32_target     = 282
-slot_troop_seeker_33_target     = 283
-slot_troop_seeker_34_target     = 284
-slot_troop_seeker_35_target     = 285
-slot_troop_seeker_36_target     = 286
-slot_troop_seeker_37_target     = 287
-slot_troop_seeker_38_target     = 288
-slot_troop_seeker_39_target     = 289
-slot_troop_seeker_40_target     = 290
-slot_troop_seeker_41_target     = 291
-slot_troop_seeker_42_target     = 292
-slot_troop_seeker_43_target     = 293
-slot_troop_seeker_44_target     = 294
-slot_troop_seeker_45_target     = 295
-slot_troop_seeker_46_target     = 296
-slot_troop_seeker_47_target     = 297
-slot_troop_seeker_48_target     = 298
-slot_troop_seeker_49_target     = 299
-slot_troop_seeker_50_target     = 300
+slot_troop_seeker_1_target      = 1251
+slot_troop_seeker_2_target      = 1252
+slot_troop_seeker_3_target      = 1253
+slot_troop_seeker_4_target      = 1254
+slot_troop_seeker_5_target      = 1255
+slot_troop_seeker_6_target      = 1256
+slot_troop_seeker_7_target      = 1257
+slot_troop_seeker_8_target      = 1258
+slot_troop_seeker_9_target      = 1259
+slot_troop_seeker_10_target     = 1260
+slot_troop_seeker_11_target     = 1261
+slot_troop_seeker_12_target     = 1262
+slot_troop_seeker_13_target     = 1263
+slot_troop_seeker_14_target     = 1264
+slot_troop_seeker_15_target     = 1265
+slot_troop_seeker_16_target     = 1266
+slot_troop_seeker_17_target     = 1267
+slot_troop_seeker_18_target     = 1268
+slot_troop_seeker_19_target     = 1269
+slot_troop_seeker_20_target     = 1270
+slot_troop_seeker_21_target     = 1271
+slot_troop_seeker_22_target     = 1272
+slot_troop_seeker_23_target     = 1273
+slot_troop_seeker_24_target     = 1274
+slot_troop_seeker_25_target     = 1275
+slot_troop_seeker_26_target     = 1276
+slot_troop_seeker_27_target     = 1277
+slot_troop_seeker_28_target     = 1278
+slot_troop_seeker_29_target     = 1279
+slot_troop_seeker_30_target     = 1280
+slot_troop_seeker_31_target     = 1281
+slot_troop_seeker_32_target     = 1282
+slot_troop_seeker_33_target     = 1283
+slot_troop_seeker_34_target     = 1284
+slot_troop_seeker_35_target     = 1285
+slot_troop_seeker_36_target     = 1286
+slot_troop_seeker_37_target     = 1287
+slot_troop_seeker_38_target     = 1288
+slot_troop_seeker_39_target     = 1289
+slot_troop_seeker_40_target     = 1290
+slot_troop_seeker_41_target     = 1291
+slot_troop_seeker_42_target     = 1292
+slot_troop_seeker_43_target     = 1293
+slot_troop_seeker_44_target     = 1294
+slot_troop_seeker_45_target     = 1295
+slot_troop_seeker_46_target     = 1296
+slot_troop_seeker_47_target     = 1297
+slot_troop_seeker_48_target     = 1298
+slot_troop_seeker_49_target     = 1299
+slot_troop_seeker_50_target     = 1300
 
-slot_troop_seeker_1_shooter      = 301
-slot_troop_seeker_2_shooter      = 302
-slot_troop_seeker_3_shooter      = 303
-slot_troop_seeker_4_shooter      = 304
-slot_troop_seeker_5_shooter      = 305
-slot_troop_seeker_6_shooter      = 306
-slot_troop_seeker_7_shooter      = 307
-slot_troop_seeker_8_shooter      = 308
-slot_troop_seeker_9_shooter      = 309
-slot_troop_seeker_10_shooter     = 310
-slot_troop_seeker_11_shooter     = 311
-slot_troop_seeker_12_shooter     = 312
-slot_troop_seeker_13_shooter     = 313
-slot_troop_seeker_14_shooter     = 314
-slot_troop_seeker_15_shooter     = 315
-slot_troop_seeker_16_shooter     = 316
-slot_troop_seeker_17_shooter     = 317
-slot_troop_seeker_18_shooter     = 318
-slot_troop_seeker_19_shooter     = 319
-slot_troop_seeker_20_shooter     = 320
-slot_troop_seeker_21_shooter     = 321
-slot_troop_seeker_22_shooter     = 322
-slot_troop_seeker_23_shooter     = 323
-slot_troop_seeker_24_shooter     = 324
-slot_troop_seeker_25_shooter     = 325
-slot_troop_seeker_26_shooter     = 326
-slot_troop_seeker_27_shooter     = 327
-slot_troop_seeker_28_shooter     = 328
-slot_troop_seeker_29_shooter     = 329
-slot_troop_seeker_30_shooter     = 330
-slot_troop_seeker_31_shooter     = 331
-slot_troop_seeker_32_shooter     = 332
-slot_troop_seeker_33_shooter     = 333
-slot_troop_seeker_34_shooter     = 334
-slot_troop_seeker_35_shooter     = 335
-slot_troop_seeker_36_shooter     = 336
-slot_troop_seeker_37_shooter     = 337
-slot_troop_seeker_38_shooter     = 338
-slot_troop_seeker_39_shooter     = 339
-slot_troop_seeker_40_shooter     = 340
-slot_troop_seeker_41_shooter     = 341
-slot_troop_seeker_42_shooter     = 342
-slot_troop_seeker_43_shooter     = 343
-slot_troop_seeker_44_shooter     = 344
-slot_troop_seeker_45_shooter     = 345
-slot_troop_seeker_46_shooter     = 346
-slot_troop_seeker_47_shooter     = 347
-slot_troop_seeker_48_shooter     = 348
-slot_troop_seeker_49_shooter     = 349
-slot_troop_seeker_50_shooter     = 350
+slot_troop_seeker_1_shooter      = 1301
+slot_troop_seeker_2_shooter      = 1302
+slot_troop_seeker_3_shooter      = 1303
+slot_troop_seeker_4_shooter      = 1304
+slot_troop_seeker_5_shooter      = 1305
+slot_troop_seeker_6_shooter      = 1306
+slot_troop_seeker_7_shooter      = 1307
+slot_troop_seeker_8_shooter      = 1308
+slot_troop_seeker_9_shooter      = 1309
+slot_troop_seeker_10_shooter     = 1310
+slot_troop_seeker_11_shooter     = 1311
+slot_troop_seeker_12_shooter     = 1312
+slot_troop_seeker_13_shooter     = 1313
+slot_troop_seeker_14_shooter     = 1314
+slot_troop_seeker_15_shooter     = 1315
+slot_troop_seeker_16_shooter     = 1316
+slot_troop_seeker_17_shooter     = 1317
+slot_troop_seeker_18_shooter     = 1318
+slot_troop_seeker_19_shooter     = 1319
+slot_troop_seeker_20_shooter     = 1320
+slot_troop_seeker_21_shooter     = 1321
+slot_troop_seeker_22_shooter     = 1322
+slot_troop_seeker_23_shooter     = 1323
+slot_troop_seeker_24_shooter     = 1324
+slot_troop_seeker_25_shooter     = 1325
+slot_troop_seeker_26_shooter     = 1326
+slot_troop_seeker_27_shooter     = 1327
+slot_troop_seeker_28_shooter     = 1328
+slot_troop_seeker_29_shooter     = 1329
+slot_troop_seeker_30_shooter     = 1330
+slot_troop_seeker_31_shooter     = 1331
+slot_troop_seeker_32_shooter     = 1332
+slot_troop_seeker_33_shooter     = 1333
+slot_troop_seeker_34_shooter     = 1334
+slot_troop_seeker_35_shooter     = 1335
+slot_troop_seeker_36_shooter     = 1336
+slot_troop_seeker_37_shooter     = 1337
+slot_troop_seeker_38_shooter     = 1338
+slot_troop_seeker_39_shooter     = 1339
+slot_troop_seeker_40_shooter     = 1340
+slot_troop_seeker_41_shooter     = 1341
+slot_troop_seeker_42_shooter     = 1342
+slot_troop_seeker_43_shooter     = 1343
+slot_troop_seeker_44_shooter     = 1344
+slot_troop_seeker_45_shooter     = 1345
+slot_troop_seeker_46_shooter     = 1346
+slot_troop_seeker_47_shooter     = 1347
+slot_troop_seeker_48_shooter     = 1348
+slot_troop_seeker_49_shooter     = 1349
+slot_troop_seeker_50_shooter     = 1350
 
-slot_troop_seeker_1_current_x    = 351
-slot_troop_seeker_2_current_x    = 352
-slot_troop_seeker_3_current_x    = 353
-slot_troop_seeker_4_current_x    = 354
-slot_troop_seeker_5_current_x    = 355
-slot_troop_seeker_6_current_x    = 356
-slot_troop_seeker_7_current_x    = 357
-slot_troop_seeker_8_current_x    = 358
-slot_troop_seeker_9_current_x    = 359
-slot_troop_seeker_10_current_x   = 360
-slot_troop_seeker_11_current_x   = 361
-slot_troop_seeker_12_current_x   = 362
-slot_troop_seeker_13_current_x   = 363
-slot_troop_seeker_14_current_x   = 364
-slot_troop_seeker_15_current_x   = 365
-slot_troop_seeker_16_current_x   = 366
-slot_troop_seeker_17_current_x   = 367
-slot_troop_seeker_18_current_x   = 368
-slot_troop_seeker_19_current_x   = 369
-slot_troop_seeker_20_current_x   = 370
-slot_troop_seeker_21_current_x   = 371
-slot_troop_seeker_22_current_x   = 372
-slot_troop_seeker_23_current_x   = 373
-slot_troop_seeker_24_current_x   = 374
-slot_troop_seeker_25_current_x   = 375
-slot_troop_seeker_26_current_x   = 376
-slot_troop_seeker_27_current_x   = 377
-slot_troop_seeker_28_current_x   = 378
-slot_troop_seeker_29_current_x   = 379
-slot_troop_seeker_30_current_x   = 380
-slot_troop_seeker_31_current_x   = 381
-slot_troop_seeker_32_current_x   = 382
-slot_troop_seeker_33_current_x   = 383
-slot_troop_seeker_34_current_x   = 384
-slot_troop_seeker_35_current_x   = 385
-slot_troop_seeker_36_current_x   = 386
-slot_troop_seeker_37_current_x   = 387
-slot_troop_seeker_38_current_x   = 388
-slot_troop_seeker_39_current_x   = 389
-slot_troop_seeker_40_current_x   = 390
-slot_troop_seeker_41_current_x   = 391
-slot_troop_seeker_42_current_x   = 392
-slot_troop_seeker_43_current_x   = 393
-slot_troop_seeker_44_current_x   = 394
-slot_troop_seeker_45_current_x   = 395
-slot_troop_seeker_46_current_x   = 396
-slot_troop_seeker_47_current_x   = 397
-slot_troop_seeker_48_current_x   = 398
-slot_troop_seeker_49_current_x   = 399
-slot_troop_seeker_50_current_x   = 400
+slot_troop_seeker_1_current_x    = 1351
+slot_troop_seeker_2_current_x    = 1352
+slot_troop_seeker_3_current_x    = 1353
+slot_troop_seeker_4_current_x    = 1354
+slot_troop_seeker_5_current_x    = 1355
+slot_troop_seeker_6_current_x    = 1356
+slot_troop_seeker_7_current_x    = 1357
+slot_troop_seeker_8_current_x    = 1358
+slot_troop_seeker_9_current_x    = 1359
+slot_troop_seeker_10_current_x   = 1360
+slot_troop_seeker_11_current_x   = 1361
+slot_troop_seeker_12_current_x   = 1362
+slot_troop_seeker_13_current_x   = 1363
+slot_troop_seeker_14_current_x   = 1364
+slot_troop_seeker_15_current_x   = 1365
+slot_troop_seeker_16_current_x   = 1366
+slot_troop_seeker_17_current_x   = 1367
+slot_troop_seeker_18_current_x   = 1368
+slot_troop_seeker_19_current_x   = 1369
+slot_troop_seeker_20_current_x   = 1370
+slot_troop_seeker_21_current_x   = 1371
+slot_troop_seeker_22_current_x   = 1372
+slot_troop_seeker_23_current_x   = 1373
+slot_troop_seeker_24_current_x   = 1374
+slot_troop_seeker_25_current_x   = 1375
+slot_troop_seeker_26_current_x   = 1376
+slot_troop_seeker_27_current_x   = 1377
+slot_troop_seeker_28_current_x   = 1378
+slot_troop_seeker_29_current_x   = 1379
+slot_troop_seeker_30_current_x   = 1380
+slot_troop_seeker_31_current_x   = 1381
+slot_troop_seeker_32_current_x   = 1382
+slot_troop_seeker_33_current_x   = 1383
+slot_troop_seeker_34_current_x   = 1384
+slot_troop_seeker_35_current_x   = 1385
+slot_troop_seeker_36_current_x   = 1386
+slot_troop_seeker_37_current_x   = 1387
+slot_troop_seeker_38_current_x   = 1388
+slot_troop_seeker_39_current_x   = 1389
+slot_troop_seeker_40_current_x   = 1390
+slot_troop_seeker_41_current_x   = 1391
+slot_troop_seeker_42_current_x   = 1392
+slot_troop_seeker_43_current_x   = 1393
+slot_troop_seeker_44_current_x   = 1394
+slot_troop_seeker_45_current_x   = 1395
+slot_troop_seeker_46_current_x   = 1396
+slot_troop_seeker_47_current_x   = 1397
+slot_troop_seeker_48_current_x   = 1398
+slot_troop_seeker_49_current_x   = 1399
+slot_troop_seeker_50_current_x   = 1400
 
-slot_troop_seeker_1_current_y    = 401
-slot_troop_seeker_2_current_y    = 402
-slot_troop_seeker_3_current_y    = 403
-slot_troop_seeker_4_current_y    = 404
-slot_troop_seeker_5_current_y    = 405
-slot_troop_seeker_6_current_y    = 406
-slot_troop_seeker_7_current_y    = 407
-slot_troop_seeker_8_current_y    = 408
-slot_troop_seeker_9_current_y    = 409
-slot_troop_seeker_10_current_y   = 410
-slot_troop_seeker_11_current_y   = 411
-slot_troop_seeker_12_current_y   = 412
-slot_troop_seeker_13_current_y   = 413
-slot_troop_seeker_14_current_y   = 414
-slot_troop_seeker_15_current_y   = 415
-slot_troop_seeker_16_current_y   = 416
-slot_troop_seeker_17_current_y   = 417
-slot_troop_seeker_18_current_y   = 418
-slot_troop_seeker_19_current_y   = 419
-slot_troop_seeker_20_current_y   = 420
-slot_troop_seeker_21_current_y   = 421
-slot_troop_seeker_22_current_y   = 422
-slot_troop_seeker_23_current_y   = 423
-slot_troop_seeker_24_current_y   = 424
-slot_troop_seeker_25_current_y   = 425
-slot_troop_seeker_26_current_y   = 426
-slot_troop_seeker_27_current_y   = 427
-slot_troop_seeker_28_current_y   = 428
-slot_troop_seeker_29_current_y   = 429
-slot_troop_seeker_30_current_y   = 430
-slot_troop_seeker_31_current_y   = 431
-slot_troop_seeker_32_current_y   = 432
-slot_troop_seeker_33_current_y   = 433
-slot_troop_seeker_34_current_y   = 434
-slot_troop_seeker_35_current_y   = 435
-slot_troop_seeker_36_current_y   = 436
-slot_troop_seeker_37_current_y   = 437
-slot_troop_seeker_38_current_y   = 438
-slot_troop_seeker_39_current_y   = 439
-slot_troop_seeker_40_current_y   = 440
-slot_troop_seeker_41_current_y   = 441
-slot_troop_seeker_42_current_y   = 442
-slot_troop_seeker_43_current_y   = 443
-slot_troop_seeker_44_current_y   = 444
-slot_troop_seeker_45_current_y   = 445
-slot_troop_seeker_46_current_y   = 446
-slot_troop_seeker_47_current_y   = 447
-slot_troop_seeker_48_current_y   = 448
-slot_troop_seeker_49_current_y   = 449
-slot_troop_seeker_50_current_y   = 450
+slot_troop_seeker_1_current_y    = 1401
+slot_troop_seeker_2_current_y    = 1402
+slot_troop_seeker_3_current_y    = 1403
+slot_troop_seeker_4_current_y    = 1404
+slot_troop_seeker_5_current_y    = 1405
+slot_troop_seeker_6_current_y    = 1406
+slot_troop_seeker_7_current_y    = 1407
+slot_troop_seeker_8_current_y    = 1408
+slot_troop_seeker_9_current_y    = 1409
+slot_troop_seeker_10_current_y   = 1410
+slot_troop_seeker_11_current_y   = 1411
+slot_troop_seeker_12_current_y   = 1412
+slot_troop_seeker_13_current_y   = 1413
+slot_troop_seeker_14_current_y   = 1414
+slot_troop_seeker_15_current_y   = 1415
+slot_troop_seeker_16_current_y   = 1416
+slot_troop_seeker_17_current_y   = 1417
+slot_troop_seeker_18_current_y   = 1418
+slot_troop_seeker_19_current_y   = 1419
+slot_troop_seeker_20_current_y   = 1420
+slot_troop_seeker_21_current_y   = 1421
+slot_troop_seeker_22_current_y   = 1422
+slot_troop_seeker_23_current_y   = 1423
+slot_troop_seeker_24_current_y   = 1424
+slot_troop_seeker_25_current_y   = 1425
+slot_troop_seeker_26_current_y   = 1426
+slot_troop_seeker_27_current_y   = 1427
+slot_troop_seeker_28_current_y   = 1428
+slot_troop_seeker_29_current_y   = 1429
+slot_troop_seeker_30_current_y   = 1430
+slot_troop_seeker_31_current_y   = 1431
+slot_troop_seeker_32_current_y   = 1432
+slot_troop_seeker_33_current_y   = 1433
+slot_troop_seeker_34_current_y   = 1434
+slot_troop_seeker_35_current_y   = 1435
+slot_troop_seeker_36_current_y   = 1436
+slot_troop_seeker_37_current_y   = 1437
+slot_troop_seeker_38_current_y   = 1438
+slot_troop_seeker_39_current_y   = 1439
+slot_troop_seeker_40_current_y   = 1440
+slot_troop_seeker_41_current_y   = 1441
+slot_troop_seeker_42_current_y   = 1442
+slot_troop_seeker_43_current_y   = 1443
+slot_troop_seeker_44_current_y   = 1444
+slot_troop_seeker_45_current_y   = 1445
+slot_troop_seeker_46_current_y   = 1446
+slot_troop_seeker_47_current_y   = 1447
+slot_troop_seeker_48_current_y   = 1448
+slot_troop_seeker_49_current_y   = 1449
+slot_troop_seeker_50_current_y   = 1450
 
-slot_troop_seeker_1_speed        = 451
-slot_troop_seeker_2_speed        = 452
-slot_troop_seeker_3_speed        = 453
-slot_troop_seeker_4_speed        = 454
-slot_troop_seeker_5_speed        = 455
-slot_troop_seeker_6_speed        = 456
-slot_troop_seeker_7_speed        = 457
-slot_troop_seeker_8_speed        = 458
-slot_troop_seeker_9_speed        = 459
-slot_troop_seeker_10_speed       = 460
-slot_troop_seeker_11_speed       = 461
-slot_troop_seeker_12_speed       = 462
-slot_troop_seeker_13_speed       = 463
-slot_troop_seeker_14_speed       = 464
-slot_troop_seeker_15_speed       = 465
-slot_troop_seeker_16_speed       = 466
-slot_troop_seeker_17_speed       = 467
-slot_troop_seeker_18_speed       = 468
-slot_troop_seeker_19_speed       = 469
-slot_troop_seeker_20_speed       = 470
-slot_troop_seeker_21_speed       = 471
-slot_troop_seeker_22_speed       = 472
-slot_troop_seeker_23_speed       = 473
-slot_troop_seeker_24_speed       = 474
-slot_troop_seeker_25_speed       = 475
-slot_troop_seeker_26_speed       = 476
-slot_troop_seeker_27_speed       = 477
-slot_troop_seeker_28_speed       = 478
-slot_troop_seeker_29_speed       = 479
-slot_troop_seeker_30_speed       = 480
-slot_troop_seeker_31_speed       = 481
-slot_troop_seeker_32_speed       = 482
-slot_troop_seeker_33_speed       = 483
-slot_troop_seeker_34_speed       = 484
-slot_troop_seeker_35_speed       = 485
-slot_troop_seeker_36_speed       = 486
-slot_troop_seeker_37_speed       = 487
-slot_troop_seeker_38_speed       = 488
-slot_troop_seeker_39_speed       = 489
-slot_troop_seeker_40_speed       = 490
-slot_troop_seeker_41_speed       = 491
-slot_troop_seeker_42_speed       = 492
-slot_troop_seeker_43_speed       = 493
-slot_troop_seeker_44_speed       = 494
-slot_troop_seeker_45_speed       = 495
-slot_troop_seeker_46_speed       = 496
-slot_troop_seeker_47_speed       = 497
-slot_troop_seeker_48_speed       = 498
-slot_troop_seeker_49_speed       = 499
-slot_troop_seeker_50_speed       = 500
+slot_troop_seeker_1_speed        = 1451
+slot_troop_seeker_2_speed        = 1452
+slot_troop_seeker_3_speed        = 1453
+slot_troop_seeker_4_speed        = 1454
+slot_troop_seeker_5_speed        = 1455
+slot_troop_seeker_6_speed        = 1456
+slot_troop_seeker_7_speed        = 1457
+slot_troop_seeker_8_speed        = 1458
+slot_troop_seeker_9_speed        = 1459
+slot_troop_seeker_10_speed       = 1460
+slot_troop_seeker_11_speed       = 1461
+slot_troop_seeker_12_speed       = 1462
+slot_troop_seeker_13_speed       = 1463
+slot_troop_seeker_14_speed       = 1464
+slot_troop_seeker_15_speed       = 1465
+slot_troop_seeker_16_speed       = 1466
+slot_troop_seeker_17_speed       = 1467
+slot_troop_seeker_18_speed       = 1468
+slot_troop_seeker_19_speed       = 1469
+slot_troop_seeker_20_speed       = 1470
+slot_troop_seeker_21_speed       = 1471
+slot_troop_seeker_22_speed       = 1472
+slot_troop_seeker_23_speed       = 1473
+slot_troop_seeker_24_speed       = 1474
+slot_troop_seeker_25_speed       = 1475
+slot_troop_seeker_26_speed       = 1476
+slot_troop_seeker_27_speed       = 1477
+slot_troop_seeker_28_speed       = 1478
+slot_troop_seeker_29_speed       = 1479
+slot_troop_seeker_30_speed       = 1480
+slot_troop_seeker_31_speed       = 1481
+slot_troop_seeker_32_speed       = 1482
+slot_troop_seeker_33_speed       = 1483
+slot_troop_seeker_34_speed       = 1484
+slot_troop_seeker_35_speed       = 1485
+slot_troop_seeker_36_speed       = 1486
+slot_troop_seeker_37_speed       = 1487
+slot_troop_seeker_38_speed       = 1488
+slot_troop_seeker_39_speed       = 1489
+slot_troop_seeker_40_speed       = 1490
+slot_troop_seeker_41_speed       = 1491
+slot_troop_seeker_42_speed       = 1492
+slot_troop_seeker_43_speed       = 1493
+slot_troop_seeker_44_speed       = 1494
+slot_troop_seeker_45_speed       = 1495
+slot_troop_seeker_46_speed       = 1496
+slot_troop_seeker_47_speed       = 1497
+slot_troop_seeker_48_speed       = 1498
+slot_troop_seeker_49_speed       = 1499
+slot_troop_seeker_50_speed       = 1500
 
-slot_troop_seeker_1_power        = 501
-slot_troop_seeker_2_power        = 502
-slot_troop_seeker_3_power        = 503
-slot_troop_seeker_4_power        = 504
-slot_troop_seeker_5_power        = 505
-slot_troop_seeker_6_power        = 506
-slot_troop_seeker_7_power        = 507
-slot_troop_seeker_8_power        = 508
-slot_troop_seeker_9_power        = 509
-slot_troop_seeker_10_power       = 510
-slot_troop_seeker_11_power       = 511
-slot_troop_seeker_12_power       = 512
-slot_troop_seeker_13_power       = 513
-slot_troop_seeker_14_power       = 514
-slot_troop_seeker_15_power       = 515
-slot_troop_seeker_16_power       = 516
-slot_troop_seeker_17_power       = 517
-slot_troop_seeker_18_power       = 518
-slot_troop_seeker_19_power       = 519
-slot_troop_seeker_20_power       = 520
-slot_troop_seeker_21_power       = 521
-slot_troop_seeker_22_power       = 522
-slot_troop_seeker_23_power       = 523
-slot_troop_seeker_24_power       = 524
-slot_troop_seeker_25_power       = 525
-slot_troop_seeker_26_power       = 526
-slot_troop_seeker_27_power       = 527
-slot_troop_seeker_28_power       = 528
-slot_troop_seeker_29_power       = 529
-slot_troop_seeker_30_power       = 530
-slot_troop_seeker_31_power       = 531
-slot_troop_seeker_32_power       = 532
-slot_troop_seeker_33_power       = 533
-slot_troop_seeker_34_power       = 534
-slot_troop_seeker_35_power       = 535
-slot_troop_seeker_36_power       = 536
-slot_troop_seeker_37_power       = 537
-slot_troop_seeker_38_power       = 538
-slot_troop_seeker_39_power       = 539
-slot_troop_seeker_40_power       = 540
-slot_troop_seeker_41_power       = 541
-slot_troop_seeker_42_power       = 542
-slot_troop_seeker_43_power       = 543
-slot_troop_seeker_44_power       = 544
-slot_troop_seeker_45_power       = 545
-slot_troop_seeker_46_power       = 546
-slot_troop_seeker_47_power       = 547
-slot_troop_seeker_48_power       = 548
-slot_troop_seeker_49_power       = 549
-slot_troop_seeker_50_power       = 550
+slot_troop_seeker_1_power        = 1501
+slot_troop_seeker_2_power        = 1502
+slot_troop_seeker_3_power        = 1503
+slot_troop_seeker_4_power        = 1504
+slot_troop_seeker_5_power        = 1505
+slot_troop_seeker_6_power        = 1506
+slot_troop_seeker_7_power        = 1507
+slot_troop_seeker_8_power        = 1508
+slot_troop_seeker_9_power        = 1509
+slot_troop_seeker_10_power       = 1510
+slot_troop_seeker_11_power       = 1511
+slot_troop_seeker_12_power       = 1512
+slot_troop_seeker_13_power       = 1513
+slot_troop_seeker_14_power       = 1514
+slot_troop_seeker_15_power       = 1515
+slot_troop_seeker_16_power       = 1516
+slot_troop_seeker_17_power       = 1517
+slot_troop_seeker_18_power       = 1518
+slot_troop_seeker_19_power       = 1519
+slot_troop_seeker_20_power       = 1520
+slot_troop_seeker_21_power       = 1521
+slot_troop_seeker_22_power       = 1522
+slot_troop_seeker_23_power       = 1523
+slot_troop_seeker_24_power       = 1524
+slot_troop_seeker_25_power       = 1525
+slot_troop_seeker_26_power       = 1526
+slot_troop_seeker_27_power       = 1527
+slot_troop_seeker_28_power       = 1528
+slot_troop_seeker_29_power       = 1529
+slot_troop_seeker_30_power       = 1530
+slot_troop_seeker_31_power       = 1531
+slot_troop_seeker_32_power       = 1532
+slot_troop_seeker_33_power       = 1533
+slot_troop_seeker_34_power       = 1534
+slot_troop_seeker_35_power       = 1535
+slot_troop_seeker_36_power       = 1536
+slot_troop_seeker_37_power       = 1537
+slot_troop_seeker_38_power       = 1538
+slot_troop_seeker_39_power       = 1539
+slot_troop_seeker_40_power       = 1540
+slot_troop_seeker_41_power       = 1541
+slot_troop_seeker_42_power       = 1542
+slot_troop_seeker_43_power       = 1543
+slot_troop_seeker_44_power       = 1544
+slot_troop_seeker_45_power       = 1545
+slot_troop_seeker_46_power       = 1546
+slot_troop_seeker_47_power       = 1547
+slot_troop_seeker_48_power       = 1548
+slot_troop_seeker_49_power       = 1549
+slot_troop_seeker_50_power       = 1550
 
 # Firewall slots
-slot_troop_num_firewalls_active     = 600
+slot_troop_num_firewalls_active     = 1600
 
-slot_troop_firewall_1               = 601
-slot_troop_firewall_2               = 602
-slot_troop_firewall_3               = 603
-slot_troop_firewall_4               = 604
-slot_troop_firewall_5               = 605
-slot_troop_firewall_6               = 606
-slot_troop_firewall_7               = 607
-slot_troop_firewall_8               = 608
-slot_troop_firewall_9               = 609
-slot_troop_firewall_10              = 610
+slot_troop_firewall_1               = 1601
+slot_troop_firewall_2               = 1602
+slot_troop_firewall_3               = 1603
+slot_troop_firewall_4               = 1604
+slot_troop_firewall_5               = 1605
+slot_troop_firewall_6               = 1606
+slot_troop_firewall_7               = 1607
+slot_troop_firewall_8               = 1608
+slot_troop_firewall_9               = 1609
+slot_troop_firewall_10              = 1610
 
-slot_troop_firewall_1_initial_power = 611
-slot_troop_firewall_2_initial_power = 612
-slot_troop_firewall_3_initial_power = 613
-slot_troop_firewall_4_initial_power = 614
-slot_troop_firewall_5_initial_power = 615
-slot_troop_firewall_6_initial_power = 616
-slot_troop_firewall_7_initial_power = 617
-slot_troop_firewall_8_initial_power = 618
-slot_troop_firewall_9_initial_power = 619
-slot_troop_firewall_10_initial_power = 620
+slot_troop_firewall_1_initial_power = 1611
+slot_troop_firewall_2_initial_power = 1612
+slot_troop_firewall_3_initial_power = 1613
+slot_troop_firewall_4_initial_power = 1614
+slot_troop_firewall_5_initial_power = 1615
+slot_troop_firewall_6_initial_power = 1616
+slot_troop_firewall_7_initial_power = 1617
+slot_troop_firewall_8_initial_power = 1618
+slot_troop_firewall_9_initial_power = 1619
+slot_troop_firewall_10_initial_power = 1620
 
-slot_troop_firewall_1_length        = 621
-slot_troop_firewall_2_length        = 622
-slot_troop_firewall_3_length        = 623
-slot_troop_firewall_4_length        = 624
-slot_troop_firewall_5_length        = 625
-slot_troop_firewall_6_length        = 626
-slot_troop_firewall_7_length        = 627
-slot_troop_firewall_8_length        = 628
-slot_troop_firewall_9_length        = 629
-slot_troop_firewall_10_length       = 630
+slot_troop_firewall_1_length        = 1621
+slot_troop_firewall_2_length        = 1622
+slot_troop_firewall_3_length        = 1623
+slot_troop_firewall_4_length        = 1624
+slot_troop_firewall_5_length        = 1625
+slot_troop_firewall_6_length        = 1626
+slot_troop_firewall_7_length        = 1627
+slot_troop_firewall_8_length        = 1628
+slot_troop_firewall_9_length        = 1629
+slot_troop_firewall_10_length       = 1630
 
-slot_troop_firewall_1_radius        = 631
-slot_troop_firewall_2_radius        = 632
-slot_troop_firewall_3_radius        = 633
-slot_troop_firewall_4_radius        = 634
-slot_troop_firewall_5_radius        = 635
-slot_troop_firewall_6_radius        = 636
-slot_troop_firewall_7_radius        = 637
-slot_troop_firewall_8_radius        = 638
-slot_troop_firewall_9_radius        = 639
-slot_troop_firewall_10_radius       = 640
+slot_troop_firewall_1_radius        = 1631
+slot_troop_firewall_2_radius        = 1632
+slot_troop_firewall_3_radius        = 1633
+slot_troop_firewall_4_radius        = 1634
+slot_troop_firewall_5_radius        = 1635
+slot_troop_firewall_6_radius        = 1636
+slot_troop_firewall_7_radius        = 1637
+slot_troop_firewall_8_radius        = 1638
+slot_troop_firewall_9_radius        = 1639
+slot_troop_firewall_10_radius       = 1640
 
-slot_troop_firewall_1_duration      = 641
-slot_troop_firewall_2_duration      = 642
-slot_troop_firewall_3_duration      = 643
-slot_troop_firewall_4_duration      = 644
-slot_troop_firewall_5_duration      = 645
-slot_troop_firewall_6_duration      = 646
-slot_troop_firewall_7_duration      = 647
-slot_troop_firewall_8_duration      = 648
-slot_troop_firewall_9_duration      = 649
-slot_troop_firewall_10_duration     = 650
+slot_troop_firewall_1_duration      = 1641
+slot_troop_firewall_2_duration      = 1642
+slot_troop_firewall_3_duration      = 1643
+slot_troop_firewall_4_duration      = 1644
+slot_troop_firewall_5_duration      = 1645
+slot_troop_firewall_6_duration      = 1646
+slot_troop_firewall_7_duration      = 1647
+slot_troop_firewall_8_duration      = 1648
+slot_troop_firewall_9_duration      = 1649
+slot_troop_firewall_10_duration     = 1650
 
-slot_troop_firewall_1_damage        = 651
-slot_troop_firewall_2_damage        = 652
-slot_troop_firewall_3_damage        = 653
-slot_troop_firewall_4_damage        = 654
-slot_troop_firewall_5_damage        = 655
-slot_troop_firewall_6_damage        = 656
-slot_troop_firewall_7_damage        = 657
-slot_troop_firewall_8_damage        = 658
-slot_troop_firewall_9_damage        = 659
-slot_troop_firewall_10_damage       = 660
+slot_troop_firewall_1_damage        = 1651
+slot_troop_firewall_2_damage        = 1652
+slot_troop_firewall_3_damage        = 1653
+slot_troop_firewall_4_damage        = 1654
+slot_troop_firewall_5_damage        = 1655
+slot_troop_firewall_6_damage        = 1656
+slot_troop_firewall_7_damage        = 1657
+slot_troop_firewall_8_damage        = 1658
+slot_troop_firewall_9_damage        = 1659
+slot_troop_firewall_10_damage       = 1660
 
 
 ## end added for TGS
 
 
-troop_slots_reserved_for_relations_start        = 165 #this is based on id_troops, and might change
-
 slot_troop_relations_begin				= 0 #this creates an array for relations between troops
 											#Right now, lords start at 165 and run to around 290, including pretenders
-											
-											
-											
+
+
+
 ########################################################
 ##  PLAYER SLOTS           #############################
 ########################################################
@@ -1898,7 +1926,7 @@ logent_village_extorted          = 2
 logent_caravan_accosted          = 3 #in caravan accosted, center and troop object are -1, and the defender's faction is the object
 logent_traveller_attacked        = 3 #in traveller attacked, origin and destination are center and troop object, and the attacker's faction is the object
 
-logent_helped_peasants           = 4 
+logent_helped_peasants           = 4
 
 logent_party_traded              = 5
 
@@ -1918,7 +1946,7 @@ logent_pledged_allegiance          = 21
 logent_liege_grants_fief_to_vassal = 22
 
 
-logent_renounced_allegiance      = 23 
+logent_renounced_allegiance      = 23
 
 logent_player_claims_throne_1    		               = 24
 logent_player_claims_throne_2    		               = 25
@@ -1949,7 +1977,7 @@ logent_lord_insults_lord_for_dishonor                  = 43
 
 
 
-logent_game_start                           = 45 
+logent_game_start                           = 45
 logent_poem_composed                        = 46 ##Not added
 logent_tournament_distinguished             = 47 ##Not added
 logent_tournament_won                       = 48 ##Not added
@@ -2011,7 +2039,7 @@ logent_war_declaration_types_end							= 96
 
 #lord reputation type, for commentaries
 #"Martial" will be twice as common as the other types
-lrep_none           = 0 
+lrep_none           = 0
 lrep_martial        = 1 #chivalrous but not terribly empathetic or introspective, - eg Richard Lionheart, your average 14th century French baron
 lrep_quarrelsome    = 2 #spiteful, cynical, a bit paranoid, possibly hotheaded - eg Robert Graves' Tiberius, some of Charles VI's uncles
 lrep_selfrighteous  = 3 #coldblooded, moralizing, often cruel - eg William the Conqueror, Timur, Octavian, Aurangzeb (although he is arguably upstanding instead, particularly after his accession)
@@ -2027,9 +2055,9 @@ lrep_custodian      = 10 #used for commons, specifically ex-companions. Tries to
 #lreps specific to dependent noblewomen
 lrep_conventional    = 21 #Charlotte York in SATC seasons 1-2, probably most medieval aristocrats
 lrep_adventurous     = 22 #Tomboyish. However, this basically means that she likes to travel and hunt, and perhaps yearn for wider adventures. However, medieval noblewomen who fight are rare, and those that attempt to live independently of a man are rarer still, and best represented by pre-scripted individuals like companions
-lrep_otherworldly    = 23 #Prone to mysticism, romantic. 
+lrep_otherworldly    = 23 #Prone to mysticism, romantic.
 lrep_ambitious       = 24 #Lady Macbeth
-lrep_moralist        = 25 #Equivalent of upstanding or benefactor -- takes nobless oblige, and her traditional role as repository of morality, very seriously. Based loosely on Christine de Pisa 
+lrep_moralist        = 25 #Equivalent of upstanding or benefactor -- takes nobless oblige, and her traditional role as repository of morality, very seriously. Based loosely on Christine de Pisa
 
 #a more complicated system of reputation could include the following...
 
@@ -2041,10 +2069,22 @@ lrep_moralist        = 25 #Equivalent of upstanding or benefactor -- takes noble
 #merciful vs cruel/ruthless/sociopathic -- character's general sense of compassion. Sher Shah is example of unscrupulous and merciful (the latter to a degree).
 #dignified vs unconventional -- character's adherance to social conventions. Very important, given the times
 
+##diplomacy start+
+#Define these for clarity and convenience elsewhere
+dplmc_lrep_ladies_begin = lrep_conventional
+dplmc_lrep_ladies_end = lrep_moralist + 1
+
+dplmc_lrep_commoners_begin = lrep_roguish
+dplmc_lrep_commoners_end = dplmc_lrep_ladies_begin
+
+dplmc_lrep_nobles_including_liege_begin = lrep_none
+dplmc_lrep_nobles_begin = lrep_martial
+dplmc_lrep_nobles_end = dplmc_lrep_commoners_begin
+##diplomacy end+
 
 courtship_poem_tragic      = 1 #Emphasizes longing, Laila and Majnoon
 courtship_poem_heroic      = 2 #Norse sagas with female heroines
-courtship_poem_comic       = 3 #Emphasis on witty repartee -- Contrasto (Sicilian school satire) 
+courtship_poem_comic       = 3 #Emphasis on witty repartee -- Contrasto (Sicilian school satire)
 courtship_poem_mystic      = 4 #Sufi poetry. Song of Songs
 courtship_poem_allegoric   = 5 #Idealizes woman as a civilizing force -- the Romance of the Rose, Siege of the Castle of Love
 
@@ -2061,7 +2101,7 @@ courtship_poem_allegoric   = 5 #Idealizes woman as a civilizing force -- the Rom
 tutorial_fighters_begin = "trp_tutorial_fighter_1"
 tutorial_fighters_end   = "trp_tutorial_archer_1"
 
-#Walker types: 
+#Walker types:
 walkert_default            = 0
 walkert_needs_money        = 1
 walkert_needs_money_helped = 2
@@ -2121,6 +2161,7 @@ pretenders_end = kingdom_ladies_begin
 ## V: END EDITED OUT FOR WOT MOD
 lords_begin = "trp_kingdom_1_lord"
 
+#lords_begin = "trp_knight_1_1"
 lords_end = pretenders_begin
 
 kings_begin = "trp_kingdom_1_lord"
@@ -2340,6 +2381,18 @@ village_elders_end     = "trp_merchants_end"
 startup_merchants_begin = "trp_swadian_merchant"
 startup_merchants_end = "trp_startup_merchants_end"
 
+##diplomacy start+
+tournament_champions_begin = "trp_Xerina"
+tournament_champions_end   = "trp_tutorial_trainer"
+
+merchants_begin = armor_merchants_begin
+merchants_end = village_elders_end
+
+dplmc_employees_begin = "trp_dplmc_chamberlain"#Individual employees (chancellor, constable, chamberlain)
+dplmc_employees_end   = "trp_dplmc_messenger"#The messenger is not included, since it's a generic figure rather than a specific person.
+##diplomacy end+
+
+
 num_max_items = 10000 #used for multiplayer mode
 
 average_price_factor = 1000
@@ -2368,7 +2421,7 @@ ranged_weapons_end = "itm_torch"
 armors_begin = "itm_leather_gloves"
 armors_end = "itm_wooden_stick"
 shields_begin = "itm_wooden_shield"
-shields_end = "itm_jarid"
+shields_end = ranged_weapons_begin
 
 # Banner constants
 
@@ -2599,7 +2652,14 @@ ACHIEVEMENT_IRON_BEAR = 72,
 ACHIEVEMENT_LEGENDARY_RASTAM = 73,
 ACHIEVEMENT_SVAROG_THE_MIGHTY = 74,
 
-##diplomacy begin 
+ACHIEVEMENT_MEN_HANDLER = 75,
+ACHIEVEMENT_GIRL_POWER = 76,
+ACHIEVEMENT_QUEEN = 77,
+ACHIEVEMENT_EMPRESS = 78,
+ACHIEVEMENT_TALK_OF_THE_TOWN = 79,
+ACHIEVEMENT_LADY_OF_THE_LAKE = 80,
+
+##diplomacy begin
 # recruiter kit begin
 dplmc_slot_party_recruiter_needed_recruits = 233           # Amount of recruits the employer ordered.
 dplmc_slot_party_recruiter_origin = 234                    # Walled center from where the recruiter was hired.
@@ -2607,6 +2667,11 @@ dplmc_slot_village_reserved_by_recruiter = 235            # This prevents recrui
 dplmc_slot_party_recruiter_needed_recruits_faction = 236   # Alkhadias Master, you forgot this one from the PM you sent me :D
 dplmc_spt_recruiter     = 12
 # recruiter kit end
+##diplomacy start+ Re-use those slots for other party types
+dplmc_slot_party_origin = dplmc_slot_party_recruiter_origin
+dplmc_slot_party_mission_parameter_1 = dplmc_slot_party_recruiter_needed_recruits
+dplmc_slot_party_mission_parameter_2 = dplmc_slot_party_recruiter_needed_recruits_faction
+##diplomacy end+
 
 ###################################################################################
 # AutoLoot: Modified Constants
@@ -2640,8 +2705,11 @@ dplmc_slot_item_type_not_for_sell  = 71
   #### Autoloot improved by rubik end
 
 # These are troops slots
-dplmc_slot_upgrade_armor = 153
-dplmc_slot_upgrade_horse = 154
+##diplomacy start+ Altered because 154 is slot_troop_stance_on_faction_issue.
+#(Companions can become lords, so parts of the auto-loot system had undesired consequences for promoted companions.)
+dplmc_slot_upgrade_armor = 155 #was 153 before Diplomacy 4.0
+dplmc_slot_upgrade_horse = 156 #was 154 before Diplomacy 4.0
+##diplomacy end+
 dplmc_slot_upgrade_wpn_0 = 157
 dplmc_slot_upgrade_wpn_1 = 158
 dplmc_slot_upgrade_wpn_2 = 159
@@ -2714,19 +2782,22 @@ dplmc_spt_gift_caravan                        = 21
 spt_messenger                                 = 8 #no prefix since its outcommented in native
 spt_patrol                                    = 7 #no prefix since its outcommented in native
 spt_scout                                     = 10 #no prefix since its outcommented in native
-dplmc_slot_faction_policy_time                = 200 
-dplmc_slot_faction_centralization             = 201        
-dplmc_slot_faction_aristocracy                = 202        
-dplmc_slot_faction_serfdom                    = 203 
-dplmc_slot_faction_quality                    = 204 
+dplmc_slot_faction_policy_time                = 200
+dplmc_slot_faction_centralization             = 201
+dplmc_slot_faction_aristocracy                = 202
+dplmc_slot_faction_serfdom                    = 203
+dplmc_slot_faction_quality                    = 204
 dplmc_slot_faction_patrol_time                = 205
 ##nested diplomacy start+
 #dplmc_slot_faction_attitude                   = 206 #DEPRECATED - Not used anywhere in Diplomacy 3.3.2
 ##nested diplomacy end+
 dplmc_slot_faction_attitude_begin             = 160
-##diplomacy end 
+##diplomacy end
 ##diplomacy start+ add faction slots for additional policies
 dplmc_slot_faction_mercantilism               = 206 # + mercantilism / - free trade
+
+dplmc_slot_faction_policies_begin = dplmc_slot_faction_centralization #Define these for convenient iteration.  Requires them to be continuous.
+dplmc_slot_faction_policies_end   = dplmc_slot_faction_mercantilism + 1
 
 #For $g_dplmc_terrain_advantage
 DPLMC_TERRAIN_ADVANTAGE_DISABLE     =  -1
@@ -2768,7 +2839,8 @@ DPLMC_AI_CHANGES_HIGH           =   2
 # High:
 #  - The "renown factor" when an NPC lord or the player courts and NPC lady is adjusted by
 #    the prestige of the lady's guardian.
-
+#  - When a faction has fiefless lords and no free fiefs left, under some circumstances
+#    the king will redistribute a village he owns.
 #For $g_dplmc_gold_changes
 DPLMC_GOLD_CHANGES_DISABLE = -1
 DPLMC_GOLD_CHANGES_LOW     =  0
@@ -2861,21 +2933,54 @@ DPLMC_FACTION_STANDING_LEADER_SPOUSE = 50
 DPLMC_FACTION_STANDING_MARSHALL = 40
 DPLMC_FACTION_STANDING_LORD = 30
 DPLMC_FACTION_STANDING_DEPENDENT = 20
-DPLMC_FACTION_STANDING_MEMBER = 10#includes mercenaries 
+DPLMC_FACTION_STANDING_MEMBER = 10#includes mercenaries
 DPLMC_FACTION_STANDING_PETITIONER = 5
 DPLMC_FACTION_STANDING_UNAFFILIATED = 0
 
 
 ## VERSION NUMBERS FOR TRACKING NEEDED CHANGES
+#(These change numbers are only for things which require the game to alter saved games.)
 #Version 0: Diplomacy 3.3.2 and prior, and all Diplomacy 3.3.2+ versions released before 2011-06-06
 #Version 1: The 2011-06-06 release of Diplomacy 3.3.2+
 #Version 110611: The 2011-06-11 release of Diplomacy 3.3.2+.
 #Version 110612
 #Version 110615: Correct "half-siblings"
+#Version 111001: Diplomacy 4.0 for Warband 1.143 (targeted for release on 2011-10-01),
+#    Makes slot_faction_leader and slot_faction_marshall default to -1 instead of 0
+#       (so if the player is the leader of a faction we do not have to check whether
+#       he is actually a member of that faction).  fac_player_faction and
+#       fac_player_supporters_faction are exempt from this.
+#    Sets slot_troop_home for town merchants, elders, etc. and startup merchants
 
-DPLMC_CURRENT_VERSION_CODE = 110615
-DPLMC_VERSION_LOW_8_BITS = 68 #Number that comes after the rest of the version code
+DPLMC_CURRENT_VERSION_CODE = 111005
+DPLMC_VERSION_LOW_7_BITS = 68 #Number that comes after the rest of the version code
 
+DPLMC_DIPLOMACY_VERSION_STRING = "4.1 (October 5, 2011)"
+
+#Perform a check to make sure constants are defined in a reasonable way.
+def _validate_constants(verbose=False):
+    """Makes sure begin/end pairs have length of at least zero."""
+    d = globals()
+    for from_key in d:
+        if not from_key.endswith("_begin"):
+            continue
+        to_key = from_key[:-len("_begin")]+"_end"
+        if not to_key in d:
+            if verbose:
+                print "%s has no matching %s" % (from_key, to_key)
+            continue
+        from_value = d[from_key]
+        to_value = d[to_key]
+        if not type(from_value) in (int, float, long):
+            continue
+        if not from_value <= to_value:
+            raise Exception("ERROR, condition %s <= %s failed [not true that %s <= %s]" % (from_key, to_key, str(from_value), str(to_value)))
+        elif verbose:
+            print "%s <= %s [%s <= %s]" % (from_key, to_key, str(from_value), str(to_value))
+
+#Automatically run this on module import, so errors are detected
+#during building.
+_validate_constants(verbose=(__name__=="__main__"))
 ##diplomacy end+
 
 
@@ -2894,20 +2999,29 @@ waygates_end = "p_salt_mine"
 ### end added for TGS
 #################################################################
 
-
 ## Prebattle Orders & Deployment Begin
-current_version = 88
-slot_party_pbod_mod_version           = 46  #slot_village_player_can_not_steal_cattle
 max_battle_size = 1000 #RESET if you've modded the battlesize
+skirmish_min_distance = 1500 #Min distance you wish maintained, in cm. Where agent will retreat
+skirmish_max_distance = 2500 #Max distance to maintain, in cm. Where agent will stop retreating
+
+#PBOD General
+current_version = 900
+slot_party_pbod_mod_version           = 46  #slot_village_player_can_not_steal_cattle
 #Deployment
 slot_troop_prebattle_first_round      = 37  #slot_lady_no_messages 
-slot_troop_prebattle_array            = 38  #slot_lady_last_suitor 
+#slot_troop_prebattle_array            = 38  #slot_lady_last_suitor 
 slot_troop_prebattle_num_upgrade      = 52  #slot_lord_reputation_type  
 slot_troop_prebattle_preupgrade_check = 39  #slot_troop_betrothal_time   
 slot_party_prebattle_customized_deployment = 47  #slot_center_accumulated_rents  
 slot_party_prebattle_battle_size           = 48  #slot_center_accumulated_tariffs 
 slot_party_prebattle_size_in_battle        = 49  #slot_town_wealth  
 slot_party_prebattle_in_battle_count       = 50  #slot_town_prosperity
+#Split Divisions
+slot_party_prebattle_customized_divisions  = 51  #slot_town_player_odds 
+slot_party_reinforcement_stage 		       = 107 #for main_party_backup
+slot_troop_prebattle_alt_division          = 48  #slot_troop_set_decision_seed
+slot_troop_prebattle_alt_division_percent  = 49  #slot_troop_temp_decision_seed 
+slot_troop_prebattle_alt_division_amount   = 50  #slot_troop_recruitment_random 
 #Troop slots--for soldiers (non-heros, non-lords, non-player) only
 #Party slots--for the main party and main party backup only
 #Orders
@@ -2916,6 +3030,29 @@ slot_party_prebattle_num_orders            = 232 #slot_center_household_gardens
 slot_party_prebattle_order_array_begin     = 250 #slot_town_trade_good_prices_begin 
 #Party slots--for the main party only--up to 320 used in this version
 #reg()s from 6-50 used in this version (only during order presentation)
+#Weather Prof Decrease
+slot_troop_proficiency_modified  = 335
+slot_troop_orig_wpt_archery      = 336
+slot_troop_orig_wpt_crossbow     = 337
+slot_troop_orig_wpt_throwing     = 338
+#Agent Slots
+slot_agent_lance         = 33
+slot_agent_horsebow      = 34
+slot_agent_spear         = 35
+slot_agent_horse         = 36
+slot_agent_volley_fire   = 37
+slot_agent_spearwall     = 38
+slot_agent_player_braced = 39
+slot_agent_alt_div_check = 40
+slot_agent_new_division  = 41
+#Team Slots (so high to allow for formations)
+slot_team_d0_order_weapon     = 300 #plus 8 more for the other divisions
+slot_team_d0_order_shield     = 309 #plus 8 more for the other divisions
+slot_team_d0_order_skirmish   = 318 #plus 8 more for the other divisions
+slot_team_d0_order_volley     = 327 #plus 8 more for the other divisions
+slot_team_d0_order_sp_brace   = 336 #plus 8 more for the other divisions
+
+slot_team_d0_formation_to_resume = 350
 
 #PBOD Preference Slots (used for p_main_party; available 72 - 108)
 slot_party_pref_prefs_set    = 72
@@ -2930,24 +3067,13 @@ slot_party_pref_formations   = slot_town_arena_melee_2_team_size #83
 slot_party_pref_bodyguard    = slot_town_arena_melee_3_num_teams #84
 slot_party_pref_bc_continue  = slot_town_arena_melee_3_team_size #85
 slot_party_pref_bc_charge_ko = slot_town_arena_melee_cur_tier    #86
+slot_party_pref_wp_prof_decrease = 87
 
+#Order Tracking
 slot_party_gk_order          = 108
-slot_party_gk_order_hold_over_there = slot_party_gk_order #for party #2 at the moment
+slot_party_gk_order_hold_over_there = slot_party_gk_order #for party #2 at the moment, also used for backup_party
 
-#Caba'drin Orders & Weapon Fix
-skirmish_min_distance = 1500 #Min distance you wish maintained, in cm. Where agent will retreat
-skirmish_max_distance = 2500 #Max distance to maintain, in cm. Where agent will stop retreating
-
-slot_agent_lance         = 26
-slot_agent_horsebow      = 27
-slot_agent_spear         = 28
-slot_agent_new_division  = 29
-slot_agent_horse         = 30
-slot_agent_horse_rider   = 31
-slot_agent_volley_fire   = 32
-slot_agent_spearwall     = 33
-slot_agent_player_braced = 34
-
+#Order Constants
 ranged    = 0
 onehand   = 1
 twohands  = 2
@@ -2959,17 +3085,9 @@ clear     = -1
 begin     = 1
 end       = 0
 
-slot_team_d0_order_weapon     = 149 #plus 8 more for the other divisions
-slot_team_d0_order_shield     = 158 #plus 8 more for the other divisions
-slot_team_d0_order_skirmish   = 167 #plus 8 more for the other divisions
-slot_team_d0_order_volley     = 176 #plus 8 more for the other divisions
-slot_team_d0_order_sp_brace   = 185 #plus 8 more for the other divisions
 
-from header_triggers import *
-k_order_7 = key_f7
-k_order_8 = key_f8
-k_order_9 = key_f9
-
+#Key definitions moved to globals to allow for in-game remapping
+#See script "prebattle_init_default_keys" and the presentation "pbod_redefine_keys"
 ###################################################################################
 # AutoLoot: Modified Constants
 # Most of these are slot definitions, make sure they do not clash with your mod's other slot usage
@@ -3000,7 +3118,49 @@ slot_item_horse_speed	= slot_item_needs_two_hands
 slot_item_horse_armor	= slot_item_thrust_damage
 slot_item_horse_charge	= slot_item_swing_damage
 # # Autoloot end
-keys = [key_0, key_1, key_2, key_3, key_4, key_5, key_6, key_7, key_8, key_9, key_a, key_b, key_c, key_d, key_e, key_f, key_g, key_h, key_i, key_j, key_k, key_l, key_m, key_n, key_o, key_p, key_q, key_r, key_s, key_t, key_u, key_v, key_w, key_x, key_y, key_z, key_numpad_0, key_numpad_1, key_numpad_2, key_numpad_3, key_numpad_4, key_numpad_5, key_numpad_6, key_numpad_7, key_numpad_8, key_numpad_9, key_num_lock, key_numpad_slash, key_numpad_multiply, key_numpad_minus, key_numpad_plus, key_numpad_enter, key_numpad_period, key_insert, key_delete, key_home, key_end, key_page_up, key_page_down, key_up, key_down, key_left, key_right, key_f1, key_f2, key_f3, key_f4, key_f5, key_f6, key_f7, key_f8, key_f9, key_f10, key_f11, key_f12, key_space, key_escape, key_enter, key_tab, key_back_space, key_open_braces, key_close_braces, key_comma, key_period, key_slash, key_back_slash, key_equals, key_minus, key_semicolon, key_apostrophe, key_tilde, key_caps_lock, key_left_shift, key_right_shift, key_left_control, key_right_control, key_left_alt, key_right_alt]
+
+#-- Dunde's Key Config BEGIN
+#-- Parts to modify as your mod need --------------
+from header_triggers import *
+keys_list = [ 
+              ("$key_camera_forward",key_up),
+              ("$key_camera_backward",key_down),
+	          ("$key_camera_left", key_left),
+	          ("$key_camera_right", key_right),
+			  ("$key_camera_zoom_plus",key_numpad_plus),     #Num + to zoom in
+              ("$key_camera_zoom_min",key_numpad_minus),     #Num - to zoom out
+			  ("$key_camera_next",key_left_mouse_button),    #right key to jump to next bot
+              ("$key_camera_prev",key_right_mouse_button),   #left key to jump to prev bot
+			  ("$key_camera_toggle",key_end),                #END button to toggle camera mode
+	          ("$key_order_7", key_f7),
+	          ("$key_order_8", key_f8),
+	          ("$key_order_9", key_f9),
+			  ("$key_order_10", key_f10),
+	          ("$key_special_0", key_b), #Pike Bracing
+	          ("$key_special_1", key_m), #Whistle for Horse 			 
+			]
+#--------------------------------------------------
+             
+all_keys_list   = [ 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x1e, 0x30, 0x2e, 0x20, 0x12, 0x21, 0x22, 0x23, 0x17, 0x24,
+                    0x25, 0x26, 0x32, 0x31, 0x18, 0x19, 0x10, 0x13, 0x1f, 0x14, 0x16, 0x2f, 0x11, 0x2d, 0x15, 0x2c, 0x52, 0x4f, 0x50, 0x51, 
+                    0x4b, 0x4c, 0x4d, 0x47, 0x48, 0x49, 0x45, 0xb5, 0x37, 0x4a, 0x4e, 0x9c, 0x53, 0xd2, 0xd3, 0xc7, 0xcf, 0xc9, 0xd1, 0xc8, 
+                    0xd0, 0xcb, 0xcd, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f, 0x40, 0x41, 0x42, 0x43, 0x44, 0x57, 0x58, 0x39, 0x1c, 0x0f, 0x0e, 0x1a, 
+                    0x1b, 0x33, 0x34, 0x35, 0x2b, 0x0d, 0x0c, 0x27, 0x28, 0x29, 0x3a, 0x2a, 0x36, 0x1d, 0x9d, 0x38, 0xb8, 0xe0, 0xe1, 0xe2, 
+                    0xe3, 0xe4, 0xe5, 0xe6, 0xe7, 0xee, 0xef, ]
+
+number_of_keys            = len(keys_list)
+number_of_all_keys        = len(all_keys_list)
+two_columns_limit         = 20
+
+slot_default_keys_begin   = 0
+slot_keys_begin           = slot_default_keys_begin + number_of_keys
+slot_key_overlay_begin    = slot_keys_begin         + number_of_keys
+slot_key_defs_begin       = slot_key_overlay_begin  + number_of_keys + number_of_keys
+
+key_config_data = "trp_temp_array_c" #"trp_key_config"
+key_names_begin = "str_key_no1"
+key_label_begin = "str_0x02"
+#-- Dunde's Key Config END
 
 ## Prebattle Orders & Deployment End
 

@@ -75,8 +75,6 @@ map_icons = [
   ("bridge_b",mcn_no_shadow,"map_river_bridge_b", 0.7,0),
   ("bridge_snow_a",mcn_no_shadow,"map_river_bridge_snow_a", 1.27,0),
 
-#  ("bandit_lair",mcn_no_shadow,"map_bandit_lair", 0.45, 0),  
-
   ("custom_banner_01",0,"custom_map_banner_01", banner_scale, 0,
    [
      (ti_on_init_map_icon,
@@ -136,7 +134,6 @@ map_icons = [
   ("banner_19",0,"map_flag_19", banner_scale,0),
   ("banner_20",0,"map_flag_20", banner_scale,0),
   ("banner_21",0,"map_flag_21", banner_scale,0),
-  
   ("banner_22",0,"map_flag_22", banner_scale,0),
   ("banner_23",0,"map_flag_23", banner_scale,0),
   ("banner_24",0,"map_flag_24", banner_scale,0),
@@ -351,7 +348,7 @@ map_icons = [
   ("banner_217",0,"map_flag_f10", banner_scale,0),
 
 
- 
+  
   ("map_flag_kingdom_a",0,"map_flag_kingdom_a", banner_scale,0),
   ("map_flag_kingdom_b",0,"map_flag_kingdom_b", banner_scale,0),
   ("map_flag_kingdom_c",0,"map_flag_kingdom_c", banner_scale,0),
@@ -360,7 +357,7 @@ map_icons = [
   ("map_flag_kingdom_f",0,"map_flag_kingdom_f", banner_scale,0),
   ("map_flag_kingdom_g",0,"map_flag_kingdom_f", banner_scale,0), #added for TGS
   ("map_flag_kingdom_h",0,"map_flag_kingdom_f", banner_scale,0), #added for TGS
-  ("banner_136",0,"map_flag_15", banner_scale,0),  
+  ("banner_136",0,"map_flag_15", banner_scale,0),
 
 
 

@@ -35,25 +35,15 @@ from header_mission_templates import *
 #AI triggers v3 for WB by motomataru
 AI_triggers = [  
 	(ti_before_mission_start, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_formations, 1)], [
-		(assign, "$cur_casualties", 0),
-		(assign, "$prev_casualties", 0),
+		# (assign, "$cur_casualties", 0), #just use BP_Fight if prev_casualties no longer matters
+		# (assign, "$prev_casualties", 0),
 		(assign, "$ranged_clock", 1),
 		(assign, "$battle_phase", BP_Setup),
-		(assign, "$clock_reset", 0),
-		(try_for_range, ":team_no", 0, 4),
-		    (team_set_slot, ":team_no", slot_team_default_formation, formation_default),
-			#(team_set_slot, ":team_no", slot_team_reinforcement_stage, 0), #Not needed, team slots begin missions reset
-		(try_end),
-		# (assign, "$team0_default_formation", formation_default),
-		# (assign, "$team1_default_formation", formation_default),
-		# (assign, "$team2_default_formation", formation_default),
-		# (assign, "$team3_default_formation", formation_default),
+		# (assign, "$clock_reset", 0),
 		(init_position, Team0_Cavalry_Destination),
 		(init_position, Team1_Cavalry_Destination),
 		(init_position, Team2_Cavalry_Destination),
 		(init_position, Team3_Cavalry_Destination),
-		# (assign, "$team0_reinforcement_stage", 0),
-		# (assign, "$team1_reinforcement_stage", 0),
 	]),
 
 	(0, AI_Delay_For_Spawn, ti_once, [(party_slot_eq, "p_main_party", slot_party_pref_formations, 1)], [
@@ -61,39 +51,63 @@ AI_triggers = [
 			(agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 0),
 		(try_end),
 		(set_fixed_point_multiplier, 100),
-		(call_script, "script_battlegroup_get_position", Team0_Starting_Point, 0, grc_everyone),
-		(call_script, "script_battlegroup_get_position", Team1_Starting_Point, 1, grc_everyone),
-		(call_script, "script_battlegroup_get_position", Team2_Starting_Point, 2, grc_everyone),
-		(call_script, "script_battlegroup_get_position", Team3_Starting_Point, 3, grc_everyone),
+		# (call_script, "script_store_battlegroup_data"),	done in formations trigger
+		(try_for_range, ":team", 0, 4),
+			(call_script, "script_battlegroup_get_position", pos0, ":team", grc_everyone),
+			(position_get_x, reg0, pos0),
+			(team_set_slot, ":team", slot_team_starting_x, reg0),
+			(position_get_y, reg0, pos0),
+			(team_set_slot, ":team", slot_team_starting_y, reg0),
+			
+			#prevent confusion over AI not using formations for archers
+			(neq, ":team", "$fplayer_team_no"),
+			(store_add, ":slot", slot_team_d0_formation, grc_archers),
+			(team_set_slot, ":team", ":slot", formation_none),
+		(try_end),
 		(call_script, "script_field_tactics", 1)
 	]),
 
-	(1, .5, 0, [(party_slot_eq, "p_main_party", slot_party_pref_formations, 1)], [	#delay to offset half a second from formations trigger
-		(try_begin),
-			(call_script, "script_cf_count_casualties"),
-			(assign, "$cur_casualties", reg0),
-			(assign, "$battle_phase", BP_Fight),
-		(try_end),
+	(0.1, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_formations, 1)], [	
+		(store_mission_timer_c_msec, reg0),
+		(val_sub, reg0, "$last_player_trigger"),
+		(ge, reg0, 250),	#delay to offset from formations trigger (trigger delay does not work right)
+		(val_add, "$last_player_trigger", 500),
 		
 		(set_fixed_point_multiplier, 100),
 		(call_script, "script_store_battlegroup_data"),
-		(try_begin),	#reassess ranged position when fighting starts
-			(ge, "$battle_phase", BP_Fight),
-			(eq, "$clock_reset", 0),
-			(call_script, "script_field_tactics", 1),
-			(assign, "$ranged_clock", 0),
-			(assign, "$clock_reset", 1),
-		(else_try),	#reassess ranged position every five seconds after setup
-			(ge, "$battle_phase", BP_Jockey),
-			(store_mod, reg0, "$ranged_clock", 5),		
-			(eq, reg0, 0),
-			(call_script, "script_field_tactics", 1),
-			#(assign, "$team0_reinforcement_stage", "$defender_reinforcement_stage"),
-			#(assign, "$team1_reinforcement_stage", "$attacker_reinforcement_stage"),
-			(team_set_slot, 0, slot_team_reinforcement_stage, "$defender_reinforcement_stage"),
-			(team_set_slot, 1, slot_team_reinforcement_stage, "$attacker_reinforcement_stage"),
+		(try_begin),	
+			(lt, "$battle_phase", BP_Fight),
+			(call_script, "script_cf_count_casualties"),
+			(assign, "$battle_phase", BP_Fight),
+			(call_script, "script_field_tactics", 1), #to reset ranged on fighting start
+			(assign, "$ranged_clock", 0), 
 		(else_try),
+			(eq, "$battle_phase", BP_Setup), #army moves to initial position during setup (don't reassess archer position)	
 			(call_script, "script_field_tactics", 0),
+		(else_try),
+			(call_script, "script_field_tactics", 1),
+			(ge, "$battle_phase", BP_Fight),
+			(store_mul, reg1, 5, Reform_Trigger_Modulus),
+			(store_mod, reg0, "$ranged_clock", reg1),		
+			(eq, reg0, 0),
+			(try_begin),
+				(neg|team_slot_eq, 0, slot_team_reinforcement_stage, "$defender_reinforcement_stage"),
+				(team_set_slot, 0, slot_team_reinforcement_stage, "$defender_reinforcement_stage"),	
+				(try_for_range, ":division", 0, 9),
+					(store_add, ":slot", slot_team_d0_type, ":division"),
+					(team_set_slot, 0, ":slot", sdt_unknown),
+					(team_set_slot, 2, ":slot", sdt_unknown),
+				(try_end),
+			(try_end),
+			(try_begin),
+				(neg|team_slot_eq, 1, slot_team_reinforcement_stage, "$attacker_reinforcement_stage"),
+				(team_set_slot, 1, slot_team_reinforcement_stage, "$attacker_reinforcement_stage"),	
+				(try_for_range, ":division", 0, 9),
+					(store_add, ":slot", slot_team_d0_type, ":division"),
+					(team_set_slot, 1, ":slot", sdt_unknown),
+					(team_set_slot, 3, ":slot", sdt_unknown),
+				(try_end),
+			(try_end),
 		(try_end),
 
 		(try_begin),
@@ -101,7 +115,7 @@ AI_triggers = [
 			(assign, ":not_in_setup_position", 0),
 			(try_for_range, ":bgteam", 0, 4),
 				(neq, ":bgteam", "$fplayer_team_no"),
-				(team_slot_ge, ":bgteam", slot_team_size, 1), #battlegroup_get_size phase out
+				(team_slot_ge, ":bgteam", slot_team_size, 1),
 				(call_script, "script_battlegroup_get_position", pos1, ":bgteam", grc_archers),
 				(team_get_order_position, pos0, ":bgteam", grc_archers),
 				(get_distance_between_positions, reg0, pos0, pos1),
@@ -113,6 +127,24 @@ AI_triggers = [
 		(try_end),
 		
 		(val_add, "$ranged_clock", 1),
+	]),
+
+	(0, 0, ti_once, [ ##caba-encorporate in another trigger?? standard death-cam ones?
+		(main_hero_fallen),	#if AI to take over for mods with post-player battle action
+		(party_slot_eq, "p_main_party", slot_party_pref_formations, 1),
+		(party_slot_eq, "p_main_party", slot_party_pref_bc_charge_ko, 2),
+	], [
+		(try_for_agents, ":agent"),	#reassign agents to the divisions AI uses
+			(agent_is_alive, ":agent"),
+			(call_script, "script_agent_fix_division", ":agent"),
+		(try_end),
+
+		(set_show_messages, 0),	#undo special player commands for divisions AI uses
+		(team_set_order_listener, "$fplayer_team_no", grc_everyone),
+		(call_script, "script_order_set_team_slot", clear, "$fplayer_team_no"),
+		(team_give_order, "$fplayer_team_no", grc_everyone, mordr_use_any_weapon),
+		(team_give_order, "$fplayer_team_no", grc_everyone, mordr_fire_at_will),
+		(set_show_messages, 1),
 	]),
 ]
 

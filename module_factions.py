@@ -95,7 +95,7 @@ factions = [
   ("kingdom_27",  "the Land of Madmen",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x006B6B),#New Faction
   ("kingdom_28",  "the Land of Toman Head",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05), ("trollocs", -0.5)], [], 0x00CC00),#New Faction
   #end edited for TGS
-  
+
 ##  ("kingdom_1_rebels",  "Swadian rebels", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0xCC2211),
 ##  ("kingdom_2_rebels",  "Vaegir rebels",    0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0xCC2211),
 ##  ("kingdom_3_rebels",  "Khergit rebels", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0xCC2211),
@@ -120,9 +120,15 @@ factions = [
   #new for TGS
   ("trollocs","Marauding Trollocs", 0, 0.5,[("commoners",-0.2),("merchants",-0.5),("manhunters",-0.6),("player_faction",-0.15), ("kingdom_24",0.5)], [], 0x000000),
   #end new for TGS
-  
+
   ("undeads","{!}Undeads", max_player_rating(-30), 0.5,[("commoners",-0.7),("player_faction",-0.5)], []),
   ("slavers","{!}Slavers", 0, 0.1, [], []),
   ("peasant_rebels","{!}Peasant Rebels", 0, 1.0,[("noble_refugees",-1.0),("player_faction",-0.4)], []),
   ("noble_refugees","{!}Noble Refugees", 0, 0.5,[], []),
 ]
+
+##diplomacy start+ Define these for convenience
+dplmc_factions_begin = 1 #As mentioned in the notes above, this is hardcoded and shouldn't be altered.  Deliberately excludes "no faction".
+dplmc_non_generic_factions_begin = [x[0] for x in enumerate(factions) if x[1][0] == "merchants"][0] + 1
+dplmc_factions_end   = len(factions)
+##diplomacy end+

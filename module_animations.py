@@ -657,10 +657,12 @@ animations = [
    [0.3, "equip_arms", 354, 350, arf_blend_in_0],
  ],
  ["equip_pistol_front_left", 0, amf_priority_equip|amf_play|amf_restart|amf_client_prediction,
-   [0.6, "anim_human", combat+30, combat+45, arf_blend_in_0],
+##   [0.6, "anim_human", combat+30, combat+45, arf_blend_in_0],
+   [0.8, "equip_arms", 253, 276, arf_blend_in_0],
  ],
  ["unequip_pistol_front_left", 0, amf_priority_equip|amf_play|amf_restart|amf_client_prediction,
-   [0.3, "anim_human", combat+10, combat+0, arf_blend_in_0],
+##   [0.3, "anim_human", combat+10, combat+0, arf_blend_in_0],
+   [0.2, "equip_arms", 254, 250, arf_blend_in_0],
  ],
  ["equip_katana", 0, amf_priority_equip|amf_play|amf_restart|amf_client_prediction,
    [0.8, "anim_human", combat+30, combat+45, arf_blend_in_0],
@@ -1809,15 +1811,24 @@ animations = [
   [1.0, "anim_human", 0, 1, 0]],
 ##   [0.2, "equip_arms", 254, 250, arf_blend_in_0]],
 
-##PBOD - Spear Bracing Kit by The Mercenary
- #["unused_human_anim_14", 0, 0, [1.0, "anim_human", 0, 1, 0]],
-["spearwall_hold", acf_thrust|acf_enforce_all|acf_align_with_ground, 0, 
-   [4.0, "anim_human", combat+7310, combat+7310, blend_in_ready],
+##Spear Bracing by Caba, animations by Papa Larazou
+["spearwall_bracing", acf_thrust|acf_enforce_all|acf_align_with_ground, amf_priority_kick|amf_keep, #acf_rot_vertical_sword acf_thrust|acf_enforce_all|acf_align_with_ground |acf_lock_camera, amf_keep |amf_client_prediction amf_priority_kick amf_rider_rot_defend |amf_rider_rot_couched_lance
+   [2.5, "pike_brace", 0, 190, arf_blend_in_1], #blend_in_ready
  ],
-##PBOD End
- ["unused_human_anim_15", 0, 0, [1.0, "anim_human", 0, 1, 0]],
- ["unused_human_anim_16", 0, 0, [1.0, "anim_human", 0, 1, 0]],
- ["unused_human_anim_17", 0, 0, [1.0, "anim_human", 0, 1, 0]],
+["spearwall_bracing_low", acf_thrust|acf_enforce_all|acf_align_with_ground, amf_priority_kick|amf_keep, #acf_thrust|acf_enforce_all|acf_align_with_ground |acf_lock_camera, amf_keep |amf_client_prediction amf_priority_kick
+   [3.0, "pike_brace", 329, 535, arf_blend_in_1], #blend_in_ready
+ ], 
+["spearwall_bracing_recover", acf_enforce_all|acf_align_with_ground, amf_play|amf_priority_die, #acf_thrust|acf_enforce_all|acf_align_with_ground |acf_lock_camera, amf_keep |amf_client_prediction amf_priority_kick
+   [1.5, "pike_brace", 191, 329, blend_in_ready], #blend_in_ready  |amf_start_instantly
+ ],
+["spearwall_bracing_recoil", acf_rot_vertical_bow|acf_anim_length(100), amf_priority_kick|amf_use_weapon_speed|amf_play, #acf_thrust|acf_enforce_all|acf_align_with_ground |acf_lock_camera, amf_keep |amf_client_prediction amf_priority_kick
+ [attack_parried_duration_thrust, "anim_human", combat+7316, combat+7313, arf_blend_in_2], 
+ ],
+##
+ #["unused_human_anim_14", 0, 0, [1.0, "anim_human", 0, 1, 0]],
+ #["unused_human_anim_15", 0, 0, [1.0, "anim_human", 0, 1, 0]],
+ #["unused_human_anim_16", 0, 0, [1.0, "anim_human", 0, 1, 0]],
+ #["unused_human_anim_17", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_18", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_19", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_20", 0, 0, [1.0, "anim_human", 0, 1, 0]],

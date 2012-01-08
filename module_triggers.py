@@ -38,28 +38,28 @@ triggers = [
 #  (1.0, 0, ti_once, [(map_free,0)], [(start_map_conversation, "trp_guide", -1)]),
 
 # Refresh Merchants
-  (0.0, 0, 24.0, [],
+  (0.0, 0, 168.0, [],
   [    
     (call_script, "script_refresh_center_inventories"),
-  ]),
+                     ]),
 
 # Refresh Armor sellers
-  (0.0, 0, 24.0, [],
+  (0.0, 0, 168.0, [],
   [    
     (call_script, "script_refresh_center_armories"),
-  ]),
+                     ]),
 
 # Refresh Weapon sellers
-  (0.0, 0, 24.0, [],
+  (0.0, 0, 168.0, [],
   [
     (call_script, "script_refresh_center_weaponsmiths"),
-  ]),
+                     ]),
 
 # Refresh Horse sellers
-  (0.0, 0, 24.0, [],
+  (0.0, 0, 168.0, [],
   [
     (call_script, "script_refresh_center_stables"),
-  ]),
+                     ]),
   
 
 #############
@@ -1234,7 +1234,7 @@ triggers = [
                    (eq, ":cur_eliminated_by_player", "$qst_troublesome_bandits_eliminated_by_player"),
                    ],
                   [(display_message, "str_bandits_eliminated_by_another"),
-                   (call_script, "script_abort_quest", "qst_troublesome_bandits", 2),
+                   (call_script, "script_abort_quest", "qst_troublesome_bandits", 0),
                    ]),
 
   (0.3, 0.0, 1.1, [(check_quest_active, "qst_troublesome_bandits"),
@@ -1527,6 +1527,7 @@ triggers = [
 	 	 (this_or_next|eq, ":item_id", "itm_sword_two_handed_a"),
 		 (eq, ":item_id", "itm_strange_great_sword"),
 		 		 
+		 (unlock_achievement, ACHIEVEMENT_LADY_OF_THE_LAKE),
 		 (assign, ":inv_cap", 0),
 	   (try_end),
 	 (try_end),

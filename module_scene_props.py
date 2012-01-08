@@ -1365,7 +1365,7 @@ scene_props = [
   ("banner_kingdom_g", 0, "banner_kingdom_f", "0", []),#TGS
   ("banner_kingdom_h", 0, "banner_kingdom_f", "0", []),#TGS
   ("banner_f21", 0, "banner_a15", "0", []),
-  
+
 
 
   ("tavern_chair_a",0,"tavern_chair_a","bo_tavern_chair_a", []),

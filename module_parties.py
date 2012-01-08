@@ -129,46 +129,46 @@ parties = [
 
 #   Aztaq_Castle       
 #  Malabadi_Castle
-  ("castle_1","Culmarr Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(79.79, -127.56),[],50),#Culmarr
+  ("castle_1","Culmarah",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(79.79, -127.56),[],50),#Culmarr
   ("castle_2","Bellon",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-67.74, -126.03),[],75),#Malayurg
   ("castle_3","Fortress of the Light",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-67.75, -130.99),[],100),#Bulugha
   ("castle_4","Stone of Tear",icon_castle_c|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(60.97, -129.15),[],180),#Radoghir
   ("castle_5","Whitebridge",icon_castle_c|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-3.36, -74.72),[],90),#Tehlrog
   ("castle_6","Kandelmar",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-80.52, -17.90),[],55),#Tilbaut
-  ("castle_7","Sungetche Castle",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-23.52, 47.51),[],45),#Sungetche
+  ("castle_7","Shall's Hill",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-23.52, 47.51),[],45),#Sungetche
   ("castle_8","Boannda",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-40.49, -100.34),[],30),#Jeirbe
-  ("castle_9","Jamiche Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(20.49, -115.41),[],100),#Jamiche
+  ("castle_9","Jamyrna",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(20.49, -115.41),[],100),#Jamiche
   ("castle_10","Taren Ferry",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-53.96, -57.06),[],110),#Alburq
   ("castle_11","Trustair",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(7.71, -87.09),[],75),#Curin
   ("castle_12","Malden",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-14.41, -130.72),[],95),#Chalbek
-  ("castle_13","Kelredan Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(95.67, -22.26),[],115),#Kelredan
+  ("castle_13","Kelredan",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(95.67, -22.26),[],115),#Kelredan
   ("castle_14","Aringill",icon_castle_c|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(50.35, -60.84),[],90),#Maras
   ("castle_15","Jorn Hill",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(28.42, -46.13),[],235),#Ergellon
   ("castle_16","New Braem",icon_castle_c|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(33.42, -46.69),[],45),#Almerra
   ("castle_17","Samara",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-50.46, -93.81),[],15),#Distar
   ("castle_18","Fal Eisen",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(82.97, 79.20),[],300),#Ismirala
   ("castle_19","Canluum",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(34.09, 69.01),[],280),#Yruma
-  ("castle_20","Derchios Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-103.69, -4.32),[],260),#Derchios
-  ("castle_21","Ibdeles Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-19.25, -62.45),[],260),#Ibdeles
-  ("castle_22","Slezkh Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(48.05, -125.98),[],260),#Unuzdaq
-  ("castle_23","Tevarin Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(63.77, -55.70),[],80),#Tevarin
-  ("castle_24","Reindi Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-2.23, -131.51),[],260),#Reindi
+  ("castle_20","Duntara",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-103.69, -4.32),[],260),#Derchios
+  ("castle_21","Irundin",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-19.25, -62.45),[],260),#Ibdeles
+  ("castle_22","Semuldar",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(48.05, -125.98),[],260),#Unuzdaq
+  ("castle_23","Tevarin",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(63.77, -55.70),[],80),#Tevarin
+  ("castle_24","Ravin'dar",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-2.23, -131.51),[],260),#Reindi
   ("castle_25","Alkindar",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-28.53, -142.52),[],260),#Ryibelet
   ("castle_26","Cormaed",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-21.18, -134.24),[],260),#Senuzgda
-  ("castle_27","Rindyar Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(12.20, -136.21),[],260),#Rindyar
-  ("castle_28","Grunwalder Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-35.49, -128.85),[],260),#Grunwalder
+  ("castle_27","Handara",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(12.20, -136.21),[],260),#Rindyar
+  ("castle_28","Grund's Pass",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-35.49, -128.85),[],260),#Grunwalder
 
   ("castle_29","Fal Dara",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(105.78, 96.66),[],280),#Nelag
   ("castle_30","Sienda",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-57.74, -110.49),[],260),#Asugan
-  ("castle_31","Vyincourd Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(6.79, -60.59),[],260),#Vyincourd
+  ("castle_31","Vyincourd",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(6.79, -60.59),[],260),#Vyincourd
   ("castle_32","Katar",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-81.15, -29.96),[],260),#Knudarr
-  ("castle_33","Etrosq Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(91.19, -104.89),[],80),#Etrosq
+  ("castle_33","Trosan",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(91.19, -104.89),[],80),#Etrosq
   ("castle_34","Salidar",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-17.21, -125.9),[],260),#Hrus
-  ("castle_35","Haringoth Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(55.62, -22.31),[],260),#Haringoth
+  ("castle_35","Haringate",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(55.62, -22.31),[],260),#Haringoth
   ("castle_36","Jurador",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-18.28, -141.55),[],260),#Jelbegi
   ("castle_37","Godan",icon_castle_c|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(124.45, -141.72),[],260),#Dramug
   ("castle_38","Red Water Hold",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(173.91, 92.74),[],260),#Tulbuk
-  ("castle_39","Unuzdaq Castle",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-0.89, 53.65),[],280),#Slezkh
+  ("castle_39","Unuzda",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-0.89, 53.65),[],280),#Slezkh
   ("castle_40","Irinjavar",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-27.25, 22.16),[],260),#Uhhun
 
   ("castle_41","Luagde",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(58.66, 30.02),[],260),#Jameyyed
@@ -496,7 +496,7 @@ parties = [
   ("border_tower_9","Border Tower",   icon_border_tower|pf_hide_defenders|pf_is_static|pf_always_visible|pf_label_medium, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(129.46, 94.47),[], 147),
 # end added for TGS
 
-  # add extra towns before this point 
+ # add extra towns before this point 
   ("spawn_points_end"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
   ("reserved_1"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
   ("reserved_2"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),

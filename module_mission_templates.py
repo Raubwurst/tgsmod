@@ -16,7 +16,7 @@ from module_constants import *
 #  3) Mission-type(int): Which mission types this mission template matches.
 #     For mission-types to be used with the default party-meeting system,
 #     this should be 'charge' or 'charge_with_ally' otherwise must be -1.
-#
+#     
 #  4) Mission description text (string).
 #  5) List of spawn records (list): Each spawn record is a tuple that contains the following fields:
 #    5.1) entry-no: Troops spawned from this spawn record will use this entry
@@ -29,19 +29,18 @@ from module_constants import *
 #     See module_triggers.py for infomation about triggers.
 #
 #  Please note that mission templates is work in progress and can be changed in the future versions.
-#
+# 
 ####################################################################################################################
 
 pilgrim_disguise = [itm_pilgrim_hood,itm_pilgrim_disguise,itm_practice_staff, itm_throwing_daggers]
 af_castle_lord = af_override_horse | af_override_weapons| af_require_civilian
 
-#PBOD - Moved here then included in weapon_use_triggers
 ##diplomacy begin
 from header_skills import *
-dplmc_horse_speed = (
-  1, 0, 0, [],
-  [
-  (eq, "$g_dplmc_horse_speed", 0),
+
+dplmc_horse_speed = (  #called in field_ai_triggers
+  1, 0, 0, [(eq, "$g_dplmc_horse_speed", 0)],
+  [  
   (try_for_agents, ":agent_no"),
     (agent_is_alive, ":agent_no"),
     (agent_is_human, ":agent_no"),
@@ -70,21 +69,46 @@ dplmc_horse_speed = (
   (try_end),
   ])
 ##diplomacy end
-#PBOD - End Move
 
 ## Prebattle Orders & Deployment Begin
-init_player_global_variables = (  #Called in caba_order_triggers
-	0, 0, ti_once, [], [ 
-		(get_player_agent_no, "$fplayer_agent_no"),
-		(agent_get_team, "$fplayer_team_no", "$fplayer_agent_no"),
-		
-		(agent_get_horse, ":horse", "$fplayer_agent_no"),
-	    (ge, ":horse", 0),
-        (agent_set_slot, "$fplayer_agent_no", slot_agent_horse, ":horse"),
-        ])
+common_pbod_triggers = [ #collapse caba_order_triggers into this?
+ #init_player_global_variables
+ #(ti_after_mission_start, 0, 0, [], [  
+ (0, 0, ti_once, [(get_player_agent_no, "$fplayer_agent_no"),(ge, "$fplayer_agent_no", 0)], [
+	#(get_player_agent_no, "$fplayer_agent_no"),
+	(agent_get_team, "$fplayer_team_no", "$fplayer_agent_no"),		
+	(agent_get_horse, ":horse", "$fplayer_agent_no"),
+	(agent_set_slot, "$fplayer_agent_no", slot_agent_horse, ":horse"),   
+  ]),
 
+ (ti_before_mission_start, 0, 0, [],
+   [
+    (assign, "$fplayer_agent_no", -1),(assign, "$fplayer_team_no", -1),
+    (party_slot_eq, "p_main_party", slot_party_pref_wp_prof_decrease, 1),
+	(call_script, "script_weather_change_rain_or_snow"),
+    (call_script, "script_weather_affect_proficiency", reg0, reg1), #from change_rain_or_snow
+   ]),
+  
+  #Fix for setting divisions, duplicated in formations code, so disabled in mst_lead_charge
+  (ti_on_agent_spawn, 0, 0, [(neq, "$g_next_menu", "mnu_simple_encounter"),(neq, "$g_next_menu", "mnu_join_battle")], [(store_trigger_param_1, ":agent"),(call_script, "script_prebattle_agent_fix_division", ":agent")]),
+  (0.5, 0, 0, [(neq, "$g_next_menu", "mnu_simple_encounter"), #not mst_lead_charge
+			   (neq, "$g_next_menu", "mnu_join_battle"),
+			   (store_mission_timer_a, reg0),(gt, reg0, 4)], 
+   #Prior conditions: (this_or_next|party_slot_eq, "p_main_party", slot_party_prebattle_customized_divisions, 1),(this_or_next|neg|party_slot_eq, "p_main_party", slot_party_pref_div_no_ammo, 9),(neg|party_slot_eq, "p_main_party", slot_party_pref_div_dehorse, 9)
+   [
+    (try_for_agents, ":agent"),
+		(agent_is_alive, ":agent"),
+		(agent_slot_ge, ":agent", slot_agent_new_division, 0),
+	    (agent_get_division, ":division", ":agent"),
+		(neg|agent_slot_eq, ":agent", slot_agent_new_division, ":division"),
+		(agent_get_slot, ":new_div", ":agent", slot_agent_new_division),
+		(agent_set_division, ":agent", ":new_div"),
+	(try_end),	
+   ]),   
+ ] 
+		
 prebattle_deployment_triggers  = [
- (ti_before_mission_start, 0, ti_once, [(party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1)], [
+ (ti_before_mission_start, 0, 0, [(party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1)], [
 	#Find the number of soldiers in each troop-stack that are ready to upgrade by upgrading the party and finding
 	#the changes in troops after the upgrade, then storing the number upgraded in a troop slot.
 	(call_script, "script_party_copy", "p_temp_party", "p_main_party"),
@@ -239,7 +263,7 @@ prebattle_deployment_triggers  = [
 	(try_end),
     ]),
 	
- (ti_after_mission_start, 0, ti_once, [(party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1)], [
+ (ti_after_mission_start, 0, 0, [(party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1)], [
     #Add people back to the party 
 	(party_get_num_companion_stacks, ":target_num_of_stacks", "p_temp_party"),
 	(try_for_range, ":i", 0, ":target_num_of_stacks"),
@@ -285,12 +309,32 @@ prebattle_deployment_triggers  = [
 	(try_end), #Backup party stack loop
 	(party_set_slot, "p_main_party", slot_party_prebattle_customized_deployment, 0),
     ]),
+	
+ #Split Troop Divisions Triggers
+ (ti_after_mission_start, 0, 0, [(party_slot_eq, "p_main_party", slot_party_prebattle_customized_divisions, 1)], [
+	(call_script, "script_prebattle_split_troop_divisions"),
+	(party_set_slot, "p_main_party_backup", slot_party_reinforcement_stage, 0),
+   ]),
+ (1, 0, 0, [(party_slot_eq, "p_main_party", slot_party_prebattle_customized_divisions, 1)], [
+    (try_begin),
+		(this_or_next|eq, "$fplayer_team_no", 0),
+		(eq, "$fplayer_team_no", 2),
+		(assign, ":reinforcement_stage", "$defender_reinforcement_stage"),
+	(else_try),
+		(assign, ":reinforcement_stage", "$attacker_reinforcement_stage"),
+	(try_end),
+	(neg|party_slot_eq, "p_main_party_backup", slot_party_reinforcement_stage, ":reinforcement_stage"),
+	
+	(call_script, "script_prebattle_split_troop_divisions"),
+	
+	(party_set_slot, "p_main_party_backup", slot_party_reinforcement_stage, ":reinforcement_stage"),
+   ]),
  ]
 
 prebattle_orders_triggers = [
- init_player_global_variables,
- (0, 0.5, ti_once, [(party_slot_ge, "p_main_party", slot_party_prebattle_num_orders, 1)], [
+ (0, 0.6, 2, [(party_slot_ge, "p_main_party", slot_party_prebattle_num_orders, 1)], [ #was ti_once, adjusted to conditions failure to work around engine problems
 		(party_get_slot, ":num_of_orders", "p_main_party", slot_party_prebattle_num_orders),
+		(party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0), #fix test
 		(set_show_messages, 0),	 
 		(assign, ":delay_count", 0),		
         (try_for_range, ":i", 0, ":num_of_orders"),    
@@ -332,7 +376,7 @@ prebattle_orders_triggers = [
 			(else_try),
 			    (eq, ":ith_order_type", 4), #Formations
 				(set_show_messages, 0),
-				(call_script, "script_player_attempt_formation", ":ith_order_group", ":ith_order"),
+				(call_script, "script_player_attempt_formation", ":ith_order_group", ":ith_order", 0),
 			(else_try),
 				(is_between, ":ith_order_type", 5, 7), #5 or 6; Caba Weapon and Shield orders
 				(val_add, ":delay_count", 1), #To fix bugs with these orders, they are delayed 1-2 seconds
@@ -340,7 +384,7 @@ prebattle_orders_triggers = [
 			    (eq, ":ith_order_type", 7), #Caba Skirmish
 				(eq, ":ith_order", 1), #Begin Skirmish, any other value would be an error
 				(team_set_order_listener, "$fplayer_team_no", ":ith_order_group"),
-				(call_script, "script_order_skirmish_begin_end", begin),
+				(call_script, "script_order_skirmish_begin_end", begin, "$fplayer_team_no"),
 				(team_set_order_listener, "$fplayer_team_no", -1),
 			(try_end),
             (try_begin),
@@ -358,16 +402,17 @@ prebattle_orders_triggers = [
 			(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, ":first_order"),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, 0),
 		(try_end),	
-        (try_begin),
-            (eq, ":delay_count", 0),
-            (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0),
-		(try_end),
+        # (try_begin),
+            # (eq, ":delay_count", 0),
+            # (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0),
+		# (try_end),
 	]),
 	
- (1, 1.5, ti_once, [(party_slot_ge, "p_main_party", slot_party_prebattle_num_orders, 1)], [
+ (0, 1, 2, [(party_slot_ge, "p_main_party_backup", slot_party_prebattle_num_orders, 1)], [ #was ti_once, adjusted to conditions failure to work around engine problems
         #To fix bugs with Move Forward/Back 10 Paces and Caba Weapon orders
 		#these orders are applied separately, after other orders
-		(party_get_slot, ":num_of_orders", "p_main_party", slot_party_prebattle_num_orders),
+		(party_get_slot, ":num_of_orders", "p_main_party_backup", slot_party_prebattle_num_orders), #change to _backup, fix test
+		(party_set_slot, "p_main_party_backup", slot_party_prebattle_num_orders, 0), #change to _backup, fix test
 		(set_show_messages, 0),	 
         (try_for_range, ":i", 0, ":num_of_orders"),    
 		    (store_add, ":ith_order_slot", ":i", slot_party_prebattle_order_array_begin),
@@ -408,20 +453,17 @@ prebattle_orders_triggers = [
 			(else_try),
 			    (is_between, ":ith_order_type", 5, 7), #5 or 6; Caba Weapon and Shield orders
 				(team_set_order_listener, "$fplayer_team_no", ":ith_order_group"),
-				(call_script, "script_order_weapon_type_switch", ":ith_order"),
+				(call_script, "script_order_weapon_type_switch", ":ith_order", "$fplayer_team_no"),
 				(team_set_order_listener, "$fplayer_team_no", -1), #Reset
 			(try_end),	
 		(try_end),		
         (team_set_order_listener, "$fplayer_team_no", grc_everyone), #Reset			
         (set_show_messages, 1),
-		(party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0),
 	]),
  ]
 
 caba_order_triggers = [
-    init_player_global_variables,
-
-	(ti_before_mission_start, 0, ti_once, [], [
+	(ti_before_mission_start, 0, 0, [], [
 		(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(party_set_slot, "p_main_party_backup", slot_party_gk_order, 0),
 		(party_set_slot, 2, slot_party_gk_order_hold_over_there, 0),
@@ -431,13 +473,9 @@ caba_order_triggers = [
 				(team_set_slot, ":team", ":i", clear),
 			(try_end),
 		(try_end),	
-		
-		(party_slot_eq, "p_main_party", slot_party_pref_prefs_set, 0),
-		(call_script, "script_prebattle_set_default_prefs"),
-		(party_set_slot, "p_main_party", slot_party_pref_prefs_set, 1),
 	]),
 		
-    (0, 0, 0, [(neg|main_hero_fallen),
+    (0, 0, 0, [
         (this_or_next|game_key_clicked, gk_group0_hear),
         (this_or_next|game_key_clicked, gk_group1_hear),
         (this_or_next|game_key_clicked, gk_group2_hear),
@@ -449,47 +487,41 @@ caba_order_triggers = [
         (this_or_next|game_key_clicked, gk_group8_hear),
         (this_or_next|game_key_clicked, gk_everyone_hear),
 		(this_or_next|game_key_clicked, gk_reverse_order_group), 
-		(game_key_clicked, gk_everyone_around_hear)], [
+		(game_key_clicked, gk_everyone_around_hear),
+		(neg|main_hero_fallen)
+	], [
 		(party_set_slot, "p_main_party", slot_party_gk_order, 0),
         (start_presentation, "prsnt_caba_order_display"),
     ]),
 	
-	(ti_escape_pressed, 0, 0, [], [(party_set_slot, "p_main_party", slot_party_gk_order, 0),(is_presentation_active, "prsnt_caba_order_display"),(presentation_set_duration, 0),]),
-	
-	(0, 0, 0, [(neg|main_hero_fallen),(key_clicked, key_f9)], [
-	    #(neg|party_slot_eq, "p_main_party", slot_party_gk_order, 0),
-		(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),
-		(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),
-		(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_3),
-		(is_presentation_active, "prsnt_caba_order_display"),
-		(presentation_set_duration, 0),
-		(party_set_slot, "p_main_party", slot_party_gk_order, 0),
-	]),
-	
-	(0, 0, 0, [(neg|main_hero_fallen),(game_key_clicked, gk_order_1)], [
+	#(ti_escape_pressed, 0, 0, [],          [(party_set_slot, "p_main_party", slot_party_gk_order, 0),(is_presentation_active, "prsnt_caba_order_display"),(presentation_set_duration, 0)]),
+	(0, 0, 0, [(key_is_down, key_escape)], [(party_set_slot, "p_main_party", slot_party_gk_order, 0),(is_presentation_active, "prsnt_caba_order_display"),(presentation_set_duration, 0)]),
+		
+	(0, 0, 0, [(game_key_clicked, gk_order_1),(neg|main_hero_fallen)], [
+		(store_mission_timer_c_msec, "$when_f1_first_detected"), #CABA?
 		(try_begin),
 			(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),
 			(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),
 			(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_3),
 			(party_set_slot, "p_main_party", slot_party_gk_order, gk_order_1),
+			(party_set_slot, 2, slot_party_gk_order_hold_over_there, 0), #also "holdit"
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),	#HOLD		
-			(assign, "$fclock", 1),
-			(call_script, "script_player_order_formations", mordr_hold),
-			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
+			(party_set_slot, 2, slot_party_gk_order_hold_over_there, 1), #as "holdit"
+			#(call_script, "script_player_order_formations", mordr_hold),
+			#(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),	#ADVANCE
-			(assign, "$fclock", 1),
 			(call_script, "script_player_order_formations", mordr_advance),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_3),	#HOLD FIRE
-			(call_script, "script_order_volley_begin_end", end),
+			(call_script, "script_order_volley_begin_end", end, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
 	
-	(0, 0, 0, [(neg|main_hero_fallen),(game_key_clicked, gk_order_2)], [
+	(0, 0, 0, [(game_key_clicked, gk_order_2),(neg|main_hero_fallen)], [
 		(try_begin),
 			(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),
 			(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),
@@ -497,22 +529,20 @@ caba_order_triggers = [
 			(party_set_slot, "p_main_party", slot_party_gk_order, gk_order_2),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),	#FOLLOW
-			(assign, "$fclock", 1),
 			(call_script, "script_player_order_formations", mordr_follow),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),	#FALL BACK
-			(assign, "$fclock", 1),
 			(call_script, "script_player_order_formations", mordr_fall_back),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_3),	#FIRE AT WILL
-			(call_script, "script_order_volley_begin_end", end),
+			(call_script, "script_order_volley_begin_end", end, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
 	
-	(0, 0, 0, [(neg|main_hero_fallen),(game_key_clicked, gk_order_3)], [
+	(0, 0, 0, [(game_key_clicked, gk_order_3),(neg|main_hero_fallen)], [
 		(try_begin),
 			(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),
 			(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),
@@ -520,12 +550,10 @@ caba_order_triggers = [
 			(party_set_slot, "p_main_party", slot_party_gk_order, gk_order_3),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),	#CHARGE
-			(assign, "$fclock", 1),
 			(call_script, "script_player_order_formations", mordr_charge),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),	#SPREAD OUT
-			(assign, "$fclock", 1),
 			(call_script, "script_player_order_formations", mordr_spread_out),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
@@ -534,7 +562,7 @@ caba_order_triggers = [
 		(try_end),
 	]),
 	
-	(0, 0, 0, [(neg|main_hero_fallen),(game_key_clicked, gk_order_4)], [
+	(0, 0, 0, [(game_key_clicked, gk_order_4),(neg|main_hero_fallen)], [
 		(try_begin),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, 0),
 			(this_or_next|eq, "$g_next_menu", "mnu_simple_encounter"), #mst_lead_charge
@@ -543,43 +571,51 @@ caba_order_triggers = [
             (start_presentation, "prsnt_caba_order_display"),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),	#STAND GROUND
-			(assign, "$fclock", 1),
 			(call_script, "script_player_order_formations", mordr_stand_ground),			
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),	#STAND CLOSER
-			(assign, "$fclock", 1),
 			(call_script, "script_player_order_formations", mordr_stand_closer),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_3),	#ANY WEAPON
+			(call_script, "script_order_set_display_text", clear),
 			(call_script, "script_order_set_team_slot", clear, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_4),	#FORMATION - RANKS	
+			(call_script, "script_division_reset_places"), ## CABA - check this new script
+			(agent_get_position, pos49, "$fplayer_agent_no"),
 			(try_for_range, ":division", 0, 9),
 			    (class_is_listening_order, "$fplayer_team_no", ":division"),
+				(store_add, ":slot", slot_team_d0_target_team, ":division"),
+				(team_set_slot, "$fplayer_team_no", ":slot", -1),
 				(store_add, ":slot", slot_team_d0_size, ":division"),
 				(team_slot_ge, "$fplayer_team_no", ":slot", 1),
-				(assign, "$fclock", 1),
-				(call_script, "script_player_attempt_formation", ":division", formation_ranks),				
+				(store_add, ":slot", slot_team_d0_fclock, ":division"),
+				(team_set_slot, "$fplayer_team_no", ":slot", 1),
+				
+				#Fake out at position
+				(call_script, "script_battlegroup_get_position", Temp_Pos, "$fplayer_team_no", ":division"),
+				(agent_set_position, "$fplayer_agent_no", Temp_Pos),
+				(call_script, "script_player_attempt_formation", ":division", formation_ranks, 1),				
 			(try_end),
+			(agent_set_position, "$fplayer_agent_no", pos49),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
-			(party_slot_eq, "p_main_party", slot_party_gk_order, k_order_7),	#End Special Order
-			(call_script, "script_order_end_active_order"),
+			(party_slot_eq, "p_main_party", slot_party_gk_order, "$key_order_7"),	#End Special Order
+			(call_script, "script_order_end_active_order", "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),  
 		(try_end),
 	]),
 	
-	(0, 0, 0, [(neg|main_hero_fallen),(game_key_clicked, gk_order_5)], [
+	(0, 0, 0, [(game_key_clicked, gk_order_5),(neg|main_hero_fallen)], [
 		(try_begin),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, 0),
 			(party_set_slot, "p_main_party", slot_party_gk_order, gk_order_5),
             (start_presentation, "prsnt_caba_order_display"),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),	#RETREAT
-			(assign, "$fclock", 1),
 			(call_script, "script_player_order_formations", mordr_retreat),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
@@ -587,199 +623,159 @@ caba_order_triggers = [
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 		    (party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_4), #FORMATION - SHIELDWALL
+			(call_script, "script_division_reset_places"),
+			(agent_get_position, pos49, "$fplayer_agent_no"),
 			(try_for_range, ":division", 0, 9),
 			    (class_is_listening_order, "$fplayer_team_no", ":division"),
+				(store_add, ":slot", slot_team_d0_target_team, ":division"),
+				(team_set_slot, "$fplayer_team_no", ":slot", -1),
 				(store_add, ":slot", slot_team_d0_size, ":division"),
 				(team_slot_ge, "$fplayer_team_no", ":slot", 1),
-				(assign, "$fclock", 1),
-				(call_script, "script_player_attempt_formation", ":division", formation_shield),				
+				(store_add, ":slot", slot_team_d0_fclock, ":division"),
+				(team_set_slot, "$fplayer_team_no", ":slot", 1),
+				
+				#Fake out at position
+				(call_script, "script_battlegroup_get_position", Temp_Pos, "$fplayer_team_no", ":division"),
+				(agent_set_position, "$fplayer_agent_no", Temp_Pos),
+				(call_script, "script_player_attempt_formation", ":division", formation_shield, 1),				
 			(try_end),
+			(agent_set_position, "$fplayer_agent_no", pos49),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_5),	#One-Hander
-			(call_script, "script_order_weapon_type_switch", onehand),
+			(call_script, "script_order_set_display_text", onehand),
+			(call_script, "script_order_weapon_type_switch", onehand, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),		
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_6),	#Shield
-			(call_script, "script_order_weapon_type_switch", shield),
+			(call_script, "script_order_set_display_text", shield),
+			(call_script, "script_order_weapon_type_switch", shield, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
-			(party_slot_eq, "p_main_party", slot_party_gk_order, k_order_7),	#Begin Skirmish
+			(party_slot_eq, "p_main_party", slot_party_gk_order, "$key_order_7"),	#Begin Skirmish
 			(call_script, "script_order_set_display_text", begin + 8),
-			(call_script, "script_order_skirmish_begin_end", begin),
+			(call_script, "script_order_skirmish_begin_end", begin, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),    
 		(try_end),
 	]),
 	
-	(0, 0, 0, [(neg|main_hero_fallen),(game_key_clicked, gk_order_6)], [
+	(0, 0, 0, [(game_key_clicked, gk_order_6),(neg|main_hero_fallen)], [
 	    (try_begin),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, 0),
 			(party_set_slot, "p_main_party", slot_party_gk_order, gk_order_6),
             (start_presentation, "prsnt_caba_order_display"),
 		(else_try),
 		    (party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),	#DISMOUNT
-		    (assign, "$fclock", 1),
 		    (call_script, "script_player_order_formations", mordr_dismount),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_4), #FORMATION - WEDGE
+			(call_script, "script_division_reset_places"),
+			(agent_get_position, pos49, "$fplayer_agent_no"),
 			(try_for_range, ":division", 0, 9),
 			    (class_is_listening_order, "$fplayer_team_no", ":division"),
+				(store_add, ":slot", slot_team_d0_target_team, ":division"),
+				(team_set_slot, "$fplayer_team_no", ":slot", -1),
 				(store_add, ":slot", slot_team_d0_size, ":division"),
 				(team_slot_ge, "$fplayer_team_no", ":slot", 1),
-				(assign, "$fclock", 1),
-				(call_script, "script_player_attempt_formation", ":division", formation_wedge),				
+				(store_add, ":slot", slot_team_d0_fclock, ":division"),
+				(team_set_slot, "$fplayer_team_no", ":slot", 1),
+				
+				#Fake out at position
+				(call_script, "script_battlegroup_get_position", Temp_Pos, "$fplayer_team_no", ":division"),
+				(agent_set_position, "$fplayer_agent_no", Temp_Pos),
+				(call_script, "script_player_attempt_formation", ":division", formation_wedge, 1),				
 			(try_end),
+			(agent_set_position, "$fplayer_agent_no", pos49),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_5),	#Two-Handers
-			(call_script, "script_order_weapon_type_switch", twohands),
+			(call_script, "script_order_set_display_text", twohands),
+			(call_script, "script_order_weapon_type_switch", twohands, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_6),	#No Shield
-			(call_script, "script_order_weapon_type_switch", noshield),
+			(call_script, "script_order_set_display_text", noshield),
+			(call_script, "script_order_weapon_type_switch", noshield, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
-			(party_slot_eq, "p_main_party", slot_party_gk_order, k_order_7),	#Volley
+			(party_slot_eq, "p_main_party", slot_party_gk_order, "$key_order_7"),	#Volley
 			(call_script, "script_order_set_display_text", begin + 10),
-			(call_script, "script_order_volley_begin_end", begin),
+			(call_script, "script_order_volley_begin_end", begin, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),    
 		(try_end),
 	]),
 
-    (0, 0, 0, [(neg|main_hero_fallen),(key_clicked, k_order_7)], [ #f7
+    (0, 0, 0, [(key_clicked, "$key_order_7"),(neg|main_hero_fallen)], [ #f7
 	    (try_begin),
 		    (party_slot_eq, "p_main_party", slot_party_gk_order, 0), 
-		    (party_set_slot, "p_main_party", slot_party_gk_order, k_order_7),
+		    (party_set_slot, "p_main_party", slot_party_gk_order, "$key_order_7"),
             (start_presentation, "prsnt_caba_order_display"),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_4), #FORMATION - SQUARE
+			(call_script, "script_division_reset_places"),
+			(agent_get_position, pos49, "$fplayer_agent_no"),
 			(try_for_range, ":division", 0, 9),
 				(class_is_listening_order, "$fplayer_team_no", ":division"),
+				(store_add, ":slot", slot_team_d0_target_team, ":division"),
+				(team_set_slot, "$fplayer_team_no", ":slot", -1),
 				(store_add, ":slot", slot_team_d0_size, ":division"),
 				(team_slot_ge, "$fplayer_team_no", ":slot", 1),
-				(assign, "$fclock", 1),
-				(call_script, "script_player_attempt_formation", ":division", formation_square),				
+				(store_add, ":slot", slot_team_d0_fclock, ":division"),
+				(team_set_slot, "$fplayer_team_no", ":slot", 1),
+				
+				#Fake out at position
+				(call_script, "script_battlegroup_get_position", Temp_Pos, "$fplayer_team_no", ":division"),
+				(agent_set_position, "$fplayer_agent_no", Temp_Pos),
+				(call_script, "script_player_attempt_formation", ":division", formation_square, 1),				
 			(try_end),
+			(agent_set_position, "$fplayer_agent_no", pos49),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_5),	#Polearms
-			(call_script, "script_order_weapon_type_switch", polearm),
+			(call_script, "script_order_set_display_text", polearm),
+			(call_script, "script_order_weapon_type_switch", polearm, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_6),	#Free Shield
-			(call_script, "script_order_weapon_type_switch", free),
+			(call_script, "script_order_set_display_text", free),
+			(call_script, "script_order_set_team_slot", free, "$fplayer_team_no"),
+			#(call_script, "script_order_weapon_type_switch", free, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
-			(party_slot_eq, "p_main_party", slot_party_gk_order, k_order_7),	#Brace Spear
+			(party_slot_eq, "p_main_party", slot_party_gk_order, "$key_order_7"),	#Brace Spear
 			(call_script, "script_order_set_display_text", begin + 12),
-			(call_script, "script_order_sp_brace_begin_end", begin),
+			(call_script, "script_order_sp_brace_begin_end", begin, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),  
 		(try_end),
 	]),
 		
-    (0, 0, 0, [(neg|main_hero_fallen),(key_clicked, k_order_8)], [ #F8
+    (0, 0, 0, [(key_clicked, "$key_order_8"),(neg|main_hero_fallen)], [ #F8
 	    (try_begin),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_4), #FORMATION - CANCEL
-			(assign, "$fclock", 1),
 			(call_script, "script_player_order_formations", mordr_charge),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_5),
-		    (call_script, "script_order_weapon_type_switch", ranged),
+			(call_script, "script_order_set_display_text", ranged),
+		    (call_script, "script_order_weapon_type_switch", ranged, "$fplayer_team_no"),
 		    (party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
-	
-    (0.5, 0, 0, [(call_script, "script_cf_order_active_check", slot_team_d0_order_skirmish)], [(call_script, "script_order_skirmish_skirmish")]), 
+]
  
-    (1, 0, 0, [(call_script, "script_cf_order_active_check", slot_team_d0_order_volley)], [
-		(try_for_range, ":team", 0, 4),
-			(try_for_range, ":division", 0, 9),
-			    (store_add, ":slot", slot_team_d0_order_volley, ":division"),
-				(team_slot_ge, ":team", ":slot", 1),
-				(team_get_slot, ":volley_counter", ":team", ":slot"),
-				(val_add, ":volley_counter", 1),
-				(team_set_slot, ":team", ":slot", ":volley_counter"),
-			(try_end),
-		(try_end),
-		
-		(try_for_agents, ":agent"),
-			(agent_is_non_player, ":agent"),
-			(agent_slot_ge, ":agent", slot_agent_volley_fire, 1),
-			(agent_get_ammo, ":ammo", ":agent", 1),
-			(gt, ":ammo", 0),
-			
-			(agent_get_team, ":team", ":agent"),
-			(agent_get_division, ":division", ":agent"),
-			(store_add, ":slot", slot_team_d0_order_volley, ":division"),
-			(team_get_slot, ":volley_counter", ":team", ":slot"),
-			
-			(agent_get_slot, ":volley_wpn_type", ":agent", slot_agent_volley_fire),
-			(try_begin),
-				(eq, ":volley_wpn_type", itp_type_bow),
-				(assign, ":delay", 2),
-			(else_try),
-				(eq, ":volley_wpn_type", itp_type_crossbow),
-				(assign, ":delay", 5),
-			(try_end),
-			(agent_get_combat_state, ":cs", ":agent"),
-			#(assign, reg0, ":cs"),
-			#(display_message, "str_reg0"),
-			#(lt, ":cs", 4),
-			#(neq, ":cs", 2),
-			(this_or_next|eq, ":cs", 1),
-			(eq, ":cs", 3),
-						
-			(store_mod, reg0, ":volley_counter", ":delay"),		
-			(try_begin),
-				(eq, reg0, 0),
-				(agent_set_attack_action, ":agent", 0, 0), #Fire
-				# (display_message, "@Fire"),
-			(else_try),
-				(agent_set_attack_action, ":agent", 0, 1), #Ready and Aim
-				# (display_message, "@Aim"),
-			(try_end),
-		(try_end),
-     ]),
- 
-    (1, 0, ti_once, [(neq, "$g_battle_result", 0)], [   #Disable Volley @ end of battle 
-		(try_for_range, ":team", 0, 4),
-			(try_for_range, ":slot", slot_team_d0_order_volley, slot_team_d0_order_volley + 9),
-                (team_set_slot, ":team", ":slot", 0),
-			(try_end),
-		(try_end)
-	 ]),
- 
-    (0, 0, 3, [(key_clicked, key_m)], [   #call_horse_trigger
-      (agent_get_slot, ":horse", "$fplayer_agent_no", slot_agent_horse),
-      (gt, ":horse", 0),      
-      #(agent_play_sound, "$fplayer_agent_no", "snd_whistle"),
-	  (agent_play_sound, "$fplayer_agent_no", "snd_man_breath_hard"),
-      (display_message,"@You whistle for your horse."),
-      (agent_is_alive,":horse"),
-      (agent_get_position, pos1, "$fplayer_agent_no"),
-      (agent_set_scripted_destination, ":horse", pos1, 0),
-     ]),
- ]
-
-weapon_use_triggers = [
+field_ai_triggers = [
   dplmc_horse_speed,
-  (1, 0, ti_once, [], #No conditions for slot classification, just for their use.
-    # Just after spawn, mark lancers, spears, horse archers using a slot.
-    # Force lancers to equip lances, horse archers to equip bows
-    [(call_script, "script_weapon_use_classify_agent")]),
-
-  (2, 0, 0, [(this_or_next|party_slot_eq, "p_main_party", slot_party_pref_wu_lance, 1),(this_or_next|party_slot_eq, "p_main_party", slot_party_pref_wu_harcher, 1),(party_slot_eq, "p_main_party", slot_party_pref_wu_spear, 1)],
+  (ti_on_agent_spawn, 0, 0, [], [(store_trigger_param_1, ":agent"),(call_script, "script_weapon_use_classify_agent", ":agent")]), # On spawn, mark lancers, spears, horse archers using a slot. Force lancers to equip lances, horse archers to equip bows 
+  (2, 0, 0, [(this_or_next|party_slot_eq, "p_main_party", slot_party_pref_wu_lance, 1),(this_or_next|party_slot_eq, "p_main_party", slot_party_pref_wu_harcher, 1),(party_slot_eq, "p_main_party", slot_party_pref_wu_spear, 1),(store_mission_timer_a, reg0),(gt, reg0, 4)],
    # Check to make sure there are no lance users on foot, if so force them to
    # switch to their sword. This should also affect troops that were NEVER mounted,
    # but are still equipped with lances, such as Taiga Bandits.
    # Check horse archers ammo, and if none left, switch to sword.
    # For mounted lancers and foot spears, affect their Decision on weapon use,
    # based on if closest 3 enemies are within 5 meters and if currently attacking/defending.
-   [# Run through all active NPCs on the battle field.
-  	   
-   (try_for_agents, ":agent"),
+   [  	   
+	(try_for_agents, ":agent"), # Run through all active NPCs on the battle field.
      # Hasn't been defeated.
         (agent_is_alive, ":agent"),
 		(agent_is_non_player, ":agent"),
@@ -800,8 +796,8 @@ weapon_use_triggers = [
 			(team_get_slot, ":shield_order", ":team", ":slot"),
 		(try_end),
 		(neq, ":weapon_order", wordr_use_blunt_weapons), #Not ordered to use blunts
+		(eq, ":caba_weapon_order", clear), # For Caba'drin orders; no active weapon order
         (try_begin),
-		    (eq, ":caba_weapon_order", clear), # For Caba'drin orders; no active weapon order
 			(party_slot_eq, "p_main_party", slot_party_pref_wu_lance, 1),
             (agent_get_slot, ":lance", ":agent", slot_agent_lance),
             (gt, ":lance", 0),  # Lancer?
@@ -844,7 +840,6 @@ weapon_use_triggers = [
                 (try_end),
             (try_end),
         (else_try),
-		    (eq, ":caba_weapon_order", clear), # For Caba'drin orders; no active weapon order
 			(party_slot_eq, "p_main_party", slot_party_pref_wu_harcher, 1),
 		    (agent_get_slot, ":bow", ":agent", slot_agent_horsebow),
             (gt, ":bow", 0),  # Horse archer?
@@ -879,32 +874,13 @@ weapon_use_triggers = [
             (gt, ":spear", 0), # Spear-Unit?   
 
 			(store_add, ":slot", slot_team_d0_formation, ":class"),
-			(team_slot_eq, ":team", ":slot", formation_none),
+			(team_slot_eq, ":team", ":slot", formation_none),			
+			(neq, ":shield_order", 1),
 			
             (agent_get_position, pos1, ":agent"), # Find distance of nearest 3 enemies
             (call_script, "script_get_closest3_distance_of_enemies_at_pos1", ":team", pos1),
             (assign, ":avg_dist", reg0),
             (assign, ":closest_dist", reg1),
-			# (assign, ":closest_enemy", reg4),
-			# (try_begin), #Spear-Brace
-			    # (agent_slot_eq, ":agent", slot_agent_spear_brace, 1),
-				# (le, ":closest_dist", 1000),
-				# (agent_get_horse, ":horse", ":closest_enemy"),
-				# (ge, ":horse", 0),
-				# (try_begin),
-					# (is_between, ":closest_dist", 500, 1000),
-					# (agent_set_attack_action, ":agent", 0, 1),
-					# (display_message, "@Setting Spear"),
-				# (else_try),
-					# (lt, ":closest_dist", 500),
-					# (agent_set_attack_action, ":agent", 0, 0),
-					# (display_message, "@Thrust!"),			
-				# (try_end),  
-			# #(else_try),
-				# #(agent_clear_scripted_mode, ":agent"),
-			# (try_end),
-			(eq, ":caba_weapon_order", clear), # For Caba'drin orders; no active weapon order
-			(neq, ":shield_order", 1),
 			(agent_get_wielded_item, ":wielded", ":agent", 0), # Get wielded
             (try_begin), #Weapon Use
                 (this_or_next|lt, ":closest_dist", 300), # Closest enemy within 3 meters?
@@ -918,7 +894,7 @@ weapon_use_triggers = [
                 (agent_set_wielded_item, ":agent", ":spear"), # Then equip it!                
             (try_end),
         (try_end),
-   (try_end),
+    (try_end),
     ]),
 	
   (ti_on_agent_hit, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_dmg_tweaks, 1)],
@@ -934,7 +910,7 @@ weapon_use_triggers = [
 	
 	(try_begin),
 	    (agent_is_human, ":agent"), 
-		(agent_is_non_player, ":agent"), #Maybe remove?
+		#(agent_is_non_player, ":agent"), #Maybe remove?
 	    (try_begin), #Horse Trample Buff
 		    (neg|agent_is_human, ":attacker"),
             (eq, ":weapon", -1),
@@ -959,37 +935,43 @@ weapon_use_triggers = [
 				(position_get_x, ":lateral_speed", pos0), #Double check
 				(val_max, ":forward_speed", ":lateral_speed"), #Double check
 				(convert_from_fixed_point, ":forward_speed"),
-				(gt, ":forward_speed", 600),
+				(gt, ":forward_speed", 6),
 				(val_mul, ":damage", 2),
 			(try_end),
         (try_end),
 	(else_try), #Pike Buff
 	    (neg|agent_is_human, ":agent"),
-		#(this_or_next|eq, ":attacker", "$fplayer_agent_no"),
-		#(agent_slot_ge, ":attacker", slot_agent_spear, 1), #Ensure it is an infantryman, armed with a polearm
 		(gt, ":weapon", 0),
 		(item_slot_ge, ":weapon", slot_item_length, 150),
-		#(item_slot_eq, ":weapon", slot_item_pike, 1),
 		(agent_get_horse, ":horse", ":attacker"),
 		(eq, ":horse", -1),
-			
+					
 		(try_begin),
 		    (agent_get_action_dir, ":direction", ":attacker"), #invalid = -1, down = 0, right = 1, left = 2, up = 3
 		    (eq, ":direction", 0), #thrust	
-    		(val_max, ":damage", 120),
+			(val_mul, ":damage", 2),
+    		(val_max, ":damage", 50), #was 120
 		(else_try),
-		    (val_max, ":damage", 60),
+			(val_mul, ":damage", 3),
+			(val_div, ":damage", 2),
+		    (val_max, ":damage", 30), #was 60
 		(try_end),
+		(val_max, ":damage", ":orig_damage"),
 
 		(agent_get_speed, pos0, ":agent"),
 		(position_get_y, ":forward_speed", pos0),
 		(position_get_x, ":lateral_speed", pos0), #Double check
 		(val_max, ":forward_speed", ":lateral_speed"), #Double check
 		(convert_from_fixed_point, ":forward_speed"),
-		(val_sub, ":forward_speed", 4),
-		(val_clamp, ":forward_speed", -2, 5),
-		(store_mul, ":speed_mod", ":forward_speed", 10),
-		(val_add, ":damage", ":speed_mod"),			
+		(val_sub, ":forward_speed", 3),
+		(val_clamp, ":forward_speed", -2, 4),
+		(store_mul, ":speed_mod", ":forward_speed", 10), #Between -20 and +40
+		(val_add, ":damage", ":speed_mod"),		
+
+		(agent_get_item_id, ":horse", ":agent"), #New Armor damage reduction
+		(item_get_slot, ":armor", ":horse", slot_item_horse_armor),
+		(val_div, ":armor", 4), #Range of 2-14
+		(val_sub, ":damage", ":armor"),
 		
 		#Horses randomly rear if they take damage
 		(store_random_in_range, ":random_no", 0, 100),
@@ -1039,35 +1021,14 @@ weapon_use_triggers = [
 		(display_message, "@{reg2?You strike:Your horse charges} for {reg1} bonus damage!"),
     (try_end),
    ]),	
-
-  (ti_on_agent_spawn, 0, 0, [], [(store_trigger_param_1, ":agent"),(agent_set_slot, ":agent", slot_agent_new_division, -1)]), 
-  (ti_on_agent_spawn, 0, 0, [(party_get_slot, reg3, "p_main_party", slot_party_pref_div_dehorse),(is_between, reg3, 0, 9)], #De-Horse Trigger 1
+  
+  (ti_on_agent_dismount, 0, 0, [(party_get_slot, reg3, "p_main_party", slot_party_pref_div_dehorse),(is_between, reg3, 0, 9)], #De-Horse Trigger #Valid division 0-8
    [
-    (store_trigger_param_1, ":horse"),
+	(store_trigger_param_2, ":horse"),
+	(neg|agent_is_alive, ":horse"),
 	
-    (try_begin),
-        (neg|agent_is_human, ":horse"),	
-        (agent_get_rider, ":rider", ":horse"),
-        (ge, ":rider", 0), #I don't know if any of these checks are necessary
-	    (agent_is_active, ":rider"),
-        (agent_is_alive, ":rider"),
-        (agent_is_non_player, ":rider"),
-	(else_try),
-	    (assign, ":rider", -1),
-	(try_end),
-    
-    (agent_set_slot, ":horse", slot_agent_horse_rider, ":rider"),
-   ]),
-   
-  (ti_on_agent_killed_or_wounded, 0, 0, [(party_get_slot, reg3, "p_main_party", slot_party_pref_div_dehorse),(is_between, reg3, 0, 9)], #De-Horse Trigger 2  #Valid division 0-8
-   [
-    (store_trigger_param_1, ":dead_horse"),
-	(neg|agent_is_human, ":dead_horse"),
-     
-    (agent_get_slot, ":rider", ":dead_horse", slot_agent_horse_rider),
-    (ge, ":rider", 0),
-	(agent_is_active, ":rider"),
-    (agent_is_alive, ":rider"),
+	(store_trigger_param_1, ":rider"), 
+	(agent_is_alive, ":rider"),
     (agent_is_non_player, ":rider"),
 	
 	(agent_get_team, ":team", ":rider"),
@@ -1091,7 +1052,6 @@ weapon_use_triggers = [
 	(eq, ":type", itp_type_crossbow),
 	
 	(store_trigger_param_1, ":agent"),
-	(agent_is_active, ":agent"),
     (agent_is_alive, ":agent"),
     (agent_is_non_player, ":agent"),
 	
@@ -1120,83 +1080,313 @@ weapon_use_triggers = [
 		(agent_set_slot, ":agent", slot_agent_new_division, grc_infantry),
 	(try_end),  
    ]),
-
-  (1, 0, 0, [(this_or_next|neg|party_slot_eq, "p_main_party", slot_party_pref_div_no_ammo, 9),(neg|party_slot_eq, "p_main_party", slot_party_pref_div_dehorse, 9)],
-   [
-    (try_for_agents, ":agent"),
-	    (agent_is_active, ":agent"),
-		(agent_slot_ge, ":agent", slot_agent_new_division, 0),
-		(agent_is_alive, ":agent"),
-	    (agent_get_division, ":division", ":agent"),
-		(neg|agent_slot_eq, ":agent", slot_agent_new_division, ":division"),
-		(agent_get_slot, ":new_div", ":agent", slot_agent_new_division),
-		(agent_set_division, ":agent", ":new_div"),
-	(try_end),	
+   
+  (2, 0, ti_once, [(store_mission_timer_a, reg0),(gt, reg0, 2)], [ #Force Cav to Stay Mounted
+    (set_show_messages, 0),   
+    (try_for_range, ":team", 0, 4),
+	    #(neq, ":team", "$fplayer_team_no"),		
+		(try_for_range, ":division", 0, 9),
+		    (store_add, ":slot", slot_team_d0_type, ":division"),
+			(this_or_next|team_slot_eq, ":team", ":slot", sdt_cavalry),
+			(team_slot_eq, ":team", ":slot", sdt_harcher),
+			(team_give_order, ":team", ":division", mordr_mount),
+		(try_end),		
+	(try_end),
+	(set_show_messages, 1),
    ]),
-	
-  ##Spearwall Kit - Edited from the Mercenary by Caba'drin
+  
+  (1, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_spear_brace, 1),(store_mission_timer_a, reg0),(gt, reg0, 2)], [ ###GENERAL AI TRIGGER for SPECIAL ORDERS  ##Deal with Formations    
+		(set_fixed_point_multiplier, 100),
+		(try_for_range, ":division", 0, 9), #Player auto-remove brace
+			(store_add, ":slot", slot_team_d0_order_sp_brace, ":division"),
+			(neg|team_slot_eq, "$fplayer_team_no", ":slot", 0), #brace active
+			(call_script, "script_formation_current_position", pos2, "$fplayer_team_no", ":division"),
+			(call_script, "script_get_nearest_enemy_battlegroup_current_position", pos1, "$fplayer_team_no", pos2),
+			(this_or_next|lt, reg0, 325), #distance
+			(position_is_behind_position,pos1,pos2),
+			(team_set_order_listener, "$fplayer_team_no", ":division"),
+			(call_script, "script_order_sp_brace_begin_end", end, "$fplayer_team_no"),
+			(team_set_order_listener, "$fplayer_team_no", -1),
+		(try_end),
+	    (try_for_range, ":team", 0, 4), #For AI
+			(neq, ":team", "$fplayer_team_no"),
+			(team_slot_ge, ":team", slot_team_size, 1),
+			(assign, ":mordr", -1),
+			(team_get_slot, ":faction", ":team", slot_team_faction),
+			(neq, ":faction", "fac_no_faction"),
+			(try_begin), #Spear Bracing Decision-making
+				(this_or_next|eq, ":faction", "fac_player_supporters_faction"), #Player's lords can brace
+				(eq, ":faction", "fac_kingdom_5"), #Rhodoks	
+				(try_begin),
+					(team_slot_eq, ":team", slot_team_d0_order_sp_brace, 0), #Spearbrace order not active
+					(store_add, ":slot", slot_team_d0_size, grc_infantry), 
+					(team_slot_ge, ":team", slot_team_d0_size, 10),
+					(store_add, ":slot", slot_team_d0_weapon_length, grc_infantry),
+					(team_slot_ge, ":team", ":slot", 80), #have long weapons/polearms (until bumped to a separate division)
+					(store_add, ":slot", slot_team_d0_formation, grc_infantry),
+					(team_get_movement_order, ":mordr", ":team", grc_infantry),
+					(this_or_next|neg|team_slot_eq, ":team", ":slot", formation_none),
+					(neq, ":mordr", mordr_charge), #Not Charging	
+					(assign, ":num_cav", 0),
+					(try_for_range, ":enemy_team", 0, 4),
+						(teams_are_enemies, ":enemy_team", ":team"),
+						(team_slot_ge, ":enemy_team", slot_team_size, 1),
+						(team_get_slot, reg0, ":enemy_team", slot_team_num_cavalry), 
+						(val_add, ":num_cav", reg0),
+					(try_end),		
+					(ge, ":num_cav", 5), #sufficent enemy cav to care
+					(assign, ":distance", 99999),
+					(call_script, "script_formation_current_position", pos2, ":team", grc_infantry),
+					(call_script, "script_team_get_position_of_enemies", pos1, ":team", grc_cavalry),
+					(get_distance_between_positions, ":distance", pos1, pos2),
+					(is_between, ":distance", 1500, 5000), #cav distance
+					(call_script, "script_get_nearest_enemy_battlegroup_current_position", pos1, ":team", pos2),
+					(gt, reg0, 600), #nearest distance
+					(neg|position_is_behind_position,pos1,pos2),
+					(team_set_order_listener, ":team", grc_infantry),
+					(call_script, "script_order_sp_brace_begin_end", begin, ":team"),
+					(team_set_order_listener, ":team", -1),
+				(else_try), #Should only capture an eligible team that is now charging, so bracing should turn off
+					(neg|team_slot_eq, ":team", slot_team_d0_order_sp_brace, 0), #Order Active
+					(assign, ":end", 0),
+					(try_begin),
+						(assign, ":num_cav", 0),
+						(try_for_range, ":enemy_team", 0, 4),
+							(teams_are_enemies, ":enemy_team", ":team"),
+							(team_slot_ge, ":enemy_team", slot_team_size, 1),
+							(team_get_slot, reg0, ":enemy_team", slot_team_num_cavalry), 
+							(val_add, ":num_cav", reg0),
+						(try_end),		
+						(team_get_movement_order, ":mordr", ":team", grc_infantry),
+						(this_or_next|eq, ":mordr", mordr_charge),
+						(lt, ":num_cav", 5),
+						(assign, ":end", 1),
+					(else_try),
+						(store_add, ":slot", slot_team_d0_size, grc_infantry), 
+						(neg|team_slot_ge, ":team", slot_team_d0_size, 10),
+						(assign, ":end", 1),
+					(else_try),
+						(store_add, ":slot", slot_team_d0_weapon_length, grc_infantry),
+						(neg|team_slot_ge, ":team", ":slot", 80), #have long weapons/polearms (until bumped to a separate division)
+						(assign, ":end", 1),
+					(else_try),
+						(assign, ":distance", 0),
+						(call_script, "script_formation_current_position", pos2, ":team", grc_infantry),
+						(call_script, "script_team_get_position_of_enemies", pos1, ":team", grc_cavalry),
+						(get_distance_between_positions, ":distance", pos1, pos2),
+						(gt, ":distance", 6500),
+						(assign, ":end", 1),
+					(else_try), #after contact, end brace
+						(call_script, "script_get_nearest_enemy_battlegroup_current_position", pos1, ":team", pos2),
+						(this_or_next|lt, reg0, 350), #distance
+						(position_is_behind_position,pos1,pos2),
+						(assign, ":end", 1),
+					(try_end),
+					(eq, ":end", 1),
+					(team_set_order_listener, ":team", grc_infantry),
+					(call_script, "script_order_sp_brace_begin_end", end, ":team"),
+					(team_set_order_listener, ":team", -1),
+				(try_end),
+			(try_end), #End Spear Bracing
+			(try_begin), #Volley/Skirmish Decision Making
+				(neq, ":faction", "fac_kingdom_1"), #Swadia
+				(neq, ":faction", "fac_kingdom_5"), #Rhodoks...Exclude Cross-bow users
+				(store_add, ":slot", slot_team_d0_order_skirmish, grc_archers),
+				(neg|team_slot_eq, ":team", ":slot", 1),
+				(team_get_slot, reg1, ":team", slot_team_num_archers),
+				(team_get_slot, ":size", ":team", slot_team_size),
+				(val_mul, reg1, 100),
+				(val_div, reg1, ":size"),
+				(gt, reg1, 25), #>25% archers
+				(team_set_order_listener, ":team", grc_archers),
+				(call_script, "script_order_skirmish_begin_end", begin, ":team"),
+				(team_set_order_listener, ":team", -1),
+			(else_try),
+				(this_or_next|eq, ":faction", "fac_kingdom_1"), #Swadia
+				(eq, ":faction", "fac_kingdom_5"), #Rhodoks... Cross-bow users
+				(assign, ":distance", 99999),
+				(try_begin),
+					(store_add, ":slot", slot_team_d0_order_volley, grc_archers),
+					(neg|team_slot_ge, ":team", ":slot", 1), #Not Volleying
+					(team_get_slot, reg1, ":team", slot_team_num_archers),
+					(team_get_slot, ":size", ":team", slot_team_size),
+					(val_mul, reg1, 100),
+					(val_div, reg1, ":size"),
+					(gt, reg1, 25), #>25% archers
+					(team_get_movement_order, ":mordr", ":team", grc_archers),
+					(neq, ":mordr", mordr_charge),	
+					(call_script, "script_battlegroup_get_position", pos2, ":team", grc_archers),
+					(call_script, "script_get_nearest_enemy_battlegroup_location", Temp_Pos, ":team", pos2),					
+					(is_between, reg0, 1000, 7000),
+					(team_set_order_listener, ":team", grc_archers),
+					(call_script, "script_order_volley_begin_end", begin, ":team"),
+					(team_set_order_listener, ":team", -1),
+				(else_try),
+					(store_add, ":slot", slot_team_d0_order_volley, grc_archers),
+					(team_slot_ge, ":team", ":slot", 1),
+					(assign, ":end", 0),
+					(try_begin),
+						(team_get_movement_order, ":mordr", ":team", grc_archers),
+						(eq, ":mordr", mordr_charge),	
+						(assign, ":end", 1),
+					(else_try),
+						(call_script, "script_battlegroup_get_position", pos2, ":team", grc_archers),
+					    (call_script, "script_get_nearest_enemy_battlegroup_location", Temp_Pos, ":team", pos2),
+						(neg|is_between, reg0, 1000, 8000),
+						(assign, ":end", 1),
+					(try_end),					
+					(eq, ":end", 1),
+					(team_set_order_listener, ":team", grc_archers),
+					(call_script, "script_order_volley_begin_end", end, ":team"),
+					(team_set_order_listener, ":team", -1),
+				(try_end),
+			(try_end), #End Skirmish/Volley
+		(try_end), #Team Loop
+    ]),
+      
+  (0.5, 0, 0, [(call_script, "script_cf_order_active_check", slot_team_d0_order_skirmish)], [(call_script, "script_order_skirmish_skirmish")]), 
+ 
+  (1, 0, 0, [(call_script, "script_cf_order_active_check", slot_team_d0_order_volley)], [
+		(try_for_range, ":team", 0, 4),
+			(try_for_range, ":division", 0, 9),
+			    (store_add, ":slot", slot_team_d0_order_volley, ":division"),
+				(team_slot_ge, ":team", ":slot", 1),
+				(team_get_slot, ":volley_counter", ":team", ":slot"),
+				(val_add, ":volley_counter", 1),
+				(team_set_slot, ":team", ":slot", ":volley_counter"),
+			(try_end),
+		(try_end),
+		
+		(try_for_agents, ":agent"),
+		    (agent_is_alive, ":agent"),
+			(agent_is_non_player, ":agent"),
+			(agent_slot_ge, ":agent", slot_agent_volley_fire, 1),
+			(agent_get_ammo, ":ammo", ":agent", 1),
+			(gt, ":ammo", 0),
+			
+			(agent_get_team, ":team", ":agent"),
+			(agent_get_division, ":division", ":agent"),
+			(store_add, ":slot", slot_team_d0_order_volley, ":division"),
+			(team_get_slot, ":volley_counter", ":team", ":slot"),
+			
+			(agent_get_slot, ":volley_wpn_type", ":agent", slot_agent_volley_fire),
+			(try_begin),
+				(eq, ":volley_wpn_type", itp_type_bow),
+				(assign, ":delay", 2),
+			(else_try),
+				(eq, ":volley_wpn_type", itp_type_crossbow),
+				(assign, ":delay", 5),
+			(try_end),
+			(agent_get_combat_state, ":cs", ":agent"),
+			#(assign, reg0, ":cs"),
+			#(display_message, "str_reg0"),
+			#(lt, ":cs", 4),
+			#(neq, ":cs", 2),
+			(this_or_next|eq, ":cs", 1),
+			(eq, ":cs", 3),
+						
+			(store_mod, reg0, ":volley_counter", ":delay"),		
+			(try_begin),
+				(eq, reg0, 0),
+				(agent_set_attack_action, ":agent", 0, 0), #Fire
+			(else_try),
+				(agent_set_attack_action, ":agent", 0, 1), #Ready and Aim
+			(try_end),
+		(try_end),
+     ]),
+ 
+  (1, 0, ti_once, [(neq, "$g_battle_result", 0)], [   #Disable Volley @ end of battle 
+		(try_for_range, ":team", 0, 4),
+			(try_for_range, ":slot", slot_team_d0_order_volley, slot_team_d0_order_volley + 9),
+                (team_set_slot, ":team", ":slot", 0),
+			(try_end),
+		(try_end)
+	 ]),
+ 
+  (0, 0, 3, [(key_clicked, "$key_special_1")], [   #call_horse_trigger
+      (agent_get_slot, ":horse", "$fplayer_agent_no", slot_agent_horse),
+      (gt, ":horse", 0),
+      (agent_is_active, ":horse"),      
+      #(agent_play_sound, "$fplayer_agent_no", "snd_whistle"),
+	  (agent_play_sound, "$fplayer_agent_no", "snd_man_breath_hard"),
+      (display_message,"@You whistle for your horse."),
+      (agent_is_alive,":horse"),
+      (agent_get_position, pos1, "$fplayer_agent_no"),
+      (agent_set_scripted_destination, ":horse", pos1, 0),
+     ]),
+   
+  ##Spearwall Kit - Edited from The Mercenary by Caba'drin  
   (0.1, 0, 0, [(call_script, "script_cf_order_active_check", slot_team_d0_order_sp_brace)], [ #spearwall_trigger_1
 		(try_for_agents,":agent"),
            (agent_is_alive,":agent"),
            (agent_is_human,":agent"),
+		   (agent_slot_eq, ":agent", slot_agent_is_running_away, 0),
 		   (agent_slot_ge, ":agent", slot_agent_spear, 1),
-		   (agent_slot_eq, ":agent", slot_agent_is_running_away, 0), #CABA
+		   (agent_get_wielded_item, ":weapon", ":agent", 0),
+           (agent_slot_eq, ":agent", slot_agent_spear, ":weapon"),
 		   (agent_get_team,":team1",":agent"),
-           (agent_get_division,":class",":agent"), #CABA Changed agent_get_class to agent_get_division
+           (agent_get_division,":class",":agent"),
+		   (team_get_movement_order,":order",":team1",":class"),
 		   (assign,":continue",0),
            (try_begin),
-              (neq,":team1","$fplayer_team_no"),
-			  (party_slot_eq, "p_main_party", slot_party_pref_spear_brace, 1), #If not the player's team, must be Enabled
-			  (assign, ":continue", 1),
-		   (else_try),
-		      (eq,":team1","$fplayer_team_no"),
+		      (neq, ":agent", "$fplayer_agent_no"),
 		      (store_add, ":slot", slot_team_d0_order_sp_brace, ":class"),
 			  (team_slot_eq, ":team1", ":slot", 1),
+			  (this_or_next|eq,":order",mordr_hold),
+              (eq,":order",mordr_stand_ground),
 			  (assign, ":continue", 1),
-		   (else_try), #CABA
-              (eq, ":agent", "$fplayer_agent_no"), #CABA
-              (agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1), #CABA
-              (assign, ":continue", 1), #CABA
+		   (else_try),
+              (eq, ":agent", "$fplayer_agent_no"), 
+              (agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1),
+              (assign, ":continue", 1),
 		   (try_end),
-           (eq, ":continue", 1),
-           (agent_get_slot,":speartimer",":agent",slot_agent_spearwall),
+		   (eq, ":continue", 1),
+		   (agent_get_speed, pos0, ":agent"), #New
+		   (position_get_y, ":speed", pos0),
+		   (position_get_x, ":speed_x", pos0),
+		   (val_max, ":speed", ":speed_x"),
+		   #(assign, reg0, ":speed"),
+		   #(display_message, "@Speed: {reg0}"),
+		   (eq, ":speed", 0),
+		   (try_begin),
+				(agent_get_animation, ":anim", ":agent"),				
+				#Try block for proper animation--high, low, standing; w or w/o shield (hopefully?)
+				(try_begin),
+				    (item_slot_eq, ":weapon", slot_item_pike, 1),
+					(assign, ":anim_bracing", "anim_spearwall_bracing_low"),
+				(else_try),
+				    (assign, ":anim_bracing", "anim_spearwall_bracing"),
+				(try_end),
+				(neq, ":anim", ":anim_bracing"),
+				(agent_set_animation, ":agent", ":anim_bracing"),
+				(agent_get_position, pos1, ":agent"), ##lessens some spinning
+				(agent_set_scripted_destination, ":agent", pos1), ##lessens some spinning
+				(agent_get_look_position, pos1, ":agent"),
+				(position_get_x, ":x", pos1),
+				(position_get_y, ":y", pos1),
+				(agent_set_slot, ":agent", slot_agent_target_x_pos, ":x"),
+				(agent_set_slot, ":agent", slot_agent_target_y_pos, ":y"),
+				(agent_set_slot, ":agent", slot_agent_spearwall, 0), #Begin count with animation resetting
+		   (try_end),
+		   #(eq, ":continue", 1),
+		   (agent_get_slot,":speartimer",":agent",slot_agent_spearwall),
            (try_begin),
                 (lt,":speartimer",20),
                 (val_add,":speartimer",1),
-                (this_or_next|agent_is_non_player, ":agent"), #CABA
-                (agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1), #CABA
                 (agent_set_slot,":agent",slot_agent_spearwall,":speartimer"),
            (try_end),
+		   (agent_set_is_alarmed, ":agent", 0), ##lessens some spinning
+		   (agent_get_slot, ":x", ":agent", slot_agent_target_x_pos),
+		   (agent_get_slot, ":y", ":agent", slot_agent_target_y_pos),
+		   (init_position, pos2),
+		   (position_set_x, pos2, ":x"),
+		   (position_set_y, pos2, ":y"),
+		   (agent_set_look_target_position, ":agent", pos2),
            (ge,":speartimer",20),
-           (agent_get_simple_behavior,":state",":agent"),
-           (team_get_movement_order,":order",":team1",":class"),
-           (assign,":continue",0),
-           (try_begin),
-              (neq,":team1","$fplayer_team_no"),
-              (this_or_next|eq,":state",aisb_hold),
-              (this_or_next|eq,":state",aisb_flock),
-              (eq,":state",aisb_go_to_pos),
-              (assign,":continue",1),
-           (else_try),
-              (neq, ":agent", "$fplayer_agent_no"), #CABA
-			  (eq,":team1","$fplayer_team_no"),
-              (this_or_next|eq,":order",mordr_hold),
-              (eq,":order",mordr_stand_ground),
-              (this_or_next|eq,":state",aisb_hold),
-              (this_or_next|eq,":state",aisb_flock),
-              (eq,":state",aisb_go_to_pos),
-              (assign,":continue",1),
-           (else_try), #CABA
-              (eq, ":agent", "$fplayer_agent_no"), #CABA
-              (agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1), #CABA
-              (assign, ":continue", 1), #CABA
-           (try_end),
-           (eq,":continue",1),
-		   (agent_get_wielded_item, ":weapon", ":agent", 0), #CABA
-           (agent_slot_eq, ":agent", slot_agent_spear, ":weapon"), #CABA
-           (item_get_slot, ":spear_dist", ":weapon", slot_item_length), #CABA
-           (assign, ":dist_to_beat", ":spear_dist"), #CABA to make sure this calls on the closest...could add something for 1 victim/pike?
+		   (item_get_slot, ":spear_dist", ":weapon", slot_item_length), #CABA
+           (assign, ":dist_to_beat", ":spear_dist"),
            (assign,":victim",-1),
+		   (assign, ":vic_rider", -1),
            (agent_get_position,pos1,":agent"),
            (try_for_agents,":possible_victim"),
               (agent_is_alive,":possible_victim"),
@@ -1212,69 +1402,89 @@ weapon_use_triggers = [
 			  (get_angle_between_positions, ":angle", pos1, pos2), #CABA
 			  (val_abs, ":angle"), #CABA
 			  (convert_from_fixed_point, ":angle"), #CABA
-              (is_between, ":angle", 170, 181), #CABA...20 degree field to find possible targets
+              (is_between, ":angle", 165, 181),  #30 degrees... have to be facing one another
+			  #(position_transform_position_to_local, pos2, pos1, pos2),
+			  #(position_get_x, ":x", pos2),
+			  #(position_get_y, ":y", pos2),
+			  #(val_abs, ":x"),
+			  #(store_atan2, ":angle", ":x", ":y"), #first value is y, second is x - so say header_operations. not so
+			  #(convert_from_fixed_point, ":angle"), #CABA
+			  # (assign, reg0, ":angle"),
+		      # (display_message, "str_reg0"),			  
+			  #(is_between, ":angle", 0, 21), #40 degree field...perhaps more appropriate for that distance			  			  
 			  (agent_get_speed, pos0, ":possible_victim"), #CABA
               (position_get_y, ":speed", pos0), #CABA
 			  (position_get_x, ":speed_x", pos0), #CABA - just be be sure
 			  (val_max, ":speed", ":speed_x"), #CABA - just to be sure
-              (ge, ":speed", 400), #CABA at least half speed; full speed horse 800-1100
+              (ge, ":speed", 300), #CABA at least half speed; full speed horse 800-1100, was 400
               (assign, ":dist_to_beat", ":dist"), #CABA ...now it will progressively find the closest target
               (assign,":victim",":possible_victim"), #CABA
+			  (assign,":vic_rider", ":rider"),
            (try_end),
            (gt,":victim",-1),
-           (agent_set_animation, ":agent", "anim_spearwall_hold"),
+		  # (display_message, "@Brace should hit"),
+           (agent_set_animation, ":agent", "anim_spearwall_bracing_recoil"),
+		   (agent_set_slot, ":agent", slot_agent_spearwall, 0),
            (agent_play_sound,":victim","snd_metal_hit_high_armor_high_damage"),
            (store_agent_hit_points,":hp",":victim",0), #This stores as a %
-           (store_agent_hit_points,":oldhp",":victim",1), #This stores as absoulte #
-#Floris: disabled those lines to make the spear brace even more effective. CABA re-enabled otherwise it is ALWAYS instant-death for horse, given new speeds
-           (val_div,":speed",8), # Orig 2; Remember to change this if the timing on speed checks changes
+           (store_agent_hit_points,":oldhp",":victim",1), #This stores as absoulte # - Pre-Damage
+           (val_div,":speed",6), # Orig 2; Remember to change this if the timing on speed checks changes
            (val_sub,":speed",10), #CABA - w/speed div by 8-10, a speed over 900 will be an instant-kill. Might want to change divisor to 10?
-           (try_begin), #CABA - Pike Bonus Block
+           (try_begin), #Pike Bonus Damage
 		      (item_slot_eq, ":weapon", slot_item_pike, 1),
 			  (val_add, ":speed", 5),
 			  (gt, ":spear_dist", 200),
 			  (val_add, ":speed", 5),
 		   (try_end),
+		   # (assign, reg0, ":speed"),
+		   # (display_message, "str_reg0"),
 		   (val_sub,":hp",":speed"),
-           (val_max,":hp",0),
-           (agent_set_slot,":agent",slot_agent_spearwall,0),
-           (agent_set_hit_points,":victim",":hp",0), #NEW HP% = Previous HP% - (Speed/8)
+           (val_max,":hp", 0),
+           (agent_set_hit_points, ":victim", ":hp", 0), #NEW HP% = Previous HP% - (Speed/8)
            (agent_deliver_damage_to_agent,":victim",":victim"), ##CHANGE TO THE AGENT DEALING DAMAGE? Probably not to avoid double pike-buff
-           ## IF THE HORSE IS STILL ALIVE, base 50% chance of rearing
-		   (store_random_in_range, ":random_no", 0, 100),
-		   (try_begin), #Pike bonus block
-		      (item_slot_eq, ":weapon", slot_item_pike, 1),
-			  (val_sub, ":random_no", 8), #"Pike" with 58% chance
-			  (gt, ":spear_dist", 200),
-			  (val_sub, ":random_no", 8), #Longest Pikes with 66% chance
-		   (try_end),
-		   (try_begin),
-				(lt, ":random_no", 50),
-				(agent_set_animation, ":victim", "anim_horse_rear"),
+           (store_agent_hit_points,":hp",":victim",1), #Post-Damage HP 
+		   (try_begin), ## REAR or RIDER DAMAGE
+		       (gt, ":hp", 0), #IF THE HORSE IS STILL ALIVE, base 50% chance of rearing
+			   (store_random_in_range, ":random_no", 0, 100),
+			   (try_begin), #Pike bonus block
+				  (item_slot_eq, ":weapon", slot_item_pike, 1),
+				  (val_sub, ":random_no", 10), #"Pike" with 60% chance
+				  (gt, ":spear_dist", 200),
+				  (val_sub, ":random_no", 10), #Longest Pikes with 70% chance
+			   (try_end),
+			   (lt, ":random_no", 50),
+			   (agent_set_animation, ":victim", "anim_horse_rear"),
+		   (else_try), #Horse Killed, so damage rider on fall
+		       (le, ":hp", 0),
+		       # #(agent_set_no_dynamics, ":victim", 1), #0 = turn dynamics off, 1 = turn dynamics on (required for cut-scenes)    ????
+			   # (agent_get_position, pos2, ":victim"),
+			   # (position_move_y, pos2, -100), #back 1m
+			   # (agent_set_position, ":victim", pos2), #above here, trying to prevent horse forward momentum too much...nothing works
+			   (store_random_in_range, ":random_no", 40, 75), #Rider should loose 1/4 - 3/5 of HP
+			   (store_agent_hit_points, ":rider_hp", ":vic_rider", 0),
+			   (val_min, ":random_no", ":rider_hp"),
+			   (agent_set_hit_points, ":vic_rider", ":random_no", 0),
 		   (try_end),
 		   (try_begin),
               (agent_get_horse,":playerhorse","$fplayer_agent_no"),
-              (eq,":victim",":playerhorse"),
-              (store_agent_hit_points,":hp",":victim",1),
+              (eq,":victim",":playerhorse"),         
               (val_sub,":oldhp",":hp"),
               (assign,reg1,":oldhp"),
               (display_message,"@Your horse received {reg1} damage from a braced spear!",0xff4040),
-           (else_try), #CABA
-              (eq, ":agent", "$fplayer_agent_no"), #CABA
-              (store_agent_hit_points,":hp",":victim",1), #CABA
-              (val_sub,":oldhp",":hp"), #CABA
-              (assign,reg1,":oldhp"), #CABA
-              (str_store_item_name, s1, ":weapon"), #CABA
-              (display_message,"@Braced {s1} dealt {reg1} damage!"), #CABA
+           (else_try),
+              (eq, ":agent", "$fplayer_agent_no"),
+              (val_sub,":oldhp",":hp"),
+              (assign,reg1,":oldhp"),
+              (str_store_item_name, s1, ":weapon"),
+              (display_message,"@Braced {s1} dealt {reg1} damage!"),
               (agent_set_slot, "$fplayer_agent_no", slot_agent_player_braced, 0),
            (try_end),
         (try_end),
     ]),
 
-  (0, 0, 2, [(key_clicked, key_b),(neg|agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1)], #spearwall_trigger_2
+  (0, 0, 2, [(key_clicked, "$key_special_0"),(agent_is_alive,"$fplayer_agent_no"),(neg|agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1)], #spearwall_trigger_2
        [
-        (agent_is_alive,"$fplayer_agent_no"),
-
+      
         (agent_get_wielded_item, ":weapon", "$fplayer_agent_no", 0), #CABA
         (assign, ":valid_weapon", 0), #CABA
         (try_begin), #CABA-whole block
@@ -1291,46 +1501,28 @@ weapon_use_triggers = [
         (eq, ":valid_weapon", 1),       
 		(str_store_item_name, s1, ":weapon"), #CABA
         (display_message,"@Bracing {s1} for charge.",0x6495ed),
-        (agent_set_animation, "$fplayer_agent_no", "anim_spearwall_hold"),
+        #(agent_set_animation, "$fplayer_agent_no", "anim_spearwall_hold"),
         (agent_set_slot, "$fplayer_agent_no", slot_agent_player_braced, 1), #CABA
     ]),
        
-  (0, 0, 0, [(neg|agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 0),(this_or_next|game_key_clicked, gk_attack), #spearwall_trigger_3
-        (this_or_next|game_key_clicked, gk_defend),(this_or_next|game_key_clicked, gk_defend),
+  (0, 0, 0, [(this_or_next|game_key_clicked, gk_attack),(this_or_next|game_key_clicked, gk_defend), #spearwall_trigger_3
         (this_or_next|game_key_clicked, gk_move_forward),(this_or_next|game_key_clicked, gk_move_backward),
         (this_or_next|game_key_clicked, gk_move_left),(this_or_next|game_key_clicked, gk_move_right),
         (this_or_next|game_key_clicked, gk_equip_primary_weapon),(this_or_next|game_key_clicked, gk_equip_secondary_weapon),
-        (this_or_next|game_key_clicked, gk_action),(game_key_clicked, gk_sheath_weapon)
+        (this_or_next|game_key_clicked, gk_action),(game_key_clicked, gk_sheath_weapon),
+		(agent_is_alive,"$fplayer_agent_no"),(neg|agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 0),
         ],
        [
-        (agent_is_alive,"$fplayer_agent_no"),
-        (display_message,"@Releasing spear.",0x6495ed),
-        (agent_set_animation, "$fplayer_agent_no", "anim_release_thrust_staff"),
-
+        (display_message,"@Releasing from brace.",0x6495ed),
+        #(agent_set_animation, "$fplayer_agent_no", "anim_release_thrust_staff"),
+		(agent_set_animation, "$fplayer_agent_no", "anim_spearwall_bracing_recoil"),
         (agent_set_slot, "$fplayer_agent_no", slot_agent_player_braced, 0), #CABA
     ]), 
-
-  (3, 0, 0, [(agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1)],[ #spearwall_trigger_4
-        (agent_is_alive,"$fplayer_agent_no"),
-        (agent_set_animation, "$fplayer_agent_no", "anim_spearwall_hold"),
-    ]),
-
-  (ti_on_agent_hit, 0, 0, [(agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1)], [ #spearwall_trigger_5 
-        (store_trigger_param_1, ":agent"),
-        (eq, ":agent", "$fplayer_agent_no"),       
-        (agent_is_alive,"$fplayer_agent_no"),
-        (store_trigger_param_3, ":damage"),
-        (gt, ":damage", 5),
-       
-        (display_message,"@The injury causes your grip on the spear to slip!",0xff4040),
-        (agent_set_animation, "$fplayer_agent_no", "anim_release_thrust_staff"),
-        (agent_set_slot, "$fplayer_agent_no", slot_agent_player_braced, 0),
-    ]),
-  ##Spearwall Kit - Edited from the Mercenary by Caba'drin
+  ##Spearwall Kit - Edited from The Mercenary by Caba'drin
  ] 
 
 bodyguard_triggers = [
- (ti_after_mission_start, 0, ti_once, [(party_slot_eq, "p_main_party", slot_party_pref_bodyguard, 1),(neq, "$g_mt_mode", tcm_disguised)], #condition for not sneaking in; to exclude prison-breaks, etc change to (eq, "$g_mt_mode", tcm_default")
+ (ti_after_mission_start, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_bodyguard, 1),(neq, "$g_mt_mode", tcm_disguised)], #condition for not sneaking in; to exclude prison-breaks, etc change to (eq, "$g_mt_mode", tcm_default")
    [
     #Get number of bodyguards
     (store_skill_level, ":leadership", "skl_leadership", "trp_player"),
@@ -1341,11 +1533,6 @@ bodyguard_triggers = [
     (val_min, ":max_guards", 4),
    
     (ge, ":max_guards", 1),
-
-    #Get player info
-    (get_player_agent_no, "$fplayer_agent_no"),
-    (agent_get_team, "$fplayer_team_no", "$fplayer_agent_no"),
-    (agent_get_horse, ":use_horse", "$fplayer_agent_no"), #If the player spawns with a horse, the bodyguard will too.
 	
 	#Prepare Scene/Mission Template
 	(assign, ":entry_point", 0),
@@ -1371,7 +1558,7 @@ bodyguard_triggers = [
 	(try_end),
 	(try_begin),
 		(neq, "$talk_context", tc_tavern_talk),
-		(gt, ":use_horse", 0),
+		(agent_slot_ge, "$fplayer_agent_no", slot_agent_horse, 1), #If the player spawns with a horse, the bodyguard will too.
 		(mission_tpl_entry_set_override_flags, ":mission_tpl", ":entry_point", 0),
 	(try_end),	
 	(store_current_scene, ":cur_scene"),
@@ -1413,11 +1600,15 @@ bodyguard_triggers = [
 	(troop_is_hero, ":troop"),
 	(main_party_has_troop, ":troop"),
 	
-	(agent_get_position,pos1,"$fplayer_agent_no"),		
+	(get_player_agent_no, ":player"),
+	(ge, ":player", 0),
+	(agent_get_team, ":player_team", ":player"),
 	
-	(agent_set_team, ":agent", "$fplayer_team_no"),
+	(agent_get_position,pos1,":player"),		
+	
+	(agent_set_team, ":agent", ":player_team"),
 	(agent_set_division, ":agent", 8),
-	(agent_add_relation_with_agent, ":agent", "$fplayer_agent_no", 1),
+	(agent_add_relation_with_agent, ":agent", ":player", 1),
 	(agent_set_is_alarmed, ":agent", 1),
 	(store_random_in_range, ":shift", 1, 3),
 	(val_mul, ":shift", 100),
@@ -1462,7 +1653,6 @@ custom_camera_triggers = [
       (assign, "$camera_mouse_y", "$camera_mouse_center_y"),
       # counts how many cycles the mouse stays in the same position, to determine new center in windowed mode
       (assign, "$camera_mouse_counter", 0),
-	  (eq, "$key_camera_toggle", 0),(call_script, "script_cust_cam_init_default_keys")
 	]),
 	
  ## MadVader deathcam begin
@@ -1695,124 +1885,6 @@ custom_camera_triggers = [
   
  ]
 ## Prebattle Orders & Deployment End
-
-#PBOD - Not Used in favor of PBOD's Custom/DeathCam system. 
-##diplomacy begin
-dplmc_death_camera = (
-  0, 0, 0,
-  [(eq, "$g_dplmc_battle_continuation", 0),
-   (main_hero_fallen),
-   (eq, "$g_dplmc_cam_activated", 1),
-  ],
-  [
-    #(agent_get_look_position, pos1, ":player_agent"),
-
-    (get_player_agent_no, ":player_agent"),
-    (agent_get_team, ":player_team", ":player_agent"),
-    (try_begin),
-      (eq, "$g_dplmc_charge_when_dead", 1),
-      (team_get_movement_order, ":cur_order", ":player_team", grc_everyone),
-      (neq, ":cur_order", mordr_charge),
-      (team_give_order, ":player_team", grc_everyone, mordr_charge),
-    (try_end),
-
-    (mission_cam_get_position, pos1),
-
-    (assign, "$g_camera_rotate_x", 0),
-    (assign, "$g_camera_rotate_y", 0),
-    (assign, "$g_camera_rotate_z", 0),
-    (assign, "$g_camera_x", 0),
-    (assign, "$g_camera_y", 0),
-    (assign, "$g_camera_z", 0),
-
-    (try_begin),
-      (key_is_down, key_a),
-      (mission_cam_set_mode, 1),
-      (val_add, "$g_camera_x", 10),
-    (try_end),
-    (try_begin),
-      (key_is_down, key_d),
-      (mission_cam_set_mode, 1),
-      (val_sub, "$g_camera_x", 10),
-    (try_end),
-    (position_move_x, pos1, "$g_camera_x"),
-
-    (try_begin),
-      (key_is_down, key_w),
-      (mission_cam_set_mode, 1),
-      (val_add, "$g_camera_y", 10),
-    (try_end),
-    (try_begin),
-      (key_is_down, key_s),
-      (mission_cam_set_mode, 1),
-      (val_sub, "$g_camera_y", 10),
-    (try_end),
-    (position_move_y, pos1, "$g_camera_y"),
-
-    (try_begin),
-      (key_is_down, key_numpad_plus),
-      (mission_cam_set_mode, 1),
-      (val_add, "$g_camera_z", 10),
-    (try_end),
-    (try_begin),
-      (key_is_down, key_numpad_minus),
-      (mission_cam_set_mode, 1),
-      (val_sub, "$g_camera_z", 10),
-    (try_end),
-    (position_move_z, pos1, "$g_camera_z"),
-
-    (try_begin),
-      (key_is_down, key_numpad_6),
-      (mission_cam_set_mode, 1),
-      (val_add, "$g_camera_rotate_z", 1),
-    (try_end),
-    (try_begin),
-      (key_is_down, key_numpad_4),
-      (mission_cam_set_mode, 1),
-      (val_sub, "$g_camera_rotate_z", 1),
-    (try_end),
-    (position_rotate_z, pos1, "$g_camera_rotate_z"),
-
-    (try_begin),
-      (key_is_down, key_numpad_1),
-      (mission_cam_set_mode, 1),
-      (val_add, "$g_camera_rotate_y", 1),
-    (try_end),
-    (try_begin),
-      (key_is_down, key_numpad_3),
-      (mission_cam_set_mode, 1),
-      (val_sub, "$g_camera_rotate_y", 1),
-    (try_end),
-    (position_rotate_y, pos1, "$g_camera_rotate_y"),
-
-    (try_begin),
-      (key_is_down, key_numpad_8),
-      (mission_cam_set_mode, 1),
-      (val_add, "$g_camera_rotate_x", 1),
-    (try_end),
-    (try_begin),
-      (key_is_down, key_numpad_2),
-      (mission_cam_set_mode, 1),
-      (val_sub, "$g_camera_rotate_x", 1),
-    (try_end),
-    (position_rotate_x, pos1, "$g_camera_rotate_x"),
-
-    (mission_cam_set_position, pos1),
-
-    (try_begin),
-      (this_or_next|game_key_clicked, gk_view_char),
-      (this_or_next|game_key_clicked, gk_zoom),
-      (game_key_clicked, gk_cam_toggle),
-      (mission_cam_set_mode, 0),
-    (try_end),
-  ])
-
-dplmc_battle_mode_triggers = [ 
-    dplmc_horse_speed,
-    dplmc_death_camera,
-  ]
-##diplomacy end
-#PBOD - Not Used
 
 multiplayer_server_check_belfry_movement = (
   0, 0, 0, [],
@@ -2475,9 +2547,6 @@ custom_battle_check_victory_condition = (
     (store_mission_timer_a,reg(1)),
     (ge,reg(1),10),
     (all_enemies_defeated, 2),
-    ##PBOD - Battle Continuation
-	(this_or_next|party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
-	##PBOD - Battle Continuation
     (neg|main_hero_fallen, 0),
     (set_mission_result,1),
     (display_message,"str_msg_battle_won"),
@@ -2489,37 +2558,16 @@ custom_battle_check_victory_condition = (
     (finish_mission, 1),
     ])
 
-custom_battle_check_defeat_condition = (1, 4, 0,  #PBOD was 1, 4, ti_once
-       [(main_hero_fallen),
-		(try_begin),
-		  (party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
-		  (assign, ":num_allies", 0),
-		  (try_for_agents, ":agent"),
-			 (agent_is_ally, ":agent"),
-			 (agent_is_alive, ":agent"),
-			 (val_add, ":num_allies", 1),
-		  (try_end),
-		  (gt, ":num_allies", 0),
-		  (try_begin),
-			  (neq, "$cam_free", 1),
-			  (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
-			  (assign, "$cam_free", 1),
-			  (assign, "$cam_mode", 2),
-			  (call_script, "script_cust_cam_cycle_forwards"), #So, on Follow, it doesn't begin with the player's dead body
-			  (mission_cam_set_mode, 1),
-			  (party_slot_eq, "p_main_party", slot_party_pref_bc_charge_ko, 1), #PBOD "Charge on KO" Active
-			  (set_show_messages, 0),
-			  (team_give_order, "$fplayer_team_no", grc_everyone, mordr_charge),
-			  (set_show_messages, 1),
-		  (try_end),
-		(else_try),
-		  (assign, "$g_battle_result", -1),
-		(try_end),], 
-	  [
-		(call_script, "script_custom_battle_end"),
-		(finish_mission)
-	])
-
+custom_battle_check_defeat_condition = (
+  1, 4, ti_once,
+  [
+    (main_hero_fallen),
+    (assign,"$g_battle_result",-1),
+    ],
+  [
+    (call_script, "script_custom_battle_end"),
+    (finish_mission),
+    ])
 
 common_battle_victory_display = (
   10, 0, 0, [],
@@ -2832,7 +2880,7 @@ common_battle_order_panel = (
     (neg|is_presentation_active, "prsnt_battle"),
     (start_presentation, "prsnt_battle"),
     ])
-	
+
 common_battle_order_panel_tick = (
   0.1, 0, 0, [],
   [
@@ -2879,6 +2927,9 @@ common_siege_assign_men_to_belfry = (
     (call_script, "script_cf_siege_assign_men_to_belfry"),
     ], [])
 
+
+
+
 #################################################
 ##### Added new common_ for TGS
 #################################################
@@ -2923,10 +2974,10 @@ common_wot_initialize_channeling_weave_variables_1 = (
              (try_for_agents, ":agent"),
 #                 (agent_is_human, ":agent"),
                  (agent_is_alive, ":agent"),
-             
+          
                  (agent_set_slot, ":agent", slot_agent_on_fire, 0),
                  (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
-             
+        
                  (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_x_movement, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
@@ -2934,7 +2985,7 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (agent_set_slot, ":agent", slot_agent_airborne_knockdown, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_push_modifier, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_start_knockdown, 0),
-             
+         
                  (agent_set_slot, ":agent", slot_agent_freeze_duration, 0),
                  (agent_set_slot, ":agent", slot_agent_freeze_damage, 0),
                  (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
@@ -2968,6 +3019,7 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
                  (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
              
+                 (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
              (try_end),
              
              # set slots for num seekers active and individual seeker status to zero
@@ -3116,6 +3168,8 @@ common_wot_initialize_channeling_weave_variables_2 = (
 
                  (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
                  (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
+             
+                 (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
              (try_end),
 
              
@@ -3296,6 +3350,8 @@ common_wot_initialize_channeling_weave_variables_multi = (
     
                      (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
                      (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
+             
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
                  (try_end),
              
                  # seeker variables
@@ -3559,129 +3615,21 @@ common_wot_check_for_channelers_in_the_scene = (
         ],
          [
              (try_for_agents, ":agent"),
-#                 (agent_is_human, ":agent"),
                  (agent_is_alive, ":agent"),
                  (neg|agent_is_wounded, ":agent"),
-#                 (agent_get_wielded_item, ":item", ":agent", 0),
-#                 (item_get_type, ":item_type", ":item"),
+
                  (try_begin),
                  (agent_has_item_equipped, ":agent", "itm_power_player"),
                      (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
+             
+                 # added for npc companions
 #                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_recruit_non_ranged"),
+#                 (agent_has_item_equipped, ":agent", "itm_power_npc_companion_ranged"),
 #                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_good_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_male_good_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_novice_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_novice_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_accepted_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_yellow_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_aes_sedai_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_brown_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_white_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_blue_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_grey_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_red_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_green_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_good_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_female_good_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_apprentice_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_veteran_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_black_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_dreadlord_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_bad_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_bad_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_kinswoman_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-             # added for npc companions
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_npc_companion_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-             # end added for npc companions
-             # added for multiplayer
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_player_multiplayer"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-             # end added for multiplayer
-                 (else_try),
-                 (neg|agent_is_human, ":agent"), # horses
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
-                 (else_try), # non-channelers
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
+                 # end added for npc companions
+
                  (try_end),
+             
              (try_end),
          ])
 
@@ -3694,129 +3642,21 @@ common_wot_check_for_channelers_in_the_scene_multi = (
         ],
          [
              (try_for_agents, ":agent"),
-#                 (agent_is_human, ":agent"),
                  (agent_is_alive, ":agent"),
                  (neg|agent_is_wounded, ":agent"),
-#                 (agent_get_wielded_item, ":item", ":agent", 0),
-#                 (item_get_type, ":item_type", ":item"),
+
                  (try_begin),
                  (agent_has_item_equipped, ":agent", "itm_power_player"),
                      (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_recruit_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_good_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_male_good_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_novice_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_novice_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_accepted_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_yellow_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_aes_sedai_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_brown_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_white_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_blue_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_grey_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_red_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_green_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_good_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-#                 (else_try),
-#                 (agent_has_item_equipped, ":agent", "itm_power_female_good_non_ranged"),
-#                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_apprentice_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_veteran_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_black_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_dreadlord_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_bad_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_bad_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_kinswoman_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-             # added for npc companions (non needed for multiplayer)
-                 #(else_try),
-                 #(agent_has_item_equipped, ":agent", "itm_power_npc_companion_ranged"),
-                 #    (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-             # end added for npc companions
+
              # added for multiplayer
                  (else_try),
                  (agent_has_item_equipped, ":agent", "itm_power_player_multiplayer"),
                      (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
              # end added for multiplayer
-                 (else_try),
-                 (neg|agent_is_human, ":agent"), # horses
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
-                 (else_try), # non-channelers
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
+
                  (try_end),
+             
              (try_end),
          ])
 
@@ -3836,8 +3676,19 @@ common_wot_spawn_warders = (
                  (agent_get_slot, ":warders_spawned", ":agent", slot_agent_has_warders_spawned),
                  (eq, ":warders_spawned", 0),
              
-                     (try_begin), # Yellow Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_yellow_ajah_ranged"),
+                     (agent_get_troop_id, ":agent_troop", ":agent"),
+             
+                     (try_begin), # Yellow, Brown, White, Blue, Grey Ajahs
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_yellow"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_yellow_veteran"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_brown"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_brown_veteran"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_white"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_white_veteran"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_blue"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_blue_veteran"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_grey"),
+                     (eq, ":agent_troop", "trp_aes_sedai_grey_veteran"),
                      (store_random_in_range, ":random", 1, 100),
                      (le, ":random", 75),
              
@@ -3861,234 +3712,10 @@ common_wot_spawn_warders = (
                          (set_spawn_position, pos55),
              
                          (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_yellow_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # Brown Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_brown_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_brown_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # White Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_white_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_white_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # Blue Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_blue_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_blue_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # Grey Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_grey_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
+                         (this_or_next|agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_yellow_shoes"), # Aes Sedai is veteran
+                         (this_or_next|agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_brown_shoes"), # Aes Sedai is veteran
+                         (this_or_next|agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_white_shoes"), # Aes Sedai is veteran
+                         (this_or_next|agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_blue_shoes"), # Aes Sedai is veteran
                          (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_grey_shoes"), # Aes Sedai is veteran
                              (store_random_in_range, ":random", 1, 100),
                              (try_begin),
@@ -4121,8 +3748,10 @@ common_wot_spawn_warders = (
                          (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
                          (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
              
+
                      (else_try), # Red Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_red_ajah_ranged"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_red"),
+                     (eq, ":agent_troop", "trp_aes_sedai_red_veteran"),
                      (store_random_in_range, ":random", 1, 100),
                      (le, ":random", 30),
              
@@ -4170,7 +3799,8 @@ common_wot_spawn_warders = (
                          (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
              
                      (else_try), # Green Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_green_ajah_ranged"),
+                     (this_or_next|eq, ":agent_troop", "trp_aes_sedai_green"),
+                     (eq, ":agent_troop", "trp_aes_sedai_green_veteran"),
 
                          (agent_get_look_position, pos55, ":agent"),
                          (position_get_x, ":x_agent", pos55),
@@ -4244,7 +3874,7 @@ common_wot_spawn_warders = (
                          (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
              
                      (else_try), # Ashaman
-                     (agent_has_item_equipped, ":agent", "itm_power_ashaman_ranged"),
+                     (eq, ":agent_troop", "trp_ashaman"),
                      
                          (agent_get_look_position, pos55, ":agent"),
                          (position_get_x, ":x_agent", pos55),
@@ -4309,7 +3939,7 @@ common_wot_spawn_warders = (
                          (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
 
                      (else_try), # Ashaman Veteran
-                     (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_ranged"),
+                     (eq, ":agent_troop", "trp_ashaman_veteran"),
                      
                          (agent_get_look_position, pos55, ":agent"),
                          (position_get_x, ":x_agent", pos55),
@@ -4374,10 +4004,10 @@ common_wot_spawn_warders = (
                          (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
 
                      (else_try), # Der'Suldam
-                     (agent_has_item_equipped, ":agent", "itm_der_suldam_dagger"),
+                     (eq, ":agent_troop", "trp_der_suldam"),
                          (store_random_in_range, ":random", 1, 100),
                          (try_begin),
-                         (le, ":random", 75),
+                         (le, ":random", 90),
              
                             (agent_get_look_position, pos55, ":agent"),
                             (position_get_x, ":x_agent", pos55),
@@ -4399,6 +4029,11 @@ common_wot_spawn_warders = (
                             (set_spawn_position, pos55),
              
                             (spawn_agent, "trp_damane"),
+                            (store_random_in_range, ":random", 0, 101),
+                            (try_begin),
+                            (le, ":random", 75),
+                                 (spawn_agent, "trp_damane_veteran"),
+                            (try_end),
                             (assign, ":new_agent", reg0),
 
                             (agent_set_team, ":new_agent", ":agent_team"),
@@ -4413,10 +4048,10 @@ common_wot_spawn_warders = (
                         (try_end),
 
                     (else_try), # regular Suldam (less change that she will have damane)
-                    (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
+                     (eq, ":agent_troop", "trp_suldam"),
                     (store_random_in_range, ":random", 1, 100),
                         (try_begin),
-                        (le, ":random", 50),
+                        (le, ":random", 75),
              
                             (agent_get_look_position, pos55, ":agent"),
                             (position_get_x, ":x_agent", pos55),
@@ -5491,27 +5126,34 @@ common_wot_warder_follow_bond_holder = (
             (gt, ":warder", 1), # means agent bonded to ashaman or suldam (therefore they should follow)
         
                 (agent_get_slot, ":bond_holder", ":agent", slot_agent_warder_bond_holder),
+                (try_begin),
                 (agent_is_alive, ":bond_holder"),
                 (neg|agent_is_wounded, ":bond_holder"), # bond holder not killed or wounded
-
-                (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":agent", slot_agent_under_compulsion),
-
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"), # warder not bound or under compulsion
-
-                (try_begin),
-                (eq, ":bound_or_compulsion", 0), # If no reason not to follow, have warder follow his/her bond holder
-        
-                    (agent_get_look_position, pos54, ":bond_holder"),
-
-                    (position_get_y, ":y_bond_holder", pos54),
-                    (store_add, ":y_warder", ":y_bond_holder", 150),
-
-                    (position_set_y, pos54, ":y_warder"),
-                    (position_set_z_to_ground_level, pos54),
-        
-                    (agent_set_scripted_destination, ":agent", pos54, 1),
-
+                    (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
+                    (agent_get_slot, ":compulsion", ":agent", slot_agent_under_compulsion),
+                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"), # warder not bound or under compulsion
+                    (try_begin),
+                    (eq, ":bound_or_compulsion", 0), # If no reason not to follow, have warder follow his/her bond holder
+                        (agent_get_look_position, pos54, ":bond_holder"),
+                        (position_get_y, ":y_bond_holder", pos54),
+                        (store_add, ":y_warder", ":y_bond_holder", 150),
+                        (position_set_y, pos54, ":y_warder"),
+                        (position_set_z_to_ground_level, pos54),
+                        (agent_set_scripted_destination, ":agent", pos54, 1),
+                    (try_end),
+                (else_try),
+                (agent_get_troop_id, ":agent_troop", ":agent"),
+                (this_or_next|neq, ":agent_troop", "trp_damane_veteran"), # a damane with a killed Sul'dam will stay by her b/c of the leash
+                (neq, ":agent_troop", "trp_damane"), # a damane with a killed Sul'dam will stay by her b/c of the leash
+                    (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
+                    (agent_get_slot, ":compulsion", ":agent", slot_agent_under_compulsion),
+                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"), # warder not bound or under compulsion
+                    (try_begin),
+                    (eq, ":bound_or_compulsion", 0), # Agent's bond holder is dead, so force re-think
+                        (agent_set_slot, ":agent", slot_agent_is_warder_for_agent, 0),
+                        (agent_clear_scripted_mode, ":agent"),
+                        (agent_force_rethink, ":agent"),
+                    (try_end),
                 (try_end),
                 
         (try_end),
@@ -5557,7 +5199,13 @@ common_wot_leader_warder_determines_movement_of_group = (
         
                 (agent_get_slot, ":bond_holder", ":agent", slot_agent_warder_bond_holder),
                 (agent_is_alive, ":bond_holder"),
-
+        
+                # bugfix
+                (assign, ":warder_1", -1),
+                (assign, ":warder_2", -1),
+                (assign, ":warder_3", -1),
+                (assign, ":warder_4", -1),
+                # bugfix end
                 (agent_get_slot, ":warder_1", ":bond_holder", slot_agent_aes_sedai_warder_1),
                 (agent_get_slot, ":warder_2", ":bond_holder", slot_agent_aes_sedai_warder_2),
                 (agent_get_slot, ":warder_3", ":bond_holder", slot_agent_aes_sedai_warder_3),
@@ -5788,6 +5436,42 @@ common_wot_incapacitated_warders_trigger = (
                     (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
                     (assign, ":found_new_leader", 1),
                 (try_end),
+        
+                ## action if all warders are dead
+                (assign, ":warder_1_hp", 0),
+                (assign, ":warder_2_hp", 0),
+                (assign, ":warder_3_hp", 0),
+                (assign, ":warder_4_hp", 0),
+        
+                (try_begin),
+                (neq, ":warder_1", -1),
+                    (store_agent_hit_points, ":warder_1_hp", ":warder_1", 0),
+                (try_end),
+
+                (try_begin),
+                (neq, ":warder_1", -1),
+                    (store_agent_hit_points, ":warder_2_hp", ":warder_2", 0),
+                (try_end),
+
+                (try_begin),
+                (neq, ":warder_1", -1),
+                    (store_agent_hit_points, ":warder_3_hp", ":warder_3", 0),
+                (try_end),
+
+                (try_begin),
+                (neq, ":warder_1", -1),
+                    (store_agent_hit_points, ":warder_4_hp", ":warder_4", 0),
+                (try_end),
+        
+                (try_begin),
+                (eq, ":warder_1_hp", 0),
+                (eq, ":warder_2_hp", 0),
+                (eq, ":warder_3_hp", 0),
+                (eq, ":warder_4_hp", 0),
+                    (agent_clear_scripted_mode, ":agent"),
+                    (agent_force_rethink, ":agent"),
+                (try_end),
+                ## end action if all warders are dead
                 
         (try_end),
         
@@ -6057,7 +5741,9 @@ common_suldam_with_dead_damane_trigger = (
                       (assign, ":dead_damane", 0),
 
                       (try_for_agents, ":agent"),
-                          (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
+                          (agent_get_troop_id, ":agent_troop", ":agent"),
+                          (this_or_next|eq, ":agent_troop", "trp_damane_veteran"),
+                          (eq, ":agent_troop", "trp_damane"),
                       
                           (assign, ":dead_or_wounded", 0),
                           (try_begin),
@@ -6077,7 +5763,9 @@ common_suldam_with_dead_damane_trigger = (
 
        [
         (try_for_agents, ":agent"),
-            (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
+            (agent_get_troop_id, ":agent_troop", ":agent"),
+            (this_or_next|eq, ":agent_troop", "trp_damane_veteran"),
+            (eq, ":agent_troop", "trp_damane"),
                       
             (assign, ":dead_or_wounded", 0),
             (try_begin),
@@ -6105,7 +5793,8 @@ common_suldam_with_dead_damane_trigger_multi = (
                       (assign, ":dead_damane", 0),
 
                       (try_for_agents, ":agent"),
-                          (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
+                          (agent_get_troop_id, ":agent_troop", ":agent"),
+                          (eq, ":agent_troop", "trp_damane_multi"),
                       
                           (assign, ":dead_or_wounded", 0),
                           (try_begin),
@@ -6125,7 +5814,8 @@ common_suldam_with_dead_damane_trigger_multi = (
 
        [
         (try_for_agents, ":agent"),
-            (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
+            (agent_get_troop_id, ":agent_troop", ":agent"),
+            (eq, ":agent_troop", "trp_damane_multi"),
                       
             (assign, ":dead_or_wounded", 0),
             (try_begin),
@@ -9713,9 +9403,8 @@ mission_templates = [
      (29,mtef_visitor_source,af_override_horse,0,1,[]),
      (30,mtef_visitor_source,af_override_horse,0,1,[]),
      (31,mtef_visitor_source,af_override_horse,0,1,[]),
-     ],
+     ],     
      [
-	 
       (1, 0, ti_once, [], 
       [
         (store_current_scene, ":cur_scene"),
@@ -9916,22 +9605,7 @@ mission_templates = [
       ], 
       [
 		(party_get_slot, ":tavernkeeper", "$g_encountered_party", slot_town_tavernkeeper),
-		##diplomacy start+
-		#Turn of this !@#$%ing obnoxious and totally illogical restriction provided:
-		(try_begin),
-			#1) there is an actual fight
-			(gt, "$g_main_attacker_agent", 0),
-			(agent_is_alive, "$g_main_attacker_agent"),
-			(neg|agent_is_wounded, "$g_main_attacker_agent"),
-			#2) the player is the lord of this town, a mercenary captain in the kingdom's employ, or ruler of this kingdom
-			(store_faction_of_party , ":center_faction", "$g_encountered_party"),
-			(this_or_next|eq, ":center_faction", "$players_kingdom"),
-				(eq, ":center_faction", "fac_player_supporters_faction"),
-		(else_try),
-		#Else, original behavior:
 		(start_mission_conversation, ":tavernkeeper"),	 
-		(try_end),
-		##diplomacy stop+
 	  ]),
 	  	  	  
 	  #Check for weapon in hand of attacker, also, everyone gets out of the way
@@ -9945,7 +9619,7 @@ mission_templates = [
         
         (call_script, "script_neutral_behavior_in_fight"),
       ]),	  			
-    ] + bodyguard_triggers + caba_order_triggers,
+    ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers,
   ),
 
 # This template is used in party encounters and such.
@@ -10011,7 +9685,6 @@ mission_templates = [
 	 (47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-	
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
@@ -10261,11 +9934,10 @@ mission_templates = [
        (this_or_next|eq, ":dead_agent_troop_no", "trp_sedai_prison_guard"),
        (this_or_next|eq, ":dead_agent_troop_no", "trp_aiel_prison_guard"),
        (this_or_next|eq, ":dead_agent_troop_no", "trp_seanchan_prison_guard"),
-#       (this_or_next|eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
-#       (this_or_next|eq, ":dead_agent_troop_no", "trp_sea_folk_prison_guard"),
-#       (this_or_next|eq, ":dead_agent_troop_no", "trp_land_of_madmen_prison_guard"),
-       (eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
-#       (eq, ":dead_agent_troop_no", "trp_falme_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_sea_folk_prison_guard"),
+       (this_or_next|eq, ":dead_agent_troop_no", "trp_madmen_prison_guard"),
+       (eq, ":dead_agent_troop_no", "trp_toman_head_prison_guard"),
      #### end modified for TGS
           
        (eq, ":killer_agent_troop_no", "trp_player"),
@@ -10273,7 +9945,8 @@ mission_templates = [
        (display_message, "@You got keys of dungeon."),
      (try_end),
    ]),
-            #################################################################  
+
+      #################################################################  
       ###### TGS triggers
       #################################################################
 
@@ -10405,9 +10078,11 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
-  ] + bodyguard_triggers + caba_order_triggers,),
+      
+  ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,),
 
   (
     "village_center",0,-1,
@@ -10429,7 +10104,6 @@ mission_templates = [
      (40,mtef_visitor_source,af_override_horse,0,1,[]),(41,mtef_visitor_source,af_override_horse,0,1,[]),(42,mtef_visitor_source,af_override_horse,0,1,[]),(43,mtef_visitor_source,af_override_horse,0,1,[]),(44,mtef_visitor_source,af_override_horse,0,1,[]),(45,mtef_visitor_source,af_override_horse,0,1,[]),(46,mtef_visitor_source,af_override_horse,0,1,[]),(47,mtef_visitor_source,af_override_horse,0,1,[]),
      ],
     [
-	  
       (1, 0, ti_once, [], [
           (store_current_scene, ":cur_scene"),
           (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
@@ -10616,9 +10290,11 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
-##################################################      
-    ] + bodyguard_triggers + caba_order_triggers,
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+##################################################  
+      
+    ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
   ),
 
   (
@@ -10642,7 +10318,6 @@ mission_templates = [
      (44,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),(45,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),(46,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),(47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-
       (ti_on_agent_spawn, 0, 0, [],
        [
          (store_trigger_param_1, ":agent_no"),
@@ -10691,6 +10366,7 @@ mission_templates = [
          (try_end),
          (finish_mission),
          ]),
+
             #################################################################  
       ###### TGS triggers
       #################################################################
@@ -10823,9 +10499,11 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
-      ],
+      
+      ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
     ),
 
   
@@ -10998,7 +10676,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
       ],
     ),
@@ -11220,7 +10899,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
     ],
   ),
@@ -11423,7 +11103,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################      
     ],
   ),
@@ -11599,7 +11280,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
     ],
   ),
@@ -11629,7 +11311,7 @@ mission_templates = [
          (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
          (val_add, ":initial_courage_score", ":randomized_addition_courage"), 
                    
-         (agent_get_party_id, ":agent_party", ":agent_no"),
+         (agent_get_party_id, ":agent_party", ":agent_no"),         
 ########### Added this for TGS ###########
          (try_begin),
          (lt, ":agent_party", 0),
@@ -11711,10 +11393,6 @@ mission_templates = [
                            (call_script, "script_place_player_banner_near_inventory"),
                            (call_script, "script_combat_music_set_situation_with_culture"),
                            (assign, "$g_defender_reinforcement_limit", 2),
-                           ##diplomacy begin
-                           #(assign, "$g_dplmc_cam_activated", 0), #PBOD Comment Out
-                           #(assign, "$g_dplmc_charge_when_dead", 0), #PBOD Comment Out
-                           ##diplomacy end
                            ]),
 
       common_music_situation_update,
@@ -11814,8 +11492,8 @@ mission_templates = [
 
 
       #AI Triggers
-      (0, 0, ti_once, [
-          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2),
+      (0, 0, ti_once, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
+          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2), 
           ],
        [(call_script, "script_select_battle_tactic"),
         (call_script, "script_battle_tactic_init"),
@@ -11836,7 +11514,7 @@ mission_templates = [
           (try_end),          
               ], []), #controlling courage score and if needed deciding to run away for each agent
 
-      (5, 0, 0, [
+      (5, 0, 0, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
           (store_mission_timer_a,":mission_time"),
 
           (ge,":mission_time",3),
@@ -11981,15 +11659,13 @@ mission_templates = [
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
       common_battle_order_panel_tick,
 
-    ]
-    ##diplomacy begin
-    + custom_camera_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + weapon_use_triggers,
-    ##diplomacy end
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
   ),
 
   (
@@ -12201,16 +11877,14 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
       common_battle_order_panel_tick,
-
-    ]
-    ##diplomacy begin
-    + custom_camera_triggers + caba_order_triggers + weapon_use_triggers + prebattle_orders_triggers + prebattle_deployment_triggers,
-    ##diplomacy end
+      
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
   ),
 
 
@@ -12452,7 +12126,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -12468,10 +12143,7 @@ mission_templates = [
 ##          (store_mission_timer_a,reg(1)),(ge,reg(1),4),
 ##          (call_script, "script_battle_tactic_apply"),
 ##          ], []),
-    ]
-    ##diplomacy begin
-    + custom_camera_triggers + caba_order_triggers + weapon_use_triggers + prebattle_orders_triggers + prebattle_deployment_triggers,
-    ##diplomacy end
+    ]  + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
   ),
 
 
@@ -12664,10 +12336,6 @@ mission_templates = [
         ]),
         
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
-                           ##diplomacy begin
-                           #(assign, "$g_dplmc_cam_activated", 0),
-                           #(assign, "$g_dplmc_charge_when_dead", 1),
-                           ##diplomacy end
                            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
                            ]),
       
@@ -12852,16 +12520,14 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ]
-    ##diplomacy begin
-    + custom_camera_triggers + caba_order_triggers,
-    ##diplomacy end
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + custom_camera_triggers,
   ),
 
   (
@@ -12896,10 +12562,6 @@ mission_templates = [
         ]),
         
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
-                           ##diplomacy begin
-                           #(assign, "$g_dplmc_cam_activated", 0),
-                           #(assign, "$g_dplmc_charge_when_dead", 1),
-                           ##diplomacy end
                            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
                            ]),
       
@@ -13084,16 +12746,14 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ]
-    ##diplomacy begin
-    + custom_camera_triggers + caba_order_triggers,
-    ##diplomacy end
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + custom_camera_triggers, 
   ),
 
   (
@@ -13156,10 +12816,6 @@ mission_templates = [
         (finish_mission,0),]),
         
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
-                           ##diplomacy begin
-                           #(assign, "$g_dplmc_cam_activated", 0),
-                           #(assign, "$g_dplmc_charge_when_dead", 1),
-                           ##diplomacy end
                            (call_script, "script_combat_music_set_situation_with_culture"),
                            ]),
       
@@ -13352,16 +13008,14 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ]
-    ##diplomacy begin
-    + custom_camera_triggers + caba_order_triggers + weapon_use_triggers + prebattle_orders_triggers,
-    ##diplomacy end
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
   ),
 
 
@@ -13569,7 +13223,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -13579,10 +13234,7 @@ mission_templates = [
       common_siege_move_belfry,
       common_siege_rotate_belfry,
       common_siege_assign_men_to_belfry,
-    ]
-    ##diplomacy begin
-    + custom_camera_triggers + caba_order_triggers + prebattle_orders_triggers,
-    ##diplomacy end
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + custom_camera_triggers,
   ),
 
   (
@@ -13755,7 +13407,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -13833,10 +13486,7 @@ mission_templates = [
 ##         (try_end),
 ##         ],
 ##       []),
-    ]
-    ##diplomacy begin
-    + custom_camera_triggers + caba_order_triggers + prebattle_orders_triggers,
-    ##diplomacy end
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + custom_camera_triggers,
   ),
   
 
@@ -13869,7 +13519,6 @@ mission_templates = [
      (46,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
      ],
     [    
-	  
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
@@ -13932,13 +13581,11 @@ mission_templates = [
            (this_or_next|eq, ":dead_agent_troop_no", "trp_sedai_prison_guard"),
            (this_or_next|eq, ":dead_agent_troop_no", "trp_aiel_prison_guard"),
            (this_or_next|eq, ":dead_agent_troop_no", "trp_seanchan_prison_guard"),
-#           (this_or_next|eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
-#           (this_or_next|eq, ":dead_agent_troop_no", "trp_sea_folk_prison_guard"),
-#           (this_or_next|eq, ":dead_agent_troop_no", "trp_land_of_madmen_prison_guard"),
-           (eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
-#           (eq, ":dead_agent_troop_no", "trp_falme_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_shadowspawn_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_sea_folk_prison_guard"),
+           (this_or_next|eq, ":dead_agent_troop_no", "trp_madmen_prison_guard"),
+           (eq, ":dead_agent_troop_no", "trp_toman_head_prison_guard"),
      #### end modified for TGS
-        
           
           (eq, ":killer_agent_troop_no", "trp_player"),
           
@@ -14064,7 +13711,147 @@ mission_templates = [
         (mission_enable_talk),
         (finish_mission, 0),
       ]),
-    ] + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
+
+      #################################################################  
+      ###### TGS triggers
+      #################################################################
+
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
+      
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
+      
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      common_wot_check_for_channelers_in_the_scene,
+      common_wot_spawn_warders,
+      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_weave_toggle_short_range,
+      common_wot_weave_toggle_long_range,
+      common_wot_weave_toggle_support,
+      common_wot_weave_toggle_advanced,
+      common_wot_weave_toggle_all,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
+      
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      #common_wot_airborne_trigger,
+      # end
+      
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+      
+      # pick one balefire trigger (2 for custom battle)
+      #common_wot_balefire_trigger_1,
+      common_wot_balefire_trigger_2,
+      # end
+      
+      common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
+      
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
+      # end
+ 
+      #########################################################################
+      ###### end TGS triggers
+      #########################################################################
+      
+      common_battle_order_panel,
+##################################################
+##### troop_ratio_bar
+##################################################
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+##################################################
+##### troop_ratio_bar
+##################################################
+      
+    ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
   ),
 
 
@@ -14579,6 +14366,145 @@ mission_templates = [
        [(assign,"$auto_menu",-1),(jump_to_menu,"mnu_sneak_into_town_caught_ran_away"),(finish_mission,0)]),
 
       (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena")], []),
+
+      #################################################################  
+      ###### TGS triggers
+      #################################################################
+
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
+      
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
+      
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      common_wot_check_for_channelers_in_the_scene,
+      common_wot_spawn_warders,
+      common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_weave_toggle_short_range,
+      common_wot_weave_toggle_long_range,
+      common_wot_weave_toggle_support,
+      common_wot_weave_toggle_advanced,
+      common_wot_weave_toggle_all,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
+      
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      #common_wot_airborne_trigger,
+      # end
+      
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+      
+      # pick one balefire trigger (2 for custom battle)
+      #common_wot_balefire_trigger_1,
+      common_wot_balefire_trigger_2,
+      # end
+      
+      common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
+      
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
+      # end
+ 
+      #########################################################################
+      ###### end TGS triggers
+      #########################################################################
+      
+      common_battle_order_panel,
+##################################################
+##### troop_ratio_bar
+##################################################
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+##################################################
+##### troop_ratio_bar
+##################################################      
       
     ],
   ),
@@ -14732,7 +14658,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -18511,4319 +18438,130 @@ mission_templates = [
           (call_script, "script_combat_music_set_situation_with_culture"),
          ]),
 
-#################################################################  
+      #################################################################  
       ###### TGS triggers
       #################################################################
 
-      ## Pre-Initialization Variable Assignment
-
-      (0, 0, ti_once, [],[(assign, "$g_initialize_complete", 0)]),
-
-      ## Initialize general player channeling variables
-        (0, 0, ti_once, [], [(assign, "$g_active_channeling_weave",1),
-                             (assign, "$g_number_of_weaves_used",0),]),
-
-      ## Initialize timers
-        (0, 0, ti_once, [],
-         [
-             (assign, "$g_one_second_timer", 0),
-             (assign, "$g_one_tenth_second_timer", 0),
-             (assign, "$g_one_hundredth_second_timer", 0),
-             (assign, "$g_one_thousandth_second_timer", 0),
-        ]),
-
-      ## Initialize channeling weave variables
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
       
-        (0.3, 0, ti_once, [],
-         [
-             (assign, "$g_toggle_weave_all", 1),
-             (assign, "$g_toggle_weave_short", 0),
-             (assign, "$g_toggle_weave_long", 0),
-             (assign, "$g_toggle_weave_support", 0),
-             (assign, "$g_toggle_weave_advanced", 0),
-
-             # initialize slot variables for agents
-             (try_for_agents, ":agent"),
-#                 (agent_is_human, ":agent"),
-                 (agent_is_alive, ":agent"),
-             
-                 (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
-             
-                 (agent_set_slot, ":agent", slot_agent_on_fire, 0),
-                 (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
-             
-                 (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_x_movement, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                 (agent_set_slot, ":agent", slot_agent_bound_x, 0),
-                 (agent_set_slot, ":agent", slot_agent_bound_y, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_is_shielded, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_under_compulsion, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 0),
-                 (agent_set_slot, ":agent", slot_agent_is_warder_for_agent, 0),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, -1),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -1),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -1),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -1),
-                 (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 0),
-                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
-                 (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
-             (try_end),
-
-             
-             # seeker variables
-             (assign, "$g_number_seekers_active", 0),
-             
-             (assign, "$g_seeker_slot_1", 0),
-             (assign, "$g_seeker_slot_2", 0),
-             (assign, "$g_seeker_slot_3", 0),
-             (assign, "$g_seeker_slot_4", 0),
-             (assign, "$g_seeker_slot_5", 0),
-             (assign, "$g_seeker_slot_6", 0),
-             (assign, "$g_seeker_slot_7", 0),
-             (assign, "$g_seeker_slot_8", 0),
-             (assign, "$g_seeker_slot_9", 0),
-             (assign, "$g_seeker_slot_10", 0),
-             (assign, "$g_seeker_slot_11", 0),
-             (assign, "$g_seeker_slot_12", 0),
-             (assign, "$g_seeker_slot_13", 0),
-             (assign, "$g_seeker_slot_14", 0),
-             (assign, "$g_seeker_slot_15", 0),
-             (assign, "$g_seeker_slot_16", 0),
-             (assign, "$g_seeker_slot_17", 0),
-             (assign, "$g_seeker_slot_18", 0),
-             (assign, "$g_seeker_slot_19", 0),
-             (assign, "$g_seeker_slot_20", 0),
-             
-             (assign, "$g_seeker_slot_1_target", 0),
-             (assign, "$g_seeker_slot_2_target", 0),
-             (assign, "$g_seeker_slot_3_target", 0),
-             (assign, "$g_seeker_slot_4_target", 0),
-             (assign, "$g_seeker_slot_5_target", 0),
-             (assign, "$g_seeker_slot_6_target", 0),
-             (assign, "$g_seeker_slot_7_target", 0),
-             (assign, "$g_seeker_slot_8_target", 0),
-             (assign, "$g_seeker_slot_9_target", 0),
-             (assign, "$g_seeker_slot_10_target", 0),
-             (assign, "$g_seeker_slot_11_target", 0),
-             (assign, "$g_seeker_slot_12_target", 0),
-             (assign, "$g_seeker_slot_13_target", 0),
-             (assign, "$g_seeker_slot_14_target", 0),
-             (assign, "$g_seeker_slot_15_target", 0),
-             (assign, "$g_seeker_slot_16_target", 0),
-             (assign, "$g_seeker_slot_17_target", 0),
-             (assign, "$g_seeker_slot_18_target", 0),
-             (assign, "$g_seeker_slot_19_target", 0),
-             (assign, "$g_seeker_slot_20_target", 0),
-
-             # determine number of weaves known based off channeling (firearms) proficiency
-
-             # changed from normal code
-             #(store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),  
-
-             (assign, ":channeling_proficiency", 300),  # added so always strong
-                
-             (try_begin),
-             (lt, ":channeling_proficiency",15),
-                 (assign, "$g_number_weaves_known", 1),
-             (else_try),
-                 (is_between, ":channeling_proficiency",15,30),
-                 (assign, "$g_number_weaves_known", 2),
-             (else_try),
-                 (is_between, ":channeling_proficiency",30,50),
-                 (assign, "$g_number_weaves_known", 3),
-             (else_try),
-                 (is_between, ":channeling_proficiency",50,65),
-                 (assign, "$g_number_weaves_known", 4),
-             (else_try),
-                 (is_between, ":channeling_proficiency",65,75),
-                 (assign, "$g_number_weaves_known", 5),
-             (else_try),
-                 (is_between, ":channeling_proficiency",75,85),
-                 (assign, "$g_number_weaves_known", 6),
-             (else_try),
-                 (is_between, ":channeling_proficiency",85,100),
-                 (assign, "$g_number_weaves_known", 7),
-             (else_try),
-                 (is_between, ":channeling_proficiency",100,125),
-                 (assign, "$g_number_weaves_known", 8),
-             (else_try),
-                 (is_between, ":channeling_proficiency",125,150),
-                 (assign, "$g_number_weaves_known", 9),
-             (else_try),
-                 (is_between, ":channeling_proficiency",150,175),
-                 (assign, "$g_number_weaves_known", 10),
-             (else_try),
-                 (is_between, ":channeling_proficiency",175,200),
-                 (assign, "$g_number_weaves_known", 11),
-             (else_try),
-                 (is_between, ":channeling_proficiency",200,225),
-                 (assign, "$g_number_weaves_known", 12),
-             (else_try),
-                 (is_between, ":channeling_proficiency",225,250),
-                 (assign, "$g_number_weaves_known", 13),
-             (else_try),
-             (gt, ":channeling_proficiency", 250),
-                 (assign, "$g_number_weaves_known", 14),
-             (try_end),
-
-             # Player channeling stamina and recharge rate
-
-             # changed from normal code
-             #(store_attribute_level, ":player_strength", "trp_player", ca_strength),
-             #(store_attribute_level, ":player_intelligence", "trp_player", ca_intelligence),
-
-             (assign, ":player_strength", 30), # added to make player strong
-             (assign, ":player_intelligence", 30), # added to make player strong
-
-             (store_mul, ":stamina_1", ":player_intelligence", 1000),
-             (store_mul, ":stamina_2", ":channeling_proficiency", 100),
-             (store_add, "$g_maximum_channeling_stamina", ":stamina_1", ":stamina_2"),
-
-             (assign, "$g_current_channeling_stamina", "$g_maximum_channeling_stamina"),
-
-             (store_mul, ":recharge_rate_1", ":player_strength", 20),
-             (store_mul, ":recharge_rate_2", ":channeling_proficiency", 2),
-             (store_add, "$g_channeling_stamina_recharge_rate", ":recharge_rate_1", ":recharge_rate_2"),
-
-             (assign, "$g_initialize_complete", 1),
-             
-         ]),
-
-      ## Timer triggers
-        (0, 0, 1, [], [(val_add, "$g_one_second_timer", 1)]),
-        (0, 0, 0.1, [], [(val_add, "$g_one_tenth_second_timer", 1)]),
-        (0, 0, 0.01, [], [(val_add, "$g_one_hundredth_second_timer", 1)]),
-        (0, 0, 0.001, [], [(val_add, "$g_one_thousandth_second_timer", 1)]),
+      # pick one initialize weave_trigger (2 for custom battle)
+      #common_wot_initialize_channeling_weave_variables_1,
+      common_wot_initialize_channeling_weave_variables_2,
+      # end
       
-      ## Check for channelers in the scene
-
-        (0, 0, 2, [(eq, "$g_initialize_complete", 1)],
-         [
-             (try_for_agents, ":agent"),
-#                 (agent_is_human, ":agent"),
-                 (agent_is_alive, ":agent"),
-                 (neg|agent_is_wounded, ":agent"),
-#                 (agent_get_wielded_item, ":item", ":agent", 0),
-#                 (item_get_type, ":item_type", ":item"),
-                 (try_begin),
-                 (agent_has_item_equipped, ":agent", "itm_power_player"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_recruit_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_good_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_good_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_novice_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_novice_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_accepted_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_yellow_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aes_sedai_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_brown_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_white_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_blue_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_grey_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_red_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_green_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_good_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_good_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_apprentice_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_veteran_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_black_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_dreadlord_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_bad_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_bad_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (neg|agent_is_human, ":agent"), # horses
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
-                 (else_try), # non-channelers
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
-                 (try_end),
-             (try_end),
-         ]),
-
-      ## Spawn Warders, Veteran Warders, and Ashaman Warders (soldier/dedicated) for Aes Sedai, Damane for Sul'dam, and Aes Sedai for Ashaman
-
-        (2, 0, 0, [(eq, "$g_initialize_complete", 1)],
-         [
-             (try_for_agents, ":agent"),
-                 (agent_is_human, ":agent"),
-                 (agent_is_alive, ":agent"),
-                 (neg|agent_is_wounded, ":agent"),
-                 (agent_get_slot, ":agent_is_warder", ":agent", slot_agent_is_warder_for_agent),
-                 (eq, ":agent_is_warder", 0),
-                 (agent_get_slot, ":warders_spawned", ":agent", slot_agent_has_warders_spawned),
-                 (eq, ":warders_spawned", 0),
-             
-                     (try_begin), # Yellow Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_yellow_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_yellow_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # Brown Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_brown_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_brown_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # White Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_white_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_white_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # Blue Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_blue_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_blue_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # Grey Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_grey_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_grey_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # Red Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_red_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 30),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_red_shoes"), # Aes Sedai is veteran
-                             (spawn_agent, "trp_ashaman"),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 25),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
-                     (else_try), # Green Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_green_ajah_ranged"),
-
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-
-                         (try_for_range, ":warder_number", 1, 5), # Green Ajah has a chance for up to four warders
-                         (store_random_in_range, ":random", 1, 100),
-                         (le, ":random", 75),
-             
-                             (try_begin),
-                             (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_green_shoes"), # Aes Sedai is veteran
-                                 (store_random_in_range, ":random", 1, 100),
-                                 (try_begin),
-                                 (lt, ":random", 90),
-                                     (spawn_agent, "trp_warder_veteran"),
-                                 (else_try),
-                                     (spawn_agent, "trp_ashaman"),
-                                 (try_end),
-                                 (assign, ":new_agent", reg0),
-                             (else_try), # Aes Sedai is not veteran
-                                 (store_random_in_range, ":random", 1, 100),
-                                 (try_begin),
-                                 (lt, ":random", 75),
-                                     (spawn_agent, "trp_warder"),
-                                 (else_try),
-                                 (is_between, ":random", 75, 85),
-                                     (spawn_agent, "trp_ashaman_dedicated"),
-                                 (else_try),
-                                     (spawn_agent, "trp_ashaman_soldier"),
-                                 (try_end),
-                                 (assign, ":new_agent", reg0),
-                             (try_end),
-
-                             (agent_set_team, ":new_agent", ":agent_team"),
-                             (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                             (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                             (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                             (try_begin),
-                             (eq, ":warder_number", 1),
-                                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-                                 (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-                             (else_try),
-                             (eq, ":warder_number", 2),
-                                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, ":new_agent"),
-                             (else_try),
-                             (eq, ":warder_number", 3),
-                                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, ":new_agent"),
-                             (else_try),
-                             (eq, ":warder_number", 4),
-                                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, ":new_agent"),
-                             (try_end),
-
-                         (try_end),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-             
-                     (else_try), # Ashaman
-                     (agent_has_item_equipped, ":agent", "itm_power_ashaman_ranged"),
-                     
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-
-                         (try_for_range, ":unused", 1, 3), # Ashaman can have up to 2 Aes Sedai sisters
-                         (store_random_in_range, ":random", 1, 100),
-                         (le, ":random", 25),
-
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (le, ":random", 40),
-                                 (spawn_agent, "trp_aes_sedai_red"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 50),
-                                 (spawn_agent, "trp_aes_sedai_yellow"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 60),
-                                 (spawn_agent, "trp_aes_sedai_brown"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 70),
-                                 (spawn_agent, "trp_aes_sedai_white"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 80),
-                                 (spawn_agent, "trp_aes_sedai_grey"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 90),
-                                 (spawn_agent, "trp_aes_sedai_green"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                                 (spawn_agent, "trp_aes_sedai_blue"),
-                                 (assign, ":new_agent", reg0),
-                             (try_end),
-
-                             (agent_set_team, ":new_agent", ":agent_team"),
-                             (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                             (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 3),
-                             (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                         (try_end),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-
-                     (else_try), # Ashaman Veteran
-                     (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_ranged"),
-                     
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-
-                         (try_for_range, ":unused", 1, 3), # Ashaman can have up to 2 Aes Sedai sisters
-                         (store_random_in_range, ":random", 1, 100),
-                         (le, ":random", 35),
-             
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (le, ":random", 40),
-                                 (spawn_agent, "trp_aes_sedai_red_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 50),
-                                 (spawn_agent, "trp_aes_sedai_yellow_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 60),
-                                 (spawn_agent, "trp_aes_sedai_brown_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 70),
-                                 (spawn_agent, "trp_aes_sedai_white_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 80),
-                                 (spawn_agent, "trp_aes_sedai_grey_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 90),
-                                 (spawn_agent, "trp_aes_sedai_green_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                                 (spawn_agent, "trp_aes_sedai_blue_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (try_end),
-
-                             (agent_set_team, ":new_agent", ":agent_team"),
-                             (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                             (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 3),
-                             (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                         (try_end),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-
-                     (else_try), # Der'Suldam
-                     (agent_has_item_equipped, ":agent", "itm_der_suldam_dagger"),
-                         (store_random_in_range, ":random", 1, 100),
-                         (try_begin),
-                         (le, ":random", 75),
-             
-                            (agent_get_look_position, pos55, ":agent"),
-                            (position_get_x, ":x_agent", pos55),
-                            (position_get_y, ":y_agent", pos55),
-
-                            (store_random_in_range, ":random", -100, 100),
-                            (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                            (store_random_in_range, ":random", 100, 200),
-                            (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                            (position_set_x, pos55, ":x_spawn"),
-                            (position_set_y, pos55, ":y_spawn"),
-                            (position_set_z_to_ground_level, pos55),
-
-                            (agent_get_team, ":agent_team", ":agent"),
-                            (agent_get_party_id, ":agent_party", ":agent"),
-
-                            (set_spawn_position, pos55),
-             
-                            (spawn_agent, "trp_damane"),
-                            (assign, ":new_agent", reg0),
-
-                            (agent_set_team, ":new_agent", ":agent_team"),
-                            (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                            (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 2),
-                            (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                            (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-
-                        (else_try),
-                            (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 2),
-                        (try_end),
-
-                    (else_try), # regular Suldam (less change that she will have damane)
-                    (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
-                    (store_random_in_range, ":random", 1, 100),
-                        (try_begin),
-                        (le, ":random", 50),
-             
-                            (agent_get_look_position, pos55, ":agent"),
-                            (position_get_x, ":x_agent", pos55),
-                            (position_get_y, ":y_agent", pos55),
-
-                            (store_random_in_range, ":random", -100, 100),
-                            (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                            (store_random_in_range, ":random", 100, 200),
-                            (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                            (position_set_x, pos55, ":x_spawn"),
-                            (position_set_y, pos55, ":y_spawn"),
-                            (position_set_z_to_ground_level, pos55),
-
-                            (agent_get_team, ":agent_team", ":agent"),
-                            (agent_get_party_id, ":agent_party", ":agent"),
-
-                            (set_spawn_position, pos55),
-             
-                            (spawn_agent, "trp_damane"),
-                            (assign, ":new_agent", reg0),
-
-                            (agent_set_team, ":new_agent", ":agent_team"),
-                            (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                            (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 2),
-                            (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                            (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                        (else_try),
-                            (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 2),
-                        (try_end),
-             
-                    (try_end),
-                    # Different Troops that spawn 'warders' end
-             
-             (try_end),
-             # For agent end
-             
-         ]),
-
-      ## Dismount spawned warders in sieges
-      (5, 0, 0, [
-        # trigger commented out with following code
-        (eq, "$g_initialize_complete", 1),
-        (eq, "$g_initialize_complete", 0),
-        ],
-         [
-
-            (try_for_agents, ":agent"),
-                (agent_is_alive, ":agent"),
-                (neg|agent_is_wounded, ":agent"),
-                (agent_get_slot, ":warder", ":agent", slot_agent_is_warder_for_agent),
-                (gt, ":warder", 0),
-                    (assign, ":horse", -10),
-                    (agent_get_horse, ":horse", ":agent"),
-                    (try_begin),
-                    (gt, ":horse", -1),
-#                        (agent_get_item_id, ":horse_item", ":horse"),
-#                        (agent_unequip_item, ":agent", ":horse_item"),
-                        (agent_set_hit_points, ":horse", 0, 0),
-                        (agent_deliver_damage_to_agent, ":horse", ":horse"),
-                        (position_set_x, pos1, 100),
-                        (position_set_y, pos1, 100),
-                        (position_set_z_to_ground_level, pos1),
-                        (agent_set_position, ":horse", pos1),
-                    (try_end),
-            (try_end),
-
-        ]),
-
-      ## Recharge Channeling Stamina trigger
-
-      (0.4, 0, 0, [(gt, "$g_one_second_timer", 2)],
-         [
-            (try_begin),
-            (lt, "$g_current_channeling_stamina", "$g_maximum_channeling_stamina"),
-                (store_add, ":check_value", "$g_current_channeling_stamina", "$g_channeling_stamina_recharge_rate"),
-                (try_begin),
-                (le, ":check_value", "$g_maximum_channeling_stamina"),
-                    (assign, "$g_current_channeling_stamina", ":check_value"),
-                (else_try),
-                    (assign, "$g_current_channeling_stamina", "$g_maximum_channeling_stamina"),
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_7' to set weave toggle to 'short range'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_7),  # start the remainder of the code when 'Numpad_7' is clicked
-                    
-                    (assign, "$g_toggle_weave_all", 0),
-                    (assign, "$g_toggle_weave_short", 1),
-                    (assign, "$g_toggle_weave_long", 0),
-                    (assign, "$g_toggle_weave_support", 0),
-                    (assign, "$g_toggle_weave_advanced", 0),
-
-#                    (display_message, "@Toggle Short Range Weaves..."),
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_8' to set weave toggle to 'long range'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_8),  # start the remainder of the code when 'Numpad_8' is clicked
-                    
-                    (try_begin),
-                    (ge, "$g_number_weaves_known", 2),
-                        (assign, "$g_toggle_weave_all", 0),
-                        (assign, "$g_toggle_weave_short", 0),
-                        (assign, "$g_toggle_weave_long", 1),
-                        (assign, "$g_toggle_weave_support", 0),
-                        (assign, "$g_toggle_weave_advanced", 0),
-
-#                        (display_message, "@Toggle Long Range Weaves..."),
-                    (try_end),
-            
-                     
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_9' to set weave toggle to 'support'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_9),  # start the remainder of the code when 'Numpad_9' is clicked
-                    
-                    (try_begin),
-                    (ge, "$g_number_weaves_known", 3),
-                        (assign, "$g_toggle_weave_all", 0),
-                        (assign, "$g_toggle_weave_short", 0),
-                        (assign, "$g_toggle_weave_long", 0),
-                        (assign, "$g_toggle_weave_support", 1),
-                        (assign, "$g_toggle_weave_advanced", 0),
-            
-#                        (display_message, "@Toggle Support Weaves..."),
-                    (try_end),
-                     
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_5' to set weave toggle to 'advanced'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_5),  # start the remainder of the code when 'Numpad_5' is clicked
-                    
-                    (try_begin),
-                    (ge, "$g_number_weaves_known", 12),
-                        (assign, "$g_toggle_weave_all", 0),
-                        (assign, "$g_toggle_weave_short", 0),
-                        (assign, "$g_toggle_weave_long", 0),
-                        (assign, "$g_toggle_weave_support", 0),
-                        (assign, "$g_toggle_weave_advanced", 1),
-            
-#                        (display_message, "@Toggle Advanced Weaves..."),
-                    (try_end),
-                     
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_6' to set weave toggle to 'all'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_6),  # start the remainder of the code when 'Numpad_6' is clicked
-                    
-                    (assign, "$g_toggle_weave_all", 1),
-                    (assign, "$g_toggle_weave_short", 0),
-                    (assign, "$g_toggle_weave_long", 0),
-                    (assign, "$g_toggle_weave_support", 0),
-                    (assign, "$g_toggle_weave_advanced", 0),
-            
-#                    (display_message, "@Toggle All Weaves..."),
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'M' to re-add One Power Item to inventory
-        (0, 0, 0, [],
-         [
-
-            (try_begin),
-            (key_clicked, key_m),  # start the remainder of the code when 'M' is clicked
-                (troop_ensure_inventory_space, "trp_player", 1),
-                (troop_add_item, "trp_player", "itm_power_player", 0),
-            (try_end),
-
-        ]),
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      common_wot_check_for_channelers_in_the_scene,
+      common_wot_spawn_warders,
+      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_weave_toggle_short_range,
+      common_wot_weave_toggle_long_range,
+      common_wot_weave_toggle_support,
+      common_wot_weave_toggle_advanced,
+      common_wot_weave_toggle_all,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
       
-      ## Click 'Caps Lock' to cycle through known weaves
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_caps_lock),  # start the remainder of the code when 'Caps Lock' is clicked
-
-                    (try_begin),
-                    (eq, "$g_toggle_weave_all", 1),
-                        # cycle through known weaves and then back to the first weave
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave","$g_number_weaves_known"),
-                            (assign, "$g_active_channeling_weave", 1),
-                        (else_try),
-                            (val_add, "$g_active_channeling_weave", 1),
-                        (try_end),
-        
-                    (else_try),
-                    (eq, "$g_toggle_weave_short", 1),
-                        # cycle though all known short range weaves
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave", 1),
-                        (ge, "$g_number_weaves_known", 6),
-                             (assign, "$g_active_channeling_weave", 6),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 6),
-                        (ge, "$g_number_weaves_known", 10),
-                             (assign, "$g_active_channeling_weave", 10),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 10),
-                        (ge, "$g_number_weaves_known", 1),
-                             (assign, "$g_active_channeling_weave", 1),
-                        (else_try),
-                        (ge, "$g_number_weaves_known", 1),
-                             (assign, "$g_active_channeling_weave", 1),
-                        (try_end),
-
-                    (else_try),
-                    (eq, "$g_toggle_weave_long", 1),
-                        # cycle though all known long range weaves
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave", 2),
-                        (ge, "$g_number_weaves_known", 4),
-                             (assign, "$g_active_channeling_weave", 4),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 4),
-                        (ge, "$g_number_weaves_known", 7),
-                             (assign, "$g_active_channeling_weave", 7),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 7),
-                        (ge, "$g_number_weaves_known", 9),
-                             (assign, "$g_active_channeling_weave", 9),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 9),
-                        (ge, "$g_number_weaves_known", 2),
-                             (assign, "$g_active_channeling_weave", 2),
-                        (else_try),
-                        (ge, "$g_number_weaves_known", 2),
-                             (assign, "$g_active_channeling_weave", 2),
-                        (try_end),
-
-                    (else_try),
-                    (eq, "$g_toggle_weave_support", 1),
-                        # cycle though all known support weaves
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave", 3),
-                        (ge, "$g_number_weaves_known", 5),
-                             (assign, "$g_active_channeling_weave", 5),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 5),
-                        (ge, "$g_number_weaves_known", 8),
-                             (assign, "$g_active_channeling_weave", 8),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 8),
-                        (ge, "$g_number_weaves_known", 11),
-                             (assign, "$g_active_channeling_weave", 11),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 11),
-                        (ge, "$g_number_weaves_known", 3),
-                             (assign, "$g_active_channeling_weave", 3),
-                        (else_try),
-                        (ge, "$g_number_weaves_known", 3),
-                             (assign, "$g_active_channeling_weave", 3),
-                        (try_end),
-
-                    (else_try),
-                    (eq, "$g_toggle_weave_advanced", 1),
-                        # cycle though all known advanced weaves
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave", 12),
-                        (ge, "$g_number_weaves_known", 13),
-                             (assign, "$g_active_channeling_weave", 13),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 13),
-                        (ge, "$g_number_weaves_known", 14),
-                             (assign, "$g_active_channeling_weave", 14),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 14),
-                        (ge, "$g_number_weaves_known", 12),
-                             (assign, "$g_active_channeling_weave", 12),
-                        (else_try),
-                        (ge, "$g_number_weaves_known", 12),
-                             (assign, "$g_active_channeling_weave", 12),
-                        (try_end),
-            
-                    (try_end),
-
-                    
-                    # display a message saying what spell is active
-#                    (try_begin),
-#                    (eq, "$g_active_channeling_weave", 1),
-#                        (display_message, "str_weave_1"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 2),
-#                        (display_message, "str_weave_2"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 3),
-#                        (display_message, "str_weave_3"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 4),
-#                        (display_message, "str_weave_4"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 5),
-#                        (display_message, "str_weave_5"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 6),
-#                        (display_message, "str_weave_6"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 7),
-#                        (display_message, "str_weave_7"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 8),
-#                        (display_message, "str_weave_8"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 9),
-#                        (display_message, "str_weave_9"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 10),
-#                        (display_message, "str_weave_10"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 11),
-#                        (display_message, "str_weave_11"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 12),
-#                        (display_message, "str_weave_12"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 13),
-#                        (display_message, "str_weave_13"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 14),
-#                        (display_message, "str_weave_14"),
-#                    (try_end),
-                    
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Check for 'Inventory' key_click to refill channeling 'ammo'
-        (ti_inventory_key_pressed, 0, 0, [],
-         [
-            (set_trigger_result,1),
-            (assign, "$g_number_of_weaves_used", 0),
-            (assign, "$g_reset_troop_ratio_bar", 1),
-        ]),
-
-      ## Reset troop ratio bar after certain battle menus
-        (0, 0.1, 0.2, [(eq, "$g_reset_troop_ratio_bar", 1)],
-         [
-             (start_presentation, "prsnt_troop_ratio_bar"),
-#             (start_presentation,"prsnt_channeling_stamina_bar"),
-             (assign, "$g_reset_troop_ratio_bar", 0),
-         ]),
-
-        (ti_escape_pressed, 0, 0, [], [(assign, "$g_reset_troop_ratio_bar", 1),]),
-
-      ## Airborne from blast trigger ## ('airborn' actually doesn't work, but 'push' does)
-
-      (0, 0, 0.02, [
-                      (assign, ":airborne_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":airborne", ":agent", slot_agent_is_airborne),
-                          (eq, ":airborne", 1),
-                          (val_add, ":airborne_check", 1),
-                      (end_try),
-
-                      (ge, ":airborne_check", 1),  # Turn off this feature for quick battle
-                      (lt, ":airborne_check", 0),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":airborne", ":agent", slot_agent_is_airborne),
-            (eq, ":airborne", 1),
-            (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
-            (try_begin),
-            (eq, ":bound", 0), # Don't push bound agents
-                (agent_get_look_position, pos63, ":agent"),
-                (position_get_x, ":current_x", pos63),
-                (position_get_y, ":current_y", pos63),
-
-                (agent_get_slot, ":run", ":agent", slot_agent_airborne_x_movement),
-                (agent_get_slot, ":rise", ":agent", slot_agent_airborne_y_movement),
-
-                # Scale the rise/run so targets will move over a larger number of smaller intervals
-                (assign, ":run_rise_scaler", 3),
-                (store_div, ":run_interval", ":run", ":run_rise_scaler"),
-                (store_div, ":rise_interval", ":rise", ":run_rise_scaler"),
-
-                (store_add, ":new_x", ":current_x", ":run_interval"),
-                (store_add, ":new_y", ":current_y", ":rise_interval"),
-
-                # set new position coordinates
-                (position_set_x, pos63, ":new_x"),
-                (position_set_y, pos63, ":new_y"),
-                (position_set_z_to_ground_level, pos63),
-
-                # reduce power_factor once every ":run_rise_scaler" iterations of the trigger
-                (assign, ":reduce_power_factor_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":reduce_power_factor_check", ":run_rise_scaler"),
-                (try_begin),
-                (eq, ":reduce_power_factor_check", 0),
-                    (agent_get_slot, ":power_factor", ":agent", slot_agent_airborne_power_factor),
-                    (val_sub, ":power_factor", 2),
-                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, ":power_factor"),
-                (try_end),
-
-                # stop agent movement when ":power_factor" is less than zero
-                (try_begin),
-                (lt, ":power_factor", 0),
-                    (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                (try_end),
-        
-                (agent_set_position, ":agent", pos63),
-            (else_try),
-                (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-            (try_end),
-        (try_end),
-        
-        ]),
-
-      ## Bound trigger ##
-
-      (0, 0, 0.05, [
-                      (assign, ":bound_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
-                          (eq, ":bound", 1),
-                          (val_add, ":bound_check", 1),
-                      (end_try),
-
-                      (ge, ":bound_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (neg|agent_is_routed, ":agent"),
-            (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
-            (eq, ":bound", 1),
-        
-                (agent_get_slot, ":airborne", ":agent", slot_agent_is_airborne),
-                (try_begin),
-                (eq, ":airborne", 1), # stop movement of agents that have been pushed by air blast / similar weave
-                    (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                (try_end),
-
-                (agent_get_slot, ":bound_duration", ":agent", slot_agent_bound_duration),
-
-                (try_begin),
-                (gt, ":bound_duration", 2),
-                    (agent_get_look_position, pos60, ":agent"),
-
-                    (particle_system_burst, "psys_bound_aura", pos60, 25),
-
-                    (agent_get_slot, ":bound_x", ":agent", slot_agent_bound_x),
-                    (agent_get_slot, ":bound_y", ":agent", slot_agent_bound_y),
-        
-                    (position_set_x, pos60, ":bound_x"),
-                    (position_set_y, pos60, ":bound_y"),
-        
-                    (agent_set_scripted_destination, ":agent", pos60, 1),
-                (try_end),
-
-                (try_begin),
-                (agent_is_routed, ":agent"),
-                    (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                (try_end),
-
-                (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":one_second_check", 100),
-                (eq, ":one_second_check", 0),  ## true once every second
-                    (store_agent_hit_points,":target_health",":agent",1),
-                    (agent_get_slot, ":chosen", ":agent", slot_agent_bound_by),
-                 
-                    (try_begin),
-                    (gt,":target_health",1),
-                 
-                        (try_begin), # add to channeling multiplier if agent is player
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 2),
-                        (try_end),
-#                        (add_xp_to_troop,1,":chosen"),
-                 
-                        (try_begin), # check burn duration
-                        (gt, ":bound_duration", 0),
-                             (val_sub, ":bound_duration", 1),
-                             (agent_set_slot, ":agent", slot_agent_bound_duration, ":bound_duration"),
-                        (else_try),
-                             (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                        (try_end),
-
-                        (val_sub,":target_health",1),
-                        (agent_set_hit_points,":agent",":target_health",1),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                    (else_try),
-                        (agent_set_hit_points,":agent",0,0),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                        (try_begin),
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 20),
-                        (try_end),
-                 
-                        (add_xp_to_troop,25,":chosen"),
-                        (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                    (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Aes Sedai bonded to Ashaman and Damane linked to Suldam, follow their bond holder ##
-
-      (0, 0, 0.05, [
-                      (assign, ":warder_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":warder", ":agent", slot_agent_is_warder_for_agent),
-                          (gt, ":warder", 1), # means agent bonded to ashaman or suldam (therefore they should follow)
-                          (val_add, ":warder_check", 1),
-                      (end_try),
-
-                      (ge, ":warder_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (neg|agent_is_routed, ":agent"),
-            (agent_get_slot, ":warder", ":agent", slot_agent_is_warder_for_agent),
-            (gt, ":warder", 1), # means agent bonded to ashaman or suldam (therefore they should follow)
-        
-                (agent_get_slot, ":bond_holder", ":agent", slot_agent_warder_bond_holder),
-                (agent_is_alive, ":bond_holder"),
-                (neg|agent_is_wounded, ":bond_holder"), # bond holder not killed or wounded
-
-                (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":agent", slot_agent_under_compulsion),
-
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"), # warder not bound or under compulsion
-
-                (try_begin),
-                (eq, ":bound_or_compulsion", 0), # If no reason not to follow, have warder follow his/her bond holder
-        
-                    (agent_get_look_position, pos54, ":bond_holder"),
-
-                    (position_get_y, ":y_bond_holder", pos54),
-                    (store_add, ":y_warder", ":y_bond_holder", 150),
-
-                    (position_set_y, pos54, ":y_warder"),
-                    (position_set_z_to_ground_level, pos54),
-        
-                    (agent_set_scripted_destination, ":agent", pos54, 1),
-
-                (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Leader warders will determine the movement of other warders bonded to the same Aes Sedai. The Aes Sedai will also follow unless she is made damane to a Suldam/Der'Suldam.
-
-      (0, 0, 0.05, [
-                      (assign, ":warder_leader_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-#                          (agent_is_alive, ":agent"),
-#                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":warder_leader", ":agent", slot_agent_warder_is_leader),
-                          (eq, ":warder_leader", 1), # means agent bonded to aes sedai, so aes sedai should follow them
-                          (val_add, ":warder_leader_check", 1),
-                      (end_try),
-
-                      (ge, ":warder_leader_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_get_slot, ":warder_leader", ":agent", slot_agent_warder_is_leader),
-            (eq, ":warder_leader", 1), # means agent bonded to aes sedai, so aes sedai should follow them
-
-                (try_begin),
-                (agent_is_alive, ":agent"),
-                (neg|agent_is_wounded, ":agent"),
-                (neg|agent_is_routed, ":agent"),
-                (agent_get_slot, ":bound", ":agent", slot_agent_is_bound), # leader warder bound check
-                (agent_get_slot, ":compulsion", ":agent", slot_agent_under_compulsion), # leader warder compulsion check
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0), # leader warder not bound or under compulsion
-                    (assign, ":current_warder_leader_suitable", 1),
-                (else_try), # leader warder either killed or otherwise unsuitable to be leader
-                    (assign, ":current_warder_leader_suitable", 0),
-                    (agent_set_slot, ":agent", slot_agent_warder_is_leader, 0),
-                (try_end),
-        
-                (agent_get_slot, ":bond_holder", ":agent", slot_agent_warder_bond_holder),
-                (agent_is_alive, ":bond_holder"),
-
-                (agent_get_slot, ":warder_1", ":bond_holder", slot_agent_aes_sedai_warder_1),
-                (agent_get_slot, ":warder_2", ":bond_holder", slot_agent_aes_sedai_warder_2),
-                (agent_get_slot, ":warder_3", ":bond_holder", slot_agent_aes_sedai_warder_3),
-                (agent_get_slot, ":warder_4", ":bond_holder", slot_agent_aes_sedai_warder_4),
-
-                (try_begin),
-                (eq, ":current_warder_leader_suitable", 1),
-        
-                    (agent_get_look_position, pos53, ":agent"),
-
-                    (position_get_y, ":y_lead_warder", pos53),
-                    (store_add, ":y_follower", ":y_lead_warder", 150),
-
-                    (position_set_y, pos53, ":y_follower"),
-                    (position_set_z_to_ground_level, pos53),
-
-                    (try_begin),
-                    (agent_is_alive, ":bond_holder"),
-                    (neg|agent_is_wounded, ":bond_holder"),
-                    (neg|agent_is_routed, ":bond_holder"),
-                    (agent_get_slot, ":bound", ":bond_holder", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":bond_holder", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                    (agent_get_slot, ":made_damane", ":bond_holder", slot_agent_is_warder_for_agent), # code that makes Aes Sedai not follow lead warder if she has been made a damane
-                    (eq, ":made_damane", 0),
-                        (agent_set_scripted_destination, ":bond_holder", pos53, 1),
-                    (try_end),
-
-                    (try_begin),
-                    (neq, ":warder_1", ":agent"), # warder not current leader
-                    (neq, ":warder_1", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_1"),
-                    (neg|agent_is_wounded, ":warder_1"),
-                    (neg|agent_is_routed, ":warder_1"),
-                    (agent_get_slot, ":bound", ":warder_1", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_1", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_scripted_destination, ":warder_1", pos53, 1),
-                    (try_end),
-
-                    (try_begin),
-                    (neq, ":warder_2", ":agent"), # warder not current leader
-                    (neq, ":warder_2", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_2"),
-                    (neg|agent_is_wounded, ":warder_2"),
-                    (neg|agent_is_routed, ":warder_2"),
-                    (agent_get_slot, ":bound", ":warder_2", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_2", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_scripted_destination, ":warder_2", pos53, 1),
-                    (try_end),
-
-                    (try_begin),
-                    (neq, ":warder_3", ":agent"), # warder not current leader
-                    (neq, ":warder_3", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_3"),
-                    (neg|agent_is_wounded, ":warder_3"),
-                    (neg|agent_is_routed, ":warder_3"),
-                    (agent_get_slot, ":bound", ":warder_3", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_3", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_scripted_destination, ":warder_3", pos53, 1),
-                    (try_end),
-
-                    (try_begin),
-                    (neq, ":warder_4", ":agent"), # warder not current leader
-                    (neq, ":warder_4", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_4"),
-                    (neg|agent_is_wounded, ":warder_4"),
-                    (neg|agent_is_routed, ":warder_4"),
-                    (agent_get_slot, ":bound", ":warder_4", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_4", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_scripted_destination, ":warder_4", pos53, 1),
-                    (try_end),
-
-                (else_try), # current warder leader is not suitable to keep leading
-
-                    (assign, ":found_new_leader", 0),
-
-                    (try_begin),
-                    (neq, ":warder_1", ":agent"), # warder not current leader
-                    (neq, ":warder_1", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_1"),
-                    (neg|agent_is_wounded, ":warder_1"),
-                    (neg|agent_is_routed, ":warder_1"),
-                    (agent_get_slot, ":bound", ":warder_1", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_1", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_slot, ":warder_1", slot_agent_warder_is_leader, 1),
-                        (assign, ":found_new_leader", 1),
-                    (else_try),
-                    (eq, ":found_new_leader", 0),
-                    (neq, ":warder_2", ":agent"), # warder not current leader
-                    (neq, ":warder_2", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_2"),
-                    (neg|agent_is_wounded, ":warder_2"),
-                    (neg|agent_is_routed, ":warder_2"),
-                    (agent_get_slot, ":bound", ":warder_2", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_2", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_slot, ":warder_2", slot_agent_warder_is_leader, 1),
-                        (assign, ":found_new_leader", 1),
-                    (else_try),
-                    (eq, ":found_new_leader", 0),
-                    (neq, ":warder_3", ":agent"), # warder not current leader
-                    (neq, ":warder_3", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_3"),
-                    (neg|agent_is_wounded, ":warder_3"),
-                    (neg|agent_is_routed, ":warder_3"),
-                    (agent_get_slot, ":bound", ":warder_3", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_3", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_slot, ":warder_3", slot_agent_warder_is_leader, 1),
-                        (assign, ":found_new_leader", 1),
-                    (else_try),
-                    (eq, ":found_new_leader", 0),
-                    (neq, ":warder_4", ":agent"), # warder not current leader
-                    (neq, ":warder_4", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_4"),
-                    (neg|agent_is_wounded, ":warder_4"),
-                    (neg|agent_is_routed, ":warder_4"),
-                    (agent_get_slot, ":bound", ":warder_4", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_4", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_slot, ":warder_4", slot_agent_warder_is_leader, 1),
-                        (assign, ":found_new_leader", 1),
-                    (else_try),
-                    (eq, ":found_new_leader", 0),
-                        (agent_set_slot, ":bond_holder", slot_agent_warders_incapacitated, 1),
-                    (try_end),
-                    
-                (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Incapacitated Warders trigger (Aes Sedai with incapacitated Warders will check to see if one of them becomes a valid leader again ##
-
-      (0, 0, 0.05, [
-                      (assign, ":incapacitated_warders_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":has_incapacitated_warders", ":agent", slot_agent_warders_incapacitated),
-                          (gt, ":has_incapacitated_warders", 0),
-                          (val_add, ":incapacitated_warders_check", 1),
-                      (end_try),
-
-                      (ge, ":incapacitated_warders_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":has_incapacitated_warders", ":agent", slot_agent_warders_incapacitated),
-            (gt, ":has_incapacitated_warders", 0),
-        
-                (agent_get_slot, ":warder_1", ":agent", slot_agent_aes_sedai_warder_1),
-                (agent_get_slot, ":warder_2", ":agent", slot_agent_aes_sedai_warder_2),
-                (agent_get_slot, ":warder_3", ":agent", slot_agent_aes_sedai_warder_3),
-                (agent_get_slot, ":warder_4", ":agent", slot_agent_aes_sedai_warder_4),
-
-                (assign, ":found_new_leader", 0),
-
-                (try_begin),
-                (neq, ":warder_1", -1), # warder was actually spawned
-                (agent_is_alive, ":warder_1"),
-                (neg|agent_is_wounded, ":warder_1"),
-                (neg|agent_is_routed, ":warder_1"),
-                (agent_get_slot, ":bound", ":warder_1", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":warder_1", slot_agent_under_compulsion),
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0),
-                    (agent_set_slot, ":warder_1", slot_agent_warder_is_leader, 1),
-                    (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-                    (assign, ":found_new_leader", 1),
-                (else_try),
-                (eq, ":found_new_leader", 0),
-                (neq, ":warder_2", -1), # warder was actually spawned
-                (agent_is_alive, ":warder_2"),
-                (neg|agent_is_wounded, ":warder_2"),
-                (neg|agent_is_routed, ":warder_2"),
-                (agent_get_slot, ":bound", ":warder_2", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":warder_2", slot_agent_under_compulsion),
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0),
-                    (agent_set_slot, ":warder_2", slot_agent_warder_is_leader, 1),
-                    (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-                    (assign, ":found_new_leader", 1),
-                (else_try),
-                (eq, ":found_new_leader", 0),
-                (neq, ":warder_3", -1), # warder was actually spawned
-                (agent_is_alive, ":warder_3"),
-                (neg|agent_is_wounded, ":warder_3"),
-                (neg|agent_is_routed, ":warder_3"),
-                (agent_get_slot, ":bound", ":warder_3", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":warder_3", slot_agent_under_compulsion),
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0),
-                    (agent_set_slot, ":warder_3", slot_agent_warder_is_leader, 1),
-                    (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-                    (assign, ":found_new_leader", 1),
-                (else_try),
-                (eq, ":found_new_leader", 0),
-                (neq, ":warder_4", -1), # warder was actually spawned
-                (agent_is_alive, ":warder_4"),
-                (neg|agent_is_wounded, ":warder_4"),
-                (neg|agent_is_routed, ":warder_4"),
-                (agent_get_slot, ":bound", ":warder_4", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":warder_4", slot_agent_under_compulsion),
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0),
-                    (agent_set_slot, ":warder_4", slot_agent_warder_is_leader, 1),
-                    (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-                    (assign, ":found_new_leader", 1),
-                (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Non-linked Sul'dam trigger ##
-
-      (0, 0, 3, [
-                      (assign, ":not_linked_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                      
-                          (assign, ":agent_suldam", 0),
-                          (try_begin),
-                          (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
-                              (assign, ":agent_suldam", 1),
-                          (else_try),
-                          (agent_has_item_equipped, ":agent", "itm_der_suldam_dagger"),
-                              (assign, ":agent_suldam", 2),
-                          (try_end),
-                          (gt, ":agent_suldam", 0), # only continue if agent is suldam or der sul'dam
-
-                          (agent_get_slot, ":linked", ":agent", slot_agent_has_warders_spawned), 
-                          (eq, ":linked", 2),
-                          (val_add, ":not_linked_check", 1), # proceed with trigger if sul'dam is not linked
-                      (try_end),
-
-                      (ge, ":not_linked_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-                      
-            (assign, ":agent_suldam", 0),
-            (try_begin),
-            (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
-                (assign, ":agent_suldam", 1),
-            (else_try),
-            (agent_has_item_equipped, ":agent", "itm_der_suldam_dagger"),
-                (assign, ":agent_suldam", 2),
-            (try_end),
-            (gt, ":agent_suldam", 0), # only continue if agent is suldam or der sul'dam
-
-            (agent_get_slot, ":linked", ":agent", slot_agent_has_warders_spawned), 
-            (eq, ":linked", 2), # proceed with trigger if sul'dam is not linked
-
-            (assign, ":suldam_failed_leash_attempt", 0),
-
-                (try_for_agents, ":target"),
-                    (eq, ":suldam_failed_leash_attempt", 0),
-        
-                    (agent_get_slot, ":target_is_channeler", ":target", slot_agent_is_channeler),
-                    (eq, ":target_is_channeler", 1), # only try to leash channeler
-        
-                    (agent_get_troop_id, ":target_troop", ":target"),
-                    (troop_get_type, ":target_is_female", ":target_troop"),
-                    (eq, ":target_is_female", 1), # only try to leash female channelers
-        
-                    (agent_get_slot, ":already_linked", ":target", slot_agent_is_warder_for_agent),
-                    (eq, ":already_linked", 0), # don't try to leash a warder (it will make who follows who difficult)
-
-                    (agent_is_alive, ":target"), # don't try to leash the dead
-                    (neg|agent_is_wounded, ":target"), # don't try to leash the wounded
-
-                    (agent_get_team, ":suldam_team", ":agent"),
-                    (agent_get_team, ":target_team", ":target"),
-                    (teams_are_enemies, ":suldam_team", ":target_team"), # don't try to leash allies
-                    
-                    (agent_get_position, pos1, ":agent"),
-                    (agent_get_position, pos2, ":target"),
-                    (get_distance_between_positions, ":dist", pos1, pos2),
-                    (lt, ":dist", 300), # sul'dam within 300 cm of target
-
-                    (agent_get_troop_id, ":target_id", ":target"),
-                    (troop_get_xp, ":target_xp", ":target_id"),
-                    (agent_get_troop_id, ":suldam_id", ":agent"),
-                    (troop_get_xp, ":suldam_xp", ":suldam_id"),
-
-                    (try_begin),
-                    (eq, ":agent_suldam", 1), # agent is suldam
-                        (try_begin),
-                        (le, ":suldam_xp", ":target_xp"), # suldam less experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", 7),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                (agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                (agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (else_try), # suldam more experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", 10),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                (agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                (agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (try_end),
-                    (else_try), # agent is der suldam
-                        (try_begin),
-                        (le, ":suldam_xp", ":target_xp"), # suldam less experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", 13),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                (agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                (agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (else_try), # suldam more experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", 16),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                (agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                (agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (try_end),
-                    (try_end),
-                        
-                (try_end),
-        (try_end),
-        
-        ]),
-
-      ## Sul'dam with dead Damane trigger ##
-
-      (0, 0, 3, [
-                      (assign, ":dead_damane", 0),
-
-                      (try_for_agents, ":agent"),
-                          (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
-                      
-                          (assign, ":dead_or_wounded", 0),
-                          (try_begin),
-                          (neg|agent_is_alive, ":agent"),
-                              (val_add, ":dead_or_wounded", 1),
-                          (else_try),
-                          (agent_is_wounded, ":agent"),
-                              (val_add, ":dead_or_wounded", 1),
-                          (try_end),
-
-                          (gt, ":dead_or_wounded", 0),
-                          (val_add, ":dead_damane", 1),
-                      (try_end),
-
-                      (gt, ":dead_damane", 0),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
-                      
-            (assign, ":dead_or_wounded", 0),
-            (try_begin),
-            (neg|agent_is_alive, ":agent"),
-                (val_add, ":dead_or_wounded", 1),
-            (else_try),
-            (agent_is_wounded, ":agent"),
-                (val_add, ":dead_or_wounded", 1),
-            (try_end),
-
-            (gt, ":dead_or_wounded", 0), # damane is dead or wounded
-
-            (agent_get_slot, ":damane_leash_holder", ":agent", slot_agent_warder_bond_holder),
-
-            (agent_set_slot, ":damane_leash_holder", slot_agent_has_warders_spawned, 2), # start looking for female channelers like any sul'dam who didn't get a damane from spawn code.
-        (try_end),
-        
-        ]),
-
-      ## Nearby Myrddraal trigger ##
-
-      (0, 0, 0.25, [],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_is_human, ":agent"), # no fear death effect for horses... for now
-            (neg|agent_has_item_equipped, ":agent", "itm_myrddraal_hood_helmet"), # agent is not a myrddraal
-        
-            (agent_get_team, ":agent_team", ":agent"),
-            (agent_get_position, pos1, ":agent"),
-            (assign, ":number_myrddraal_nearby", 0),
-
-            (try_for_agents, ":agent_2"),
-                (agent_has_item_equipped, ":agent_2", "itm_myrddraal_hood_helmet"), # agent is myrddraal
-                (agent_is_alive, ":agent_2"),
-                (neg|agent_is_wounded, ":agent_2"),
-                (agent_get_team, ":agent_2_team", ":agent_2"),
-                (teams_are_enemies, ":agent_team", ":agent_2_team"), # agent not on the same team as myrddraal
-
-                (agent_get_position, pos2, ":agent_2"),
-                (get_distance_between_positions, ":dist", pos1, pos2),
-        
-                (try_begin),
-                (lt, ":dist", 1000),
-                    (val_add, ":number_myrddraal_nearby", 1),
-                (try_end),
-
-            (try_end),
-        
-            (try_begin),
-            (gt, ":number_myrddraal_nearby", 0),
-                (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 10),
-            (try_end),
-
-            (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, ":number_myrddraal_nearby"),
-                
-        (try_end),
-        
-        ]),
-
-      ## Myrddraal Fear trigger ##
-
-      (0, 0, 3, [
-                      (assign, ":fear_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":has_fear", ":agent", slot_agent_myrddraal_fear_counter),
-                          (gt, ":has_fear", 0),
-                          (val_add, ":fear_check", 1),
-                      (end_try),
-
-                      (ge, ":fear_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":has_fear", ":agent", slot_agent_myrddraal_fear_counter),
-            (gt, ":has_fear", 0),
-        
-                (agent_get_slot, ":fear_magnitude", ":agent", slot_agent_myrddraal_fear_magnitude),
-                (store_add, ":fear_magnitude_new", ":fear_magnitude", 1),
-
-                (try_for_range, ":unused", 1, ":fear_magnitude_new"),
-                    (store_random_in_range, ":random", 1, 100),
-        
-                    (try_begin),
-                    (lt, ":random", 15),
-                        (store_agent_hit_points,":target_health",":agent",1),
-        
-                        (try_begin),
-                        (gt,":target_health",1),
-                            (val_sub,":target_health",1),
-                            (agent_set_hit_points,":agent",":target_health",1),
-                        (try_end), # no (else_try) that will kill agent for now (can't die from fear, just become a very easy target)
-        
-                    (try_end),
-                        
-                (try_end),
-
-                (val_sub, ":has_fear", 1),
-                (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, ":has_fear"), # fear will wear off as long as agent stays away from myrddraal
-
-                (agent_get_look_position, pos1, ":agent"),
-                (particle_system_burst, "psys_fear_aura", pos1, 5),
-                
-        (try_end),
-        
-        ]),
-
-      ## Draghkar Hunt trigger ##
-
-      (0, 0, 1, [],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_has_item_equipped, ":agent", "itm_draghkar_helmet"), # agent is a draghkar
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-
-            (try_begin),
-            (agent_get_slot, ":cooldown", ":agent", slot_agent_draghkar_cooldown),
-            (gt, ":cooldown", 0),
-                (val_sub, ":cooldown", 1),
-                (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, ":cooldown"),
-            (else_try),
-                (agent_get_team, ":agent_team", ":agent"),
-                (agent_get_position, pos1, ":agent"),
-                (assign, ":number_enemies_nearby", 0),
-
-                (try_for_agents, ":agent_2"),
-                    (eq, ":number_enemies_nearby", 0),
-                    (agent_is_human, ":agent_2"),
-                    (neg|agent_has_item_equipped, ":agent_2", "itm_draghkar_helmet"), # agent is not a draghkar
-                    (agent_is_alive, ":agent_2"),
-                    (neg|agent_is_wounded, ":agent_2"),
-                    (agent_get_team, ":agent_2_team", ":agent_2"),
-                    (teams_are_enemies, ":agent_team", ":agent_2_team"), # agent not on the same team as draghkar
-                    (agent_get_slot, ":already_kissed", ":agent_2", slot_agent_has_draghkar_kiss),
-                    (eq, ":already_kissed", 0),
-
-                    (agent_get_position, pos2, ":agent_2"),
-                    (get_distance_between_positions, ":dist", pos1, pos2),
-        
-                    (try_begin),
-                    (lt, ":dist", 250),
-                        (val_add, ":number_enemies_nearby", 1),
-                        (assign, ":target", ":agent_2"),
-                    (try_end),
-
-                (try_end),
-        
-                (try_begin),
-                (gt, ":number_enemies_nearby", 0),
-                    (store_random_in_range, ":random", 1, 100),
-
-                    (try_begin),
-                    (lt, ":random", 18),
-                        (agent_set_slot, ":target", slot_agent_has_draghkar_kiss, 1),
-                        (agent_set_slot, ":target", slot_agent_draghkar_kiss_by, ":agent"),
-                        (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 8),
-                        ## play draghkar crooning sound
-                    (try_end),
-                (try_end),
-
-            (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Draghkar Kiss of Death trigger ##
-
-      (0, 0, 0.04, [
-                      (assign, ":kiss_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":has_kiss", ":agent", slot_agent_has_draghkar_kiss),
-                          (gt, ":has_kiss", 0),
-                          (val_add, ":kiss_check", 1),
-                      (end_try),
-
-                      (ge, ":kiss_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":has_kiss", ":agent", slot_agent_has_draghkar_kiss),
-            (gt, ":has_kiss", 0),
-
-                (agent_get_position, pos1, ":agent"),
-                (particle_system_burst, "psys_fear_aura", pos1, 5),
-
-                (store_agent_hit_points,":target_health",":agent",1),
-        
-                (try_begin),
-                (gt,":target_health",1),
-                    (val_sub,":target_health",1),
-                    (agent_set_hit_points,":agent",":target_health",1),
-                (else_try),
-                    (agent_get_slot, ":draghkar", ":agent", slot_agent_draghkar_kiss_by),
-                    (agent_set_hit_points, ":agent", 0, 0),
-                    (agent_deliver_damage_to_agent, ":draghkar",":agent"),
-                (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Shielded trigger ##
-
-      (0, 0, 0.0025, [
-                      (assign, ":shield_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":shielded", ":agent", slot_agent_is_shielded),
-                          (eq, ":shielded", 1),
-                          (val_add, ":shield_check", 1),
-                      (end_try),
-
-                      (ge, ":shield_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":shielded", ":agent", slot_agent_is_shielded),
-            (eq, ":shielded", 1),
-        
-                (agent_get_look_position, pos59, ":agent"),
-                (particle_system_burst, "psys_shield_aura", pos59, 10),
-                
-        (try_end),
-        
-        ]),
-
-      ## Compulsion trigger ##
-
-      (0, 0, 0.0025, [
-                      (assign, ":compulsion_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":compelled", ":agent", slot_agent_under_compulsion),
-                          (eq, ":compelled", 1),
-                          (val_add, ":compulsion_check", 1),
-                      (end_try),
-
-                      (ge, ":compulsion_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":compelled", ":agent", slot_agent_under_compulsion),
-            (eq, ":compelled", 1),
-        
-                (agent_get_look_position, pos58, ":agent"),
-                (particle_system_burst, "psys_compulsion_aura", pos58, 10),
-                
-        (try_end),
-        
-        ]),
-
-      ## Balefire trigger ##
-
-      (0, 0, 0.001, [
-                      (assign, ":balefire_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":balefired", ":agent", slot_agent_hit_by_balefire),
-                          (eq, ":balefired", 1),
-                          (val_add, ":balefire_check", 1),
-                      (end_try),
-
-                      (ge, ":balefire_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":balefired", ":agent", slot_agent_hit_by_balefire),
-            (eq, ":balefired", 1),
-        
-                (agent_get_look_position, pos57, ":agent"),
-                (particle_system_burst, "psys_compulsion_aura", pos58, 10),  # new one for balefire
-
-                (agent_get_slot, ":chosen", ":agent", slot_agent_balefire_shooter),
-
-                (agent_set_hit_points, ":agent", 0, 0),
-                (agent_deliver_damage_to_agent, ":chosen", ":agent"),
-                (try_begin), # add to channeling multiplier if agent is player
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 150),
-                (try_end),
-                (add_xp_to_troop,75,":chosen"),
-        
-                (position_set_x, pos57, 100),
-                (position_set_y, pos57, 100),
-                (position_set_z_to_ground_level, pos57),
-                (agent_set_position, ":agent", pos57),  # move agent's body far away
-
-                (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 0),
-
-                (agent_get_kill_count, ":kill_count", ":agent", 0),
-                (agent_get_kill_count, ":wounded_count", ":agent", 1),
-
-                (try_begin),
-                (gt, ":kill_count", 0),
-                    (assign, ":kills", 1),
-                (try_end),
-
-                (try_begin),
-                (gt, ":wounded_count", 0),
-                    (assign, ":wounded", 1),
-                (try_end),
-
-                (assign, ":kill_wounded", ":kills"),
-                (val_or, ":kill_wounded", ":wounded"),
-        
-                (agent_get_team, ":agent_team", ":agent"),
-                (assign, ":resurrection_count", 0),
-
-                (try_begin),
-                (eq, ":kill_wounded", 1),   # if agent killed/wounded other agents before being balefired
-                    (try_for_agents, ":agent_2"),
-                        (eq, ":resurrection_count", 0),
-                        (agent_is_non_player, ":agent_2"),
-                        (try_begin),
-                        (neg|agent_is_alive, ":agent_2"),
-                            (agent_get_team, ":agent_2_team", ":agent_2"),
-                            (teams_are_enemies, ":agent_2_team", ":agent_team"), # if dead agent is not on the team of balefired agent
-                                (agent_get_position, pos56, ":agent_2"),
-                                (agent_set_position, ":agent_2", pos57),
-                                (agent_get_troop_id, ":agent_2_troop", ":agent_2"),
-                                (agent_get_party_id, ":agent_2_party", ":agent_2"),
-#                                (troop_get_type, ":agent_2_troop_type", ":agent_2_troop"),
-                                (set_spawn_position, pos56),
-                                (spawn_agent, ":agent_2_troop"),
-                                (assign, ":new_agent", reg0),
-                                (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_2_party"),
-                                (agent_set_team, ":new_agent", ":agent_2_team"),
-                                (assign, ":resurrection_count", 1),
-                        (else_try),
-                        (agent_is_wounded, ":agent_2"),
-                            (agent_get_team, ":agent_2_team", ":agent_2"),
-                            (teams_are_enemies, ":agent_2_team", ":agent_team"), # if wounded agent is not on the team of balefired agent
-                                (agent_get_position, pos56, ":agent_2"),
-                                (agent_set_position, ":agent_2", pos57),
-                                (agent_get_troop_id, ":agent_2_troop", ":agent_2"),
-                                (agent_get_party_id, ":agent_2_party", ":agent_2"),
-#                                (troop_get_type, ":agent_2_troop_type", ":agent_2_troop"),
-                                (set_spawn_position, pos56),
-                                (spawn_agent, ":agent_2_troop"),
-                                (assign, ":new_agent", reg0),
-                                (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_2_party"),
-                                (agent_set_team, ":new_agent", ":agent_2_team"),
-                                (assign, ":resurrection_count", 1),
-                        (try_end),
-                    (try_end),
-                (try_end),
-
-                (remove_agent, ":agent"), # not sure what this does
-        (try_end),
-        
-        ]),
-
-      ## Burn over time trigger ##
-
-      (0, 0, 0.01, [
-                      (assign, ":fire_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":on_fire", ":agent", slot_agent_on_fire),
-                          (eq, ":on_fire", 1),
-                          (val_add, ":fire_check", 1),
-                      (end_try),
-
-                      (ge, ":fire_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":on_fire", ":agent", slot_agent_on_fire),
-            (eq, ":on_fire", 1),
-                (agent_get_look_position, pos62, ":agent"),
-                (position_get_z, ":z_temp", pos62),
-                (val_add, ":z_temp", 1000),
-                (position_set_z, pos62, ":z_temp"),
-                (particle_system_burst, "psys_fire_over_time", pos62, 1),
-                (particle_system_burst, "psys_smoke_over_time", pos62, 1),
-                (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":one_second_check", 100),
-                (eq, ":one_second_check", 0),  ## true once every second
-                    (store_agent_hit_points,":target_health",":agent",1),
-                    (agent_get_slot, ":chosen", ":agent", slot_agent_fire_starter),
-                 
-                    (try_begin),
-                    (gt,":target_health",1),
-                        (val_sub,":target_health",1),
-                        (agent_set_hit_points,":agent",":target_health",1),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                        (try_begin), # add to channeling multiplier if agent is player
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 2),
-                        (try_end),
-#                        (add_xp_to_troop,1,":chosen"),
-                        (agent_get_slot, ":burn_duration", ":agent", slot_agent_fire_duration),
-                 
-                        (try_begin), # check burn duration
-                        (gt, ":burn_duration", 0),
-                             (val_sub, ":burn_duration", 1),
-                             (agent_set_slot, ":agent", slot_agent_fire_duration, ":burn_duration"),
-                        (else_try),
-                             (agent_set_slot, ":agent", slot_agent_on_fire, 0),
-                        (try_end),
-                 
-                    (else_try),
-                        (agent_set_hit_points,":agent",0,0),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                        (try_begin),
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 20),
-                        (try_end),
-                 
-                        (add_xp_to_troop,25,":chosen"),
-                        (val_sub, ":z_temp", 400),
-                        (position_set_z, pos62, ":z_temp"),
-                        (particle_system_burst, "psys_fire_over_time", pos62, 100),
-                        (particle_system_burst, "psys_smoke_over_time", pos62, 100),
-                        (agent_set_slot, ":agent", slot_agent_on_fire, 0),
-                    (try_end),
-        (try_end),
-
-       ]),
-
-## Pass Electrical Charge trigger 1## 
-        (0, 0, 0.25, [
-                      (assign, ":electricity_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
-                          (gt, ":shocked", 0),
-                          (val_add, ":electricity_check", 1),
-                      (end_try),
-
-                      (ge, ":electricity_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
-            (gt, ":shocked", 0),
-                (agent_get_look_position, pos1, ":agent"),
-                (position_get_z, ":z_temp", pos1),
-                (val_add, ":z_temp", 1000),
-                (position_set_z, pos1, ":z_temp"),
-                (particle_system_burst, "psys_electricity_sparks", pos1, 1),
-                (store_agent_hit_points,":target_health",":agent",1),
-                (agent_get_slot, ":chosen", ":agent", slot_agent_fire_starter),
-                 
-                (try_begin),
-                (gt,":target_health",1),
-                    (val_sub,":target_health",1),
-                    (agent_set_hit_points,":agent",":target_health",1),
-                    (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                    (try_begin), # add to channeling multiplier if agent is player
-                    (neg|agent_is_non_player, ":chosen"),
-                        (val_add, "$g_channeling_proficiency_modifier", 2),
-                    (try_end),
-#                    (add_xp_to_troop,1,":chosen"),
-                    (agent_get_slot, ":shock_duration", ":agent", slot_agent_has_been_shocked),
-                 
-                    (try_begin), # check burn duration
-                    (gt, ":shock_duration", 0),
-                            (val_sub, ":shock_duration", 1),
-                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, ":shock_duration"),
-                    (else_try),
-                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-                    (try_end),
-                 
-                (else_try),
-                    (agent_set_hit_points,":agent",0,0),
-                    (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                    (try_begin),
-                    (neg|agent_is_non_player, ":chosen"),
-                        (val_add, "$g_channeling_proficiency_modifier", 20),
-                    (try_end),
-                 
-                    (add_xp_to_troop,25,":chosen"),
-                    (val_sub, ":z_temp", 500),
-                    (position_set_z, pos1, ":z_temp"),
-                    (particle_system_burst, "psys_electricity_sparks", pos1, 50),
-                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-                (try_end),
-
-                (position_set_z_to_ground_level, pos1),
-                (try_for_agents, ":agent_2"),
-                    (gt, ":shocked", 1), # duration from the original agent, check to see if charge can be passed on
-                    (agent_is_alive, ":agent_2"),
-                    (neg|agent_is_wounded, ":agent_2"),
-                    (agent_get_slot, ":shocked_2", ":agent_2", slot_agent_has_been_shocked),
-                    (eq, ":shocked_2", 0),
-                        (agent_get_look_position, pos2, ":agent_2"),
-                        (get_distance_between_positions,":dist",pos1,pos2),
-                        (try_begin),
-                        (lt, ":shocked", 5),
-                            (try_begin),
-                            (lt, ":dist", 100),
-                                (val_sub, ":shocked", 1),
-                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
-                            (try_end),
-                        (else_try),
-                        (is_between, ":shocked", 5, 9),
-                            (try_begin),
-                            (lt, ":dist", 200),
-                                (val_sub, ":shocked", 1),
-                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
-                            (try_end),
-                        (else_try),
-                        (ge, ":shocked", 9),
-                            (try_begin),
-                            (lt, ":dist", 300),
-                                (val_sub, ":shocked", 1),
-                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
-                            (try_end),
-                        (try_end),
-                (try_end),
-        
-        (try_end),
-
-       ]),
-
-## Freeze over time trigger 1## 
-      (0, 0, 0.01,[
-                      (assign, ":freeze_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
-                          (eq, ":frozen", 1),
-                          (val_add, ":freeze_check", 1),
-                      (end_try),
-
-                      (ge, ":freeze_check", 1),
-                    ],
-
-       [
-       (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
-            (eq, ":frozen", 1),
-                (agent_get_look_position, pos62, ":agent"),
-                (position_get_z, ":z_temp", pos62),
-                (val_add, ":z_temp", 1000),
-                (position_set_z, pos62, ":z_temp"),
-                (particle_system_burst, "psys_freeze_over_time", pos62, 1),
-        
-                (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":one_second_check", 100),
-                (try_begin),
-                (eq, ":one_second_check", 0),  ## true once every second
-                    (agent_get_slot, ":freeze_duration", ":agent", slot_agent_freeze_duration),
-
-                    # reduce the duration
-                    (try_begin),
-                    (gt, ":freeze_duration", 0),
-                        (val_sub, ":freeze_duration", 1),
-                        (agent_set_slot, ":agent", slot_agent_freeze_duration, ":freeze_duration"),
-                    (else_try),
-                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
-                        (agent_set_speed_limit, ":agent", 20),
-                    (try_end),
-                (try_end),
-
-                (assign, ":three_second_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":three_second_check", 300),        
-                (try_begin),
-                (eq, ":three_second_check", 0),
-                    (store_agent_hit_points,":target_health",":agent",1),
-                    (agent_get_slot, ":chosen", ":agent", slot_agent_freeze_starter),
-                    (agent_get_slot, ":damage", ":agent", slot_agent_freeze_damage),
-
-                    # apply damage
-                    (try_begin),
-                    (gt,":target_health",":damage"),
-                        (val_sub,":target_health",":damage"),
-                        (agent_set_hit_points,":agent",":target_health",1),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                        (try_begin), # add to channeling multiplier if agent is player
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 2),
-                        (try_end),
-                    (else_try),
-                        (agent_set_hit_points,":agent",0,0),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                        (try_begin),
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 20),
-                        (try_end),
-                        (add_xp_to_troop,25,":chosen"),
-                        (val_sub, ":z_temp", 400),
-                        (position_set_z, pos62, ":z_temp"),
-                        (particle_system_burst, "psys_freeze_over_time", pos62, 100),
-                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
-                    (try_end),
-                (try_end),
-
-        (try_end),
-       ]),      
-
-      ## Seeker weave triggers ##
-
-      #Seeker 1
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_1", 1)],
-	[
-            
-	(try_begin),
-	(eq, "$g_seeker_slot_1", 1),
-	(agent_is_alive, "$g_seeker_slot_1_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_1_target"),
-
-	    (position_get_x, ":current_x", pos31),
-	    (position_get_y, ":current_y", pos31),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_1_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos31, ":current_x"),
-	    (position_set_y, pos31, ":current_y"),
-	    (position_set_z_to_ground_level, pos31),
-            (position_get_z, ":z_temp", pos31),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos31, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_1_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_1_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_1_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos31 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_1", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos31 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_1", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 2
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_2", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_2", 1),
-	(agent_is_alive, "$g_seeker_slot_2_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_2_target"),
-
-	    (position_get_x, ":current_x", pos32),
-	    (position_get_y, ":current_y", pos32),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_2_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos32, ":current_x"),
-	    (position_set_y, pos32, ":current_y"),
-	    (position_set_z_to_ground_level, pos32),
-            (position_get_z, ":z_temp", pos32),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos32, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_2_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_2_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_2_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos32 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_2", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos32 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_2", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 3
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_3", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_3", 1),
-	(agent_is_alive, "$g_seeker_slot_3_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_3_target"),
-
-	    (position_get_x, ":current_x", pos33),
-	    (position_get_y, ":current_y", pos33),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_3_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos33, ":current_x"),
-	    (position_set_y, pos33, ":current_y"),
-	    (position_set_z_to_ground_level, pos33),
-            (position_get_z, ":z_temp", pos33),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos33, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_3_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_3_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_3_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos33 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_3", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos33 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_3", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 4
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_4", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_4", 1),
-	(agent_is_alive, "$g_seeker_slot_4_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_4_target"),
-
-	    (position_get_x, ":current_x", pos34),
-	    (position_get_y, ":current_y", pos34),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_4_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos34, ":current_x"),
-	    (position_set_y, pos34, ":current_y"),
-	    (position_set_z_to_ground_level, pos34),
-            (position_get_z, ":z_temp", pos34),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos34, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_4_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_4_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_4_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos34 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_4", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos34 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_4", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 5
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_5", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_5", 1),
-	(agent_is_alive, "$g_seeker_slot_5_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_5_target"),
-
-	    (position_get_x, ":current_x", pos35),
-	    (position_get_y, ":current_y", pos35),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_5_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos35, ":current_x"),
-	    (position_set_y, pos35, ":current_y"),
-	    (position_set_z_to_ground_level, pos35),
-            (position_get_z, ":z_temp", pos35),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos35, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_5_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_5_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_5_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos35 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_5", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos35 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_5", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 6
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_6", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_6", 1),
-	(agent_is_alive, "$g_seeker_slot_6_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_6_target"),
-
-	    (position_get_x, ":current_x", pos36),
-	    (position_get_y, ":current_y", pos36),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_6_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos36, ":current_x"),
-	    (position_set_y, pos36, ":current_y"),
-	    (position_set_z_to_ground_level, pos36),
-            (position_get_z, ":z_temp", pos36),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos36, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_6_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_6_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_6_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos36 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_6", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos36 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_6", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 7
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_7", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_7", 1),
-	(agent_is_alive, "$g_seeker_slot_7_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_7_target"),
-
-	    (position_get_x, ":current_x", pos37),
-	    (position_get_y, ":current_y", pos37),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_7_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos37, ":current_x"),
-	    (position_set_y, pos37, ":current_y"),
-	    (position_set_z_to_ground_level, pos37),
-            (position_get_z, ":z_temp", pos37),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos37, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_7_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_7_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_7_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos37 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_7", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos37 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_7", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 8
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_8", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_8", 1),
-	(agent_is_alive, "$g_seeker_slot_8_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_8_target"),
-
-	    (position_get_x, ":current_x", pos38),
-	    (position_get_y, ":current_y", pos38),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_8_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos38, ":current_x"),
-	    (position_set_y, pos38, ":current_y"),
-	    (position_set_z_to_ground_level, pos38),
-            (position_get_z, ":z_temp", pos38),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos38, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_8_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_8_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_8_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos38 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_8", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos38 ,1),
-	    (try_end),
-
-        (else_try),
-	    (assign, "$g_seeker_slot_8", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 9
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_9", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_9", 1),
-	(agent_is_alive, "$g_seeker_slot_9_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_9_target"),
-
-	    (position_get_x, ":current_x", pos39),
-	    (position_get_y, ":current_y", pos39),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_9_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos39, ":current_x"),
-	    (position_set_y, pos39, ":current_y"),
-	    (position_set_z_to_ground_level, pos39),
-            (position_get_z, ":z_temp", pos39),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos39, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_9_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_9_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_9_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos39 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_9", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos39 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_9", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-
-	]),
-
-      #Seeker 10
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_10", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_10", 1),
-	(agent_is_alive, "$g_seeker_slot_10_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_10_target"),
-
-	    (position_get_x, ":current_x", pos40),
-	    (position_get_y, ":current_y", pos40),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_10_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos40, ":current_x"),
-	    (position_set_y, pos40, ":current_y"),
-	    (position_set_z_to_ground_level, pos40),
-            (position_get_z, ":z_temp", pos40),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos40, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_10_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_10_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_10_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos40 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_10", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos40 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_10", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 11
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_11", 1)],
-	[
-            
-	(try_begin),
-	(eq, "$g_seeker_slot_11", 1),
-	(agent_is_alive, "$g_seeker_slot_11_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_11_target"),
-
-	    (position_get_x, ":current_x", pos41),
-	    (position_get_y, ":current_y", pos41),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_11_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos41, ":current_x"),
-	    (position_set_y, pos41, ":current_y"),
-	    (position_set_z_to_ground_level, pos41),
-            (position_get_z, ":z_temp", pos41),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos41, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_11_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_11_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_11_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos41 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_11", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos41 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_11", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 12
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_12", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_12", 1),
-	(agent_is_alive, "$g_seeker_slot_12_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_12_target"),
-
-	    (position_get_x, ":current_x", pos42),
-	    (position_get_y, ":current_y", pos42),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_12_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos42, ":current_x"),
-	    (position_set_y, pos42, ":current_y"),
-	    (position_set_z_to_ground_level, pos42),
-            (position_get_z, ":z_temp", pos42),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos42, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_12_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_12_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_12_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos42 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_12", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos42 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_12", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 13
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_13", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_13", 1),
-	(agent_is_alive, "$g_seeker_slot_13_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_13_target"),
-
-	    (position_get_x, ":current_x", pos43),
-	    (position_get_y, ":current_y", pos43),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_13_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos43, ":current_x"),
-	    (position_set_y, pos43, ":current_y"),
-	    (position_set_z_to_ground_level, pos43),
-            (position_get_z, ":z_temp", pos43),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos43, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_13_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_13_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_13_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos43 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_13", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos43 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_13", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 14
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_14", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_14", 1),
-	(agent_is_alive, "$g_seeker_slot_14_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_14_target"),
-
-	    (position_get_x, ":current_x", pos44),
-	    (position_get_y, ":current_y", pos44),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_14_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos44, ":current_x"),
-	    (position_set_y, pos44, ":current_y"),
-	    (position_set_z_to_ground_level, pos44),
-            (position_get_z, ":z_temp", pos44),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos44, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_14_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_14_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_14_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos44 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_14", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos44 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_14", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 15
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_15", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_15", 1),
-	(agent_is_alive, "$g_seeker_slot_15_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_15_target"),
-
-	    (position_get_x, ":current_x", pos45),
-	    (position_get_y, ":current_y", pos45),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_15_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos45, ":current_x"),
-	    (position_set_y, pos45, ":current_y"),
-	    (position_set_z_to_ground_level, pos45),
-            (position_get_z, ":z_temp", pos45),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos45, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_15_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_15_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_15_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos45 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_15", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos45 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_15", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 16
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_16", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_16", 1),
-	(agent_is_alive, "$g_seeker_slot_16_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_16_target"),
-
-	    (position_get_x, ":current_x", pos46),
-	    (position_get_y, ":current_y", pos46),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_16_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos46, ":current_x"),
-	    (position_set_y, pos46, ":current_y"),
-	    (position_set_z_to_ground_level, pos46),
-            (position_get_z, ":z_temp", pos46),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos46, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_16_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_16_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_16_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos46 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_16", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos46 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_16", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 17
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_17", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_17", 1),
-	(agent_is_alive, "$g_seeker_slot_17_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_17_target"),
-
-	    (position_get_x, ":current_x", pos47),
-	    (position_get_y, ":current_y", pos47),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_17_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos47, ":current_x"),
-	    (position_set_y, pos47, ":current_y"),
-	    (position_set_z_to_ground_level, pos47),
-            (position_get_z, ":z_temp", pos47),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos47, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_17_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_17_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_17_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos47 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_17", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos47 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_17", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 18
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_18", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_18", 1),
-	(agent_is_alive, "$g_seeker_slot_18_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_18_target"),
-
-	    (position_get_x, ":current_x", pos48),
-	    (position_get_y, ":current_y", pos48),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_18_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos48, ":current_x"),
-	    (position_set_y, pos48, ":current_y"),
-	    (position_set_z_to_ground_level, pos48),
-            (position_get_z, ":z_temp", pos48),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos48, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_18_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_18_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_18_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos48 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_18", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos48 ,1),
-	    (try_end),
-
-        (else_try),
-	    (assign, "$g_seeker_slot_18", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 19
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_19", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_19", 1),
-	(agent_is_alive, "$g_seeker_slot_19_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_19_target"),
-
-	    (position_get_x, ":current_x", pos49),
-	    (position_get_y, ":current_y", pos49),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_19_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos49, ":current_x"),
-	    (position_set_y, pos49, ":current_y"),
-	    (position_set_z_to_ground_level, pos49),
-            (position_get_z, ":z_temp", pos49),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos49, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_19_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_19_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_19_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos49 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_19", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos49 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_19", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-
-	]),
-
-      #Seeker 20
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_20", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_20", 1),
-	(agent_is_alive, "$g_seeker_slot_20_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_20_target"),
-
-	    (position_get_x, ":current_x", pos50),
-	    (position_get_y, ":current_y", pos50),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_20_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos50, ":current_x"),
-	    (position_set_y, pos50, ":current_y"),
-	    (position_set_z_to_ground_level, pos50),
-            (position_get_z, ":z_temp", pos50),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos50, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_20_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_20_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_20_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos50 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_20", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos50 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_20", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      common_wot_airborne_trigger,
+      # end
+      
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+      
+      # pick one balefire trigger (2 for custom battle)
+      common_wot_balefire_trigger_1,
+      #common_wot_balefire_trigger_2,
+      # end
+      
+      common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
+      
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
+      # end
  
       #########################################################################
       ###### end TGS triggers
@@ -22832,7 +18570,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################      
@@ -22841,10 +18580,7 @@ mission_templates = [
       custom_battle_check_victory_condition,
       common_battle_victory_display,
       custom_battle_check_defeat_condition,
-    ]
-	##diplomacy begin
-	+ custom_camera_triggers,
-	##diplomacy end
+    ],
   ),
 
   (
@@ -22927,4333 +18663,130 @@ mission_templates = [
       common_inventory_not_available,
       common_custom_siege_init,
 
-#################################################################  
+      #################################################################  
       ###### TGS triggers
       #################################################################
 
-      ## Pre-Initialization Variable Assignment
-
-      (0, 0, ti_once, [],[(assign, "$g_initialize_complete", 0)]),
-
-      ## Initialize general player channeling variables
-        (0, 0, ti_once, [], [(assign, "$g_active_channeling_weave",1),
-                             (assign, "$g_number_of_weaves_used",0),]),
-
-      ## Initialize timers
-        (0, 0, ti_once, [],
-         [
-             (assign, "$g_one_second_timer", 0),
-             (assign, "$g_one_tenth_second_timer", 0),
-             (assign, "$g_one_hundredth_second_timer", 0),
-             (assign, "$g_one_thousandth_second_timer", 0),
-        ]),
-
-      ## Initialize channeling weave variables
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
       
-        (0.3, 0, ti_once, [],
-         [
-             (assign, "$g_toggle_weave_all", 1),
-             (assign, "$g_toggle_weave_short", 0),
-             (assign, "$g_toggle_weave_long", 0),
-             (assign, "$g_toggle_weave_support", 0),
-             (assign, "$g_toggle_weave_advanced", 0),
-
-             # initialize slot variables for agents
-             (try_for_agents, ":agent"),
-#                 (agent_is_human, ":agent"),
-                 (agent_is_alive, ":agent"),
-             
-                 (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
-             
-                 (agent_set_slot, ":agent", slot_agent_on_fire, 0),
-                 (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
-             
-                 (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_x_movement, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                 (agent_set_slot, ":agent", slot_agent_bound_x, 0),
-                 (agent_set_slot, ":agent", slot_agent_bound_y, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_is_shielded, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_under_compulsion, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 0),
-                 (agent_set_slot, ":agent", slot_agent_is_warder_for_agent, 0),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, -100),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -100),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -100),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -100),
-                 (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 0),
-                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
-                 (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
-             (try_end),
-
-             
-             # seeker variables
-             (assign, "$g_number_seekers_active", 0),
-             
-             (assign, "$g_seeker_slot_1", 0),
-             (assign, "$g_seeker_slot_2", 0),
-             (assign, "$g_seeker_slot_3", 0),
-             (assign, "$g_seeker_slot_4", 0),
-             (assign, "$g_seeker_slot_5", 0),
-             (assign, "$g_seeker_slot_6", 0),
-             (assign, "$g_seeker_slot_7", 0),
-             (assign, "$g_seeker_slot_8", 0),
-             (assign, "$g_seeker_slot_9", 0),
-             (assign, "$g_seeker_slot_10", 0),
-             (assign, "$g_seeker_slot_11", 0),
-             (assign, "$g_seeker_slot_12", 0),
-             (assign, "$g_seeker_slot_13", 0),
-             (assign, "$g_seeker_slot_14", 0),
-             (assign, "$g_seeker_slot_15", 0),
-             (assign, "$g_seeker_slot_16", 0),
-             (assign, "$g_seeker_slot_17", 0),
-             (assign, "$g_seeker_slot_18", 0),
-             (assign, "$g_seeker_slot_19", 0),
-             (assign, "$g_seeker_slot_20", 0),
-             
-             (assign, "$g_seeker_slot_1_target", 0),
-             (assign, "$g_seeker_slot_2_target", 0),
-             (assign, "$g_seeker_slot_3_target", 0),
-             (assign, "$g_seeker_slot_4_target", 0),
-             (assign, "$g_seeker_slot_5_target", 0),
-             (assign, "$g_seeker_slot_6_target", 0),
-             (assign, "$g_seeker_slot_7_target", 0),
-             (assign, "$g_seeker_slot_8_target", 0),
-             (assign, "$g_seeker_slot_9_target", 0),
-             (assign, "$g_seeker_slot_10_target", 0),
-             (assign, "$g_seeker_slot_11_target", 0),
-             (assign, "$g_seeker_slot_12_target", 0),
-             (assign, "$g_seeker_slot_13_target", 0),
-             (assign, "$g_seeker_slot_14_target", 0),
-             (assign, "$g_seeker_slot_15_target", 0),
-             (assign, "$g_seeker_slot_16_target", 0),
-             (assign, "$g_seeker_slot_17_target", 0),
-             (assign, "$g_seeker_slot_18_target", 0),
-             (assign, "$g_seeker_slot_19_target", 0),
-             (assign, "$g_seeker_slot_20_target", 0),
-
-             # determine number of weaves known based off channeling (firearms) proficiency
-
-             # changed from normal code
-             #(store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),  
-
-             (assign, ":channeling_proficiency", 300),  # added so always strong
-                
-             (try_begin),
-             (lt, ":channeling_proficiency",15),
-                 (assign, "$g_number_weaves_known", 1),
-             (else_try),
-                 (is_between, ":channeling_proficiency",15,30),
-                 (assign, "$g_number_weaves_known", 2),
-             (else_try),
-                 (is_between, ":channeling_proficiency",30,50),
-                 (assign, "$g_number_weaves_known", 3),
-             (else_try),
-                 (is_between, ":channeling_proficiency",50,65),
-                 (assign, "$g_number_weaves_known", 4),
-             (else_try),
-                 (is_between, ":channeling_proficiency",65,75),
-                 (assign, "$g_number_weaves_known", 5),
-             (else_try),
-                 (is_between, ":channeling_proficiency",75,85),
-                 (assign, "$g_number_weaves_known", 6),
-             (else_try),
-                 (is_between, ":channeling_proficiency",85,100),
-                 (assign, "$g_number_weaves_known", 7),
-             (else_try),
-                 (is_between, ":channeling_proficiency",100,125),
-                 (assign, "$g_number_weaves_known", 8),
-             (else_try),
-                 (is_between, ":channeling_proficiency",125,150),
-                 (assign, "$g_number_weaves_known", 9),
-             (else_try),
-                 (is_between, ":channeling_proficiency",150,175),
-                 (assign, "$g_number_weaves_known", 10),
-             (else_try),
-                 (is_between, ":channeling_proficiency",175,200),
-                 (assign, "$g_number_weaves_known", 11),
-             (else_try),
-                 (is_between, ":channeling_proficiency",200,225),
-                 (assign, "$g_number_weaves_known", 12),
-             (else_try),
-                 (is_between, ":channeling_proficiency",225,250),
-                 (assign, "$g_number_weaves_known", 13),
-             (else_try),
-             (gt, ":channeling_proficiency", 250),
-                 (assign, "$g_number_weaves_known", 14),
-             (try_end),
-
-             # Player channeling stamina and recharge rate
-
-             # changed from normal code
-             #(store_attribute_level, ":player_strength", "trp_player", ca_strength),
-             #(store_attribute_level, ":player_intelligence", "trp_player", ca_intelligence),
-
-             (assign, ":player_strength", 30), # added to make player strong
-             (assign, ":player_intelligence", 30), # added to make player strong
-
-             (store_mul, ":stamina_1", ":player_intelligence", 1000),
-             (store_mul, ":stamina_2", ":channeling_proficiency", 100),
-             (store_add, "$g_maximum_channeling_stamina", ":stamina_1", ":stamina_2"),
-
-             (assign, "$g_current_channeling_stamina", "$g_maximum_channeling_stamina"),
-
-             (store_mul, ":recharge_rate_1", ":player_strength", 20),
-             (store_mul, ":recharge_rate_2", ":channeling_proficiency", 2),
-             (store_add, "$g_channeling_stamina_recharge_rate", ":recharge_rate_1", ":recharge_rate_2"),
-
-             (assign, "$g_initialize_complete", 1),
-             
-         ]),
-
-      ## Timer triggers
-        (0, 0, 1, [], [(val_add, "$g_one_second_timer", 1)]),
-        (0, 0, 0.1, [], [(val_add, "$g_one_tenth_second_timer", 1)]),
-        (0, 0, 0.01, [], [(val_add, "$g_one_hundredth_second_timer", 1)]),
-        (0, 0, 0.001, [], [(val_add, "$g_one_thousandth_second_timer", 1)]),
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
       
-      ## Check for channelers in the scene
-
-        (0, 0, 2, [(eq, "$g_initialize_complete", 1)],
-         [
-             (try_for_agents, ":agent"),
-#                 (agent_is_human, ":agent"),
-                 (agent_is_alive, ":agent"),
-                 (neg|agent_is_wounded, ":agent"),
-#                 (agent_get_wielded_item, ":item", ":agent", 0),
-#                 (item_get_type, ":item_type", ":item"),
-                 (try_begin),
-                 (agent_has_item_equipped, ":agent", "itm_power_player"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_recruit_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_soldier_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_dedicated_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_good_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_good_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_novice_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_novice_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_accepted_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_yellow_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aes_sedai_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_brown_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_white_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_blue_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_grey_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_red_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_green_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_good_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_good_non_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_apprentice_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_aiel_wise_one_veteran_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_black_ajah_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_dreadlord_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_male_bad_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (agent_has_item_equipped, ":agent", "itm_power_female_bad_ranged"),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-                 (else_try),
-                 (neg|agent_is_human, ":agent"), # horses
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
-                 (else_try), # non-channelers
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
-                 (try_end),
-             (try_end),
-         ]),
-
-      ## Spawn Warders, Veteran Warders, and Ashaman Warders (soldier/dedicated) for Aes Sedai, Damane for Sul'dam, and Aes Sedai for Ashaman
-
-        (2, 0, 0, [(eq, "$g_initialize_complete", 1)],
-         [
-             (try_for_agents, ":agent"),
-                 (agent_is_human, ":agent"),
-                 (agent_is_alive, ":agent"),
-                 (neg|agent_is_wounded, ":agent"),
-                 (agent_get_slot, ":agent_is_warder", ":agent", slot_agent_is_warder_for_agent),
-                 (eq, ":agent_is_warder", 0),
-                 (agent_get_slot, ":warders_spawned", ":agent", slot_agent_has_warders_spawned),
-                 (eq, ":warders_spawned", 0),
-             
-                     (try_begin), # Yellow Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_yellow_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_yellow_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -100),
-             
-                     (else_try), # Brown Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_brown_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_brown_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -100),
-             
-                     (else_try), # White Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_white_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_white_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -100),
-             
-                     (else_try), # Blue Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_blue_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_blue_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -100),
-             
-                     (else_try), # Grey Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_grey_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 75),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_grey_shoes"), # Aes Sedai is veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 90),
-                                 (spawn_agent, "trp_warder_veteran"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 75),
-                                 (spawn_agent, "trp_warder"),
-                             (else_try),
-                             (is_between, ":random", 75, 85),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -100),
-             
-                     (else_try), # Red Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_red_ajah_ranged"),
-                     (store_random_in_range, ":random", 1, 100),
-                     (le, ":random", 30),
-             
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-             
-                         (try_begin),
-                         (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_red_shoes"), # Aes Sedai is veteran
-                             (spawn_agent, "trp_ashaman"),
-                             (assign, ":new_agent", reg0),
-                         (else_try), # Aes Sedai is not veteran
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (lt, ":random", 25),
-                                 (spawn_agent, "trp_ashaman_dedicated"),
-                             (else_try),
-                                 (spawn_agent, "trp_ashaman_soldier"),
-                             (try_end),
-                             (assign, ":new_agent", reg0),
-                         (try_end),
-
-                         (agent_set_team, ":new_agent", ":agent_team"),
-                         (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                         (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-                         (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -100),
-                         (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -100),
-             
-                     (else_try), # Green Ajah
-                     (agent_has_item_equipped, ":agent", "itm_power_green_ajah_ranged"),
-
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-
-                         (try_for_range, ":warder_number", 1, 5), # Green Ajah has a chance for up to four warders
-                         (store_random_in_range, ":random", 1, 100),
-                         (le, ":random", 75),
-             
-                             (try_begin),
-                             (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_green_shoes"), # Aes Sedai is veteran
-                                 (store_random_in_range, ":random", 1, 100),
-                                 (try_begin),
-                                 (lt, ":random", 90),
-                                     (spawn_agent, "trp_warder_veteran"),
-                                 (else_try),
-                                     (spawn_agent, "trp_ashaman"),
-                                 (try_end),
-                                 (assign, ":new_agent", reg0),
-                             (else_try), # Aes Sedai is not veteran
-                                 (store_random_in_range, ":random", 1, 100),
-                                 (try_begin),
-                                 (lt, ":random", 75),
-                                     (spawn_agent, "trp_warder"),
-                                 (else_try),
-                                 (is_between, ":random", 75, 85),
-                                     (spawn_agent, "trp_ashaman_dedicated"),
-                                 (else_try),
-                                     (spawn_agent, "trp_ashaman_soldier"),
-                                 (try_end),
-                                 (assign, ":new_agent", reg0),
-                             (try_end),
-
-                             (agent_set_team, ":new_agent", ":agent_team"),
-                             (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                             (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 1),
-                             (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                             (try_begin),
-                             (eq, ":warder_number", 1),
-                                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-                                 (agent_set_slot, ":new_agent", slot_agent_warder_is_leader, 1),
-                             (else_try),
-                             (eq, ":warder_number", 2),
-                                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, ":new_agent"),
-                             (else_try),
-                             (eq, ":warder_number", 3),
-                                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, ":new_agent"),
-                             (else_try),
-                             (eq, ":warder_number", 4),
-                                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, ":new_agent"),
-                             (try_end),
-
-                         (try_end),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-             
-                     (else_try), # Ashaman
-                     (agent_has_item_equipped, ":agent", "itm_power_ashaman_ranged"),
-                     
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-
-                         (try_for_range, ":unused", 1, 3), # Ashaman can have up to 2 Aes Sedai sisters
-                         (store_random_in_range, ":random", 1, 100),
-                         (le, ":random", 25),
-
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (le, ":random", 40),
-                                 (spawn_agent, "trp_aes_sedai_red"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 50),
-                                 (spawn_agent, "trp_aes_sedai_yellow"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 60),
-                                 (spawn_agent, "trp_aes_sedai_brown"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 70),
-                                 (spawn_agent, "trp_aes_sedai_white"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 80),
-                                 (spawn_agent, "trp_aes_sedai_grey"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 90),
-                                 (spawn_agent, "trp_aes_sedai_green"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                                 (spawn_agent, "trp_aes_sedai_blue"),
-                                 (assign, ":new_agent", reg0),
-                             (try_end),
-
-                             (agent_set_team, ":new_agent", ":agent_team"),
-                             (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                             (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 3),
-                             (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                         (try_end),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-
-                     (else_try), # Ashaman Veteran
-                     (agent_has_item_equipped, ":agent", "itm_power_ashaman_veteran_ranged"),
-                     
-                         (agent_get_look_position, pos55, ":agent"),
-                         (position_get_x, ":x_agent", pos55),
-                         (position_get_y, ":y_agent", pos55),
-
-                         (store_random_in_range, ":random", -100, 100),
-                         (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                         (store_random_in_range, ":random", 100, 200),
-                         (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                         (position_set_x, pos55, ":x_spawn"),
-                         (position_set_y, pos55, ":y_spawn"),
-                         (position_set_z_to_ground_level, pos55),
-
-                         (agent_get_team, ":agent_team", ":agent"),
-                         (agent_get_party_id, ":agent_party", ":agent"),
-
-                         (set_spawn_position, pos55),
-
-                         (try_for_range, ":unused", 1, 3), # Ashaman can have up to 2 Aes Sedai sisters
-                         (store_random_in_range, ":random", 1, 100),
-                         (le, ":random", 35),
-             
-                             (store_random_in_range, ":random", 1, 100),
-                             (try_begin),
-                             (le, ":random", 40),
-                                 (spawn_agent, "trp_aes_sedai_red_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 50),
-                                 (spawn_agent, "trp_aes_sedai_yellow_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 60),
-                                 (spawn_agent, "trp_aes_sedai_brown_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 70),
-                                 (spawn_agent, "trp_aes_sedai_white_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 80),
-                                 (spawn_agent, "trp_aes_sedai_grey_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                             (le, ":random", 90),
-                                 (spawn_agent, "trp_aes_sedai_green_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (else_try),
-                                 (spawn_agent, "trp_aes_sedai_blue_veteran"),
-                                 (assign, ":new_agent", reg0),
-                             (try_end),
-
-                             (agent_set_team, ":new_agent", ":agent_team"),
-                             (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                             (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 3),
-                             (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                         (try_end),
-
-                         (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-
-                     (else_try), # Der'Suldam
-                     (agent_has_item_equipped, ":agent", "itm_der_suldam_dagger"),
-                         (store_random_in_range, ":random", 1, 100),
-                         (try_begin),
-                         (le, ":random", 75),
-             
-                            (agent_get_look_position, pos55, ":agent"),
-                            (position_get_x, ":x_agent", pos55),
-                            (position_get_y, ":y_agent", pos55),
-
-                            (store_random_in_range, ":random", -100, 100),
-                            (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                            (store_random_in_range, ":random", 100, 200),
-                            (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                            (position_set_x, pos55, ":x_spawn"),
-                            (position_set_y, pos55, ":y_spawn"),
-                            (position_set_z_to_ground_level, pos55),
-
-                            (agent_get_team, ":agent_team", ":agent"),
-                            (agent_get_party_id, ":agent_party", ":agent"),
-
-                            (set_spawn_position, pos55),
-             
-                            (spawn_agent, "trp_damane"),
-                            (assign, ":new_agent", reg0),
-
-                            (agent_set_team, ":new_agent", ":agent_team"),
-                            (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                            (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 2),
-                            (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                            (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-
-                        (else_try),
-                            (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 2),
-                        (try_end),
-
-                    (else_try), # regular Suldam (less change that she will have damane)
-                    (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
-                    (store_random_in_range, ":random", 1, 100),
-                        (try_begin),
-                        (le, ":random", 50),
-             
-                            (agent_get_look_position, pos55, ":agent"),
-                            (position_get_x, ":x_agent", pos55),
-                            (position_get_y, ":y_agent", pos55),
-
-                            (store_random_in_range, ":random", -100, 100),
-                            (store_add, ":x_spawn", ":x_agent", ":random"),
-
-                            (store_random_in_range, ":random", 100, 200),
-                            (store_add, ":y_spawn", ":y_agent", ":random"),
-
-                            (position_set_x, pos55, ":x_spawn"),
-                            (position_set_y, pos55, ":y_spawn"),
-                            (position_set_z_to_ground_level, pos55),
-
-                            (agent_get_team, ":agent_team", ":agent"),
-                            (agent_get_party_id, ":agent_party", ":agent"),
-
-                            (set_spawn_position, pos55),
-             
-                            (spawn_agent, "trp_damane"),
-                            (assign, ":new_agent", reg0),
-
-                            (agent_set_team, ":new_agent", ":agent_team"),
-                            (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_party"),
-                            (agent_set_slot, ":new_agent", slot_agent_is_warder_for_agent, 2),
-                            (agent_set_slot, ":new_agent", slot_agent_warder_bond_holder, ":agent"),
-
-                            (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                        (else_try),
-                            (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 2),
-                        (try_end),
-             
-                    (try_end),
-                    # Different Troops that spawn 'warders' end
-             
-             (try_end),
-             # For agent end
-             
-         ]),
-
-      ## Dismount spawned warders in sieges
-      (5, 0, 0, [(eq, "$g_initialize_complete", 1)],
-         [
-
-            (try_for_agents, ":agent"),
-                (agent_is_alive, ":agent"),
-                (neg|agent_is_wounded, ":agent"),
-                (agent_get_slot, ":warder", ":agent", slot_agent_is_warder_for_agent),
-                (gt, ":warder", 0),
-                    (assign, ":horse", -10),
-                    (agent_get_horse, ":horse", ":agent"),
-                    (try_begin),
-                    (gt, ":horse", -1),
-#                        (agent_get_item_id, ":horse_item", ":horse"),
-#                        (agent_unequip_item, ":agent", ":horse_item"),
-                        (agent_set_hit_points, ":horse", 0, 0),
-                        (agent_deliver_damage_to_agent, ":horse", ":horse"),
-                        (position_set_x, pos1, 100),
-                        (position_set_y, pos1, 100),
-                        (position_set_z_to_ground_level, pos1),
-                        (agent_set_position, ":horse", pos1),
-                    (try_end),
-            (try_end),
-
-        ]),
-
-      ## Recharge Channeling Stamina trigger
-
-      (0.4, 0, 0, [(gt, "$g_one_second_timer", 2)],
-         [
-            (try_begin),
-            (lt, "$g_current_channeling_stamina", "$g_maximum_channeling_stamina"),
-                (store_add, ":check_value", "$g_current_channeling_stamina", "$g_channeling_stamina_recharge_rate"),
-                (try_begin),
-                (le, ":check_value", "$g_maximum_channeling_stamina"),
-                    (assign, "$g_current_channeling_stamina", ":check_value"),
-                (else_try),
-                    (assign, "$g_current_channeling_stamina", "$g_maximum_channeling_stamina"),
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_7' to set weave toggle to 'short range'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_7),  # start the remainder of the code when 'Numpad_7' is clicked
-                    
-                    (assign, "$g_toggle_weave_all", 0),
-                    (assign, "$g_toggle_weave_short", 1),
-                    (assign, "$g_toggle_weave_long", 0),
-                    (assign, "$g_toggle_weave_support", 0),
-                    (assign, "$g_toggle_weave_advanced", 0),
-
-#                    (display_message, "@Toggle Short Range Weaves..."),
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_8' to set weave toggle to 'long range'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_8),  # start the remainder of the code when 'Numpad_8' is clicked
-                    
-                    (try_begin),
-                    (ge, "$g_number_weaves_known", 2),
-                        (assign, "$g_toggle_weave_all", 0),
-                        (assign, "$g_toggle_weave_short", 0),
-                        (assign, "$g_toggle_weave_long", 1),
-                        (assign, "$g_toggle_weave_support", 0),
-                        (assign, "$g_toggle_weave_advanced", 0),
-
-#                        (display_message, "@Toggle Long Range Weaves..."),
-                    (try_end),
-            
-                     
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_9' to set weave toggle to 'support'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_9),  # start the remainder of the code when 'Numpad_9' is clicked
-                    
-                    (try_begin),
-                    (ge, "$g_number_weaves_known", 3),
-                        (assign, "$g_toggle_weave_all", 0),
-                        (assign, "$g_toggle_weave_short", 0),
-                        (assign, "$g_toggle_weave_long", 0),
-                        (assign, "$g_toggle_weave_support", 1),
-                        (assign, "$g_toggle_weave_advanced", 0),
-            
-#                        (display_message, "@Toggle Support Weaves..."),
-                    (try_end),
-                     
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_5' to set weave toggle to 'advanced'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_5),  # start the remainder of the code when 'Numpad_5' is clicked
-                    
-                    (try_begin),
-                    (ge, "$g_number_weaves_known", 12),
-                        (assign, "$g_toggle_weave_all", 0),
-                        (assign, "$g_toggle_weave_short", 0),
-                        (assign, "$g_toggle_weave_long", 0),
-                        (assign, "$g_toggle_weave_support", 0),
-                        (assign, "$g_toggle_weave_advanced", 1),
-            
-#                        (display_message, "@Toggle Advanced Weaves..."),
-                    (try_end),
-                     
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'Numpad_6' to set weave toggle to 'all'
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_6),  # start the remainder of the code when 'Numpad_6' is clicked
-                    
-                    (assign, "$g_toggle_weave_all", 1),
-                    (assign, "$g_toggle_weave_short", 0),
-                    (assign, "$g_toggle_weave_long", 0),
-                    (assign, "$g_toggle_weave_support", 0),
-                    (assign, "$g_toggle_weave_advanced", 0),
-            
-#                    (display_message, "@Toggle All Weaves..."),
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Click 'M' to re-add One Power Item to inventory
-        (0, 0, 0, [],
-         [
-
-            (try_begin),
-            (key_clicked, key_m),  # start the remainder of the code when 'M' is clicked
-                (troop_ensure_inventory_space, "trp_player", 1),
-                (troop_add_item, "trp_player", "itm_power_player", 0),
-            (try_end),
-
-        ]),
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      common_wot_check_for_channelers_in_the_scene,
+      common_wot_spawn_warders,
+      common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_weave_toggle_short_range,
+      common_wot_weave_toggle_long_range,
+      common_wot_weave_toggle_support,
+      common_wot_weave_toggle_advanced,
+      common_wot_weave_toggle_all,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
       
-      ## Click 'Caps Lock' to cycle through known weaves
-        (0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_caps_lock),  # start the remainder of the code when 'Caps Lock' is clicked
-
-                    (try_begin),
-                    (eq, "$g_toggle_weave_all", 1),
-                        # cycle through known weaves and then back to the first weave
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave","$g_number_weaves_known"),
-                            (assign, "$g_active_channeling_weave", 1),
-                        (else_try),
-                            (val_add, "$g_active_channeling_weave", 1),
-                        (try_end),
-        
-                    (else_try),
-                    (eq, "$g_toggle_weave_short", 1),
-                        # cycle though all known short range weaves
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave", 1),
-                        (ge, "$g_number_weaves_known", 6),
-                             (assign, "$g_active_channeling_weave", 6),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 6),
-                        (ge, "$g_number_weaves_known", 10),
-                             (assign, "$g_active_channeling_weave", 10),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 10),
-                        (ge, "$g_number_weaves_known", 1),
-                             (assign, "$g_active_channeling_weave", 1),
-                        (else_try),
-                        (ge, "$g_number_weaves_known", 1),
-                             (assign, "$g_active_channeling_weave", 1),
-                        (try_end),
-
-                    (else_try),
-                    (eq, "$g_toggle_weave_long", 1),
-                        # cycle though all known long range weaves
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave", 2),
-                        (ge, "$g_number_weaves_known", 4),
-                             (assign, "$g_active_channeling_weave", 4),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 4),
-                        (ge, "$g_number_weaves_known", 7),
-                             (assign, "$g_active_channeling_weave", 7),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 7),
-                        (ge, "$g_number_weaves_known", 9),
-                             (assign, "$g_active_channeling_weave", 9),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 9),
-                        (ge, "$g_number_weaves_known", 2),
-                             (assign, "$g_active_channeling_weave", 2),
-                        (else_try),
-                        (ge, "$g_number_weaves_known", 2),
-                             (assign, "$g_active_channeling_weave", 2),
-                        (try_end),
-
-                    (else_try),
-                    (eq, "$g_toggle_weave_support", 1),
-                        # cycle though all known support weaves
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave", 3),
-                        (ge, "$g_number_weaves_known", 5),
-                             (assign, "$g_active_channeling_weave", 5),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 5),
-                        (ge, "$g_number_weaves_known", 8),
-                             (assign, "$g_active_channeling_weave", 8),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 8),
-                        (ge, "$g_number_weaves_known", 11),
-                             (assign, "$g_active_channeling_weave", 11),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 11),
-                        (ge, "$g_number_weaves_known", 3),
-                             (assign, "$g_active_channeling_weave", 3),
-                        (else_try),
-                        (ge, "$g_number_weaves_known", 3),
-                             (assign, "$g_active_channeling_weave", 3),
-                        (try_end),
-
-                    (else_try),
-                    (eq, "$g_toggle_weave_advanced", 1),
-                        # cycle though all known advanced weaves
-                        (try_begin),
-                        (eq, "$g_active_channeling_weave", 12),
-                        (ge, "$g_number_weaves_known", 13),
-                             (assign, "$g_active_channeling_weave", 13),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 13),
-                        (ge, "$g_number_weaves_known", 14),
-                             (assign, "$g_active_channeling_weave", 14),
-                        (else_try),
-                        (eq, "$g_active_channeling_weave", 14),
-                        (ge, "$g_number_weaves_known", 12),
-                             (assign, "$g_active_channeling_weave", 12),
-                        (else_try),
-                        (ge, "$g_number_weaves_known", 12),
-                             (assign, "$g_active_channeling_weave", 12),
-                        (try_end),
-            
-                    (try_end),
-
-                    
-                    # display a message saying what spell is active
-#                    (try_begin),
-#                    (eq, "$g_active_channeling_weave", 1),
-#                        (display_message, "str_weave_1"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 2),
-#                        (display_message, "str_weave_2"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 3),
-#                        (display_message, "str_weave_3"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 4),
-#                        (display_message, "str_weave_4"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 5),
-#                        (display_message, "str_weave_5"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 6),
-#                        (display_message, "str_weave_6"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 7),
-#                        (display_message, "str_weave_7"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 8),
-#                        (display_message, "str_weave_8"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 9),
-#                        (display_message, "str_weave_9"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 10),
-#                        (display_message, "str_weave_10"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 11),
-#                        (display_message, "str_weave_11"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 12),
-#                        (display_message, "str_weave_12"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 13),
-#                        (display_message, "str_weave_13"),
-#                    (else_try),
-#                    (eq, "$g_active_channeling_weave", 14),
-#                        (display_message, "str_weave_14"),
-#                    (try_end),
-                    
-                (try_end),
-            (try_end),
-
-        ]),
-
-      ## Check for 'Inventory' key_click to refill channeling 'ammo'
-        (ti_inventory_key_pressed, 0, 0, [],
-         [
-            (set_trigger_result,1),
-            (assign, "$g_number_of_weaves_used", 0),
-            (assign, "$g_reset_troop_ratio_bar", 1),
-        ]),
-
-      ## Reset troop ratio bar after certain battle menus
-        (0, 0.1, 0.2, [(eq, "$g_reset_troop_ratio_bar", 1)],
-         [
-             (start_presentation, "prsnt_troop_ratio_bar"),
-#             (start_presentation,"prsnt_channeling_stamina_bar"),
-             (assign, "$g_reset_troop_ratio_bar", 0),
-         ]),
-
-        (ti_escape_pressed, 0, 0, [], [(assign, "$g_reset_troop_ratio_bar", 1),]),
-
-      ## Airborne from blast trigger ## ('airborn' actually doesn't work, but 'push' does)
-
-      (0, 0, 0.02, [
-                      (assign, ":airborne_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":airborne", ":agent", slot_agent_is_airborne),
-                          (eq, ":airborne", 1),
-                          (val_add, ":airborne_check", 1),
-                      (end_try),
-
-                      (ge, ":airborne_check", 1),  # Turn off this feature for quick battle
-                      (lt, ":airborne_check", 0),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":airborne", ":agent", slot_agent_is_airborne),
-            (eq, ":airborne", 1),
-            (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
-            (try_begin),
-            (eq, ":bound", 0), # Don't push bound agents
-                (agent_get_look_position, pos63, ":agent"),
-                (position_get_x, ":current_x", pos63),
-                (position_get_y, ":current_y", pos63),
-
-                (agent_get_slot, ":run", ":agent", slot_agent_airborne_x_movement),
-                (agent_get_slot, ":rise", ":agent", slot_agent_airborne_y_movement),
-
-                # Scale the rise/run so targets will move over a larger number of smaller intervals
-                (assign, ":run_rise_scaler", 3),
-                (store_div, ":run_interval", ":run", ":run_rise_scaler"),
-                (store_div, ":rise_interval", ":rise", ":run_rise_scaler"),
-
-                (store_add, ":new_x", ":current_x", ":run_interval"),
-                (store_add, ":new_y", ":current_y", ":rise_interval"),
-
-                # set new position coordinates
-                (position_set_x, pos63, ":new_x"),
-                (position_set_y, pos63, ":new_y"),
-                (position_set_z_to_ground_level, pos63),
-
-                # reduce power_factor once every ":run_rise_scaler" iterations of the trigger
-                (assign, ":reduce_power_factor_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":reduce_power_factor_check", ":run_rise_scaler"),
-                (try_begin),
-                (eq, ":reduce_power_factor_check", 0),
-                    (agent_get_slot, ":power_factor", ":agent", slot_agent_airborne_power_factor),
-                    (val_sub, ":power_factor", 2),
-                    (agent_set_slot, ":agent", slot_agent_airborne_power_factor, ":power_factor"),
-                (try_end),
-
-                # stop agent movement when ":power_factor" is less than zero
-                (try_begin),
-                (lt, ":power_factor", 0),
-                    (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                (try_end),
-        
-                (agent_set_position, ":agent", pos63),
-            (else_try),
-                (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-            (try_end),
-        (try_end),
-        
-        ]),
-
-      ## Bound trigger ##
-
-      (0, 0, 0.05, [
-                      (assign, ":bound_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
-                          (eq, ":bound", 1),
-                          (val_add, ":bound_check", 1),
-                      (end_try),
-
-                      (ge, ":bound_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (neg|agent_is_routed, ":agent"),
-            (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
-            (eq, ":bound", 1),
-        
-                (agent_get_slot, ":airborne", ":agent", slot_agent_is_airborne),
-                (try_begin),
-                (eq, ":airborne", 1), # stop movement of agents that have been pushed by air blast / similar weave
-                    (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                (try_end),
-
-                (agent_get_slot, ":bound_duration", ":agent", slot_agent_bound_duration),
-
-                (try_begin),
-                (gt, ":bound_duration", 2),
-                    (agent_get_look_position, pos60, ":agent"),
-
-                    (particle_system_burst, "psys_bound_aura", pos60, 25),
-
-                    (agent_get_slot, ":bound_x", ":agent", slot_agent_bound_x),
-                    (agent_get_slot, ":bound_y", ":agent", slot_agent_bound_y),
-        
-                    (position_set_x, pos60, ":bound_x"),
-                    (position_set_y, pos60, ":bound_y"),
-        
-                    (agent_set_scripted_destination, ":agent", pos60, 1),
-                (try_end),
-
-                (try_begin),
-                (agent_is_routed, ":agent"),
-                    (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                (try_end),
-
-                (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":one_second_check", 100),
-                (eq, ":one_second_check", 0),  ## true once every second
-                    (store_agent_hit_points,":target_health",":agent",1),
-                    (agent_get_slot, ":chosen", ":agent", slot_agent_bound_by),
-                 
-                    (try_begin),
-                    (gt,":target_health",1),
-                 
-                        (try_begin), # add to channeling multiplier if agent is player
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 2),
-                        (try_end),
-#                        (add_xp_to_troop,1,":chosen"),
-                 
-                        (try_begin), # check burn duration
-                        (gt, ":bound_duration", 0),
-                             (val_sub, ":bound_duration", 1),
-                             (agent_set_slot, ":agent", slot_agent_bound_duration, ":bound_duration"),
-                        (else_try),
-                             (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                        (try_end),
-
-                        (val_sub,":target_health",1),
-                        (agent_set_hit_points,":agent",":target_health",1),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                    (else_try),
-                        (agent_set_hit_points,":agent",0,0),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                        (try_begin),
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 20),
-                        (try_end),
-                 
-                        (add_xp_to_troop,25,":chosen"),
-                        (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                    (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Aes Sedai bonded to Ashaman and Damane linked to Suldam, follow their bond holder ##
-
-      (0, 0, 0.05, [
-                      (assign, ":warder_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":warder", ":agent", slot_agent_is_warder_for_agent),
-                          (gt, ":warder", 1), # means agent bonded to ashaman or suldam (therefore they should follow)
-                          (val_add, ":warder_check", 1),
-                      (end_try),
-
-                      (ge, ":warder_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (neg|agent_is_routed, ":agent"),
-            (agent_get_slot, ":warder", ":agent", slot_agent_is_warder_for_agent),
-            (gt, ":warder", 1), # means agent bonded to ashaman or suldam (therefore they should follow)
-        
-                (agent_get_slot, ":bond_holder", ":agent", slot_agent_warder_bond_holder),
-                (agent_is_alive, ":bond_holder"),
-                (neg|agent_is_wounded, ":bond_holder"), # bond holder not killed or wounded
-
-                (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":agent", slot_agent_under_compulsion),
-
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"), # warder not bound or under compulsion
-
-                (try_begin),
-                (eq, ":bound_or_compulsion", 0), # If no reason not to follow, have warder follow his/her bond holder
-        
-                    (agent_get_look_position, pos54, ":bond_holder"),
-
-                    (position_get_y, ":y_bond_holder", pos54),
-                    (store_add, ":y_warder", ":y_bond_holder", 150),
-
-                    (position_set_y, pos54, ":y_warder"),
-                    (position_set_z_to_ground_level, pos54),
-        
-                    (agent_set_scripted_destination, ":agent", pos54, 1),
-
-                (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Leader warders will determine the movement of other warders bonded to the same Aes Sedai. The Aes Sedai will also follow unless she is made damane to a Suldam/Der'Suldam.
-
-      (0, 0, 0.05, [
-                      (assign, ":warder_leader_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-#                          (agent_is_alive, ":agent"),
-#                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":warder_leader", ":agent", slot_agent_warder_is_leader),
-                          (eq, ":warder_leader", 1), # means agent bonded to aes sedai, so aes sedai should follow them
-                          (val_add, ":warder_leader_check", 1),
-                      (end_try),
-
-                      (ge, ":warder_leader_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_get_slot, ":warder_leader", ":agent", slot_agent_warder_is_leader),
-            (eq, ":warder_leader", 1), # means agent bonded to aes sedai, so aes sedai should follow them
-
-                (try_begin),
-                (agent_is_alive, ":agent"),
-                (neg|agent_is_wounded, ":agent"),
-                (neg|agent_is_routed, ":agent"),
-                (agent_get_slot, ":bound", ":agent", slot_agent_is_bound), # leader warder bound check
-                (agent_get_slot, ":compulsion", ":agent", slot_agent_under_compulsion), # leader warder compulsion check
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0), # leader warder not bound or under compulsion
-                    (assign, ":current_warder_leader_suitable", 1),
-                (else_try), # leader warder either killed or otherwise unsuitable to be leader
-                    (assign, ":current_warder_leader_suitable", 0),
-                    (agent_set_slot, ":agent", slot_agent_warder_is_leader, 0),
-                (try_end),
-        
-                (agent_get_slot, ":bond_holder", ":agent", slot_agent_warder_bond_holder),
-                (agent_is_alive, ":bond_holder"),
-
-                (agent_get_slot, ":warder_1", ":bond_holder", slot_agent_aes_sedai_warder_1),
-                (agent_get_slot, ":warder_2", ":bond_holder", slot_agent_aes_sedai_warder_2),
-                (agent_get_slot, ":warder_3", ":bond_holder", slot_agent_aes_sedai_warder_3),
-                (agent_get_slot, ":warder_4", ":bond_holder", slot_agent_aes_sedai_warder_4),
-
-                (try_begin),
-                (eq, ":current_warder_leader_suitable", 1),
-        
-                    (agent_get_look_position, pos53, ":agent"),
-
-                    (position_get_y, ":y_lead_warder", pos53),
-                    (store_add, ":y_follower", ":y_lead_warder", 150),
-
-                    (position_set_y, pos53, ":y_follower"),
-                    (position_set_z_to_ground_level, pos53),
-
-                    (try_begin),
-                    (agent_is_alive, ":bond_holder"),
-                    (neg|agent_is_wounded, ":bond_holder"),
-                    (neg|agent_is_routed, ":bond_holder"),
-                    (agent_get_slot, ":bound", ":bond_holder", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":bond_holder", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                    (agent_get_slot, ":made_damane", ":bond_holder", slot_agent_is_warder_for_agent), # code that makes Aes Sedai not follow lead warder if she has been made a damane
-                    (eq, ":made_damane", 0),
-                        (agent_set_scripted_destination, ":bond_holder", pos53, 1),
-                    (try_end),
-
-                    (try_begin),
-                    (neq, ":warder_1", ":agent"), # warder not current leader
-                    (gt, ":warder_1", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_1"),
-                    (neg|agent_is_wounded, ":warder_1"),
-                    (neg|agent_is_routed, ":warder_1"),
-                    (agent_get_slot, ":bound", ":warder_1", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_1", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_scripted_destination, ":warder_1", pos53, 1),
-                    (try_end),
-
-                    (try_begin),
-                    (neq, ":warder_2", ":agent"), # warder not current leader
-                    (gt, ":warder_2", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_2"),
-                    (neg|agent_is_wounded, ":warder_2"),
-                    (neg|agent_is_routed, ":warder_2"),
-                    (agent_get_slot, ":bound", ":warder_2", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_2", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_scripted_destination, ":warder_2", pos53, 1),
-                    (try_end),
-
-                    (try_begin),
-                    (neq, ":warder_3", ":agent"), # warder not current leader
-                    (gt, ":warder_3", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_3"),
-                    (neg|agent_is_wounded, ":warder_3"),
-                    (neg|agent_is_routed, ":warder_3"),
-                    (agent_get_slot, ":bound", ":warder_3", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_3", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_scripted_destination, ":warder_3", pos53, 1),
-                    (try_end),
-
-                    (try_begin),
-                    (neq, ":warder_4", ":agent"), # warder not current leader
-                    (gt, ":warder_4", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_4"),
-                    (neg|agent_is_wounded, ":warder_4"),
-                    (neg|agent_is_routed, ":warder_4"),
-                    (agent_get_slot, ":bound", ":warder_4", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_4", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_scripted_destination, ":warder_4", pos53, 1),
-                    (try_end),
-
-                (else_try), # current warder leader is not suitable to keep leading
-
-                    (assign, ":found_new_leader", 0),
-
-                    (try_begin),
-                    (neq, ":warder_1", ":agent"), # warder not current leader
-                    (neq, ":warder_1", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_1"),
-                    (neg|agent_is_wounded, ":warder_1"),
-                    (neg|agent_is_routed, ":warder_1"),
-                    (agent_get_slot, ":bound", ":warder_1", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_1", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_slot, ":warder_1", slot_agent_warder_is_leader, 1),
-                        (assign, ":found_new_leader", 1),
-                    (else_try),
-                    (eq, ":found_new_leader", 0),
-                    (neq, ":warder_2", ":agent"), # warder not current leader
-                    (neq, ":warder_2", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_2"),
-                    (neg|agent_is_wounded, ":warder_2"),
-                    (neg|agent_is_routed, ":warder_2"),
-                    (agent_get_slot, ":bound", ":warder_2", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_2", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_slot, ":warder_2", slot_agent_warder_is_leader, 1),
-                        (assign, ":found_new_leader", 1),
-                    (else_try),
-                    (eq, ":found_new_leader", 0),
-                    (neq, ":warder_3", ":agent"), # warder not current leader
-                    (neq, ":warder_3", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_3"),
-                    (neg|agent_is_wounded, ":warder_3"),
-                    (neg|agent_is_routed, ":warder_3"),
-                    (agent_get_slot, ":bound", ":warder_3", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_3", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_slot, ":warder_3", slot_agent_warder_is_leader, 1),
-                        (assign, ":found_new_leader", 1),
-                    (else_try),
-                    (eq, ":found_new_leader", 0),
-                    (neq, ":warder_4", ":agent"), # warder not current leader
-                    (neq, ":warder_4", -1), # warder was actually spawned
-                    (agent_is_alive, ":warder_4"),
-                    (neg|agent_is_wounded, ":warder_4"),
-                    (neg|agent_is_routed, ":warder_4"),
-                    (agent_get_slot, ":bound", ":warder_4", slot_agent_is_bound),
-                    (agent_get_slot, ":compulsion", ":warder_4", slot_agent_under_compulsion),
-                    (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                    (eq, ":bound_or_compulsion", 0),
-                        (agent_set_slot, ":warder_4", slot_agent_warder_is_leader, 1),
-                        (assign, ":found_new_leader", 1),
-                    (else_try),
-                    (eq, ":found_new_leader", 0),
-                        (agent_set_slot, ":bond_holder", slot_agent_warders_incapacitated, 1),
-                    (try_end),
-                    
-                (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Incapacitated Warders trigger (Aes Sedai with incapacitated Warders will check to see if one of them becomes a valid leader again ##
-
-      (0, 0, 0.05, [
-                      (assign, ":incapacitated_warders_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":has_incapacitated_warders", ":agent", slot_agent_warders_incapacitated),
-                          (gt, ":has_incapacitated_warders", 0),
-                          (val_add, ":incapacitated_warders_check", 1),
-                      (end_try),
-
-                      (ge, ":incapacitated_warders_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":has_incapacitated_warders", ":agent", slot_agent_warders_incapacitated),
-            (gt, ":has_incapacitated_warders", 0),
-        
-                (agent_get_slot, ":warder_1", ":agent", slot_agent_aes_sedai_warder_1),
-                (agent_get_slot, ":warder_2", ":agent", slot_agent_aes_sedai_warder_2),
-                (agent_get_slot, ":warder_3", ":agent", slot_agent_aes_sedai_warder_3),
-                (agent_get_slot, ":warder_4", ":agent", slot_agent_aes_sedai_warder_4),
-
-                (assign, ":found_new_leader", 0),
-
-                (try_begin),
-                (neq, ":warder_1", -1), # warder was actually spawned
-                (agent_is_alive, ":warder_1"),
-                (neg|agent_is_wounded, ":warder_1"),
-                (neg|agent_is_routed, ":warder_1"),
-                (agent_get_slot, ":bound", ":warder_1", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":warder_1", slot_agent_under_compulsion),
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0),
-                    (agent_set_slot, ":warder_1", slot_agent_warder_is_leader, 1),
-                    (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-                    (assign, ":found_new_leader", 1),
-                (else_try),
-                (eq, ":found_new_leader", 0),
-                (neq, ":warder_2", -1), # warder was actually spawned
-                (agent_is_alive, ":warder_2"),
-                (neg|agent_is_wounded, ":warder_2"),
-                (neg|agent_is_routed, ":warder_2"),
-                (agent_get_slot, ":bound", ":warder_2", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":warder_2", slot_agent_under_compulsion),
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0),
-                    (agent_set_slot, ":warder_2", slot_agent_warder_is_leader, 1),
-                    (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-                    (assign, ":found_new_leader", 1),
-                (else_try),
-                (eq, ":found_new_leader", 0),
-                (neq, ":warder_3", -1), # warder was actually spawned
-                (agent_is_alive, ":warder_3"),
-                (neg|agent_is_wounded, ":warder_3"),
-                (neg|agent_is_routed, ":warder_3"),
-                (agent_get_slot, ":bound", ":warder_3", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":warder_3", slot_agent_under_compulsion),
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0),
-                    (agent_set_slot, ":warder_3", slot_agent_warder_is_leader, 1),
-                    (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-                    (assign, ":found_new_leader", 1),
-                (else_try),
-                (eq, ":found_new_leader", 0),
-                (neq, ":warder_4", -1), # warder was actually spawned
-                (agent_is_alive, ":warder_4"),
-                (neg|agent_is_wounded, ":warder_4"),
-                (neg|agent_is_routed, ":warder_4"),
-                (agent_get_slot, ":bound", ":warder_4", slot_agent_is_bound),
-                (agent_get_slot, ":compulsion", ":warder_4", slot_agent_under_compulsion),
-                (store_add, ":bound_or_compulsion", ":bound", ":compulsion"),
-                (eq, ":bound_or_compulsion", 0),
-                    (agent_set_slot, ":warder_4", slot_agent_warder_is_leader, 1),
-                    (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-                    (assign, ":found_new_leader", 1),
-                (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Non-linked Sul'dam trigger ##
-
-      (0, 0, 3, [
-                      (assign, ":not_linked_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                      
-                          (assign, ":agent_suldam", 0),
-                          (try_begin),
-                          (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
-                              (assign, ":agent_suldam", 1),
-                          (else_try),
-                          (agent_has_item_equipped, ":agent", "itm_der_suldam_dagger"),
-                              (assign, ":agent_suldam", 2),
-                          (try_end),
-                          (gt, ":agent_suldam", 0), # only continue if agent is suldam or der sul'dam
-
-                          (agent_get_slot, ":linked", ":agent", slot_agent_has_warders_spawned), 
-                          (eq, ":linked", 2),
-                          (val_add, ":not_linked_check", 1), # proceed with trigger if sul'dam is not linked
-                      (try_end),
-
-                      (ge, ":not_linked_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-                      
-            (assign, ":agent_suldam", 0),
-            (try_begin),
-            (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
-                (assign, ":agent_suldam", 1),
-            (else_try),
-            (agent_has_item_equipped, ":agent", "itm_der_suldam_dagger"),
-                (assign, ":agent_suldam", 2),
-            (try_end),
-            (gt, ":agent_suldam", 0), # only continue if agent is suldam or der sul'dam
-
-            (agent_get_slot, ":linked", ":agent", slot_agent_has_warders_spawned), 
-            (eq, ":linked", 2), # proceed with trigger if sul'dam is not linked
-
-            (assign, ":suldam_failed_leash_attempt", 0),
-
-                (try_for_agents, ":target"),
-                    (eq, ":suldam_failed_leash_attempt", 0),
-        
-                    (agent_get_slot, ":target_is_channeler", ":target", slot_agent_is_channeler),
-                    (eq, ":target_is_channeler", 1), # only try to leash channeler
-        
-                    (agent_get_troop_id, ":target_troop", ":target"),
-                    (troop_get_type, ":target_is_female", ":target_troop"),
-                    (eq, ":target_is_female", 1), # only try to leash female channelers
-        
-                    (agent_get_slot, ":already_linked", ":target", slot_agent_is_warder_for_agent),
-                    (eq, ":already_linked", 0), # don't try to leash a warder (it will make who follows who difficult)
-
-                    (agent_is_alive, ":target"), # don't try to leash the dead
-                    (neg|agent_is_wounded, ":target"), # don't try to leash the wounded
-
-                    (agent_get_team, ":suldam_team", ":agent"),
-                    (agent_get_team, ":target_team", ":target"),
-                    (teams_are_enemies, ":suldam_team", ":target_team"), # don't try to leash allies
-                    
-                    (agent_get_position, pos1, ":agent"),
-                    (agent_get_position, pos2, ":target"),
-                    (get_distance_between_positions, ":dist", pos1, pos2),
-                    (lt, ":dist", 300), # sul'dam within 300 cm of target
-
-                    (agent_get_troop_id, ":target_id", ":target"),
-                    (troop_get_xp, ":target_xp", ":target_id"),
-                    (agent_get_troop_id, ":suldam_id", ":agent"),
-                    (troop_get_xp, ":suldam_xp", ":suldam_id"),
-
-                    (try_begin),
-                    (eq, ":agent_suldam", 1), # agent is suldam
-                        (try_begin),
-                        (le, ":suldam_xp", ":target_xp"), # suldam less experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", 7),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                (agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                (agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (else_try), # suldam more experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", 10),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                (agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                (agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (try_end),
-                    (else_try), # agent is der suldam
-                        (try_begin),
-                        (le, ":suldam_xp", ":target_xp"), # suldam less experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", 13),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                (agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                (agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (else_try), # suldam more experienced than target
-                            (store_random_in_range, ":random", 0, 100),
-                            (try_begin),
-                            (lt, ":random", 16),
-                                (agent_set_team, ":target", ":suldam_team"),
-                                (agent_set_slot, ":target", slot_agent_is_warder_for_agent, 2),
-                                (agent_set_slot, ":target", slot_agent_warder_bond_holder, ":agent"),
-
-                                (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-                            (try_end),
-                        (try_end),
-                    (try_end),
-                        
-                (try_end),
-        (try_end),
-        
-        ]),
-
-      ## Sul'dam with dead Damane trigger ##
-
-      (0, 0, 3, [
-                      (assign, ":dead_damane", 0),
-
-                      (try_for_agents, ":agent"),
-                          (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
-                      
-                          (assign, ":dead_or_wounded", 0),
-                          (try_begin),
-                          (neg|agent_is_alive, ":agent"),
-                              (val_add, ":dead_or_wounded", 1),
-                          (else_try),
-                          (agent_is_wounded, ":agent"),
-                              (val_add, ":dead_or_wounded", 1),
-                          (try_end),
-
-                          (gt, ":dead_or_wounded", 0),
-                          (val_add, ":dead_damane", 1),
-                      (try_end),
-
-                      (gt, ":dead_damane", 0),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_has_item_equipped, ":agent", "itm_power_damane_ranged"),
-                      
-            (assign, ":dead_or_wounded", 0),
-            (try_begin),
-            (neg|agent_is_alive, ":agent"),
-                (val_add, ":dead_or_wounded", 1),
-            (else_try),
-            (agent_is_wounded, ":agent"),
-                (val_add, ":dead_or_wounded", 1),
-            (try_end),
-
-            (gt, ":dead_or_wounded", 0), # damane is dead or wounded
-
-            (agent_get_slot, ":damane_leash_holder", ":agent", slot_agent_warder_bond_holder),
-
-            (agent_set_slot, ":damane_leash_holder", slot_agent_has_warders_spawned, 2), # start looking for female channelers like any sul'dam who didn't get a damane from spawn code.
-        (try_end),
-        
-        ]),
-
-      ## Nearby Myrddraal trigger ##
-
-      (0, 0, 0.25, [],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_is_human, ":agent"), # no fear death effect for horses... for now
-            (neg|agent_has_item_equipped, ":agent", "itm_myrddraal_hood_helmet"), # agent is not a myrddraal
-        
-            (agent_get_team, ":agent_team", ":agent"),
-            (agent_get_position, pos1, ":agent"),
-            (assign, ":number_myrddraal_nearby", 0),
-
-            (try_for_agents, ":agent_2"),
-                (agent_has_item_equipped, ":agent_2", "itm_myrddraal_hood_helmet"), # agent is myrddraal
-                (agent_is_alive, ":agent_2"),
-                (neg|agent_is_wounded, ":agent_2"),
-                (agent_get_team, ":agent_2_team", ":agent_2"),
-                (teams_are_enemies, ":agent_team", ":agent_2_team"), # agent not on the same team as myrddraal
-
-                (agent_get_position, pos2, ":agent_2"),
-                (get_distance_between_positions, ":dist", pos1, pos2),
-        
-                (try_begin),
-                (lt, ":dist", 1000),
-                    (val_add, ":number_myrddraal_nearby", 1),
-                (try_end),
-
-            (try_end),
-        
-            (try_begin),
-            (gt, ":number_myrddraal_nearby", 0),
-                (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 10),
-            (try_end),
-
-            (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, ":number_myrddraal_nearby"),
-                
-        (try_end),
-        
-        ]),
-
-      ## Myrddraal Fear trigger ##
-
-      (0, 0, 3, [
-                      (assign, ":fear_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":has_fear", ":agent", slot_agent_myrddraal_fear_counter),
-                          (gt, ":has_fear", 0),
-                          (val_add, ":fear_check", 1),
-                      (end_try),
-
-                      (ge, ":fear_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":has_fear", ":agent", slot_agent_myrddraal_fear_counter),
-            (gt, ":has_fear", 0),
-        
-                (agent_get_slot, ":fear_magnitude", ":agent", slot_agent_myrddraal_fear_magnitude),
-                (store_add, ":fear_magnitude_new", ":fear_magnitude", 1),
-
-                (try_for_range, ":unused", 1, ":fear_magnitude_new"),
-                    (store_random_in_range, ":random", 1, 100),
-        
-                    (try_begin),
-                    (lt, ":random", 15),
-                        (store_agent_hit_points,":target_health",":agent",1),
-        
-                        (try_begin),
-                        (gt,":target_health",1),
-                            (val_sub,":target_health",1),
-                            (agent_set_hit_points,":agent",":target_health",1),
-                        (try_end), # no (else_try) that will kill agent for now (can't die from fear, just become a very easy target)
-        
-                    (try_end),
-                        
-                (try_end),
-
-                (val_sub, ":has_fear", 1),
-                (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, ":has_fear"), # fear will wear off as long as agent stays away from myrddraal
-
-                (agent_get_look_position, pos1, ":agent"),
-                (particle_system_burst, "psys_fear_aura", pos1, 5),
-                
-        (try_end),
-        
-        ]),
-
-      ## Draghkar Hunt trigger ##
-
-      (0, 0, 1, [],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_has_item_equipped, ":agent", "itm_draghkar_helmet"), # agent is a draghkar
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-
-            (try_begin),
-            (agent_get_slot, ":cooldown", ":agent", slot_agent_draghkar_cooldown),
-            (gt, ":cooldown", 0),
-                (val_sub, ":cooldown", 1),
-                (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, ":cooldown"),
-            (else_try),
-                (agent_get_team, ":agent_team", ":agent"),
-                (agent_get_position, pos1, ":agent"),
-                (assign, ":number_enemies_nearby", 0),
-
-                (try_for_agents, ":agent_2"),
-                    (eq, ":number_enemies_nearby", 0),
-                    (agent_is_human, ":agent_2"),
-                    (neg|agent_has_item_equipped, ":agent_2", "itm_draghkar_helmet"), # agent is not a draghkar
-                    (agent_is_alive, ":agent_2"),
-                    (neg|agent_is_wounded, ":agent_2"),
-                    (agent_get_team, ":agent_2_team", ":agent_2"),
-                    (teams_are_enemies, ":agent_team", ":agent_2_team"), # agent not on the same team as draghkar
-                    (agent_get_slot, ":already_kissed", ":agent_2", slot_agent_has_draghkar_kiss),
-                    (eq, ":already_kissed", 0),
-
-                    (agent_get_position, pos2, ":agent_2"),
-                    (get_distance_between_positions, ":dist", pos1, pos2),
-        
-                    (try_begin),
-                    (lt, ":dist", 250),
-                        (val_add, ":number_enemies_nearby", 1),
-                        (assign, ":target", ":agent_2"),
-                    (try_end),
-
-                (try_end),
-        
-                (try_begin),
-                (gt, ":number_enemies_nearby", 0),
-                    (store_random_in_range, ":random", 1, 100),
-
-                    (try_begin),
-                    (lt, ":random", 18),
-                        (agent_set_slot, ":target", slot_agent_has_draghkar_kiss, 1),
-                        (agent_set_slot, ":target", slot_agent_draghkar_kiss_by, ":agent"),
-                        (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 8),
-                        ## play draghkar crooning sound
-                    (try_end),
-                (try_end),
-
-            (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Draghkar Kiss of Death trigger ##
-
-      (0, 0, 0.04, [
-                      (assign, ":kiss_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":has_kiss", ":agent", slot_agent_has_draghkar_kiss),
-                          (gt, ":has_kiss", 0),
-                          (val_add, ":kiss_check", 1),
-                      (end_try),
-
-                      (ge, ":kiss_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":has_kiss", ":agent", slot_agent_has_draghkar_kiss),
-            (gt, ":has_kiss", 0),
-
-                (agent_get_position, pos1, ":agent"),
-                (particle_system_burst, "psys_fear_aura", pos1, 5),
-
-                (store_agent_hit_points,":target_health",":agent",1),
-        
-                (try_begin),
-                (gt,":target_health",1),
-                    (val_sub,":target_health",1),
-                    (agent_set_hit_points,":agent",":target_health",1),
-                (else_try),
-                    (agent_get_slot, ":draghkar", ":agent", slot_agent_draghkar_kiss_by),
-                    (agent_set_hit_points, ":agent", 0, 0),
-                    (agent_deliver_damage_to_agent, ":draghkar",":agent"),
-                (try_end),
-                
-        (try_end),
-        
-        ]),
-
-      ## Shielded trigger ##
-
-      (0, 0, 0.0025, [
-                      (assign, ":shield_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":shielded", ":agent", slot_agent_is_shielded),
-                          (eq, ":shielded", 1),
-                          (val_add, ":shield_check", 1),
-                      (end_try),
-
-                      (ge, ":shield_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":shielded", ":agent", slot_agent_is_shielded),
-            (eq, ":shielded", 1),
-        
-                (agent_get_look_position, pos59, ":agent"),
-                (particle_system_burst, "psys_shield_aura", pos59, 10),
-                
-        (try_end),
-        
-        ]),
-
-      ## Compulsion trigger ##
-
-      (0, 0, 0.0025, [
-                      (assign, ":compulsion_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":compelled", ":agent", slot_agent_under_compulsion),
-                          (eq, ":compelled", 1),
-                          (val_add, ":compulsion_check", 1),
-                      (end_try),
-
-                      (ge, ":compulsion_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":compelled", ":agent", slot_agent_under_compulsion),
-            (eq, ":compelled", 1),
-        
-                (agent_get_look_position, pos58, ":agent"),
-                (particle_system_burst, "psys_compulsion_aura", pos58, 10),
-                
-        (try_end),
-        
-        ]),
-
-      ## Balefire trigger ##
-
-      (0, 0, 0.001, [
-                      (assign, ":balefire_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":balefired", ":agent", slot_agent_hit_by_balefire),
-                          (eq, ":balefired", 1),
-                          (val_add, ":balefire_check", 1),
-                      (end_try),
-
-                      (ge, ":balefire_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":balefired", ":agent", slot_agent_hit_by_balefire),
-            (eq, ":balefired", 1),
-        
-                (agent_get_look_position, pos57, ":agent"),
-                (particle_system_burst, "psys_compulsion_aura", pos58, 10),  # new one for balefire
-
-                (agent_get_slot, ":chosen", ":agent", slot_agent_balefire_shooter),
-
-                (agent_set_hit_points, ":agent", 0, 0),
-                (agent_deliver_damage_to_agent, ":chosen", ":agent"),
-                (try_begin), # add to channeling multiplier if agent is player
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 150),
-                (try_end),
-                (add_xp_to_troop,75,":chosen"),
-        
-                (position_set_x, pos57, 100),
-                (position_set_y, pos57, 100),
-                (position_set_z_to_ground_level, pos57),
-                (agent_set_position, ":agent", pos57),  # move agent's body far away
-
-                (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 0),
-
-                (agent_get_kill_count, ":kill_count", ":agent", 0),
-                (agent_get_kill_count, ":wounded_count", ":agent", 1),
-
-                (try_begin),
-                (gt, ":kill_count", 0),
-                    (assign, ":kills", 1),
-                (try_end),
-
-                (try_begin),
-                (gt, ":wounded_count", 0),
-                    (assign, ":wounded", 1),
-                (try_end),
-
-                (assign, ":kill_wounded", ":kills"),
-                (val_or, ":kill_wounded", ":wounded"),
-        
-                (agent_get_team, ":agent_team", ":agent"),
-                (assign, ":resurrection_count", 0),
-
-                (try_begin),
-                (eq, ":kill_wounded", 1),   # if agent killed/wounded other agents before being balefired
-                    (try_for_agents, ":agent_2"),
-                        (eq, ":resurrection_count", 0),
-                        (agent_is_non_player, ":agent_2"),
-                        (try_begin),
-                        (neg|agent_is_alive, ":agent_2"),
-                            (agent_get_team, ":agent_2_team", ":agent_2"),
-                            (teams_are_enemies, ":agent_2_team", ":agent_team"), # if dead agent is not on the team of balefired agent
-                                (agent_get_position, pos56, ":agent_2"),
-                                (agent_set_position, ":agent_2", pos57),
-                                (agent_get_troop_id, ":agent_2_troop", ":agent_2"),
-                                (agent_get_party_id, ":agent_2_party", ":agent_2"),
-#                                (troop_get_type, ":agent_2_troop_type", ":agent_2_troop"),
-                                (set_spawn_position, pos56),
-                                (spawn_agent, ":agent_2_troop"),
-                                (assign, ":new_agent", reg0),
-                                (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_2_party"),
-                                (agent_set_team, ":new_agent", ":agent_2_team"),
-                                (assign, ":resurrection_count", 1),
-                        (else_try),
-                        (agent_is_wounded, ":agent_2"),
-                            (agent_get_team, ":agent_2_team", ":agent_2"),
-                            (teams_are_enemies, ":agent_2_team", ":agent_team"), # if wounded agent is not on the team of balefired agent
-                                (agent_get_position, pos56, ":agent_2"),
-                                (agent_set_position, ":agent_2", pos57),
-                                (agent_get_troop_id, ":agent_2_troop", ":agent_2"),
-                                (agent_get_party_id, ":agent_2_party", ":agent_2"),
-#                                (troop_get_type, ":agent_2_troop_type", ":agent_2_troop"),
-                                (set_spawn_position, pos56),
-                                (spawn_agent, ":agent_2_troop"),
-                                (assign, ":new_agent", reg0),
-                                (agent_set_slot, ":new_agent", slot_agent_spawn_party, ":agent_2_party"),
-                                (agent_set_team, ":new_agent", ":agent_2_team"),
-                                (assign, ":resurrection_count", 1),
-                        (try_end),
-                    (try_end),
-                (try_end),
-
-                (remove_agent, ":agent"), # not sure what this does
-        (try_end),
-        
-        ]),
-
-      ## Burn over time trigger ##
-
-      (0, 0, 0.01, [
-                      (assign, ":fire_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":on_fire", ":agent", slot_agent_on_fire),
-                          (eq, ":on_fire", 1),
-                          (val_add, ":fire_check", 1),
-                      (end_try),
-
-                      (ge, ":fire_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":on_fire", ":agent", slot_agent_on_fire),
-            (eq, ":on_fire", 1),
-                (agent_get_look_position, pos62, ":agent"),
-                (position_get_z, ":z_temp", pos62),
-                (val_add, ":z_temp", 1000),
-                (position_set_z, pos62, ":z_temp"),
-                (particle_system_burst, "psys_fire_over_time", pos62, 1),
-                (particle_system_burst, "psys_smoke_over_time", pos62, 1),
-                (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":one_second_check", 100),
-                (eq, ":one_second_check", 0),  ## true once every second
-                    (store_agent_hit_points,":target_health",":agent",1),
-                    (agent_get_slot, ":chosen", ":agent", slot_agent_fire_starter),
-                 
-                    (try_begin),
-                    (gt,":target_health",1),
-                        (val_sub,":target_health",1),
-                        (agent_set_hit_points,":agent",":target_health",1),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                        (try_begin), # add to channeling multiplier if agent is player
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 2),
-                        (try_end),
-#                        (add_xp_to_troop,1,":chosen"),
-                        (agent_get_slot, ":burn_duration", ":agent", slot_agent_fire_duration),
-                 
-                        (try_begin), # check burn duration
-                        (gt, ":burn_duration", 0),
-                             (val_sub, ":burn_duration", 1),
-                             (agent_set_slot, ":agent", slot_agent_fire_duration, ":burn_duration"),
-                        (else_try),
-                             (agent_set_slot, ":agent", slot_agent_on_fire, 0),
-                        (try_end),
-                 
-                    (else_try),
-                        (agent_set_hit_points,":agent",0,0),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                        (try_begin),
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 20),
-                        (try_end),
-                 
-                        (add_xp_to_troop,25,":chosen"),
-                        (val_sub, ":z_temp", 400),
-                        (position_set_z, pos62, ":z_temp"),
-                        (particle_system_burst, "psys_fire_over_time", pos62, 100),
-                        (particle_system_burst, "psys_smoke_over_time", pos62, 100),
-                        (agent_set_slot, ":agent", slot_agent_on_fire, 0),
-                    (try_end),
-        (try_end),
-
-       ]),
-
-## Pass Electrical Charge trigger 1## 
-        (0, 0, 0.25, [
-                      (assign, ":electricity_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
-                          (gt, ":shocked", 0),
-                          (val_add, ":electricity_check", 1),
-                      (end_try),
-
-                      (ge, ":electricity_check", 1),
-                    ],
-
-       [
-        (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":shocked", ":agent", slot_agent_has_been_shocked),
-            (gt, ":shocked", 0),
-                (agent_get_look_position, pos1, ":agent"),
-                (position_get_z, ":z_temp", pos1),
-                (val_add, ":z_temp", 1000),
-                (position_set_z, pos1, ":z_temp"),
-                (particle_system_burst, "psys_electricity_sparks", pos1, 1),
-                (store_agent_hit_points,":target_health",":agent",1),
-                (agent_get_slot, ":chosen", ":agent", slot_agent_fire_starter),
-                 
-                (try_begin),
-                (gt,":target_health",1),
-                    (val_sub,":target_health",1),
-                    (agent_set_hit_points,":agent",":target_health",1),
-                    (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                    (try_begin), # add to channeling multiplier if agent is player
-                    (neg|agent_is_non_player, ":chosen"),
-                        (val_add, "$g_channeling_proficiency_modifier", 2),
-                    (try_end),
-#                    (add_xp_to_troop,1,":chosen"),
-                    (agent_get_slot, ":shock_duration", ":agent", slot_agent_has_been_shocked),
-                 
-                    (try_begin), # check burn duration
-                    (gt, ":shock_duration", 0),
-                            (val_sub, ":shock_duration", 1),
-                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, ":shock_duration"),
-                    (else_try),
-                            (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-                    (try_end),
-                 
-                (else_try),
-                    (agent_set_hit_points,":agent",0,0),
-                    (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
-                    (try_begin),
-                    (neg|agent_is_non_player, ":chosen"),
-                        (val_add, "$g_channeling_proficiency_modifier", 20),
-                    (try_end),
-                 
-                    (add_xp_to_troop,25,":chosen"),
-                    (val_sub, ":z_temp", 500),
-                    (position_set_z, pos1, ":z_temp"),
-                    (particle_system_burst, "psys_electricity_sparks", pos1, 50),
-                    (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-                (try_end),
-
-                (position_set_z_to_ground_level, pos1),
-                (try_for_agents, ":agent_2"),
-                    (gt, ":shocked", 1), # duration from the original agent, check to see if charge can be passed on
-                    (agent_is_alive, ":agent_2"),
-                    (neg|agent_is_wounded, ":agent_2"),
-                    (agent_get_slot, ":shocked_2", ":agent_2", slot_agent_has_been_shocked),
-                    (eq, ":shocked_2", 0),
-                        (agent_get_look_position, pos2, ":agent_2"),
-                        (get_distance_between_positions,":dist",pos1,pos2),
-                        (try_begin),
-                        (lt, ":shocked", 5),
-                            (try_begin),
-                            (lt, ":dist", 100),
-                                (val_sub, ":shocked", 1),
-                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
-                            (try_end),
-                        (else_try),
-                        (is_between, ":shocked", 5, 9),
-                            (try_begin),
-                            (lt, ":dist", 200),
-                                (val_sub, ":shocked", 1),
-                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
-                            (try_end),
-                        (else_try),
-                        (ge, ":shocked", 9),
-                            (try_begin),
-                            (lt, ":dist", 300),
-                                (val_sub, ":shocked", 1),
-                                (agent_set_slot, ":agent_2", slot_agent_has_been_shocked, ":shocked"),
-                            (try_end),
-                        (try_end),
-                (try_end),
-        
-        (try_end),
-
-       ]),
-
-## Freeze over time trigger 1## 
-      (0, 0, 0.01,[
-                      (assign, ":freeze_check", 0),
-                      
-                      (try_for_agents, ":agent"),
-                          (agent_is_alive, ":agent"),
-                          (neg|agent_is_wounded, ":agent"),
-                          (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
-                          (eq, ":frozen", 1),
-                          (val_add, ":freeze_check", 1),
-                      (end_try),
-
-                      (ge, ":freeze_check", 1),
-                    ],
-
-       [
-       (try_for_agents, ":agent"),
-            (agent_is_alive, ":agent"),
-            (neg|agent_is_wounded, ":agent"),
-            (agent_get_slot, ":frozen", ":agent", slot_agent_is_frozen),
-            (eq, ":frozen", 1),
-                (agent_get_look_position, pos62, ":agent"),
-                (position_get_z, ":z_temp", pos62),
-                (val_add, ":z_temp", 1000),
-                (position_set_z, pos62, ":z_temp"),
-                (particle_system_burst, "psys_freeze_over_time", pos62, 1),
-        
-                (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":one_second_check", 100),
-                (try_begin),
-                (eq, ":one_second_check", 0),  ## true once every second
-                    (agent_get_slot, ":freeze_duration", ":agent", slot_agent_freeze_duration),
-
-                    # reduce the duration
-                    (try_begin),
-                    (gt, ":freeze_duration", 0),
-                        (val_sub, ":freeze_duration", 1),
-                        (agent_set_slot, ":agent", slot_agent_freeze_duration, ":freeze_duration"),
-                    (else_try),
-                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
-                        (agent_set_speed_limit, ":agent", 20),
-                    (try_end),
-                (try_end),
-
-                (assign, ":three_second_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":three_second_check", 300),        
-                (try_begin),
-                (eq, ":three_second_check", 0),
-                    (store_agent_hit_points,":target_health",":agent",1),
-                    (agent_get_slot, ":chosen", ":agent", slot_agent_freeze_starter),
-                    (agent_get_slot, ":damage", ":agent", slot_agent_freeze_damage),
-
-                    # apply damage
-                    (try_begin),
-                    (gt,":target_health",":damage"),
-                        (val_sub,":target_health",":damage"),
-                        (agent_set_hit_points,":agent",":target_health",1),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                        (try_begin), # add to channeling multiplier if agent is player
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 2),
-                        (try_end),
-                    (else_try),
-                        (agent_set_hit_points,":agent",0,0),
-                        (agent_deliver_damage_to_agent,":chosen",":agent"),
-                        (try_begin),
-                        (neg|agent_is_non_player, ":chosen"),
-                            (val_add, "$g_channeling_proficiency_modifier", 20),
-                        (try_end),
-                        (add_xp_to_troop,25,":chosen"),
-                        (val_sub, ":z_temp", 400),
-                        (position_set_z, pos62, ":z_temp"),
-                        (particle_system_burst, "psys_freeze_over_time", pos62, 100),
-                        (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
-                    (try_end),
-                (try_end),
-
-        (try_end),
-       ]),      
-
-      ## Seeker weave triggers ##
-
-      #Seeker 1
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_1", 1)],
-	[
-            
-	(try_begin),
-	(eq, "$g_seeker_slot_1", 1),
-	(agent_is_alive, "$g_seeker_slot_1_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_1_target"),
-
-	    (position_get_x, ":current_x", pos31),
-	    (position_get_y, ":current_y", pos31),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_1_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos31, ":current_x"),
-	    (position_set_y, pos31, ":current_y"),
-	    (position_set_z_to_ground_level, pos31),
-            (position_get_z, ":z_temp", pos31),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos31, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_1_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_1_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_1_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos31 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_1", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos31 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_1", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 2
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_2", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_2", 1),
-	(agent_is_alive, "$g_seeker_slot_2_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_2_target"),
-
-	    (position_get_x, ":current_x", pos32),
-	    (position_get_y, ":current_y", pos32),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_2_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos32, ":current_x"),
-	    (position_set_y, pos32, ":current_y"),
-	    (position_set_z_to_ground_level, pos32),
-            (position_get_z, ":z_temp", pos32),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos32, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_2_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_2_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_2_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos32 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_2", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos32 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_2", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 3
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_3", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_3", 1),
-	(agent_is_alive, "$g_seeker_slot_3_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_3_target"),
-
-	    (position_get_x, ":current_x", pos33),
-	    (position_get_y, ":current_y", pos33),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_3_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos33, ":current_x"),
-	    (position_set_y, pos33, ":current_y"),
-	    (position_set_z_to_ground_level, pos33),
-            (position_get_z, ":z_temp", pos33),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos33, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_3_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_3_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_3_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos33 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_3", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos33 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_3", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 4
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_4", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_4", 1),
-	(agent_is_alive, "$g_seeker_slot_4_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_4_target"),
-
-	    (position_get_x, ":current_x", pos34),
-	    (position_get_y, ":current_y", pos34),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_4_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos34, ":current_x"),
-	    (position_set_y, pos34, ":current_y"),
-	    (position_set_z_to_ground_level, pos34),
-            (position_get_z, ":z_temp", pos34),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos34, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_4_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_4_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_4_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos34 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_4", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos34 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_4", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 5
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_5", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_5", 1),
-	(agent_is_alive, "$g_seeker_slot_5_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_5_target"),
-
-	    (position_get_x, ":current_x", pos35),
-	    (position_get_y, ":current_y", pos35),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_5_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos35, ":current_x"),
-	    (position_set_y, pos35, ":current_y"),
-	    (position_set_z_to_ground_level, pos35),
-            (position_get_z, ":z_temp", pos35),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos35, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_5_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_5_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_5_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos35 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_5", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos35 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_5", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 6
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_6", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_6", 1),
-	(agent_is_alive, "$g_seeker_slot_6_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_6_target"),
-
-	    (position_get_x, ":current_x", pos36),
-	    (position_get_y, ":current_y", pos36),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_6_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos36, ":current_x"),
-	    (position_set_y, pos36, ":current_y"),
-	    (position_set_z_to_ground_level, pos36),
-            (position_get_z, ":z_temp", pos36),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos36, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_6_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_6_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_6_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos36 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_6", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos36 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_6", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 7
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_7", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_7", 1),
-	(agent_is_alive, "$g_seeker_slot_7_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_7_target"),
-
-	    (position_get_x, ":current_x", pos37),
-	    (position_get_y, ":current_y", pos37),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_7_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos37, ":current_x"),
-	    (position_set_y, pos37, ":current_y"),
-	    (position_set_z_to_ground_level, pos37),
-            (position_get_z, ":z_temp", pos37),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos37, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_7_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_7_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_7_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos37 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_7", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos37 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_7", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 8
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_8", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_8", 1),
-	(agent_is_alive, "$g_seeker_slot_8_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_8_target"),
-
-	    (position_get_x, ":current_x", pos38),
-	    (position_get_y, ":current_y", pos38),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_8_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos38, ":current_x"),
-	    (position_set_y, pos38, ":current_y"),
-	    (position_set_z_to_ground_level, pos38),
-            (position_get_z, ":z_temp", pos38),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos38, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_8_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_8_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_8_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos38 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_8", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos38 ,1),
-	    (try_end),
-
-        (else_try),
-	    (assign, "$g_seeker_slot_8", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 9
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_9", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_9", 1),
-	(agent_is_alive, "$g_seeker_slot_9_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_9_target"),
-
-	    (position_get_x, ":current_x", pos39),
-	    (position_get_y, ":current_y", pos39),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_9_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos39, ":current_x"),
-	    (position_set_y, pos39, ":current_y"),
-	    (position_set_z_to_ground_level, pos39),
-            (position_get_z, ":z_temp", pos39),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos39, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_9_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_9_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_9_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos39 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_9", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos39 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_9", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-
-	]),
-
-      #Seeker 10
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_10", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_10", 1),
-	(agent_is_alive, "$g_seeker_slot_10_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_10_target"),
-
-	    (position_get_x, ":current_x", pos40),
-	    (position_get_y, ":current_y", pos40),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_10_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos40, ":current_x"),
-	    (position_set_y, pos40, ":current_y"),
-	    (position_set_z_to_ground_level, pos40),
-            (position_get_z, ":z_temp", pos40),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos40, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_10_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_10_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_10_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos40 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_10", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos40 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_10", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 11
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_11", 1)],
-	[
-            
-	(try_begin),
-	(eq, "$g_seeker_slot_11", 1),
-	(agent_is_alive, "$g_seeker_slot_11_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_11_target"),
-
-	    (position_get_x, ":current_x", pos41),
-	    (position_get_y, ":current_y", pos41),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_11_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos41, ":current_x"),
-	    (position_set_y, pos41, ":current_y"),
-	    (position_set_z_to_ground_level, pos41),
-            (position_get_z, ":z_temp", pos41),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos41, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_11_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_11_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_11_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos41 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_11", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos41 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_11", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 12
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_12", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_12", 1),
-	(agent_is_alive, "$g_seeker_slot_12_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_12_target"),
-
-	    (position_get_x, ":current_x", pos42),
-	    (position_get_y, ":current_y", pos42),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_12_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos42, ":current_x"),
-	    (position_set_y, pos42, ":current_y"),
-	    (position_set_z_to_ground_level, pos42),
-            (position_get_z, ":z_temp", pos42),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos42, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_12_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_12_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_12_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos42 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_12", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos42 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_12", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 13
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_13", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_13", 1),
-	(agent_is_alive, "$g_seeker_slot_13_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_13_target"),
-
-	    (position_get_x, ":current_x", pos43),
-	    (position_get_y, ":current_y", pos43),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_13_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos43, ":current_x"),
-	    (position_set_y, pos43, ":current_y"),
-	    (position_set_z_to_ground_level, pos43),
-            (position_get_z, ":z_temp", pos43),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos43, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_13_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_13_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_13_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos43 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_13", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos43 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_13", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 14
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_14", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_14", 1),
-	(agent_is_alive, "$g_seeker_slot_14_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_14_target"),
-
-	    (position_get_x, ":current_x", pos44),
-	    (position_get_y, ":current_y", pos44),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_14_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos44, ":current_x"),
-	    (position_set_y, pos44, ":current_y"),
-	    (position_set_z_to_ground_level, pos44),
-            (position_get_z, ":z_temp", pos44),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos44, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_14_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_14_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_14_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos44 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_14", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos44 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_14", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 15
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_15", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_15", 1),
-	(agent_is_alive, "$g_seeker_slot_15_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_15_target"),
-
-	    (position_get_x, ":current_x", pos45),
-	    (position_get_y, ":current_y", pos45),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_15_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos45, ":current_x"),
-	    (position_set_y, pos45, ":current_y"),
-	    (position_set_z_to_ground_level, pos45),
-            (position_get_z, ":z_temp", pos45),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos45, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_15_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_15_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_15_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos45 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_15", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos45 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_15", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 16
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_16", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_16", 1),
-	(agent_is_alive, "$g_seeker_slot_16_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_16_target"),
-
-	    (position_get_x, ":current_x", pos46),
-	    (position_get_y, ":current_y", pos46),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_16_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos46, ":current_x"),
-	    (position_set_y, pos46, ":current_y"),
-	    (position_set_z_to_ground_level, pos46),
-            (position_get_z, ":z_temp", pos46),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos46, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_16_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_16_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_16_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos46 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_16", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos46 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_16", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 17
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_17", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_17", 1),
-	(agent_is_alive, "$g_seeker_slot_17_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_17_target"),
-
-	    (position_get_x, ":current_x", pos47),
-	    (position_get_y, ":current_y", pos47),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_17_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos47, ":current_x"),
-	    (position_set_y, pos47, ":current_y"),
-	    (position_set_z_to_ground_level, pos47),
-            (position_get_z, ":z_temp", pos47),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos47, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_17_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_17_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_17_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos47 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_17", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos47 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_17", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 18
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_18", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_18", 1),
-	(agent_is_alive, "$g_seeker_slot_18_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_18_target"),
-
-	    (position_get_x, ":current_x", pos48),
-	    (position_get_y, ":current_y", pos48),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_18_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos48, ":current_x"),
-	    (position_set_y, pos48, ":current_y"),
-	    (position_set_z_to_ground_level, pos48),
-            (position_get_z, ":z_temp", pos48),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos48, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_18_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_18_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_18_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos48 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_18", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos48 ,1),
-	    (try_end),
-
-        (else_try),
-	    (assign, "$g_seeker_slot_18", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
-      #Seeker 19
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_19", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_19", 1),
-	(agent_is_alive, "$g_seeker_slot_19_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_19_target"),
-
-	    (position_get_x, ":current_x", pos49),
-	    (position_get_y, ":current_y", pos49),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_19_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos49, ":current_x"),
-	    (position_set_y, pos49, ":current_y"),
-	    (position_set_z_to_ground_level, pos49),
-            (position_get_z, ":z_temp", pos49),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos49, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_19_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_19_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_19_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos49 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_19", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos49 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_19", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-
-	]),
-
-      #Seeker 20
-      (0, 0, 0.00025, [(eq, "$g_seeker_slot_20", 1)],
-	[
-        
-        (try_begin),
-	(eq, "$g_seeker_slot_20", 1),
-	(agent_is_alive, "$g_seeker_slot_20_target"),
-	(neg|agent_is_wounded, "$g_seeker_slot_20_target"),
-
-	    (position_get_x, ":current_x", pos50),
-	    (position_get_y, ":current_y", pos50),
-
-            (agent_get_look_position, pos61, "$g_seeker_slot_20_target"),
-	    (position_get_x, ":target_x", pos61),
-	    (position_get_y, ":target_y", pos61),
-
-	    (store_sub, ":diff_x", ":target_x", ":current_x"),
-	    (store_sub, ":diff_y", ":target_y", ":current_y"),
-
-	    (val_abs, ":diff_x"),
-	    (val_abs, ":diff_y"),
-
-            (store_random_in_range, ":increment", 25, 35),
-            (store_random_in_range, ":neg_increment", -35, -20),
-            (store_mul, ":blast_range", ":increment", 2),
-        
-	    (try_begin),
-	    (gt, ":diff_x", ":blast_range"),
-		(try_begin),
-		(lt, ":current_x", ":target_x"),
-		    (val_add, ":current_x", ":increment"),
-		(else_try),
-		    (val_add, ":current_x", ":neg_increment"),
-		(try_end),
-		(assign, ":x_in_range", 0),
-	    (else_try),
-		(assign, ":x_in_range", 1),
-	    (try_end),
-
-	    (try_begin),
-	    (gt, ":diff_y", ":blast_range"),
-		(try_begin),
-		(lt, ":current_y", ":target_y"),
-		    (val_add, ":current_y", ":increment"),
-		(else_try),
-		    (val_add, ":current_y", ":neg_increment"),
-		(try_end),
-		(assign, ":y_in_range", 0),
-	    (else_try),
-		(assign, ":y_in_range", 1),
-	    (try_end),
-
-	    (position_set_x, pos50, ":current_x"),
-	    (position_set_y, pos50, ":current_y"),
-	    (position_set_z_to_ground_level, pos50),
-            (position_get_z, ":z_temp", pos50),
-            (val_add, ":z_temp", 1500),
-            (position_set_z, pos50, ":z_temp"),
-
-	    (try_begin),
-	    (eq, ":x_in_range", 1),
-            (eq, ":y_in_range", 1),
-		(agent_set_hit_points, "$g_seeker_slot_20_target", 0, 0),
-                (agent_get_slot, ":chosen", "$g_seeker_slot_20_target", slot_agent_seeker_shooter),
-                (agent_deliver_damage_to_agent, ":chosen", "$g_seeker_slot_20_target"),
-		(add_xp_to_troop, ":chosen", 50),
-                (try_begin),
-                (neg|agent_is_non_player, ":chosen"),
-                    (val_add, "$g_channeling_proficiency_modifier", 100),
-                (try_end),
-		(particle_system_burst, "psys_massive_green_fire", pos50 ,50),
-                (play_sound, "snd_explosion"),
-                (assign, "$g_seeker_slot_20", 0),
-		(val_sub, "$g_number_seekers_active", 1),
-	    (else_try),
-		(particle_system_burst, "psys_seeker_blast", pos50 ,1),
-	    (try_end),
-        
-	(else_try),
-	    (assign, "$g_seeker_slot_20", 0),
-	    (val_sub, "$g_number_seekers_active", 1),
-	(try_end),
-
-	]),
-
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      #common_wot_airborne_trigger,
+      # end
+      
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+      
+      # pick one balefire trigger (2 for custom battle)
+      #common_wot_balefire_trigger_1,
+      common_wot_balefire_trigger_2,
+      # end
+      
+      common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
+      common_wot_firewall_trigger,
+      
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
+      # end
  
       #########################################################################
       ###### end TGS triggers
@@ -27262,7 +18795,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################      
@@ -27683,7 +19217,7 @@ mission_templates = [
          ]),
 
       multiplayer_once_at_the_first_frame,
-
+      
       #################################################################  
       ###### TGS triggers
       #################################################################
@@ -30499,6 +22033,7 @@ mission_templates = [
          
            (store_mission_timer_a, "$g_round_finish_time"),
            (assign, "$g_round_ended", 1),
+
            (assign, "$g_flag_is_not_ready", 1),
         
            (assign, "$g_winner_team", 0),
@@ -31280,7 +22815,7 @@ mission_templates = [
            (player_get_agent_id, ":my_agent_id", ":my_player_no"),
            (eq, ":my_agent_id", ":agent_no"),
            (ge, ":my_agent_id", 0),
-           (agent_get_team, "$my_team_at_start_of_round", ":my_agent_id"),
+           (agent_get_team, "$my_team_at_start_of_round", ":my_agent_id"),		   
          (try_end),         
          
          (call_script, "script_calculate_new_death_waiting_time_at_death_mod"),
@@ -32011,8 +23546,7 @@ mission_templates = [
 
          (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 0, ":num_players"),
-           (player_is_active, ":player_no"),
-           (player_set_slot, ":player_no", slot_player_spawned_this_round, 0),
+           (player_is_active, ":player_no"),           
            (player_get_agent_id, ":player_agent", ":player_no"),
            (ge, ":player_agent", 0),
            (agent_is_alive, ":player_agent"),
@@ -33141,8 +24675,7 @@ mission_templates = [
 
          (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 0, ":num_players"),
-           (player_is_active, ":player_no"),
-           (player_set_slot, ":player_no", slot_player_spawned_this_round, 0),
+           (player_is_active, ":player_no"),           
            (player_get_agent_id, ":player_agent", ":player_no"),
            (ge, ":player_agent", 0),
            (agent_is_alive, ":player_agent"),
@@ -33170,6 +24703,7 @@ mission_templates = [
 
          (try_for_range, ":player_no", 0, ":num_players"),
            (player_is_active, ":player_no"),
+		   (player_slot_eq, ":player_no", slot_player_spawned_this_round, 1),
            (player_get_gold, ":player_gold", ":player_no"),
            (player_get_team_no, ":player_team", ":player_no"),           
            (val_add, ":player_gold", ":per_round_gold_addition"), #standard           
@@ -33961,7 +25495,8 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      (0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -34109,25 +25644,25 @@ mission_templates = [
          #  (eq, ":starting_town_faction", "fac_kingdom_6"),
          #  (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
          #(try_end),
-
+           
          (try_begin),
          (eq, "$g_starting_town", "p_town_6"),
-             (assign, ":troop_of_merchant", "trp_swadian_merchant"),
-         (else_try),
+           (assign, ":troop_of_merchant", "trp_swadian_merchant"),
+         (else_try),  
          (eq, "$g_starting_town", "p_town_8"),
-             (assign, ":troop_of_merchant", "trp_vaegir_merchant"),
-         (else_try),
+           (assign, ":troop_of_merchant", "trp_vaegir_merchant"),
+         (else_try),                   
          (eq, "$g_starting_town", "p_town_10"),
-             (assign, ":troop_of_merchant", "trp_khergit_merchant"),
-         (else_try),
+           (assign, ":troop_of_merchant", "trp_khergit_merchant"),
+         (else_try),  
          (eq, "$g_starting_town", "p_town_1"),
-             (assign, ":troop_of_merchant", "trp_nord_merchant"),
-         (else_try),
+           (assign, ":troop_of_merchant", "trp_nord_merchant"),
+         (else_try),  
          (eq, "$g_starting_town", "p_town_5"),
-             (assign, ":troop_of_merchant", "trp_rhodok_merchant"),
-         (else_try),
+           (assign, ":troop_of_merchant", "trp_rhodok_merchant"),
+         (else_try),  
          (eq, "$g_starting_town", "p_town_19"),
-             (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
+           (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
          (try_end),
          # end edited for TGS
                                      
@@ -35315,7 +26850,7 @@ mission_templates = [
       common_wot_seeker_trigger_18,
       common_wot_seeker_trigger_19,
       common_wot_seeker_trigger_20,
-                common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_21,
       common_wot_seeker_trigger_22,
       common_wot_seeker_trigger_23,
       common_wot_seeker_trigger_24,
@@ -35634,7 +27169,7 @@ mission_templates = [
       common_wot_reset_troop_ratio_bar_additional,
       
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
-      common_wot_airborne_trigger,
+      #common_wot_airborne_trigger,
       # end
       
       common_wot_bound_trigger,
@@ -35738,6 +27273,7 @@ mission_templates = [
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
@@ -35749,7 +27285,7 @@ mission_templates = [
       ]
     ## TGS: mat: Added to make like 'lead_charge'
     ##diplomacy begin
-    + custom_camera_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + weapon_use_triggers,
+    + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
     ##diplomacy end
     ## TGS: mat: End
     ),
@@ -36152,6 +27688,7 @@ mission_templates = [
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
@@ -36163,7 +27700,7 @@ mission_templates = [
       ]
     ## TGS: mat: Added to make like 'lead_charge'
     ##diplomacy begin
-    + custom_camera_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + weapon_use_triggers,
+    + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
     ##diplomacy end
     ## TGS: mat: End
     ),

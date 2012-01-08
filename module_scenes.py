@@ -678,7 +678,7 @@ scenes = [
     [],[]),
   ## TGS: mat: end
   
-
+  
   ("town_1_walls",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300010c800054d5c00004af000005d3f00002ca0",
     [],[],"outer_terrain_plain"),
   ("town_2_walls",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300010c800054d5c00004af000005d3f00002ca0",
@@ -1182,7 +1182,7 @@ scenes = [
     ["exit"],["castle_37_seneschal"]),
   ("castle_48_prison",sf_indoors,"interior_prison_o", "bo_interior_prison_o", (-100,-100),(100,100),-100,"0",
     [],[]),
-  
+	
 ## TGS: mat: new castle scenes
   ("castle_49_exterior",sf_generate,"none", "none", (0,0),(100,100),-100,"0x0000000230054f630005fd820000222a00003de000005f00",
     [],[],"outer_terrain_plain"),
@@ -1534,7 +1534,7 @@ scenes = [
     [],[],"outer_terrain_desert"),
 #	("village_99",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001500410320005a96800006b5300004edc00000d11",
 #    [],[],"outer_terrain_desert"),
-  #changed for TGS
+  #changed for TGS (Emonds Field)
         ("village_99",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
     [],[],"outer_terrain_plain"),
   #end

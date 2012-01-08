@@ -56,7 +56,7 @@ party_templates = [
   
   ("trollocs","Marauding Trollocs",icon_axeman|carries_goods(2),0,fac_trollocs,wot_trolloc_personality,[(trp_trolloc_grunt_bandit,20,90), (trp_trolloc_hewer,15,40),(trp_trolloc_stalker,15,40),(trp_myrddraal,1,3)]),
   # end edited for TGS
-  
+
   ("deserters","Deserters",icon_vaegir_knight|carries_goods(3),0,fac_deserters,bandit_personality,[]),
     
   ("merchant_caravan","Merchant Caravan",icon_gray_knight|carries_goods(20)|pf_auto_remove_in_town|pf_quest_party,0,fac_commoners,escorted_merchant_personality,[(trp_caravan_master,1,1),(trp_caravan_guard,5,25)]),
@@ -337,7 +337,7 @@ party_templates = [
   ("kingdom_24_reinforcements_c", "{!}kingdom_24_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_shadowspawn_recruit_creature,20,30),(trp_trolloc_grunt,10,20),(trp_trolloc_hewer,8,16),(trp_trolloc_berserker,4,12),(trp_trolloc_clan_chief,4,8),(trp_myrddraal,2,4)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
   ("kingdom_24_reinforcements_d", "{!}kingdom_24_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_trolloc_archer,8,16),(trp_trolloc_stalker,8,16),(trp_draghkar,2,4)]),
   ("kingdom_24_reinforcements_e", "{!}kingdom_24_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_trolloc_archer,8,16),(trp_trolloc_stalker,8,16),(trp_draghkar,2,4)]),
-  ("kingdom_24_reinforcements_f", "{!}kingdom_24_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_darkfriend_channeler,4,6),(trp_aes_sedai_black,6,8),(trp_dreadlord,4,6)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
+  ("kingdom_24_reinforcements_f", "{!}kingdom_24_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_darkfriend_channeler,4,6),(trp_darkfriend_channeler_female,4,6),(trp_darkfriend_wilder,3,6),(trp_aes_sedai_black,3,6),(trp_dreadlord,2,4)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
   ("kingdom_24_reinforcements_g", "{!}kingdom_24_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_darkfriend_initiate,15,25),(trp_darkfriend_murderer,6,10),(trp_darkfriend_assassin,4,8),(trp_darkfriend_ambusher,6,10),(trp_darkfriend_leader,4,8),(trp_darkfriend_marksman,8,14)]),
   ("kingdom_24_reinforcements_h", "{!}kingdom_24_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_darkfriend_initiate,15,25),(trp_darkfriend_murderer,6,10),(trp_darkfriend_assassin,4,8),(trp_darkfriend_ambusher,6,10),(trp_darkfriend_leader,4,8),(trp_darkfriend_marksman,8,14)]),
 
@@ -382,7 +382,7 @@ party_templates = [
   ("kingdom_28_reinforcements_h", "{!}kingdom_28_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_toman_head_recruit,5,10),(trp_toman_head_footman,4,8),(trp_toman_head_city_guard,3,6),(trp_toman_head_bowman,3,6),(trp_toman_head_scout,4,8)]),
 
   #end edited for TGS
-  
+
 ##  ("kingdom_1_reinforcements_a", "kingdom_1_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_swadian_footman,3,7),(trp_swadian_skirmisher,5,10),(trp_swadian_militia,11,26)]),
 ##  ("kingdom_1_reinforcements_b", "kingdom_1_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_swadian_man_at_arms,5,10),(trp_swadian_infantry,5,10),(trp_swadian_crossbowman,3,8)]),
 ##  ("kingdom_1_reinforcements_c", "kingdom_1_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_swadian_knight,2,6),(trp_swadian_sergeant,2,5),(trp_swadian_sharpshooter,2,5)]),
