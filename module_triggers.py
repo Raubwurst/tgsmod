@@ -30,10 +30,29 @@ num_merchandise_goods = 36
 
 triggers = [
 # Tutorial:  #modified for TGS
-  (0.1, 0, ti_once, [(map_free,0)], [
-                                      (dialog_box,"str_tutorial_map1"),
-                                      (assign,"$g_tutorial_complete",1),
-                                      ]),
+  (0.1, 0, ti_once, [(map_free,0)],
+   [
+      (dialog_box,"str_tutorial_map1"),
+      (assign,"$g_tutorial_complete",1),
+      #### TGS Slot Definitions
+      (troop_set_slot, "trp_player", slot_troop_air_blast_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_freeze_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_heal_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_fireball_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_unravel_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_defensive_blast_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_earth_blast_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_bind_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_chain_lightning_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_fire_curtain_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_shield_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_seeker_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_compulsion_known, 0),
+      (troop_set_slot, "trp_player", slot_troop_balefire_known, 0),
+
+      (troop_set_slot, "trp_player", slot_troop_player_knows_channeling, 0),      
+      #### End
+    ]),
 
 #  (1.0, 0, ti_once, [(map_free,0)], [(start_map_conversation, "trp_guide", -1)]),
 
@@ -4382,7 +4401,15 @@ triggers = [
 # Basic Game messages for TGS
 
   # Welcome message
-  (0, 0.1, ti_once, [(eq, "$g_tutorial_complete", 1)], [(dialog_box,"str_welcome_to_randland")]),
+  (0, 0.1, ti_once, [(eq, "$g_tutorial_complete", 1)],
+   [
+       (dialog_box,"str_welcome_to_randland"),
+       (try_begin),
+       (this_or_next|eq, "$background_answer_2", cb_childhood_novice),
+       (eq, "$background_answer_2", cb_childhood_wilder),
+           (troop_set_slot, "trp_player", slot_troop_player_knows_channeling, 1),
+       (try_end),
+    ]),
 
   # Help Menu
   (0, 0, 0, [(eq, "$g_tutorial_complete", 1)],
@@ -4393,62 +4420,119 @@ triggers = [
         (try_end),
    ]),
 
-  # Learn Weave Triggers
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 1),],[(dialog_box,"str_learn_weave_1")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 15),], [(dialog_box,"str_learn_weave_2")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 30),], [(dialog_box,"str_learn_weave_3")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 50),], [(dialog_box,"str_learn_weave_4")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 65),], [(dialog_box,"str_learn_weave_5")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 75),], [(dialog_box,"str_learn_weave_6")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 85),], [(dialog_box,"str_learn_weave_7")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 100),], [(dialog_box,"str_learn_weave_8")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 125),], [(dialog_box,"str_learn_weave_9")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 150),], [(dialog_box,"str_learn_weave_10")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 175),], [(dialog_box,"str_learn_weave_11")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 200),], [(dialog_box,"str_learn_weave_12")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 225),], [(dialog_box,"str_learn_weave_13")]),
-  
-  (0, 0.15, ti_once, [(this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-                      (eq,"$background_answer_2",cb_childhood_wilder),
-                      (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),(ge, ":channeling_proficiency", 250),], [(dialog_box,"str_learn_weave_14")]),
+  # Learn Weave Trigger
+  (0, 0.15, 0, [(eq, "$g_tutorial_complete", 1),(troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1),],
+    [
+        (try_begin),
+        (troop_slot_eq, "trp_player", slot_troop_air_blast_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, AIR_BLAST_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_air_blast_known, 1),
+            (dialog_box,"str_learn_weave_1","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_freeze_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, FREEZE_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_freeze_known, 1),
+            (dialog_box,"str_learn_weave_2","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_heal_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, HEAL_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_heal_known, 1),
+            (dialog_box,"str_learn_weave_3","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_fireball_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, FIREBALL_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_fireball_known, 1),
+            (dialog_box,"str_learn_weave_4","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_unravel_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, UNRAVEL_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_unravel_known, 1),
+            (dialog_box,"str_learn_weave_5","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_defensive_blast_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, DEFENSIVE_BLAST_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_defensive_blast_known, 1),
+            (dialog_box,"str_learn_weave_6","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_earth_blast_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, EARTH_BLAST_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_earth_blast_known, 1),
+            (dialog_box,"str_learn_weave_7","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_bind_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, BIND_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_bind_known, 1),
+            (dialog_box,"str_learn_weave_8","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_chain_lightning_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, CHAIN_LIGHTNING_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_chain_lightning_known, 1),
+            (dialog_box,"str_learn_weave_9","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_fire_curtain_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, FIRE_CURTAIN_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_fire_curtain_known, 1),
+            (dialog_box,"str_learn_weave_10","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_shield_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, SHIELD_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_shield_known, 1),
+            (dialog_box,"str_learn_weave_11","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_seeker_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, SEEKER_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_seeker_known, 1),
+            (dialog_box,"str_learn_weave_12","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_compulsion_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, COMPULSION_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_compulsion_known, 1),
+            (dialog_box,"str_learn_weave_13","str_learn_weave"),
+        (else_try),
+        (troop_slot_eq, "trp_player", slot_troop_balefire_known, 0),
+        (call_script, "script_tgs_determine_weave_scaling_factors_with_normalized_outputs", -10, BALEFIRE_WEAVE),
+        (gt, reg0, 0),
+            (troop_set_slot, "trp_player", slot_troop_balefire_known, 1),
+            (dialog_box,"str_learn_weave_14","str_learn_weave"),
+        (try_end),
+    ]),
+
+  # Update Max Channeling Stamina and Recharge Rates
+  (0, 0.15, 0, [(eq, "$g_tutorial_complete", 1),(troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1),],
+    [
+             # Player channeling stamina maximum
+             (store_attribute_level, ":player_strength", "trp_player", ca_strength),
+             (store_attribute_level, ":player_intelligence", "trp_player", ca_intelligence),
+             (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm), 
+
+             (store_mul, ":stamina_1", ":player_intelligence", 1000),
+             (store_mul, ":stamina_2", ":channeling_proficiency", 100),
+             (store_add, ":stamina_3", ":stamina_1", ":stamina_2"),
+             (troop_set_slot, "trp_player", slot_troop_max_channeling_stamina, ":stamina_3"),
+
+             # battle time re-charge rate
+             (store_mul, ":recharge_rate_1", ":player_strength", 20),
+             (store_mul, ":recharge_rate_2", ":channeling_proficiency", 2),
+             (store_add, ":recharge_rate_3", ":recharge_rate_1", ":recharge_rate_2"),
+             (troop_set_slot, "trp_player", slot_troop_channeling_stamina_recharge_rate_battle, ":recharge_rate_3"),
+             
+             # campaign map re-charge rate
+             (store_mul, ":recharge_rate_campaign", ":recharge_rate_3", 3600), # 3600 seconds per hour
+             (troop_set_slot, "trp_player", slot_troop_channeling_stamina_recharge_rate_campaign, ":recharge_rate_campaign"),
+    ]),  
 
   ## New main map hotkeys
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1)],
@@ -4456,8 +4540,7 @@ triggers = [
             ##Click 'M' to re-add One Power Item to inventory (Now this will only work if player is a channeler)
             (try_begin),
             (key_clicked, key_m),  # start the remainder of the code when 'M' is clicked
-            (this_or_next|eq,"$background_answer_2",cb_childhood_novice),
-            (eq,"$background_answer_2",cb_childhood_wilder),
+            (troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1), # only for channelers
                 (troop_ensure_inventory_space, "trp_player", 1),
                 (troop_add_item, "trp_player", "itm_power_player", 0),
             (try_end),
@@ -4523,10 +4606,18 @@ triggers = [
                         (try_begin),
                         (eq, "$g_cheat_recruit_add", 1),
             
-                            (party_add_members, ":party", "trp_legion_recruit_channeler", 5),
-                            (party_add_members, ":party", "trp_ashaman_soldier", 5),
-                            (party_add_members, ":party", "trp_ashaman_dedicated", 5),
-                            (party_add_members, ":party", "trp_ashaman", 5),
+                            #(party_add_members, ":party", "trp_legion_recruit_channeler", 5),
+                            #(party_add_members, ":party", "trp_ashaman_soldier", 5),
+                            #(party_add_members, ":party", "trp_ashaman_dedicated", 5),
+                            #(party_add_members, ":party", "trp_ashaman", 5),
+
+                            (party_add_members, ":party", "trp_aes_sedai_green_veteran", 3),
+                            (party_add_members, ":party", "trp_aes_sedai_red_veteran", 3),
+                            (party_add_members, ":party", "trp_aes_sedai_yellow_veteran", 3),
+                            (party_add_members, ":party", "trp_aes_sedai_blue_veteran", 3),
+                            (party_add_members, ":party", "trp_aes_sedai_white_veteran", 3),
+                            (party_add_members, ":party", "trp_aes_sedai_brown_veteran", 3),
+                            (party_add_members, ":party", "trp_aes_sedai_grey_veteran", 3),            
             
 #                            (party_add_members, ":party", "trp_legion_recruit_army", 2),
 #                            (party_add_members, ":party", "trp_legion_footman", 2),

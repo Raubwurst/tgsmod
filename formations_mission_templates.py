@@ -303,10 +303,10 @@ formations_triggers = [
 			(try_end),
 				
 			(store_add, ":slot", slot_team_d0_fclock, ":division"),
-			(team_get_slot, ":fclock_TGS", "$fplayer_team_no", ":slot"), # TGS
-			(store_mod, ":time_slice", ":fclock_TGS", Reform_Trigger_Modulus), # TGS
-			(val_add, ":fclock_TGS", 1), # TGS
-			(team_set_slot, "$fplayer_team_no", ":slot", ":fclock_TGS"), # TGS
+			(team_get_slot, ":fclock_TGS", "$fplayer_team_no", ":slot"), ## TGS: changed to fclock_TGS
+			(store_mod, ":time_slice", ":fclock_TGS", Reform_Trigger_Modulus), ## TGS: changed to fclock_TGS
+			(val_add, ":fclock_TGS", 1), ## TGS: changed to fclock_TGS
+			(team_set_slot, "$fplayer_team_no", ":slot", ":fclock_TGS"), ## TGS: changed to fclock_TGS
 
 			(try_begin),
 				(store_add, ":slot", slot_team_d0_move_order, ":division"),

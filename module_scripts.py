@@ -150,7 +150,8 @@ scripts = [
        
       #### TGS Global Variable Initialization
       #(assign, "$g_tutorial_complete", 0),
-      (assign, "$g_active_channeling_weave",0),
+      (assign, "$g_active_channeling_weave",1),
+      #(assign, "$g_weave_toggle_mode",5),
       (assign, "$g_cheat_recruit_add",1),
       #### End
       
@@ -75234,12 +75235,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     
         (try_begin),
         (eq, ":chosen_troop", "trp_player"),
-            (assign, ":active_weave", "$g_active_channeling_weave"), # assign active weave from global
+            (troop_get_slot, ":active_weave", "trp_player", slot_troop_active_weave),
             (call_script, "script_tgs_pay_stamina", ":active_weave"), # perform stamina check
             (assign, ":staminapaid", reg0),
         (else_try),
-            # Vaerraent's code for natural inclination
-            (call_script, "script_tgs_npc_channeler_natural_inclination", ":chosen", ":chosen_horse", ":chosen_team"),
+            # Vaerraent's code for natural inclination  ### Don't call this every time a weave is used. Instead call once when an agent who channels is spawned.
+#            (call_script, "script_tgs_npc_channeler_natural_inclination", ":chosen", ":chosen_horse", ":chosen_team"),
             # mat2rivs's code for situational awareness
             (call_script, "script_tgs_npc_channeler_situational_awareness", ":chosen", ":chosen_horse", ":chosen_team"),
             # mat2rivs's code for npc weave selection final calculations
@@ -75252,46 +75253,46 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (this_or_next|neq, ":chosen_troop", "trp_player"), # go ahead if ":chosen" is not the player
         (neq, ":staminapaid" ,0), # if ":chosen" is the player, make sure they paid
             (try_begin),
-            (eq, ":active_weave", 1),
+            (eq, ":active_weave", AIR_BLAST_WEAVE),
                 (call_script,"script_tgs_weave_airblast",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 2),
+            (eq, ":active_weave", FREEZE_WEAVE),
                 (call_script,"script_tgs_weave_freeze",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 3),
+            (eq, ":active_weave", HEAL_WEAVE),
                 (call_script,"script_tgs_weave_heal_nearest",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 4),
+            (eq, ":active_weave", FIREBALL_WEAVE),
                 (call_script,"script_tgs_weave_fireball",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 5),
+            (eq, ":active_weave", UNRAVEL_WEAVE),
                 (call_script,"script_tgs_weave_unravel",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 6),
+            (eq, ":active_weave", DEFENSIVE_BLAST_WEAVE),
                 (call_script,"script_tgs_weave_defensive_blast",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 7),
+            (eq, ":active_weave", EARTH_BLAST_WEAVE),
                 (call_script,"script_tgs_weave_ranged_earth_blast",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 8),
+            (eq, ":active_weave", BIND_WEAVE),
                 (call_script,"script_tgs_weave_bind",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 9),
+            (eq, ":active_weave", CHAIN_LIGHTNING_WEAVE),
                 (call_script,"script_tgs_weave_chain_lightning",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 10),
+            (eq, ":active_weave", FIRE_CURTAIN_WEAVE),
                 (call_script,"script_tgs_weave_fire_curtain",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 11),
+            (eq, ":active_weave", SHIELD_WEAVE),
                 (call_script,"script_tgs_weave_shield",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 12),
+            (eq, ":active_weave", SEEKER_WEAVE),
                 (call_script,"script_tgs_weave_seeker",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 13),
+            (eq, ":active_weave", COMPULSION_WEAVE),
                 (call_script,"script_tgs_weave_compulsion",":chosen",":chosen_horse",":chosen_team"),
             (else_try),
-            (eq, ":active_weave", 14),
+            (eq, ":active_weave", BALEFIRE_WEAVE),
                 (call_script,"script_tgs_weave_balefire",":chosen",":chosen_horse",":chosen_team"),
             (try_end),
         (try_end),
@@ -75310,7 +75311,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (store_script_param_2,":chosen_horse"),
             (store_script_param,":chosen_team",3),
             
-            (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 1),
+            (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", AIR_BLAST_WEAVE),
             (assign, ":primary_scaling_factor", reg0),
             #(assign, ":secondary_scaling_factor", reg1),
             
@@ -75357,11 +75358,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(position_set_z_to_ground_level,pos3),
 
 			(try_for_agents,":agent"),
+				(agent_is_alive,":agent"), ## add this to not re-kill dead people
+				(agent_get_look_position,pos2,":agent"),
+				(get_distance_between_positions,":dist",pos3,pos2),
+				(lt,":dist",":affected_radius"),
 				(neq,":chosen",":agent"), ## added this to avoid killing shooter
 				(neq, ":chosen_horse", ":agent"),
-	#           (neg|agent_is_ally,":agent"), ## add this to avoid killing allies
-				(agent_is_alive,":agent"), ## add this to not re-kill dead people
-				(neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
 				
 				#partial friendly fire protection
 				(agent_get_team, ":agent_team_ff", ":agent"),
@@ -75376,11 +75378,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 				(try_end),
 				(eq, ":deliver_damage", 1),
 				#end partial friendly fire protection
-
-				(agent_get_look_position,pos2,":agent"),
-				(get_distance_between_positions,":dist",pos3,pos2),
-				(lt,":dist",":affected_radius"),
-
+            
 					(agent_set_slot, ":agent", slot_agent_is_airborne, 1),
 
 					(position_get_x, ":attacker_x", pos1),
@@ -75460,7 +75458,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_script_param_2,":chosen_horse"),
         (store_script_param,":chosen_team",3),
         
-        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 2),
+        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", FREEZE_WEAVE),
         (assign, ":primary_scaling_factor", reg0),
         (assign, ":secondary_scaling_factor", reg1),
 
@@ -75566,12 +75564,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
 			(try_for_agents, ":agent"),
 			(eq, ":near_enemy", 0),
+				(agent_is_alive, ":agent"),
 				(neq, ":chosen", ":agent"),
 				(neq, ":chosen_horse", ":agent"),
 				(agent_get_team, ":agent_team", ":agent"),
 				(teams_are_enemies, ":chosen_team", ":agent_team"),
-				(agent_is_alive, ":agent"),
-				(neg|agent_is_wounded, ":agent"),
 				(agent_get_look_position, pos4, ":agent"),
                 (get_distance_between_positions, ":dist_2", pos2, pos4),
                 (get_distance_between_positions, ":dist_2_secondary", pos3, pos4),
@@ -75599,11 +75596,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(try_end),
 
 		(try_for_agents,":agent"),
+			(agent_is_alive,":agent"), ## add this to not freeze dead people
+			(agent_get_position,pos2,":agent"),
+			(get_distance_between_positions,":dist",pos3,pos2),
+            (lt, ":dist", ":affected_radius"),
 			(neq,":chosen",":agent"), ## added this to avoid freezing shooter
 			(neq, ":chosen_horse", ":agent"),
-#                            (neg|agent_is_ally,":agent"), ## add this to avoid freezing allies
-			(agent_is_alive,":agent"), ## add this to not freeze dead people
-			(neg|agent_is_wounded,":agent"), ## add this to not freeze wounded people
 
 			#partial friendly fire protection
 			(agent_get_team, ":agent_team_ff", ":agent"),
@@ -75619,35 +75617,29 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(eq, ":deliver_damage", 1),
 			#end partial friendly fire protection
     
-			(agent_get_position,pos2,":agent"),
-			(get_distance_between_positions,":dist",pos3,pos2),
-
+            (store_agent_hit_points,":target_health",":agent",1),
 			(try_begin),
-			(lt,":dist",":affected_radius"),  # freeze (slowed movement)
-                (store_agent_hit_points,":target_health",":agent",1),
-				(try_begin),
-				(gt,":target_health",":damage_dealt"),
-					(val_sub,":target_health",":damage_dealt"),
-					(agent_set_hit_points,":agent",":target_health",1),
-					(agent_deliver_damage_to_agent,":chosen",":agent"),
-					(try_begin), # add to channeling multiplier if agent is player
-					(neg|agent_is_non_player, ":chosen"),
-						(val_add, "$g_channeling_proficiency_modifier", 10),
-					(try_end),
-                    (agent_set_speed_limit, ":agent", 0),
-                    (agent_set_slot, ":agent", slot_agent_is_frozen, 1),
-                    (agent_set_slot, ":agent", slot_agent_freeze_duration, ":freeze_duration"),
-                    (agent_set_slot, ":agent", slot_agent_freeze_damage, ":damage_over_time"),
-                    (agent_set_slot, ":agent", slot_agent_freeze_starter, ":chosen"),
-                    #remove fire effects
-                    (agent_set_slot, ":agent", slot_agent_on_fire, 0),
-				(else_try),
-					(agent_set_hit_points,":agent",0,0),
-					(agent_deliver_damage_to_agent,":chosen",":agent"),
-					(try_begin), # add to channeling multiplier if agent is player
-					(neg|agent_is_non_player, ":chosen"),
-						(val_add, "$g_channeling_proficiency_modifier", 20),
-					(try_end),
+			(gt,":target_health",":damage_dealt"),
+				(val_sub,":target_health",":damage_dealt"),
+				(agent_set_hit_points,":agent",":target_health",1),
+				(agent_deliver_damage_to_agent,":chosen",":agent"),
+				(try_begin), # add to channeling multiplier if agent is player
+				(neg|agent_is_non_player, ":chosen"),
+					(val_add, "$g_channeling_proficiency_modifier", 10),
+				(try_end),
+                (agent_set_speed_limit, ":agent", 0),
+                (agent_set_slot, ":agent", slot_agent_is_frozen, 1),
+                (agent_set_slot, ":agent", slot_agent_freeze_duration, ":freeze_duration"),
+                (agent_set_slot, ":agent", slot_agent_freeze_damage, ":damage_over_time"),
+                (agent_set_slot, ":agent", slot_agent_freeze_starter, ":chosen"),
+                #remove fire effects
+                (agent_set_slot, ":agent", slot_agent_on_fire, 0),
+			(else_try),
+				(agent_set_hit_points,":agent",0,0),
+				(agent_deliver_damage_to_agent,":chosen",":agent"),
+				(try_begin), # add to channeling multiplier if agent is player
+				(neg|agent_is_non_player, ":chosen"),
+					(val_add, "$g_channeling_proficiency_modifier", 20),
 				(try_end),
 			(try_end),
 		(try_end),
@@ -75670,7 +75662,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         #(store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 3),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", HEAL_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
                         
@@ -75693,8 +75685,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                         (try_for_agents,":agent"),
                             (agent_is_alive,":agent"), ## don't heal dead
-                            (neg|agent_is_wounded,":agent"), ## don't heal wounded
-                            #(agent_is_ally,":agent"), ## don't heal enemies
                             (agent_get_team, ":agent_team", ":agent"),
                             (neg|teams_are_enemies, ":chosen_team", ":agent_team"),
                             (agent_is_human,":agent"), ## don't look for horses on the first round
@@ -75738,8 +75728,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                             (try_for_agents,":agent"),
                                 (agent_is_alive,":agent"), ## don't heal dead
-                                (neg|agent_is_wounded,":agent"), ## don't heal wounded
-                                #(agent_is_ally,":agent"), ## don't heal enemies
                                 (agent_get_team, ":agent_team", ":agent"),
                                 (neg|teams_are_enemies, ":chosen_team", ":agent_team"),
                                 (neg|agent_is_human,":agent"), ## look for horses on the second round
@@ -75793,7 +75781,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 4),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", FIREBALL_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
 
@@ -75916,12 +75904,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                             (try_for_agents, ":agent"),
                             (eq, ":near_enemy", 0),
+                                (agent_is_alive, ":agent"),
                                 (neq, ":chosen", ":agent"),
                                 (neq, ":chosen_horse", ":agent"),
                                 (agent_get_team, ":agent_team", ":agent"),
                                 (teams_are_enemies, ":chosen_team", ":agent_team"),
-                                (agent_is_alive, ":agent"),
-                                (neg|agent_is_wounded, ":agent"),
                                 (agent_get_look_position, pos4, ":agent"),
                                 (get_distance_between_positions, ":dist_2", pos2, pos4),
                                 (get_distance_between_positions, ":dist_2_secondary", pos3, pos4),
@@ -75952,11 +75939,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (try_end),
                                 
                         (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## add this to not re-kill dead people
+                            (agent_get_position,pos2,":agent"),
+                            (get_distance_between_positions,":dist",pos3,pos2),
+                            (lt, ":dist", ":affected_radius"),
                             (neq,":chosen",":agent"), ## added this to avoid killing shooter
                             (neq, ":chosen_horse", ":agent"),
-#                            (neg|agent_is_ally,":agent"), ## add this to avoid killing allies
-                            (agent_is_alive,":agent"), ## add this to not re-kill dead people
-                            (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
 
                             #partial friendly fire protection
                             (agent_get_team, ":agent_team_ff", ":agent"),
@@ -75972,9 +75960,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (eq, ":deliver_damage", 1),
                             #end partial friendly fire protection
     
-                            (agent_get_position,pos2,":agent"),
-                            (get_distance_between_positions,":dist",pos3,pos2),
-                         
                             (try_begin),
                             (lt,":dist",":affected_radius_div_8"),  #was 300
                                 (store_agent_hit_points,":target_health",":agent",1),
@@ -76123,7 +76108,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 5),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", UNRAVEL_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
                         
@@ -76163,7 +76148,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                     (assign, ":chosen_active_effect", 4),
                 
                                 (else_try), # chosen not bound
-                                    (agent_get_horse, ":chosen_horse", ":chosen"),
+# should be coming in as a script parameter                                    (agent_get_horse, ":chosen_horse", ":chosen"),
                                     (try_begin),
                                     (ge, ":chosen_horse", 0),
                                         (agent_get_slot, ":chosen_horse_fire", ":chosen_horse", slot_agent_on_fire),
@@ -76177,7 +76162,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                         
                                         (try_for_agents,":agent"),
                                             (agent_is_alive,":agent"), ## don't help dead
-                                            (neg|agent_is_wounded,":agent"), ## don't help wounded
+#                                            (neg|agent_is_wounded,":agent"), ## don't help wounded
 #                                            (agent_is_human,":agent"), ## don't help horses
                 
                                             # determine if agents under compulsion used to be teammates
@@ -76240,7 +76225,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                                             (eq, ":teammate_bound", 1),
                                                             (eq, ":agent_ally", 1), # break bound for agents currently on chosen's team
                                                                 (assign, ":teammate_active_effect", 4),
-                                                            (try_end),
+                                                            (try_end), # 100
                                                         (try_end),
                                                     (try_end),
                                                 (try_end),
@@ -76252,7 +76237,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 
                                         (try_for_agents,":agent"),
                                             (agent_is_alive,":agent"), ## don't help dead ######## 100
-                                            (neg|agent_is_wounded,":agent"), ## don't help wounded
+#                                            (neg|agent_is_wounded,":agent"), ## don't help wounded
 #                                            (agent_is_human,":agent"), ## don't help horses
                 
                                             # determine if agents under compulsion used to be teammates
@@ -76358,7 +76343,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (agent_get_troop_id, ":shooter_id", ":seeker_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
-                                (troop_get_xp, ":chosen_xp", ":chosen_id"),
+                                (troop_get_xp, ":chosen_xp", ":chosen_id"), #200
 
                                 (assign, ":effectivity_adder", 0),
                                 (assign, ":xp_received", 0),
@@ -76481,7 +76466,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                                 (assign, ":effectivity_adder", 0),
                                 (assign, ":xp_received", 0),
-                                (try_begin),
+                                (try_begin), # 300
                                 (gt, ":shooter_hp", 0),
                                     (try_begin),
                                     (lt, ":chosen_xp", ":shooter_xp"),
@@ -76516,7 +76501,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                         (else_try), # chosen unraveling weave on horse
                         (eq, ":chosen_horse_on_fire", 1),
-                            (agent_get_slot, ":fire_shooter", ":chosen_horse", slot_agent_fire_starter),
+                            (ge, ":chosen_horse", 0), # added to avoid script error for -1 horse
+                            (agent_get_slot, ":fire_shooter", ":chosen_horse", slot_agent_fire_starter), # 329
 
                             (store_agent_hit_points, ":shooter_hp", ":fire_shooter", 1),
                             (agent_get_troop_id, ":shooter_id", ":fire_shooter"),
@@ -76543,12 +76529,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         
                             (store_add, ":final_effectivity", ":total_channeler_based_effectivity", ":effectivity_adder"),
                         
-                            (agent_get_position, pos2, ":chosen_horse"),
+                            (agent_get_position, pos2, ":chosen_horse"), # 352
 
                             (store_random_in_range, ":random", 1, 101),
                             (try_begin),
                             (le, ":random", ":final_effectivity"),
-                                (agent_set_slot, ":chosen_horse", slot_agent_on_fire, 0),
+                                (agent_set_slot, ":chosen_horse", slot_agent_on_fire, 0), # 356
                                 (particle_system_burst, "psys_unravel_aura", pos2, 50),
                                 (play_sound, "snd_unravel"),
                                 (try_begin), # add to channeling multiplier if agent is player
@@ -76803,7 +76789,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 6),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", DEFENSIVE_BLAST_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         #(assign, ":secondary_scaling_factor", reg1),
             
@@ -76840,8 +76826,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         #base code begins
                         (try_for_agents,":agent"),
                             (agent_is_alive,":agent"), ## don't hurt dead
-                            (neg|agent_is_wounded,":agent"), ## don't hurt wounded
-#                            (neg|agent_is_ally,":agent"), ## don't hurt allies
+                            (agent_get_look_position, pos2, ":agent"),
+                            (get_distance_between_positions,":dist",pos1,pos2),
+                            (lt,":dist",":affected_radius"),
                             (neq,":chosen",":agent"), ## don't hurt self
                             (neq, ":chosen_horse", ":agent"),
                             
@@ -76858,13 +76845,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (try_end),
                             (eq, ":deliver_damage", 1),
                             #end partial friendly fire protection
-
-                            (agent_get_look_position, pos2, ":agent"),
-                            (get_distance_between_positions,":dist",pos1,pos2),
-                            (store_agent_hit_points,":target_health",":agent",1),
-                    
-                            (try_begin),
-                            (lt,":dist",":affected_radius"),
 
                                 (agent_set_slot, ":agent", slot_agent_is_airborne, 1),
 
@@ -76905,6 +76885,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (store_mul, ":max_modifier", ":push_distance_derived", ":push_distance_derived"),
                                 (agent_set_slot, ":agent", slot_agent_airborne_push_modifier, ":max_modifier"),
 
+                                (store_agent_hit_points,":target_health",":agent",1),
                                 (try_begin),
                                 (lt, ":dist", ":affected_radius_1_5"),
                                     (try_begin),
@@ -76963,7 +76944,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                         (try_end),
                                     (try_end),
                                 (try_end),
-                            (try_end),
                         (try_end),
 
                         (particle_system_burst, "psys_massive_pistol_smoke", pos1, 25),
@@ -76986,7 +76966,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 7),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", EARTH_BLAST_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
                         (store_add, ":total_scaling_factor", ":primary_scaling_factor", ":secondary_scaling_factor"),
@@ -77106,12 +77086,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                             (try_for_agents, ":agent"),
                             (eq, ":near_enemy", 0),
+                                (agent_is_alive, ":agent"),
                                 (neq, ":chosen", ":agent"),
                                 (neq, ":chosen_horse", ":agent"),
                                 (agent_get_team, ":agent_team", ":agent"),
                                 (teams_are_enemies, ":chosen_team", ":agent_team"),
-                                (agent_is_alive, ":agent"),
-                                (neg|agent_is_wounded, ":agent"),
                                 (agent_get_look_position, pos4, ":agent"),
                                 (get_distance_between_positions, ":dist_2", pos2, pos4),
                                 (get_distance_between_positions, ":dist_2_secondary", pos3, pos4),
@@ -77145,11 +77124,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (try_end),
                     
                         (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## add this to not affect dead people
+                            (agent_get_position,pos2,":agent"),
+                            (get_distance_between_positions,":dist",pos3,pos2),
+                            (lt,":dist",":affected_radius"),
                             (neq,":chosen",":agent"), ## added this to avoid affecting shooter
                             (neq, ":chosen_horse", ":agent"),
-#                            (neg|agent_is_ally,":agent"), ## add this to avoid hurting allies
-                            (agent_is_alive,":agent"), ## add this to not affect dead people
-                            (neg|agent_is_wounded,":agent"), ## add this to not affect wounded people
+
 
                             #partial friendly fire protection
                             (agent_get_team, ":agent_team_ff", ":agent"),
@@ -77165,13 +77146,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (eq, ":deliver_damage", 1),
                             #end partial friendly fire protection
     
-                            (agent_get_position,pos2,":agent"),
-                            (get_distance_between_positions,":dist",pos3,pos2),
-                            (store_agent_hit_points,":target_health",":agent",1),
-                    
-                            (try_begin),
-                            (lt,":dist",":affected_radius"),
-
                                 (agent_set_slot, ":agent", slot_agent_is_airborne, 1),
 
                                 (position_get_x, ":attacker_x", pos1),
@@ -77211,6 +77185,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (store_mul, ":max_modifier", ":push_distance_derived", ":push_distance_derived"),
                                 (agent_set_slot, ":agent", slot_agent_airborne_push_modifier, ":max_modifier"),
 
+                                (store_agent_hit_points,":target_health",":agent",1),
                                 (try_begin),
                                 (lt, ":dist_from_explosion", ":affected_radius_1_5"),
                                     (try_begin),
@@ -77288,7 +77263,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                         (try_end),
                                     (try_end),
                                 (try_end),
-                            (try_end),
                         (try_end),
 
                         (store_mul, ":xp_modifier", ":damage_dealt", 3),
@@ -77308,7 +77282,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         #(store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 8),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", BIND_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
                         (store_add, ":total_scaling_factor", ":primary_scaling_factor", ":secondary_scaling_factor"),
@@ -77348,14 +77322,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                         (try_for_agents,":agent"),
                             (agent_is_alive,":agent"), ## don't bind dead
-                            (neg|agent_is_wounded,":agent"), ## don't bind wounded
                             (agent_is_human,":agent"), ## don't bind horses
-                            #(neg|agent_is_ally,":agent"), ## don't bind allies
                             (agent_get_team, ":agent_team", ":agent"),
                             (teams_are_enemies, ":chosen_team", ":agent_team"),
                             (neq, ":chosen", ":agent"), ## shooter can't bind self
-                            (agent_get_slot, ":already_bound", ":agent", slot_agent_is_bound),
-                            (eq, ":already_bound", 0),
+                            (agent_slot_eq, ":agent", slot_agent_is_bound, 0),
                             #new for binding cavalry as priority
                             (agent_get_horse, ":agent_horse", ":agent"),
                             (try_begin),
@@ -77387,13 +77358,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (else_try),
                                 (assign, ":target", ":infantry_target"),
                             (try_end),
-                        
-                            (agent_get_slot, ":target_is_channeler", ":target", slot_agent_is_channeler),
-                            (agent_get_slot, ":target_is_shielded", ":target", slot_agent_is_shielded),
                     
                             (try_begin),
-                            (eq, ":target_is_channeler", 1),  # harder to bind channelers
-                            (eq, ":target_is_shielded", 0),  # unless they are shielded
+                            (agent_slot_eq, ":target", slot_agent_is_channeler, 1), # harder to bind channelers
+                            (agent_slot_eq, ":target", slot_agent_is_shielded, 0), # who are unshielded
                                 (agent_get_troop_id, ":target_id", ":target"),
                                 (troop_get_xp, ":target_xp", ":target_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
@@ -77463,7 +77431,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 9),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", CHAIN_LIGHTNING_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
                         (store_add, ":total_scaling_factor", ":primary_scaling_factor", ":secondary_scaling_factor"),
@@ -77571,12 +77539,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                             (try_for_agents, ":agent"),
                             (eq, ":near_enemy", 0),
+                                (agent_is_alive, ":agent"),
                                 (neq, ":chosen", ":agent"),
                                 (neq, ":chosen_horse", ":agent"),
                                 (agent_get_team, ":agent_team", ":agent"),
                                 (teams_are_enemies, ":chosen_team", ":agent_team"),
-                                (agent_is_alive, ":agent"),
-                                (neg|agent_is_wounded, ":agent"),
                                 (agent_get_look_position, pos4, ":agent"),
                                 (get_distance_between_positions, ":dist_2", pos2, pos4),
                                 (get_distance_between_positions, ":dist_2_secondary", pos3, pos4),
@@ -77662,11 +77629,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (particle_system_burst, "psys_electricity_sparks_lightning_strike", pos4, 15),
                             
                         (try_for_agents,":agent"),
+                            (agent_is_alive,":agent"), ## add this to not freeze dead people
+                            (agent_get_position,pos2,":agent"),
+                            (get_distance_between_positions,":dist",pos3,pos2),
+                            (lt, ":dist", ":affected_radius"),
                             (neq,":chosen",":agent"), ## added this to avoid freezing shooter
                             (neq, ":chosen_horse", ":agent"),
-#                            (neg|agent_is_ally,":agent"), ## add this to avoid freezing allies
-                            (agent_is_alive,":agent"), ## add this to not freeze dead people
-                            (neg|agent_is_wounded,":agent"), ## add this to not freeze wounded people
 
                             #partial friendly fire protection
                             (agent_get_team, ":agent_team_ff", ":agent"),
@@ -77682,9 +77650,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (eq, ":deliver_damage", 1),
                             #end partial friendly fire protection
     
-                            (agent_get_position,pos2,":agent"),
-                            (get_distance_between_positions,":dist",pos3,pos2),
-                        
                             (try_begin),
                             (lt, ":dist", ":affected_radius_1_3"),
                                 (store_add, ":total_charge", ":charge_scaler", 6),
@@ -78166,7 +78131,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 10),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", FIRE_CURTAIN_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
                         (store_add, ":total_scaling_factor", ":primary_scaling_factor", ":secondary_scaling_factor"),
@@ -78261,12 +78226,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (particle_system_burst,":blast_hit_effect",pos3,20),  #was 75  (this number is the duration
                                 (particle_system_burst,":blast_hit_effect_2",pos3,5),
                                 (try_for_agents,":agent"),
+                                    (agent_is_alive,":agent"), ## add this to not re-kill dead people
+                                    (agent_get_position,pos2,":agent"),
+                                    (get_distance_between_positions,":dist",pos3,pos2),
+                                    (lt, ":dist", ":affected_radius"),
                                     (neq,":chosen",":agent"), ### added this to avoid killing shooter
                                     (neq, ":chosen_horse", ":agent"),
-#                                   (neg|agent_is_ally,":agent"),## added this to avoid killing allies
-                                    (agent_is_alive,":agent"), ## add this to not re-kill dead people
-                                    (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
-    
+
                                     #partial friendly fire protection
                                     (agent_get_team, ":agent_team_ff", ":agent"),
                                     (assign, ":deliver_damage", 1),
@@ -78281,9 +78247,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                     (eq, ":deliver_damage", 1),
                                     #end partial friendly fire protection
     
-                                    (agent_get_position,pos2,":agent"),
-                                    (get_distance_between_positions,":dist",pos3,pos2),
-                    
                                     (try_begin),
                                     (lt,":dist",":affected_radius_1_5"),  #was 300
                                         (store_agent_hit_points,":target_health",":agent",1),
@@ -78460,34 +78423,34 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (troop_set_slot, "trp_player", ":firewall_damage_slot", ":damage_over_time"),
                         
                             (try_begin),
-                            (eq, ":firewall_slot", 601),
+                            (eq, ":firewall_slot", 1601),
                                 (copy_position, pos31, pos5),
                             (else_try),
-                            (eq, ":firewall_slot", 602),
+                            (eq, ":firewall_slot", 1602),
                                 (copy_position, pos32, pos5),
                             (else_try),
-                            (eq, ":firewall_slot", 603),
+                            (eq, ":firewall_slot", 1603),
                                 (copy_position, pos33, pos5),
                             (else_try),
-                            (eq, ":firewall_slot", 604),
+                            (eq, ":firewall_slot", 1604),
                                 (copy_position, pos34, pos5),
                             (else_try),
-                            (eq, ":firewall_slot", 605),
+                            (eq, ":firewall_slot", 1605),
                                 (copy_position, pos35, pos5),
                             (else_try),
-                            (eq, ":firewall_slot", 606),
+                            (eq, ":firewall_slot", 1606),
                                 (copy_position, pos36, pos5),
                             (else_try),
-                            (eq, ":firewall_slot", 607),
+                            (eq, ":firewall_slot", 1607),
                                 (copy_position, pos37, pos5),
                             (else_try),
-                            (eq, ":firewall_slot", 608),
+                            (eq, ":firewall_slot", 1608),
                                 (copy_position, pos38, pos5),
                             (else_try),
-                            (eq, ":firewall_slot", 609),
+                            (eq, ":firewall_slot", 1609),
                                 (copy_position, pos39, pos5),
                             (else_try),
-                            (eq, ":firewall_slot", 610),
+                            (eq, ":firewall_slot", 1610),
                                 (copy_position, pos40, pos5),
                             (try_end),
 
@@ -78514,7 +78477,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         #(store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 11),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", SHIELD_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
                         (store_add, ":total_scaling_factor", ":primary_scaling_factor", ":secondary_scaling_factor"),
@@ -78532,16 +78495,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                         (try_for_agents,":agent"),
                             (agent_is_alive,":agent"), ## don't shield dead
-                            (neg|agent_is_wounded,":agent"), ## don't shield wounded
                             (agent_is_human,":agent"), ## don't shield horses
-                            #(neg|agent_is_ally,":agent"), ## don't shield allies
                             (agent_get_team, ":agent_team", ":agent"),
                             (teams_are_enemies, ":chosen_team", ":agent_team"),
                             (neq, ":chosen", ":agent"), ## shooter can't shield self
-                            (agent_get_slot, ":channeler", ":agent", slot_agent_is_channeler),
-                            (eq, ":channeler", 1),
-                            (agent_get_slot, ":already_shielded", ":agent", slot_agent_is_shielded),
-                            (eq, ":already_shielded", 0),
+                            (agent_slot_eq, ":agent", slot_agent_is_channeler, 1), # only try to shield channelers
+                            (agent_slot_eq, ":agent", slot_agent_is_shielded, 0), # who aren't already shielded
                             (agent_get_look_position, pos2, ":agent"),
                             (get_distance_between_positions,":dist",pos1,pos2),
                             (lt,":dist",":distance"),
@@ -78592,7 +78551,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	#(store_script_param_2,":chosen_horse"),
     (store_script_param,":chosen_team",3),
 
-    (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 12),
+    (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", SEEKER_WEAVE),
     (assign, ":primary_scaling_factor", reg0),
     (assign, ":secondary_scaling_factor", reg1),
     
@@ -78611,9 +78570,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":distance", 99999),
         (try_for_agents,":agent"),
             (agent_is_alive,":agent"), ## don't hurt dead
-            (neg|agent_is_wounded,":agent"), ## don't hurt wounded
             (agent_is_human,":agent"), ## don't hurt horses
-            #(neg|agent_is_ally,":agent"), ## don't hurt allies
             (agent_get_team, ":agent_team", ":agent"),
             (teams_are_enemies, ":chosen_team", ":agent_team"),
             (neq, ":chosen", ":agent"), ## shooter can't hurt self
@@ -78630,7 +78587,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         # DEBUG BEGIN
             (try_begin),
             (gt, ":already_targeted", 1),
-                (display_message, "@Error!! Target has more than one active seekers!!"),
+                (display_message, "@Error!! Target has more than one active seeker!!"),
             (try_end),
         # DEBUG END
             (eq, ":already_targeted", 0),
@@ -78641,10 +78598,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (assign,":distance",":dist"),
             (val_add, ":number_of_enemies", 1),
         (try_end),
+    (else_try),
+    (neg|agent_is_non_player, ":chosen"),
+        (display_message, "@All seeker slots are full!!"),
     (try_end),
-
-#   (assign, reg45, ":dist"),
-#   (display_message, "@Target is {reg45} from shooter..."),
     
     (try_begin),
     (ge, ":number_of_enemies", 1),
@@ -78681,7 +78638,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (else_try),
     (ge, ":number_of_enemies", 0),
     (neg|agent_is_non_player, ":chosen"),
-        (display_message, "@All seeker slots are full!!"),
+        (display_message, "@All live enemies have active seekers!!"),
     (try_end),
                         
 ]),
@@ -78836,7 +78793,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         #(store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 13),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", COMPULSION_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
                         (store_add, ":total_scaling_factor", ":primary_scaling_factor", ":secondary_scaling_factor"),
@@ -78856,16 +78813,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                         (try_for_agents,":agent"),
                             (agent_is_alive,":agent"), ## don't compel dead
-                            (neg|agent_is_wounded,":agent"), ## don't compel wounded
                             (agent_is_human,":agent"), ## don't compel horses
-                            #(neg|agent_is_ally,":agent"), ## don't compel allies
                             (agent_get_team, ":agent_team", ":agent"),
                             (teams_are_enemies, ":chosen_team", ":agent_team"),
                             (neq, ":chosen", ":agent"), ## shooter can't compel self
                             (get_player_agent_no,":player_agent"),
                             (neq, ":agent", ":player_agent"), ## shooter can't compel player (too many complications)
-                            (agent_get_slot, ":already_compelled", ":agent", slot_agent_under_compulsion),
-                            (eq, ":already_compelled", 0),
+                            (agent_slot_eq, ":agent", slot_agent_under_compulsion, 0), # don't target agents who are already compelled
                             (agent_get_troop_id, ":agent_troop", ":agent"),
                             (troop_get_xp, ":agent_xp", ":agent_troop"),
                             (call_script, "script_tgs_determine_level_from_xp", ":agent_xp"),
@@ -78984,7 +78938,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (store_script_param_2,":chosen_horse"),
                         (store_script_param,":chosen_team",3),
 
-                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 14),
+                        (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", BALEFIRE_WEAVE),
                         (assign, ":primary_scaling_factor", reg0),
                         (assign, ":secondary_scaling_factor", reg1),
                         (store_add, ":total_scaling_factor", ":primary_scaling_factor", ":secondary_scaling_factor"),
@@ -79075,19 +79029,17 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (store_add, ":z_ground_high_secondary", ":z_ground_secondary", 2000),    
 
                             (try_for_agents, ":agent"),
+                                (agent_is_alive, ":agent"),
                                 (neq, ":chosen", ":agent"),
                                 (neq, ":chosen_horse", ":agent"),
-#                                (neg|agent_is_ally, ":agent"),
                                 # so npc channelers in ranks won't balefire their allies beside them
                                 (store_add, ":agent_team", ":chosen_team", 100), # to make sure they are different before the check
                                 (try_begin),
-                                (lt, reg5, 5), # so it disregards allies for 5 iterations of the loop
+                                (lt, reg5, 9), # so it disregards allies for 5 iterations of the loop
                                     (agent_get_team, ":agent_team", ":agent"),
                                 (try_end),
                                 # end
                                 (neq, ":chosen_team", ":agent_team"),
-                                (agent_is_alive, ":agent"),
-                                (neg|agent_is_wounded, ":agent"),
                                 (agent_get_look_position, pos4, ":agent"),
                                 (get_distance_between_positions, ":dist_2", pos2, pos4),
                                 (get_distance_between_positions, ":dist_2_secondary", pos3, pos4),
@@ -79129,7 +79081,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 ("tgs_break_shield", [
                 (store_script_param_1,":chosen"),
                 
-                (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", 0),
+                (call_script, "script_tgs_determine_weave_scaling_factors", ":chosen", SHIELD_BREAKER),
                 (assign, ":primary_scaling_factor", reg0),
                 
                 #effectivity percentage scaling
@@ -79200,13 +79152,60 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 ## V: TODO: Drop stuff in global vars so we don't need to calculate the full thing every time
 ("tgs_pay_stamina", [
 	(store_script_param_1,":weaveno"),
-	(assign,":totalweaves",14), # Total number of weaves availible for balance purposes
-        (store_mod,":oech",":totalweaves",2), # mod total weaves by 2
+	(assign,":totalweaves",TOTAL_NUMBER_OF_RANKS), # Total number of weaves (RANKS) availible for balance purposes
+    (store_mod,":oech",":totalweaves",2), # mod total weaves (RANKS) by 2
+
+## mat: added to use a weave ranking that's assigned at the end of module_constants rather than the weave number.
+## This will allow us to use a non-linear scale if we so desire.
+    (try_begin),
+    (eq, ":weaveno", AIR_BLAST_WEAVE),
+        (assign, ":rank_weaveno", AIR_BLAST_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", FREEZE_WEAVE),
+        (assign, ":rank_weaveno", FREEZE_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", HEAL_WEAVE),
+        (assign, ":rank_weaveno", HEAL_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", FIREBALL_WEAVE),
+        (assign, ":rank_weaveno", FIREBALL_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", UNRAVEL_WEAVE),
+        (assign, ":rank_weaveno", UNRAVEL_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", DEFENSIVE_BLAST_WEAVE),
+        (assign, ":rank_weaveno", DEFENSIVE_BLAST_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", EARTH_BLAST_WEAVE),
+        (assign, ":rank_weaveno", EARTH_BLAST_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", BIND_WEAVE),
+        (assign, ":rank_weaveno", BIND_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", CHAIN_LIGHTNING_WEAVE),
+        (assign, ":rank_weaveno", CHAIN_LIGHTNING_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", FIRE_CURTAIN_WEAVE),
+        (assign, ":rank_weaveno", FIRE_CURTAIN_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", SHIELD_WEAVE),
+        (assign, ":rank_weaveno", SHIELD_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", SEEKER_WEAVE),
+        (assign, ":rank_weaveno", SEEKER_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", COMPULSION_WEAVE),
+        (assign, ":rank_weaveno", COMPULSION_WEAVE_RANK),
+    (else_try),
+    (eq, ":weaveno", BALEFIRE_WEAVE),
+        (assign, ":rank_weaveno", BALEFIRE_WEAVE_RANK),
+    (try_end),
+## mat: end    
 
 	(try_begin),
 	(eq,":oech",0), #even number? no worries, fix it.
 		(store_add,":totalweaves",":totalweaves",1),
-		(assign,':odded',1), #but make sure we note that we changed it
+## mat: commented out since it wasn't being used		(assign,":odded",1), #but make sure we note that we changed it
 	(try_end),
 	
 	(assign,":max_cost",8100), # max cost of a weave
@@ -79217,32 +79216,33 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(store_mul,":2divider",":divider",2),
 
 	(try_begin),
-	(this_or_next|lt,"$g_active_channeling_weave",":divider"),
-	(eq,"$g_active_channeling_weave",":divider"),
+	(le,":rank_weaveno",":divider"),
 		(store_div,":stascale",":baseno",20),
 		(store_add,":baseno",":baseno",":stascale"),
-		(store_mul,":result",":baseno","$g_active_channeling_weave"),
+		(store_mul,":result",":baseno",":rank_weaveno"),
 	(else_try),
-	(gt,"$g_active_channeling_weave",":divider"),
-	(this_or_next|lt,"$g_active_channeling_weave",":2divider"),
-	(eq,"$g_active_channeling_weave",":2divider"),
+	(gt,":rank_weaveno",":divider"),
+	(le,":rank_weaveno",":2divider"),
 		(store_add,":baseno",":baseno",":stascale"),
-		(store_mul,":result",":baseno","$g_active_channeling_weave"),
+		(store_mul,":result",":baseno",":rank_weaveno"),
 	(else_try),
-	(gt,"$g_active_channeling_weave",":2divider"),
+	(gt,":rank_weaveno",":2divider"),
 		(store_div,":stascale",":baseno",5),
 		(store_add,":baseno",":baseno",":stascale"),
-		(store_mul,":result",":baseno","$g_active_channeling_weave"),
+		(store_mul,":result",":baseno",":rank_weaveno"),
 	(try_end),
-
-        (store_sub, ":stamina_check", "$g_current_channeling_stamina", ":result"),
-        (try_begin),
-        (lt, ":stamina_check", 0),
-            (display_message, "@You are too tired to channel..."),
-            (assign,reg0,0),
-        (else_try),
-            (val_sub, "$g_current_channeling_stamina", ":result"),
-            (assign,reg0,1),
+    
+    (troop_get_slot, ":current_channeling_stamina", "trp_player", slot_troop_current_channeling_stamina),
+    (store_sub, ":stamina_check", ":current_channeling_stamina", ":result"),
+    (try_begin),
+    (lt, ":stamina_check", 0),
+        (display_message, "@You are too tired to channel..."),
+        (assign,reg0,0),
+    (else_try),
+        (val_sub, ":current_channeling_stamina", ":result"),
+        (troop_set_slot, "trp_player", slot_troop_current_channeling_stamina, ":current_channeling_stamina"),
+        (assign,reg0,1),
+    (try_end),
 ]),
 ##"script_tgs_npc_channeler_natural_inclination"
 ## Return which weave fits the channelers 'One Power DNA'
@@ -79393,11 +79393,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (assign, ":fcompulsion_prob", 0),
     (assign, ":fbalefire_prob", 0),    
 	    
-    #(call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",1),
+    #(call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",AIR_BLAST_WEAVE),
     #(store_add,":scale",reg0,reg1),
     #(assign,":airblaston",":scale"),
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",2), # Find the multipliers for chosen and weave 2
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",FREEZE_WEAVE), # Find the multipliers for chosen and weave 2
     (store_add,":scale",reg0,reg1), # Grab the total of the two multipliers
     (assign,":freezeon",":scale"), # Assign the total to a new variable
     (try_begin), 
@@ -79408,7 +79408,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":pref_aggresive"), # Add aggresiveness to the elemental probability, giving us 20 tops
        (store_div,":comp_prob",":comp_base",2), # Divide by two to get the number back down to a fraction of ten
 
-       (store_add,":scale_base",":freezeon",2), # Add the raw 'level' of the weave, how far up the scale it is from a basic air push to balefire, to it's multiplier
+       (store_add,":scale_base",":freezeon",FREEZE_WEAVE_RANK_LINEAR), # Add the raw 'level' of the weave, how far up the scale it is from a basic air push to balefire, to it's multiplier
        (store_div,":scale_prob",":scale_base",3), # Now divide our totally new value by 3 for a reasonable fraction of 10
 
        (store_add,":freeze_prob",":comp_prob",":scale_prob"), # Put our two probabilites together (perceived preferences)
@@ -79416,7 +79416,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",3),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",HEAL_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":healon",":scale"),
     (try_begin),
@@ -79430,7 +79430,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":aggresiveinvert"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":healon",3),
+       (store_add,":scale_base",":healon",HEAL_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":heal_prob",":comp_prob",":scale_prob"),
@@ -79438,7 +79438,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",4),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",FIREBALL_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":fireballon",":scale"),
     (try_begin),
@@ -79449,7 +79449,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":fireballon",4),
+       (store_add,":scale_base",":fireballon",FIREBALL_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":fireball_prob",":comp_prob",":scale_prob"),
@@ -79457,7 +79457,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",5),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",UNRAVEL_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":unravelon",":scale"),
     (try_begin),
@@ -79472,7 +79472,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":aggresiveinvert"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":unravelon",5),
+       (store_add,":scale_base",":unravelon",UNRAVEL_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":unravel_prob",":comp_prob",":scale_prob"),
@@ -79480,11 +79480,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
 
-    #(call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",6),
+    #(call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",DEFENSIVE_BLAST_WEAVE),
     #(store_add,":scale",reg0,reg1),
     #(assign,":dblaston",":scale"),
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",7),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",EARTH_BLAST_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":reblaston",":scale"),
     (try_begin),
@@ -79495,7 +79495,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":reblaston",7),
+       (store_add,":scale_base",":reblaston",EARTH_BLAST_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":reblast_prob",":comp_prob",":scale_prob"),
@@ -79503,7 +79503,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",8),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",BIND_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":bindon",":scale"),
     (try_begin),
@@ -79514,7 +79514,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":bindon",8),
+       (store_add,":scale_base",":bindon",BIND_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":bind_prob",":comp_prob",":scale_prob"),
@@ -79522,7 +79522,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",9),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",CHAIN_LIGHTNING_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":clighton",":scale"),
     (try_begin),
@@ -79534,7 +79534,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":clighton",9),
+       (store_add,":scale_base",":clighton",CHAIN_LIGHTNING_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":clight_prob",":comp_prob",":scale_prob"),
@@ -79542,11 +79542,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
 
-    #(call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",10),
+    #(call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",FIRE_CURTAIN_WEAVE),
     #(store_add,":scale",reg0,reg1),
     #(assign,":ficurton",":scale"),
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",11),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",SHIELD_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":shieldon",":scale"),
     (try_begin),
@@ -79560,7 +79560,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":aggresiveinvert"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":shieldon",11),
+       (store_add,":scale_base",":shieldon",SHIELD_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":shield_prob",":comp_prob",":scale_prob"),
@@ -79568,7 +79568,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",12),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",SEEKER_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":seekeron",":scale"),
     (try_begin),
@@ -79581,7 +79581,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":seekeron",12),
+       (store_add,":scale_base",":seekeron",SEEKER_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":seeker_prob",":comp_prob",":scale_prob"),
@@ -79589,7 +79589,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",13),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",COMPULSION_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":compulsionon",":scale"),
     (try_begin),
@@ -79601,14 +79601,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":compulsionon",13),
+       (store_add,":scale_base",":compulsionon",COMPULSION_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":compulsion_prob",":comp_prob",":scale_prob"),
        (store_div,":fcompulsion_prob",":compulsion_prob",2),
     (try_end),
 
-    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",14),
+    (call_script,"script_tgs_determine_weave_scaling_factors_with_normalized_outputs",":chosen",BALEFIRE_WEAVE),
     (store_add,":scale",reg0,reg1),
     (assign,":balefireon",":scale"),
     (try_begin),
@@ -79619,24 +79619,26 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (store_add,":comp_base",":elemental_prob",":pref_aggresive"),
        (store_div,":comp_prob",":comp_base",2),
 
-       (store_add,":scale_base",":balefireon",14),
+       (store_add,":scale_base",":balefireon",BALEFIRE_WEAVE_RANK_LINEAR),
        (store_div,":scale_prob",":scale_base",3),
 
        (store_add,":balefire_prob",":comp_prob",":scale_prob"),
        (store_div,":fbalefire_prob",":balefire_prob",2),
     (try_end),
        
-       
-
     ## mat: added for 'generic' troop specific weave preferences
     (agent_get_troop_id, ":chosen_troop", ":chosen"),
     (try_begin),
     (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_white"),
-    (eq, ":chosen_troop", "trp_aes_sedai_white_veteran"),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_white_warder"), # new
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_white_veteran"),
+    (eq, ":chosen_troop", "trp_aes_sedai_white_veteran_warder"), # new
         (val_add, ":ffreeze_prob", 1),
     (else_try),
     (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_yellow"),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_yellow_warder"), # new
     (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_yellow_veteran"),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_yellow_veteran_warder"), # new
     (this_or_next|eq, ":chosen_troop", "trp_village_wisdom"),
     (eq, ":chosen_troop", "trp_kinswoman"),
         (val_add, ":fheal_prob", 2),
@@ -79645,16 +79647,22 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (val_add, ":ffireball_prob", 2),
     (else_try),
     (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_brown"),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_brown_warder"), # new
     (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_brown_veteran"),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_brown_veteran_warder"), # new
     (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_grey"),
-    (eq, ":chosen_troop", "trp_aes_sedai_grey_veteran"),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_grey_warder"), # new
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_grey_veteran"),
+    (eq, ":chosen_troop", "trp_aes_sedai_grey_veteran_warder"), # new
         (val_add, ":funravel_prob", 1),
     (else_try),
     (eq, ":chosen_troop", "trp_madmen_storm_caller"),
         (val_add, ":fclight_prob", 2),
     (else_try),
     (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_red"),
-    (eq, ":chosen_troop", "trp_aes_sedai_red_veteran"),
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_red_warder"), # new
+    (this_or_next|eq, ":chosen_troop", "trp_aes_sedai_red_veteran"),
+    (eq, ":chosen_troop", "trp_aes_sedai_red_veteran_warder"), # new
         (val_add, ":fshield_prob", 2),
     (try_end),
     
@@ -79763,7 +79771,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         
     (try_for_agents, ":agent"),
         (agent_is_alive, ":agent"),
-        (neg|agent_is_wounded, ":agent"),
         (agent_is_human, ":agent"), # don't scan horses
         (agent_get_team, ":agent_team", ":agent"),
     
@@ -79792,16 +79799,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_end),
     
             # Unravel Check - On Fire
-            (agent_get_slot, ":on_fire_check", ":agent", slot_agent_on_fire),
             (try_begin),
-            (eq, ":on_fire_check", 1),
+            (agent_slot_eq, ":agent", slot_agent_on_fire, 1),
                 (val_add, ":unravel_ally_on_fire_check", 1),
             (try_end),
     
             # Unravel Check - Bound
-            (agent_get_slot, ":bound_check", ":agent", slot_agent_is_bound),
             (try_begin),
-            (eq, ":bound_check", 1),
+            (agent_slot_eq, ":agent", slot_agent_is_bound, 1),
                 (val_add, ":unravel_ally_bound_check", 1),
             (try_end),
 
@@ -79810,16 +79815,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, ":total_active_enemies", 1),
     
             # Unravel Check - Compulsion
-            (agent_get_slot, ":compulsion_check", ":agent", slot_agent_under_compulsion),
             (try_begin),
-            (eq, ":compulsion_check", 1),
+            (agent_slot_eq, ":agent", slot_agent_under_compulsion, 1),
                 (val_add, ":unravel_ally_compulsion_check", 1),
             (try_end),
     
             # Bind Check
-            (agent_get_slot, ":bound_check", ":agent", slot_agent_is_bound),
             (try_begin),
-            (neq, ":bound_check", 1),
+            (agent_slot_eq, ":agent", slot_agent_is_bound, 0),
                 (agent_get_horse, ":agent_horse", ":agent"),
                 (try_begin),
                 (gt, ":agent_horse", -1), # means agent actually has a horse
@@ -79828,27 +79831,21 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_end),
     
             # Shield Check
-            (agent_get_slot, ":channeler_check", ":agent", slot_agent_is_channeler),
             (try_begin),
-            (eq, ":channeler_check", 1),
-                (agent_get_slot, ":shielded_check", ":agent", slot_agent_is_shielded),
-                (try_begin),
-                (neq, ":shielded_check", 1),
-                    (val_add, ":num_enemy_unshielded_channelers", 1),
-                (try_end),
+            (agent_slot_eq, ":agent", slot_agent_is_channeler, 1),
+            (agent_slot_eq, ":agent", slot_agent_is_shielded, 0),
+                (val_add, ":num_enemy_unshielded_channelers", 1),
             (try_end),
     
             # Compulsion Check
-            (agent_get_slot, ":compulsion_check", ":agent", slot_agent_under_compulsion),
             (try_begin),
-            (neq, ":compulsion_check", 1),
+            (agent_slot_eq, ":agent", slot_agent_under_compulsion, 0),
                 (agent_get_troop_id, ":agent_troop", ":agent"),
                 (troop_get_xp, ":agent_xp", ":agent_troop"),
                 (call_script, "script_tgs_determine_level_from_xp", ":agent_xp"),
                 (assign, ":agent_level", reg0),
-                (agent_get_slot, ":channeler_check", ":agent", slot_agent_is_channeler),
                 (try_begin),
-                (eq, ":channeler_check", 1),
+                (agent_slot_eq, ":agent", slot_agent_is_channeler, 1),
                 (ge, ":agent_level", 12),
                     (val_add, ":num_high_tier_enemies", 1),
                 (else_try),
@@ -80102,8 +80099,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 ## down version of the ranged code itself), it will be sort of hard to determine which weave is 'best' for the situation.
 ## So, we can assign Agressive weaves 'randomly' with a preference for stronger weaves.    
     
-    ## When to use Freeze? 1,2,3,4,5
-    (store_random_in_range, ":random", 1, 6),
+    ## When to use Freeze? 1,2,3,4,5,6
+    (store_random_in_range, ":random", 1, 7),
     (assign, ":freeze_level_of_importance", ":random"),
 
     ## When to use Fireball? 2,3,4,5,6,7,8
@@ -80118,18 +80115,18 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (store_random_in_range, ":random", 4, 9), #4, 9
     (assign, ":chain_lightning_level_of_importance", ":random"),
 
-    ## When to use Seeker? 5,6,7,8,9
+    ## When to use Seeker? 4,5,6,7,8,9
     (assign, ":seeker_level_of_importance", 0),
     (try_begin),
     (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
     (lt, ":num_seekers_active", 50),
     (lt, ":num_seekers_active", ":total_active_enemies"),
-        (store_random_in_range, ":random", 5, 10),
+        (store_random_in_range, ":random", 4, 10),
         (assign, ":seeker_level_of_importance", ":random"),
     (try_end),
 
-    ## When to use Balefire? 6,7,8,9
-    (store_random_in_range, ":random", 6, 10),
+    ## When to use Balefire? 5,6,7,8,9
+    (store_random_in_range, ":random", 5, 10),
     (assign, ":balefire_level_of_importance", ":random"),
 
 
@@ -80312,20 +80309,20 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         
 
             (assign, ":num_maximums_plus_one", 1),
-            (val_add, ":num_maximums_plus_one", ":weave_1"),
-            (val_add, ":num_maximums_plus_one", ":weave_2"),
-            (val_add, ":num_maximums_plus_one", ":weave_3"),
-            (val_add, ":num_maximums_plus_one", ":weave_4"),
-            (val_add, ":num_maximums_plus_one", ":weave_5"),
-            (val_add, ":num_maximums_plus_one", ":weave_6"),
-            (val_add, ":num_maximums_plus_one", ":weave_7"),
-            (val_add, ":num_maximums_plus_one", ":weave_8"),
-            (val_add, ":num_maximums_plus_one", ":weave_9"),
-            (val_add, ":num_maximums_plus_one", ":weave_10"),
-            (val_add, ":num_maximums_plus_one", ":weave_11"),
-            (val_add, ":num_maximums_plus_one", ":weave_12"),
-            (val_add, ":num_maximums_plus_one", ":weave_13"),
-            (val_add, ":num_maximums_plus_one", ":weave_14"),
+            (val_add, ":num_maximums_plus_one", ":weave_1"), # air blast
+            (val_add, ":num_maximums_plus_one", ":weave_2"), # freeze
+            (val_add, ":num_maximums_plus_one", ":weave_3"), # heal
+            (val_add, ":num_maximums_plus_one", ":weave_4"), # fireball
+            (val_add, ":num_maximums_plus_one", ":weave_5"), # unravel
+            (val_add, ":num_maximums_plus_one", ":weave_6"), # defensive blast
+            (val_add, ":num_maximums_plus_one", ":weave_7"), # earth blast
+            (val_add, ":num_maximums_plus_one", ":weave_8"), # bind
+            (val_add, ":num_maximums_plus_one", ":weave_9"), # chain lightning
+            (val_add, ":num_maximums_plus_one", ":weave_10"), # fire curtain
+            (val_add, ":num_maximums_plus_one", ":weave_11"), # shield
+            (val_add, ":num_maximums_plus_one", ":weave_12"), # seeker
+            (val_add, ":num_maximums_plus_one", ":weave_13"), # compulsion
+            (val_add, ":num_maximums_plus_one", ":weave_14"), # balefire
         
             # If ":num_maximums_plus_one" = 2, then no tie, if 3 then a tie, if 4, then a three way tie, and so on.
             (store_random_in_range, ":choose_this_weave", 1, ":num_maximums_plus_one"),
@@ -80338,7 +80335,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_1", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 1),
+                    (assign, ":active_weave", AIR_BLAST_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80350,7 +80347,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_2", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 2),
+                    (assign, ":active_weave", FREEZE_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80362,7 +80359,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_3", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 3),
+                    (assign, ":active_weave", HEAL_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80374,7 +80371,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_4", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 4),
+                    (assign, ":active_weave", FIREBALL_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80386,7 +80383,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_5", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 5),
+                    (assign, ":active_weave", UNRAVEL_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80398,7 +80395,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_6", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 6),
+                    (assign, ":active_weave", DEFENSIVE_BLAST_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80410,7 +80407,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_7", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 7),
+                    (assign, ":active_weave", EARTH_BLAST_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80422,7 +80419,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_8", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 8),
+                    (assign, ":active_weave", BIND_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80434,7 +80431,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_9", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 9),
+                    (assign, ":active_weave", CHAIN_LIGHTNING_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80446,7 +80443,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_10", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 10),
+                    (assign, ":active_weave", FIRE_CURTAIN_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80458,7 +80455,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_11", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 11),
+                    (assign, ":active_weave", SHIELD_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80470,7 +80467,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_12", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 12),
+                    (assign, ":active_weave", SEEKER_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80482,7 +80479,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_13", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 13),
+                    (assign, ":active_weave", COMPULSION_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80494,7 +80491,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":weave_14", 1),
                 (try_begin),
                 (eq, ":choose_this_weave", 1),
-                    (assign, ":active_weave", 14),
+                    (assign, ":active_weave", BALEFIRE_WEAVE),
                     (assign, ":weave_assigned", 1),
                 (else_try),
                     (val_sub, ":choose_this_weave", 1),
@@ -80576,7 +80573,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(store_script_param_1, ":chosen"),
     (store_script_param_2, ":weave_no"),
     
-    (agent_get_troop_id, ":chosen_troop", ":chosen"),
+    (try_begin),
+    (lt, ":chosen", 0), # will be negative if it is called from module_triggers rather than module_mission_templates
+        (assign, ":chosen_troop", "trp_player"),
+    (else_try),
+        (agent_get_troop_id, ":chosen_troop", ":chosen"),
+    (try_end),
 
     (store_proficiency_level, ":channeling_proficiency", ":chosen_troop", wpt_firearm),    
     (store_skill_level, ":fire", skl_fire, ":chosen_troop"),
@@ -80589,7 +80591,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (assign, ":secondary_scaling_factor", 0),
     
     (try_begin), # used for shield breaking
-    (eq, ":weave_no", 0),
+    (eq, ":weave_no", SHIELD_BREAKER),
         (assign, ":total", ":fire"),
         (val_add, ":total", ":earth"),
         (val_add, ":total", ":spirit"),
@@ -80598,14 +80600,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":primary_scaling_factor", ":total"),
         
     (else_try),
-    (eq, ":weave_no", 1),
+    (eq, ":weave_no", AIR_BLAST_WEAVE),
         (try_begin),
         (ge, ":air", 2),
             (store_sub, ":primary_scaling_factor", ":air", 1),
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 2),
+    (eq, ":weave_no", FREEZE_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 15),
         (ge, ":water", 3),
@@ -80624,7 +80626,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 3),
+    (eq, ":weave_no", HEAL_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 30),
         (ge, ":water", 4),
@@ -80646,7 +80648,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 4),
+    (eq, ":weave_no", FIREBALL_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 50),
         (ge, ":fire", 4),
@@ -80665,7 +80667,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 5),
+    (eq, ":weave_no", UNRAVEL_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 65),
         (ge, ":spirit", 5),
@@ -80703,7 +80705,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 6),
+    (eq, ":weave_no", DEFENSIVE_BLAST_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 75),
         (ge, ":air", 5),
@@ -80711,7 +80713,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 7),
+    (eq, ":weave_no", EARTH_BLAST_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 85),
         (ge, ":earth", 6),
@@ -80728,7 +80730,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 8),
+    (eq, ":weave_no", BIND_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 100),
         (ge, ":spirit", 5),
@@ -80745,7 +80747,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 9),
+    (eq, ":weave_no", CHAIN_LIGHTNING_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 125),
         (ge, ":water", 5),
@@ -80774,7 +80776,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 10),
+    (eq, ":weave_no", FIRE_CURTAIN_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 150),
         (ge, ":fire", 6),
@@ -80794,7 +80796,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 11),
+    (eq, ":weave_no", SHIELD_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 175),
         (ge, ":spirit", 5),
@@ -80826,7 +80828,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 12),
+    (eq, ":weave_no", SEEKER_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 200),
         (ge, ":spirit", 6),
@@ -80845,7 +80847,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 13),
+    (eq, ":weave_no", COMPULSION_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 225),
         (ge, ":spirit", 7),
@@ -80871,7 +80873,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 14),
+    (eq, ":weave_no", BALEFIRE_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 250),
         (ge, ":fire", 7),
@@ -80903,9 +80905,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 ##OUTPUT: reg0    :primary_scaling_factor,  reg1    :secondary_scaling_factor  (both = 0 if min requirements not met)
 ("tgs_determine_weave_scaling_factors_with_normalized_outputs", [
 	(store_script_param_1, ":chosen"),
-    (store_script_param_2, ":weave_no"),
+    (store_script_param_2, ":weave_no"),   
     
-    (agent_get_troop_id, ":chosen_troop", ":chosen"),
+    (try_begin),
+    (lt, ":chosen", 0), # will be negative if it is called from module_triggers rather than module_mission_templates
+        (assign, ":chosen_troop", "trp_player"),
+    (else_try),
+        (agent_get_troop_id, ":chosen_troop", ":chosen"),
+    (try_end),
 
     (store_proficiency_level, ":channeling_proficiency", ":chosen_troop", wpt_firearm),    
     (store_skill_level, ":fire", skl_fire, ":chosen_troop"),
@@ -80918,14 +80925,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (assign, ":secondary_scaling_factor", 0),
     
     (try_begin),
-    (eq, ":weave_no", 1),
+    (eq, ":weave_no", AIR_BLAST_WEAVE),
         (try_begin),
         (ge, ":air", 2),
             (assign, ":primary_scaling_factor", ":air"),
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 2),
+    (eq, ":weave_no", FREEZE_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 15),
         (ge, ":water", 3),
@@ -80935,7 +80942,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 3),
+    (eq, ":weave_no", HEAL_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 30),
         (ge, ":water", 4),
@@ -80947,7 +80954,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 4),
+    (eq, ":weave_no", FIREBALL_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 50),
         (ge, ":fire", 4),
@@ -80957,7 +80964,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 5),
+    (eq, ":weave_no", UNRAVEL_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 65),
         (ge, ":spirit", 5),
@@ -80973,7 +80980,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 6),
+    (eq, ":weave_no", DEFENSIVE_BLAST_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 75),
         (ge, ":air", 5),
@@ -80981,7 +80988,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 7),
+    (eq, ":weave_no", EARTH_BLAST_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 85),
         (ge, ":earth", 6),
@@ -80991,7 +80998,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 8),
+    (eq, ":weave_no", BIND_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 100),
         (ge, ":spirit", 5),
@@ -81001,7 +81008,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 9),
+    (eq, ":weave_no", CHAIN_LIGHTNING_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 125),
         (ge, ":water", 5),
@@ -81013,7 +81020,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 10),
+    (eq, ":weave_no", FIRE_CURTAIN_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 150),
         (ge, ":fire", 6),
@@ -81023,7 +81030,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 11),
+    (eq, ":weave_no", SHIELD_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 175),
         (ge, ":spirit", 5),
@@ -81035,7 +81042,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 12),
+    (eq, ":weave_no", SEEKER_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 200),
         (ge, ":spirit", 6),
@@ -81051,7 +81058,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 13),
+    (eq, ":weave_no", COMPULSION_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 225),
         (ge, ":spirit", 7),
@@ -81063,7 +81070,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (else_try),
-    (eq, ":weave_no", 14),
+    (eq, ":weave_no", BALEFIRE_WEAVE),
         (try_begin),
         (ge, ":channeling_proficiency", 250),
         (ge, ":fire", 7),
@@ -81073,9 +81080,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
     
     (try_end),
-
+    # debug
+    
     (assign, reg0, ":primary_scaling_factor"),
     (assign, reg1, ":secondary_scaling_factor"),
+
 ]),
   
 ###############################
@@ -81297,7 +81306,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (troop_slot_eq, "trp_player", ":seeker_no", 1),
         (troop_get_slot, ":target", "trp_player", ":target_no"),
         (agent_is_alive, ":target"),
-        (neg|agent_is_wounded, ":target"),
         
             (troop_get_slot, ":current_x", "trp_player", ":x_slot_no"),
             (troop_get_slot, ":current_y", "trp_player", ":y_slot_no"),
@@ -81313,7 +81321,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_abs, ":diff_y"),
         
             (troop_get_slot, ":speed_scaler", "trp_player", ":speed_slot_no"),
-            (store_add, ":speed_ceiling", ":speed_scaler", 50),
+            (store_add, ":speed_ceiling", ":speed_scaler", 70), # was 50
             (store_sub, ":speed_floor", ":speed_ceiling", 10),
             (store_mul, ":neg_speed_ceiling", ":speed_ceiling", -1),
             (store_mul, ":neg_speed_floor", ":speed_floor", -1),
@@ -81383,25 +81391,26 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 #new explosion stuff here        
                 (troop_get_slot, ":power_scaler", "trp_player", ":power_slot_no"),
                 #radius
-                (assign, ":base_radius", 200),
+                (assign, ":base_radius", 250), # was 200
                 (store_mul, ":scaled_radius", ":power_scaler", 50),
                 (store_add, ":affected_radius", ":base_radius", ":scaled_radius"),
                 (store_div, ":affected_radius_1_3", ":affected_radius", 3),
                 (store_mul, ":affected_radius_2_3", ":affected_radius_1_3", 2),
                 #damage
-                (assign, ":base_damage", 10),
+                (assign, ":base_damage", 12), # was 10
                 (store_mul, ":scaled_damage", ":power_scaler", 3),
                 (store_add, ":damage_dealt", ":base_damage", ":scaled_damage"),
                 (store_div, ":damage_dealt_1_3", ":damage_dealt", 3),
                 (store_mul, ":damage_dealt_2_3", ":damage_dealt_1_3", 2),
 
                 (try_for_agents,":agent"),
+                    (agent_is_alive,":agent"), ## add this to not re-kill dead people
+                    (agent_get_position,pos2,":agent"),
+                    (get_distance_between_positions,":dist",pos61,pos2),
+                    (lt, ":dist", ":affected_radius"),
                     (neq,":chosen",":agent"), ### added this to avoid killing shooter
                     (neq, ":chosen_horse", ":agent"),
-#                   (neg|agent_is_ally,":agent"),## added this to avoid killing allies
-                    (agent_is_alive,":agent"), ## add this to not re-kill dead people
-                    (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
-    
+
                     #partial friendly fire protection
                     (agent_get_team, ":agent_team_ff", ":agent"),
                     (assign, ":deliver_damage", 1),
@@ -81416,73 +81425,70 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                     (eq, ":deliver_damage", 1),
                     #end partial friendly fire protection
     
-                    (agent_get_position,pos2,":agent"),
-                    (get_distance_between_positions,":dist",pos61,pos2),
-                    
-                    (try_begin),
-                    (lt,":dist",":affected_radius_1_3"),  #was 300
-                        (store_agent_hit_points,":target_health",":agent",1),
                         (try_begin),
-                        (gt,":target_health",":damage_dealt"),
-                            (val_sub,":target_health",":damage_dealt"),
-                            (agent_set_hit_points,":agent",":target_health",1),
-                            (agent_deliver_damage_to_agent,":chosen",":agent"),
-                            (try_begin), # add to channeling multiplier if agent is player
-                            (neg|agent_is_non_player, ":chosen"),
-                                (val_add, "$g_channeling_proficiency_modifier", 5),
+                        (lt,":dist",":affected_radius_1_3"),  #was 300
+                            (store_agent_hit_points,":target_health",":agent",1),
+                            (try_begin),
+                            (gt,":target_health",":damage_dealt"),
+                                (val_sub,":target_health",":damage_dealt"),
+                                (agent_set_hit_points,":agent",":target_health",1),
+                                (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 5),
+                                (try_end),
+                            (else_try),
+                                (agent_set_hit_points,":agent",0,0),
+                                (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 6),
+                                (try_end),
+                                (add_xp_to_troop, 30, ":chosen"),
                             (try_end),
                         (else_try),
-                            (agent_set_hit_points,":agent",0,0),
-                            (agent_deliver_damage_to_agent,":chosen",":agent"),
-                            (try_begin), # add to channeling multiplier if agent is player
-                            (neg|agent_is_non_player, ":chosen"),
-                                (val_add, "$g_channeling_proficiency_modifier", 6),
-                            (try_end),
-                            (add_xp_to_troop, 30, ":chosen"),
-                        (try_end),
-                    (else_try),
-                    (is_between,":dist",":affected_radius_1_3",":affected_radius_2_3"),  #was 300
-                        (store_agent_hit_points,":target_health",":agent",1),
-                        (try_begin),
-                        (gt,":target_health",":damage_dealt_2_3"),
-                            (val_sub,":target_health",":damage_dealt_2_3"),
-                            (agent_set_hit_points,":agent",":target_health",1),
-                            (agent_deliver_damage_to_agent,":chosen",":agent"),
-                            (try_begin), # add to channeling multiplier if agent is player
-                            (neg|agent_is_non_player, ":chosen"),
-                                (val_add, "$g_channeling_proficiency_modifier", 5),
-                            (try_end),
-                        (else_try),
-                            (agent_set_hit_points,":agent",0,0),
-                            (agent_deliver_damage_to_agent,":chosen",":agent"),
-                            (try_begin), # add to channeling multiplier if agent is player
-                            (neg|agent_is_non_player, ":chosen"),
-                                (val_add, "$g_channeling_proficiency_modifier", 6),
-                            (try_end),
-                            (add_xp_to_troop, 30, ":chosen"),
-                        (try_end),
-                    (else_try),
-                    (is_between,":dist",":affected_radius_2_3",":affected_radius"),  #was 300
-                        (store_agent_hit_points,":target_health",":agent",1),
-                        (try_begin),
-                        (gt,":target_health",":damage_dealt"),
-                            (val_sub,":target_health",":damage_dealt"),
-                            (agent_set_hit_points,":agent",":target_health",1),
-                            (agent_deliver_damage_to_agent,":chosen",":agent"),
-                            (try_begin), # add to channeling multiplier if agent is player
-                            (neg|agent_is_non_player, ":chosen"),
-                                (val_add, "$g_channeling_proficiency_modifier", 5),
+                        (is_between,":dist",":affected_radius_1_3",":affected_radius_2_3"),  #was 300
+                            (store_agent_hit_points,":target_health",":agent",1),
+                            (try_begin),
+                            (gt,":target_health",":damage_dealt_2_3"),
+                                (val_sub,":target_health",":damage_dealt_2_3"),
+                                (agent_set_hit_points,":agent",":target_health",1),
+                                (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 5),
+                                (try_end),
+                            (else_try),
+                                (agent_set_hit_points,":agent",0,0),
+                                (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 6),
+                                (try_end),
+                                (add_xp_to_troop, 30, ":chosen"),
                             (try_end),
                         (else_try),
-                            (agent_set_hit_points,":agent",0,0),
-                            (agent_deliver_damage_to_agent,":chosen",":agent"),
-                            (try_begin), # add to channeling multiplier if agent is player
-                            (neg|agent_is_non_player, ":chosen"),
-                                (val_add, "$g_channeling_proficiency_modifier", 6),
+                        (is_between,":dist",":affected_radius_2_3",":affected_radius"),  #was 300
+                            (store_agent_hit_points,":target_health",":agent",1),
+                            (try_begin),
+                            (gt,":target_health",":damage_dealt"),
+                                (val_sub,":target_health",":damage_dealt"),
+                                (agent_set_hit_points,":agent",":target_health",1),
+                                (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 5),
+                                (try_end),
+                            (else_try),
+                                (agent_set_hit_points,":agent",0,0),
+                                (agent_deliver_damage_to_agent,":chosen",":agent"),
+                                (try_begin), # add to channeling multiplier if agent is player
+                                (neg|agent_is_non_player, ":chosen"),
+                                    (val_add, "$g_channeling_proficiency_modifier", 6),
+                                (try_end),
+                                (add_xp_to_troop, 30, ":chosen"),
                             (try_end),
-                            (add_xp_to_troop, 30, ":chosen"),
                         (try_end),
-                    (try_end),
                 (try_end),
 
             (else_try),
@@ -81795,34 +81801,34 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (store_mul, ":burn_over_time_duration_2_3", ":burn_over_time_duration_1_3", 2),
 
                             (try_begin),
-                            (eq, ":firewall_no", 601),
+                            (eq, ":firewall_no", 1601),
                                 (copy_position, pos4, pos31),
                             (else_try),
-                            (eq, ":firewall_no", 602),
+                            (eq, ":firewall_no", 1602),
                                 (copy_position, pos4, pos32),
                             (else_try),
-                            (eq, ":firewall_no", 603),
+                            (eq, ":firewall_no", 1603),
                                 (copy_position, pos4, pos33),
                             (else_try),
-                            (eq, ":firewall_no", 604),
+                            (eq, ":firewall_no", 1604),
                                 (copy_position, pos4, pos34),
                             (else_try),
-                            (eq, ":firewall_no", 605),
+                            (eq, ":firewall_no", 1605),
                                 (copy_position, pos4, pos35),
                             (else_try),
-                            (eq, ":firewall_no", 606),
+                            (eq, ":firewall_no", 1606),
                                 (copy_position, pos4, pos36),
                             (else_try),
-                            (eq, ":firewall_no", 607),
+                            (eq, ":firewall_no", 1607),
                                 (copy_position, pos4, pos37),
                             (else_try),
-                            (eq, ":firewall_no", 608),
+                            (eq, ":firewall_no", 1608),
                                 (copy_position, pos4, pos38),
                             (else_try),
-                            (eq, ":firewall_no", 609),
+                            (eq, ":firewall_no", 1609),
                                 (copy_position, pos4, pos39),
                             (else_try),
-                            (eq, ":firewall_no", 610),
+                            (eq, ":firewall_no", 1610),
                                 (copy_position, pos4, pos40),
                             (try_end),
                         
@@ -81837,11 +81843,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (particle_system_burst,":blast_hit_effect",pos4,10),  #was 75  (this number is the duration
                                 (particle_system_burst,":blast_hit_effect_2",pos4,2),
                                 (try_for_agents,":agent"),
-                                    (neq,":chosen",":agent"), ### added this to avoid killing shooter
+                                    #(neq,":chosen",":agent"), ### added this to avoid killing shooter
                                     #(neq, ":chosen_horse", ":agent"),
-#                                   (neg|agent_is_ally,":agent"),## added this to avoid killing allies
                                     (agent_is_alive,":agent"), ## add this to not re-kill dead people
-                                    (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
+                                    (agent_get_position,pos2,":agent"),
+                                    (get_distance_between_positions,":dist",pos4,pos2),
+                                    (lt, ":dist", ":radius"),
     
                                     #partial friendly fire protection
                                     (agent_get_team, ":agent_team_ff", ":agent"),
@@ -81857,9 +81864,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                     (eq, ":deliver_damage", 1),
                                     #end partial friendly fire protection
     
-                                    (agent_get_position,pos2,":agent"),
-                                    (get_distance_between_positions,":dist",pos4,pos2),
-                    
                                     (try_begin),
                                     (lt,":dist",":radius_1_5"),  #was 300
                                         (store_agent_hit_points,":target_health",":agent",1),

@@ -61,3 +61,4 @@ prsnt_prebattle_custom_divisions = 59
 prsnt_troop_ratio_bar = 60
 prsnt_troop_ratio_bar_multiplayer = 61
 prsnt_troop_ratio_bar_multiplayer_2 = 62
+prsnt_battle_time_weave_selection = 63

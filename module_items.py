@@ -1243,7 +1243,7 @@ items = [
 ###insert new items for TGS
 #####################################
  #weight(2.25)
- ["power_ammo","One Power Ammo", [("cartridge_a",0),("practice_arrows_2",ixmesh_flying_ammo)], itp_type_bullets|itp_can_penetrate_shield|itp_default_ammo, 0, 5,weight(0.01)|abundance(90)|weapon_length(3)|thrust_damage(1,pierce)|max_ammo(200),imodbits_missile],
+ ["power_ammo","One Power Ammo", [("cartridge_a",0),("practice_arrows_2",ixmesh_flying_ammo)], itp_unique|itp_type_bullets|itp_can_penetrate_shield|itp_default_ammo, 0, 5,weight(0.01)|abundance(90)|weapon_length(3)|thrust_damage(1,pierce)|max_ammo(200),imodbits_missile],
 #
 
 #####################################
@@ -1251,7 +1251,7 @@ items = [
 #####################################
  #["power_player","One Power", [("dagger_b",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
  
- ["power_player","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(120) | thrust_damage(1 ,  pierce)|max_ammo(255)|weapon_length(65),imodbits_none,
+ ["power_player","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_unique|itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(120) | thrust_damage(1 ,  pierce)|max_ammo(255)|weapon_length(65),imodbits_none,
   [(ti_on_weapon_attack, [
 
 #            (assign,":distance",99999),   
@@ -1269,10 +1269,8 @@ items = [
             (store_trigger_param_1, ":chosen"),
 
 ## Run the channeling code only if the channeling agent is not shielded
-            (agent_get_slot, ":agent_is_shielded", ":chosen", slot_agent_is_shielded),
-
             (try_begin),
-            (eq, ":agent_is_shielded", 0),
+            (agent_slot_eq, ":chosen", slot_agent_is_shielded, 0),
                 (call_script, "script_tgs_select_weave",":chosen"),
 ######################################### Run the "Shield Breaker" code if the channeler is shielded...
             (else_try),

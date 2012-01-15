@@ -1019,8 +1019,8 @@ formAI_scripts = [
 				(store_add, ":slot", slot_team_d0_size, ":enemy_division"),
 				(team_slot_ge, "$fplayer_team_no", ":slot", 1),
 				(store_add, ":slot", slot_team_d0_fclock, ":enemy_division"),
-				(team_get_slot, ":fclock_TGS", "$fplayer_team_no", ":slot"), # edited for TGS fclock
-				(store_mod, reg0, ":fclock_TGS", Reform_Trigger_Modulus), # TGS
+				(team_get_slot, ":fclock_TGS", "$fplayer_team_no", ":slot"), ## TGS: changed to fclock_TGS
+				(store_mod, reg0, ":fclock_TGS", Reform_Trigger_Modulus), ## TGS: changed to fclock_TGS
 				(store_div, ":time_slice", Reform_Trigger_Modulus, 2),
 			(else_try),
 				(store_mod, reg0, "$ranged_clock", Reform_Trigger_Modulus),

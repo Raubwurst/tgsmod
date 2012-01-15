@@ -1183,7 +1183,10 @@ troop_slots_reserved_for_relations_start        = 165 #this is based on id_troop
 
 ## TGS: trp_heroes_end = 1065  ##  as of version 0.2.7  ## not sure what to do with the above constant
 
-## added for TGS
+###################
+## added for TGS ##
+###################
+
 slot_troop_recruit_primary             = 1173  # this will be a number from 1 to 8 which will determine what recruitment option a lord will use.
 slot_troop_recruit_secondary           = 1174
 
@@ -1624,8 +1627,37 @@ slot_troop_firewall_9_damage        = 1659
 slot_troop_firewall_10_damage       = 1660
 
 
-## end added for TGS
+## slots for weave toggling
+slot_troop_active_weave             = 2000
 
+slot_troop_air_blast_known          = 2001
+slot_troop_freeze_known             = 2002
+slot_troop_heal_known               = 2003
+slot_troop_fireball_known           = 2004
+slot_troop_unravel_known            = 2005
+slot_troop_defensive_blast_known    = 2006
+slot_troop_earth_blast_known        = 2007
+slot_troop_bind_known               = 2008
+slot_troop_chain_lightning_known    = 2009
+slot_troop_fire_curtain_known       = 2010
+slot_troop_shield_known             = 2011
+slot_troop_seeker_known             = 2012
+slot_troop_compulsion_known         = 2013
+slot_troop_balefire_known           = 2014
+
+## slots for channeling stamina
+slot_troop_max_channeling_stamina                       = 3050
+slot_troop_current_channeling_stamina                   = 3051
+slot_troop_channeling_stamina_recharge_rate_battle      = 3052
+slot_troop_channeling_stamina_recharge_rate_campaign    = 3053
+
+## other channeler slots
+slot_troop_player_knows_channeling                      = 3100
+
+
+#######################
+## end added for TGS ##
+#######################
 
 slot_troop_relations_begin				= 0 #this creates an array for relations between troops
 											#Right now, lords start at 165 and run to around 290, including pretenders
@@ -3163,6 +3195,66 @@ key_label_begin = "str_0x02"
 #-- Dunde's Key Config END
 
 ## Prebattle Orders & Deployment End
+
+### TGS Special Constants ###
+
+# Numberical Order - Used for weave toggling: mission_templates, presentations, etc.
+SHIELD_BREAKER          = 0
+AIR_BLAST_WEAVE         = 1
+FREEZE_WEAVE            = 2
+HEAL_WEAVE              = 3
+FIREBALL_WEAVE          = 4
+UNRAVEL_WEAVE           = 5
+DEFENSIVE_BLAST_WEAVE   = 6
+EARTH_BLAST_WEAVE       = 7
+BIND_WEAVE              = 8
+CHAIN_LIGHTNING_WEAVE   = 9
+FIRE_CURTAIN_WEAVE      = 10
+SHIELD_WEAVE            = 11
+SEEKER_WEAVE            = 12
+COMPULSION_WEAVE        = 13
+BALEFIRE_WEAVE          = 14
+
+TOTAL_NUMBER_OF_WEAVES  = 14
+
+# Ranking: Doesn't have to be numerical or linear - Used for Stamina usage calculations
+AIR_BLAST_WEAVE_RANK        = 1
+FREEZE_WEAVE_RANK           = 2
+HEAL_WEAVE_RANK             = 3
+FIREBALL_WEAVE_RANK         = 4
+UNRAVEL_WEAVE_RANK          = 5
+DEFENSIVE_BLAST_WEAVE_RANK  = 6
+EARTH_BLAST_WEAVE_RANK      = 7
+BIND_WEAVE_RANK             = 8
+CHAIN_LIGHTNING_WEAVE_RANK  = 9
+FIRE_CURTAIN_WEAVE_RANK     = 10
+SHIELD_WEAVE_RANK           = 11
+SEEKER_WEAVE_RANK           = 12
+COMPULSION_WEAVE_RANK       = 13
+BALEFIRE_WEAVE_RANK         = 14
+
+TOTAL_NUMBER_OF_RANKS       = 14  # not necessarily equal to the number of weaves
+
+# Ranking: Linear - used for Natural Inclination calculations
+AIR_BLAST_WEAVE_RANK_LINEAR        = 1
+FREEZE_WEAVE_RANK_LINEAR           = 2
+HEAL_WEAVE_RANK_LINEAR             = 3
+FIREBALL_WEAVE_RANK_LINEAR         = 4
+UNRAVEL_WEAVE_RANK_LINEAR          = 5
+DEFENSIVE_BLAST_WEAVE_RANK_LINEAR  = 6
+EARTH_BLAST_WEAVE_RANK_LINEAR      = 7
+BIND_WEAVE_RANK_LINEAR             = 8
+CHAIN_LIGHTNING_WEAVE_RANK_LINEAR  = 9
+FIRE_CURTAIN_WEAVE_RANK_LINEAR     = 10
+SHIELD_WEAVE_RANK_LINEAR           = 11
+SEEKER_WEAVE_RANK_LINEAR           = 12
+COMPULSION_WEAVE_RANK_LINEAR       = 13
+BALEFIRE_WEAVE_RANK_LINEAR         = 14
+
+TOTAL_NUMBER_OF_RANKS_LINEAR       = TOTAL_NUMBER_OF_WEAVES
+
+### TGS Special Constants End ###
+
 
 # modmerger_start version=201 type=1
 try:
