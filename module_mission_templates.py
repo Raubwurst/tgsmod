@@ -4058,11 +4058,12 @@ common_wot_dismount_spawned_warders_in_sieges = (
 
 ## Recharge Channeling Stamina trigger
 common_wot_recharge_channeling_stamina_trigger = (
-    0.4, 0, 0,[(gt, "$g_one_second_timer", 2)],
+    0.1, 0, 0,[(gt, "$g_one_second_timer", 2)],
          [
             (troop_get_slot, ":current", "trp_player", slot_troop_current_channeling_stamina),
             (troop_get_slot, ":maximum", "trp_player", slot_troop_max_channeling_stamina),
             (troop_get_slot, ":recharge_rate", "trp_player", slot_troop_channeling_stamina_recharge_rate_battle),
+            (val_div, ":recharge_rate", 10), # since it's called once every tenth of a second
             (try_begin),
             (lt, ":current", ":maximum"),
                 (store_add, ":check_value", ":current", ":recharge_rate"),

@@ -4514,25 +4514,67 @@ triggers = [
   (0, 0.15, 0, [(eq, "$g_tutorial_complete", 1),(troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1),],
     [
              # Player channeling stamina maximum
-             (store_attribute_level, ":player_strength", "trp_player", ca_strength),
-             (store_attribute_level, ":player_intelligence", "trp_player", ca_intelligence),
+             (store_skill_level, ":channeling_affinity", skl_channeling, "trp_player"),
+             (store_attribute_level, ":intelligence", "trp_player", ca_intelligence),
              (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm), 
 
-             (store_mul, ":stamina_1", ":player_intelligence", 1000),
-             (store_mul, ":stamina_2", ":channeling_proficiency", 100),
-             (store_add, ":stamina_3", ":stamina_1", ":stamina_2"),
-             (troop_set_slot, "trp_player", slot_troop_max_channeling_stamina, ":stamina_3"),
+             (store_mul, ":stamina_1", ":channeling_affinity", 4000),
+             (store_mul, ":stamina_2", ":intelligence", 700),
+             (store_mul, ":stamina_3", ":channeling_proficiency", 70),
+             (store_add, ":stamina_4", ":stamina_1", ":stamina_2"),
+             (val_add, ":stamina_4", ":stamina_3"),
+             (troop_set_slot, "trp_player", slot_troop_max_channeling_stamina, ":stamina_4"),
 
-             # battle time re-charge rate
-             (store_mul, ":recharge_rate_1", ":player_strength", 20),
-             (store_mul, ":recharge_rate_2", ":channeling_proficiency", 2),
-             (store_add, ":recharge_rate_3", ":recharge_rate_1", ":recharge_rate_2"),
-             (troop_set_slot, "trp_player", slot_troop_channeling_stamina_recharge_rate_battle, ":recharge_rate_3"),
+             # battle time re-charge rate (per second)
+             (store_mul, ":recharge_rate_1", ":intelligence", 30),
+             (store_add, ":recharge_rate_2", ":recharge_rate_1", ":channeling_proficiency"),
+             (val_div, ":recharge_rate_2", 2), # for now...
+             (troop_set_slot, "trp_player", slot_troop_channeling_stamina_recharge_rate_battle, ":recharge_rate_2"),
              
-             # campaign map re-charge rate
-             (store_mul, ":recharge_rate_campaign", ":recharge_rate_3", 3600), # 3600 seconds per hour
+             # campaign map re-charge rate (per hour)
+             (store_mul, ":recharge_rate_campaign", ":recharge_rate_2", 10),
              (troop_set_slot, "trp_player", slot_troop_channeling_stamina_recharge_rate_campaign, ":recharge_rate_campaign"),
-    ]),  
+             
+             (assign, "$g_ready_for_channeling_stamina_recharge", 1),
+             
+    ]),
+
+  # Campaign map channeling stamina recharge
+  (0, 0.1, 0, [
+      (eq, "$g_tutorial_complete", 1),
+      (troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1),
+      (eq, "$g_ready_for_channeling_stamina_recharge", 1),
+              ],
+    [
+            (troop_get_slot, ":current", "trp_player", slot_troop_current_channeling_stamina),
+            (troop_get_slot, ":maximum", "trp_player", slot_troop_max_channeling_stamina),
+            (troop_get_slot, ":recharge_rate", "trp_player", slot_troop_channeling_stamina_recharge_rate_campaign),
+            (val_div, ":recharge_rate", 10),
+            (try_begin),
+            (lt, ":current", ":maximum"),
+                (store_add, ":check_value", ":current", ":recharge_rate"),
+                (try_begin),
+                (le, ":check_value", ":maximum"),
+                    (troop_set_slot, "trp_player", slot_troop_current_channeling_stamina, ":check_value"),
+            
+                    # display percentage of channeling stamina every hour when it's filling
+                    (try_begin),
+                    (eq, "$g_stamina_counter", 5),
+                        (store_mul, ":100_x_check_value", ":check_value", 100),
+                        (store_div, reg0, ":100_x_check_value", ":maximum"),
+                        (display_message, "@Channeling Stamina at {reg0}%"),
+                        (assign, "$g_stamina_counter", 0),
+                    (else_try),
+                        (val_add, "$g_stamina_counter", 1),
+                    (try_end),
+                         
+                (else_try),
+                    (troop_set_slot, "trp_player", slot_troop_current_channeling_stamina, ":maximum"),
+                    (display_message, "@Channeling Stamina at 100%"),
+                (try_end),
+            (try_end),
+            
+    ]),    
 
   ## New main map hotkeys
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1)],
@@ -4606,18 +4648,18 @@ triggers = [
                         (try_begin),
                         (eq, "$g_cheat_recruit_add", 1),
             
-                            #(party_add_members, ":party", "trp_legion_recruit_channeler", 5),
-                            #(party_add_members, ":party", "trp_ashaman_soldier", 5),
-                            #(party_add_members, ":party", "trp_ashaman_dedicated", 5),
-                            #(party_add_members, ":party", "trp_ashaman", 5),
+                            (party_add_members, ":party", "trp_legion_recruit_channeler", 5),
+                            (party_add_members, ":party", "trp_ashaman_soldier", 5),
+                            (party_add_members, ":party", "trp_ashaman_dedicated", 5),
+                            (party_add_members, ":party", "trp_ashaman", 5),
 
-                            (party_add_members, ":party", "trp_aes_sedai_green_veteran", 3),
-                            (party_add_members, ":party", "trp_aes_sedai_red_veteran", 3),
-                            (party_add_members, ":party", "trp_aes_sedai_yellow_veteran", 3),
-                            (party_add_members, ":party", "trp_aes_sedai_blue_veteran", 3),
-                            (party_add_members, ":party", "trp_aes_sedai_white_veteran", 3),
-                            (party_add_members, ":party", "trp_aes_sedai_brown_veteran", 3),
-                            (party_add_members, ":party", "trp_aes_sedai_grey_veteran", 3),            
+                            #(party_add_members, ":party", "trp_aes_sedai_green_veteran", 3),
+                            #(party_add_members, ":party", "trp_aes_sedai_red_veteran", 3),
+                            #(party_add_members, ":party", "trp_aes_sedai_yellow_veteran", 3),
+                            #(party_add_members, ":party", "trp_aes_sedai_blue_veteran", 3),
+                            #(party_add_members, ":party", "trp_aes_sedai_white_veteran", 3),
+                            #(party_add_members, ":party", "trp_aes_sedai_brown_veteran", 3),
+                            #(party_add_members, ":party", "trp_aes_sedai_grey_veteran", 3),            
             
 #                            (party_add_members, ":party", "trp_legion_recruit_army", 2),
 #                            (party_add_members, ":party", "trp_legion_footman", 2),

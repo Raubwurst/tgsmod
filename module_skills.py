@@ -67,7 +67,7 @@ skills = [
   ("athletics","Athletics",sf_base_att_agi,10,"Improves your running speed. (Personal skill)"),
   ("shield","Shield",sf_base_att_agi,10,"Reduces damage to shields (by 8%% per skill level) and improves shield speed and coverage. (Personal skill)"),
   ("weapon_master","Weapon Master",sf_base_att_agi,10,"Makes it easier to learn weapon proficiencies and increases the proficiency limits. Limits go as: 60, 100, 140, 180, 220, 260, 300, 340, 380, 420. (Personal skill)"),
-  ("channeling","Channeling",sf_base_att_int,10,"Increases the amount of One Power that can be siezed at any one time. (Personal skill)"), 
+  ("channeling","Channeling Affinity",sf_base_att_int,10,"Increases one's closeness with the True Source allowing one to access a larger amount of the One Power. (Personal skill)"), 
   ("reserved_10","Reserved Skill 10",sf_base_att_agi|sf_inactive,10,"This is a reserved skill."), 
   ("reserved_11","Reserved Skill 11",sf_base_att_agi|sf_inactive,10,"This is a reserved skill."), 
   ("reserved_12","Reserved Skill 12",sf_base_att_agi|sf_inactive,10,"This is a reserved skill."), 

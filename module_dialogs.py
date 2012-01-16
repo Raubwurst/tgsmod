@@ -2231,253 +2231,253 @@ Overall, {s30}.", "pretender_progress_2",[]],
 [anyone|plyr,"member_talk", [], "I'd like to ask you something.", "member_question",[]],
 
 # added for TGS NPC companion channeler setup
-[anyone|plyr,"member_talk", [
-                                (troop_get_slot, ":channeler_check", "$g_talk_troop", slot_troop_npc_companion_is_channeler),
-                                (eq, ":channeler_check", 1),
-                                ], "Let's talk about what weaves you should use in battle.", "member_channeling_setup",[]],
+#[anyone|plyr,"member_talk", [
+#                                (troop_get_slot, ":channeler_check", "$g_talk_troop", slot_troop_npc_companion_is_channeler),
+#                                (eq, ":channeler_check", 1),
+#                                ], "Let's talk about what weaves you should use in battle.", "member_channeling_setup",[]],
 
-[anyone,"member_channeling_setup", [
-                                    (troop_get_slot, ":primary_weave", "$g_talk_troop", slot_troop_npc_companion_primary_weave),
-                                    (troop_get_slot, ":secondary_weave", "$g_talk_troop", slot_troop_npc_companion_secondary_weave),
+#[anyone,"member_channeling_setup", [
+#                                    (troop_get_slot, ":primary_weave", "$g_talk_troop", slot_troop_npc_companion_primary_weave),
+#                                    (troop_get_slot, ":secondary_weave", "$g_talk_troop", slot_troop_npc_companion_secondary_weave),
 
-                                    (try_begin),
-                                    (eq, ":primary_weave", 1),
-                                        (str_store_string, s5, "str_companion_weave_1"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 2),
-                                        (str_store_string, s5, "str_companion_weave_2"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 3),
-                                        (str_store_string, s5, "str_companion_weave_3"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 4),
-                                        (str_store_string, s5, "str_companion_weave_4"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 5),
-                                        (str_store_string, s5, "str_companion_weave_5"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 6),
-                                        (str_store_string, s5, "str_companion_weave_6"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 7),
-                                        (str_store_string, s5, "str_companion_weave_7"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 8),
-                                        (str_store_string, s5, "str_companion_weave_8"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 9),
-                                        (str_store_string, s5, "str_companion_weave_9"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 10),
-                                        (str_store_string, s5, "str_companion_weave_10"),
-                                    (else_try),
-                                    (eq, ":primary_weave", 11),
-                                        (str_store_string, s5, "str_companion_weave_11"),
-                                    (try_end),
+#                                    (try_begin),
+#                                    (eq, ":primary_weave", 1),
+#                                        (str_store_string, s5, "str_companion_weave_1"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 2),
+#                                        (str_store_string, s5, "str_companion_weave_2"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 3),
+#                                        (str_store_string, s5, "str_companion_weave_3"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 4),
+#                                        (str_store_string, s5, "str_companion_weave_4"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 5),
+#                                        (str_store_string, s5, "str_companion_weave_5"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 6),
+#                                        (str_store_string, s5, "str_companion_weave_6"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 7),
+#                                        (str_store_string, s5, "str_companion_weave_7"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 8),
+#                                        (str_store_string, s5, "str_companion_weave_8"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 9),
+#                                        (str_store_string, s5, "str_companion_weave_9"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 10),
+#                                        (str_store_string, s5, "str_companion_weave_10"),
+#                                    (else_try),
+#                                    (eq, ":primary_weave", 11),
+#                                        (str_store_string, s5, "str_companion_weave_11"),
+#                                    (try_end),
                                     
-                                    (try_begin),
-                                    (eq, ":secondary_weave", 1),
-                                        (str_store_string, s6, "str_companion_weave_1"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 2),
-                                        (str_store_string, s6, "str_companion_weave_2"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 3),
-                                        (str_store_string, s6, "str_companion_weave_3"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 4),
-                                        (str_store_string, s6, "str_companion_weave_4"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 5),
-                                        (str_store_string, s6, "str_companion_weave_5"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 6),
-                                        (str_store_string, s6, "str_companion_weave_6"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 7),
-                                        (str_store_string, s6, "str_companion_weave_7"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 8),
-                                        (str_store_string, s6, "str_companion_weave_8"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 9),
-                                        (str_store_string, s6, "str_companion_weave_9"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 10),
-                                        (str_store_string, s6, "str_companion_weave_10"),
-                                    (else_try),
-                                    (eq, ":secondary_weave", 11),
-                                        (str_store_string, s6, "str_companion_weave_11"),
-                                    (try_end),
+#                                    (try_begin),
+#                                    (eq, ":secondary_weave", 1),
+#                                        (str_store_string, s6, "str_companion_weave_1"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 2),
+#                                        (str_store_string, s6, "str_companion_weave_2"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 3),
+#                                        (str_store_string, s6, "str_companion_weave_3"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 4),
+#                                        (str_store_string, s6, "str_companion_weave_4"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 5),
+#                                        (str_store_string, s6, "str_companion_weave_5"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 6),
+#                                        (str_store_string, s6, "str_companion_weave_6"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 7),
+#                                        (str_store_string, s6, "str_companion_weave_7"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 8),
+#                                        (str_store_string, s6, "str_companion_weave_8"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 9),
+#                                        (str_store_string, s6, "str_companion_weave_9"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 10),
+#                                        (str_store_string, s6, "str_companion_weave_10"),
+#                                    (else_try),
+#                                    (eq, ":secondary_weave", 11),
+#                                        (str_store_string, s6, "str_companion_weave_11"),
+#                                    (try_end),
                                     
-                                    (try_begin),
-                                    (eq, ":primary_weave", 0),
-                                        (str_store_string, s7, "@I am currently using all of my known weaves."),
-                                    (else_try),
-                                        (str_store_string, s7, "@I am currently using the {s5} weave primarily, and also the {s6} weave to a lesser extent."),
-                                    (try_end),
+#                                    (try_begin),
+#                                    (eq, ":primary_weave", 0),
+#                                        (str_store_string, s7, "@I am currently using all of my known weaves."),
+#                                    (else_try),
+#                                        (str_store_string, s7, "@I am currently using the {s5} weave primarily, and also the {s6} weave to a lesser extent."),
+#                                    (try_end),
                                         
-                                        ], "That sounds like a good idea. {s7} How should I adjust my strategy?", "member_channeling_setup_2",[]],
+#                                        ], "That sounds like a good idea. {s7} How should I adjust my strategy?", "member_channeling_setup_2",[]],
 # 2nd tier replies
-[anyone|plyr,"member_channeling_setup_2", [], "Let's talk about the weave you should use most of the time.", "member_channeling_setup_primary_weave",[]],
-[anyone|plyr,"member_channeling_setup_2", [], "Let's talk about your secondary option.", "member_channeling_setup_secondary_weave",[]],
-[anyone|plyr,"member_channeling_setup_2", [], "Perhaps you should just practice all the weaves you know.", "member_channeling_setup_all_weaves",
-                                                     [
-                                                         (troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 0),
-                                                         (troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 0),
-                                                         ]],
-[anyone|plyr,"member_channeling_setup_2", [], "Never mind, let's talk about something else now.", "do_member_view_char",[]],
+#[anyone|plyr,"member_channeling_setup_2", [], "Let's talk about the weave you should use most of the time.", "member_channeling_setup_primary_weave",[]],
+#[anyone|plyr,"member_channeling_setup_2", [], "Let's talk about your secondary option.", "member_channeling_setup_secondary_weave",[]],
+#[anyone|plyr,"member_channeling_setup_2", [], "Perhaps you should just practice all the weaves you know.", "member_channeling_setup_all_weaves",
+#                                                     [
+#                                                         (troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 0),
+#                                                         (troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 0),
+#                                                         ]],
+#[anyone|plyr,"member_channeling_setup_2", [], "Never mind, let's talk about something else now.", "do_member_view_char",[]],
 # Primary Weave
-[anyone,"member_channeling_setup_primary_weave", [], "Ok, here's a list of the weaves I know. Which weave should I use most often?", "member_channeling_setup_primary_weave_2",[]],
+#[anyone,"member_channeling_setup_primary_weave", [], "Ok, here's a list of the weaves I know. Which weave should I use most often?", "member_channeling_setup_primary_weave_2",[]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (troop_get_slot, "$g_temp_num_weaves", "$g_talk_troop", slot_troop_npc_companion_known_weaves),
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Freeze Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 1)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (troop_get_slot, "$g_temp_num_weaves", "$g_talk_troop", slot_troop_npc_companion_known_weaves),
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Freeze Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 1)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Heal Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 2)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Heal Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 2)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Fireball Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 3)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Fireball Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 3)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Unravel Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 4)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Unravel Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 4)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Ranged Earth Blast Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 5)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Ranged Earth Blast Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 5)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Bind Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 6)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Bind Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 6)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Chain Lightning Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 7)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Chain Lightning Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 7)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Shield Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 8)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Shield Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 8)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Seeker Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 9)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Seeker Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 9)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Compulsion Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 10)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Compulsion Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 10)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should focus on the Balefire Weave.", "member_channeling_setup_primary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 11)]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should focus on the Balefire Weave.", "member_channeling_setup_primary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_primary_weave, 11)]],
 
-[anyone|plyr,"member_channeling_setup_primary_weave_2", [], "Never mind.", "member_channeling_setup",[]],
+#[anyone|plyr,"member_channeling_setup_primary_weave_2", [], "Never mind.", "member_channeling_setup",[]],
 
-[anyone,"member_channeling_setup_primary_weave_2_agree", [], "I'll be sure to do that.", "member_channeling_setup",[]],
+#[anyone,"member_channeling_setup_primary_weave_2_agree", [], "I'll be sure to do that.", "member_channeling_setup",[]],
 
 
 # Secondary Weave #####
-[anyone,"member_channeling_setup_secondary_weave", [], "Ok, here's a list of the weaves I know. Which weave should be my secondary weave?", "member_channeling_setup_secondary_weave_2",[]],
+#[anyone,"member_channeling_setup_secondary_weave", [], "Ok, here's a list of the weaves I know. Which weave should be my secondary weave?", "member_channeling_setup_secondary_weave_2",[]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (troop_get_slot, "$g_temp_num_weaves", "$g_talk_troop", slot_troop_npc_companion_known_weaves),
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Freeze Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 1)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (troop_get_slot, "$g_temp_num_weaves", "$g_talk_troop", slot_troop_npc_companion_known_weaves),
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Freeze Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 1)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Heal Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 2)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Heal Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 2)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Fireball Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 3)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Fireball Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 3)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Unravel Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 4)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Unravel Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 4)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Ranged Earth Blast Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 5)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Ranged Earth Blast Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 5)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Bind Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 6)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Bind Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 6)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Chain Lightning Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 7)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Chain Lightning Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 7)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Shield Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 8)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Shield Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 8)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Seeker Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 9)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Seeker Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 9)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Compulsion Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 10)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Compulsion Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 10)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
-                                                            (gt, "$g_temp_num_weaves", 0),
-                                                            (val_sub, "$g_temp_num_weaves", 1),
-                                                            ], "You should use the Balefire Weave.", "member_channeling_setup_secondary_weave_2_agree",
-                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 11)]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [
+#                                                            (gt, "$g_temp_num_weaves", 0),
+#                                                            (val_sub, "$g_temp_num_weaves", 1),
+#                                                            ], "You should use the Balefire Weave.", "member_channeling_setup_secondary_weave_2_agree",
+#                                                             [(troop_set_slot, "$g_talk_troop", slot_troop_npc_companion_secondary_weave, 11)]],
 
-[anyone|plyr,"member_channeling_setup_secondary_weave_2", [], "Never mind.", "member_channeling_setup",[]],
+#[anyone|plyr,"member_channeling_setup_secondary_weave_2", [], "Never mind.", "member_channeling_setup",[]],
 
-[anyone,"member_channeling_setup_secondary_weave_2_agree", [], "I'll be sure to do that.", "member_channeling_setup",[]],
+#[anyone,"member_channeling_setup_secondary_weave_2_agree", [], "I'll be sure to do that.", "member_channeling_setup",[]],
 
 # All Weaves #####
-[anyone,"member_channeling_setup_all_weaves", [], "Ok, I'll be sure to use all that I know.", "member_channeling_setup",[]],
+#[anyone,"member_channeling_setup_all_weaves", [], "Ok, I'll be sure to use all that I know.", "member_channeling_setup",[]],
 
 
 # end added for TGS NPC companion channeler setup

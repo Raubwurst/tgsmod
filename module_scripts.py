@@ -153,6 +153,8 @@ scripts = [
       (assign, "$g_active_channeling_weave",1),
       #(assign, "$g_weave_toggle_mode",5),
       (assign, "$g_cheat_recruit_add",1),
+      (assign, "$g_ready_for_channeling_stamina_recharge", 0),
+      (assign, "$g_stamina_counter", 0),
       #### End
       
       (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
