@@ -27,7 +27,7 @@ skl_riding Riding 1 10 Enables_you_to_ride_horses_of_higher_difficulty_levels_an
 skl_athletics Athletics 1 10 Improves_your_running_speed._(Personal_skill)
 skl_shield Shield 1 10 Reduces_damage_to_shields_(by_8%%_per_skill_level)_and_improves_shield_speed_and_coverage._(Personal_skill)
 skl_weapon_master Weapon_Master 1 10 Makes_it_easier_to_learn_weapon_proficiencies_and_increases_the_proficiency_limits._Limits_go_as:_60,_100,_140,_180,_220,_260,_300,_340,_380,_420._(Personal_skill)
-skl_reserved_9 Reserved_Skill_9 257 10 This_is_a_reserved_skill.
+skl_channeling Channeling_Affinity 2 10 Increases_one's_closeness_with_the_True_Source_allowing_one_to_access_a_larger_amount_of_the_One_Power._(Personal_skill)
 skl_reserved_10 Reserved_Skill_10 257 10 This_is_a_reserved_skill.
 skl_reserved_11 Reserved_Skill_11 257 10 This_is_a_reserved_skill.
 skl_reserved_12 Reserved_Skill_12 257 10 This_is_a_reserved_skill.
@@ -36,8 +36,8 @@ skl_power_draw Power_Draw 0 10 Lets_character_use_more_powerful_bows._Each_point
 skl_power_throw Power_Throw 0 10 Each_point_to_this_skill_increases_throwing_damage_by_10%%._(Personal_skill)
 skl_power_strike Power_Strike 0 10 Each_point_to_this_skill_increases_melee_damage_by_8%%._(Personal_skill)
 skl_ironflesh Ironflesh 0 10 Each_point_to_this_skill_increases_hit_points_by_+2._(Personal_skill)
-skl_reserved_14 Reserved_Skill_14 256 10 This_is_a_reserved_skill.
-skl_reserved_15 Reserved_Skill_15 256 10 This_is_a_reserved_skill.
-skl_reserved_16 Reserved_Skill_16 256 10 This_is_a_reserved_skill.
-skl_reserved_17 Reserved_Skill_17 256 10 This_is_a_reserved_skill.
-skl_reserved_18 Reserved_Skill_18 256 10 This_is_a_reserved_skill.
+skl_air Air 2 10 Boosts_the_strength_and/or_duration_of_weaves_when_channeling_with_weaves_of_Air._(Personal_skill)
+skl_fire Fire 2 10 Boosts_the_strength_and/or_duration_of_weaves_when_channeling_with_weaves_of_Fire._(Personal_skill)
+skl_water Water 2 10 Boosts_the_strength_and/or_duration_of_weaves_when_channeling_with_weaves_of_Water._(Personal_skill)
+skl_earth Earth 2 10 Boosts_the_strength_and/or_duration_of_weaves_when_channeling_with_weaves_of_Earth._(Personal_skill)
+skl_spirit Spirit 2 10 Boosts_the_strength_and/or_duration_of_weaves_when_channeling_with_weaves_of_Spirit._(Personal_skill)

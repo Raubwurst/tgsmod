@@ -1330,6 +1330,14 @@ scenes = [
     ["exit"],["castle_69_seneschal"]),
   ("castle_69_prison",sf_indoors,"interior_prison_n", "bo_interior_prison_n", (-100,-100),(100,100),-100,"0",
     [],[]),
+
+#      Snow (for arafel)
+  ("castle_70_exterior",sf_generate,"none", "none", (0,0),(100,100),-100,"0x0000000240079f9e0005695a0000035f00003ef400004aa8",
+    [],[],"outer_terrain_snow"),
+  ("castle_70_interior",sf_indoors, "interior_castle_n", "bo_interior_castle_n", (-100,-100),(100,100),-100,"0",
+    ["exit"],["castle_70_seneschal"]),
+  ("castle_70_prison",sf_indoors,"interior_prison_k", "bo_interior_prison_k", (-100,-100),(100,100),-100,"0",
+    [],[]),  
 ## TGS: mat: End
 
 	
@@ -1848,7 +1856,7 @@ scenes = [
 
 ## Added for TGS (Border Tower Battles)
   ("shienaran_border_tower_1",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000002065509400048120000045eb000066ee0000046e",
-    [],[],"outer_terrain_steppe"),
+    [],[],"outer_terrain_snow"),
 ## End added for TGS   
   
 ]

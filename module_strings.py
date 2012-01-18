@@ -4752,6 +4752,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ("key_no12", "Select Order 10"),
 ("key_no13", "Spear Brace"),
 ("key_no14", "Call Horse"),
+## Added for TGS
+("key_no15", "Toggle Active Weave"), # only works for channelers
+("key_no16", "Recover Lost One Power Item"), # only works for channelers
+## End added for TGS
+  
 #--------------------------------------------------
 #-- Dunde's Key Config END
 ##PBOD
@@ -4835,11 +4840,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 
   # Other World Map messages
   ("welcome_to_randland", "'The Wheel of Time turns, and Ages come and pass, leaving memories that become legend. Legend fades to myth, and even myth is long forgotten when the Age that gave it birth comes again. In one Age, called the Third Age by some, an Age yet to come, an Age long past, a wind rose in the Mountains of Mist. The wind was not the beginning. There are neither beginnings nor endings to the turning of the Wheel of Time. But it was a beginning.'  - Robert Jordan, The Eye of the World"),
-  ("channeling_help", "Hold 'Caps Lock' while in battle to change your active weave. If you ever realize that you lost your One Power item, click the 'M' key and it will reappear in your inventory."),
+  ("channeling_help", "Hold 'Caps Lock' while in battle to change your active weave. If you ever realize that you lost your One Power item, click the 'Z' key and it will reappear in your inventory."),
   ("learn_weave", "You have learned a new weave."),
   ("learn_weave_1", "The One Power... What started as a fearful searching during your youth has become a quest for knowledge and a source of strength. You have found that practice is the best teacher. In the journey ahead, you must decide whether to use the Creator's gift for good or evil: The first weave you learn is Air Blast. Use it to push enemies who attack you from the front. Minimal damage inflicted..."),
   ("learn_weave_2", "Through exploration, you learn that you can not only control air, but it's temperature as well. Learn Freeze Weave. Chill all nearby people to the bone, slowing their movement speed. No damage inflicted..."),
-  ("learn_weave_3", "At last, you have found a constructive use for your new abilities. Learn Heal Weave. Restore full strength to your closest injured ally..."),
+  ("learn_weave_3", "At last, you have found a constructive use for your new abilities. Learn Heal Weave. Restore health to your closest injured ally..."),
   ("learn_weave_4", "Fire, important since the beginning of the Age to the birth of civilization... but also a powerful weapon. Learn Fire Ball Weave. Create a violent stream of fire that burns all in it's path.  Friend and foe alike will have a hard time extinguishing the flames..."),
   ("learn_weave_5", "Over time, you realize that some actions need to be corrected. Learn Unravel Weave. Undo the effects of weaves made by the enemy. But beware, stronger enemies are harder to counter..."),
   ("learn_weave_6", "Once, when surrounded by foes, you discovered that you didn't like being boxed in. Learn Defensive Blast Weave. Push all nearby troops far away. Inflict moderate damage..."),

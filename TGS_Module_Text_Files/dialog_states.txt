@@ -35,7 +35,6 @@ fighter_parry_warn
 fighter_combat_try_again
 fighter_talk_leave_combat
 fighter_chamber_warn
-fighter_talk_leave_chamber
 tutorial_troop_default
 archer_challenge_2
 ranged_end
@@ -50,6 +49,7 @@ lord_prison_break
 drunk_response
 player_duel_response
 drunk_fight_start
+dplmc_drunk_attempt_placate
 drunk_player_high_renown
 fistfight_response
 fistfight_response_2
@@ -102,8 +102,6 @@ member_review_castle_garrison
 member_castellan_pretalk
 member_review_castellan_equipment
 member_castellan_join
-member_wilderness_talk
-member_inn_talk
 kidnapped_girl_chat_1
 kidnapped_girl_chat_2
 member_lady_1
@@ -134,15 +132,6 @@ member_separate_confirm
 companion_quitting
 member_separate_yes
 member_question
-member_channeling_setup
-member_channeling_setup_2
-member_channeling_setup_primary_weave
-member_channeling_setup_secondary_weave
-member_channeling_setup_all_weaves
-member_channeling_setup_primary_weave_2
-member_channeling_setup_primary_weave_2_agree
-member_channeling_setup_secondary_weave_2
-member_channeling_setup_secondary_weave_2_agree
 member_question_2
 member_morale
 member_background_recap
@@ -191,7 +180,7 @@ merchant_quest_persuasion
 merchant_quest_1_prologue_3
 merchant_quest_2
 merchant_quest_3
-close_screen
+dplmc_devel_merchant_quest_skip
 merchant_closing_statement_2
 merchant_closing_statement_3
 merchant_closing_statement_4
@@ -306,6 +295,9 @@ dplmc_chancellor_lady_gift_lady_select
 dplmc_chancellor_lady_gift_send_ask
 dplmc_chancellor_lady_gift_send_confirm
 dplmc_chancellor_talk_household
+dplmc_chancellor_dismiss_confirm_ask
+dplmc_chancellor_dismiss_confirm
+dplmc_chancellor_dismiss_confirm_yes
 dplmc_constable_talk
 dplmc_constable_talk_ask_war
 dplmc_constable_talk_ask_war_2
@@ -358,6 +350,7 @@ dplmc_constable_move_troops_location_confirm
 dplmc_constable_patrol_size_ask
 dplmc_constable_patrol_size
 dplmc_constable_patrol_garrison
+dplmc_constable_patrol_garrison_2
 dplmc_constable_patrol_garrison_location
 dplmc_constable_patrol_garrison_confirm_ask
 dplmc_constable_patrol_garrison_confirm
@@ -386,7 +379,6 @@ dplmc_constable_dismiss_confirm_ask
 dplmc_constable_dismiss_confirm
 dplmc_constable_dismiss_confirm_yes
 dplmc_chamberlain_talk
-dplmc_constable_leave
 dplmc_chamberlain_overview
 dplmc_chamberlain_pretalk
 dplmc_chamberlain_treasury
@@ -503,6 +495,7 @@ minister_diplomatic_kingdoms_select
 minister_diplomatic_initiative_type
 minister_diplomatic_initiative_type_select
 minister_declare_war
+dplmc_minister_nevermind
 minister_declare_war_confirm
 minister_declare_war_confirm_yes
 minister_emissary_dispatch
@@ -838,7 +831,6 @@ liege_defends_claim_2
 liege_defends_claim_3
 liege_defends_claim_4
 lord_join_rebellion_suggest_cheat
-lord_join_rebellion_ask_for_order
 lord_prison_break_chains
 lord_suggest_action_ask
 lord_tell_objective_2
@@ -942,7 +934,6 @@ lord_mission_rescue_prisoner_accepted
 lord_mission_rescue_prisoner_rejected
 lord_mission_rescue_prisoner_method
 lord_mission_rescue_prisoner_method_ransom
-lord_mission_rescue_prisoner_method_connections
 lord_mission_rescue_prisoner_method_prisonbreak
 lord_mission_rescue_prisoner_method_siege
 lord_mission_rescue_prisoner_planning_end
@@ -1657,7 +1648,6 @@ enemy_talk_2
 party_encounter_routed_agents_are_caught
 party_encounter_routed_agents_are_caught2
 sell_prisoner_outlaws
-sell_prisoner_outlaws_finished
 prisoner_chat_2
 town_merchant_talk
 trade_requested_weapons

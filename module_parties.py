@@ -213,7 +213,9 @@ parties = [
   ("castle_68","Falkreit",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(80.10, -302.49),[],260),#Derchios
   
   ("castle_69","Amdean",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-130.90, -25.79),[],260),#Ibdeles
-
+  
+  # for Arafel
+  ("castle_70","Jorem",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(44.45, 70.77),[],325),#Ismirala
  
 
 #     Rinimad      

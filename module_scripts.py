@@ -150,11 +150,10 @@ scripts = [
        
       #### TGS Global Variable Initialization
       #(assign, "$g_tutorial_complete", 0),
-      (assign, "$g_active_channeling_weave",1),
-      #(assign, "$g_weave_toggle_mode",5),
       (assign, "$g_cheat_recruit_add",1),
       (assign, "$g_ready_for_channeling_stamina_recharge", 0),
       (assign, "$g_stamina_counter", 0),
+      (assign, "$g_tgs_player_troop", "trp_player"),
       #### End
       
       (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
@@ -909,6 +908,14 @@ scripts = [
       (party_set_slot,"p_castle_41", slot_center_siege_with_belfry, 1),
       (party_set_slot,"p_castle_42", slot_center_siege_with_belfry, 1),
       (party_set_slot,"p_castle_43", slot_center_siege_with_belfry, 1),
+      ## TGS: added for new castles
+      (party_set_slot,"p_castle_49", slot_center_siege_with_belfry, 1),
+      (party_set_slot,"p_castle_50", slot_center_siege_with_belfry, 1),
+      (party_set_slot,"p_castle_52", slot_center_siege_with_belfry, 1),
+      (party_set_slot,"p_castle_63", slot_center_siege_with_belfry, 1),
+      (party_set_slot,"p_castle_66", slot_center_siege_with_belfry, 1),
+      (party_set_slot,"p_castle_69", slot_center_siege_with_belfry, 1),
+      ## TGS: added for new castles end
 
 	  # Villages characters
       (try_for_range, ":village_no", villages_begin, villages_end),
@@ -973,6 +980,20 @@ scripts = [
       (try_end),
       
 ### WAYS parties (gates on map,entry-points) END
+
+## Border Tower Parties
+
+      (party_set_slot, "p_border_tower_1", slot_party_type, spt_border_tower),
+      (party_set_slot, "p_border_tower_2", slot_party_type, spt_border_tower),
+      (party_set_slot, "p_border_tower_3", slot_party_type, spt_border_tower),
+      (party_set_slot, "p_border_tower_4", slot_party_type, spt_border_tower),
+      (party_set_slot, "p_border_tower_5", slot_party_type, spt_border_tower),
+      (party_set_slot, "p_border_tower_6", slot_party_type, spt_border_tower),
+      (party_set_slot, "p_border_tower_7", slot_party_type, spt_border_tower),
+      (party_set_slot, "p_border_tower_8", slot_party_type, spt_border_tower),
+      (party_set_slot, "p_border_tower_9", slot_party_type, spt_border_tower),
+
+## Border Tower Paries End      
 
 ## End added for TGS      
 
@@ -1328,7 +1349,8 @@ scripts = [
       (call_script, "script_give_center_to_faction_aux", "p_castle_66", "fac_kingdom_27"), # 
       (call_script, "script_give_center_to_faction_aux", "p_castle_67", "fac_kingdom_27"), # 
       (call_script, "script_give_center_to_faction_aux", "p_castle_68", "fac_kingdom_27"), # 
-      (call_script, "script_give_center_to_faction_aux", "p_castle_69", "fac_kingdom_28"), # 
+      (call_script, "script_give_center_to_faction_aux", "p_castle_69", "fac_kingdom_28"), #
+      (call_script, "script_give_center_to_faction_aux", "p_castle_70", "fac_kingdom_18"), # new castle for arafel
 
 
   # end altered for TGS
@@ -1451,6 +1473,7 @@ scripts = [
       (call_script, "script_give_center_to_lord", "p_castle_67", "trp_knight_27_4", 0), #
       (call_script, "script_give_center_to_lord", "p_castle_68", "trp_knight_27_5", 0), #
       (call_script, "script_give_center_to_lord", "p_castle_69", "trp_knight_28_1", 0), #
+      (call_script, "script_give_center_to_lord", "p_castle_70", "trp_knight_18_1", 0), # new castle for arafel
 
 
   # end altered for TGS
@@ -6286,6 +6309,9 @@ scripts = [
        ## Added for TGS
            (party_slot_eq, "$g_encountered_party", slot_party_type, spt_gateway), 	# If the party has spt_gateway set, then do...
 		   (jump_to_menu, "mnu_gateway_menu"),									 # Jump to gateway ENTER/LEAVE menu.
+		 (else_try),
+           (party_slot_eq, "$g_encountered_party", slot_party_type, spt_border_tower), 	# If the party has spt_border_tower set, then do...
+		   (jump_to_menu, "mnu_border_tower_menu"),									 # Jump to border tower menu.
 		 (else_try),
        ## End added for TGS
            (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
@@ -75236,8 +75262,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (agent_get_troop_id, ":chosen_troop", ":chosen"),
     
         (try_begin),
-        (eq, ":chosen_troop", "trp_player"),
-            (troop_get_slot, ":active_weave", "trp_player", slot_troop_active_weave),
+        (eq, ":chosen_troop", "$g_tgs_player_troop"),
+            (troop_get_slot, ":active_weave", "$g_tgs_player_troop", slot_troop_active_weave),
             (call_script, "script_tgs_pay_stamina", ":active_weave"), # perform stamina check
             (assign, ":staminapaid", reg0),
         (else_try),
@@ -75252,7 +75278,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         
         # Call correct weave script - player must have paid stamina in advance        
         (try_begin),
-        (this_or_next|neq, ":chosen_troop", "trp_player"), # go ahead if ":chosen" is not the player
+        (this_or_next|neq, ":chosen_troop", "$g_tgs_player_troop"), # go ahead if ":chosen" is not the player
         (neq, ":staminapaid" ,0), # if ":chosen" is the player, make sure they paid
             (try_begin),
             (eq, ":active_weave", AIR_BLAST_WEAVE),
@@ -75507,7 +75533,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
             (position_move_y,pos1,20), # was 20
             (try_begin),
-            (neq, ":chosen_troop", "trp_player"),
+            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                 (position_move_x,pos1,2), # was 3
             (try_end),
             (copy_position,pos2,pos1),
@@ -75516,7 +75542,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
             (position_move_y,pos1,20), # was 20
             (try_begin),
-            (neq, ":chosen_troop", "trp_player"),
+            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                 (store_mod, ":fall", reg5, 5),
                 (try_begin),    
                 (eq, ":fall", 0),
@@ -75532,7 +75558,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			#added for gravity effect and flight randomness
             #(agent_get_troop_id, ":chosen_troop", ":chosen"),
             #(try_begin),
-            #(neq, ":chosen_troop", "trp_player"),
+            #(neq, ":chosen_troop", "$g_tgs_player_troop"),
             #    (store_mod, ":fall", reg5, 2),
             #    (try_begin),
             #    (eq, ":fall", 0),
@@ -75846,7 +75872,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (position_move_x,pos1,2), # was 3
                             (try_end),
                             (copy_position,pos2,pos1),
@@ -75855,7 +75881,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (particle_system_burst, ":blast_trail_effect", pos1, 10), ## need trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (store_mod, ":fall", reg5, 5),
                                 (try_begin),
                                 (eq, ":fall", 0),
@@ -75872,7 +75898,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             #added for gravity effect and flight randomness
                             #(agent_get_troop_id, ":chosen_troop", ":chosen"),
                             #(try_begin),
-                            #(neq, ":chosen_troop", "trp_player"),
+                            #(neq, ":chosen_troop", "$g_tgs_player_troop"),
                             #    (store_mod, ":fall", reg5, 2),
                             #    (try_begin),
                             #    (eq, ":fall", 0),
@@ -76129,7 +76155,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (assign, ":chosen_seeker", 0),
                         (try_for_range, ":seeker_no", 1201, 1251),
                             (store_add, ":target_no", ":seeker_no", 50),
-                            (troop_slot_eq, "trp_player", ":target_no", ":chosen"),
+                            (troop_slot_eq, "$g_tgs_player_troop", ":target_no", ":chosen"),
                                 (assign, ":chosen_seeker", 1),
                         (try_end),
                         
@@ -76199,7 +76225,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                                 (assign, ":teammate_seeker", 0),
                                                 (try_for_range, ":seeker_no", 1201, 1251),
                                                     (store_add, ":target_no", ":seeker_no", 50),
-                                                    (troop_slot_eq, "trp_player", ":target_no", ":agent"),
+                                                    (troop_slot_eq, "$g_tgs_player_troop", ":target_no", ":agent"),
                                                         (assign, ":teammate_seeker", 1),
                                                 (try_end),
                                                 (try_begin),
@@ -76274,7 +76300,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                                 (assign, ":teammate_seeker", 0),
                                                 (try_for_range, ":seeker_no", 1201, 1251),
                                                     (store_add, ":target_no", ":seeker_no", 50),
-                                                    (troop_slot_eq, "trp_player", ":target_no", ":agent"),
+                                                    (troop_slot_eq, "$g_tgs_player_troop", ":target_no", ":agent"),
                                                         (assign, ":teammate_seeker", 1),
                                                 (try_end),
                                                 (eq, ":teammate_seeker", 1),
@@ -76334,9 +76360,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (try_for_range, ":seeker_no", 1201, 1251),
                                     (eq, ":shooter_found", 0),
                                     (store_add, ":target_no", ":seeker_no", 50),
-                                    (troop_slot_eq, "trp_player", ":target_no", ":chosen"),
+                                    (troop_slot_eq, "$g_tgs_player_troop", ":target_no", ":chosen"),
                                         (store_add, ":shooter_no", ":seeker_no", 100),
-                                        (troop_get_slot, ":seeker_shooter", "trp_player", ":shooter_no"),
+                                        (troop_get_slot, ":seeker_shooter", "$g_tgs_player_troop", ":shooter_no"),
                                         (assign, ":seeker_to_unravel", ":seeker_no"),
                                         (assign, ":shooter_found", 1),
                                 (try_end),
@@ -76371,31 +76397,31 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (le, ":random", ":final_effectivity"),
                         
                                     #reset seeker slots
-                                    (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
+                                    (troop_get_slot, ":num_seekers_active", "$g_tgs_player_troop", slot_troop_num_seekers_active),
                                     (val_sub, ":num_seekers_active", 1),
-                                    (troop_set_slot, "trp_player", slot_troop_num_seekers_active, ":num_seekers_active"),
+                                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, ":num_seekers_active"),
                         
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel", 0),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel", 0),
                         
                                     (store_add, ":seeker_to_unravel_target", ":seeker_to_unravel", 50),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_target", -1),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_target", -1),
                         
                                     (store_add, ":seeker_to_unravel_shooter", ":seeker_to_unravel", 100),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_shooter", -1),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_shooter", -1),
                         
                                     (store_add, ":seeker_to_unravel_current_x", ":seeker_to_unravel", 150),
-                                    (troop_get_slot, ":unravel_current_x", "trp_player", ":seeker_to_unravel_current_x"),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_current_x", 0),
+                                    (troop_get_slot, ":unravel_current_x", "$g_tgs_player_troop", ":seeker_to_unravel_current_x"),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_current_x", 0),
 
                                     (store_add, ":seeker_to_unravel_current_y", ":seeker_to_unravel", 200),
-                                    (troop_get_slot, ":unravel_current_y", "trp_player", ":seeker_to_unravel_current_y"),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_current_y", 0),
+                                    (troop_get_slot, ":unravel_current_y", "$g_tgs_player_troop", ":seeker_to_unravel_current_y"),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_current_y", 0),
 
                                     (store_add, ":seeker_to_unravel_speed", ":seeker_to_unravel", 250),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_speed", 0),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_speed", 0),
 
                                     (store_add, ":seeker_to_unravel_power", ":seeker_to_unravel", 300),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_power", 0),                        
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_power", 0),                        
                 
                                     #create effect
                                     (position_set_x, pos1, ":unravel_current_x"),
@@ -76555,9 +76581,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (try_for_range, ":seeker_no", 1201, 1251),
                                     (eq, ":shooter_found", 0),
                                     (store_add, ":target_no", ":seeker_no", 50),
-                                    (troop_slot_eq, "trp_player", ":target_no", ":nearest_affected_ally"),
+                                    (troop_slot_eq, "$g_tgs_player_troop", ":target_no", ":nearest_affected_ally"),
                                         (store_add, ":shooter_no", ":seeker_no", 100),
-                                        (troop_get_slot, ":seeker_shooter", "trp_player", ":shooter_no"),
+                                        (troop_get_slot, ":seeker_shooter", "$g_tgs_player_troop", ":shooter_no"),
                                         (assign, ":seeker_to_unravel", ":seeker_no"),
                                         (assign, ":shooter_found", 1),
                                 (try_end),
@@ -76593,31 +76619,31 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (try_begin),
                                 (le, ":random", ":final_effectivity"),
                                     #reset seeker slots
-                                    (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
+                                    (troop_get_slot, ":num_seekers_active", "$g_tgs_player_troop", slot_troop_num_seekers_active),
                                     (val_sub, ":num_seekers_active", 1),
-                                    (troop_set_slot, "trp_player", slot_troop_num_seekers_active, ":num_seekers_active"),
+                                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, ":num_seekers_active"),
                         
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel", 0),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel", 0),
                         
                                     (store_add, ":seeker_to_unravel_target", ":seeker_to_unravel", 50),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_target", -1),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_target", -1),
                         
                                     (store_add, ":seeker_to_unravel_shooter", ":seeker_to_unravel", 100),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_shooter", -1),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_shooter", -1),
                         
                                     (store_add, ":seeker_to_unravel_current_x", ":seeker_to_unravel", 150),
-                                    (troop_get_slot, ":unravel_current_x", "trp_player", ":seeker_to_unravel_current_x"),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_current_x", 0),
+                                    (troop_get_slot, ":unravel_current_x", "$g_tgs_player_troop", ":seeker_to_unravel_current_x"),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_current_x", 0),
 
                                     (store_add, ":seeker_to_unravel_current_y", ":seeker_to_unravel", 200),
-                                    (troop_get_slot, ":unravel_current_y", "trp_player", ":seeker_to_unravel_current_y"),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_current_y", 0),
+                                    (troop_get_slot, ":unravel_current_y", "$g_tgs_player_troop", ":seeker_to_unravel_current_y"),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_current_y", 0),
 
                                     (store_add, ":seeker_to_unravel_speed", ":seeker_to_unravel", 250),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_speed", 0),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_speed", 0),
 
                                     (store_add, ":seeker_to_unravel_power", ":seeker_to_unravel", 300),
-                                    (troop_set_slot, "trp_player", ":seeker_to_unravel_power", 0),                        
+                                    (troop_set_slot, "$g_tgs_player_troop", ":seeker_to_unravel_power", 0),                        
                 
                                     #create effect
                                     (position_set_x, pos1, ":unravel_current_x"),
@@ -77029,7 +77055,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             #(particle_system_burst, "psys_dust_blast", pos1, 10), ## need trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (position_move_x,pos1,2), # was 3
                             (try_end),
                             (copy_position,pos2,pos1),
@@ -77038,7 +77064,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             #(particle_system_burst, "psys_dust_blast", pos1, 10), ## need trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (store_mod, ":fall", reg5, 5),
                                 (try_begin),
                                 (eq, ":fall", 0),
@@ -77054,7 +77080,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             #added for gravity effect and flight randomness
                             #(agent_get_troop_id, ":chosen_troop", ":chosen"),
                             #(try_begin),
-                            #(neq, ":chosen_troop", "trp_player"),
+                            #(neq, ":chosen_troop", "$g_tgs_player_troop"),
                             #    (store_mod, ":fall", reg5, 2),
                             #    (try_begin),
                             #    (eq, ":fall", 0),
@@ -77481,7 +77507,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             #(particle_system_burst, "psys_dust_blast", pos1, 10), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (position_move_x,pos1,2), # was 3
                             (try_end),
                             (copy_position,pos2,pos1),
@@ -77490,7 +77516,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             #(particle_system_burst, "psys_dust_blast", pos1, 10), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (store_mod, ":fall", reg5, 5),
                                 (try_begin),
                                 (eq, ":fall", 0),
@@ -77507,7 +77533,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             #added for gravity effect and flight randomness
                             #(agent_get_troop_id, ":chosen_troop", ":chosen"),
                             #(try_begin),
-                            #(neq, ":chosen_troop", "trp_player"),
+                            #(neq, ":chosen_troop", "$g_tgs_player_troop"),
                             #    (store_mod, ":fall", reg5, 2),
                             #    (try_begin),
                             #    (eq, ":fall", 0),
@@ -77785,7 +77811,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (particle_system_burst, "psys_electricity_blast", pos1, 10), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (position_move_x,pos1,2), # was 3
                             (try_end),
                             (copy_position,pos2,pos1),
@@ -77794,7 +77820,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (particle_system_burst, "psys_electricity_blast", pos1, 10), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (store_mod, ":fall", reg5, 5),
                                 (try_begin),
                                 (eq, ":fall", 0),
@@ -77811,7 +77837,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             #added for gravity effect and flight randomness
                             #(agent_get_troop_id, ":chosen_troop", ":chosen"),
                             #(try_begin),
-                            #(neq, ":chosen_troop", "trp_player"),
+                            #(neq, ":chosen_troop", "$g_tgs_player_troop"),
                             #    (store_mod, ":fall", reg5, 2),
                             #    (try_begin),
                             #    (eq, ":fall", 0),
@@ -78207,7 +78233,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                         (try_end),                    
 
                         #start base code
-                        (troop_get_slot, ":num_firewalls_active", "trp_player", slot_troop_num_firewalls_active),
+                        (troop_get_slot, ":num_firewalls_active", "$g_tgs_player_troop", slot_troop_num_firewalls_active),
                         (try_begin),
                         (lt, ":num_firewalls_active", 10),
                         
@@ -78397,32 +78423,32 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
                             #set up one of the firewall slots
                             (val_add, ":num_firewalls_active", 1),
-                            (troop_set_slot, "trp_player", slot_troop_num_firewalls_active, ":num_firewalls_active"),
+                            (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_firewalls_active, ":num_firewalls_active"),
                         
                             (assign, ":firewall_slot_found", 0),
                             (try_for_range, ":firewall_no", 1601, 1611),
                                 (eq, ":firewall_slot_found", 0),
-                                (troop_slot_eq, "trp_player", ":firewall_no", 0),
+                                (troop_slot_eq, "$g_tgs_player_troop", ":firewall_no", 0),
                                     (assign, ":firewall_slot", ":firewall_no"),
                                     (assign, ":firewall_slot_found", 1),
                             (try_end),
                         
-                            (troop_set_slot, "trp_player", ":firewall_slot", 1),
+                            (troop_set_slot, "$g_tgs_player_troop", ":firewall_slot", 1),
 
                             (store_add, ":firewall_initial_power_slot", ":firewall_slot", 10),
-                            (troop_set_slot, "trp_player", ":firewall_initial_power_slot", ":total_duration"),                            
+                            (troop_set_slot, "$g_tgs_player_troop", ":firewall_initial_power_slot", ":total_duration"),                            
                         
                             (store_add, ":firewall_length_slot", ":firewall_slot", 20),
-                            (troop_set_slot, "trp_player", ":firewall_length_slot", ":total_length"),
+                            (troop_set_slot, "$g_tgs_player_troop", ":firewall_length_slot", ":total_length"),
                         
                             (store_add, ":firewall_radius_slot", ":firewall_slot", 30),
-                            (troop_set_slot, "trp_player", ":firewall_radius_slot", ":affected_radius"),
+                            (troop_set_slot, "$g_tgs_player_troop", ":firewall_radius_slot", ":affected_radius"),
                         
                             (store_add, ":firewall_duration_slot", ":firewall_slot", 40),
-                            (troop_set_slot, "trp_player", ":firewall_duration_slot", ":total_duration"),
+                            (troop_set_slot, "$g_tgs_player_troop", ":firewall_duration_slot", ":total_duration"),
                         
                             (store_add, ":firewall_damage_slot", ":firewall_slot",50),
-                            (troop_set_slot, "trp_player", ":firewall_damage_slot", ":damage_over_time"),
+                            (troop_set_slot, "$g_tgs_player_troop", ":firewall_damage_slot", ":damage_over_time"),
                         
                             (try_begin),
                             (eq, ":firewall_slot", 1601),
@@ -78565,7 +78591,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     
     #start base code
     (assign, ":number_of_enemies", 0),
-    (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
+    (troop_get_slot, ":num_seekers_active", "$g_tgs_player_troop", slot_troop_num_seekers_active),
     
     (try_begin),
     (lt, ":num_seekers_active", 50),
@@ -78579,10 +78605,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (assign, ":already_targeted", 0),
             (try_for_range, ":seeker_no", 1201, 1251),
                 (store_add, ":target_no", ":seeker_no", 50),
-                (troop_slot_eq, "trp_player", ":target_no", ":agent"),
+                (troop_slot_eq, "$g_tgs_player_troop", ":target_no", ":agent"),
                     (try_begin),
-                    (troop_slot_eq, "trp_player", ":seeker_no", 0),
-                        (troop_set_slot, "trp_player", ":target_no", -1),
+                    (troop_slot_eq, "$g_tgs_player_troop", ":seeker_no", 0),
+                        (troop_set_slot, "$g_tgs_player_troop", ":target_no", -1),
                     (try_end),
                     (val_add, ":already_targeted", 1),
             (try_end),
@@ -78610,30 +78636,30 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":slot_found", 0),
         (try_for_range, ":seeker_no", 1201, 1251),
             (eq, ":slot_found", 0),
-            (troop_slot_eq, "trp_player", ":seeker_no", 0),
+            (troop_slot_eq, "$g_tgs_player_troop", ":seeker_no", 0),
             (agent_get_look_position, pos1, ":chosen"),
             #(store_sub, ":position", ":seeker_no", 170),
     
             (store_add, ":target_no", ":seeker_no", 50),
-            (troop_set_slot, "trp_player", ":target_no", ":target"),
+            (troop_set_slot, "$g_tgs_player_troop", ":target_no", ":target"),
             (store_add, ":shooter_no", ":seeker_no", 100),
-            (troop_set_slot, "trp_player", ":shooter_no", ":chosen"),
+            (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", ":chosen"),
     
             (position_get_x, ":current_x", pos1),
             (position_get_y, ":current_y", pos1),
             (store_add, ":x_slot_no", ":seeker_no", 150),
-            (troop_set_slot, "trp_player", ":x_slot_no", ":current_x"),
+            (troop_set_slot, "$g_tgs_player_troop", ":x_slot_no", ":current_x"),
             (store_add, ":y_slot_no", ":seeker_no", 200),
-            (troop_set_slot, "trp_player", ":y_slot_no", ":current_y"),
+            (troop_set_slot, "$g_tgs_player_troop", ":y_slot_no", ":current_y"),
 
             (store_add, ":speed_slot", ":seeker_no", 250),
-            (troop_set_slot, "trp_player", ":speed_slot", ":speed_scaler"),
+            (troop_set_slot, "$g_tgs_player_troop", ":speed_slot", ":speed_scaler"),
             (store_add, ":power_slot", ":seeker_no", 350),
-            (troop_set_slot, "trp_player", ":power_slot", ":power_scaler"),
+            (troop_set_slot, "$g_tgs_player_troop", ":power_slot", ":power_scaler"),
                 
             (val_add, ":num_seekers_active", 1),
-            (troop_set_slot, "trp_player", slot_troop_num_seekers_active, ":num_seekers_active"),
-            (troop_set_slot, "trp_player", ":seeker_no", 1),
+            (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, ":num_seekers_active"),
+            (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 1),
             (assign, ":slot_found", 1),
             (play_sound, "snd_seeker"),
         (try_end),
@@ -78658,7 +78684,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (store_script_param,":chosen_team",3),
     
     (assign, ":number_of_enemies", 0),
-    (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
+    (troop_get_slot, ":num_seekers_active", "$g_tgs_player_troop", slot_troop_num_seekers_active),
     
     (try_begin),
     (lt, ":num_seekers_active", 20),
@@ -78674,7 +78700,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (assign, ":already_targeted", 0),
             (try_for_range, ":seeker_no", 201, 221),
                 (store_add, ":target_no", ":seeker_no", 20),
-                (troop_slot_eq, "trp_player", ":target_no", ":agent"),
+                (troop_slot_eq, "$g_tgs_player_troop", ":target_no", ":agent"),
                     (val_add, ":already_targeted", 1),
             (try_end),
         # DEBUG BEGIN
@@ -78701,7 +78727,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":slot_found", 0),
         (try_for_range, ":seeker_no", 201, 221),
             (eq, ":slot_found", 0),
-            (troop_slot_eq, "trp_player", ":seeker_no", 0),
+            (troop_slot_eq, "$g_tgs_player_troop", ":seeker_no", 0),
             (agent_get_look_position, pos1, ":chosen"),
             #(store_sub, ":position", ":seeker_no", 170),
             (try_begin),
@@ -78766,12 +78792,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (copy_position, pos50, pos1),
             (try_end),
             (store_add, ":target_no", ":seeker_no", 20),
-            (troop_set_slot, "trp_player", ":target_no", ":target"),
+            (troop_set_slot, "$g_tgs_player_troop", ":target_no", ":target"),
             (store_add, ":shooter_no", ":seeker_no", 40),
-            (troop_set_slot, "trp_player", ":shooter_no", ":chosen"),
+            (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", ":chosen"),
             (val_add, ":num_seekers_active", 1),
-            (troop_set_slot, "trp_player", slot_troop_num_seekers_active, ":num_seekers_active"),
-            (troop_set_slot, "trp_player", ":seeker_no", 1),
+            (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, ":num_seekers_active"),
+            (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 1),
             (assign, ":slot_found", 1),
             (play_sound, "snd_seeker"),
         (try_end),
@@ -78973,7 +78999,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (particle_system_burst, ":blast_effect", pos1, 5), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (position_move_x,pos1,2), # was 3
                             (try_end),
                             (copy_position,pos2,pos1),
@@ -78982,7 +79008,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (particle_system_burst, ":blast_effect", pos1, 5), ## need balefire trail
                             (position_move_y,pos1,20), # was 20
                             (try_begin),
-                            (neq, ":chosen_troop", "trp_player"),
+                            (neq, ":chosen_troop", "$g_tgs_player_troop"),
                                 (store_mod, ":fall", reg5, 5),
                                 (try_begin),
                                 (eq, ":fall", 0),
@@ -78998,7 +79024,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             #added for gravity effect and flight randomness
                             #(agent_get_troop_id, ":chosen_troop", ":chosen"),
                             #(try_begin),
-                            #(neq, ":chosen_troop", "trp_player"),
+                            #(neq, ":chosen_troop", "$g_tgs_player_troop"),
                             #    (store_mod, ":fall", reg5, 2),
                             #    (try_begin),
                             #    (eq, ":fall", 0),
@@ -79234,7 +79260,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(store_mul,":result",":baseno",":rank_weaveno"),
 	(try_end),
     
-    (troop_get_slot, ":current_channeling_stamina", "trp_player", slot_troop_current_channeling_stamina),
+    (troop_get_slot, ":current_channeling_stamina", "$g_tgs_player_troop", slot_troop_current_channeling_stamina),
     (store_sub, ":stamina_check", ":current_channeling_stamina", ":result"),
     (try_begin),
     (lt, ":stamina_check", 0),
@@ -79242,7 +79268,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign,reg0,0),
     (else_try),
         (val_sub, ":current_channeling_stamina", ":result"),
-        (troop_set_slot, "trp_player", slot_troop_current_channeling_stamina, ":current_channeling_stamina"),
+        (troop_set_slot, "$g_tgs_player_troop", slot_troop_current_channeling_stamina, ":current_channeling_stamina"),
         (assign,reg0,1),
     (try_end),
 ]),
@@ -79792,7 +79818,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (assign, ":seeker_check", 0),
             (try_for_range, ":seeker_no", 1201, 1251),
                 (store_add, ":target_no", ":seeker_no", 50),
-                (troop_slot_eq, "trp_player", ":target_no", ":agent"),
+                (troop_slot_eq, "$g_tgs_player_troop", ":target_no", ":agent"),
                     (val_add, ":seeker_check", 1),
             (try_end),
             (try_begin),
@@ -79936,7 +79962,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_for_range, ":seeker_no", 1201, 1251),
         (eq, ":chosen_seeker_check", 0),
         (store_add, ":target_no", ":seeker_no", 50),
-        (troop_slot_eq, "trp_player", ":target_no", ":chosen"),
+        (troop_slot_eq, "$g_tgs_player_troop", ":target_no", ":chosen"),
             (assign, ":chosen_seeker_check", 1),
     (try_end),
     (agent_get_slot, ":chosen_on_fire_check", ":chosen", slot_agent_on_fire),
@@ -80120,7 +80146,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     ## When to use Seeker? 4,5,6,7,8,9
     (assign, ":seeker_level_of_importance", 0),
     (try_begin),
-    (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
+    (troop_get_slot, ":num_seekers_active", "$g_tgs_player_troop", slot_troop_num_seekers_active),
     (lt, ":num_seekers_active", 50),
     (lt, ":num_seekers_active", ":total_active_enemies"),
         (store_random_in_range, ":random", 4, 10),
@@ -80577,7 +80603,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     
     (try_begin),
     (lt, ":chosen", 0), # will be negative if it is called from module_triggers rather than module_mission_templates
-        (assign, ":chosen_troop", "trp_player"),
+        (assign, ":chosen_troop", "$g_tgs_player_troop"),
     (else_try),
         (agent_get_troop_id, ":chosen_troop", ":chosen"),
     (try_end),
@@ -80911,7 +80937,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     
     (try_begin),
     (lt, ":chosen", 0), # will be negative if it is called from module_triggers rather than module_mission_templates
-        (assign, ":chosen_troop", "trp_player"),
+        (assign, ":chosen_troop", "$g_tgs_player_troop"),
     (else_try),
         (agent_get_troop_id, ":chosen_troop", ":chosen"),
     (try_end),
@@ -81305,12 +81331,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_add, ":power_slot_no", ":seeker_no", 300),
 
         (try_begin),
-        (troop_slot_eq, "trp_player", ":seeker_no", 1),
-        (troop_get_slot, ":target", "trp_player", ":target_no"),
+        (troop_slot_eq, "$g_tgs_player_troop", ":seeker_no", 1),
+        (troop_get_slot, ":target", "$g_tgs_player_troop", ":target_no"),
         (agent_is_alive, ":target"),
         
-            (troop_get_slot, ":current_x", "trp_player", ":x_slot_no"),
-            (troop_get_slot, ":current_y", "trp_player", ":y_slot_no"),
+            (troop_get_slot, ":current_x", "$g_tgs_player_troop", ":x_slot_no"),
+            (troop_get_slot, ":current_y", "$g_tgs_player_troop", ":y_slot_no"),
 
             (agent_get_look_position, pos61, ":target"), 
             (position_get_x, ":target_x", pos61),
@@ -81322,7 +81348,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_abs, ":diff_x"),
             (val_abs, ":diff_y"),
         
-            (troop_get_slot, ":speed_scaler", "trp_player", ":speed_slot_no"),
+            (troop_get_slot, ":speed_scaler", "$g_tgs_player_troop", ":speed_slot_no"),
             (store_add, ":speed_ceiling", ":speed_scaler", 70), # was 50
             (store_sub, ":speed_floor", ":speed_ceiling", 10),
             (store_mul, ":neg_speed_ceiling", ":speed_ceiling", -1),
@@ -81369,7 +81395,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":x_in_range", 1),
             (eq, ":y_in_range", 1),
                 (agent_set_hit_points, ":target", 0, 0),
-                (troop_get_slot, ":chosen", "trp_player", ":shooter_no"),
+                (troop_get_slot, ":chosen", "$g_tgs_player_troop", ":shooter_no"),
                 (agent_get_horse, ":chosen_horse", ":chosen"),
                 (agent_get_team, ":chosen_team", ":chosen"),
                 #(try_begin),
@@ -81383,15 +81409,15 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 #(try_end),
                 (particle_system_burst, "psys_massive_green_fire", pos61, 50),
                 (play_sound, "snd_explosion"),
-                (troop_set_slot, "trp_player", ":seeker_no", 0),
-                (troop_set_slot, "trp_player", ":target_no", -1),
-                (troop_set_slot, "trp_player", ":shooter_no", -1),
-                (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
+                (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
+                (troop_set_slot, "$g_tgs_player_troop", ":target_no", -1),
+                (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", -1),
+                (troop_get_slot, ":num_seekers_active", "$g_tgs_player_troop", slot_troop_num_seekers_active),
                 (val_sub, ":num_seekers_active", 1),
-                (troop_set_slot, "trp_player", slot_troop_num_seekers_active, ":num_seekers_active"),
+                (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, ":num_seekers_active"),
 
                 #new explosion stuff here        
-                (troop_get_slot, ":power_scaler", "trp_player", ":power_slot_no"),
+                (troop_get_slot, ":power_scaler", "$g_tgs_player_troop", ":power_slot_no"),
                 #radius
                 (assign, ":base_radius", 250), # was 200
                 (store_mul, ":scaled_radius", ":power_scaler", 50),
@@ -81497,16 +81523,16 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (particle_system_burst, "psys_seeker_blast", pos1 ,1),
             (try_end),
         
-            (troop_set_slot, "trp_player", ":x_slot_no", ":current_x"),
-            (troop_set_slot, "trp_player", ":y_slot_no", ":current_y"),
+            (troop_set_slot, "$g_tgs_player_troop", ":x_slot_no", ":current_x"),
+            (troop_set_slot, "$g_tgs_player_troop", ":y_slot_no", ":current_y"),
 
         (else_try), # target is dead or seeker was unraveled
-            (troop_set_slot, "trp_player", ":seeker_no", 0),
-            (troop_set_slot, "trp_player", ":target_no", -1),
-            (troop_set_slot, "trp_player", ":shooter_no", -1),
-            (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
+            (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
+            (troop_set_slot, "$g_tgs_player_troop", ":target_no", -1),
+            (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", -1),
+            (troop_get_slot, ":num_seekers_active", "$g_tgs_player_troop", slot_troop_num_seekers_active),
             (val_sub, ":num_seekers_active", 1),
-            (troop_set_slot, "trp_player", slot_troop_num_seekers_active, ":num_seekers_active"), 
+            (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, ":num_seekers_active"), 
         (try_end),
 
 ]),
@@ -81523,8 +81549,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (store_add, ":shooter_no", ":seeker_no", 40),
 
         (try_begin),
-        (troop_slot_eq, "trp_player", ":seeker_no", 1),
-        (troop_get_slot, ":target", "trp_player", ":target_no"),
+        (troop_slot_eq, "$g_tgs_player_troop", ":seeker_no", 1),
+        (troop_get_slot, ":target", "$g_tgs_player_troop", ":target_no"),
         (agent_is_alive, ":target"),
         (neg|agent_is_wounded, ":target"),
             (try_begin),
@@ -81643,7 +81669,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (eq, ":x_in_range", 1),
             (eq, ":y_in_range", 1),
                 (agent_set_hit_points, ":target", 0, 0),
-                (troop_get_slot, ":chosen", "trp_player", ":shooter_no"),
+                (troop_get_slot, ":chosen", "$g_tgs_player_troop", ":shooter_no"),
                 #(try_begin),
                 #(gt, ":chosen", 0),
                     (agent_deliver_damage_to_agent, ":chosen", ":target"),
@@ -81655,12 +81681,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 #(try_end),
                 (particle_system_burst, "psys_massive_green_fire", pos61, 50),
                 (play_sound, "snd_explosion"),
-                (troop_set_slot, "trp_player", ":seeker_no", 0),
-                (troop_set_slot, "trp_player", ":target_no", -1),
-                (troop_set_slot, "trp_player", ":shooter_no", -1),
-                (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
+                (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
+                (troop_set_slot, "$g_tgs_player_troop", ":target_no", -1),
+                (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", -1),
+                (troop_get_slot, ":num_seekers_active", "$g_tgs_player_troop", slot_troop_num_seekers_active),
                 (val_sub, ":num_seekers_active", 1),
-                (troop_set_slot, "trp_player", slot_troop_num_seekers_active, ":num_seekers_active"),
+                (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, ":num_seekers_active"),
             (else_try),
                 (particle_system_burst, "psys_seeker_blast", pos1 ,1),
             (try_end),
@@ -81728,12 +81754,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_end),    
 
         (else_try), # target is dead or seeker was unraveled
-            (troop_set_slot, "trp_player", ":seeker_no", 0),
-            (troop_set_slot, "trp_player", ":target_no", -1),
-            (troop_set_slot, "trp_player", ":shooter_no", -1),
-            (troop_get_slot, ":num_seekers_active", "trp_player", slot_troop_num_seekers_active),
+            (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
+            (troop_set_slot, "$g_tgs_player_troop", ":target_no", -1),
+            (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", -1),
+            (troop_get_slot, ":num_seekers_active", "$g_tgs_player_troop", slot_troop_num_seekers_active),
             (val_sub, ":num_seekers_active", 1),
-            (troop_set_slot, "trp_player", slot_troop_num_seekers_active, ":num_seekers_active"), 
+            (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, ":num_seekers_active"), 
         (try_end),
 
 ]),
@@ -81757,17 +81783,17 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                             (store_add, ":duration_slot", ":firewall_no", 40),
                             (store_add, ":damage_slot", ":firewall_no", 50),
         
-                            (troop_get_slot, ":initial_power", "trp_player", ":initial_power_slot"),
-                            (troop_get_slot, ":total_length", "trp_player", ":length_slot"),
-                            (troop_get_slot, ":radius", "trp_player", ":radius_slot"),
-                            (troop_get_slot, ":duration", "trp_player", ":duration_slot"),
-                            (troop_get_slot, ":damage", "trp_player", ":damage_slot"),
+                            (troop_get_slot, ":initial_power", "$g_tgs_player_troop", ":initial_power_slot"),
+                            (troop_get_slot, ":total_length", "$g_tgs_player_troop", ":length_slot"),
+                            (troop_get_slot, ":radius", "$g_tgs_player_troop", ":radius_slot"),
+                            (troop_get_slot, ":duration", "$g_tgs_player_troop", ":duration_slot"),
+                            (troop_get_slot, ":damage", "$g_tgs_player_troop", ":damage_slot"),
 
                             (assign, ":player_found", 0),                        
                             (try_for_agents, ":agent"),
                                 (eq, ":player_found", 0),
                                 (agent_get_troop_id, ":agent_troop", ":agent"),
-                                (eq, ":agent_troop", "trp_player"),
+                                (eq, ":agent_troop", "$g_tgs_player_troop"),
                                     (assign, ":chosen", ":agent"),
                                     (assign, ":player_found", 1),
                             (try_end),
@@ -81973,17 +81999,17 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                                 (try_begin),
                                 (gt, ":duration", 0),
                                     (val_sub, ":duration", 1),
-                                    (troop_set_slot, "trp_player", ":duration_slot", ":duration"),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":duration_slot", ":duration"),
                                 (else_try),
-                                    (troop_set_slot, "trp_player", ":firewall_no", 0),
-                                    (troop_set_slot, "trp_player", ":initial_power", 0),
-                                    (troop_set_slot, "trp_player", ":length_slot", 0),
-                                    (troop_set_slot, "trp_player", ":radius_slot", 0),
-                                    (troop_set_slot, "trp_player", ":duration_slot", 0),
-                                    (troop_set_slot, "trp_player", ":damage_slot", 0),
-                                    (troop_get_slot, ":num_firewalls_active", "trp_player", slot_troop_num_firewalls_active),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":firewall_no", 0),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":initial_power", 0),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":length_slot", 0),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":radius_slot", 0),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":duration_slot", 0),
+                                    (troop_set_slot, "$g_tgs_player_troop", ":damage_slot", 0),
+                                    (troop_get_slot, ":num_firewalls_active", "$g_tgs_player_troop", slot_troop_num_firewalls_active),
                                     (val_sub, ":num_firewalls_active", 1),
-                                    (troop_set_slot, "trp_player", slot_troop_num_firewalls_active, ":num_firewalls_active"),
+                                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_firewalls_active, ":num_firewalls_active"),
                                 (try_end),
                             (try_end),
                         

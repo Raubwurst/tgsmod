@@ -1193,7 +1193,7 @@ game_menus = [
 	(jump_to_menu,"mnu_start_character_2"),
     ]),
       ("start_mother_whore",[(neq, "$background_type", cb_father_lord),
-                             (neq, "$background_type", cb_father_warder),],"A whore.",[
+                             (neq, "$background_type", cb_father_warder),],"A tavern maid.",[
       (assign,"$background_type_mother",cb_mother_whore),
       (assign, reg3, "$character_gender"),
       (str_store_string,s16,"@Your mother may not have had the highest\
@@ -1640,7 +1640,7 @@ game_menus = [
         (jump_to_menu,"mnu_choose_skill"),
         ]),
       ("achievement_rediscovered_lost_weaves",[(this_or_next|eq, "$background_answer_3", cb_young_adulthood_accepted),
-                                               (eq, "$background_answer_3", cb_young_adulthood_accepted),
+                                               (eq, "$background_answer_3", cb_young_adulthood_active_wilder),
                                                ],"Rediscovered a lost weave.",[
         (assign,"$background_answer_4",cb_crowning_achievement_rediscovered_lost_weaves),
       (str_store_string,s13,"@Early on, you were marked as being a promising channeler.\
@@ -1750,14 +1750,20 @@ game_menus = [
 
            
            (try_begin),
-             (eq,"$character_gender",0),
+             (eq,"$character_gender",0), # male
              (troop_raise_attribute, "trp_player",ca_strength,1),
              (troop_raise_attribute, "trp_player",ca_charisma,1),
              (troop_add_item, "trp_player","itm_coarse_tunic",imod_battered),
+             (troop_raise_skill, "trp_player","skl_fire",1),
+             (troop_raise_skill, "trp_player","skl_earth",1),
+             (troop_raise_skill, "trp_player","skl_spirit",1),
            (else_try),
              (troop_raise_attribute, "trp_player",ca_agility,1),
              (troop_raise_attribute, "trp_player",ca_intelligence,1),
              (troop_add_item, "trp_player","itm_woolen_dress",imod_battered),
+             (troop_raise_skill, "trp_player","skl_water",1),
+             (troop_raise_skill, "trp_player","skl_air",1),
+             (troop_raise_skill, "trp_player","skl_spirit",1),
            (try_end),
 
            (troop_raise_attribute, "trp_player",ca_strength,1),
@@ -1976,7 +1982,7 @@ game_menus = [
         (troop_raise_skill, "trp_player","skl_leadership",1),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,10),
         (troop_raise_proficiency, "trp_player",wpt_archery,10),
-        (troop_raise_proficiency, "trp_player",wpt_firearm,10),
+        (troop_raise_proficiency, "trp_player",wpt_firearm,5),
         (troop_add_gold, "trp_player", 500),
         (call_script,"script_change_troop_renown", "trp_player", 10),
         (troop_add_item, "trp_player","itm_dagger",0),
@@ -1993,7 +1999,7 @@ game_menus = [
         (troop_raise_skill, "trp_player","skl_persuasion",1),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,5),
         (troop_raise_proficiency, "trp_player",wpt_throwing,5),
-        (troop_raise_proficiency, "trp_player",wpt_firearm,20),
+        (troop_raise_proficiency, "trp_player",wpt_firearm,10),
         (troop_add_gold, "trp_player", 300),
         (call_script,"script_change_troop_renown", "trp_player", 20),
         (troop_add_item, "trp_player","itm_blue_hose",0),
@@ -2138,12 +2144,18 @@ game_menus = [
         (troop_raise_skill, "trp_player","skl_tactics",1),
         (troop_raise_skill, "trp_player","skl_surgery",1),
         (troop_raise_skill, "trp_player","skl_leadership",1),
-        (troop_raise_proficiency, "trp_player",wpt_firearm,30),
+        (troop_raise_proficiency, "trp_player",wpt_firearm,10),
         (troop_add_item, "trp_player","itm_dagger",0),
         (troop_add_item, "trp_player","itm_power_player",0),
         (troop_add_item, "trp_player","itm_novice_dress",0),
         (troop_add_item, "trp_player","itm_novice_accepted_damane_shoes",0),
         (troop_set_slot, "trp_player", slot_troop_player_knows_channeling, 1),
+        (troop_raise_skill, "trp_player","skl_fire",1),
+        (troop_raise_skill, "trp_player","skl_earth",1),
+        (troop_raise_skill, "trp_player","skl_spirit",1),
+        (troop_raise_skill, "trp_player","skl_water",1),
+        (troop_raise_skill, "trp_player","skl_air",1),
+        (troop_raise_skill, "trp_player","skl_channeling",1),
     (else_try),
         (eq,"$background_answer_2",cb_childhood_wilder),
         (troop_raise_attribute, "trp_player",ca_strength,1),
@@ -2153,10 +2165,16 @@ game_menus = [
         (troop_raise_skill, "trp_player","skl_athletics",1),
         (troop_raise_skill, "trp_player","skl_trainer",1),
         (troop_raise_skill, "trp_player","skl_prisoner_management",1),
-        (troop_raise_proficiency, "trp_player",wpt_firearm,30),
+        (troop_raise_proficiency, "trp_player",wpt_firearm,10),
         (troop_add_item, "trp_player","itm_power_player",0),
         (troop_add_item, "trp_player","itm_dagger",0),
         (troop_set_slot, "trp_player", slot_troop_player_knows_channeling, 1),
+        (troop_raise_skill, "trp_player","skl_fire",1),
+        (troop_raise_skill, "trp_player","skl_earth",1),
+        (troop_raise_skill, "trp_player","skl_spirit",1),
+        (troop_raise_skill, "trp_player","skl_water",1),
+        (troop_raise_skill, "trp_player","skl_air",1),
+        (troop_raise_skill, "trp_player","skl_channeling",1),
     (else_try),
         (eq,"$background_answer_2",cb_childhood_hunter),
         (troop_raise_attribute, "trp_player",ca_agility,1),
@@ -2226,12 +2244,39 @@ game_menus = [
     (else_try),
         (eq,"$background_answer_3",cb_young_adulthood_accepted),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,10),
-        (troop_raise_proficiency, "trp_player",wpt_firearm,40),
+        (troop_raise_proficiency, "trp_player",wpt_firearm,15),
         (troop_add_item, "trp_player","itm_accepted_dress",0),
+        (troop_raise_skill, "trp_player","skl_spirit",1),
+        (troop_raise_skill, "trp_player","skl_channeling",1),
+        (store_random_in_range, ":random", 1, 3),
+        (try_begin),
+        (eq, ":random", 1),
+            (troop_raise_skill, "trp_player","skl_water",1),
+        (else_try),
+            (troop_raise_skill, "trp_player","skl_air",1),
+        (try_end),
     (else_try),
         (eq,"$background_answer_3",cb_young_adulthood_active_wilder),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,15),
-        (troop_raise_proficiency, "trp_player",wpt_firearm,35),
+        (troop_raise_proficiency, "trp_player",wpt_firearm,15),
+        (troop_raise_skill, "trp_player","skl_channeling",2),
+        (store_random_in_range, ":random", 1, 3),
+        (try_begin),
+        (eq, "$character_gender", 0),
+            (try_begin),
+            (eq, ":random", 1),
+                (troop_raise_skill, "trp_player","skl_fire",1),
+            (else_try),
+                (troop_raise_skill, "trp_player","skl_earth",1),
+            (try_end),
+        (else_try),
+            (try_begin),
+            (eq, ":random", 1),
+                (troop_raise_skill, "trp_player","skl_water",1),
+            (else_try),
+                (troop_raise_skill, "trp_player","skl_air",1),
+            (try_end),
+        (try_end),
     (else_try),
         (eq,"$background_answer_3",cb_young_adulthood_merchant),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,15),
@@ -2296,6 +2341,12 @@ game_menus = [
         (troop_raise_proficiency, "trp_player",wpt_two_handed_weapon,30),
         (call_script,"script_change_troop_renown", "trp_player", 20),
         (troop_add_item, "trp_player","itm_khergit_sword_two_handed_a",0),
+        (store_attribute_level, ":strength", "trp_player", ca_strength),
+        (try_begin),
+        (lt, ":strength", 10),
+           (store_sub, ":difference", 10, ":strength"),
+           (troop_raise_attribute, "trp_player", ca_strength, ":difference"), # make sure they can use the two handed blade the are getting
+        (try_end),
     (else_try),
         (eq,"$background_answer_4",cb_crowning_achievement_survived_journey_across_aiel_waste),
         (troop_raise_skill, "trp_player","skl_pathfinding",1),
@@ -2318,8 +2369,8 @@ game_menus = [
         (troop_add_item, "trp_player","itm_light_lance",0),
     (else_try),
         (eq,"$background_answer_4",cb_crowning_achievement_rediscovered_lost_weaves),
-        (troop_raise_attribute, "trp_player",ca_intelligence,1),
-        (troop_raise_proficiency, "trp_player",wpt_firearm,30),
+        (troop_raise_attribute, "trp_player",ca_intelligence,2),
+        (troop_raise_proficiency, "trp_player",wpt_firearm,10),
     (else_try),
         (eq,"$background_answer_4",cb_crowning_achievement_became_wealthy_merchant),
         (troop_raise_skill, "trp_player","skl_trade",1),
@@ -3500,6 +3551,16 @@ game_menus = [
 	),
 
 ##diplomacy end
+## Added for TGS
+	("TGS_camp_actions",
+		[
+		],
+		"The Gathering Storm Options.",
+		[
+			(jump_to_menu, "mnu_TGS_actions")
+		]
+	),
+## End added for TGS      
       ("camp_action",[],"Take an action.",
        [(jump_to_menu, "mnu_camp_action"),
         ]
@@ -20194,6 +20255,665 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 #######################
 #### Ways Menu End ####
 #######################
+
+
+######################
+## TGS Camp Actions ##
+######################
+
+# Base menu
+  ("TGS_actions",0,
+   "Choose an action to take.",
+   "none",
+   [],
+    [
+      ("action_configure_keys",[],"Configure Keys.",
+       [
+        (start_presentation, "prsnt_pbod_redefine_keys"),
+        ]
+       ),
+      ("action_channeler_tips",[(eq, "$g_tutorial_complete", 1),
+                                (troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1),
+                             ],"View tips for channelers.",
+       [
+        (jump_to_menu, "mnu_TGS_channeler_tips"),
+        ]
+       ),
+      ("TGS_camp_action_return",[],"Back to camp menu.",
+       [(jump_to_menu, "mnu_camp"),
+        ]
+       ),
+      ]
+  ),
+
+# Key config
+  ("TGS_configure_keys",0,
+   "Choose an action to take.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_config_return",[],"Back to TGS actions menu.",
+       [(jump_to_menu, "mnu_TGS_actions"),]),
+      ]
+  ),
+
+# Channeler tips
+  ("TGS_channeler_tips",0,
+   "Channeling Tips: Choose an option.",
+   "none",
+   [],
+    [
+      ("TGS_channeling_basics",[],"Learn the basics of channeling.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_basics"),
+        ]
+       ),
+      ("TGS_channeling_weaves",[],"Read 'The Channeler's Guidebook: Vol. 1' - by Rober Jordani - Age of Legends.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ("TGS_channeling_weaves_vol_2",[],"Read 'The Channeler's Guidebook: Vol. 2' - by Rober Jordani - Age of Legends.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_vol_2"),
+        ]
+       ),
+      ("TGS_camp_action_tips_return",[],"Back to TGS actions menu.",
+       [(jump_to_menu, "mnu_TGS_actions"),
+        ]
+       ),
+      ]
+  ),
+
+# Channeling basics
+  ("TGS_channeling_basics",0,
+   "Channeling Basics: Choose a topic.",
+   "none",
+   [],
+    [
+      ("TGS_channeling_overview",[],"Basic channeling overview.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_basics_overview"),
+        ]
+       ),
+      ("TGS_channeling_lost_power_item",[],"How to recover a lost One Power item.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_basics_lost_power_item"),
+        ]
+       ),
+      ("TGS_channeling_toggling_active_weave",[],"How to toggle your active weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_basics_toggling_active_weave"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_basics_return",[],"Back to TGS channeler tips menu.",
+       [(jump_to_menu, "mnu_TGS_channeler_tips"),
+        ]
+       ),
+      ]
+  ),
+
+# Channeling basics - overview
+  ("TGS_channeling_basics_overview",0,
+   "If one desires to become a channeler, there are a few things that should be remembered. The power of channeling comes from the mind. A person's Strength, \
+Agility, and Charisma have no effect on their ability to connect to the True Source. Gaining more Intellect will lead to great strength in the Power. \
+The One Power is used by 'weaving' or 'spinning' threads of the Five Powers: Fire, Earth, Air, Water, and Spirit. Generally, men are stronger in the \
+Powers of Fire and Earth, while women are stronger in the Powers of Air and Water. But both genders have the potential to become powerful in all five \
+Powers if they dedicate their lives to this purpose.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_basics_next_topic",[],"Next basic channeling topic.",
+       [(jump_to_menu, "mnu_TGS_channeling_basics_lost_power_item"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_basics_overview_return",[],"Back to TGS channeling basics menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_basics"),
+        ]
+       ),
+      ]
+  ),
+
+# Channeling basics - lost power item  
+  ("TGS_channeling_basics_lost_power_item",0,
+   "If a channeler loses his/her One Power item, do not dismay, this is not the same as being 'Stilled'. Simply press the 'Recover Lost Channeling Item' key, \
+(set to 'Z' by default) and the item will re-appear in your inventory.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_basics_next_topic_2",[],"Next basic channeling topic.",
+       [(jump_to_menu, "mnu_TGS_channeling_basics_toggling_active_weave"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_basics_overview_lost_power_item_return",[],"Back to TGS channeling basics menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_basics"),
+        ]
+       ),
+      ]
+  ),
+
+# Channeling basics - toggling active weave 
+  ("TGS_channeling_basics_toggling_active_weave",0,
+   "In order for a channeler to change his/her active weave, he/she needs to be in battle, and the One Power item needs to be in one of the four inventory \
+slots. If this is the case, press and hold the 'Weave Toggle' key (set to 'Caps Lock' by default) and the icons for the available weaves will appear \
+above the player's character. Next, move the mouse cursor over the icon of the desired weave and release the 'Weave Toggle' key. The desired weave should now \
+be designated as active, which is shown by it's appearance over the Channeling Stamina Bar. In order to use the weave in battle, the One Power item needs to be \
+the active weapon, as shown by the white One Power Wheel appearing above the Channeling Stamina Bar. In addition, you will need to have the required amount of \
+channeling stamina in order to use your current active weave.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_basics_overview_toggling_active_weave",[],"Back to TGS channeling basics menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_basics"),
+        ]
+       ),
+      ]
+  ),
+
+##############################
+# Channeling basics - weaves
+  ("TGS_channeling_weaves",0,
+   "The Channeler's Guidebook: Vol. 1:  Choose a chapter to read.",
+   "none",
+   [],
+    [
+      ("TGS_channeling_intro",[],"An introduction to the One Power.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_intro"),
+        ]
+       ),
+      ("TGS_channeling_stamina",[],"An introduction to Channeling Stamina.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_channeling_stamina"),
+        ]
+       ),
+      ("TGS_channeling_learning_new_weaves_and_scaling",[],"An overview on Learning New Weaves and Weave Scaling.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_learning_new_weaves_and_scaling"),
+        ]
+       ),
+      # specific weave chapters start
+      ("TGS_channeling_air_blast",[],"An introduction to the Air Blast Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_air_blast"),
+        ]
+       ),
+      ("TGS_channeling_freeze",[],"An introduction to the Freeze Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_freeze"),
+        ]
+       ),
+      ("TGS_channeling_heal",[],"An introduction to the Heal Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_heal"),
+        ]
+       ),
+      ("TGS_channeling_fireball",[],"An introduction to the Fireball Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_fireball"),
+        ]
+       ),
+      ("TGS_channeling_unravel",[],"An introduction to the Unravel Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_unravel"),
+        ]
+       ),
+      ("TGS_channeling_defensive_blast",[],"An introduction to the Defensive Blast Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_defensive_blast"),
+        ]
+       ),
+      ("TGS_channeling_earth_blast",[],"An introduction to the Earth Blast Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_earth_blast"),
+        ]
+       ),
+      ("TGS_channeling_bind",[],"An introduction to the Bind Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_bind"),
+        ]
+       ),
+      ("TGS_channeling_chain_lightning",[],"An introduction to the Chain Lightning Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_chain_lightning"),
+        ]
+       ),
+      ("TGS_channeling_fire_curtain",[],"An introduction to the Fire Curtain Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_fire_curtain"),
+        ]
+       ),
+      ("TGS_channeling_shield",[],"An introduction to the Shield Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_shield"),
+        ]
+       ),
+      ("TGS_channeling_seeker",[],"An introduction to the Seeker Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_seeker"),
+        ]
+       ),
+
+      ("TGS_channeling_vol_2",[],"Jump to Volume 2.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_vol_2"),
+        ]
+       ),      
+      
+      ("TGS_camp_action_weaves_return",[],"Back to TGS channeler tips menu.",
+       [(jump_to_menu, "mnu_TGS_channeler_tips"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_vol_2",0,
+   "The Channeler's Guidebook: Vol. 2:  Choose a chapter to read.",
+   "none",
+   [],
+    [
+      ("TGS_channeling_compulsion",[],"An introduction to the Compulsion Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_compulsion"),
+        ]
+       ),
+      ("TGS_channeling_balefire",[],"An introduction to the Balefire Weave.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_balefire"),
+        ]
+       ),
+
+      ("TGS_channeling_shield_breaking",[],"An introduction to Shield Breaking.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves_shield_breaking"),
+        ]
+       ),
+
+      ("TGS_channeling_vol_1",[],"Jump to Volume 1.",
+       [
+        (jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),        
+      
+      ("TGS_camp_action_weaves_return",[],"Back to TGS channeler tips menu.",
+       [(jump_to_menu, "mnu_TGS_channeler_tips"),
+        ]
+       ),
+      ]
+  ),  
+
+# Channeling basics - weaves - Intro  
+  ("TGS_channeling_weaves_intro",0,
+   "'The One Power comes from the True Source, the driving force of creation, the force the Creator made to turn the Wheel of Time. \
+Saidin, the male half of the True Source, and saidar, the female half, work against each other, and at the same time together to \
+provide that force. Saidin is fouled by the touch of the Dark One, like water with a thin slick of rancid oil floating on top. \
+The water is still pure, but it cannot be touched without touching the foulness. Only saidar is still safe to be used...The True \
+Source cannot be used up, any more than the river can be used up by the wheel of the mill. The Source is the river; the Aes Sedai, \
+the waterwheel.' - The Eye of the World",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_intro_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_channeling_stamina"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_intro_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_channeling_stamina",0,
+   "Channeling Stamina is the measure of your ability to connect to the True Source. While channeling is not a physical action, \
+doing so for long periods of time will exhaust you and lessen your connection to the True Source. Similar to physical exhaustion, \
+rest is needed for the mind to recouperate. Raising your Channeling Affinity, Intelligence, and Channeling Proficiency will allow \
+you to have a greater connection to the True Source. Your Intelligence, and Channeling Proficiency govern your ability to recouperate. \
+Recouperation happens at a slow rate during battle and more quickly when out of battle.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_channeling_stamina_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_learning_new_weaves_and_scaling"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_channeling_stamina_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_learning_new_weaves_and_scaling",0,
+   "As you train in the usage of the One Power, new weaves will become available to you. Each weave requires the channeler to have a \
+specific base-level of Channeling Proficiency in order for it to become available. Also, there are specific skill requirements in the \
+Five Powers for each weave. Some weaves are governed by one or two of the Powers, and some are governed by all of them. Raising \
+your skill beyond these base-requirements will cause the weave to become more powerful. Focusing on the main governing Power, such \
+as 'Fire' for Fireball will have the most noticeable effect at scaling the weave. Lastly, weaves do not necessarily need to be learned \
+in any specific order. As long as the base-requirements are met, that weave will become available to the channeler.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_learning_new_weaves_and_scaling_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_air_blast"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_learning_new_weaves_and_scaling_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_air_blast",0,
+   "The Air Blast weave creates a strong wind that pushes enemies in front of the channeler away while delivering a small amount of \
+damage. Air Blast requires an Air skill of 2. Further progression of this governing skill will cause Air Blast to push enemies \
+farther, do more damage, and eventually knock enemies off their feet. Enemies who are Bound will not be 'pushed' away.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_air_blast_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_freeze"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_air_blast_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_freeze",0,
+   "The Freeze weave shoots a stream of ice that damages enemies that are near it's first point of contact. Affected enemies are \
+affected for a period of time by reduced movement speed and also a small amount of damage-over-time. The Freeze weave will also extinguish \
+any active burning effects it's target has. Freeze requires a Channeling Proficiency of 15, a Water skill of 3, and an Air skill \
+of 1. Further progression of these governing skills will cause Freeze to deliver more initial damage, affect a larger area, and \
+cause enemy slowdown and damage-over-time for a longer duration. The effects of Freeze cannot be unraveled, but healing will cause \
+the effects to be negated.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_freeze_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_heal"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_freeze_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_heal",0,
+   "The Heal weave will restore a portion of a wounded allies health. It also has the ability to cure the 'frostbite' effects of the \
+Freeze weave. Healing requires a Channeling Proficiency of 30, a Spirit skill of 3, a Water skill of 4, and an Air skill of 1. Further \
+progression of these governing skills will cause Healing to restore a larger percentage of the wounded ally's health.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_heal_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_fireball"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_heal_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_fireball",0,
+   "The Fireball weave casts a stream of fire that explodes upon contact with the ground or an enemy. Enemies near this explosion will \
+receive initial damage and also be set on fire for a set amount of time. Burn-over-time effects will negate active freeze effects. Fireball \
+requires a Channeling Proficiency of 50, a Fire skill of 4, and an Air skill of 1. Further progression of these governing skills will cause Fireball \
+to deliver more initial damage, affect a larger area, and causing burn-over-time effects for a longer duration. The burn-over-time effects \
+can be unraveled.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_fireball_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_unravel"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_fireball_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),   
+
+  ("TGS_channeling_weaves_unravel",0,
+   "The Unravel weave attempts to 'undo' existing effects or weaves caused by enemy channelers. Seekers, burn-over-time effects, and bind \
+effects that are applied to the channeler are the highest priority. Burn-over-time effects on the channeler's horse are the second \
+priority. Seekers, compulsion effects, burn-over-time effects, and bind effects that are applied to allies are the third priority. \
+A great deal of Unravel's effectivity relies on the enemies who created the weaves you are Unraveling. If they are still alive and are \
+stronger in the One Power than you, it will be harder to Unravel their weaves. If they are dead or weaker in the One Power than you, it \
+will be easier to Unravel their weaves. Unravel requires a Channeling Proficiency of 65, a Spirit skill of 4, and Fire, Earth, Water, \
+and Air skills of 2. Further progression of these governing skills will cause Unraveling to be effective a higher percentage of the time.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_unravel_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_defensive_blast"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_unravel_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_defensive_blast",0,
+   "The Defensive Blast weave creates an explosion of air around the channeler. This deals moderate damage and pushes all nearby enemies away, \
+giving the channeler space to maneuver. Defensive Blast requires a Channeling Proficiency of 75 and an Air skill of 5. Further progression of \
+the governing skill will cause Defensive Blast to affect a larger radius, cause more damage, push enemies a greater distance, and eventually \
+knock enemies off their feet. Enemies who are Bound will not be 'pushed' away.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_defensive_blast_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_earth_blast"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_defensive_blast_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_earth_blast",0,
+   "The Earth Blast weave causes an explosion at a position determined by the channeler. Enemies near the explosion will be dealt moderate \
+damage and pushed away from the explosion. Earth Blast requires a Channeling Proficiency of 85, an Earth skill of 6, and an Air skill of 3. \
+Further progression of these governing skills will cause Earth Blast to affect a larger radius, cause more damage, push enemies a greater \
+distance, and eventually knock enemies off their feet. Enemies who are bound will not be 'pushed' away.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_earth_blast_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_bind"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_earth_blast_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_bind",0,
+   "The Bind weave wraps an enemy in weaves of spirit and air, forcing them to stop moving for a set amount of time.  Bind requires a Channeling \
+Proficiency of 100, a Spirit skill of 5, and an Air skill of 3. Further progression of these governing skills will cause Bind to have a longer \
+duration and eventually deal damage-over-time. Bind effects can be unraveled.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_bind_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_chain_lightning"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_bind_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_chain_lightning",0,
+   "The Chain Lightning weave summons a bolt of lightning to strike the ground at a position determined by the channeler. Enemies near the \
+strike location will be dealt damage and given an electrical charge that causes damage-over-time and can be passed on to nearby enemies. Chain Lightning \
+requires a Channeling Proficiency of 125, a Water skill of 5, an Air skill of 4, and a Spirit skill of 3. Further progression of the governing \
+skills will cause the bolt to affect a larger radius, deal more initial damage, and apply an electrical charge that can be spread further. Effects \
+of Chain Lightning cannot be unraveled because they happen too quickly to be countered.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_chain_lightning_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_fire_curtain"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_chain_lightning_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),    
+
+  ("TGS_channeling_weaves_fire_curtain",0,
+   "The Fire Curtain weave creates a wall of fire that causes damage when it is started, and then burns for a set duration and has the ability to \
+harm additional enemies and start them on fire. Burn-over-time effects will negate active freeze effects. Fire Curtain requires a Channeling Proficiency \
+of 150, a Fire skill of 6, and an Air skill of 5. Further progression of these governing skills will increase the affected radius, the amount of \
+initial damage dealt, and the burn duration and power of the lingering flames. Burn-over-time effects caused by Fire Curtain can be unraveled.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_fire_curtain_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_shield"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_fire_curtain_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_shield",0,
+   "The Shield weave attempts to cut off an enemy channeler's ability to use the One Power in battle. It's effectiveness is highly dependant on \
+the channeler's strength relative to the strength of the enemy they are trying to Shield. It is very hard to Shield a stronger opponent and \
+somewhat easier to shield a weaker opponent. Shielding requires a Channeling Proficiency of 175, a Spirit skill of 5, and Fire and Air skills \
+of 2. Further progression of these governing skills will cause Shielding to be effective a higher percentage of the time.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_shield_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_seeker"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_shield_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_seeker",0,
+   "The Seeker weave creates a ball of energy that will track and kill an enemy. Seekers require a Channeling Proficiency of 200, a Spirit skill \
+of 6, Fire and Air skills of 3, and Earth and Water skills of 2. Further progression of these governing skills will cause the created seeker to \
+travel at a higher speed and eventually the explosion created on contact will harm other nearby enemies. Seekers can be unraveled before they strike.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_seeker_next",[],"Next Volume.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_vol_2"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_seeker_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_compulsion",0,
+   "The Compulsion weave attempts to force an enemy to join your team in battle. It's effectivity is dependant on the strength of the channeler \
+with respect to the enemy target. Higher level enemies are harder to Compel. Compulsion requires a Channeling Proficiency of 225, a Spirit \
+skill of 7, and Water and Air skills of 3. Further progression of these governing skills will cause Compulsion to be effective a higher \
+percentage of the time. Compulsion effects can be unraveled.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_compulsion_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_balefire"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_compulsion_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_vol_2"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_balefire",0,
+   "The Balefire weave shoots a stream of pure energy that rips targets' threads from the Pattern. Not only is the target killed, but his/her \
+past actions can be undone as well. Balefire requires a Channeling Proficiency of 250, a Fire skill of 7, and an Air skill of 5. Further \
+progression of these governing skills will cause the stream of Balefire that is created to be wider.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_balefire_next",[],"Next Chapter.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_shield_breaking"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_balefire_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_vol_2"),
+        ]
+       ),
+      ]
+  ),
+
+  ("TGS_channeling_weaves_shield_breaking",0,
+   "If a channeler is shielded, he/she will not be able to channel weaves until the shield is broken. Shield Breaking effectivity depends greatly \
+on the strength of the channeler who created the shield and whether or not they are still living. Breaking a shield created by a stronger, \
+living channeler is extremely difficult, and while it becomes more doable once they are dead, it is still unlikely. Breaking the shield of a \
+weaker channeler is moderately difficult when they are still living and fairly easy once they are dead. Raising one's skills in the Five Powers \
+will cause Shield Breaking to be effective a higher percentage of the time.",
+   "none",
+   [],
+    [
+      ("TGS_camp_action_channeling_weaves_shield_breaking_next",[],"Previous Volume.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves"),
+        ]
+       ),
+      ("TGS_camp_action_channeling_weaves_shield_breaking_return",[],"Back to TGS channeling weaves menu.",
+       [(jump_to_menu, "mnu_TGS_channeling_weaves_vol_2"),
+        ]
+       ),
+      ]
+  ),  
+
+##########################
+## TGS Camp Actions End ##
+##########################
+
+## Border Tower Menu
+
+  ("border_tower_menu",0,
+   "You arrive at a Border Tower. The defenders stationed inside warn you that Trolloc raiding parties have been spotted along the Blight. \
+They give you directions to the nearest town and you take your leave.",
+   "none",
+   [],
+    [
+		("border_tower_leave",[],"Leave...",
+			[
+				(change_screen_map)
+			]
+		),
+      ]
+  ),  
+
+## Border Tower Menu End  
 
 ## end added for TGS  
   

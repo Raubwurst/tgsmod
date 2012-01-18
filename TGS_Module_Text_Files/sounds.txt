@@ -1,5 +1,5 @@
 soundsfile version 3
-392
+393
  drum_3.ogg 257
  tutorial_1.ogg 1793
  tutorial_2.ogg 1793
@@ -367,6 +367,7 @@ soundsfile version 3
  you_scored_a_point.ogg 2721
  enemy_scored_a_point.ogg 2721
  Fireball2.wav 3440
+ fire_curtain.wav 2400
  quest_cancelled2.ogg 3984
  thunder_2.wav 2672
  missile.wav 2928
@@ -572,33 +573,33 @@ snd_flag_returned 2721 1 363 0
 snd_team_scored_a_point 2721 1 364 0 
 snd_enemy_scored_a_point 2721 1 365 0 
 snd_fire_ball 3440 1 366 0 
-snd_fire_curtain 3952 1 343 0 
-snd_heal 3984 1 367 0 
+snd_fire_curtain 2400 1 367 0 
+snd_heal 3984 1 368 0 
 snd_air_blast 3184 1 62 0 
 snd_freeze 1648 1 72 0 
 snd_explosion 1392 1 226 0 
-snd_chain_lightning 2672 1 368 0 
-snd_balefire 2928 1 369 0 
-snd_compulsion 2928 1 370 0 
-snd_seeker 2928 1 371 0 
-snd_shield 2928 1 372 0 
-snd_unravel 2928 1 373 0 
-snd_encounter_trollocs 2305 1 374 0 
-snd_trolloc_die 3184 11 375 0 376 0 377 0 378 0 379 0 380 0 374 0 381 0 382 0 383 0 384 0 
-snd_trolloc_hit 3184 11 375 0 376 0 377 0 378 0 379 0 380 0 374 0 381 0 382 0 383 0 384 0 
-snd_trolloc_grunt 3184 11 375 0 376 0 377 0 378 0 379 0 380 0 374 0 381 0 382 0 383 0 384 0 
-snd_trolloc_grunt_long 3184 11 375 0 376 0 377 0 378 0 379 0 380 0 374 0 381 0 382 0 383 0 384 0 
-snd_trolloc_yell 3184 11 375 0 376 0 377 0 378 0 379 0 380 0 374 0 381 0 382 0 383 0 384 0 
-snd_trolloc_stun 3184 11 375 0 376 0 377 0 378 0 379 0 380 0 374 0 381 0 382 0 383 0 384 0 
-snd_trolloc_victory 3184 11 375 0 376 0 377 0 378 0 379 0 380 0 374 0 381 0 382 0 383 0 384 0 
-snd_myrddraal_die 2928 3 385 0 386 0 387 0 
-snd_myrddraal_hit 2928 3 385 0 386 0 387 0 
-snd_myrddraal_grunt 2928 3 385 0 386 0 387 0 
-snd_myrddraal_grunt_long 2928 3 385 0 386 0 387 0 
-snd_myrddraal_yell 2928 3 385 0 386 0 387 0 
-snd_myrddraal_stun 2928 3 385 0 386 0 387 0 
-snd_myrddraal_victory 2928 3 385 0 386 0 387 0 
-snd_ways_wind_2 2672 1 388 0 
-snd_ways_wind_3 2672 1 389 0 
-snd_ways_wind_4 2672 1 390 0 
-snd_ways_wind_5 2672 1 391 0 
+snd_chain_lightning 2672 1 369 0 
+snd_balefire 2928 1 370 0 
+snd_compulsion 2928 1 371 0 
+snd_seeker 2928 1 372 0 
+snd_shield 2928 1 373 0 
+snd_unravel 2928 1 374 0 
+snd_encounter_trollocs 2305 1 375 0 
+snd_trolloc_die 3184 11 376 0 377 0 378 0 379 0 380 0 381 0 375 0 382 0 383 0 384 0 385 0 
+snd_trolloc_hit 3184 11 376 0 377 0 378 0 379 0 380 0 381 0 375 0 382 0 383 0 384 0 385 0 
+snd_trolloc_grunt 3184 11 376 0 377 0 378 0 379 0 380 0 381 0 375 0 382 0 383 0 384 0 385 0 
+snd_trolloc_grunt_long 3184 11 376 0 377 0 378 0 379 0 380 0 381 0 375 0 382 0 383 0 384 0 385 0 
+snd_trolloc_yell 3184 11 376 0 377 0 378 0 379 0 380 0 381 0 375 0 382 0 383 0 384 0 385 0 
+snd_trolloc_stun 3184 11 376 0 377 0 378 0 379 0 380 0 381 0 375 0 382 0 383 0 384 0 385 0 
+snd_trolloc_victory 3184 11 376 0 377 0 378 0 379 0 380 0 381 0 375 0 382 0 383 0 384 0 385 0 
+snd_myrddraal_die 2928 3 386 0 387 0 388 0 
+snd_myrddraal_hit 2928 3 386 0 387 0 388 0 
+snd_myrddraal_grunt 2928 3 386 0 387 0 388 0 
+snd_myrddraal_grunt_long 2928 3 386 0 387 0 388 0 
+snd_myrddraal_yell 2928 3 386 0 387 0 388 0 
+snd_myrddraal_stun 2928 3 386 0 387 0 388 0 
+snd_myrddraal_victory 2928 3 386 0 387 0 388 0 
+snd_ways_wind_2 2672 1 389 0 
+snd_ways_wind_3 2672 1 390 0 
+snd_ways_wind_4 2672 1 391 0 
+snd_ways_wind_5 2672 1 392 0 

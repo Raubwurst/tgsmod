@@ -3028,6 +3028,10 @@ waygates_begin = "p_karindi_gate"
 waygates_end = "p_salt_mine" 
 ### WAYS parties list END
 
+### spt_border_tower for border tower parties BEGIN
+spt_border_tower					= 402
+### spt_border_tower for border tower parties END
+
 ### end added for TGS
 #################################################################
 
@@ -3169,7 +3173,11 @@ keys_list = [
 	          ("$key_order_9", key_f9),
 			  ("$key_order_10", key_f10),
 	          ("$key_special_0", key_b), #Pike Bracing
-	          ("$key_special_1", key_m), #Whistle for Horse 			 
+	          ("$key_special_1", key_m), #Whistle for Horse
+              ## Added for TGS
+              ("$key_weave_toggle", key_caps_lock), #Toggle Weave
+              ("$key_recover_one_power_item", key_z), #Recover_one_power_item
+              ## End added for TGS
 			]
 #--------------------------------------------------
              
@@ -3218,22 +3226,22 @@ BALEFIRE_WEAVE          = 14
 TOTAL_NUMBER_OF_WEAVES  = 14
 
 # Ranking: Doesn't have to be numerical or linear - Used for Stamina usage calculations
-AIR_BLAST_WEAVE_RANK        = 1
-FREEZE_WEAVE_RANK           = 2
-HEAL_WEAVE_RANK             = 3
-FIREBALL_WEAVE_RANK         = 4
-UNRAVEL_WEAVE_RANK          = 5
-DEFENSIVE_BLAST_WEAVE_RANK  = 6
-EARTH_BLAST_WEAVE_RANK      = 7
-BIND_WEAVE_RANK             = 8
-CHAIN_LIGHTNING_WEAVE_RANK  = 9
-FIRE_CURTAIN_WEAVE_RANK     = 10
-SHIELD_WEAVE_RANK           = 11
-SEEKER_WEAVE_RANK           = 12
-COMPULSION_WEAVE_RANK       = 13
-BALEFIRE_WEAVE_RANK         = 14
+AIR_BLAST_WEAVE_RANK        = 1 #2
+FREEZE_WEAVE_RANK           = 3 #4
+HEAL_WEAVE_RANK             = 4 #6
+FIREBALL_WEAVE_RANK         = 5 #8
+UNRAVEL_WEAVE_RANK          = 6 #10
+DEFENSIVE_BLAST_WEAVE_RANK  = 8 #12
+EARTH_BLAST_WEAVE_RANK      = 11 #14
+BIND_WEAVE_RANK             = 10 #16
+CHAIN_LIGHTNING_WEAVE_RANK  = 14 #18
+FIRE_CURTAIN_WEAVE_RANK     = 22 #20
+SHIELD_WEAVE_RANK           = 15 #22
+SEEKER_WEAVE_RANK           = 16 #24
+COMPULSION_WEAVE_RANK       = 18 #26
+BALEFIRE_WEAVE_RANK         = 26 #28
 
-TOTAL_NUMBER_OF_RANKS       = 14  # not necessarily equal to the number of weaves
+TOTAL_NUMBER_OF_RANKS       = 28  # not necessarily equal to the number of weaves
 
 # Ranking: Linear - used for Natural Inclination calculations
 AIR_BLAST_WEAVE_RANK_LINEAR        = 1

@@ -4542,10 +4542,12 @@ triggers = [
   # Campaign map channeling stamina recharge
   (0, 0.1, 0, [
       (eq, "$g_tutorial_complete", 1),
+      (assign, "$g_tgs_player_troop", "trp_player"), # added this so presentations and channeling scripts will work for custom battle and single player
       (troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1),
       (eq, "$g_ready_for_channeling_stamina_recharge", 1),
               ],
     [
+            
             (troop_get_slot, ":current", "trp_player", slot_troop_current_channeling_stamina),
             (troop_get_slot, ":maximum", "trp_player", slot_troop_max_channeling_stamina),
             (troop_get_slot, ":recharge_rate", "trp_player", slot_troop_channeling_stamina_recharge_rate_campaign),
@@ -4579,9 +4581,9 @@ triggers = [
   ## New main map hotkeys
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1)],
          [
-            ##Click 'M' to re-add One Power Item to inventory (Now this will only work if player is a channeler)
+            ##Click '$key_recover_one_power_item' to re-add One Power Item to inventory (Now this will only work if player is a channeler)
             (try_begin),
-            (key_clicked, key_m),  # start the remainder of the code when 'M' is clicked
+            (key_clicked, "$key_recover_one_power_item"),  # start the remainder of the code when '$key_recover_one_power_item' is clicked
             (troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1), # only for channelers
                 (troop_ensure_inventory_space, "trp_player", 1),
                 (troop_add_item, "trp_player", "itm_power_player", 0),
@@ -4634,7 +4636,7 @@ triggers = [
 
   ## New main map testing hotkeys HACK: make sure this doesn't work in non-development versions
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1), #  to enable cheats, remove the second line in the condition
-                   #(eq, "$g_tutorial_complete", 0),
+                   (eq, "$g_tutorial_complete", 0),
                    ],
          [
             ##Click 'K' to add troops to hero party

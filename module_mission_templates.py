@@ -2965,33 +2965,33 @@ common_wot_initialize_channeling_weave_variables_1 = (
     0.3, 0, ti_once, [],
          [   
              # set slots for num seekers active and individual seeker status to zero
-             (troop_set_slot, "trp_player", slot_troop_num_seekers_active, 0),
+             (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, 0),
              
              (try_for_range, ":seeker_no", 200, 251),
-                 (troop_set_slot, "trp_player", ":seeker_no", 0),
+                 (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
              
                  (store_add, ":target_no", ":seeker_no", 50),
-                 (troop_set_slot, "trp_player", ":target_no", -1),
+                 (troop_set_slot, "$g_tgs_player_troop", ":target_no", -1),
              
                  (store_add, ":shooter_no", ":seeker_no", 100),
-                 (troop_set_slot, "trp_player", ":shooter_no", -1),
+                 (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", -1),
 
                  (store_add, ":x_slot_no", ":seeker_no", 150),
-                 (troop_set_slot, "trp_player", ":x_slot_no", 0),
+                 (troop_set_slot, "$g_tgs_player_troop", ":x_slot_no", 0),
 
                  (store_add, ":y_slot_no", ":seeker_no", 200),
-                 (troop_set_slot, "trp_player", ":y_slot_no", 0),
+                 (troop_set_slot, "$g_tgs_player_troop", ":y_slot_no", 0),
 
                  (store_add, ":speed_no", ":seeker_no", 250),
-                 (troop_set_slot, "trp_player", ":speed_no", 0),
+                 (troop_set_slot, "$g_tgs_player_troop", ":speed_no", 0),
 
                  (store_add, ":power_no", ":seeker_no", 300),
-                 (troop_set_slot, "trp_player", ":power_no", 0),               
+                 (troop_set_slot, "$g_tgs_player_troop", ":power_no", 0),               
              (try_end),
              
              # set firewall slots to 0
              (try_for_range, ":slot_no", 300, 361),
-                 (troop_set_slot, "trp_player", ":slot_no", 0),
+                 (troop_set_slot, "$g_tgs_player_troop", ":slot_no", 0),
              (try_end),
              
              (assign, "$g_initialize_complete", 1),
@@ -3001,166 +3001,72 @@ common_wot_initialize_channeling_weave_variables_1 = (
 common_wot_initialize_channeling_weave_variables_2 = (
     0.3, 0, ti_once, [],
          [
-             (assign, "$g_weave_toggle_mode", 1),
-
-             # initialize slot variables for agents
+             # determine custom battle troop being used
+             (assign, ":player_troop_found", 0),
              (try_for_agents, ":agent"),
-#                 (agent_is_human, ":agent"),
-                 (agent_is_alive, ":agent"),
-             
-                 (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
-                 (agent_set_slot, ":agent", slot_agent_seeker_shooter, -1),
-             
-                 (agent_set_slot, ":agent", slot_agent_on_fire, 0),
-                 (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
-             
-                 (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_x_movement, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
-                 (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_is_bound, 0),
-                 (agent_set_slot, ":agent", slot_agent_bound_x, 0),
-                 (agent_set_slot, ":agent", slot_agent_bound_y, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_is_shielded, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_under_compulsion, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 0),
-                 (agent_set_slot, ":agent", slot_agent_is_warder_for_agent, 0),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, -1),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_2, -1),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -1),
-                 (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -1),
-                 (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 0),
-                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, 0),
-
-                 (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
-                 (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
+                 (eq, ":player_troop_found", 0),
+                 (neg|agent_is_non_player, ":agent"),
+                     (agent_get_troop_id, "$g_tgs_player_troop", ":agent"),
+                     (assign, ":player_troop_found", 1),
              (try_end),
 
+             # set slots for num seekers active and individual seeker status to zero
+             (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, 0),
              
-             # seeker variables
-             (assign, "$g_number_seekers_active", 0),
+             (try_for_range, ":seeker_no", 200, 251),
+                 (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
              
-             (assign, "$g_seeker_slot_1", 0),
-             (assign, "$g_seeker_slot_2", 0),
-             (assign, "$g_seeker_slot_3", 0),
-             (assign, "$g_seeker_slot_4", 0),
-             (assign, "$g_seeker_slot_5", 0),
-             (assign, "$g_seeker_slot_6", 0),
-             (assign, "$g_seeker_slot_7", 0),
-             (assign, "$g_seeker_slot_8", 0),
-             (assign, "$g_seeker_slot_9", 0),
-             (assign, "$g_seeker_slot_10", 0),
-             (assign, "$g_seeker_slot_11", 0),
-             (assign, "$g_seeker_slot_12", 0),
-             (assign, "$g_seeker_slot_13", 0),
-             (assign, "$g_seeker_slot_14", 0),
-             (assign, "$g_seeker_slot_15", 0),
-             (assign, "$g_seeker_slot_16", 0),
-             (assign, "$g_seeker_slot_17", 0),
-             (assign, "$g_seeker_slot_18", 0),
-             (assign, "$g_seeker_slot_19", 0),
-             (assign, "$g_seeker_slot_20", 0),
+                 (store_add, ":target_no", ":seeker_no", 50),
+                 (troop_set_slot, "$g_tgs_player_troop", ":target_no", -1),
              
-             (assign, "$g_seeker_slot_1_target", -1),
-             (assign, "$g_seeker_slot_2_target", -1),
-             (assign, "$g_seeker_slot_3_target", -1),
-             (assign, "$g_seeker_slot_4_target", -1),
-             (assign, "$g_seeker_slot_5_target", -1),
-             (assign, "$g_seeker_slot_6_target", -1),
-             (assign, "$g_seeker_slot_7_target", -1),
-             (assign, "$g_seeker_slot_8_target", -1),
-             (assign, "$g_seeker_slot_9_target", -1),
-             (assign, "$g_seeker_slot_10_target", -1),
-             (assign, "$g_seeker_slot_11_target", -1),
-             (assign, "$g_seeker_slot_12_target", -1),
-             (assign, "$g_seeker_slot_13_target", -1),
-             (assign, "$g_seeker_slot_14_target", -1),
-             (assign, "$g_seeker_slot_15_target", -1),
-             (assign, "$g_seeker_slot_16_target", -1),
-             (assign, "$g_seeker_slot_17_target", -1),
-             (assign, "$g_seeker_slot_18_target", -1),
-             (assign, "$g_seeker_slot_19_target", -1),
-             (assign, "$g_seeker_slot_20_target", -1),
+                 (store_add, ":shooter_no", ":seeker_no", 100),
+                 (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", -1),
 
-             # determine number of weaves known based off channeling (firearms) proficiency
+                 (store_add, ":x_slot_no", ":seeker_no", 150),
+                 (troop_set_slot, "$g_tgs_player_troop", ":x_slot_no", 0),
 
-             # changed from normal code
-             #(store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),  
+                 (store_add, ":y_slot_no", ":seeker_no", 200),
+                 (troop_set_slot, "$g_tgs_player_troop", ":y_slot_no", 0),
 
-             (assign, ":channeling_proficiency", 300),  # added so always strong
-                
+                 (store_add, ":speed_no", ":seeker_no", 250),
+                 (troop_set_slot, "$g_tgs_player_troop", ":speed_no", 0),
+
+                 (store_add, ":power_no", ":seeker_no", 300),
+                 (troop_set_slot, "$g_tgs_player_troop", ":power_no", 0),               
+             (try_end),
+             
+             # set firewall slots to 0
+             (try_for_range, ":slot_no", 300, 361),
+                 (troop_set_slot, "$g_tgs_player_troop", ":slot_no", 0),
+             (try_end),
+             
+             # assign channeling troop slots
+             (try_for_range, ":slot_no", 2000, 2015),
+                 (troop_set_slot, "$g_tgs_player_troop", ":slot_no", 1),
+             (try_end),
+             
              (try_begin),
-             (lt, ":channeling_proficiency",15),
-                 (assign, "$g_number_weaves_known", 1),
+             (eq, "$g_tgs_player_troop", "trp_quick_battle_troop_1"), # Rand
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_max_channeling_stamina, 100000),
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_current_channeling_stamina, 100000),
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_battle, 5000),
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_campaign, 50000),
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 1),
              (else_try),
-                 (is_between, ":channeling_proficiency",15,30),
-                 (assign, "$g_number_weaves_known", 2),
+             (eq, "$g_tgs_player_troop", "trp_quick_battle_troop_9"), # Nynaeve
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_max_channeling_stamina, 90000),
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_current_channeling_stamina, 90000),
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_battle, 4500),
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_campaign, 45000),
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 1),
              (else_try),
-                 (is_between, ":channeling_proficiency",30,50),
-                 (assign, "$g_number_weaves_known", 3),
-             (else_try),
-                 (is_between, ":channeling_proficiency",50,65),
-                 (assign, "$g_number_weaves_known", 4),
-             (else_try),
-                 (is_between, ":channeling_proficiency",65,75),
-                 (assign, "$g_number_weaves_known", 5),
-             (else_try),
-                 (is_between, ":channeling_proficiency",75,85),
-                 (assign, "$g_number_weaves_known", 6),
-             (else_try),
-                 (is_between, ":channeling_proficiency",85,100),
-                 (assign, "$g_number_weaves_known", 7),
-             (else_try),
-                 (is_between, ":channeling_proficiency",100,125),
-                 (assign, "$g_number_weaves_known", 8),
-             (else_try),
-                 (is_between, ":channeling_proficiency",125,150),
-                 (assign, "$g_number_weaves_known", 9),
-             (else_try),
-                 (is_between, ":channeling_proficiency",150,175),
-                 (assign, "$g_number_weaves_known", 10),
-             (else_try),
-                 (is_between, ":channeling_proficiency",175,200),
-                 (assign, "$g_number_weaves_known", 11),
-             (else_try),
-                 (is_between, ":channeling_proficiency",200,225),
-                 (assign, "$g_number_weaves_known", 12),
-             (else_try),
-                 (is_between, ":channeling_proficiency",225,250),
-                 (assign, "$g_number_weaves_known", 13),
-             (else_try),
-             (ge, ":channeling_proficiency", 250),
-                 (assign, "$g_number_weaves_known", 14),
+                 (troop_set_slot, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 0),
              (try_end),
+             
+             # set up variable hot-keys
+             (assign, "$key_weave_toggle", key_caps_lock), #Toggle Weave
+             (assign, "$key_recover_one_power_item", key_z), #Recover_one_power_item
 
-             # Player channeling stamina and recharge rate
-
-             # changed from normal code
-             #(store_attribute_level, ":player_strength", "trp_player", ca_strength),
-             #(store_attribute_level, ":player_intelligence", "trp_player", ca_intelligence),
-
-             (assign, ":player_strength", 30), # added to make player strong
-             (assign, ":player_intelligence", 30), # added to make player strong
-
-             (store_mul, ":stamina_1", ":player_intelligence", 1000),
-             (store_mul, ":stamina_2", ":channeling_proficiency", 100),
-             (store_add, "$g_maximum_channeling_stamina", ":stamina_1", ":stamina_2"),
-
-             (assign, "$g_current_channeling_stamina", "$g_maximum_channeling_stamina"),
-
-             (store_mul, ":recharge_rate_1", ":player_strength", 20),
-             (store_mul, ":recharge_rate_2", ":channeling_proficiency", 2),
-             (store_add, "$g_channeling_stamina_recharge_rate", ":recharge_rate_1", ":recharge_rate_2"),
 
              (assign, "$g_initialize_complete", 1),
              
@@ -4032,13 +3938,13 @@ common_wot_spawn_warders = (
 
 ## Dismount spawned warders in sieges
 common_wot_dismount_spawned_warders_in_sieges = (
-    5, 0, 0, [(eq, "$g_initialize_complete", 1)],
+    1, 0, 0, [(eq, "$g_initialize_complete", 1)],
          [
-
             (try_for_agents, ":agent"),
                 (agent_is_alive, ":agent"),
-                (agent_get_slot, ":warder", ":agent", slot_agent_is_warder_for_agent),
-                (gt, ":warder", 0),
+                ## removed the following lines of code because we really want all troops dismounted for sieges and sea battles.
+                #(agent_get_slot, ":warder", ":agent", slot_agent_is_warder_for_agent),
+                #(gt, ":warder", 0),
                     (assign, ":horse", -10),
                     (agent_get_horse, ":horse", ":agent"),
                     (try_begin),
@@ -4060,18 +3966,18 @@ common_wot_dismount_spawned_warders_in_sieges = (
 common_wot_recharge_channeling_stamina_trigger = (
     0.1, 0, 0,[(gt, "$g_one_second_timer", 2)],
          [
-            (troop_get_slot, ":current", "trp_player", slot_troop_current_channeling_stamina),
-            (troop_get_slot, ":maximum", "trp_player", slot_troop_max_channeling_stamina),
-            (troop_get_slot, ":recharge_rate", "trp_player", slot_troop_channeling_stamina_recharge_rate_battle),
+            (troop_get_slot, ":current", "$g_tgs_player_troop", slot_troop_current_channeling_stamina),
+            (troop_get_slot, ":maximum", "$g_tgs_player_troop", slot_troop_max_channeling_stamina),
+            (troop_get_slot, ":recharge_rate", "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_battle),
             (val_div, ":recharge_rate", 10), # since it's called once every tenth of a second
             (try_begin),
             (lt, ":current", ":maximum"),
                 (store_add, ":check_value", ":current", ":recharge_rate"),
                 (try_begin),
                 (le, ":check_value", ":maximum"),
-                    (troop_set_slot, "trp_player", slot_troop_current_channeling_stamina, ":check_value"),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_current_channeling_stamina, ":check_value"),
                 (else_try),
-                    (troop_set_slot, "trp_player", slot_troop_current_channeling_stamina, ":maximum"),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_current_channeling_stamina, ":maximum"),
                 (try_end),
             (try_end),
 
@@ -4115,120 +4021,6 @@ common_wot_recharge_channeling_stamina_trigger_multi = (
             (player_set_slot, ":player", slot_player_current_channeling_stamina, ":current_channeling_stamina"),
 
         ])
-
-#### Used for single player and quick battle ####
-## Click 'Numpad_7' to set weave toggle to 'short range'
-common_wot_weave_toggle_short_range = (
-    0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_7),  # start the remainder of the code when 'Numpad_7' is clicked
-                    
-                    (assign, "$g_weave_toggle_mode", 1),
-
-#                    (display_message, "@Toggle Short Range Weaves..."),
-                (try_end),
-            (try_end),
-
-        ])
-
-## Click 'Numpad_8' to set weave toggle to 'long range'
-common_wot_weave_toggle_long_range = (
-    0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_8),  # start the remainder of the code when 'Numpad_8' is clicked
-                    
-                    (try_begin),
-                    (ge, "$g_number_weaves_known", 2),
-                        (assign, "$g_weave_toggle_mode", 2),
-
-#                        (display_message, "@Toggle Long Range Weaves..."),
-                    (try_end),
-            
-                (try_end),
-            (try_end),
-
-        ])
-
-## Click 'Numpad_9' to set weave toggle to 'support'
-common_wot_weave_toggle_support = (
-    0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_9),  # start the remainder of the code when 'Numpad_9' is clicked
-                    
-                    (try_begin),
-                    (ge, "$g_number_weaves_known", 3),
-                        (assign, "$g_weave_toggle_mode", 3),
-            
-#                        (display_message, "@Toggle Support Weaves..."),
-                    (try_end),
-                     
-                (try_end),
-            (try_end),
-
-        ])
-
-## Click 'Numpad_5' to set weave toggle to 'advanced'
-common_wot_weave_toggle_advanced = (
-    0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_5),  # start the remainder of the code when 'Numpad_5' is clicked
-                    
-                    (try_begin),
-                    (ge, "$g_number_weaves_known", 12),
-                        (assign, "$g_weave_toggle_mode", 4),
-            
-#                        (display_message, "@Toggle Advanced Weaves..."),
-                    (try_end),
-                     
-                (try_end),
-            (try_end),
-
-        ])
-
-## Click 'Numpad_6' to set weave toggle to 'all'
-common_wot_weave_toggle_all = (
-    0, 0, 0, [],
-         [
-            (get_player_agent_no,":player_agent"),
-            (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
-            (try_begin),
-            (eq, ":player_item_wielded","itm_power_player"),
-
-                (try_begin),
-                (key_clicked, key_numpad_6),  # start the remainder of the code when 'Numpad_6' is clicked
-                    
-                    (assign, "$g_weave_toggle_mode", 5),
-            
-#                    (display_message, "@Toggle All Weaves..."),
-                (try_end),
-            (try_end),
-
-        ])
-#### End used for single player and quick battle ####
 
 #### Used for multiplayer ####
 ## Click 'Numpad_7' to set weave toggle to 'short range'
@@ -4337,20 +4129,21 @@ common_wot_weave_toggle_all_multi = (
         ])
 #### End used for multiplayer ####
 
-## Click 'M' to re-add One Power Item to inventory
+## Click '$key_recover_one_power_item' to re-add One Power Item to inventory
 common_wot_re_add_one_power_item_to_inventory = (
-    0, 0, 0, [(troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1)],
+    0, 0, 0, [(troop_slot_eq, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 1)],
          [
 
             (try_begin),
-            (key_clicked, key_m),  # start the remainder of the code when 'M' is clicked
-                (troop_ensure_inventory_space, "trp_player", 1),
-                (troop_add_item, "trp_player", "itm_power_player", 0),
+            (key_clicked, "$key_recover_one_power_item"),  # start the remainder of the code when '$key_recover_one_power_item' is clicked
+                (troop_ensure_inventory_space, "$g_tgs_player_troop", 1),
+                (troop_add_item, "$g_tgs_player_troop", "itm_power_player", 0),
             (try_end),
 
         ])
 
-## Hold 'Caps Lock' to bring up the weave selection presentation: Mouse cursor location determines active weave
+## Hold '$key_weave_toggle' to bring up the weave selection presentation: Mouse cursor location determines active weave
+## Code for key detection is contained in prsnt_battle_time_weave_selection
 common_wot_cycle_through_known_weaves = (
     0, 0, 0, [],
          [
@@ -4364,88 +4157,88 @@ common_wot_cycle_through_known_weaves = (
                 (assign, ":y_val", "$g_weave_select_y"),
 
                 (try_begin),
-                (troop_slot_eq, "trp_player", slot_troop_air_blast_known, 1),
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_air_blast_known, 1),
                 (is_between, ":x_val", 350, 381),
                 (is_between, ":y_val", 400, 441),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, AIR_BLAST_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, AIR_BLAST_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_freeze_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_freeze_known, 1),            
                 (is_between, ":x_val", 390, 421),
                 (is_between, ":y_val", 400, 441),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, FREEZE_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, FREEZE_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_heal_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_heal_known, 1),            
                 (is_between, ":x_val", 430, 461),
                 (is_between, ":y_val", 400, 441),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, HEAL_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, HEAL_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_fireball_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_fireball_known, 1),            
                 (is_between, ":x_val", 470, 501),
                 (is_between, ":y_val", 400, 441),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, FIREBALL_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, FIREBALL_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_unravel_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_unravel_known, 1),            
                 (is_between, ":x_val", 510, 541),
                 (is_between, ":y_val", 400, 441),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, UNRAVEL_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, UNRAVEL_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_defensive_blast_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_defensive_blast_known, 1),            
                 (is_between, ":x_val", 550, 581),
                 (is_between, ":y_val", 400, 441),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, DEFENSIVE_BLAST_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, DEFENSIVE_BLAST_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_earth_blast_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_earth_blast_known, 1),            
                 (is_between, ":x_val", 590, 621),
                 (is_between, ":y_val", 400, 441),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, EARTH_BLAST_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, EARTH_BLAST_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_bind_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_bind_known, 1),            
                 (is_between, ":x_val", 350, 381),
                 (is_between, ":y_val", 350, 391),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, BIND_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, BIND_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_chain_lightning_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_chain_lightning_known, 1),            
                 (is_between, ":x_val", 390, 421),
                 (is_between, ":y_val", 350, 391),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, CHAIN_LIGHTNING_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, CHAIN_LIGHTNING_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_fire_curtain_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_fire_curtain_known, 1),            
                 (is_between, ":x_val", 430, 461),
                 (is_between, ":y_val", 350, 391),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, FIRE_CURTAIN_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, FIRE_CURTAIN_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_shield_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_shield_known, 1),            
                 (is_between, ":x_val", 470, 501),
                 (is_between, ":y_val", 350, 391),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, SHIELD_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, SHIELD_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_seeker_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_known, 1),            
                 (is_between, ":x_val", 510, 541),
                 (is_between, ":y_val", 350, 391),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, SEEKER_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, SEEKER_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_compulsion_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_compulsion_known, 1),            
                 (is_between, ":x_val", 550, 581),
                 (is_between, ":y_val", 350, 391),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, COMPULSION_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, COMPULSION_WEAVE),
             
                 (else_try),
-                (troop_slot_eq, "trp_player", slot_troop_balefire_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_balefire_known, 1),            
                 (is_between, ":x_val", 590, 621),
                 (is_between, ":y_val", 350, 391),
-                    (troop_set_slot, "trp_player", slot_troop_active_weave, BALEFIRE_WEAVE),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, BALEFIRE_WEAVE),
             
                 (try_end),
             
@@ -6508,203 +6301,203 @@ common_wot_freeze_over_time_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete"
 
 #Seeker 1
 common_wot_seeker_trigger_1 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_1, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_1, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_1)])
 
 common_wot_seeker_trigger_2 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_2, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_2, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_2)])
 
 common_wot_seeker_trigger_3 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_3, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_3, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_3)])
 
 common_wot_seeker_trigger_4 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_4, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_4, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_4)])
 
 common_wot_seeker_trigger_5 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_5, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_5, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_5)])
 
 common_wot_seeker_trigger_6 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_6, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_6, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_6)])
 
 common_wot_seeker_trigger_7 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_7, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_7, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_7)])
 
 common_wot_seeker_trigger_8 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_8, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_8, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_8)])
 
 common_wot_seeker_trigger_9 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_9, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_9, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_9)])
 
 common_wot_seeker_trigger_10 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_10, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_10, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_10)])
 
 common_wot_seeker_trigger_11 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_11, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_11, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_11)])
 
 common_wot_seeker_trigger_12 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_12, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_12, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_12)])
 
 common_wot_seeker_trigger_13 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_13, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_13, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_13)])
 
 common_wot_seeker_trigger_14 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_14, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_14, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_14)])
 
 common_wot_seeker_trigger_15 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_15, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_15, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_15)])
 
 common_wot_seeker_trigger_16 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_16, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_16, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_16)])
 
 common_wot_seeker_trigger_17 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_17, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_17, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_17)])
 
 common_wot_seeker_trigger_18 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_18, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_18, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_18)])
 
 common_wot_seeker_trigger_19 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_19, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_19, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_19)])
 
 common_wot_seeker_trigger_20 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_20, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_20, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_20)])
 
 common_wot_seeker_trigger_21 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_21, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_21, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_21)])
 
 common_wot_seeker_trigger_22 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_22, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_22, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_22)])
 
 common_wot_seeker_trigger_23 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_23, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_23, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_23)])
 
 common_wot_seeker_trigger_24 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_24, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_24, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_24)])
 
 common_wot_seeker_trigger_25 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_25, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_25, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_25)])
 
 common_wot_seeker_trigger_26 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_26, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_26, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_26)])
 
 common_wot_seeker_trigger_27 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_27, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_27, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_27)])
 
 common_wot_seeker_trigger_28 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_28, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_28, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_28)])
 
 common_wot_seeker_trigger_29 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_29, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_29, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_29)])
 
 common_wot_seeker_trigger_30 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_30, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_30, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_30)])
 
 common_wot_seeker_trigger_31 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_31, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_31, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_31)])
 
 common_wot_seeker_trigger_32 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_32, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_32, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_32)])
 
 common_wot_seeker_trigger_33 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_33, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_33, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_33)])
 
 common_wot_seeker_trigger_34 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_34, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_34, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_34)])
 
 common_wot_seeker_trigger_35 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_35, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_35, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_35)])
 
 common_wot_seeker_trigger_36 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_36, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_36, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_36)])
 
 common_wot_seeker_trigger_37 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_37, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_37, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_37)])
 
 common_wot_seeker_trigger_38 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_38, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_38, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_38)])
 
 common_wot_seeker_trigger_39 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_39, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_39, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_39)])
 
 common_wot_seeker_trigger_40 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_40, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_40, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_40)])
 
 common_wot_seeker_trigger_41 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_41, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_41, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_41)])
 
 common_wot_seeker_trigger_42 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_42, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_42, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_42)])
 
 common_wot_seeker_trigger_43 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_43, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_43, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_43)])
 
 common_wot_seeker_trigger_44 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_44, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_44, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_44)])
 
 common_wot_seeker_trigger_45 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_45, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_45, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_45)])
 
 common_wot_seeker_trigger_46 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_46, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_46, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_46)])
 
 common_wot_seeker_trigger_47 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_47, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_47, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_47)])
 
 common_wot_seeker_trigger_48 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_48, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_48, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_48)])
 
 common_wot_seeker_trigger_49 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_49, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_49, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_49)])
 
 common_wot_seeker_trigger_50 = (
-    0, 0, 0.00005,[(troop_slot_eq, "trp_player", slot_troop_seeker_50, 1)],
+    0, 0, 0.00005,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_50, 1)],
 	[(call_script, "script_tgs_seeker_movement", slot_troop_seeker_50)])
 
 ## TEST ##
@@ -8456,43 +8249,43 @@ common_wot_seeker_trigger_20_multi = (
 
 #Firewall 1
 common_wot_firewall_trigger_1 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_1, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_1, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_1)])
 
 common_wot_firewall_trigger_2 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_2, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_2, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_2)])
 
 common_wot_firewall_trigger_3 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_3, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_3, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_3)])
 
 common_wot_firewall_trigger_4 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_4, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_4, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_4)])
 
 common_wot_firewall_trigger_5 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_5, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_5, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_5)])
 
 common_wot_firewall_trigger_6 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_6, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_6, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_6)])
 
 common_wot_firewall_trigger_7 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_7, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_7, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_7)])
 
 common_wot_firewall_trigger_8 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_8, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_8, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_8)])
 
 common_wot_firewall_trigger_9 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_9, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_9, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_9)])
 
 common_wot_firewall_trigger_10 = (
-    0, 0, 0.1,[(troop_slot_eq, "trp_player", slot_troop_firewall_10, 1)],
+    0, 0, 0.1,[(troop_slot_eq, "$g_tgs_player_troop", slot_troop_firewall_10, 1)],
 	[(call_script, "script_tgs_firewall_burn", slot_troop_firewall_10)])
 
 ## Firewall triggers end ##
@@ -9372,11 +9165,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -9583,11 +9371,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -9793,11 +9576,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -9970,11 +9748,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -10193,11 +9966,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -10397,11 +10165,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -10574,11 +10337,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -10948,11 +10706,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -11169,11 +10922,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -11419,11 +11167,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -11813,11 +11556,6 @@ mission_templates = [
       common_wot_spawn_warders,
       common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -12039,11 +11777,6 @@ mission_templates = [
       common_wot_spawn_warders,
       common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -12301,11 +12034,6 @@ mission_templates = [
       common_wot_spawn_warders,
       common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -12516,11 +12244,6 @@ mission_templates = [
       common_wot_spawn_warders,
       common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -12700,11 +12423,6 @@ mission_templates = [
       common_wot_spawn_warders,
       common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -13138,11 +12856,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -13793,11 +13506,6 @@ mission_templates = [
       common_wot_spawn_warders,
       common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -13951,11 +13659,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -17864,11 +17567,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -18076,8 +17774,8 @@ mission_templates = [
       common_wot_initialize_timers,
       
       # pick one initialize weave_trigger (2 for custom battle)
-      common_wot_initialize_channeling_weave_variables_1,
-      #common_wot_initialize_channeling_weave_variables_2,
+      #common_wot_initialize_channeling_weave_variables_1,
+      common_wot_initialize_channeling_weave_variables_2,
       # end
       
       common_wot_timer_trigger_one_second,
@@ -18089,11 +17787,6 @@ mission_templates = [
       common_wot_spawn_warders,
       common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -18118,8 +17811,8 @@ mission_templates = [
       common_wot_compulsion_trigger,
       
       # pick one balefire trigger (2 for custom battle)
-      #common_wot_balefire_trigger_1,
-      common_wot_balefire_trigger_2,
+      common_wot_balefire_trigger_1,
+      #common_wot_balefire_trigger_2,
       # end
       
       common_wot_burn_over_time_trigger,
@@ -24781,11 +24474,6 @@ mission_templates = [
       common_wot_initialize_channeling_slots_on_agent_spawn_1,
       common_wot_spawn_warders,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -26189,11 +25877,6 @@ mission_templates = [
       common_wot_spawn_warders,
       #common_wot_dismount_spawned_warders_in_sieges,
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -26313,397 +25996,13 @@ mission_templates = [
 #SEA BATTLE MISSION TEMPLATE
 #################################
   (
-    "ship_battle",mtf_battle_mode,-1,
-    "You close in and board the enemy ships",
-    [(0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
-    (1,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
-    (2,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
-    (10,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
-    (11,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
-    (12,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
-     ],
+    "ship_battle",mtf_battle_mode|mtf_synch_inventory,charge,
+    "You close in and board the enemy ships.",
     [
-      (ti_on_agent_spawn, 0, 0, [],
-       [
-         (store_trigger_param_1, ":agent_no"),
-         (call_script, "script_agent_reassign_team", ":agent_no"),
-         ## TGS: mat: Didn't add courage stuff that's in 'lead_charge' because don't want agents fleeing the field
-         ]),
-      
-      ## TGS: mat: Added Common to make like 'lead_charge'
-      common_battle_init_banner,
-      ## TGS: mat: End
-      
-      ## TGS: mat: Added kill/wounded agent trigger, but commented out the effect on courage scores
-      (ti_on_agent_killed_or_wounded, 0, 0, [],
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        #(store_trigger_param_2, ":killer_agent_no"),
-        (store_trigger_param_3, ":is_wounded"),
-
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-##          (str_store_troop_name, s6, ":dead_agent_troop_id"),
-##          (assign, reg0, ":dead_agent_no"),
-##          (assign, reg1, ":killer_agent_no"),
-##          (assign, reg2, ":is_wounded"),
-##          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
-          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-          (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
-        (try_end),
-        
-        ## Removed the following to avoid routing enemies
-        #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
-       ]),
-      ## TGS: mat: End
-            
-
-      common_battle_tab_press,
-
-      (ti_question_answered, 0, 0, [],
-       [(store_trigger_param_1,":answer"),
-        (eq,":answer",0),
-        (assign, "$pin_player_fallen", 0),
-        (try_begin),
-          (store_mission_timer_a, ":elapsed_time"),
-          (gt, ":elapsed_time", 20),
-          (str_store_string, s5, "str_retreat"),
-          (call_script, "script_simulate_retreat", 10, 20, 1), ## TGS: mat: added , 1) at the end
-        (try_end),
-        (call_script, "script_count_mission_casualties_from_agents"),
-        (finish_mission,0),]),
-
-      (ti_before_mission_start, 0, 0, [],
-       [
-         (team_set_relation, 0, 2, 1),
-         (team_set_relation, 1, 3, 1),
-         (call_script, "script_place_player_banner_near_inventory_bms"),
-         
-         ## TGS: mat: Added to make like 'lead_charge'
-         (party_clear, "p_routed_enemies"),
-
-         (assign, "$g_latest_order_1", 1), 
-         (assign, "$g_latest_order_2", 1), 
-         (assign, "$g_latest_order_3", 1), 
-         (assign, "$g_latest_order_4", 1),
-         ## TGS: mat: End
-         ]),
-      
-      (0, 0, ti_once, [], [(assign,"$battle_won",0),
-                           (assign,"$defender_reinforcement_stage",0),
-                           (assign,"$attacker_reinforcement_stage",0),
-                           (assign,"$g_presentation_battle_active", 0),
-                           (call_script, "script_place_player_banner_near_inventory"),
-                           (call_script, "script_combat_music_set_situation_with_culture"), #Any Ilex is a good Ilex
-                           ## TGS: mat: Add to make like 'lead_charge'
-                           (assign, "$g_defender_reinforcement_limit", 2),
-                           ## TGS: mat: End
-                           ]),
-
-      common_music_situation_update,
-      common_battle_check_friendly_kills,
-      
-      (1, 0, 5, [
-          
-      ## TGS: mat: Added to make like 'lead_charge'
-          
-      #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
-      #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
-      (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
-      (assign, ":total_enemy_soldiers", reg0),
-      
-      #decrease number of agents already in battle area to find all number of reinforcement enemies
-      (assign, ":enemy_soldiers_in_battle_area", 0),
-      (try_for_agents,":cur_agent"),
-        (agent_is_human, ":cur_agent"),
-        (agent_get_party_id, ":agent_party", ":cur_agent"),
-        (try_begin),
-          (neq, ":agent_party", "p_main_party"),
-          (neg|agent_is_ally, ":cur_agent"),
-          (val_add, ":enemy_soldiers_in_battle_area", 1),
-        (try_end),
-      (try_end),
-      (store_sub, ":total_enemy_reinforcements", ":total_enemy_soldiers", ":enemy_soldiers_in_battle_area"),
-
-      (try_begin),
-        (lt, ":total_enemy_reinforcements", 15),
-        (ge, "$defender_reinforcement_stage", 2),
-        (eq, "$defender_reinforcement_limit_increased", 0),
-        (val_add, "$g_defender_reinforcement_limit", 1),                    
-        (assign, "$defender_reinforcement_limit_increased", 1),
-      (try_end),    
-      #new (25.11.09) ends
-      ## TGS: mat: End
-      
-      ## TGS: mat: Commented out
-                 #(lt,"$defender_reinforcement_stage",2),
-      ## TGS: mat: Added to make like 'lead_charge
-                 (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
-      ## TGS: mat: End
-                 (store_mission_timer_a,":mission_time"),
-                 (ge,":mission_time",10),
-                 (store_normalized_team_count,":num_defenders", 0),
-                 (lt,":num_defenders",6),
-#                 (assign, reg2, ":num_defenders"),
-#                 (display_message,"@num_defenders = {reg2}")
-                 ],
-           [(add_reinforcements_to_entry,0,7),
-            ## TGS: mat: Added to make like 'lead_charge'
-            (assign, "$defender_reinforcement_limit_increased", 0),
-            ## TGS: mat: End
-            (val_add,"$defender_reinforcement_stage",1)]),
-      
-      
-      (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
-                 (store_mission_timer_a,":mission_time"),
-                 (ge,":mission_time",10),
-                 (store_normalized_team_count,":num_attackers", 1),
-                 (lt,":num_attackers",6),
-#                 (assign, reg2, ":num_attackers"),
-#                 (display_message,"@num_attackers = {reg2}")
-                 ],
-           [(add_reinforcements_to_entry,3,7),
-            (val_add,"$attacker_reinforcement_stage",1)]),
-      
-      common_battle_check_victory_condition,
-#      common_battle_check_victory_condition_tgs,
-      common_battle_victory_display,
-      
-      ## TGS: mat: Commented out this trigger and added the one from 'lead_charge'
-
-#      (1, 4, ti_once, [(main_hero_fallen)],
-#          [
-#              (assign, "$pin_player_fallen", 1),
-#              (str_store_string, s5, "str_retreat"),
-#              (call_script, "script_simulate_retreat", 10, 20),
-#              (assign, "$g_battle_result", -1),
-#              (set_mission_result,-1),
-#              (call_script, "script_count_mission_casualties_from_agents"),
-#              (finish_mission,0)]),
-
-      (1, 4, 0, [(main_hero_fallen)], #PBOD was 1, 4, ti_once
-          [
-		    (assign, "$pin_player_fallen", 1),
-			(try_begin),
-			  (party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
-			  (assign, ":num_allies", 0),
-			  #(store_friend_count, ":num_allies"),
-			  #(store_ally_count,":num_allies"),
-			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),			
-			  (try_for_agents, ":agent"),
-                 (agent_is_ally, ":agent"),
-                 (agent_is_alive, ":agent"),
-                 (val_add, ":num_allies", 1),
-              (try_end),
-			  (gt, ":num_allies", 0),
-			  (try_begin),
-				  (neq, "$cam_free", 1),
-				  (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
-				  (assign, "$cam_free", 1),
-				  (assign, "$cam_mode", 2),
-				  (call_script, "script_cust_cam_cycle_forwards"), #So, on Follow, it doesn't begin with the player's dead body
-				  (mission_cam_set_mode, 1),
-				  (party_slot_eq, "p_main_party", slot_party_pref_bc_charge_ko, 1), #PBOD "Charge on KO" Active
-				  (set_show_messages, 0),
-				  (team_give_order, "$fplayer_team_no", grc_everyone, mordr_charge),
-				  (team_set_order_listener, "$fplayer_team_no", grc_everyone),
-				  (call_script, "script_player_order_formations", mordr_charge),
-				  (set_show_messages, 1),
-			  (try_end),
-			(else_try),
-              #(assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 10, 20, 1),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result,-1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0),
-			(try_end),]),
-      
-      ## TGS: mat: End
-      
-      ## TGS: mat: Added to make like 'lead_charge'
-      common_battle_inventory,
-      ## TGS: mat: End
-      
-      ## TGS: mat: Decided to leave out the AI for running away for the ship / landing battles (Add for Shienar border tower)
-
-      #################################################################  
-      ###### TGS triggers
-      #################################################################
-
-      common_wot_pre_initialization_variable_assignment,
-      common_wot_initialize_general_player_channeling_variables,
-      common_wot_initialize_timers,
-      
-      # pick one initialize weave_trigger (2 for custom battle)
-      common_wot_initialize_channeling_weave_variables_1,
-      #common_wot_initialize_channeling_weave_variables_2,
-      # end
-      
-      common_wot_timer_trigger_one_second,
-      common_wot_timer_trigger_one_tenth_second,
-      common_wot_timer_trigger_one_hundredth_second,
-      common_wot_timer_trigger_one_thousandth,
-      #common_wot_check_for_channelers_in_the_scene,
-      common_wot_initialize_channeling_slots_on_agent_spawn_1,
-      common_wot_spawn_warders,
-      #common_wot_dismount_spawned_warders_in_sieges,
-      common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
-      common_wot_re_add_one_power_item_to_inventory,
-      common_wot_cycle_through_known_weaves,
-      common_wot_inventory_click_to_refill_channeling_ammo,
-      common_wot_reset_troop_ratio_bar,
-      common_wot_reset_troop_ratio_bar_additional,
-      
-      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
-      #common_wot_airborne_trigger,
-      # end
-      
-      common_wot_bound_trigger,
-      common_wot_warder_follow_bond_holder,
-      common_wot_leader_warder_determines_movement_of_group,
-      common_wot_incapacitated_warders_trigger,
-      common_wot_non_linked_suldam_trigger,
-      common_suldam_with_dead_damane_trigger,
-      common_wot_nearby_myrddraal_trigger,
-      common_wot_myrddraal_fear_trigger,
-      common_wot_draghkar_hunt_trigger,
-      common_wot_draghkar_kiss_of_death_trigger,
-      common_wot_shielded_trigger,
-      common_wot_compulsion_trigger,
-      
-      # pick one balefire trigger (2 for custom battle)
-      common_wot_balefire_trigger_1,
-      #common_wot_balefire_trigger_2,
-      # end
-      
-      common_wot_burn_over_time_trigger,
-      common_wot_electrical_charge_trigger,
-      common_wot_freeze_over_time_trigger,
-      
-      # keep all seeker triggers active
-      common_wot_seeker_trigger_1,
-      common_wot_seeker_trigger_2,
-      common_wot_seeker_trigger_3,
-      common_wot_seeker_trigger_4,
-      common_wot_seeker_trigger_5,
-      common_wot_seeker_trigger_6,
-      common_wot_seeker_trigger_7,
-      common_wot_seeker_trigger_8,
-      common_wot_seeker_trigger_9,
-      common_wot_seeker_trigger_10,
-      common_wot_seeker_trigger_11,
-      common_wot_seeker_trigger_12,
-      common_wot_seeker_trigger_13,
-      common_wot_seeker_trigger_14,
-      common_wot_seeker_trigger_15,
-      common_wot_seeker_trigger_16,
-      common_wot_seeker_trigger_17,
-      common_wot_seeker_trigger_18,
-      common_wot_seeker_trigger_19,
-      common_wot_seeker_trigger_20,
-      common_wot_seeker_trigger_21,
-      common_wot_seeker_trigger_22,
-      common_wot_seeker_trigger_23,
-      common_wot_seeker_trigger_24,
-      common_wot_seeker_trigger_25,
-      common_wot_seeker_trigger_26,
-      common_wot_seeker_trigger_27,
-      common_wot_seeker_trigger_28,
-      common_wot_seeker_trigger_29,
-      common_wot_seeker_trigger_30,
-      common_wot_seeker_trigger_31,
-      common_wot_seeker_trigger_32,
-      common_wot_seeker_trigger_33,
-      common_wot_seeker_trigger_34,
-      common_wot_seeker_trigger_35,
-      common_wot_seeker_trigger_36,
-      common_wot_seeker_trigger_37,
-      common_wot_seeker_trigger_38,
-      common_wot_seeker_trigger_39,
-      common_wot_seeker_trigger_40,
-      common_wot_seeker_trigger_41,
-      common_wot_seeker_trigger_42,
-      common_wot_seeker_trigger_43,
-      common_wot_seeker_trigger_44,
-      common_wot_seeker_trigger_45,
-      common_wot_seeker_trigger_46,
-      common_wot_seeker_trigger_47,
-      common_wot_seeker_trigger_48,
-      common_wot_seeker_trigger_49,
-      common_wot_seeker_trigger_50,
-      # end
-      
-      # firewall triggers
-      common_wot_firewall_trigger_1,
-      common_wot_firewall_trigger_2,
-      common_wot_firewall_trigger_3,
-      common_wot_firewall_trigger_4,
-      common_wot_firewall_trigger_5,
-      common_wot_firewall_trigger_6,
-      common_wot_firewall_trigger_7,
-      common_wot_firewall_trigger_8,
-      common_wot_firewall_trigger_9,
-      common_wot_firewall_trigger_10,
-      # end
- 
-      #########################################################################
-      ###### end TGS triggers
-      #########################################################################
-      
-      ## TGS: mat: Added to make like 'lead_charge'
-      common_battle_order_panel,
-      ## TGS: mat: End
-      
-####################################################################################
-##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
-####################################################################################
-      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-####################################################################################
-##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
-####################################################################################
-      
-      ## TGS: mat: Added to make like 'lead_charge'
-      common_battle_order_panel_tick,
-      ## TGS: mat: End
-      
-      ]
-    ## TGS: mat: Added to make like 'lead_charge'
-    ##diplomacy begin
-    + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
-    ##diplomacy end
-    ## TGS: mat: End
-    ),
-
-    ### Sea Battles End
-
-
-    ### Border Tower Battles
-
-#####################################
-#BORDER TOWER BATTLE MISSION TEMPLATE
-#####################################
-  (
-    "border_tower_battle",mtf_battle_mode,-1,
-    "You fight near the border tower.",
-    [(0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
-    (1,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
-    (2,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
-    (10,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
-    (11,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
-    (12,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+     (1,mtef_defenders|mtef_team_0,0,aif_start_alarmed,12,[]),
+     (0,mtef_defenders|mtef_team_0,0,aif_start_alarmed,0,[]),
+     (4,mtef_attackers|mtef_team_1,0,aif_start_alarmed,12,[]),
+     (4,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
      ],
     [
       (ti_on_agent_spawn, 0, 0, [],
@@ -26740,15 +26039,12 @@ mission_templates = [
          (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
          ]),
 
-      ## TGS: mat: Added Common to make like 'lead_charge'
       common_battle_init_banner,
-      ## TGS: mat: End
-
-      ## TGS: mat: Added kill/wounded agent trigger, but commented out the effect on courage scores
+		 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
         (store_trigger_param_1, ":dead_agent_no"),
-        #(store_trigger_param_2, ":killer_agent_no"),
+        (store_trigger_param_2, ":killer_agent_no"),
         (store_trigger_param_3, ":is_wounded"),
 
         (try_begin),
@@ -26766,11 +26062,9 @@ mission_templates = [
           (eq, ":is_wounded", 1),
           (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
         (try_end),
-        
-        ## Removed the following to avoid routing enemies
-        #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
+
+        (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
        ]),
-      ## TGS: mat: End      
 
       common_battle_tab_press,
 
@@ -26782,7 +26076,7 @@ mission_templates = [
           (store_mission_timer_a, ":elapsed_time"),
           (gt, ":elapsed_time", 20),
           (str_store_string, s5, "str_retreat"),
-          (call_script, "script_simulate_retreat", 10, 20, 1), ## TGS: mat: added , 1) at the end
+          (call_script, "script_simulate_retreat", 10, 20, 1),
         (try_end),
         (call_script, "script_count_mission_casualties_from_agents"),
         (finish_mission,0),]),
@@ -26793,34 +26087,28 @@ mission_templates = [
          (team_set_relation, 1, 3, 1),
          (call_script, "script_place_player_banner_near_inventory_bms"),
 
-         ## TGS: mat: Added to make like 'lead_charge'
          (party_clear, "p_routed_enemies"),
 
          (assign, "$g_latest_order_1", 1), 
          (assign, "$g_latest_order_2", 1), 
          (assign, "$g_latest_order_3", 1), 
-         (assign, "$g_latest_order_4", 1),
-         ## TGS: mat: End         
+         (assign, "$g_latest_order_4", 1), 
          ]),
+
       
-      (0, 0, ti_once, [], [(assign,"$battle_won",0),
+      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
                            (assign,"$defender_reinforcement_stage",0),
                            (assign,"$attacker_reinforcement_stage",0),
-                           (assign,"$g_presentation_battle_active", 0),
                            (call_script, "script_place_player_banner_near_inventory"),
-                           (call_script, "script_combat_music_set_situation_with_culture"), #Any Ilex is a good Ilex
-                           ## TGS: mat: Add to make like 'lead_charge'
+                           (call_script, "script_combat_music_set_situation_with_culture"),
                            (assign, "$g_defender_reinforcement_limit", 2),
-                           ## TGS: mat: End
                            ]),
 
       common_music_situation_update,
       common_battle_check_friendly_kills,
 
       (1, 0, 5, [
-          
-      ## TGS: mat: Added to make like 'lead_charge'
-          
+                              
       #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
       #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
       (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
@@ -26847,53 +26135,28 @@ mission_templates = [
         (assign, "$defender_reinforcement_limit_increased", 1),
       (try_end),    
       #new (25.11.09) ends
-      ## TGS: mat: End
       
-      ## TGS: mat: Commented out
-                 #(lt,"$defender_reinforcement_stage",2),
-      ## TGS: mat: Added to make like 'lead_charge
-                 (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
-      ## TGS: mat: End
+      
+      
+      
+      
+      
+      (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
                  (store_mission_timer_a,":mission_time"),
                  (ge,":mission_time",10),
                  (store_normalized_team_count,":num_defenders", 0),
-                 (lt,":num_defenders",6),
-#                 (assign, reg2, ":num_defenders"),
-#                 (display_message,"@num_defenders = {reg2}")
-                 ],
-           [(add_reinforcements_to_entry,0,7),
-            ## TGS: mat: Added to make like 'lead_charge'
-            (assign, "$defender_reinforcement_limit_increased", 0),
-            ## TGS: mat: End
-            (val_add,"$defender_reinforcement_stage",1)]),
-      
+                 (lt,":num_defenders",6)],
+           [(add_reinforcements_to_entry,0,7),(assign, "$defender_reinforcement_limit_increased", 0),(val_add,"$defender_reinforcement_stage",1)]),
       
       (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
                  (store_mission_timer_a,":mission_time"),
                  (ge,":mission_time",10),
                  (store_normalized_team_count,":num_attackers", 1),
-                 (lt,":num_attackers",6),
-#                 (assign, reg2, ":num_attackers"),
-#                 (display_message,"@num_attackers = {reg2}")
-                 ],
-           [(add_reinforcements_to_entry,3,7),
-            (val_add,"$attacker_reinforcement_stage",1)]),
-      
+                 (lt,":num_attackers",6)],
+           [(add_reinforcements_to_entry,3,7),(val_add,"$attacker_reinforcement_stage",1)]),
+
       common_battle_check_victory_condition,
-#      common_battle_check_victory_condition_tgs,
       common_battle_victory_display,
-
-      ## TGS: mat: Commented out this trigger and added the one from 'lead_charge'
-
-#      (1, 4, ti_once, [(main_hero_fallen)],
-#          [
-#              (assign, "$pin_player_fallen", 1),
-#              (str_store_string, s5, "str_retreat"),
-#              (call_script, "script_simulate_retreat", 10, 20),
-#              (assign, "$g_battle_result", -1),
-#              (set_mission_result,-1),
-#              (call_script, "script_count_mission_casualties_from_agents"),
-#              (finish_mission,0)]),
 
       (1, 4, 0, [(main_hero_fallen)], #PBOD was 1, 4, ti_once
           [
@@ -26933,18 +26196,13 @@ mission_templates = [
               (call_script, "script_count_mission_casualties_from_agents"),
               (finish_mission,0),
 			(try_end),]),
-      
-      ## TGS: mat: End
-      
-      ## TGS: mat: Added to make like 'lead_charge'
-      common_battle_inventory,
-      ## TGS: mat: End
 
-      
-      ## TGS: mat: Added AI triggers from 'lead_charge' (so troops will rout in border tower battles
+      common_battle_inventory,
+
+
       #AI Triggers
-      (0, 0, ti_once, [
-          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2),
+      (0, 0, ti_once, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
+          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2), 
           ],
        [(call_script, "script_select_battle_tactic"),
         (call_script, "script_battle_tactic_init"),
@@ -26965,15 +26223,13 @@ mission_templates = [
           (try_end),          
               ], []), #controlling courage score and if needed deciding to run away for each agent
 
-      (5, 0, 0, [
+      (5, 0, 0, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
           (store_mission_timer_a,":mission_time"),
 
           (ge,":mission_time",3),
           
           (call_script, "script_battle_tactic_apply"),
           ], []), #applying battle tactic
-      
-      ## TGS: mat: End
 
       #################################################################  
       ###### TGS triggers
@@ -26995,13 +26251,8 @@ mission_templates = [
       #common_wot_check_for_channelers_in_the_scene,
       common_wot_initialize_channeling_slots_on_agent_spawn_1,
       common_wot_spawn_warders,
-      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_dismount_spawned_warders_in_sieges, # also in sea battles
       common_wot_recharge_channeling_stamina_trigger,
-      common_wot_weave_toggle_short_range,
-      common_wot_weave_toggle_long_range,
-      common_wot_weave_toggle_support,
-      common_wot_weave_toggle_advanced,
-      common_wot_weave_toggle_all,
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
@@ -27104,9 +26355,9 @@ mission_templates = [
       ###### end TGS triggers
       #########################################################################
 
-      ## TGS: mat: Added to make like 'lead_charge'
+
+
       common_battle_order_panel,
-      ## TGS: mat: End
       
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
@@ -27116,18 +26367,395 @@ mission_templates = [
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
-
-      ## TGS: mat: Added to make like 'lead_charge'
       common_battle_order_panel_tick,
-      ## TGS: mat: End      
+
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
+  ),
+
+    ### Sea Battles End
+
+
+    ### Border Tower Battles
+
+#####################################
+#BORDER TOWER BATTLE MISSION TEMPLATE
+#####################################
+  (
+    "border_tower_battle",mtf_battle_mode|mtf_synch_inventory,charge,
+    "You fight near the border tower.",
+    [
+     (1,mtef_defenders|mtef_team_0,0,aif_start_alarmed,12,[]),
+     (0,mtef_defenders|mtef_team_0,0,aif_start_alarmed,0,[]),
+     (4,mtef_attackers|mtef_team_1,0,aif_start_alarmed,12,[]),
+     (4,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
+     ],
+    [
+      (ti_on_agent_spawn, 0, 0, [],
+       [
+         (store_trigger_param_1, ":agent_no"),
+         (call_script, "script_agent_reassign_team", ":agent_no"),
+
+         (assign, ":initial_courage_score", 5000),
+                  
+         (agent_get_troop_id, ":troop_id", ":agent_no"),
+         (store_character_level, ":troop_level", ":troop_id"),
+         (val_mul, ":troop_level", 35),
+         (val_add, ":initial_courage_score", ":troop_level"), #average : 20 * 35 = 700
+         
+         (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
+         (val_add, ":initial_courage_score", ":randomized_addition_courage"), 
+                   
+         (agent_get_party_id, ":agent_party", ":agent_no"),         
+########### Added this for TGS ###########
+         (try_begin),
+         (lt, ":agent_party", 0),
+             (agent_get_slot, ":agent_party", ":agent_no", slot_agent_spawn_party),
+         (try_end),
+########### End Added this for TGS ####################################
+         (party_get_morale, ":cur_morale", ":agent_party"),
+         
+         (store_sub, ":morale_effect_on_courage", ":cur_morale", 70),
+         (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
+         (val_add, ":initial_courage_score", ":morale_effect_on_courage"), 
+         
+         #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
+         #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
+         #min starting : 3600, max starting  : 9600, average starting : 7200
+         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
+         ]),
+
+      common_battle_init_banner,
+		 
+      (ti_on_agent_killed_or_wounded, 0, 0, [],
+       [
+        (store_trigger_param_1, ":dead_agent_no"),
+        (store_trigger_param_2, ":killer_agent_no"),
+        (store_trigger_param_3, ":is_wounded"),
+
+        (try_begin),
+          (ge, ":dead_agent_no", 0),
+          (neg|agent_is_ally, ":dead_agent_no"),
+          (agent_is_human, ":dead_agent_no"),
+          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+##          (str_store_troop_name, s6, ":dead_agent_troop_id"),
+##          (assign, reg0, ":dead_agent_no"),
+##          (assign, reg1, ":killer_agent_no"),
+##          (assign, reg2, ":is_wounded"),
+##          (agent_get_team, reg3, ":dead_agent_no"),          
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
+          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+          (eq, ":is_wounded", 1),
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
+        (try_end),
+
+        (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
+       ]),
+
+      common_battle_tab_press,
+
+      (ti_question_answered, 0, 0, [],
+       [(store_trigger_param_1,":answer"),
+        (eq,":answer",0),
+        (assign, "$pin_player_fallen", 0),
+        (try_begin),
+          (store_mission_timer_a, ":elapsed_time"),
+          (gt, ":elapsed_time", 20),
+          (str_store_string, s5, "str_retreat"),
+          (call_script, "script_simulate_retreat", 10, 20, 1),
+        (try_end),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        (finish_mission,0),]),
+
+      (ti_before_mission_start, 0, 0, [],
+       [
+         (team_set_relation, 0, 2, 1),
+         (team_set_relation, 1, 3, 1),
+         (call_script, "script_place_player_banner_near_inventory_bms"),
+
+         (party_clear, "p_routed_enemies"),
+
+         (assign, "$g_latest_order_1", 1), 
+         (assign, "$g_latest_order_2", 1), 
+         (assign, "$g_latest_order_3", 1), 
+         (assign, "$g_latest_order_4", 1), 
+         ]),
+
       
-      ]
-    ## TGS: mat: Added to make like 'lead_charge'
-    ##diplomacy begin
-    + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
-    ##diplomacy end
-    ## TGS: mat: End
-    ),
+      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+                           (assign,"$defender_reinforcement_stage",0),
+                           (assign,"$attacker_reinforcement_stage",0),
+                           (call_script, "script_place_player_banner_near_inventory"),
+                           (call_script, "script_combat_music_set_situation_with_culture"),
+                           (assign, "$g_defender_reinforcement_limit", 2),
+                           ]),
+
+      common_music_situation_update,
+      common_battle_check_friendly_kills,
+
+      (1, 0, 5, [
+                              
+      #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
+      #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
+      (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
+      (assign, ":total_enemy_soldiers", reg0),
+      
+      #decrease number of agents already in battle area to find all number of reinforcement enemies
+      (assign, ":enemy_soldiers_in_battle_area", 0),
+      (try_for_agents,":cur_agent"),
+        (agent_is_human, ":cur_agent"),
+        (agent_get_party_id, ":agent_party", ":cur_agent"),
+        (try_begin),
+          (neq, ":agent_party", "p_main_party"),
+          (neg|agent_is_ally, ":cur_agent"),
+          (val_add, ":enemy_soldiers_in_battle_area", 1),
+        (try_end),
+      (try_end),
+      (store_sub, ":total_enemy_reinforcements", ":total_enemy_soldiers", ":enemy_soldiers_in_battle_area"),
+
+      (try_begin),
+        (lt, ":total_enemy_reinforcements", 15),
+        (ge, "$defender_reinforcement_stage", 2),
+        (eq, "$defender_reinforcement_limit_increased", 0),
+        (val_add, "$g_defender_reinforcement_limit", 1),                    
+        (assign, "$defender_reinforcement_limit_increased", 1),
+      (try_end),    
+      #new (25.11.09) ends
+      
+      
+      
+      
+      
+      
+      (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_defenders", 0),
+                 (lt,":num_defenders",6)],
+           [(add_reinforcements_to_entry,0,7),(assign, "$defender_reinforcement_limit_increased", 0),(val_add,"$defender_reinforcement_stage",1)]),
+      
+      (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_attackers", 1),
+                 (lt,":num_attackers",6)],
+           [(add_reinforcements_to_entry,3,7),(val_add,"$attacker_reinforcement_stage",1)]),
+
+      common_battle_check_victory_condition,
+      common_battle_victory_display,
+
+      (1, 4, 0, [(main_hero_fallen)], #PBOD was 1, 4, ti_once
+          [
+		    (assign, "$pin_player_fallen", 1),
+			(try_begin),
+			  (party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
+			  (assign, ":num_allies", 0),
+			  #(store_friend_count, ":num_allies"),
+			  #(store_ally_count,":num_allies"),
+			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),			
+			  (try_for_agents, ":agent"),
+                 (agent_is_ally, ":agent"),
+                 (agent_is_alive, ":agent"),
+                 (val_add, ":num_allies", 1),
+              (try_end),
+			  (gt, ":num_allies", 0),
+			  (try_begin),
+				  (neq, "$cam_free", 1),
+				  (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
+				  (assign, "$cam_free", 1),
+				  (assign, "$cam_mode", 2),
+				  (call_script, "script_cust_cam_cycle_forwards"), #So, on Follow, it doesn't begin with the player's dead body
+				  (mission_cam_set_mode, 1),
+				  (party_slot_eq, "p_main_party", slot_party_pref_bc_charge_ko, 1), #PBOD "Charge on KO" Active
+				  (set_show_messages, 0),
+				  (team_give_order, "$fplayer_team_no", grc_everyone, mordr_charge),
+				  (team_set_order_listener, "$fplayer_team_no", grc_everyone),
+				  (call_script, "script_player_order_formations", mordr_charge),
+				  (set_show_messages, 1),
+			  (try_end),
+			(else_try),
+              #(assign, "$pin_player_fallen", 1),
+              (str_store_string, s5, "str_retreat"),
+              (call_script, "script_simulate_retreat", 10, 20, 1),
+              (assign, "$g_battle_result", -1),
+              (set_mission_result,-1),
+              (call_script, "script_count_mission_casualties_from_agents"),
+              (finish_mission,0),
+			(try_end),]),
+
+      common_battle_inventory,
+
+
+      #AI Triggers
+      (0, 0, ti_once, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
+          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2), 
+          ],
+       [(call_script, "script_select_battle_tactic"),
+        (call_script, "script_battle_tactic_init"),
+        #(call_script, "script_battle_calculate_initial_powers"), #deciding run away method changed and that line is erased
+        ]),
+      
+      (3, 0, 0, [
+          (call_script, "script_apply_effect_of_other_people_on_courage_scores"),
+              ], []), #calculating and applying effect of people on others courage scores
+
+      (3, 0, 0, [
+          (try_for_agents, ":agent_no"),
+            (agent_is_human, ":agent_no"),
+            (agent_is_alive, ":agent_no"),          
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",3),          
+            (call_script, "script_decide_run_away_or_not", ":agent_no", ":mission_time"),
+          (try_end),          
+              ], []), #controlling courage score and if needed deciding to run away for each agent
+
+      (5, 0, 0, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
+          (store_mission_timer_a,":mission_time"),
+
+          (ge,":mission_time",3),
+          
+          (call_script, "script_battle_tactic_apply"),
+          ], []), #applying battle tactic
+
+      #################################################################  
+      ###### TGS triggers
+      #################################################################
+
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
+      
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
+      
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      #common_wot_check_for_channelers_in_the_scene,
+      common_wot_initialize_channeling_slots_on_agent_spawn_1,
+      common_wot_spawn_warders,
+      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
+      
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      common_wot_airborne_trigger,
+      # end
+      
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+      
+      # pick one balefire trigger (2 for custom battle)
+      common_wot_balefire_trigger_1,
+      #common_wot_balefire_trigger_2,
+      # end
+      
+      common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
+      
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+      
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
+      # end
+ 
+      #########################################################################
+      ###### end TGS triggers
+      #########################################################################
+
+
+
+      common_battle_order_panel,
+      
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      common_battle_order_panel_tick,
+
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
+  ),
 
     ### Border Tower Battles End
 

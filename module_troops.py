@@ -584,8 +584,8 @@ tf_guarantee_all_cavalry = tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_g
 troops = [
     # wp(15)
   ["player","Player","Player",tf_hero|tf_unmoveable_in_party_window,no_scene,reserved,fac_player_faction,
-   [itm_saddle_horse],
-   str_4|agi_4|int_4|cha_4,wp_firearm(300)|wp(15),0,0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
+   [],
+   str_4|agi_4|int_4|cha_4,wp(15),0,0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
   ["multiplayer_profile_troop_male","multiplayer_profile_troop_male","multiplayer_profile_troop_male", tf_hero|tf_guarantee_all, 0, 0,fac_commoners,
    [itm_leather_jerkin, itm_leather_boots],
    0, 0, 0, 0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
@@ -1059,7 +1059,7 @@ troops = [
    def_attrib_wot_cavalry_1 ,wp_polearm(100)|wp_one_handed(95)|wp(70),knows_wot_cavalry_1 ,man_face_young_1, man_face_old_2],
   
     ["legion_lancer","Legion Lancer","Legion Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_1,
-   [itm_lance, itm_legion_shield_normal, itm_legion_army_armor, itm_leather_boots, itm_leather_gloves, itm_nordic_helmet, itm_saddle_horse, itm_courser],
+   [itm_lance, itm_sword_medieval_c_long, itm_legion_shield_normal, itm_legion_army_armor, itm_leather_boots, itm_leather_gloves, itm_nordic_helmet, itm_saddle_horse, itm_courser],
    def_attrib_wot_cavalry_2 ,wp_polearm(120)|wp_one_handed(110)|wp(85),knows_wot_cavalry_2 ,man_face_young_1, man_face_old_2],
   
     ["legion_man_at_arms","Legion Man at Arms","Legion Man at Arms",tf_guarantee_all_cavalry,0,0,fac_kingdom_1,
@@ -1135,7 +1135,7 @@ troops = [
    def_attrib_wot_cavalry_2 ,wp_polearm(120)|wp_one_handed(120)|wp(85),knows_wot_cavalry_2 ,man_face_young_1, man_face_old_2],
   
     ["red_hand_light_cavalry","Red Hand Light Cavalry","Red Hand Light Cavalry",tf_guarantee_all_cavalry,0,0,fac_kingdom_2,
-   [itm_war_spear, itm_red_hand_shield_normal, itm_red_hand_tunic, itm_leather_boots, itm_leather_gloves, itm_red_hand_bell_helm, itm_saddle_horse, itm_courser],
+   [itm_war_spear, itm_sword_medieval_a, itm_red_hand_shield_normal, itm_red_hand_tunic, itm_leather_boots, itm_leather_gloves, itm_red_hand_bell_helm, itm_saddle_horse, itm_courser],
    def_attrib_wot_cavalry_2 ,wp_polearm(120)|wp_one_handed(110)|wp(85),knows_wot_cavalry_2 ,man_face_young_1, man_face_old_2],
   #
 #    ["legion_true_ally_perrin","Legion True Ally (Perrin)","Legion True Allies (Perrin)",tf_guarantee_armor,0,0,fac_kingdom_1,
@@ -1190,7 +1190,7 @@ troops = [
    def_attrib_wot_cavalry_2 ,wp_polearm(120)|wp_one_handed(120)|wp(85),knows_wot_cavalry_2 ,mayene_man_face_young, mayene_man_face_older],
   
   ["mayene_lancer","Mayene Lancer","Mayene Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_4,
-   [itm_lance, itm_mayene_shield_normal, itm_mayene_army_armor, itm_leather_boots, itm_leather_gloves, itm_kettle_hat_wot, itm_courser, itm_hunter],
+   [itm_lance, itm_sword_medieval_c_long, itm_mayene_shield_normal, itm_mayene_army_armor, itm_leather_boots, itm_leather_gloves, itm_kettle_hat_wot, itm_courser, itm_hunter],
    def_attrib_wot_cavalry_3 ,wp_polearm(150)|wp_one_handed(120)|wp(85),knows_wot_cavalry_3 ,mayene_man_face_young, mayene_man_face_older],
 
 ## Cairhien  
@@ -1262,11 +1262,11 @@ troops = [
    def_attrib_wot_infantry_3 ,wp_archery(100)|wp_one_handed(90)|wp(80),knows_wot_archer_3, murandy_man_face_young, murandy_man_face_older],
   
   ["murandy_scout","Murandy Scout","Murandy Scouts",tf_guarantee_all_cavalry,0,0,fac_kingdom_7,
-   [itm_hammer, itm_murandy_shield_weak, itm_murandy_recruit_tunic, itm_leather_boots, itm_leather_gloves, itm_leather_warrior_cap, itm_steppe_horse],
+   [itm_hammer, itm_sword_medieval_a, itm_murandy_shield_weak, itm_murandy_recruit_tunic, itm_leather_boots, itm_leather_gloves, itm_leather_warrior_cap, itm_steppe_horse],
    def_attrib_wot_cavalry_1 ,wp_one_handed(100)|wp(70),knows_wot_cavalry_1, murandy_man_face_young, murandy_man_face_older],
   
   ["murandy_lancer","Murandy Lancer","Murandy Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_7,
-   [itm_lance, itm_murandy_shield_normal, itm_murandy_leather_armor, itm_leather_boots, itm_leather_gloves, itm_nordic_fighter_helmet, itm_courser, itm_hunter],
+   [itm_lance, itm_sword_medieval_c_long, itm_murandy_shield_normal, itm_murandy_leather_armor, itm_leather_boots, itm_leather_gloves, itm_nordic_fighter_helmet, itm_courser, itm_hunter],
    def_attrib_wot_cavalry_2 ,wp_polearm(120)|wp_one_handed(110)|wp(85),knows_wot_cavalry_2 ,murandy_man_face_young, murandy_man_face_older],
   
 #  ["southlander_1_recruit_west","Southlander Coalition Recruit (West)","Southlander Coalition Recruits (West)",tf_guarantee_armor,0,0,fac_kingdom_2,
@@ -1352,7 +1352,7 @@ troops = [
    def_attrib_wot_cavalry_2 ,wp_polearm(110)|wp_one_handed(100)|wp(75),knows_wot_cavalry_2, tear_man_face_young, tear_man_face_old],
   
   ["tear_lancer","Tear Lancer","Tear Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_10,
-   [itm_lance, itm_tear_shield_normal, itm_tear_plate, itm_splinted_greaves_spurs_wot, itm_leather_gloves, itm_tear_helmet, itm_hunter, itm_warhorse],
+   [itm_lance, itm_sword_medieval_c_long, itm_tear_shield_normal, itm_tear_plate, itm_splinted_greaves_spurs_wot, itm_leather_gloves, itm_tear_helmet, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_3 ,wp_polearm(135)|wp_one_handed(110)|wp(85),knows_wot_cavalry_3 ,tear_man_face_young, tear_man_face_old],
 
 ## Andor  
@@ -1377,11 +1377,11 @@ troops = [
    def_attrib_wot_cavalry_2 ,wp_one_handed(105)|wp(75),knows_wot_cavalry_2, andor_man_face_young, andor_man_face_older],
   
   ["andor_lancer","Andor Lancer","Andor Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_11,
-   [itm_lance, itm_andor_shield_normal, itm_andor_plate, itm_steel_greaves_wot, itm_leather_gloves, itm_andoran_helmet, itm_courser],
+   [itm_lance, itm_sword_medieval_c_long, itm_andor_shield_normal, itm_andor_plate, itm_steel_greaves_wot, itm_leather_gloves, itm_andoran_helmet, itm_courser],
    def_attrib_wot_cavalry_3 ,wp_polearm(135)|wp_one_handed(110)|wp(85),knows_wot_cavalry_3 ,andor_man_face_young, andor_man_face_older],
   
   ["andor_queens_guard","Andor Queen's Guard","Andor Queen's Guards",tf_guarantee_all_cavalry,0,0,fac_kingdom_11,
-   [itm_lance, itm_andor_shield_strong, itm_andor_queens_guard_armor, itm_steel_greaves_wot, itm_wisby_gauntlets_red_wot, itm_andoran_helmet, itm_courser, itm_hunter],
+   [itm_lance, itm_sword_medieval_c_long, itm_andor_shield_strong, itm_andor_queens_guard_armor, itm_steel_greaves_wot, itm_wisby_gauntlets_red_wot, itm_andoran_helmet, itm_courser, itm_hunter],
    def_attrib_wot_cavalry_4 ,wp_polearm(150)|wp_one_handed(120)|wp(85),knows_wot_cavalry_4 ,andor_man_face_young, andor_man_face_older],
   #
 #  ["southlander_2_recruit_central","Southlander Alliance Recruit (Central)","Southlander Alliance Recruits (Central)",tf_guarantee_armor,0,0,fac_kingdom_3,
@@ -1411,7 +1411,7 @@ troops = [
    def_attrib_wot_cavalry_2 ,wp_one_handed(105)|wp(75),knows_wot_cavalry_2, ghealdan_man_face_young, ghealdan_man_face_older],
   
   ["ghealdan_lancer","Ghealdan Lancer","Ghealdan Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_12,
-   [itm_lance, itm_ghealdan_shield_normal, itm_ghealdan_army_armor, itm_steel_greaves_wot, itm_leather_gloves, itm_guard_helmet, itm_courser, itm_hunter],
+   [itm_lance, itm_sword_medieval_c_long, itm_ghealdan_shield_normal, itm_ghealdan_army_armor, itm_steel_greaves_wot, itm_leather_gloves, itm_guard_helmet, itm_courser, itm_hunter],
    def_attrib_wot_cavalry_3 ,wp_polearm(135)|wp_one_handed(110)|wp(85),knows_wot_cavalry_3 , ghealdan_man_face_young, ghealdan_man_face_older],
 
 ## Far Madding  
@@ -1442,7 +1442,7 @@ troops = [
    def_attrib_wot_infantry_2 ,wp_archery(100)|wp_one_handed(90)|wp(80),knows_wot_archer_2, tarabon_man_face_young, tarabon_man_face_older],
   
   ["tarabon_scout","Tarabon Scout","Tarabon Scouts",tf_guarantee_all_cavalry,0,0,fac_kingdom_14,
-   [itm_military_fork, itm_tarabon_shield_weak, itm_tarabon_recruit_tunic, itm_nomad_boots, itm_leather_gloves, itm_sarranid_helmet1, itm_saddle_horse],
+   [itm_military_fork, itm_one_handed_battle_axe_a, itm_tarabon_shield_weak, itm_tarabon_recruit_tunic, itm_nomad_boots, itm_leather_gloves, itm_sarranid_helmet1, itm_saddle_horse],
    def_attrib_wot_cavalry_2 ,wp_polearm(105)|wp(75),knows_wot_cavalry_2, tarabon_man_face_young, tarabon_man_face_older],
 
 ## Amadicia  
@@ -1522,11 +1522,11 @@ troops = [
    def_attrib_wot_cavalry_2 ,wp_one_handed(105)|wp(75),knows_wot_cavalry_2, shienar_man_face_young, shienar_man_face_older],
   
   ["shienar_lancer","Shienar Lancer","Shienar Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_17,
-   [itm_lance, itm_shienar_shield_normal, itm_banded_armor, itm_steel_greaves_wot, itm_gauntlets, itm_nordic_warlord_helmet, itm_hunter, itm_warhorse],
+   [itm_lance, itm_sword_medieval_c_long, itm_shienar_shield_normal, itm_banded_armor, itm_steel_greaves_wot, itm_gauntlets, itm_nordic_warlord_helmet, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_3 ,wp_polearm(135)|wp_one_handed(110)|wp(85),knows_wot_cavalry_3 , shienar_man_face_young, shienar_man_face_older],
   
   ["shienar_heavy_lancer","Shienar Heavy Lancer","Shienar Heavy Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_17,
-   [itm_heavy_lance, itm_shienar_shield_strong, itm_plate_armor, itm_steel_greaves_wot, itm_gauntlets, itm_great_helmet, itm_warhorse, itm_charger],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_shienar_shield_strong, itm_plate_armor, itm_steel_greaves_wot, itm_gauntlets, itm_great_helmet, itm_warhorse, itm_charger],
    def_attrib_wot_cavalry_4 ,wp_polearm(175)|wp_one_handed(150)|wp(85),knows_wot_cavalry_4 , shienar_man_face_young, shienar_man_face_older],
 
 ## Arafel  
@@ -1813,7 +1813,7 @@ troops = [
    def_attrib_wot_cavalry_3,wp_one_handed(125)|wp(90),knows_wot_cavalry_3, seanchan_1_man_face_younger, seanchan_2_man_face_older],
   
   ["seanchan_lancer","Seanchan Lancer","Seanchan Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_23,
-   [itm_lance, itm_seanchan_middle_armor, itm_seanchan_middle_helmet, itm_seanchan_middle_boots, itm_seanchan_middle_gloves, itm_arabian_horse_b],
+   [itm_lance, itm_seanchan_straight_sword, itm_seanchan_middle_armor, itm_seanchan_middle_helmet, itm_seanchan_middle_boots, itm_seanchan_middle_gloves, itm_arabian_horse_b],
    def_attrib_wot_cavalry_4,wp_polearm(145)|wp(100),knows_wot_cavalry_4, seanchan_1_man_face_younger, seanchan_2_man_face_older],
   
 #  ["seanchan_conquered_ally","Seanchan Conquered Ally","Seanchan Conquered Allies",tf_guarantee_armor,0,0,fac_kingdom_7,
@@ -2098,7 +2098,7 @@ troops = [
    def_attrib_wot_infantry_3 ,wp_crossbow(150)|wp_one_handed(110)|wp(85),knows_wot_archer_3 ,man_face_young_1, man_face_old_2],
   
     ["legion_heavy_lancer","Legion Heavy Lancer","Legion Heavy Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_1,
-   [itm_heavy_lance, itm_legion_shield_strong, itm_legion_plate, itm_steel_greaves_wot, itm_gauntlets, itm_andoran_helmet, itm_hunter, itm_warhorse],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_legion_shield_strong, itm_legion_plate, itm_steel_greaves_wot, itm_gauntlets, itm_andoran_helmet, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_3 ,wp_polearm(150)|wp_one_handed(140)|wp(100),knows_wot_cavalry_3 ,man_face_young_1, man_face_old_2],
   
     ["legion_captain","Legion Captain","Legion Captains",tf_guarantee_all_cavalry,0,0,fac_kingdom_1,
@@ -2147,7 +2147,7 @@ troops = [
    def_attrib_wot_infantry_4 ,wp_crossbow(175)|wp_one_handed(150)|wp(85),knows_wot_archer_4 ,man_face_young_1, man_face_old_2],
   
     ["red_hand_lancer","Red Hand Lancer","Red Hand Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_2,
-   [itm_heavy_lance, itm_red_hand_shield_strong, itm_red_hand_plate, itm_red_hand_greaves, itm_red_hand_plate_gauntlets, itm_red_hand_kettle_helm, itm_hunter, itm_warhorse],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_red_hand_shield_strong, itm_red_hand_plate, itm_red_hand_greaves, itm_red_hand_plate_gauntlets, itm_red_hand_kettle_helm, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_3 ,wp_polearm(150)|wp_one_handed(140)|wp(100),knows_wot_cavalry_3 ,man_face_young_1, man_face_old_2],
   
     ["red_hand_captain","Red Hand Captain","Red Hand Captains",tf_guarantee_all_cavalry,0,0,fac_kingdom_2,
@@ -2180,7 +2180,7 @@ troops = [
    def_attrib_wot_infantry_3 ,wp_polearm(115)|wp(85),knows_wot_infantry_3 ,andor_man_face_younger, andor_man_face_older],
   
     ["two_rivers_scout","Two Rivers Scout","Two Rivers Scouts",tf_guarantee_all_cavalry,0,0,fac_kingdom_3,
-   [itm_spear, itm_ragged_outfit, itm_leather_jerkin, itm_leather_boots, itm_leather_gloves, itm_leather_cap, itm_segmented_helmet, itm_saddle_horse, itm_courser],
+   [itm_spear, itm_sword_medieval_a, itm_ragged_outfit, itm_leather_jerkin, itm_leather_boots, itm_leather_gloves, itm_leather_cap, itm_segmented_helmet, itm_saddle_horse, itm_courser],
    def_attrib_wot_cavalry_2 ,wp_polearm(125)|wp(80),knows_wot_cavalry_2, andor_man_face_younger, andor_man_face_older],
   
     ["two_rivers_marksman","Two Rivers Marksman","Two Rivers Marksmen",tf_guarantee_all,0,0,fac_kingdom_3,
@@ -2216,7 +2216,7 @@ troops = [
    def_attrib_wot_infantry_2 ,wp_archery(90)|wp_one_handed(85)|wp(80),knows_wot_archer_2 ,mayene_man_face_young, mayene_man_face_older],
   
   ["mayene_royal_guard","Mayene Winged Guard","Mayene Winged Guards",tf_guarantee_all_cavalry,0,0,fac_kingdom_4,
-   [itm_heavy_lance, itm_mayene_plate, itm_mayene_greaves, itm_mayene_gauntlets_red, itm_mayene_winged_guard_helmet, itm_hunter, itm_warhorse],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_mayene_plate, itm_mayene_greaves, itm_mayene_gauntlets_red, itm_mayene_winged_guard_helmet, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_4 ,wp_polearm(140)|wp_one_handed(130)|wp(100),knows_wot_cavalry_4 ,mayene_man_face_young, mayene_man_face_older],
   #Other
   ["mayene_messenger","Mayene Messenger","Mayene Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_4,
@@ -2250,7 +2250,7 @@ troops = [
    def_attrib_wot_cavalry_3 ,wp_one_handed(120)|wp(85),knows_wot_cavalry_3 ,cairhien_man_face_young, cairhien_man_face_older],
   
   ["cairhien_lancer","Cairhien Lancer","Cairhien Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_5,
-   [itm_heavy_lance, itm_cairhien_shield_strong, itm_cairhien_plate, itm_shynbaulds_wot, itm_gauntlets, itm_cairhien_helmet, itm_courser, itm_hunter],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_cairhien_shield_strong, itm_cairhien_plate, itm_shynbaulds_wot, itm_gauntlets, itm_cairhien_helmet, itm_courser, itm_hunter],
    def_attrib_wot_cavalry_3 ,wp_polearm(150)|wp_one_handed(140)|wp(100),knows_wot_cavalry_3 ,cairhien_man_face_young, cairhien_man_face_older],
   #Other
   ["cairhien_messenger","Cairhien Messenger","Cairhien Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_5,
@@ -2310,7 +2310,7 @@ troops = [
    def_attrib_wot_infantry_4 ,wp_archery(140)|wp_one_handed(110)|wp(100),knows_wot_archer_4, murandy_man_face_young, murandy_man_face_older],
   
   ["murandy_captain","Murandy Captain","Murandy Captains",tf_guarantee_all_cavalry,0,0,fac_kingdom_7,
-   [itm_heavy_lance, itm_murandy_shield_strong, itm_murandy_elite_armor, itm_mail_mittens, itm_mail_chausses, itm_nordic_huscarl_helmet, itm_hunter, itm_warhorse],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_murandy_shield_strong, itm_murandy_elite_armor, itm_mail_mittens, itm_mail_chausses, itm_nordic_huscarl_helmet, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_3 ,wp_polearm(145)|wp_one_handed(120)|wp(100),knows_wot_cavalry_3 ,murandy_man_face_young, murandy_man_face_older],
   #Other
   ["murandy_messenger","Murandy Messenger","Murandy Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_7,
@@ -2414,7 +2414,7 @@ troops = [
    def_attrib_wot_cavalry_3 ,wp_one_handed(115)|wp(85),knows_wot_cavalry_3 ,tear_man_face_young, tear_man_face_old],
    
   ["tear_heavy_lancer","Tear Heavy Lancer","Tear Heavy Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_10,
-   [itm_heavy_lance, itm_tear_shield_strong, itm_tear_gilded_plate, itm_gauntlets, itm_shynbaulds_wot, itm_tear_elite_helmet, itm_warhorse, itm_charger],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_tear_shield_strong, itm_tear_gilded_plate, itm_gauntlets, itm_shynbaulds_wot, itm_tear_elite_helmet, itm_warhorse, itm_charger],
    def_attrib_wot_cavalry_4 ,wp_polearm(155)|wp_one_handed(120)|wp(100),knows_wot_cavalry_4 ,tear_man_face_young, tear_man_face_old],
 #Other
   ["tear_messenger","Tear Messenger","Tear Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_10,
@@ -2452,7 +2452,7 @@ troops = [
    def_attrib_wot_cavalry_3 ,wp_one_handed(120)|wp(85),knows_wot_cavalry_3 ,andor_man_face_young, andor_man_face_older],
   
   ["andor_bannerman","Andor Bannerman","Andor Bannermen",tf_guarantee_all_cavalry,0,0,fac_kingdom_11,
-   [itm_heavy_lance, itm_andor_shield_strong, itm_andor_queens_guard_armor, itm_steel_greaves_wot, itm_wisby_gauntlets_red_wot, itm_sugarloaf_wot, itm_hunter, itm_warhorse],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_andor_shield_strong, itm_andor_queens_guard_armor, itm_steel_greaves_wot, itm_wisby_gauntlets_red_wot, itm_sugarloaf_wot, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_4 ,wp_polearm(165)|wp_one_handed(120)|wp(85),knows_wot_cavalry_4 ,andor_man_face_young, andor_man_face_older],
 #Other
   ["andor_messenger","Andor Messenger","Andor Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_11,
@@ -2486,7 +2486,7 @@ troops = [
    def_attrib_wot_cavalry_3 ,wp_one_handed(120)|wp(85),knows_wot_cavalry_3 ,ghealdan_man_face_young, ghealdan_man_face_older],
   
   ["ghealdan_royal_guard","Ghealdan Royal Guard","Ghealdan Royal Guards",tf_guarantee_all_cavalry,0,0,fac_kingdom_12,
-   [itm_heavy_lance, itm_ghealdan_shield_strong, itm_ghealdan_plate, itm_steel_greaves_wot, itm_gauntlets, itm_bascinet_2, itm_hunter, itm_warhorse],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_ghealdan_shield_strong, itm_ghealdan_plate, itm_steel_greaves_wot, itm_gauntlets, itm_bascinet_2, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_4 ,wp_polearm(165)|wp_one_handed(120)|wp(85),knows_wot_cavalry_4 ,ghealdan_man_face_young, ghealdan_man_face_older],
 #Other
   ["ghealdan_messenger","Ghealdan Messenger","Ghealdan Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_12,
@@ -2508,7 +2508,7 @@ troops = [
 
 ## Far Madding
   ["far_madding_city_guard","Far Madding City Guard","Far Madding City Guards",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_13,
-   [itm_war_spear, itm_far_madding_shield_normal, itm_far_madding_armor, itm_mail_chausses, itm_leather_gloves, itm_bascinet_3],
+   [itm_war_spear, itm_sword_medieval_c_long, itm_far_madding_shield_normal, itm_far_madding_armor, itm_mail_chausses, itm_leather_gloves, itm_bascinet_3],
    def_attrib_wot_infantry_3 ,wp_polearm(150)|wp(100),knows_wot_infantry_3 ,far_madding_man_face_young, far_madding_man_face_older],
   
   ["far_madding_crossbowman","Far Madding Crossbowman","Far Madding Crossbowmen",tf_guarantee_all,0,0,fac_kingdom_13,
@@ -2542,7 +2542,7 @@ troops = [
    def_attrib_wot_infantry_4 ,wp_archery(155)|wp_one_handed(125)|wp(105),knows_wot_archer_4, tarabon_man_face_young, tarabon_man_face_older],
   
   ["tarabon_lancer","Tarabon Lancer","Tarabon Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_14,
-   [itm_lance, itm_tarabon_shield_strong, itm_tarabon_elite_armor, itm_sarranid_boots_d, itm_scale_gauntlets, itm_sarranid_veiled_helmet, itm_hunter, itm_warhorse],
+   [itm_lance, itm_sword_medieval_c_long, itm_tarabon_shield_strong, itm_tarabon_elite_armor, itm_sarranid_boots_d, itm_scale_gauntlets, itm_sarranid_veiled_helmet, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_3 ,wp_polearm(150)|wp_one_handed(140)|wp(100),knows_wot_cavalry_3 ,tarabon_man_face_young, tarabon_man_face_older],
   
   ["tarabon_skirmisher","Tarabon Skirmisher","Tarabon Skirmishers",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_14,
@@ -2602,7 +2602,7 @@ troops = [
    def_attrib_wot_infantry_3 ,wp_crossbow(125)|wp_one_handed(110)|wp(85),knows_wot_archer_3 ,man_face_young_1, man_face_old_2],
   
   ["whitecloak_lancer","Whitecloak Lancer","Whitecloak Lancer",tf_guarantee_all_cavalry,0,0,fac_kingdom_16,
-   [itm_heavy_lance, itm_whitecloak_shield_strong, itm_whitecloak_tabbard, itm_steel_greaves_wot, itm_mail_gauntlets_wot, itm_whitecloak_helmet, itm_hunter, itm_warhorse],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_whitecloak_shield_strong, itm_whitecloak_tabbard, itm_steel_greaves_wot, itm_mail_gauntlets_wot, itm_whitecloak_helmet, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_4 ,wp_polearm(165)|wp_one_handed(140)|wp(100),knows_wot_cavalry_4 ,man_face_young_1, man_face_old_2],
   #Other
   ["whitecloak_messenger","Whitecloak Messenger","Whitecloak Messenger",tf_guarantee_all_cavalry,0,0,fac_kingdom_16,
@@ -2642,7 +2642,7 @@ troops = [
    def_attrib_wot_infantry_4 ,wp_crossbow(165)|wp_one_handed(135)|wp(120),knows_wot_archer_4, shienar_man_face_young, shienar_man_face_older],
   
   ["shienar_captain","Shienar Captain","Shienar Captains",tf_guarantee_all_cavalry,0,0,fac_kingdom_17,
-   [itm_heavy_lance, itm_shienar_shield_strong, itm_shienar_captain_armor, itm_steel_greaves_wot, itm_shienar_captain_gauntlets, itm_winged_great_helmet, itm_heavy_charger],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_shienar_shield_strong, itm_shienar_captain_armor, itm_steel_greaves_wot, itm_shienar_captain_gauntlets, itm_winged_great_helmet, itm_heavy_charger],
    def_attrib_wot_cavalry_5 ,wp_polearm(210)|wp_one_handed(175)|wp(150),knows_wot_cavalry_5 , shienar_man_face_young, shienar_man_face_older],
   #Other
   ["shienar_messenger","Shienar Messenger","Shienar Messengers",tf_guarantee_all_cavalry,0,0,fac_kingdom_17,
@@ -2676,7 +2676,7 @@ troops = [
    def_attrib_wot_infantry_4 ,wp_archery(165)|wp_one_handed(140)|wp(120),knows_wot_archer_4, arafel_man_face_young, arafel_man_face_older],
   
   ["arafel_lancer","Arafel Lancer","Arafel Lancers",tf_guarantee_all_cavalry,0,0,fac_kingdom_18,
-   [itm_lance, itm_arafel_shield_strong, itm_arafel_tabbard, itm_splinted_greaves_spurs_wot, itm_mail_mittens, itm_guard_helmet, itm_hunter, itm_warhorse],
+   [itm_lance, itm_sword_medieval_c_long, itm_arafel_shield_strong, itm_arafel_tabbard, itm_splinted_greaves_spurs_wot, itm_mail_mittens, itm_guard_helmet, itm_hunter, itm_warhorse],
    def_attrib_wot_cavalry_4 ,wp_polearm(150)|wp(75),knows_wot_cavalry_4, arafel_man_face_young, arafel_man_face_older],
   
   ["arafel_skirmisher","Arafel Skirmisher","Arafel Skirmishers",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_18,
@@ -2819,11 +2819,11 @@ troops = [
    def_attrib_wot_infantry_2 ,wp_one_handed(125)|wp(90),knows_wot_infantry_2 ,tar_valon_man_face_younger, tar_valon_man_face_young],
   
   ["warder","Warder","Warders",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_21,
-   [itm_great_sword, itm_sarranid_elite_armor, itm_vaegir_war_helmet, itm_splinted_leather_greaves, itm_scale_gauntlets],
+   [itm_great_sword, itm_flamberge, itm_bastard_sword_b, itm_sword_medieval_c_small, itm_mayene_sword, itm_sarranid_elite_armor, itm_lamellar_vest, itm_scale_armor, itm_vaegir_war_helmet, itm_vaegir_lamellar_helmet, itm_splinted_leather_greaves, itm_scale_gauntlets],
    def_attrib_wot_infantry_4 ,wp_two_handed(150)|wp(90),knows_wot_infantry_4 ,tar_valon_man_face_young, andor_man_face_old],
   
   ["warder_veteran","Warder Veteran","Warder Veterans",tf_guarantee_all_cavalry,0,0,fac_kingdom_21,
-   [itm_great_sword, itm_sword_viking_2_small, itm_khergit_elite_armor, itm_khergit_guard_helmet, itm_splinted_greaves, itm_lamellar_gauntlets,itm_hunter],
+   [itm_great_sword, itm_sword_viking_2_small, itm_flamberge, itm_khergit_sword_two_handed_b, itm_large_heron_mark_blade, itm_heron_mark_blade, itm_khergit_elite_armor, itm_banded_armor, itm_vaegir_elite_armor, itm_khergit_guard_helmet, itm_vaegir_war_helmet, itm_splinted_greaves, itm_lamellar_gauntlets,itm_hunter],
    def_attrib_wot_cavalry_4 ,wp_one_handed(150)|wp_two_handed(175)|wp(100),knows_wot_cavalry_4 ,tar_valon_man_face_middle, shienar_man_face_older],
 
   ["youngling_cavalry","Youngling Cavalry","Youngling Cavalry",tf_guarantee_all_cavalry,0,0,fac_kingdom_21,
@@ -3053,7 +3053,7 @@ troops = [
    def_attrib_wot_infantry_4 ,wp_two_handed(155)|wp(100),knows_wot_infantry_4, man_face_young_1, man_face_old_2],
   
   ["darkfriend_leader","Darkfriend Leader","Darkfriend Leader",tf_guarantee_all_cavalry,0,0,fac_kingdom_24,
-   [itm_heavy_lance, itm_darkfriend_shield_strong, itm_darkfriend_plate, itm_black_leather_boots, itm_black_mail_gauntlets, itm_bascinet_3, itm_hunter],
+   [itm_heavy_lance, itm_sword_medieval_c_long, itm_darkfriend_shield_strong, itm_darkfriend_plate, itm_black_leather_boots, itm_black_mail_gauntlets, itm_bascinet_3, itm_hunter],
    def_attrib_wot_cavalry_4 ,wp_polearm(160)|wp(115),knows_wot_cavalry_4, man_face_young_1, man_face_old_2],
   
   ["darkfriend_marksman","Darkfriend Marksman","Darkfriend Marksmen",tf_guarantee_all,0,0,fac_kingdom_24,
@@ -3097,7 +3097,7 @@ troops = [
    def_attrib_wot_infantry_3 ,wp_crossbow(125)|wp_one_handed(110)|wp(85),knows_wot_archer_3 ,man_face_young_1, man_face_old_2],
 
   ["shara_shbo_guardsman","Shara Sh'bo Guardsman","Shara Sh'bo Guarsman",tf_guarantee_all_cavalry,0,0,fac_kingdom_25,
-   [itm_heavy_lance, itm_brass_shield_elite, itm_sword_khergit_3, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm, itm_lord_warhorse_8],
+   [itm_heavy_lance, itm_sword_khergit_3, itm_brass_shield_elite, itm_sword_khergit_3, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm, itm_lord_warhorse_8],
    def_attrib_wot_cavalry_4 ,wp_polearm(170)|wp_one_handed(145)|wp(100),knows_wot_cavalry_4 ,man_face_young_1, man_face_old_2],
 
   ["shara_skirmisher","Shara Skirmisher","Shara Skirmishers",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_25,
@@ -3179,7 +3179,7 @@ troops = [
    def_attrib_wot_infantry_4 ,wp_archery(155)|wp_one_handed(125)|wp(105),knows_wot_archer_4, man_face_young_1, man_face_old_2],
 
   ["madmen_thunderhoof","Madmen Thunderhoof","Madmen Thunderhooves",tf_guarantee_all_cavalry,0,0,fac_kingdom_27,
-   [itm_lance, itm_one_handed_war_axe_b, itm_leather_covered_round_shield, itm_tribal_warrior_outfit, itm_hide_boots, itm_leather_gloves, itm_leather_steppe_cap_b, itm_hunter],
+   [itm_lance, itm_sword_medieval_b, itm_one_handed_war_axe_b, itm_leather_covered_round_shield, itm_tribal_warrior_outfit, itm_hide_boots, itm_leather_gloves, itm_leather_steppe_cap_b, itm_hunter],
    def_attrib_wot_cavalry_4 ,wp_polearm(155)|wp_one_handed(120)|wp(100),knows_wot_cavalry_4 ,man_face_young_1, man_face_old_2],
 
   ["madmen_plains_rider","Madmen Plains Rider","Madmen Plains Riders",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_27,
@@ -4604,6 +4604,7 @@ troops = [
   ["castle_67_seneschal", "{!}Castle 67 Seneschal", "{!}Castle 67 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_leather_jacket,        itm_leather_boots], def_attrib|level(2),wp(20),knows_common, 0x000000000008035201e6eebaf3f3eb2b],
   ["castle_68_seneschal", "{!}Castle 68 Seneschal", "{!}Castle 68 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
   ["castle_69_seneschal", "{!}Castle 69 Seneschal", "{!}Castle 69 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
+  ["castle_70_seneschal", "{!}Castle 70 Seneschal", "{!}Castle 70 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  fac_neutral,[itm_padded_leather,    itm_woolen_hose],   def_attrib|level(2),wp(20),knows_common, 0x00000000000440c601e1cd45cfb38550],
 ## TGS: mat: End
 
 
@@ -6328,7 +6329,7 @@ troops = [
   ["log_array_faction_object",        "{!}Local Merchant","{!}Local Merchant",tf_guarantee_boots|tf_guarantee_armor, 0,0, fac_commoners,[itm_leather_apron,itm_leather_boots,itm_butchering_knife],def_attrib|level(5),wp(40),knows_power_strike_1, merchant_face_1, merchant_face_2],
 
 # changed for TGS
-  ["quick_battle_troop_1","The Dragon Reborn Rand al'Thor",  "Rand",  tf_hero, 0,0,  fac_kingdom_1,[itm_lord_warhorse_5, itm_rich_outfit, itm_leather_boots, itm_shynbaulds_wot, itm_legion_plate, itm_gauntlets, itm_power_player, itm_large_heron_mark_blade], knight_attrib_5,wpex(100,300,100,100,50,50),knight_skills_5|knows_trainer_5|knows_power_draw_10|knows_channeling_10|knows_fire_10|knows_earth_10|knows_spirit_10|knows_water_10|knows_air_10, 0x00000000990c1001271c8dc71a6d36d300000000001db70d0000000000000000],
+  ["quick_battle_troop_1","The Dragon Reborn Rand al'Thor",  "Rand",  tf_hero, 0,0,  fac_kingdom_1,[itm_lord_warhorse_5, itm_rich_outfit, itm_leather_boots, itm_shynbaulds_wot, itm_legion_plate, itm_gauntlets, itm_power_player, itm_large_heron_mark_blade], knight_attrib_5,wpex(100,300,100,100,50,50)|wp_firearm(350),knight_skills_5|knows_trainer_5|knows_power_draw_10|knows_channeling_10|knows_fire_10|knows_earth_10|knows_spirit_10|knows_water_10|knows_air_10, 0x00000000990c1001271c8dc71a6d36d300000000001db70d0000000000000000],
   
   ["quick_battle_troop_2","al'Lan Mandragoran",  "Lan",  tf_hero, 0,0,  fac_kingdom_21,[itm_heavy_charger, itm_nobleman_outfit, itm_leather_boots, itm_steel_greaves_wot, itm_shienar_captain_armor, itm_shienar_captain_gauntlets, itm_winged_great_helmet, itm_seanchan_large_sword, itm_heavy_lance, itm_seanchan_straight_sword, itm_shienar_shield_strong], knight_attrib_5,wpex(250,325,250,150,150,150),knight_skills_5|knows_trainer_4, 0x0000000b2c04500348628a4b5b72259400000000001e453a0000000000000000],
   
@@ -6344,7 +6345,7 @@ troops = [
   
   ["quick_battle_troop_8","Lord Davram Bashere", "Davram", tf_hero, 0, 0,  fac_kingdom_1, [itm_lord_warhorse_1, itm_vaegir_elite_armor, itm_splinted_greaves, itm_khergit_guard_helmet, itm_lamellar_gauntlets, itm_heavy_lance, itm_khergit_sword_two_handed_b, itm_sword_khergit_4, itm_saldaea_shield_strong], knight_attrib_5,wpex(250,275,250,300,100,100),knight_skills_5|knows_trainer_4, saldaea_man_face_old],
   
-  ["quick_battle_troop_9","Nynaeve Sedai", "Nynaeve", tf_hero|tf_female, 0, 0,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_power_player, itm_cudgel], knight_attrib_3,wpex(200,100,100,100,100,100),knight_skills_3|knows_trainer_4|knows_power_draw_9|knows_channeling_9|knows_fire_9|knows_earth_9|knows_spirit_10|knows_water_9|knows_air_9, andor_woman_face_young],
+  ["quick_battle_troop_9","Nynaeve Sedai", "Nynaeve", tf_hero|tf_female, 0, 0,  fac_kingdom_21, [itm_hunter, itm_aes_sedai_yellow_dress, itm_veteran_aes_sedai_yellow_shoes, itm_power_player, itm_cudgel], knight_attrib_3,wpex(200,100,100,100,100,100)|wp_firearm(300),knight_skills_3|knows_trainer_4|knows_power_draw_9|knows_channeling_9|knows_fire_9|knows_earth_9|knows_spirit_10|knows_water_9|knows_air_9, andor_woman_face_young],
   
   ["quick_battle_troop_10","Captain General Birgitte Silverbow", "Birgitte", tf_hero|tf_female, 0, reserved,  fac_kingdom_11, [itm_lord_warhorse_4, itm_andor_plate, itm_leather_boots, itm_leather_gloves, itm_war_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_sword_medieval_b_small], knight_attrib_4,wpex(250,100,100,350,100,100),knight_skills_4|knows_trainer_4, 0x00000001800000024cccd288cc39a36e00000000001edd080000000000000000],
   
