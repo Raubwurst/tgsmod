@@ -3964,7 +3964,68 @@ common_wot_dismount_spawned_warders_in_sieges = (
 
 ## Recharge Channeling Stamina trigger
 common_wot_recharge_channeling_stamina_trigger = (
-    0.1, 0, 0,[(gt, "$g_one_second_timer", 2)],
+    0.1, 0, 0,[
+            (gt, "$g_one_second_timer", 2),
+            
+            (store_mod, ":half_second_check", "$g_one_tenth_second_timer", 5),
+            (try_begin),
+            (eq, ":half_second_check", 0),
+                # Re-initialize certain values from time to time
+
+                # determine custom battle troop being used
+                (assign, ":player_troop_found", 0),
+                (try_for_agents, ":agent"),
+                    (eq, ":player_troop_found", 0),
+                    (neg|agent_is_non_player, ":agent"),
+                        (agent_get_troop_id, "$g_tgs_player_troop", ":agent"),
+                        (assign, ":player_troop_found", 1),
+                (try_end),
+
+                # assign channeling troop slots
+                (try_begin),
+                (eq, "$g_tgs_player_troop", "trp_player"), # campaign mode
+                     # Player channeling stamina maximum
+                     (store_skill_level, ":channeling_affinity", skl_channeling, "$g_tgs_player_troop"),
+                     (store_attribute_level, ":intelligence", "$g_tgs_player_troop", ca_intelligence),
+                     (store_proficiency_level,":channeling_proficiency","$g_tgs_player_troop",wpt_firearm), 
+
+                     (store_mul, ":stamina_1", ":channeling_affinity", 4000),
+                     (store_mul, ":stamina_2", ":intelligence", 700),
+                     (store_mul, ":stamina_3", ":channeling_proficiency", 70),
+                     (store_add, ":stamina_4", ":stamina_1", ":stamina_2"),
+                     (val_add, ":stamina_4", ":stamina_3"),
+                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_max_channeling_stamina, ":stamina_4"),
+
+                     # battle time re-charge rate (per second)
+                     (store_mul, ":recharge_rate_1", ":intelligence", 30),
+                     (store_add, ":recharge_rate_2", ":recharge_rate_1", ":channeling_proficiency"),
+                     (val_div, ":recharge_rate_2", 2), # for now...
+                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_battle, ":recharge_rate_2"),
+             
+                     # campaign map re-charge rate (per hour)
+                     #(store_mul, ":recharge_rate_campaign", ":recharge_rate_2", 10),
+                     #(troop_set_slot, "trp_player", slot_troop_channeling_stamina_recharge_rate_campaign, ":recharge_rate_campaign"),
+                (else_try),
+                (eq, "$g_tgs_player_troop", "trp_quick_battle_troop_1"), # Rand
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_max_channeling_stamina, 100000),
+                    #(troop_set_slot, "$g_tgs_player_troop", slot_troop_current_channeling_stamina, 100000),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_battle, 5000),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_campaign, 50000),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 1),
+                (else_try),
+                (eq, "$g_tgs_player_troop", "trp_quick_battle_troop_9"), # Nynaeve
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_max_channeling_stamina, 90000),
+                    #(troop_set_slot, "$g_tgs_player_troop", slot_troop_current_channeling_stamina, 90000),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_battle, 4500),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_campaign, 45000),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 1),
+                (else_try),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 0),
+                (try_end),
+            
+            (try_end),
+        
+        ],
          [
             (troop_get_slot, ":current", "$g_tgs_player_troop", slot_troop_current_channeling_stamina),
             (troop_get_slot, ":maximum", "$g_tgs_player_troop", slot_troop_max_channeling_stamina),
@@ -5206,9 +5267,11 @@ common_suldam_with_dead_damane_trigger = (0, 0, 3,[(eq, "$g_initialize_complete"
             (agent_get_troop_id, ":agent_troop", ":agent"),
             (this_or_next|eq, ":agent_troop", "trp_damane_veteran"),
             (eq, ":agent_troop", "trp_damane"),
+            (agent_slot_eq, ":agent", slot_agent_is_warder_for_agent, 2),
             (neg|agent_is_alive, ":agent"),
                 (agent_get_slot, ":damane_leash_holder", ":agent", slot_agent_warder_bond_holder),
                 (agent_set_slot, ":damane_leash_holder", slot_agent_has_warders_spawned, 2), # start looking for female channelers like any sul'dam who didn't get a damane from spawn code.
+                (agent_set_slot, ":agent", slot_agent_is_warder_for_agent, 0),
         (try_end),
         
         ])
