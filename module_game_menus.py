@@ -18213,28 +18213,52 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 	      (eq, ":template", "pt_looter_lair"),
 	      (assign, ":bandit_troop", "trp_looter"),
 
-	      (store_faction_of_party, ":starting_town_faction", "$g_starting_town"),
+## edited for TGS        
+
+	      #(store_faction_of_party, ":starting_town_faction", "$g_starting_town"),
+
+	      #(try_begin),
+	      #  (eq, ":starting_town_faction", "fac_kingdom_1"), #player selected swadian city as starting town.
+	      #  (assign, ":scene_to_use", "scn_lair_forest_bandits"),
+	      #(else_try),
+	      #  (eq, ":starting_town_faction", "fac_kingdom_2"), #player selected Vaegir city as starting town.
+	      #  (assign, ":scene_to_use", "scn_lair_taiga_bandits"),
+	      #(else_try),
+	      #  (eq, ":starting_town_faction", "fac_kingdom_3"), #player selected Khergit city as starting town.
+	      #  (assign, ":scene_to_use", "scn_lair_steppe_bandits"),
+	      #(else_try),
+	      #  (eq, ":starting_town_faction", "fac_kingdom_4"), #player selected Nord city as starting town.
+	      #  (assign, ":scene_to_use", "scn_lair_sea_raiders"),
+	      #(else_try),
+	      #  (eq, ":starting_town_faction", "fac_kingdom_5"), #player selected Rhodok city as starting town.
+	      #  (assign, ":scene_to_use", "scn_lair_mountain_bandits"),
+	      #(else_try),
+	      #  (eq, ":starting_town_faction", "fac_kingdom_6"), #player selected Sarranid city as starting town.
+	      #  (assign, ":scene_to_use", "scn_lair_desert_bandits"),
+	      #(try_end),
+	    #(try_end),
 
 	      (try_begin),
-	        (eq, ":starting_town_faction", "fac_kingdom_1"), #player selected swadian city as starting town.
+            (eq, "$g_starting_town", "p_town_6"),
 	        (assign, ":scene_to_use", "scn_lair_forest_bandits"),
 	      (else_try),
-	        (eq, ":starting_town_faction", "fac_kingdom_2"), #player selected Vaegir city as starting town.
+            (eq, "$g_starting_town", "p_town_8"),
 	        (assign, ":scene_to_use", "scn_lair_taiga_bandits"),
 	      (else_try),
-	        (eq, ":starting_town_faction", "fac_kingdom_3"), #player selected Khergit city as starting town.
+            (eq, "$g_starting_town", "p_town_10"),
 	        (assign, ":scene_to_use", "scn_lair_steppe_bandits"),
 	      (else_try),
-	        (eq, ":starting_town_faction", "fac_kingdom_4"), #player selected Nord city as starting town.
+            (eq, "$g_starting_town", "p_town_1"),
 	        (assign, ":scene_to_use", "scn_lair_sea_raiders"),
 	      (else_try),
-	        (eq, ":starting_town_faction", "fac_kingdom_5"), #player selected Rhodok city as starting town.
+            (eq, "$g_starting_town", "p_town_5"),
 	        (assign, ":scene_to_use", "scn_lair_mountain_bandits"),
 	      (else_try),
-	        (eq, ":starting_town_faction", "fac_kingdom_6"), #player selected Sarranid city as starting town.
+            (eq, "$g_starting_town", "p_town_19"),
 	        (assign, ":scene_to_use", "scn_lair_desert_bandits"),
 	      (try_end),
 	    (try_end),
+## End edited for TGS
 
 	    (modify_visitors_at_site,":scene_to_use"),
 	    (reset_visitors),
