@@ -13833,6 +13833,7 @@ game_menus = [
            (try_end),
 
            (set_jump_mission, "mt_arena_melee_fight"),
+		   ## V: TODO: Fix all faction tournaments.
            ## TGS: mat: Future - Could mess with this to have tournaments that are accurate to the Wheel of Time factions.
            (try_begin),
              (eq, ":town_original_faction", "fac_kingdom_1"),
@@ -13898,7 +13899,7 @@ game_menus = [
              (eq, ":town_original_faction", "fac_kingdom_5"),
              (call_script, "script_set_items_for_tournament", 25, 100, 60, 0, 30, 0, 30, 50, "itm_arena_tunic_red", "itm_arena_helmet_red"),
            (else_try),
-             #Sarranids
+			 #Sarranids
              (store_mod, ":mod", ":town_index_within_faction", 2),
              (try_begin),
                (eq, ":mod", 0),
@@ -13906,6 +13907,14 @@ game_menus = [
              (else_try),
                (call_script, "script_set_items_for_tournament", 50, 0, 60, 0, 30, 30, 0, 0, "itm_arena_tunic_red", "itm_arena_turban_red"),
              (try_end),
+           (else_try),
+             # Aiel
+             (eq, ":town_original_faction", "fac_kingdom_22"),
+             (call_script, "script_set_items_for_tournament", 0, 0, 0, 20, 50, 100, 0, 0, "itm_arena_tunic_red", "itm_arena_turban_red"),
+           (else_try),
+             # Tear
+             (eq, ":town_original_faction", "fac_kingdom_10"),
+             (call_script, "script_set_items_for_tournament", 80, 0, 60, 0, 0, 0, 0, 20, "itm_arena_tunic_red", "itm_arena_turban_red"),
            (try_end),
            (jump_to_scene, ":arena_scene"),
            (change_screen_mission),

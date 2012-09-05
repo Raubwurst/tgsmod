@@ -1094,7 +1094,7 @@ field_ai_triggers = [
 	(try_end),
 	(set_show_messages, 1),
    ]),
-  
+ # V TODO: Revamp this for TGS
   (1, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_spear_brace, 1),(store_mission_timer_a, reg0),(gt, reg0, 2)], [ ###GENERAL AI TRIGGER for SPECIAL ORDERS  ##Deal with Formations    
 		(set_fixed_point_multiplier, 100),
 		(try_for_range, ":division", 0, 9), #Player auto-remove brace
