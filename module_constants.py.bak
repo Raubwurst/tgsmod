@@ -80,6 +80,151 @@ slot_agent_duel_start_time        = 22
 
 slot_agent_walker_occupation      = 25
 
+### New TGS Slots
+
+
+
+## Natural Inclination Weave Slots ## (loi = Level of Importance)
+slot_agent_ni_air_blast_loi             = 101
+slot_agent_ni_freeze_loi                = 102
+slot_agent_ni_heal_loi                  = 103
+slot_agent_ni_fireball_loi              = 104
+slot_agent_ni_unravel_loi               = 105
+slot_agent_ni_defensive_blast_loi       = 106
+slot_agent_ni_ranged_earth_blast_loi    = 107
+slot_agent_ni_bind_loi                  = 108
+slot_agent_ni_chain_lightning_loi       = 109
+slot_agent_ni_fire_curtain_loi          = 110
+slot_agent_ni_shield_loi                = 111
+slot_agent_ni_seeker_loi                = 112
+slot_agent_ni_compulsion_loi            = 113
+slot_agent_ni_balefire_loi              = 114
+## Natural Inclination Weave Slots ## (loi = Level of Importance)
+
+
+## Situational Awareness Weave Slots ## (loi = Level of Importance)
+slot_agent_sa_air_blast_loi             = 151
+slot_agent_sa_freeze_loi                = 152
+slot_agent_sa_heal_loi                  = 153
+slot_agent_sa_fireball_loi              = 154
+slot_agent_sa_unravel_loi               = 155
+slot_agent_sa_defensive_blast_loi       = 156
+slot_agent_sa_ranged_earth_blast_loi    = 157
+slot_agent_sa_bind_loi                  = 158
+slot_agent_sa_chain_lightning_loi       = 159
+slot_agent_sa_fire_curtain_loi          = 160
+slot_agent_sa_shield_loi                = 161
+slot_agent_sa_seeker_loi                = 162
+slot_agent_sa_compulsion_loi            = 163
+slot_agent_sa_balefire_loi              = 164
+## Situational Awareness Weave Slots ## (loi = Level of Importance)
+
+
+## Final Calculation Weave Slots ## (loi = Level of Importance)
+slot_agent_fc_air_blast_loi             = 201
+slot_agent_fc_freeze_loi                = 202
+slot_agent_fc_heal_loi                  = 203
+slot_agent_fc_fireball_loi              = 204
+slot_agent_fc_unravel_loi               = 205
+slot_agent_fc_defensive_blast_loi       = 206
+slot_agent_fc_ranged_earth_blast_loi    = 207
+slot_agent_fc_bind_loi                  = 208
+slot_agent_fc_chain_lightning_loi       = 209
+slot_agent_fc_fire_curtain_loi          = 210
+slot_agent_fc_shield_loi                = 211
+slot_agent_fc_seeker_loi                = 212
+slot_agent_fc_compulsion_loi            = 213
+slot_agent_fc_balefire_loi              = 214
+## Final Calculation Weave Slots ## (loi = Level of Importance)
+
+
+## Final Calculation Weave Slots ## (Tie Check)
+slot_agent_npc_ai_tie_check_weave_1     = 251
+slot_agent_npc_ai_tie_check_weave_2     = 252
+slot_agent_npc_ai_tie_check_weave_3     = 253
+slot_agent_npc_ai_tie_check_weave_4     = 254
+slot_agent_npc_ai_tie_check_weave_5     = 255
+slot_agent_npc_ai_tie_check_weave_6     = 256
+slot_agent_npc_ai_tie_check_weave_7     = 257
+slot_agent_npc_ai_tie_check_weave_8     = 258
+slot_agent_npc_ai_tie_check_weave_9     = 259
+slot_agent_npc_ai_tie_check_weave_10    = 260
+slot_agent_npc_ai_tie_check_weave_11    = 261
+slot_agent_npc_ai_tie_check_weave_12    = 262
+slot_agent_npc_ai_tie_check_weave_13    = 263
+slot_agent_npc_ai_tie_check_weave_14    = 264
+## Final Calculation Weave Slots ## (Tie Check)
+
+
+## General slots
+slot_agent_is_channeler             = 301    ## (0 = false, 1 = true)
+
+slot_agent_spawn_party              = 311    ## Party of agents who are spawned by Wheel of Time Code
+slot_agent_has_warders_spawned      = 312    ## (0 = false, 1 = true, 2 = failed attempt (for suldam))
+slot_agent_is_warder_for_agent      = 313    ## (0 = false, 1 = aes sedai, 2 = suldam, 3 = ashaman)
+slot_agent_warder_bond_holder       = 314    ## ID of agent who 'summoned' the warder
+slot_agent_aes_sedai_warder_1       = 315    ## ID of first warder
+slot_agent_aes_sedai_warder_2       = 316    ## ID of second warder
+slot_agent_aes_sedai_warder_3       = 317    ## ID of third warder
+slot_agent_aes_sedai_warder_4       = 318    ## ID of fourth warder
+slot_agent_warder_is_leader         = 319    ## (0 = false, 1 = true),
+slot_agent_warders_incapacitated    = 320    ## (0 = false, 1 = true),
+
+slot_agent_myrddraal_fear_counter   = 331    ## Goes to 10 every time agent is near myrddraal
+slot_agent_myrddraal_fear_magnitude = 332    ## (number of myrddraal nearby)
+
+slot_agent_has_draghkar_kiss        = 341    ## (0 = false, 1 = true),
+slot_agent_draghkar_cooldown        = 342    ## Determines how long until Draghkar can kiss again
+slot_agent_draghkar_kiss_by         = 343    ## ID of Draghkar that kissed agent
+
+
+## Weave Effect slots
+slot_agent_is_airborne              = 401    ## (0 = false, 1 = true)
+slot_agent_airborne_x_movement      = 402    ## Movement ratio in x direction
+slot_agent_airborne_y_movement      = 403    ## Movement ratio in y direction
+slot_agent_airborne_power_factor    = 404    ## Initial power factor
+slot_agent_airborne_knockdown       = 405    ## (0 = false, 1 = true)
+slot_agent_airborne_push_modifier   = 406    ## Helps balance push effect
+slot_agent_airborne_start_knockdown = 407    ## (0 = false, 1 = true)
+
+slot_agent_freeze_duration          = 411    ## Duration of freeze
+slot_agent_freeze_damage            = 412    ## Amount of damage over time
+slot_agent_freeze_starter           = 413    ## Agent who initiated the weave
+slot_agent_is_frozen                = 414    ## (0 = false, 1 = true)
+
+slot_agent_on_fire                  = 421    ## (0 = false, 1 = true)
+slot_agent_fire_starter             = 422    ## ID of agent who started the fire
+slot_agent_fire_duration            = 423    ## How long the fire will burn
+
+slot_agent_is_bound                 = 431    ## (0 = false, 1 = true)
+slot_agent_bound_by                 = 432    ## ID of agent who did the binding
+slot_agent_bound_x                  = 433    ## x-coordinate
+slot_agent_bound_y                  = 434    ## y-coordinate
+slot_agent_bound_duration           = 435    ## How long will the agent be bound (Counts from 10 to 0)
+slot_agent_bound_damage_over_time   = 436    ## How much damage will the agent take per second
+
+slot_agent_has_been_shocked         = 441    ## (0 = false, 1 = true)
+slot_agent_lightning_shooter        = 442    ## ID of shooter
+slot_agent_lightning_duration       = 443    ## (-16 means off, -15 to 0 + cooldown, 0 to 15 = can pass charge)
+
+slot_agent_is_shielded              = 451    ## (0 = false, 1 = true)
+slot_agent_shielded_by              = 452    ## ID of agent who made the shield
+
+slot_agent_under_compulsion         = 460    ## (0 = false, 1 = true)
+slot_agent_compelled_by             = 461    ## ID of agent who did the compelling
+slot_agent_compelled_start_team     = 462    ## Original team of agent who is compelled
+
+slot_agent_hit_by_balefire          = 471    ## (0 = false, 1 = true)
+slot_agent_balefire_shooter         = 472    ## ID of agent who shot the balefire
+
+# note: mat: will probably end up getting rid of these seeker slot eventually
+slot_agent_has_active_seeker      = 500    ## (0 = false, 1 = true)
+slot_agent_seeker_shooter         = 501    ## ID of agent who shot the seeker
+# end
+
+
+### End TGS Slots
+    
 ########################################################
 ##  FACTION SLOTS          #############################
 ########################################################
@@ -208,6 +353,35 @@ slot_faction_provocation_days_with_factions_end 		= slot_faction_war_damage_infl
 slot_faction_war_damage_inflicted_on_factions_end 	= slot_faction_sum_advice_about_factions_begin
 slot_faction_sum_advice_about_factions_end			= 160
 ##diplomacy end+
+
+# Added for TGS
+# quick battle upgrade
+slot_faction_quick_battle_tier_3_infantry       = 161
+slot_faction_quick_battle_tier_4_infantry       = 162
+slot_faction_quick_battle_tier_5_infantry       = 163
+slot_faction_quick_battle_tier_6_infantry       = 164
+
+slot_faction_quick_battle_tier_3_archer       = 165
+slot_faction_quick_battle_tier_4_archer       = 166
+slot_faction_quick_battle_tier_5_archer       = 167
+slot_faction_quick_battle_tier_6_archer       = 168
+
+slot_faction_quick_battle_tier_3_cavalry       = 169
+slot_faction_quick_battle_tier_4_cavalry       = 170
+slot_faction_quick_battle_tier_5_cavalry       = 171
+slot_faction_quick_battle_tier_6_cavalry       = 172
+
+# ai army recruiting
+slot_faction_reinforcements_d        = 180
+slot_faction_reinforcements_e        = 181
+slot_faction_reinforcements_f        = 182
+slot_faction_reinforcements_g        = 183
+slot_faction_reinforcements_h        = 184
+
+# channeler troop
+slot_faction_channeler_troop         = 185
+
+# End added for TGS
 
 #revolts -- notes for self
 #type 1 -- minor revolt, aimed at negotiating change without changing the ruler
@@ -573,6 +747,20 @@ slot_town_trade_good_prices_begin 			= 250
 slot_center_last_reconnoitered_by_faction_time 				= 350
 #slot_center_last_reconnoitered_by_faction_cached_strength 	= 360
 #slot_center_last_reconnoitered_by_faction_friend_strength 	= 370
+
+###### added for TGS
+slot_center_outlander_volunteers_available         = 380 # number of outlander volunteers in the center
+slot_center_bribe_volunteers_available             = 381 # number of troops in the center you can bribe
+
+slot_center_volunteer_troop                        = 382 # troop you get when you ask for normal volunteers
+
+slot_center_channelers_available                   = 383 # number of channelers who are in the village.
+slot_center_channelers_available_target            = 384 # target number of channelers
+
+slot_center_trollocs_available                     = 385 # number of trollocs available (for Shayol Ghul)
+slot_center_trollocs_available_target              = 386 # target number of trollocs
+
+###### end added for TGS
 
 
 
@@ -991,11 +1179,485 @@ tro_failed_to_support_colleague            = 2
 slot_troop_will_join_prison_break      = 161
 
 
-troop_slots_reserved_for_relations_start        = 165 #this is based on id_troops, and might change
+troop_slots_reserved_for_relations_start        = 165 #this is based on id_troops, and might change # trp_kingdom_1_lord
+
+## TGS: trp_heroes_end = 1065  ##  as of version 0.2.7  ## not sure what to do with the above constant
+
+###################
+## added for TGS ##
+###################
+
+slot_troop_recruit_primary             = 1173  # this will be a number from 1 to 8 which will determine what recruitment option a lord will use.
+slot_troop_recruit_secondary           = 1174
+
+slot_troop_darkfriend_buff             = 1180  # (0 if false, 1 if true)# was 165
+
+slot_troop_npc_companion_primary_weave    = 1191  # (0, or the number of one of the ranged/support/advanced weaves)
+slot_troop_npc_companion_secondary_weave  = 1192  # (0, or the number of one of the ranged/support/advanced weaves)
+slot_troop_npc_companion_known_weaves     = 1193  # number of weaves the companion knows. (1 to 11, since short range weaves aren't an option)
+slot_troop_npc_companion_is_channeler     = 1194  # (0 if false, 1 if true) Added because I could not look up firearm (channeling) proficiency within the module_item.py file.
+
+# Seeker slots
+slot_troop_num_seekers_active   = 1200
+
+slot_troop_seeker_1     = 1201
+slot_troop_seeker_2     = 1202
+slot_troop_seeker_3     = 1203
+slot_troop_seeker_4     = 1204
+slot_troop_seeker_5     = 1205
+slot_troop_seeker_6     = 1206
+slot_troop_seeker_7     = 1207
+slot_troop_seeker_8     = 1208
+slot_troop_seeker_9     = 1209
+slot_troop_seeker_10    = 1210
+slot_troop_seeker_11    = 1211
+slot_troop_seeker_12    = 1212
+slot_troop_seeker_13    = 1213
+slot_troop_seeker_14    = 1214
+slot_troop_seeker_15    = 1215
+slot_troop_seeker_16    = 1216
+slot_troop_seeker_17    = 1217
+slot_troop_seeker_18    = 1218
+slot_troop_seeker_19    = 1219
+slot_troop_seeker_20    = 1220
+slot_troop_seeker_21    = 1221
+slot_troop_seeker_22    = 1222
+slot_troop_seeker_23    = 1223
+slot_troop_seeker_24    = 1224
+slot_troop_seeker_25    = 1225
+slot_troop_seeker_26    = 1226
+slot_troop_seeker_27    = 1227
+slot_troop_seeker_28    = 1228
+slot_troop_seeker_29    = 1229
+slot_troop_seeker_30    = 1230
+slot_troop_seeker_31    = 1231
+slot_troop_seeker_32    = 1232
+slot_troop_seeker_33    = 1233
+slot_troop_seeker_34    = 1234
+slot_troop_seeker_35    = 1235
+slot_troop_seeker_36    = 1236
+slot_troop_seeker_37    = 1237
+slot_troop_seeker_38    = 1238
+slot_troop_seeker_39    = 1239
+slot_troop_seeker_40    = 1240
+slot_troop_seeker_41    = 1241
+slot_troop_seeker_42    = 1242
+slot_troop_seeker_43    = 1243
+slot_troop_seeker_44    = 1244
+slot_troop_seeker_45    = 1245
+slot_troop_seeker_46    = 1246
+slot_troop_seeker_47    = 1247
+slot_troop_seeker_48    = 1248
+slot_troop_seeker_49    = 1249
+slot_troop_seeker_50    = 1250
+
+slot_troop_seeker_1_target      = 1251
+slot_troop_seeker_2_target      = 1252
+slot_troop_seeker_3_target      = 1253
+slot_troop_seeker_4_target      = 1254
+slot_troop_seeker_5_target      = 1255
+slot_troop_seeker_6_target      = 1256
+slot_troop_seeker_7_target      = 1257
+slot_troop_seeker_8_target      = 1258
+slot_troop_seeker_9_target      = 1259
+slot_troop_seeker_10_target     = 1260
+slot_troop_seeker_11_target     = 1261
+slot_troop_seeker_12_target     = 1262
+slot_troop_seeker_13_target     = 1263
+slot_troop_seeker_14_target     = 1264
+slot_troop_seeker_15_target     = 1265
+slot_troop_seeker_16_target     = 1266
+slot_troop_seeker_17_target     = 1267
+slot_troop_seeker_18_target     = 1268
+slot_troop_seeker_19_target     = 1269
+slot_troop_seeker_20_target     = 1270
+slot_troop_seeker_21_target     = 1271
+slot_troop_seeker_22_target     = 1272
+slot_troop_seeker_23_target     = 1273
+slot_troop_seeker_24_target     = 1274
+slot_troop_seeker_25_target     = 1275
+slot_troop_seeker_26_target     = 1276
+slot_troop_seeker_27_target     = 1277
+slot_troop_seeker_28_target     = 1278
+slot_troop_seeker_29_target     = 1279
+slot_troop_seeker_30_target     = 1280
+slot_troop_seeker_31_target     = 1281
+slot_troop_seeker_32_target     = 1282
+slot_troop_seeker_33_target     = 1283
+slot_troop_seeker_34_target     = 1284
+slot_troop_seeker_35_target     = 1285
+slot_troop_seeker_36_target     = 1286
+slot_troop_seeker_37_target     = 1287
+slot_troop_seeker_38_target     = 1288
+slot_troop_seeker_39_target     = 1289
+slot_troop_seeker_40_target     = 1290
+slot_troop_seeker_41_target     = 1291
+slot_troop_seeker_42_target     = 1292
+slot_troop_seeker_43_target     = 1293
+slot_troop_seeker_44_target     = 1294
+slot_troop_seeker_45_target     = 1295
+slot_troop_seeker_46_target     = 1296
+slot_troop_seeker_47_target     = 1297
+slot_troop_seeker_48_target     = 1298
+slot_troop_seeker_49_target     = 1299
+slot_troop_seeker_50_target     = 1300
+
+slot_troop_seeker_1_shooter      = 1301
+slot_troop_seeker_2_shooter      = 1302
+slot_troop_seeker_3_shooter      = 1303
+slot_troop_seeker_4_shooter      = 1304
+slot_troop_seeker_5_shooter      = 1305
+slot_troop_seeker_6_shooter      = 1306
+slot_troop_seeker_7_shooter      = 1307
+slot_troop_seeker_8_shooter      = 1308
+slot_troop_seeker_9_shooter      = 1309
+slot_troop_seeker_10_shooter     = 1310
+slot_troop_seeker_11_shooter     = 1311
+slot_troop_seeker_12_shooter     = 1312
+slot_troop_seeker_13_shooter     = 1313
+slot_troop_seeker_14_shooter     = 1314
+slot_troop_seeker_15_shooter     = 1315
+slot_troop_seeker_16_shooter     = 1316
+slot_troop_seeker_17_shooter     = 1317
+slot_troop_seeker_18_shooter     = 1318
+slot_troop_seeker_19_shooter     = 1319
+slot_troop_seeker_20_shooter     = 1320
+slot_troop_seeker_21_shooter     = 1321
+slot_troop_seeker_22_shooter     = 1322
+slot_troop_seeker_23_shooter     = 1323
+slot_troop_seeker_24_shooter     = 1324
+slot_troop_seeker_25_shooter     = 1325
+slot_troop_seeker_26_shooter     = 1326
+slot_troop_seeker_27_shooter     = 1327
+slot_troop_seeker_28_shooter     = 1328
+slot_troop_seeker_29_shooter     = 1329
+slot_troop_seeker_30_shooter     = 1330
+slot_troop_seeker_31_shooter     = 1331
+slot_troop_seeker_32_shooter     = 1332
+slot_troop_seeker_33_shooter     = 1333
+slot_troop_seeker_34_shooter     = 1334
+slot_troop_seeker_35_shooter     = 1335
+slot_troop_seeker_36_shooter     = 1336
+slot_troop_seeker_37_shooter     = 1337
+slot_troop_seeker_38_shooter     = 1338
+slot_troop_seeker_39_shooter     = 1339
+slot_troop_seeker_40_shooter     = 1340
+slot_troop_seeker_41_shooter     = 1341
+slot_troop_seeker_42_shooter     = 1342
+slot_troop_seeker_43_shooter     = 1343
+slot_troop_seeker_44_shooter     = 1344
+slot_troop_seeker_45_shooter     = 1345
+slot_troop_seeker_46_shooter     = 1346
+slot_troop_seeker_47_shooter     = 1347
+slot_troop_seeker_48_shooter     = 1348
+slot_troop_seeker_49_shooter     = 1349
+slot_troop_seeker_50_shooter     = 1350
+
+slot_troop_seeker_1_current_x    = 1351
+slot_troop_seeker_2_current_x    = 1352
+slot_troop_seeker_3_current_x    = 1353
+slot_troop_seeker_4_current_x    = 1354
+slot_troop_seeker_5_current_x    = 1355
+slot_troop_seeker_6_current_x    = 1356
+slot_troop_seeker_7_current_x    = 1357
+slot_troop_seeker_8_current_x    = 1358
+slot_troop_seeker_9_current_x    = 1359
+slot_troop_seeker_10_current_x   = 1360
+slot_troop_seeker_11_current_x   = 1361
+slot_troop_seeker_12_current_x   = 1362
+slot_troop_seeker_13_current_x   = 1363
+slot_troop_seeker_14_current_x   = 1364
+slot_troop_seeker_15_current_x   = 1365
+slot_troop_seeker_16_current_x   = 1366
+slot_troop_seeker_17_current_x   = 1367
+slot_troop_seeker_18_current_x   = 1368
+slot_troop_seeker_19_current_x   = 1369
+slot_troop_seeker_20_current_x   = 1370
+slot_troop_seeker_21_current_x   = 1371
+slot_troop_seeker_22_current_x   = 1372
+slot_troop_seeker_23_current_x   = 1373
+slot_troop_seeker_24_current_x   = 1374
+slot_troop_seeker_25_current_x   = 1375
+slot_troop_seeker_26_current_x   = 1376
+slot_troop_seeker_27_current_x   = 1377
+slot_troop_seeker_28_current_x   = 1378
+slot_troop_seeker_29_current_x   = 1379
+slot_troop_seeker_30_current_x   = 1380
+slot_troop_seeker_31_current_x   = 1381
+slot_troop_seeker_32_current_x   = 1382
+slot_troop_seeker_33_current_x   = 1383
+slot_troop_seeker_34_current_x   = 1384
+slot_troop_seeker_35_current_x   = 1385
+slot_troop_seeker_36_current_x   = 1386
+slot_troop_seeker_37_current_x   = 1387
+slot_troop_seeker_38_current_x   = 1388
+slot_troop_seeker_39_current_x   = 1389
+slot_troop_seeker_40_current_x   = 1390
+slot_troop_seeker_41_current_x   = 1391
+slot_troop_seeker_42_current_x   = 1392
+slot_troop_seeker_43_current_x   = 1393
+slot_troop_seeker_44_current_x   = 1394
+slot_troop_seeker_45_current_x   = 1395
+slot_troop_seeker_46_current_x   = 1396
+slot_troop_seeker_47_current_x   = 1397
+slot_troop_seeker_48_current_x   = 1398
+slot_troop_seeker_49_current_x   = 1399
+slot_troop_seeker_50_current_x   = 1400
+
+slot_troop_seeker_1_current_y    = 1401
+slot_troop_seeker_2_current_y    = 1402
+slot_troop_seeker_3_current_y    = 1403
+slot_troop_seeker_4_current_y    = 1404
+slot_troop_seeker_5_current_y    = 1405
+slot_troop_seeker_6_current_y    = 1406
+slot_troop_seeker_7_current_y    = 1407
+slot_troop_seeker_8_current_y    = 1408
+slot_troop_seeker_9_current_y    = 1409
+slot_troop_seeker_10_current_y   = 1410
+slot_troop_seeker_11_current_y   = 1411
+slot_troop_seeker_12_current_y   = 1412
+slot_troop_seeker_13_current_y   = 1413
+slot_troop_seeker_14_current_y   = 1414
+slot_troop_seeker_15_current_y   = 1415
+slot_troop_seeker_16_current_y   = 1416
+slot_troop_seeker_17_current_y   = 1417
+slot_troop_seeker_18_current_y   = 1418
+slot_troop_seeker_19_current_y   = 1419
+slot_troop_seeker_20_current_y   = 1420
+slot_troop_seeker_21_current_y   = 1421
+slot_troop_seeker_22_current_y   = 1422
+slot_troop_seeker_23_current_y   = 1423
+slot_troop_seeker_24_current_y   = 1424
+slot_troop_seeker_25_current_y   = 1425
+slot_troop_seeker_26_current_y   = 1426
+slot_troop_seeker_27_current_y   = 1427
+slot_troop_seeker_28_current_y   = 1428
+slot_troop_seeker_29_current_y   = 1429
+slot_troop_seeker_30_current_y   = 1430
+slot_troop_seeker_31_current_y   = 1431
+slot_troop_seeker_32_current_y   = 1432
+slot_troop_seeker_33_current_y   = 1433
+slot_troop_seeker_34_current_y   = 1434
+slot_troop_seeker_35_current_y   = 1435
+slot_troop_seeker_36_current_y   = 1436
+slot_troop_seeker_37_current_y   = 1437
+slot_troop_seeker_38_current_y   = 1438
+slot_troop_seeker_39_current_y   = 1439
+slot_troop_seeker_40_current_y   = 1440
+slot_troop_seeker_41_current_y   = 1441
+slot_troop_seeker_42_current_y   = 1442
+slot_troop_seeker_43_current_y   = 1443
+slot_troop_seeker_44_current_y   = 1444
+slot_troop_seeker_45_current_y   = 1445
+slot_troop_seeker_46_current_y   = 1446
+slot_troop_seeker_47_current_y   = 1447
+slot_troop_seeker_48_current_y   = 1448
+slot_troop_seeker_49_current_y   = 1449
+slot_troop_seeker_50_current_y   = 1450
+
+slot_troop_seeker_1_speed        = 1451
+slot_troop_seeker_2_speed        = 1452
+slot_troop_seeker_3_speed        = 1453
+slot_troop_seeker_4_speed        = 1454
+slot_troop_seeker_5_speed        = 1455
+slot_troop_seeker_6_speed        = 1456
+slot_troop_seeker_7_speed        = 1457
+slot_troop_seeker_8_speed        = 1458
+slot_troop_seeker_9_speed        = 1459
+slot_troop_seeker_10_speed       = 1460
+slot_troop_seeker_11_speed       = 1461
+slot_troop_seeker_12_speed       = 1462
+slot_troop_seeker_13_speed       = 1463
+slot_troop_seeker_14_speed       = 1464
+slot_troop_seeker_15_speed       = 1465
+slot_troop_seeker_16_speed       = 1466
+slot_troop_seeker_17_speed       = 1467
+slot_troop_seeker_18_speed       = 1468
+slot_troop_seeker_19_speed       = 1469
+slot_troop_seeker_20_speed       = 1470
+slot_troop_seeker_21_speed       = 1471
+slot_troop_seeker_22_speed       = 1472
+slot_troop_seeker_23_speed       = 1473
+slot_troop_seeker_24_speed       = 1474
+slot_troop_seeker_25_speed       = 1475
+slot_troop_seeker_26_speed       = 1476
+slot_troop_seeker_27_speed       = 1477
+slot_troop_seeker_28_speed       = 1478
+slot_troop_seeker_29_speed       = 1479
+slot_troop_seeker_30_speed       = 1480
+slot_troop_seeker_31_speed       = 1481
+slot_troop_seeker_32_speed       = 1482
+slot_troop_seeker_33_speed       = 1483
+slot_troop_seeker_34_speed       = 1484
+slot_troop_seeker_35_speed       = 1485
+slot_troop_seeker_36_speed       = 1486
+slot_troop_seeker_37_speed       = 1487
+slot_troop_seeker_38_speed       = 1488
+slot_troop_seeker_39_speed       = 1489
+slot_troop_seeker_40_speed       = 1490
+slot_troop_seeker_41_speed       = 1491
+slot_troop_seeker_42_speed       = 1492
+slot_troop_seeker_43_speed       = 1493
+slot_troop_seeker_44_speed       = 1494
+slot_troop_seeker_45_speed       = 1495
+slot_troop_seeker_46_speed       = 1496
+slot_troop_seeker_47_speed       = 1497
+slot_troop_seeker_48_speed       = 1498
+slot_troop_seeker_49_speed       = 1499
+slot_troop_seeker_50_speed       = 1500
+
+slot_troop_seeker_1_power        = 1501
+slot_troop_seeker_2_power        = 1502
+slot_troop_seeker_3_power        = 1503
+slot_troop_seeker_4_power        = 1504
+slot_troop_seeker_5_power        = 1505
+slot_troop_seeker_6_power        = 1506
+slot_troop_seeker_7_power        = 1507
+slot_troop_seeker_8_power        = 1508
+slot_troop_seeker_9_power        = 1509
+slot_troop_seeker_10_power       = 1510
+slot_troop_seeker_11_power       = 1511
+slot_troop_seeker_12_power       = 1512
+slot_troop_seeker_13_power       = 1513
+slot_troop_seeker_14_power       = 1514
+slot_troop_seeker_15_power       = 1515
+slot_troop_seeker_16_power       = 1516
+slot_troop_seeker_17_power       = 1517
+slot_troop_seeker_18_power       = 1518
+slot_troop_seeker_19_power       = 1519
+slot_troop_seeker_20_power       = 1520
+slot_troop_seeker_21_power       = 1521
+slot_troop_seeker_22_power       = 1522
+slot_troop_seeker_23_power       = 1523
+slot_troop_seeker_24_power       = 1524
+slot_troop_seeker_25_power       = 1525
+slot_troop_seeker_26_power       = 1526
+slot_troop_seeker_27_power       = 1527
+slot_troop_seeker_28_power       = 1528
+slot_troop_seeker_29_power       = 1529
+slot_troop_seeker_30_power       = 1530
+slot_troop_seeker_31_power       = 1531
+slot_troop_seeker_32_power       = 1532
+slot_troop_seeker_33_power       = 1533
+slot_troop_seeker_34_power       = 1534
+slot_troop_seeker_35_power       = 1535
+slot_troop_seeker_36_power       = 1536
+slot_troop_seeker_37_power       = 1537
+slot_troop_seeker_38_power       = 1538
+slot_troop_seeker_39_power       = 1539
+slot_troop_seeker_40_power       = 1540
+slot_troop_seeker_41_power       = 1541
+slot_troop_seeker_42_power       = 1542
+slot_troop_seeker_43_power       = 1543
+slot_troop_seeker_44_power       = 1544
+slot_troop_seeker_45_power       = 1545
+slot_troop_seeker_46_power       = 1546
+slot_troop_seeker_47_power       = 1547
+slot_troop_seeker_48_power       = 1548
+slot_troop_seeker_49_power       = 1549
+slot_troop_seeker_50_power       = 1550
+
+# Firewall slots
+slot_troop_num_firewalls_active     = 1600
+
+slot_troop_firewall_1               = 1601
+slot_troop_firewall_2               = 1602
+slot_troop_firewall_3               = 1603
+slot_troop_firewall_4               = 1604
+slot_troop_firewall_5               = 1605
+slot_troop_firewall_6               = 1606
+slot_troop_firewall_7               = 1607
+slot_troop_firewall_8               = 1608
+slot_troop_firewall_9               = 1609
+slot_troop_firewall_10              = 1610
+
+slot_troop_firewall_1_initial_power = 1611
+slot_troop_firewall_2_initial_power = 1612
+slot_troop_firewall_3_initial_power = 1613
+slot_troop_firewall_4_initial_power = 1614
+slot_troop_firewall_5_initial_power = 1615
+slot_troop_firewall_6_initial_power = 1616
+slot_troop_firewall_7_initial_power = 1617
+slot_troop_firewall_8_initial_power = 1618
+slot_troop_firewall_9_initial_power = 1619
+slot_troop_firewall_10_initial_power = 1620
+
+slot_troop_firewall_1_length        = 1621
+slot_troop_firewall_2_length        = 1622
+slot_troop_firewall_3_length        = 1623
+slot_troop_firewall_4_length        = 1624
+slot_troop_firewall_5_length        = 1625
+slot_troop_firewall_6_length        = 1626
+slot_troop_firewall_7_length        = 1627
+slot_troop_firewall_8_length        = 1628
+slot_troop_firewall_9_length        = 1629
+slot_troop_firewall_10_length       = 1630
+
+slot_troop_firewall_1_radius        = 1631
+slot_troop_firewall_2_radius        = 1632
+slot_troop_firewall_3_radius        = 1633
+slot_troop_firewall_4_radius        = 1634
+slot_troop_firewall_5_radius        = 1635
+slot_troop_firewall_6_radius        = 1636
+slot_troop_firewall_7_radius        = 1637
+slot_troop_firewall_8_radius        = 1638
+slot_troop_firewall_9_radius        = 1639
+slot_troop_firewall_10_radius       = 1640
+
+slot_troop_firewall_1_duration      = 1641
+slot_troop_firewall_2_duration      = 1642
+slot_troop_firewall_3_duration      = 1643
+slot_troop_firewall_4_duration      = 1644
+slot_troop_firewall_5_duration      = 1645
+slot_troop_firewall_6_duration      = 1646
+slot_troop_firewall_7_duration      = 1647
+slot_troop_firewall_8_duration      = 1648
+slot_troop_firewall_9_duration      = 1649
+slot_troop_firewall_10_duration     = 1650
+
+slot_troop_firewall_1_damage        = 1651
+slot_troop_firewall_2_damage        = 1652
+slot_troop_firewall_3_damage        = 1653
+slot_troop_firewall_4_damage        = 1654
+slot_troop_firewall_5_damage        = 1655
+slot_troop_firewall_6_damage        = 1656
+slot_troop_firewall_7_damage        = 1657
+slot_troop_firewall_8_damage        = 1658
+slot_troop_firewall_9_damage        = 1659
+slot_troop_firewall_10_damage       = 1660
 
 
+## slots for weave toggling
+slot_troop_active_weave             = 2000
+
+slot_troop_air_blast_known          = 2001
+slot_troop_freeze_known             = 2002
+slot_troop_heal_known               = 2003
+slot_troop_fireball_known           = 2004
+slot_troop_unravel_known            = 2005
+slot_troop_defensive_blast_known    = 2006
+slot_troop_earth_blast_known        = 2007
+slot_troop_bind_known               = 2008
+slot_troop_chain_lightning_known    = 2009
+slot_troop_fire_curtain_known       = 2010
+slot_troop_shield_known             = 2011
+slot_troop_seeker_known             = 2012
+slot_troop_compulsion_known         = 2013
+slot_troop_balefire_known           = 2014
+
+## slots for channeling stamina
+slot_troop_max_channeling_stamina                       = 3050
+slot_troop_current_channeling_stamina                   = 3051
+slot_troop_channeling_stamina_recharge_rate_battle      = 3052
+slot_troop_channeling_stamina_recharge_rate_campaign    = 3053
+
+## other channeler slots
+slot_troop_player_knows_channeling                      = 3100
 
 
+#######################
+## end added for TGS ##
+#######################
 
 slot_troop_relations_begin				= 0 #this creates an array for relations between troops
 											#Right now, lords start at 165 and run to around 290, including pretenders
@@ -1032,6 +1694,14 @@ slot_player_bot_type_3_wanted                  = 37
 slot_player_bot_type_4_wanted                  = 38
 slot_player_spawn_count                        = 39
 
+### added slots for TGS
+slot_player_current_channeling_stamina         = 100
+slot_player_recharge_rate                      = 101
+slot_player_current_weave                      = 102
+slot_player_current_weave_toggle_mode          = 103 # (0 = all, 1 = short, 2 = long, 3 = support, 4 = advanced)
+slot_player_maximum_channeling_stamina         = 104
+## end added for TGS
+
 
 ########################################################
 ##  TEAM SLOTS             #############################
@@ -1044,49 +1714,106 @@ slot_team_flag_situation                       = 0
 
 #Rebellion changes end
 # character backgrounds
-cb_noble = 1
-cb_merchant = 2
-cb_guard = 3
-cb_forester = 4
-cb_nomad = 5
-cb_thief = 6
-cb_priest = 7
+#cb_noble = 1
+#cb_merchant = 2
+#cb_guard = 3
+#cb_forester = 4
+#cb_nomad = 5
+#cb_thief = 6
+#cb_priest = 7
 
-cb2_page = 0
-cb2_apprentice = 1
-cb2_urchin  = 2
-cb2_steppe_child = 3
-cb2_merchants_helper = 4
+#cb2_page = 0
+#cb2_apprentice = 1
+#cb2_urchin  = 2
+#cb2_steppe_child = 3
+#cb2_merchants_helper = 4
 ##diplomacy start+ add background constants
-dplmc_cb2_mummer = 5
-dplmc_cb2_courtier = 6
-dplmc_cb2_noble = 7
-dplmc_cb2_acolyte = 8
+#dplmc_cb2_mummer = 5
+#dplmc_cb2_courtier = 6
+#dplmc_cb2_noble = 7
+#dplmc_cb2_acolyte = 8
 ##diplomacy end+
 
 ##diplomacy start+ add background constants
-dplmc_cb3_bravo = 1
-dplmc_cb3_merc = 2
+#dplmc_cb3_bravo = 1
+#dplmc_cb3_merc = 2
 ##diplomacy end+
-cb3_poacher = 3
-cb3_craftsman = 4
-cb3_peddler = 5
+#cb3_poacher = 3
+#cb3_craftsman = 4
+#cb3_peddler = 5
 ##diplomacy start+ add background constants
-dplmc_cb3_preacher = 6
+#dplmc_cb3_preacher = 6
 ##diplomacy end+
-cb3_troubadour = 7
-cb3_squire = 8
-cb3_lady_in_waiting = 9
-cb3_student = 10
+#cb3_troubadour = 7
+#cb3_squire = 8
+#cb3_lady_in_waiting = 9
+#cb3_student = 10
 
-cb4_revenge = 1
-cb4_loss    = 2
-cb4_wanderlust =  3
+#cb4_revenge = 1
+#cb4_loss    = 2
+#cb4_wanderlust =  3
 ##diplomacy start+ add background constants
-dplmc_cb4_fervor = 4
+#dplmc_cb4_fervor = 4
 ##diplomacy end+
-cb4_disown  = 5
-cb4_greed  = 6
+#cb4_disown  = 5
+#cb4_greed  = 6
+
+#New for TGS
+
+# $background_type
+cb_father_lord = 1
+cb_father_warder = 2
+cb_father_soldier = 3
+cb_father_adventurer = 4
+cb_father_merchant = 5
+cb_father_farmer = 6
+cb_father_thief = 7
+cb_father_skilled_tradesman = 8
+
+# $background_type_mother
+cb_mother_lady = 11
+cb_mother_aes_sedai = 12
+cb_mother_house_wife  = 13
+cb_mother_womens_circle_member = 14
+cb_mother_innkeeper = 15
+cb_mother_hunter_for_the_horn = 16
+cb_mother_whore = 17
+cb_mother_seamstress = 18
+
+# $background_answer_2
+cb_childhood_page = 21
+cb_childhood_lady_in_waiting = 22
+cb_childhood_novice = 23
+cb_childhood_wilder = 24 # was cb_childhood_ashaman_soldier
+cb_childhood_hunter = 25
+cb_childhood_farmer = 26
+cb_childhood_apprentice = 27
+cb_childhood_village_wisdom_assistant = 28
+
+# $background_answer_3
+cb_young_adulthood_minor_noble = 31
+cb_young_adulthood_gleeman = 32
+cb_young_adulthood_warder = 33
+cb_young_adulthood_accepted = 34
+cb_young_adulthood_active_wilder = 35 # was cb_young_adulthood_ashaman_dedicated
+cb_young_adulthood_merchant = 36
+cb_young_adulthood_village_wisdom = 37
+cb_young_adulthood_smuggler = 38
+cb_young_adulthood_merchant_guard = 39
+cb_young_adulthood_hunter_for_the_horn = 40
+
+# $background_answer_4
+cb_crowning_achievement_noble_title = 41
+cb_crowning_achievement_captured_a_false_dragon = 42
+cb_crowning_achievement_mastered_the_flame_and_void = 43
+cb_crowning_achievement_survived_journey_across_aiel_waste = 44
+cb_crowning_achievement_learned_to_speak_to_wolves = 45
+cb_crowning_achievement_saved_lord_at_tarwins_gap = 46
+cb_crowning_achievement_rediscovered_lost_weaves = 47
+cb_crowning_achievement_became_wealthy_merchant = 48
+cb_crowning_achievement_stole_laurel_crown = 49
+cb_crowning_achievement_traveled_to_shayol_ghul = 50
+#End new for TGS
 
 #NPC system changes end
 #Encounter types
@@ -1456,14 +2183,24 @@ kingdom_ladies_end = "trp_heroes_end"
 
 #active NPCs in order: companions, kings, lords, pretenders
 
+# TGS: mat: DEBUG: this one seems to be the correct one
 pretenders_begin = "trp_kingdom_1_pretender"
 pretenders_end = kingdom_ladies_begin
+# TGS: mat: DEBUG: end
 
-lords_begin = "trp_knight_1_1"
+## V: BEGIN EDITED OUT FOR WOT MOD
+# lords_begin = "trp_knight_1_1"
+## V: END EDITED OUT FOR WOT MOD
+lords_begin = "trp_kingdom_1_lord"
+
+#lords_begin = "trp_knight_1_1"
 lords_end = pretenders_begin
 
 kings_begin = "trp_kingdom_1_lord"
-kings_end = lords_begin
+## V: BEGIN EDITED OUT FOR WOT MOD
+#kings_end = lords_begin
+## V: END EDITED OUT FOR WOT MOD
+kings_end = "trp_knight_1_1"
 
 companions_begin = "trp_npc1"
 companions_end = kings_begin
@@ -1487,8 +2224,11 @@ soldiers_end = "trp_town_walker_1"
 ##rebel_factions_begin = "fac_kingdom_1_rebels"
 ##rebel_factions_end =   "fac_kingdoms_end"
 
+# TGS: mat: DEBUG: This one is also correct, but in a round about way
 pretenders_begin = "trp_kingdom_1_pretender"
 pretenders_end = active_npcs_end
+# TGS: mat: DEBUG: end
+
 #Rebellion changes
 
 tavern_minstrels_begin = "trp_tavern_minstrel_1"
@@ -1597,7 +2337,15 @@ villages_begin = "p_village_1"
 
 towns_end = castles_begin
 castles_end = villages_begin
-villages_end   = "p_salt_mine"
+# Edited for TGS
+#villages_end   = "p_salt_mine"
+villages_end   = "p_karindi_gate"
+# End edited for TGS
+
+# Added for TGS
+border_towers_begin = "p_border_tower_1"
+border_towers_end   = "p_spawn_points_end"
+# End added for TGS
 
 walled_centers_begin = towns_begin
 walled_centers_end   = castles_end
@@ -1739,13 +2487,30 @@ banner_map_icons_end_minus_one = "icon_banner_136"
 banner_scene_props_begin = "spr_banner_a"
 banner_scene_props_end_minus_one = "spr_banner_f21"
 
+## TGS: mat: Note: may need to look into these
 khergit_banners_begin_offset = 63
 khergit_banners_end_offset = 84
 
 sarranid_banners_begin_offset = 105
 sarranid_banners_end_offset = 125
+## TGS: mat: Note: End
 
 banners_end_offset = 136
+## End
+
+## TGS: mat: New TGS banner constants
+tgs_banner_map_icons_begin = "icon_banner_legion"
+tgs_banner_map_icons_end = "icon_map_flag_tgs_kingdom_a"
+
+tgs_banner_meshes_begin = "mesh_banner_legion"
+tgs_banner_meshes_end = "mesh_banner_tgs_kingdom_a"
+
+tgs_arms_meshes_begin = "mesh_arms_legion"
+tgs_arms_meshes_end = "mesh_arms_tgs_kingdom_a"
+
+tgs_banner_scene_props_begin = "spr_banner_legion"
+tgs_banner_scene_props_end = "spr_banner_tgs_kingdom_a"
+## TGS: mat: End
 
 # Some constants for merchant invenotries
 merchant_inventory_space = 30
@@ -2251,6 +3016,24 @@ _validate_constants(verbose=(__name__=="__main__"))
 ##diplomacy end+
 
 
+################################################################
+### added for TGS
+
+### spt_gateway for gateway parties BEGIN
+spt_gateway					= 401
+### spt_gateway for gateway parties END
+
+### WAYS parties list BEGIN
+waygates_begin = "p_karindi_gate"
+waygates_end = "p_salt_mine" 
+### WAYS parties list END
+
+### spt_border_tower for border tower parties BEGIN
+spt_border_tower					= 402
+### spt_border_tower for border tower parties END
+
+### end added for TGS
+#################################################################
 
 ## Prebattle Orders & Deployment Begin
 max_battle_size = 1000 #RESET if you've modded the battlesize
@@ -2297,7 +3080,7 @@ slot_agent_volley_fire   = 37
 slot_agent_spearwall     = 38
 slot_agent_player_braced = 39
 slot_agent_alt_div_check = 40
-#slot_agent_new_division  = 41
+slot_agent_new_division  = 41
 #Team Slots (so high to allow for formations)
 slot_team_d0_order_weapon     = 300 #plus 8 more for the other divisions
 slot_team_d0_order_shield     = 309 #plus 8 more for the other divisions
@@ -2390,7 +3173,11 @@ keys_list = [
 	          ("$key_order_9", key_f9),
 			  ("$key_order_10", key_f10),
 	          ("$key_special_0", key_b), #Pike Bracing
-	          ("$key_special_1", key_m), #Whistle for Horse 			 
+	          ("$key_special_1", key_m), #Whistle for Horse
+              ## Added for TGS
+              ("$key_weave_toggle", key_caps_lock), #Toggle Weave
+              ("$key_recover_one_power_item", key_z), #Recover_one_power_item
+              ## End added for TGS
 			]
 #--------------------------------------------------
              
@@ -2416,6 +3203,66 @@ key_label_begin = "str_0x02"
 #-- Dunde's Key Config END
 
 ## Prebattle Orders & Deployment End
+
+### TGS Special Constants ###
+
+# Numberical Order - Used for weave toggling: mission_templates, presentations, etc.
+SHIELD_BREAKER          = 0
+AIR_BLAST_WEAVE         = 1
+FREEZE_WEAVE            = 2
+HEAL_WEAVE              = 3
+FIREBALL_WEAVE          = 4
+UNRAVEL_WEAVE           = 5
+DEFENSIVE_BLAST_WEAVE   = 6
+EARTH_BLAST_WEAVE       = 7
+BIND_WEAVE              = 8
+CHAIN_LIGHTNING_WEAVE   = 9
+FIRE_CURTAIN_WEAVE      = 10
+SHIELD_WEAVE            = 11
+SEEKER_WEAVE            = 12
+COMPULSION_WEAVE        = 13
+BALEFIRE_WEAVE          = 14
+
+TOTAL_NUMBER_OF_WEAVES  = 14
+
+# Ranking: Doesn't have to be numerical or linear - Used for Stamina usage calculations
+AIR_BLAST_WEAVE_RANK        = 1 #2
+FREEZE_WEAVE_RANK           = 3 #4
+HEAL_WEAVE_RANK             = 4 #6
+FIREBALL_WEAVE_RANK         = 6 #8
+UNRAVEL_WEAVE_RANK          = 7 #10
+DEFENSIVE_BLAST_WEAVE_RANK  = 10 #12
+EARTH_BLAST_WEAVE_RANK      = 13 #14
+BIND_WEAVE_RANK             = 12 #16
+CHAIN_LIGHTNING_WEAVE_RANK  = 16 #18
+FIRE_CURTAIN_WEAVE_RANK     = 22 #20
+SHIELD_WEAVE_RANK           = 15 #22
+SEEKER_WEAVE_RANK           = 18 #24
+COMPULSION_WEAVE_RANK       = 20 #26
+BALEFIRE_WEAVE_RANK         = 27 #28
+
+TOTAL_NUMBER_OF_RANKS       = 28  # not necessarily equal to the number of weaves
+
+# Ranking: Linear - used for Natural Inclination calculations
+AIR_BLAST_WEAVE_RANK_LINEAR        = 1
+FREEZE_WEAVE_RANK_LINEAR           = 2
+HEAL_WEAVE_RANK_LINEAR             = 3
+FIREBALL_WEAVE_RANK_LINEAR         = 4
+UNRAVEL_WEAVE_RANK_LINEAR          = 5
+DEFENSIVE_BLAST_WEAVE_RANK_LINEAR  = 6
+EARTH_BLAST_WEAVE_RANK_LINEAR      = 7
+BIND_WEAVE_RANK_LINEAR             = 8
+CHAIN_LIGHTNING_WEAVE_RANK_LINEAR  = 9
+FIRE_CURTAIN_WEAVE_RANK_LINEAR     = 10
+SHIELD_WEAVE_RANK_LINEAR           = 11
+SEEKER_WEAVE_RANK_LINEAR           = 12
+COMPULSION_WEAVE_RANK_LINEAR       = 13
+BALEFIRE_WEAVE_RANK_LINEAR         = 14
+
+TOTAL_NUMBER_OF_RANKS_LINEAR       = TOTAL_NUMBER_OF_WEAVES
+
+### TGS Special Constants End ###
+
 
 # modmerger_start version=201 type=1
 try:

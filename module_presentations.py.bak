@@ -305,12 +305,15 @@ presentations = [
       (store_add, ":ending_banner", ":starting_banner", 16),
       (store_add, "$g_presentation_banner_start", "$g_presentation_obj_profile_banner_selection_2", 1),
       (assign, ":num_valid_banners", 0),
-      (try_for_range, ":cur_banner_mesh", banner_meshes_begin, banner_meshes_end_minus_one),
+      ## TGS: mat: Modified for TGS banners
+      (try_for_range, ":cur_banner_mesh", tgs_banner_meshes_begin, tgs_banner_meshes_end),
+      ## TGS: mat: End
         (assign, ":already_used", 0),
-        (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
-          (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
-          (assign, ":already_used", 1),
-        (try_end),
+        #(try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
+        #  (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
+        #  (assign, ":already_used", 1),
+        #(try_end),
+      ## TGS: mat: DEBUG End
         (eq, ":already_used", 0),
         (val_add, ":num_valid_banners", 1),
         (gt, ":num_valid_banners", ":starting_banner"),
@@ -347,17 +350,22 @@ presentations = [
         (store_mul, ":page_adder", 16, "$g_presentation_page_no"),
         (val_add, ":selected_banner", ":page_adder"),
         (assign, ":num_valid_banners", 0),
-        (assign, ":end_cond", banner_meshes_end_minus_one),
-        (try_for_range, ":cur_banner_mesh", banner_meshes_begin, ":end_cond"),
+      ## TGS: mat: Modified for TGS banners
+        (assign, ":end_cond", tgs_banner_meshes_end),
+        (try_for_range, ":cur_banner_mesh", tgs_banner_meshes_begin, ":end_cond"),
+      ## TGS: mat: End
           (assign, ":already_used", 0),
-          (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
-            (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
-            (assign, ":already_used", 1),
-          (try_end),
+          #(try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
+          #  (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
+          #  (assign, ":already_used", 1),
+          #(try_end),
+      ## TGS: mat: DEBUG End
           (eq, ":already_used", 0),
           (try_begin),
             (eq, ":selected_banner", ":num_valid_banners"),
-            (store_sub, ":selected_banner_index", ":cur_banner_mesh", banner_meshes_begin),
+      ## TGS: mat: Modified for TGS banners
+            (store_sub, ":selected_banner_index", ":cur_banner_mesh", tgs_banner_meshes_begin),
+      ## TGS: mat: End
             (profile_set_banner_id, ":selected_banner_index"),
             (assign, ":end_cond", 0), #break
           (try_end),
@@ -415,24 +423,92 @@ presentations = [
       (position_set_y, pos1, 370),
       (overlay_set_position, reg0, pos1),
 
+##################### modified for TGS
       (try_begin),
         (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_1"),
-        (assign, ":cur_troop", "trp_swadian_knight"),
+        (assign, ":cur_troop", "trp_legion_captain"),
       (else_try),
         (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_2"),
-        (assign, ":cur_troop", "trp_vaegir_knight"),
+        (assign, ":cur_troop", "trp_red_hand_fast_crossbowman"),
       (else_try),
         (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_3"),
-        (assign, ":cur_troop", "trp_khergit_veteran_horse_archer"),
+        (assign, ":cur_troop", "trp_two_rivers_marksman"),
       (else_try),
         (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_4"),
-        (assign, ":cur_troop", "trp_nord_champion"),
+        (assign, ":cur_troop", "trp_mayene_royal_guard"),
       (else_try),
         (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_5"),
-        (assign, ":cur_troop", "trp_rhodok_sergeant"),
+        (assign, ":cur_troop", "trp_cairhien_bannerman"),
       (else_try),
         (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_6"),
-        (assign, ":cur_troop", "trp_sarranid_mamluke"),
+        (assign, ":cur_troop", "trp_illian_companion_captain"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_7"),
+        (assign, ":cur_troop", "trp_murandy_berserker"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_8"),
+        (assign, ":cur_troop", "trp_altara_royal_guard"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_9"),
+        (assign, ":cur_troop", "trp_arad_doman_long_swordsman"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_10"),
+        (assign, ":cur_troop", "trp_tear_defender_captain"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_11"),
+        (assign, ":cur_troop", "trp_andor_halberdier"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_12"),
+        (assign, ":cur_troop", "trp_ghealdan_royal_guard"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_13"),
+        (assign, ":cur_troop", "trp_far_madding_city_guard"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_14"),
+        (assign, ":cur_troop", "trp_tarabon_skirmisher"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_15"),
+        (assign, ":cur_troop", "trp_amadicia_captain"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_16"),
+        (assign, ":cur_troop", "trp_whitecloak_lancer"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_17"),
+        (assign, ":cur_troop", "trp_shienar_captain"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_18"),
+        (assign, ":cur_troop", "trp_arafel_bannerman"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_19"),
+        (assign, ":cur_troop", "trp_kandor_captain"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_20"),
+        (assign, ":cur_troop", "trp_saldaea_quartermaster"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_21"),
+        (assign, ":cur_troop", "trp_tower_guard_captain"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_22"),
+        (assign, ":cur_troop", "trp_stone_dog"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_23"),
+        (assign, ":cur_troop", "trp_seanchan_halberdier"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_24"),
+        (assign, ":cur_troop", "trp_myrddraal"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_25"),
+        (assign, ":cur_troop", "trp_shara_shbo_guardsman"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_26"),
+        (assign, ":cur_troop", "trp_sea_folk_cargomaster"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_27"),
+        (assign, ":cur_troop", "trp_madmen_air_shifter"),
+      (else_try),
+        (eq, "$g_quick_battle_team_2_faction", "fac_kingdom_28"),
+        (assign, ":cur_troop", "trp_toman_head_city_guard"),
+##################### end modified for TGS
       (else_try),
         (assign, ":cur_troop", "trp_taiga_bandit"),
       (try_end),
@@ -4883,6 +4959,14 @@ presentations = [
       (else_try),
         (eq, "$g_multiplayer_team_1_faction", "fac_kingdom_1"),
         (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_6"),
+      # added for TGS
+      (else_try),
+        (eq, "$g_multiplayer_team_1_faction", "fac_kingdom_7"),
+        (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_7"),
+      (else_try),
+        (eq, "$g_multiplayer_team_1_faction", "fac_kingdom_8"),
+        (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_8"),
+      # end added for TGS
       (try_end),
 
       (position_set_x, pos3, 25),
@@ -4893,8 +4977,10 @@ presentations = [
       (overlay_set_size, reg0, pos1),
 
       (try_begin),
+        # edited for TGS
         (eq, "$g_multiplayer_team_1_faction", "$g_multiplayer_team_2_faction"),
-        (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_7"),
+        (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_9"),
+      # end edited for TGS
       (else_try),
         (eq, "$g_multiplayer_team_2_faction", "fac_kingdom_4"),
         (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_1"),
@@ -4913,6 +4999,14 @@ presentations = [
       (else_try),
         (eq, "$g_multiplayer_team_2_faction", "fac_kingdom_1"),
         (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_6"),
+      # added for TGS
+      (else_try),
+        (eq, "$g_multiplayer_team_2_faction", "fac_kingdom_7"),
+        (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_7"),
+      (else_try),
+        (eq, "$g_multiplayer_team_2_faction", "fac_kingdom_8"),
+        (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_8"),
+      # end added for TGS
       (try_end),
 
       (position_set_x, pos3, 25),
@@ -5529,7 +5623,9 @@ presentations = [
         (try_begin),
           (eq, ":faction_of_team_1", ":faction_of_team_2"),
           (eq, ":i_team", 1),
-          (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_7"),
+      # changed for TGS
+          (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_9"),
+      # end changed for TGS
         (else_try),
           (eq, ":cur_faction", "fac_kingdom_4"),
           (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_1"),
@@ -5548,6 +5644,14 @@ presentations = [
         (else_try),
           (eq, ":cur_faction", "fac_kingdom_1"),
           (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_6"),
+        # added for TGS
+        (else_try),
+            (eq, ":cur_faction", "fac_kingdom_7"),
+            (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_7"),
+        (else_try),
+            (eq, ":cur_faction", "fac_kingdom_8"),
+            (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_8"),
+        # end added for TGS
         (try_end),
 
         (position_set_x, pos1, 100),
@@ -7463,11 +7567,15 @@ presentations = [
 
         (assign, ":x_pos", 150),
         (assign, ":y_pos", 575),
-        (assign, ":try_end", banner_meshes_end_minus_one),
-        (store_sub, ":num_npc_kingdoms", npc_kingdoms_end, npc_kingdoms_begin),
-        (val_sub, ":try_end", ":num_npc_kingdoms"), #do not allow kingdom banners to be selected
+        ## TGS: mat: Modified for TGS banners
+        (assign, ":try_end", tgs_banner_meshes_end),
+        ## TGS: mat: End
+        #(store_sub, ":num_npc_kingdoms", npc_kingdoms_end, npc_kingdoms_begin),
+        #(val_sub, ":try_end", ":num_npc_kingdoms"), #do not allow kingdom banners to be selected
         (store_mul, ":begin_mesh", 16, "$g_presentation_page_no"),
-        (val_add, ":begin_mesh", banner_meshes_begin),
+        ## TGS: mat: Modified for TGS banners
+        (val_add, ":begin_mesh", tgs_banner_meshes_begin),
+        ## TGS: mat: End
         (store_add, ":try_end_2", ":begin_mesh", 16),
         (val_min, ":try_end", ":try_end_2"),
         (store_add, "$g_presentation_banner_start", "$g_presentation_obj_banner_selection_1", 1),
@@ -7497,9 +7605,11 @@ presentations = [
           (store_sub, ":selected_banner", ":object", "$g_presentation_banner_start"),
           (store_mul, ":page_adder", 16, "$g_presentation_page_no"),
           (val_add, ":selected_banner", ":page_adder"),
-          (store_add, ":selected_banner_map_icon", ":selected_banner", banner_map_icons_begin),
+        ## TGS: mat: Modified for TGS banners
+          (store_add, ":selected_banner_map_icon", ":selected_banner", tgs_banner_map_icons_begin),
           (party_set_banner_icon, "p_main_party", ":selected_banner_map_icon"),
-          (store_add, ":selected_banner_spr", ":selected_banner", banner_scene_props_begin),
+          (store_add, ":selected_banner_spr", ":selected_banner", tgs_banner_scene_props_begin),
+        ## TGS: mat: End
           (troop_set_slot, "trp_player", slot_troop_banner_scene_prop, ":selected_banner_spr"),
 
           #Correcting banners according to the player banner
@@ -7519,10 +7629,11 @@ presentations = [
             (troop_slot_eq, ":cur_troop", slot_troop_banner_scene_prop, ":selected_banner_spr"),
             (assign, ":troop_to_change", ":cur_troop"),
             (assign, ":end_cond", 0),
-            (troop_set_slot, ":cur_troop", slot_troop_banner_scene_prop, banner_scene_props_end_minus_one),
+        ## TGS: mat: Modified for TGS banners
+            (troop_set_slot, ":cur_troop", slot_troop_banner_scene_prop, tgs_banner_scene_props_end),
             (troop_get_slot, ":cur_party", ":cur_troop", slot_troop_leaded_party),
             (gt, ":cur_party", 0),
-            (party_set_banner_icon, ":cur_party", banner_map_icons_end_minus_one),
+            (party_set_banner_icon, ":cur_party", tgs_banner_map_icons_end),             
           (try_end),
           (try_for_range, ":cur_center", walled_centers_begin, walled_centers_end),
             (try_begin),
@@ -7530,7 +7641,8 @@ presentations = [
               (party_set_banner_icon, ":cur_center", ":selected_banner_map_icon"),
             (else_try),
               (party_slot_eq, ":cur_center", slot_town_lord, ":troop_to_change"),
-              (party_set_banner_icon, ":cur_center", banner_map_icons_end_minus_one),
+              (party_set_banner_icon, ":cur_center", tgs_banner_map_icons_end),
+        ## TGS: mat: End
             (try_end),
           (try_end),
         (try_end),
@@ -13212,6 +13324,7 @@ presentations = [
     ]),
   ]),
 
+## TGS: mat: Correct Presentation Begin
   # Jrider +
   # REPORTS PRESENTATIONS 1.2 :
   # Factions relations presentation report
@@ -13258,45 +13371,15 @@ presentations = [
         (assign, "$g_jrider_faction_report_Return_to_menu", reg1),
 
     # Set Headlines
-#set column title
-          (assign, ":x_poshl", 250),
-          (assign, ":y_pos", 620),
-          (position_set_y, pos1, ":y_pos"),
-    (try_for_range, ":faction", kingdoms_begin, kingdoms_end),
-            (faction_slot_eq, ":faction", slot_faction_state, sfs_active), # continue if active
-            (try_begin),
-              (is_between, ":faction", npc_kingdoms_begin, npc_kingdoms_end),
-              (store_sub, ":offset", ":faction", "fac_kingdom_1"),
-              (val_add, ":offset", "str_swadians"),
-              (str_store_string, s1, ":offset"),
-            (else_try),
-              (str_store_string, s1, "@Your kingdom"),
-            (try_end),
-
-            (str_store_string, s11, ":offset"),
-            (create_text_overlay, reg10, s1, tf_left_align|tf_with_outline),
-            (faction_get_color, ":faction_color", ":faction"),
-            (overlay_set_color, reg10, ":faction_color"),
-
-            (position_set_x, pos3, 650),
-            (position_set_y, pos3, 800),
-            (overlay_set_size, reg10, pos3),
-
-            (position_set_x, pos1, ":x_poshl"),
-            (overlay_set_position, reg10, pos1),
-            (val_add, ":x_poshl", 90),
-    (try_end),
-
-
     (assign, ":x_poshl", 215),
      (assign, ":y_pos", 597),
      (assign, ":headline_size", 0),
     (position_set_x, ":headline_size", 720),
         (position_set_y, ":headline_size", 775),
-
+        
         (assign, ":hl_columnsep_size", 50),
-        (position_set_x, ":hl_columnsep_size", 60),
-        (position_set_y, ":hl_columnsep_size", 28000),
+    (position_set_x, ":hl_columnsep_size", 60),
+        (position_set_y, ":hl_columnsep_size", 1600),
 
         (create_text_overlay, reg2, "@Player^Relation", tf_center_justify),
         (overlay_set_size, reg2, ":headline_size"),
@@ -13304,25 +13387,93 @@ presentations = [
         (position_set_y, pos1, ":y_pos"),
         (overlay_set_position, reg2, pos1),
 
-        (val_add, ":x_poshl", 45),
-        (try_for_range, ":count", 0, 7),
-          # create a separator column
-          (create_mesh_overlay, reg1, "mesh_white_plane"),
-          (overlay_set_color, reg1, 0x000000),
-          (overlay_set_size, reg1, ":hl_columnsep_size"),
-          (store_sub, ":line_x", ":x_poshl", 15), # set it 21 pix left of current column start
-          (store_sub, ":y_pos2", ":y_pos", 500), # set it 21 pix left of current column start
-          (position_set_x, pos2, ":line_x"),
-          (position_set_y, pos2, ":y_pos2"),
-          (overlay_set_position, reg1, pos2),
-          (val_add, ":x_poshl", 90),
+        # Headlines for Faction 1, 5
+        (create_text_overlay, reg2, "@Status", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 55),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
 
-          (try_begin),
-            (eq, "$cheat_mode", 1),
-            (assign, reg20, ":count"),
-            (display_message, "@{!}DEBUG - Drawing line {reg20}"),
-          (try_end),
-        (try_end),
+        # create a separator column
+        (create_mesh_overlay, reg1, "mesh_white_plane"),
+        (overlay_set_color, reg1, 0x000000),
+        (overlay_set_size, reg1, ":hl_columnsep_size"),
+        (store_sub, ":line_x", ":x_poshl", 21), # set it 21 pix left of current column start
+        (position_set_x, pos2, ":line_x"),
+        (position_set_y, pos2, ":y_pos"),
+        (overlay_set_position, reg1, pos2),
+
+        (create_text_overlay, reg2, "@Relation", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 110),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # Headlines for Faction 2, 6
+        (create_text_overlay, reg2, "@Status", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 55),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # create a separator column
+        (create_mesh_overlay, reg1, "mesh_white_plane"),
+        (overlay_set_color, reg1, 0x000000),
+        (overlay_set_size, reg1, ":hl_columnsep_size"),
+        (store_sub, ":line_x", ":x_poshl", 21), # set it 21 pix left of current column start
+        (position_set_x, pos2, ":line_x"),
+        (position_set_y, pos2, ":y_pos"),
+        (overlay_set_position, reg1, pos2),
+
+        (create_text_overlay, reg2, "@Relation", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 110),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # Headlines Faction 3,7
+        (create_text_overlay, reg2, "@Status", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 55),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # create a separator column
+        (create_mesh_overlay, reg1, "mesh_white_plane"),
+        (overlay_set_color, reg1, 0x000000),
+        (overlay_set_size, reg1, ":hl_columnsep_size"),
+        (store_sub, ":line_x", ":x_poshl", 21), # set it 21 pix left of current column start
+        (position_set_x, pos2, ":line_x"),
+        (position_set_y, pos2, ":y_pos"),
+        (overlay_set_position, reg1, pos2),
+
+        (create_text_overlay, reg2, "@Relation", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 110),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # Headlines Faction 4
+        (create_text_overlay, reg2, "@Status", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 55),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
+
+        # create a separator column
+        (create_mesh_overlay, reg1, "mesh_white_plane"),
+        (overlay_set_color, reg1, 0x000000),
+        (overlay_set_size, reg1, ":hl_columnsep_size"),
+        (store_sub, ":line_x", ":x_poshl", 21), # set it 21 pix left of current column start
+        (position_set_x, pos2, ":line_x"),
+        (position_set_y, pos2, ":y_pos"),
+        (overlay_set_position, reg1, pos2),
+
+        (create_text_overlay, reg2, "@Relation", tf_center_justify),
+        (overlay_set_size, reg2, ":headline_size"),
+        (val_add, ":x_poshl", 110),
+        (position_set_x, pos1, ":x_poshl"),
+        (overlay_set_position, reg2, pos1),
 
         # clear the string globals that we'll use
          (str_clear, s9),
@@ -13355,110 +13506,168 @@ presentations = [
 
             # Base position for subheaders
             (assign, ":x_posfhl", 220),
+            (assign, ":y_posfhl", ":y_pos"),
 
             # Loop other factions (columns)
-            (try_for_range, ":faction_column", kingdoms_begin, kingdoms_end),
+            (try_for_range_backwards, ":faction_column", kingdoms_begin, kingdoms_end),
+                (neq, ":faction_column", ":faction_line"),
                 (faction_slot_eq, ":faction_column", slot_faction_state, sfs_active), # continue if active
 
-                (try_begin), # not same faction
-                  (neq, ":faction_column", ":faction_line"),
+                (str_store_faction_name, s8, ":faction_column"),
 
-                  (str_store_faction_name, s8, ":faction_column"),
-
-                  # sub-faction excluding current faction line
-                  (try_begin),
-                      # different from faction line, display status and relation with faction line
-                      (neq, ":faction_column", ":faction_line"),
-                      (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":faction_line", ":faction_column"),
-                      (assign, ":global_diplomatic_status", reg0),
-                      (assign, ":extended_diplomatic_status", reg1),
-
-                      (try_begin), # War
-                          (eq, ":global_diplomatic_status", -2),
-                          (str_store_string, s60, "@War"),
-                          (assign, reg60, 0xDD0000),
-                          (assign, reg59, 0),
-                      (else_try), # Border incident
-                          (eq, ":global_diplomatic_status", -1),
-                          (str_store_string, s60, "@Casus Belli"),
-                          (assign, reg60, 0xDD8000),
-                          (assign, reg59, ":extended_diplomatic_status"),
-                      (else_try), # Peace
-                          (eq, ":global_diplomatic_status", 0),
-                          (str_store_string, s60, "@Peace"),
-                          (assign, reg60, 0xFFFFFF),
-                          (assign, reg59, 0),
-                      (else_try), # Truce (non aggression)
-                          (eq, ":global_diplomatic_status", 1),
-                          (str_store_string, s60, "@Truce"),
-                          (assign, reg60, 0xDDDDDD),
-                          (assign, reg59, ":extended_diplomatic_status"),
-
-                          # for Diplomacy, comment if not using
-                          (try_begin),
-                              (ge, ":extended_diplomatic_status", 61),
-                              (str_store_string, s60, "@Alliance"),
-                              (assign, reg60, 0x00FF00),
-                              (store_sub, reg59, ":extended_diplomatic_status", 60),
-                          (else_try),
-                              (ge, ":extended_diplomatic_status", 41),
-                              (str_store_string, s60, "@Defense"),
-                              (assign, reg60, 0x00FFAA),
-                              (store_sub, reg59, ":extended_diplomatic_status", 40),
-                          (else_try),
-                              (ge, ":extended_diplomatic_status", 21),
-                              (str_store_string, s60, "@Trade"),
-                              (assign, reg60, 0x00FFCC),
-                              (store_sub, reg59, ":extended_diplomatic_status", 20),
-                          (try_end),
-                      (try_end),
-
-                      (val_add, ":x_poshl", 50),
-
-                      # diplomatic status and duration block (set at current line)
-                      (create_text_overlay, reg10, s60, tf_left_align|tf_with_outline),
-                      (overlay_set_size, reg10, ":line_size"),
-                      (overlay_set_color, reg10, reg60),
-                      (store_sub, ":line_x", ":x_posfhl", 20),
-                      (store_add, ":line_y", ":y_pos", 54),
-                      (position_set_x, pos3, ":line_x"),
-                      (position_set_y, pos3, ":line_y"),
-                      (overlay_set_position, reg10, pos3),
-
-                      (create_text_overlay, reg10, "@{reg59?{reg59} days:}", tf_center_justify),
-                      (overlay_set_size, reg10, ":line_size"),
-                      (store_add, ":line_y", ":y_pos", 36),
-                      (store_add, ":line_x", ":x_posfhl", 10),
-                      (position_set_x, pos3, ":line_x"),
-                      (position_set_y, pos3, ":line_y"),
-                      (overlay_set_position, reg10, pos3),
-
-
-                      # add diplomatic status
-                      (store_relation, ":kingdom_relation", ":faction_line", ":faction_column"),
-
-                      # kingdom relation (same line as faction name)
-                      (assign, reg61, ":kingdom_relation"),
-                      (create_text_overlay, reg10, "@{reg61}", tf_center_justify),
-                      (overlay_set_size, reg10, ":line_size"),
-
-                      (store_add, ":line_y", ":y_pos", 18),
-                      (store_add, ":line_x", ":x_posfhl", 10),
-                      (position_set_x, pos3, ":line_x"),
-                      (position_set_y, pos3, ":line_y"),
-                      (overlay_set_position, reg10, pos3),
-                  (try_end), # end select alternate display
+                # wrap y_pos if line end reached
+                (try_begin),
+                    (ge, ":x_poshl", 825),
+                    (assign, ":x_poshl", 165),
+                    (val_add, ":y_pos", 18),
                 (try_end),
 
+                # sub-faction excluding current faction line
+                (try_begin),
+                    # different from faction line, display status and relation with faction line
+                    (neq, ":faction_column", ":faction_line"),
+                    (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":faction_line", ":faction_column"),
+                    (assign, ":global_diplomatic_status", reg0),
+                    (assign, ":extended_diplomatic_status", reg1),
+
+                    (try_begin), # War
+                        (eq, ":global_diplomatic_status", -2),
+                        (str_store_string, s60, "@War"),
+                        (assign, reg60, 0xDD0000),
+                        (assign, reg59, 0),
+                    (else_try), # Border incident
+                        (eq, ":global_diplomatic_status", -1),
+                        (str_store_string, s60, "@Casus Belli"),
+                        (assign, reg60, 0xDD8000),
+                        (assign, reg59, ":extended_diplomatic_status"),
+                    (else_try), # Peace
+                        (eq, ":global_diplomatic_status", 0),
+                        (str_store_string, s60, "@Peace"),
+                        (assign, reg60, 0xFFFFFF),
+                        (assign, reg59, 0),
+                    (else_try), # Truce (or agreement if usigng Diplomacy)
+                        (eq, ":global_diplomatic_status", 1),
+                        (str_store_string, s60, "@Truce"),
+                        (assign, reg60, 0xDDDDDD),
+                        (assign, reg59, ":extended_diplomatic_status"),
+
+                        # for Diplomacy, comment if not using
+                        (try_begin),
+                            (ge, ":extended_diplomatic_status", 61),
+                            (str_store_string, s60, "@Alliance"),
+                            (assign, reg60, 0x00FF00),
+                            (store_sub, reg59, ":extended_diplomatic_status", 60),
+                        (else_try),
+                            (ge, ":extended_diplomatic_status", 41),
+                            (str_store_string, s60, "@Defense Pact"),
+                            (assign, reg60, 0x00FFAA),
+                            (store_sub, reg59, ":extended_diplomatic_status", 40),
+                        (else_try),
+                            (ge, ":extended_diplomatic_status", 21),
+                            (str_store_string, s60, "@Trade Agreement"),
+                            (assign, reg60, 0x00FFCC),
+                            (store_sub, reg59, ":extended_diplomatic_status", 20),
+                        (try_end),
+                    (try_end),
+
+                    (val_add, ":x_poshl", 55),
+
+                     # create a sub-separator column
+                     (create_mesh_overlay, reg1, "mesh_white_plane"),
+                     (overlay_set_color, reg1, ":line_color"),
+                     (position_set_x, pos3, 50),
+                     (position_set_y, pos3, 1800),
+                     (overlay_set_size, reg1, pos3),
+        
+                     (store_sub, ":line_x", ":x_posfhl", 20), # set it 20 pix left of current column start
+                     (position_set_x, pos3, ":line_x"),
+                     (store_add, ":line_y", ":y_pos", 2), # set it below 2 pix of current position
+
+                     (position_set_y, pos3, ":line_y"),
+                     (overlay_set_position, reg1, pos3),
+
+                    # diplomatic status and duration block (set at current line)
+                    # add diplomatic status 
+                    (store_relation, ":kingdom_relation", ":faction_line", ":faction_column"),
+                    (create_text_overlay, reg10, "@{s60}", tf_left_align|tf_with_outline),
+                    (overlay_set_size, reg10, ":line_size"),
+                    (overlay_set_color, reg10, reg60),
+
+                    (store_sub, ":line_x", ":x_poshl", 15),
+                    (position_set_x, pos1, ":line_x"),
+                    (position_set_y, pos1, ":y_pos"),
+                    (overlay_set_position, reg10, pos1),
+
+                    # status duration left (same line, shift x to right)
+                    (val_add, ":x_poshl", 110),
+                    (create_text_overlay, reg10, "@{reg59?{reg59} days:}", tf_center_justify),
+                    (overlay_set_size, reg10, ":line_size"),
+
+                    (store_add, ":line_x", ":x_poshl", 5),
+                    (position_set_x, pos1, ":line_x"),
+                    (position_set_y, pos1, ":y_pos"),
+                    (overlay_set_position, reg10, pos1),
+
+                    # Faction name and relation (increase to previous line)
+                    # Faction name headlines
+                    (create_text_overlay, reg10, s8, tf_left_align|tf_with_outline),
+                    (overlay_set_size, reg10, ":line_size"),
+                    (faction_get_color, ":faction_color", ":faction_column"),
+                    (overlay_set_color, reg10, ":faction_color"),
+
+                    (store_sub, ":line_x", ":x_posfhl", 20),
+                    (store_add, ":line_y", ":y_pos", 18),
+                    (position_set_x, pos3, ":line_x"),
+                    (position_set_y, pos3, ":line_y"),
+                    (overlay_set_position, reg10, pos3),
+
+                    # kingdom relation (same line as faction name)
+                    (assign, reg61, ":kingdom_relation"),
+                    (create_text_overlay, reg10, "@{reg61}", tf_center_justify),
+                    (overlay_set_size, reg10, ":line_size"),
+
+                    (store_add, ":line_x", ":x_poshl", 10),
+                    (position_set_x, pos3, ":line_x"),
+                    (position_set_y, pos3, ":line_y"),
+                    (overlay_set_position, reg10, pos3),
+                (try_end), # end select alternate display
+
                 # increase column x position
-                (val_add, ":x_posfhl", 90), # valid values 220, 385, 550, 715
+                (val_add, ":x_posfhl", 165), # valid values 220, 385, 550, 715
+
+                # wrap if line end for faction column name reached
+                (try_begin),
+                    (gt, ":x_posfhl", 715),
+                    (assign, ":x_posfhl", 220),
+                    (assign, ":y_posfhl", ":y_pos"),
+                    (val_add, ":y_posfhl", 18),
+                (try_end),        
+
+                # starting new column
+                (try_begin),
+                    (eq, ":x_posfhl", 220),
+
+                    # create a sub-separator line above current line
+                    (create_mesh_overlay, reg1, "mesh_white_plane"),
+                    (overlay_set_color, reg1, ":line_color"),
+                    (position_set_x, pos1, 32800),
+                    (position_set_y, pos1, 50),
+                    (overlay_set_size, reg1, pos1),
+        
+                    (position_set_x, pos1, 200),
+                    (store_add, ":line_y", ":y_pos", 38), # set it 20 pix above current line
+                    (position_set_y, pos1, ":line_y"),
+                    (overlay_set_position, reg1, pos1),
+
+                    (val_add, ":y_pos", 18),
+                (try_end),
             (try_end), # end of column faction loop
 
             # Faction line information, this is a 4 line block
             # reset x postion for next beginning column and decrease y position according to line count
             (assign, ":x_poshl", 165),
 
-            (val_add, ":y_pos", 54), # linebreak
+            (val_add, ":y_pos", 18), # linebreak
 
             # create a separator for faction line
             (create_mesh_overlay, reg1, "mesh_white_plane"),
@@ -13573,7 +13782,10 @@ presentations = [
             (try_begin),
                 (neq, ":faction_line", "fac_player_supporters_faction"),
                 (store_sub, ":mesh_index", ":faction_line", kingdoms_begin),
-                (val_add, ":mesh_index", "mesh_pic_recruits"),
+## TGS: mat: Altered
+                #(val_add, ":mesh_index", "mesh_pic_recruits"),
+                (val_add, ":mesh_index", "mesh_pic_recruits_tgs"),
+## TGS: mat: End
                 (create_mesh_overlay, reg10, ":mesh_index"),
                 (position_set_x, pos1, 75),
                 (position_set_y, pos1, 75),
@@ -13686,6 +13898,8 @@ presentations = [
   # END presentation run trigger
   # END Faction relation presentation
   # Jrider -
+## TGS: mat: Correct Presentation End
+
 
 ##diplomacy end
 ##diplomacy start+
@@ -18748,6 +18962,2604 @@ presentations = [
 ## Prebattle Orders & Deployment End
 	
 	
+#########################
+#########################
+# added for TGS
+
+#############################################################
+##### troop_ratio_bar (with added bar for channeling stamina)
+#############################################################
+  ("troop_ratio_bar",prsntf_read_only,0,[
+      (ti_on_presentation_load,
+       [
+        (assign, "$presentation_troop_ratio_bar_active", 1),
+        (set_fixed_point_multiplier, 1000),
+        
+        (create_mesh_overlay, "$g_presentation_obj_1", "mesh_status_troop_ratio_bar"),
+        (position_set_x, pos1, 30),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_1", pos1),
+        
+        (position_set_x, pos1, 35),
+        (position_set_y, pos1, 713),
+        
+        (create_mesh_overlay, "$g_presentation_obj_2", "mesh_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_2", 0xAA1F1F),
+        (overlay_set_position, "$g_presentation_obj_2", pos1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_3", "mesh_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_3", 0x1F1FAA),
+        (overlay_set_position, "$g_presentation_obj_3", pos1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_4", "mesh_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_4", 0x1FAA1F),
+        (overlay_set_position, "$g_presentation_obj_4", pos1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_5", "mesh_status_troop_ratio_bar_button"),
+        (position_set_x, pos1, 35),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_5", pos1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_6", "mesh_status_troop_ratio_bar_button"),
+        (position_set_x, pos1, 275),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_6", pos1),
+
+        (create_mesh_overlay, "$g_presentation_obj_7", "mesh_status_troop_ratio_bar_button"),
+        (create_mesh_overlay, "$g_presentation_obj_8", "mesh_status_troop_ratio_bar_button"),
+
+        ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
+        (try_begin),
+        (troop_slot_eq, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 1),
+        
+            (create_mesh_overlay, "$g_presentation_obj_11", "mesh_status_channeling_stamina_bar"),
+            (position_set_x, pos1, 840), # 30
+            (position_set_y, pos1, 170), # 700
+            (overlay_set_position, "$g_presentation_obj_11", pos1),
+       
+            (position_set_x, pos1, 845), # 35
+            (position_set_y, pos1, 183), # 713
+       
+            (create_mesh_overlay, "$g_presentation_obj_12", "mesh_channeling_white_plane"),
+            (overlay_set_color, "$g_presentation_obj_12", 0x000000), # 0xAA1F1F
+            (overlay_set_position, "$g_presentation_obj_12", pos1),
+       
+            (create_mesh_overlay, "$g_presentation_obj_13", "mesh_channeling_white_plane"),
+            (overlay_set_color, "$g_presentation_obj_13", 0x0099FF), # 0x1F1FAA
+            (overlay_set_position, "$g_presentation_obj_13", pos1),
+       
+            (create_mesh_overlay, "$g_presentation_obj_14", "mesh_channeling_white_plane"),
+            (overlay_set_color, "$g_presentation_obj_14", 0x000000), # 0x1FAA1F
+            (overlay_set_position, "$g_presentation_obj_14", pos1),
+       
+            (create_mesh_overlay, "$g_presentation_obj_15", "mesh_status_channeling_stamina_bar_button"),
+            (position_set_x, pos1, 845), # 35  ###### from here ####
+            (position_set_y, pos1, 170), # 700
+            (overlay_set_position, "$g_presentation_obj_15", pos1),
+       
+            (create_mesh_overlay, "$g_presentation_obj_16", "mesh_status_channeling_stamina_bar_button"),
+            (position_set_x, pos1, 977), # 275  ##### to here #### should have 132 difference #####
+            (position_set_y, pos1, 170), # 700
+            (overlay_set_position, "$g_presentation_obj_16", pos1),
+
+            (create_mesh_overlay, "$g_presentation_obj_17", "mesh_status_channeling_stamina_bar_button"),
+            (create_mesh_overlay, "$g_presentation_obj_18", "mesh_status_channeling_stamina_bar_button"),
+
+        ### END ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+        ### ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+
+            (position_set_x, pos1, 930),
+            (position_set_y, pos1, 205),
+
+            (position_set_x, pos2, 1),
+            (position_set_y, pos2, 1),
+        
+            (create_mesh_overlay, "$g_presentation_obj_21", "mesh_weave_air_blast"),
+            (overlay_set_position, "$g_presentation_obj_21", pos1),
+            (overlay_set_size, "$g_presentation_obj_21", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_22", "mesh_weave_freeze_blast"),
+            (overlay_set_position, "$g_presentation_obj_22", pos1),
+            (overlay_set_size, "$g_presentation_obj_22", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_23", "mesh_weave_heal"),
+            (overlay_set_position, "$g_presentation_obj_23", pos1),
+            (overlay_set_size, "$g_presentation_obj_23", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_24", "mesh_weave_fire_ball"),
+            (overlay_set_position, "$g_presentation_obj_24", pos1),
+            (overlay_set_size, "$g_presentation_obj_24", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_25", "mesh_weave_unravel"),
+            (overlay_set_position, "$g_presentation_obj_25", pos1),
+            (overlay_set_size, "$g_presentation_obj_25", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_26", "mesh_weave_defensive_blast"),
+            (overlay_set_position, "$g_presentation_obj_26", pos1),
+            (overlay_set_size, "$g_presentation_obj_26", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_27", "mesh_weave_ranged_earth_blast"),
+            (overlay_set_position, "$g_presentation_obj_27", pos1),
+            (overlay_set_size, "$g_presentation_obj_27", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_28", "mesh_weave_bind"),
+            (overlay_set_position, "$g_presentation_obj_28", pos1),
+            (overlay_set_size, "$g_presentation_obj_28", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_29", "mesh_weave_chain_lightning"),
+            (overlay_set_position, "$g_presentation_obj_29", pos1),
+            (overlay_set_size, "$g_presentation_obj_29", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_30", "mesh_weave_fire_curtain"),
+            (overlay_set_position, "$g_presentation_obj_30", pos1),
+            (overlay_set_size, "$g_presentation_obj_30", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_31", "mesh_weave_shield"),
+            (overlay_set_position, "$g_presentation_obj_31", pos1),
+            (overlay_set_size, "$g_presentation_obj_31", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_32", "mesh_weave_seeker"),
+            (overlay_set_position, "$g_presentation_obj_32", pos1),
+            (overlay_set_size, "$g_presentation_obj_32", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_33", "mesh_weave_compulsion"),
+            (overlay_set_position, "$g_presentation_obj_33", pos1),
+            (overlay_set_size, "$g_presentation_obj_33", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_34", "mesh_weave_balefire"),
+            (overlay_set_position, "$g_presentation_obj_34", pos1),
+            (overlay_set_size, "$g_presentation_obj_34", pos2),
+
+            (position_set_x, pos1, 860),
+            (position_set_y, pos1, 205),
+        
+#        (create_mesh_overlay, "$g_presentation_obj_35", "mesh_weave_select_non_ranged"),
+#        (overlay_set_position, "$g_presentation_obj_35", pos1),
+#        (overlay_set_size, "$g_presentation_obj_35", pos2),
+        
+#        (create_mesh_overlay, "$g_presentation_obj_36", "mesh_weave_select_ranged"),
+#        (overlay_set_position, "$g_presentation_obj_36", pos1),
+#        (overlay_set_size, "$g_presentation_obj_36", pos2),
+        
+#        (create_mesh_overlay, "$g_presentation_obj_37", "mesh_weave_select_support"),
+#        (overlay_set_position, "$g_presentation_obj_37", pos1),
+#        (overlay_set_size, "$g_presentation_obj_37", pos2),
+        
+#        (create_mesh_overlay, "$g_presentation_obj_38", "mesh_weave_select_advanced"),
+#        (overlay_set_position, "$g_presentation_obj_38", pos1),
+#        (overlay_set_size, "$g_presentation_obj_38", pos2),
+        
+            (create_mesh_overlay, "$g_presentation_obj_39", "mesh_weave_select_all"),
+            (overlay_set_position, "$g_presentation_obj_39", pos1),
+            (overlay_set_size, "$g_presentation_obj_39", pos2),
+
+        (try_end),        
+        ### END ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+        
+        (presentation_set_duration, 999999),
+       ]),
+      (ti_on_presentation_run,
+       [
+        (store_trigger_param_1, ":cur_time"),
+        
+        (set_fixed_point_multiplier, 1000),
+        (assign, ":player_count", 0),
+        (assign, ":ally_count", 0),
+        (assign, ":enemy_count", 0),
+        (assign, ":total_count", 0),
+        
+        (try_for_agents, ":cur_agent"),
+          (agent_is_human, ":cur_agent"),
+          (agent_is_alive, ":cur_agent"),
+          (agent_get_party_id, ":agent_party", ":cur_agent"),
+          (try_begin),
+            (eq, ":agent_party", "p_main_party"),
+            (val_add, ":player_count", 1),
+          (else_try),
+            (agent_is_ally, ":cur_agent"),
+            (val_add, ":ally_count", 1),
+          (else_try),
+            (val_add, ":enemy_count", 1),
+          (try_end),
+        (try_end),
+        (val_add, ":total_count", ":player_count"),
+        (val_add, ":total_count", ":ally_count"),
+        (val_add, ":total_count", ":enemy_count"),
+
+        (position_set_x, pos1, 12000),
+        (position_set_y, pos1, 300),
+        (overlay_set_size, "$g_presentation_obj_2", pos1),
+        
+        (store_add, ":ally_percent", ":player_count", ":ally_count"),
+        (val_mul, ":ally_percent", 12000),
+        (val_div, ":ally_percent", ":total_count"),
+        (position_set_x, pos1, ":ally_percent"),
+        (position_set_y, pos1, 300),
+        (overlay_set_size, "$g_presentation_obj_3", pos1),
+        
+        (store_mul, ":player_percent", ":player_count", 12000),
+        (val_div, ":player_percent", ":total_count"),
+        (position_set_x, pos1, ":player_percent"),
+        (position_set_y, pos1, 300),
+        (overlay_set_size, "$g_presentation_obj_4", pos1),
+        
+        (store_add, ":ally_percent_2", ":player_count", ":ally_count"),
+        (val_mul, ":ally_percent_2", 240),
+        (val_div, ":ally_percent_2", ":total_count"),
+        (val_add, ":ally_percent_2", 35),
+        (position_set_x, pos1, ":ally_percent_2"),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_7", pos1),
+        
+        (store_mul, ":player_percent_2", ":player_count", 240),
+        (val_div, ":player_percent_2", ":total_count"),
+        (val_add, ":player_percent_2", 35),
+        (position_set_x, pos1, ":player_percent_2"),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_8", pos1),
+
+
+        ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+        (get_player_agent_no, ":player_agent"),
+        (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
+        (try_begin),
+        (troop_slot_eq, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 1),
+        (this_or_next|agent_has_item_equipped, ":player_agent", "itm_power_player"),
+        (eq, ":player_item_wielded","itm_power_player"),        
+
+            (assign, ":zero", 0),
+            (troop_get_slot, ":current_channeling_stamina", "$g_tgs_player_troop", slot_troop_current_channeling_stamina),
+            (troop_get_slot, ":maximum_channeling_stamina", "$g_tgs_player_troop", slot_troop_max_channeling_stamina),
+
+            (position_set_x, pos1, 12000), # 12000
+            (position_set_y, pos1, 300), # 300
+            (overlay_set_size, "$g_presentation_obj_12", pos1),
+        
+            (store_add, ":channeling_stamina_percent", ":zero", ":current_channeling_stamina"),
+            (val_mul, ":channeling_stamina_percent", 12000), # 12000
+            (val_div, ":channeling_stamina_percent", ":maximum_channeling_stamina"),
+            (position_set_x, pos1, ":channeling_stamina_percent"),
+            (position_set_y, pos1, 300), # 300
+            (overlay_set_size, "$g_presentation_obj_13", pos1),
+        
+            (store_mul, ":channeling_stamina_percent_2", ":zero", 12000), # 12000
+            (val_div, ":channeling_stamina_percent_2", ":maximum_channeling_stamina"),
+            (position_set_x, pos1, ":channeling_stamina_percent_2"),
+            (position_set_y, pos1, 300), #300
+            (overlay_set_size, "$g_presentation_obj_14", pos1),
+        
+            (store_add, ":channeling_stamina_percent_3", ":zero", ":current_channeling_stamina"),
+            (val_mul, ":channeling_stamina_percent_3", 132), #240 ################(width of bar)
+            (val_div, ":channeling_stamina_percent_3", ":maximum_channeling_stamina"),
+            (val_add, ":channeling_stamina_percent_3", 845), # 35
+            (position_set_x, pos1, ":channeling_stamina_percent_3"),
+            (position_set_y, pos1, 170), # 700
+            (overlay_set_position, "$g_presentation_obj_17", pos1),
+        
+            (store_mul, ":channeling_stamina_percent_4", ":zero", 132), # 240 #################(width of bar)
+            (val_div, ":channeling_stamina_percent_4", ":maximum_channeling_stamina"),
+            (val_add, ":channeling_stamina_percent_4", 845), # 35
+            (position_set_x, pos1, ":channeling_stamina_percent_4"),
+            (position_set_y, pos1, 170), # 700
+            (overlay_set_position, "$g_presentation_obj_18", pos1), 
+
+        ### END ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+
+        ### ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+
+            (position_set_x, pos1, 800),
+            (position_set_y, pos1, 1200),
+
+            (position_set_x, pos2, 1),
+            (position_set_y, pos2, 1),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, AIR_BLAST_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_21", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, FREEZE_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_22", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+#                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, HEAL_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_23", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+#                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, FIREBALL_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_24", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+#                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, UNRAVEL_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_25", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+#                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, DEFENSIVE_BLAST_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_26", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+#                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, EARTH_BLAST_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_27", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+#                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, BIND_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_28", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+#                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, CHAIN_LIGHTNING_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_29", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+#                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, FIRE_CURTAIN_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_30", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+#                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, SHIELD_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_31", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+#                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, SEEKER_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_32", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+#                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, COMPULSION_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_33", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+#                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, BALEFIRE_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_34", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+#                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (try_end),
+
+        
+
+#            (try_begin),
+#            (eq, "$g_weave_toggle_mode", 1),
+#                (overlay_set_size, "$g_presentation_obj_35", pos1),
+        
+#                #(overlay_set_size, "$g_presentation_obj_35", pos2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos2),
+#                (overlay_set_size, "$g_presentation_obj_37", pos2),
+#                (overlay_set_size, "$g_presentation_obj_38", pos2),
+#                (overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (else_try),
+#            (eq, "$g_weave_toggle_mode", 2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_35", pos2),
+#                #(overlay_set_size, "$g_presentation_obj_36", pos2),
+#                (overlay_set_size, "$g_presentation_obj_37", pos2),
+#                (overlay_set_size, "$g_presentation_obj_38", pos2),
+#                (overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (else_try),
+#            (eq, "$g_weave_toggle_mode", 3),
+#                (overlay_set_size, "$g_presentation_obj_37", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_35", pos2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos2),
+#                #(overlay_set_size, "$g_presentation_obj_37", pos2),
+#                (overlay_set_size, "$g_presentation_obj_38", pos2),
+#                (overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (else_try),
+#            (eq, "$g_weave_toggle_mode", 4),
+#                (overlay_set_size, "$g_presentation_obj_38", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_35", pos2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos2),
+#                (overlay_set_size, "$g_presentation_obj_37", pos2),
+#                #(overlay_set_size, "$g_presentation_obj_38", pos2),
+#                (overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (else_try),
+#            (eq, "$g_weave_toggle_mode", 5),
+#                (overlay_set_size, "$g_presentation_obj_39", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_35", pos2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos2),
+#                (overlay_set_size, "$g_presentation_obj_37", pos2),
+#                (overlay_set_size, "$g_presentation_obj_38", pos2),
+#                #(overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (try_end),
+
+            # show the channeling 'wheel' icon when the item is active
+            (try_begin),
+            (eq, ":player_item_wielded","itm_power_player"),
+                (overlay_set_size, "$g_presentation_obj_39", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_39", pos2),
+            (try_end),
+
+        (try_end),
+
+
+        ### END ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+        
+        
+        (try_begin),
+        (eq, "$presentation_troop_ratio_bar_active", 1),
+        (gt, ":cur_time", 200),
+        (game_key_clicked, gk_view_orders),
+            (assign, "$presentation_troop_ratio_bar_active", 0),
+            (presentation_set_duration, 0),
+            (start_presentation, "prsnt_battle"),
+        (else_try),
+        (eq, "$presentation_troop_ratio_bar_active", 1),
+        (key_is_down, "$key_weave_toggle"),
+        (troop_slot_eq, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 1),
+            (assign, "$presentation_troop_ratio_bar_active", 0),
+            (presentation_set_duration, 0),
+            (start_presentation, "prsnt_battle_time_weave_selection"),
+        (try_end),
+       ]),
+       
+     ]),
+#############################################################
+##### troop_ratio_bar (with added bar for channeling stamina)
+#############################################################
+
+
+#############################################################
+##### troop_ratio_bar (with added bar for channeling stamina)
+#############################################################
+  ("troop_ratio_bar_multiplayer",prsntf_read_only,0,[
+      (ti_on_presentation_load,
+       [
+        (assign, "$presentation_troop_ratio_bar_multiplayer_active", 1),
+        (set_fixed_point_multiplier, 1000),
+
+        ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
+        
+        (create_mesh_overlay, "$g_presentation_obj_111", "mesh_status_channeling_stamina_bar"),
+        (position_set_x, pos1, 840), # 30
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_111", pos1),
+       
+        (position_set_x, pos1, 845), # 35
+        (position_set_y, pos1, 183), # 713
+       
+        (create_mesh_overlay, "$g_presentation_obj_112", "mesh_channeling_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_112", 0x000000), # 0xAA1F1F
+        (overlay_set_position, "$g_presentation_obj_112", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_113", "mesh_channeling_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_113", 0x0099FF), # 0x1F1FAA
+        (overlay_set_position, "$g_presentation_obj_113", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_114", "mesh_channeling_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_114", 0x000000), # 0x1FAA1F
+        (overlay_set_position, "$g_presentation_obj_114", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_115", "mesh_status_channeling_stamina_bar_button"),
+        (position_set_x, pos1, 845), # 35  ###### from here ####
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_115", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_116", "mesh_status_channeling_stamina_bar_button"),
+        (position_set_x, pos1, 977), # 275  ##### to here #### should have 132 difference #####
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_116", pos1),
+
+        (create_mesh_overlay, "$g_presentation_obj_117", "mesh_status_channeling_stamina_bar_button"),
+        (create_mesh_overlay, "$g_presentation_obj_118", "mesh_status_channeling_stamina_bar_button"),
+
+        ### END ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+        ### ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+
+        (position_set_x, pos1, 930),
+        (position_set_y, pos1, 205),
+
+        (position_set_x, pos2, 1),
+        (position_set_y, pos2, 1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_121", "mesh_weave_air_blast"),
+        (overlay_set_position, "$g_presentation_obj_121", pos1),
+        (overlay_set_size, "$g_presentation_obj_121", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_122", "mesh_weave_freeze_blast"),
+        (overlay_set_position, "$g_presentation_obj_122", pos1),
+        (overlay_set_size, "$g_presentation_obj_122", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_123", "mesh_weave_heal"),
+        (overlay_set_position, "$g_presentation_obj_123", pos1),
+        (overlay_set_size, "$g_presentation_obj_123", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_124", "mesh_weave_fire_ball"),
+        (overlay_set_position, "$g_presentation_obj_124", pos1),
+        (overlay_set_size, "$g_presentation_obj_124", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_125", "mesh_weave_unravel"),
+        (overlay_set_position, "$g_presentation_obj_125", pos1),
+        (overlay_set_size, "$g_presentation_obj_125", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_126", "mesh_weave_defensive_blast"),
+        (overlay_set_position, "$g_presentation_obj_126", pos1),
+        (overlay_set_size, "$g_presentation_obj_126", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_127", "mesh_weave_ranged_earth_blast"),
+        (overlay_set_position, "$g_presentation_obj_127", pos1),
+        (overlay_set_size, "$g_presentation_obj_127", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_128", "mesh_weave_bind"),
+        (overlay_set_position, "$g_presentation_obj_128", pos1),
+        (overlay_set_size, "$g_presentation_obj_128", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_129", "mesh_weave_chain_lightning"),
+        (overlay_set_position, "$g_presentation_obj_129", pos1),
+        (overlay_set_size, "$g_presentation_obj_129", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_130", "mesh_weave_fire_curtain"),
+        (overlay_set_position, "$g_presentation_obj_130", pos1),
+        (overlay_set_size, "$g_presentation_obj_130", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_131", "mesh_weave_shield"),
+        (overlay_set_position, "$g_presentation_obj_131", pos1),
+        (overlay_set_size, "$g_presentation_obj_131", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_132", "mesh_weave_seeker"),
+        (overlay_set_position, "$g_presentation_obj_132", pos1),
+        (overlay_set_size, "$g_presentation_obj_132", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_133", "mesh_weave_compulsion"),
+        (overlay_set_position, "$g_presentation_obj_133", pos1),
+        (overlay_set_size, "$g_presentation_obj_133", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_134", "mesh_weave_balefire"),
+        (overlay_set_position, "$g_presentation_obj_134", pos1),
+        (overlay_set_size, "$g_presentation_obj_134", pos2),
+
+        (position_set_x, pos1, 860),
+        (position_set_y, pos1, 205),
+        
+        (create_mesh_overlay, "$g_presentation_obj_135", "mesh_weave_select_non_ranged"),
+        (overlay_set_position, "$g_presentation_obj_135", pos1),
+        (overlay_set_size, "$g_presentation_obj_135", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_136", "mesh_weave_select_ranged"),
+        (overlay_set_position, "$g_presentation_obj_136", pos1),
+        (overlay_set_size, "$g_presentation_obj_136", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_137", "mesh_weave_select_support"),
+        (overlay_set_position, "$g_presentation_obj_137", pos1),
+        (overlay_set_size, "$g_presentation_obj_137", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_138", "mesh_weave_select_advanced"),
+        (overlay_set_position, "$g_presentation_obj_138", pos1),
+        (overlay_set_size, "$g_presentation_obj_138", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_139", "mesh_weave_select_all"),
+        (overlay_set_position, "$g_presentation_obj_139", pos1),
+        (overlay_set_size, "$g_presentation_obj_139", pos2),
+        
+        ### END ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+        (presentation_set_duration, 999999),
+       ]),
+      (ti_on_presentation_run,
+       [
+        (store_trigger_param_1, ":cur_time"),
+        
+    (try_begin), # client check
+    (neq, multiplayer_is_server),
+
+        ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+        (assign, ":zero", 0),
+        (multiplayer_get_my_player, ":player"),
+        (player_get_slot, ":current_channeling_stamina", ":player", slot_player_current_channeling_stamina),
+        (player_get_slot, ":maximum_channeling_stamina", ":player", slot_player_maximum_channeling_stamina),
+#        (assign, ":ally_count_WOT", ":current_channeling_stamina"),
+#        (store_sub, ":enemy_count_WOT", "$g_maximum_channeling_stamina", "$g_current_channeling_stamina"),
+#        (assign, ":total_count_WOT", ":maximum_channeling_stamina"),
+
+        (position_set_x, pos1, 1200), # 12000
+        (position_set_y, pos1, 30), # 300
+        (overlay_set_size, "$g_presentation_obj_112", pos1),
+        
+        (store_add, ":channeling_stamina_percent", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent", 1200), # 12000
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent"),
+        (position_set_y, pos1, 30), # 300
+        (overlay_set_size, "$g_presentation_obj_113", pos1),
+        
+        (store_mul, ":channeling_stamina_percent_2", ":zero", 1200), # 12000
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_2", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent_2"),
+        (position_set_y, pos1, 30), #300
+        (overlay_set_size, "$g_presentation_obj_114", pos1),
+        
+        (store_add, ":channeling_stamina_percent_3", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent_3", 13), #240 ################(width of bar) 132
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_3", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_3", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_3"),
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_117", pos1),
+        
+        (store_mul, ":channeling_stamina_percent_4", ":zero", 13), # 240 #################(width of bar) 132
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_4", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_4", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_4"),
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_118", pos1), 
+
+        ### END ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+
+        ### ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES     
+
+#        (player_get_agent_id, ":player_agent", ":player"),
+#        (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
+        (player_get_slot, ":active_channeling_weave", ":player", slot_player_current_weave),
+        (player_get_slot, ":weave_toggle_mode", ":player", slot_player_current_weave_toggle_mode),
+
+            (position_set_x, pos1, 80), # 800
+            (position_set_y, pos1, 120), # 1200
+
+            (position_set_x, pos2, 1),
+            (position_set_y, pos2, 1),
+
+            (try_begin),
+            (eq, ":active_channeling_weave", 1),
+                (overlay_set_size, "$g_presentation_obj_121", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 2),
+                (overlay_set_size, "$g_presentation_obj_122", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+#                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 3),
+                (overlay_set_size, "$g_presentation_obj_123", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+#                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 4),
+                (overlay_set_size, "$g_presentation_obj_124", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+#                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 5),
+                (overlay_set_size, "$g_presentation_obj_125", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+#                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 6),
+                (overlay_set_size, "$g_presentation_obj_126", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+#                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 7),
+                (overlay_set_size, "$g_presentation_obj_127", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+#                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 8),
+                (overlay_set_size, "$g_presentation_obj_128", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+#                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 9),
+                (overlay_set_size, "$g_presentation_obj_129", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+#                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 10),
+                (overlay_set_size, "$g_presentation_obj_130", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+#                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 11),
+                (overlay_set_size, "$g_presentation_obj_131", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+#                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 12),
+                (overlay_set_size, "$g_presentation_obj_132", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+#                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 13),
+                (overlay_set_size, "$g_presentation_obj_133", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+#                (overlay_set_size, "$g_presentation_obj_133", pos2),
+                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 14),
+                (overlay_set_size, "$g_presentation_obj_134", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_121", pos2),
+                (overlay_set_size, "$g_presentation_obj_122", pos2),
+                (overlay_set_size, "$g_presentation_obj_123", pos2),
+                (overlay_set_size, "$g_presentation_obj_124", pos2),
+                (overlay_set_size, "$g_presentation_obj_125", pos2),
+                (overlay_set_size, "$g_presentation_obj_126", pos2),
+                (overlay_set_size, "$g_presentation_obj_127", pos2),
+                (overlay_set_size, "$g_presentation_obj_128", pos2),
+                (overlay_set_size, "$g_presentation_obj_129", pos2),
+                (overlay_set_size, "$g_presentation_obj_130", pos2),
+                (overlay_set_size, "$g_presentation_obj_131", pos2),
+                (overlay_set_size, "$g_presentation_obj_132", pos2),
+                (overlay_set_size, "$g_presentation_obj_133", pos2),
+#                (overlay_set_size, "$g_presentation_obj_134", pos2),
+            (try_end),
+
+        
+
+            (try_begin),
+            (eq, ":weave_toggle_mode", 1),
+                (overlay_set_size, "$g_presentation_obj_135", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_135", pos2),
+                (overlay_set_size, "$g_presentation_obj_136", pos2),
+                (overlay_set_size, "$g_presentation_obj_137", pos2),
+                (overlay_set_size, "$g_presentation_obj_138", pos2),
+                (overlay_set_size, "$g_presentation_obj_139", pos2),
+            (else_try),
+            (eq, ":weave_toggle_mode", 2),
+                (overlay_set_size, "$g_presentation_obj_136", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_135", pos2),
+#                (overlay_set_size, "$g_presentation_obj_136", pos2),
+                (overlay_set_size, "$g_presentation_obj_137", pos2),
+                (overlay_set_size, "$g_presentation_obj_138", pos2),
+                (overlay_set_size, "$g_presentation_obj_139", pos2),
+            (else_try),
+            (eq, ":weave_toggle_mode", 3),
+                (overlay_set_size, "$g_presentation_obj_137", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_135", pos2),
+                (overlay_set_size, "$g_presentation_obj_136", pos2),
+#                (overlay_set_size, "$g_presentation_obj_137", pos2),
+                (overlay_set_size, "$g_presentation_obj_138", pos2),
+                (overlay_set_size, "$g_presentation_obj_139", pos2),
+            (else_try),
+            (eq, ":weave_toggle_mode", 4),
+                (overlay_set_size, "$g_presentation_obj_138", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_135", pos2),
+                (overlay_set_size, "$g_presentation_obj_136", pos2),
+                (overlay_set_size, "$g_presentation_obj_137", pos2),
+#                (overlay_set_size, "$g_presentation_obj_138", pos2),
+                (overlay_set_size, "$g_presentation_obj_139", pos2),
+            (else_try),
+            (eq, ":weave_toggle_mode", 0),
+                (overlay_set_size, "$g_presentation_obj_139", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_135", pos2),
+                (overlay_set_size, "$g_presentation_obj_136", pos2),
+                (overlay_set_size, "$g_presentation_obj_137", pos2),
+                (overlay_set_size, "$g_presentation_obj_138", pos2),
+#                (overlay_set_size, "$g_presentation_obj_139", pos2),
+            (try_end),
+
+        (try_end),
+
+
+        ### END ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+        
+        (try_begin),
+          (eq, "$presentation_troop_ratio_bar_multiplayer_active", 1),
+          (gt, ":cur_time", 200),
+          (game_key_clicked, gk_view_orders),
+          (assign, "$presentation_troop_ratio_bar_multiplayer_active", 0),
+          (presentation_set_duration, 0),
+          (start_presentation, "prsnt_battle"),
+        (try_end),
+        
+    (try_end), # end client check
+       ]),
+       
+     ]),
+#############################################################
+##### troop_ratio_bar (with added bar for channeling stamina)
+#############################################################
+
+
+#############################################################
+##### troop_ratio_bar (with added bar for channeling stamina)
+#############################################################
+  ("troop_ratio_bar_multiplayer_2",prsntf_read_only,0,[
+      (ti_on_presentation_load,
+       [
+        (assign, "$presentation_troop_ratio_bar_multiplayer_2_active", 1),
+        (set_fixed_point_multiplier, 1000),
+
+        ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
+        
+        (create_mesh_overlay, "$g_presentation_obj_211", "mesh_status_channeling_stamina_bar"),
+        (position_set_x, pos1, 840), # 30
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_211", pos1),
+       
+        (position_set_x, pos1, 845), # 35
+        (position_set_y, pos1, 183), # 713
+       
+        (create_mesh_overlay, "$g_presentation_obj_212", "mesh_channeling_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_212", 0x000000), # 0xAA1F1F
+        (overlay_set_position, "$g_presentation_obj_212", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_213", "mesh_channeling_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_213", 0x0099FF), # 0x1F1FAA
+        (overlay_set_position, "$g_presentation_obj_213", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_214", "mesh_channeling_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_214", 0x000000), # 0x1FAA1F
+        (overlay_set_position, "$g_presentation_obj_214", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_215", "mesh_status_channeling_stamina_bar_button"),
+        (position_set_x, pos1, 845), # 35  ###### from here ####
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_215", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_216", "mesh_status_channeling_stamina_bar_button"),
+        (position_set_x, pos1, 977), # 275  ##### to here #### should have 132 difference #####
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_216", pos1),
+
+        (create_mesh_overlay, "$g_presentation_obj_217", "mesh_status_channeling_stamina_bar_button"),
+        (create_mesh_overlay, "$g_presentation_obj_218", "mesh_status_channeling_stamina_bar_button"),
+
+        ### END ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+        ### ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+
+        (position_set_x, pos1, 930),
+        (position_set_y, pos1, 205),
+
+        (position_set_x, pos2, 1),
+        (position_set_y, pos2, 1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_221", "mesh_weave_air_blast"),
+        (overlay_set_position, "$g_presentation_obj_221", pos1),
+        (overlay_set_size, "$g_presentation_obj_221", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_222", "mesh_weave_freeze_blast"),
+        (overlay_set_position, "$g_presentation_obj_222", pos1),
+        (overlay_set_size, "$g_presentation_obj_222", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_223", "mesh_weave_heal"),
+        (overlay_set_position, "$g_presentation_obj_223", pos1),
+        (overlay_set_size, "$g_presentation_obj_223", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_224", "mesh_weave_fire_ball"),
+        (overlay_set_position, "$g_presentation_obj_224", pos1),
+        (overlay_set_size, "$g_presentation_obj_224", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_225", "mesh_weave_unravel"),
+        (overlay_set_position, "$g_presentation_obj_225", pos1),
+        (overlay_set_size, "$g_presentation_obj_225", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_226", "mesh_weave_defensive_blast"),
+        (overlay_set_position, "$g_presentation_obj_226", pos1),
+        (overlay_set_size, "$g_presentation_obj_226", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_227", "mesh_weave_ranged_earth_blast"),
+        (overlay_set_position, "$g_presentation_obj_227", pos1),
+        (overlay_set_size, "$g_presentation_obj_227", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_228", "mesh_weave_bind"),
+        (overlay_set_position, "$g_presentation_obj_228", pos1),
+        (overlay_set_size, "$g_presentation_obj_228", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_229", "mesh_weave_chain_lightning"),
+        (overlay_set_position, "$g_presentation_obj_229", pos1),
+        (overlay_set_size, "$g_presentation_obj_229", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_230", "mesh_weave_fire_curtain"),
+        (overlay_set_position, "$g_presentation_obj_230", pos1),
+        (overlay_set_size, "$g_presentation_obj_230", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_231", "mesh_weave_shield"),
+        (overlay_set_position, "$g_presentation_obj_231", pos1),
+        (overlay_set_size, "$g_presentation_obj_231", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_232", "mesh_weave_seeker"),
+        (overlay_set_position, "$g_presentation_obj_232", pos1),
+        (overlay_set_size, "$g_presentation_obj_232", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_233", "mesh_weave_compulsion"),
+        (overlay_set_position, "$g_presentation_obj_233", pos1),
+        (overlay_set_size, "$g_presentation_obj_233", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_234", "mesh_weave_balefire"),
+        (overlay_set_position, "$g_presentation_obj_234", pos1),
+        (overlay_set_size, "$g_presentation_obj_234", pos2),
+
+        (position_set_x, pos1, 860),
+        (position_set_y, pos1, 205),
+        
+        (create_mesh_overlay, "$g_presentation_obj_235", "mesh_weave_select_non_ranged"),
+        (overlay_set_position, "$g_presentation_obj_235", pos1),
+        (overlay_set_size, "$g_presentation_obj_235", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_236", "mesh_weave_select_ranged"),
+        (overlay_set_position, "$g_presentation_obj_236", pos1),
+        (overlay_set_size, "$g_presentation_obj_236", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_237", "mesh_weave_select_support"),
+        (overlay_set_position, "$g_presentation_obj_237", pos1),
+        (overlay_set_size, "$g_presentation_obj_237", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_238", "mesh_weave_select_advanced"),
+        (overlay_set_position, "$g_presentation_obj_238", pos1),
+        (overlay_set_size, "$g_presentation_obj_238", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_239", "mesh_weave_select_all"),
+        (overlay_set_position, "$g_presentation_obj_239", pos1),
+        (overlay_set_size, "$g_presentation_obj_239", pos2),
+        
+        ### END ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+        (presentation_set_duration, 999999),
+       ]),
+      (ti_on_presentation_run,
+       [
+        (store_trigger_param_1, ":cur_time"),
+    (try_begin), # client check
+    (neq, multiplayer_is_server),
+
+        ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+        (assign, ":zero", 0),
+        (multiplayer_get_my_player, ":player"),
+        (player_get_slot, ":current_channeling_stamina", ":player", slot_player_current_channeling_stamina),
+        (player_get_slot, ":maximum_channeling_stamina", ":player", slot_player_maximum_channeling_stamina),
+#        (assign, ":ally_count_WOT", ":current_channeling_stamina"),
+#        (store_sub, ":enemy_count_WOT", "$g_maximum_channeling_stamina", "$g_current_channeling_stamina"),
+#        (assign, ":total_count_WOT", ":maximum_channeling_stamina"),
+
+        (position_set_x, pos1, 12000), # 12000
+        (position_set_y, pos1, 300), # 300
+        (overlay_set_size, "$g_presentation_obj_212", pos1),
+        
+        (store_add, ":channeling_stamina_percent", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent", 12000), # 12000
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent"),
+        (position_set_y, pos1, 300), # 300
+        (overlay_set_size, "$g_presentation_obj_213", pos1),
+        
+        (store_mul, ":channeling_stamina_percent_2", ":zero", 12000), # 12000
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_2", ":maximum_channeling_stamina"),
+        (position_set_x, pos1, ":channeling_stamina_percent_2"),
+        (position_set_y, pos1, 300), #300
+        (overlay_set_size, "$g_presentation_obj_214", pos1),
+        
+        (store_add, ":channeling_stamina_percent_3", ":zero", ":current_channeling_stamina"),
+        (val_mul, ":channeling_stamina_percent_3", 132), #240 ################(width of bar) 132
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_3", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_3", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_3"),
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_217", pos1),
+        
+        (store_mul, ":channeling_stamina_percent_4", ":zero", 132), # 240 #################(width of bar) 132
+        # added to remove the divide by zero error
+        (try_begin),
+        (lt, ":maximum_channeling_stamina", 1),
+            (assign, ":maximum_channeling_stamina", 1000),
+        (try_end),
+        # end
+        (val_div, ":channeling_stamina_percent_4", ":maximum_channeling_stamina"),
+        (val_add, ":channeling_stamina_percent_4", 845), # 35
+        (position_set_x, pos1, ":channeling_stamina_percent_4"),
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_218", pos1), 
+
+        ### END ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+
+        ### ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES     
+
+#        (player_get_agent_id, ":player_agent", ":player"),
+#        (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
+        (player_get_slot, ":active_channeling_weave", ":player", slot_player_current_weave),
+        (player_get_slot, ":weave_toggle_mode", ":player", slot_player_current_weave_toggle_mode),
+
+            (position_set_x, pos1, 800), # 800
+            (position_set_y, pos1, 1200), # 1200
+
+            (position_set_x, pos2, 1),
+            (position_set_y, pos2, 1),
+
+            (try_begin),
+            (eq, ":active_channeling_weave", 1),
+                (overlay_set_size, "$g_presentation_obj_221", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 2),
+                (overlay_set_size, "$g_presentation_obj_222", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+#                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 3),
+                (overlay_set_size, "$g_presentation_obj_223", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+#                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 4),
+                (overlay_set_size, "$g_presentation_obj_224", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+#                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 5),
+                (overlay_set_size, "$g_presentation_obj_225", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+#                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 6),
+                (overlay_set_size, "$g_presentation_obj_226", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+#                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 7),
+                (overlay_set_size, "$g_presentation_obj_227", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+#                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 8),
+                (overlay_set_size, "$g_presentation_obj_228", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+#                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 9),
+                (overlay_set_size, "$g_presentation_obj_229", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+#                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 10),
+                (overlay_set_size, "$g_presentation_obj_230", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+#                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 11),
+                (overlay_set_size, "$g_presentation_obj_231", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+#                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 12),
+                (overlay_set_size, "$g_presentation_obj_232", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+#                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 13),
+                (overlay_set_size, "$g_presentation_obj_233", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+#                (overlay_set_size, "$g_presentation_obj_233", pos2),
+                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (else_try),
+            (eq, ":active_channeling_weave", 14),
+                (overlay_set_size, "$g_presentation_obj_234", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_221", pos2),
+                (overlay_set_size, "$g_presentation_obj_222", pos2),
+                (overlay_set_size, "$g_presentation_obj_223", pos2),
+                (overlay_set_size, "$g_presentation_obj_224", pos2),
+                (overlay_set_size, "$g_presentation_obj_225", pos2),
+                (overlay_set_size, "$g_presentation_obj_226", pos2),
+                (overlay_set_size, "$g_presentation_obj_227", pos2),
+                (overlay_set_size, "$g_presentation_obj_228", pos2),
+                (overlay_set_size, "$g_presentation_obj_229", pos2),
+                (overlay_set_size, "$g_presentation_obj_230", pos2),
+                (overlay_set_size, "$g_presentation_obj_231", pos2),
+                (overlay_set_size, "$g_presentation_obj_232", pos2),
+                (overlay_set_size, "$g_presentation_obj_233", pos2),
+#                (overlay_set_size, "$g_presentation_obj_234", pos2),
+            (try_end),
+        
+
+            (try_begin),
+            (eq, ":weave_toggle_mode", 1),
+                (overlay_set_size, "$g_presentation_obj_235", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_235", pos2),
+                (overlay_set_size, "$g_presentation_obj_236", pos2),
+                (overlay_set_size, "$g_presentation_obj_237", pos2),
+                (overlay_set_size, "$g_presentation_obj_238", pos2),
+                (overlay_set_size, "$g_presentation_obj_239", pos2),
+            (else_try),
+            (eq, ":weave_toggle_mode", 2),
+                (overlay_set_size, "$g_presentation_obj_236", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_235", pos2),
+#                (overlay_set_size, "$g_presentation_obj_236", pos2),
+                (overlay_set_size, "$g_presentation_obj_237", pos2),
+                (overlay_set_size, "$g_presentation_obj_238", pos2),
+                (overlay_set_size, "$g_presentation_obj_239", pos2),
+            (else_try),
+            (eq, ":weave_toggle_mode", 3),
+                (overlay_set_size, "$g_presentation_obj_237", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_235", pos2),
+                (overlay_set_size, "$g_presentation_obj_236", pos2),
+#                (overlay_set_size, "$g_presentation_obj_237", pos2),
+                (overlay_set_size, "$g_presentation_obj_238", pos2),
+                (overlay_set_size, "$g_presentation_obj_239", pos2),
+            (else_try),
+            (eq, ":weave_toggle_mode", 4),
+                (overlay_set_size, "$g_presentation_obj_238", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_235", pos2),
+                (overlay_set_size, "$g_presentation_obj_236", pos2),
+                (overlay_set_size, "$g_presentation_obj_237", pos2),
+#                (overlay_set_size, "$g_presentation_obj_238", pos2),
+                (overlay_set_size, "$g_presentation_obj_239", pos2),
+            (else_try),
+            (eq, ":weave_toggle_mode", 0),
+                (overlay_set_size, "$g_presentation_obj_239", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_235", pos2),
+                (overlay_set_size, "$g_presentation_obj_236", pos2),
+                (overlay_set_size, "$g_presentation_obj_237", pos2),
+                (overlay_set_size, "$g_presentation_obj_238", pos2),
+#                (overlay_set_size, "$g_presentation_obj_239", pos2),
+            (try_end),
+
+
+        ### END ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+        
+        (try_begin),
+          (eq, "$presentation_troop_ratio_bar_multiplayer_2_active", 1),
+          (gt, ":cur_time", 200),
+          (game_key_clicked, gk_view_orders),
+          (assign, "$presentation_troop_ratio_bar_multiplayer_2_active", 0),
+          (presentation_set_duration, 0),
+          (start_presentation, "prsnt_battle"),
+        (try_end),
+        
+    (try_end), #end client check
+       ]),
+       
+     ]),
+#############################################################
+##### troop_ratio_bar (with added bar for channeling stamina)
+#############################################################
+
+
+
+
+
+#############################################################
+##### troop_ratio_bar (with added bar for channeling stamina)
+#############################################################
+  ("battle_time_weave_selection",prsntf_manual_end_only,0,[
+      (ti_on_presentation_load,
+       [
+        (assign, "$g_run_battle_time_weave_selection", 1),
+        (set_fixed_point_multiplier, 1000),
+        
+        (create_mesh_overlay, "$g_presentation_obj_1", "mesh_status_troop_ratio_bar"),
+        (position_set_x, pos1, 30),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_1", pos1),
+        
+        (position_set_x, pos1, 35),
+        (position_set_y, pos1, 713),
+        
+        (create_mesh_overlay, "$g_presentation_obj_2", "mesh_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_2", 0xAA1F1F),
+        (overlay_set_position, "$g_presentation_obj_2", pos1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_3", "mesh_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_3", 0x1F1FAA),
+        (overlay_set_position, "$g_presentation_obj_3", pos1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_4", "mesh_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_4", 0x1FAA1F),
+        (overlay_set_position, "$g_presentation_obj_4", pos1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_5", "mesh_status_troop_ratio_bar_button"),
+        (position_set_x, pos1, 35),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_5", pos1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_6", "mesh_status_troop_ratio_bar_button"),
+        (position_set_x, pos1, 275),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_6", pos1),
+
+        (create_mesh_overlay, "$g_presentation_obj_7", "mesh_status_troop_ratio_bar_button"),
+        (create_mesh_overlay, "$g_presentation_obj_8", "mesh_status_troop_ratio_bar_button"),
+
+        ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
+        
+        (create_mesh_overlay, "$g_presentation_obj_11", "mesh_status_channeling_stamina_bar"),
+        (position_set_x, pos1, 840), # 30
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_11", pos1),
+       
+        (position_set_x, pos1, 845), # 35
+        (position_set_y, pos1, 183), # 713
+       
+        (create_mesh_overlay, "$g_presentation_obj_12", "mesh_channeling_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_12", 0x000000), # 0xAA1F1F
+        (overlay_set_position, "$g_presentation_obj_12", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_13", "mesh_channeling_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_13", 0x0099FF), # 0x1F1FAA
+        (overlay_set_position, "$g_presentation_obj_13", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_14", "mesh_channeling_white_plane"),
+        (overlay_set_color, "$g_presentation_obj_14", 0x000000), # 0x1FAA1F
+        (overlay_set_position, "$g_presentation_obj_14", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_15", "mesh_status_channeling_stamina_bar_button"),
+        (position_set_x, pos1, 845), # 35  ###### from here ####
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_15", pos1),
+       
+        (create_mesh_overlay, "$g_presentation_obj_16", "mesh_status_channeling_stamina_bar_button"),
+        (position_set_x, pos1, 977), # 275  ##### to here #### should have 132 difference #####
+        (position_set_y, pos1, 170), # 700
+        (overlay_set_position, "$g_presentation_obj_16", pos1),
+
+        (create_mesh_overlay, "$g_presentation_obj_17", "mesh_status_channeling_stamina_bar_button"),
+        (create_mesh_overlay, "$g_presentation_obj_18", "mesh_status_channeling_stamina_bar_button"),
+
+        ### END ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+        ### ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+
+        (position_set_x, pos1, 930),
+        (position_set_y, pos1, 205),
+
+        (position_set_x, pos2, 1),
+        (position_set_y, pos2, 1),
+        
+        (create_mesh_overlay, "$g_presentation_obj_21", "mesh_weave_air_blast"),
+        (overlay_set_position, "$g_presentation_obj_21", pos1),
+        (overlay_set_size, "$g_presentation_obj_21", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_22", "mesh_weave_freeze_blast"),
+        (overlay_set_position, "$g_presentation_obj_22", pos1),
+        (overlay_set_size, "$g_presentation_obj_22", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_23", "mesh_weave_heal"),
+        (overlay_set_position, "$g_presentation_obj_23", pos1),
+        (overlay_set_size, "$g_presentation_obj_23", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_24", "mesh_weave_fire_ball"),
+        (overlay_set_position, "$g_presentation_obj_24", pos1),
+        (overlay_set_size, "$g_presentation_obj_24", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_25", "mesh_weave_unravel"),
+        (overlay_set_position, "$g_presentation_obj_25", pos1),
+        (overlay_set_size, "$g_presentation_obj_25", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_26", "mesh_weave_defensive_blast"),
+        (overlay_set_position, "$g_presentation_obj_26", pos1),
+        (overlay_set_size, "$g_presentation_obj_26", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_27", "mesh_weave_ranged_earth_blast"),
+        (overlay_set_position, "$g_presentation_obj_27", pos1),
+        (overlay_set_size, "$g_presentation_obj_27", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_28", "mesh_weave_bind"),
+        (overlay_set_position, "$g_presentation_obj_28", pos1),
+        (overlay_set_size, "$g_presentation_obj_28", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_29", "mesh_weave_chain_lightning"),
+        (overlay_set_position, "$g_presentation_obj_29", pos1),
+        (overlay_set_size, "$g_presentation_obj_29", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_30", "mesh_weave_fire_curtain"),
+        (overlay_set_position, "$g_presentation_obj_30", pos1),
+        (overlay_set_size, "$g_presentation_obj_30", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_31", "mesh_weave_shield"),
+        (overlay_set_position, "$g_presentation_obj_31", pos1),
+        (overlay_set_size, "$g_presentation_obj_31", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_32", "mesh_weave_seeker"),
+        (overlay_set_position, "$g_presentation_obj_32", pos1),
+        (overlay_set_size, "$g_presentation_obj_32", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_33", "mesh_weave_compulsion"),
+        (overlay_set_position, "$g_presentation_obj_33", pos1),
+        (overlay_set_size, "$g_presentation_obj_33", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_34", "mesh_weave_balefire"),
+        (overlay_set_position, "$g_presentation_obj_34", pos1),
+        (overlay_set_size, "$g_presentation_obj_34", pos2),
+
+        (position_set_x, pos1, 860),
+        (position_set_y, pos1, 205),
+        
+#        (create_mesh_overlay, "$g_presentation_obj_35", "mesh_weave_select_non_ranged"),
+#        (overlay_set_position, "$g_presentation_obj_35", pos1),
+#        (overlay_set_size, "$g_presentation_obj_35", pos2),
+        
+#        (create_mesh_overlay, "$g_presentation_obj_36", "mesh_weave_select_ranged"),
+#        (overlay_set_position, "$g_presentation_obj_36", pos1),
+#        (overlay_set_size, "$g_presentation_obj_36", pos2),
+        
+#        (create_mesh_overlay, "$g_presentation_obj_37", "mesh_weave_select_support"),
+#        (overlay_set_position, "$g_presentation_obj_37", pos1),
+#        (overlay_set_size, "$g_presentation_obj_37", pos2),
+        
+#        (create_mesh_overlay, "$g_presentation_obj_38", "mesh_weave_select_advanced"),
+#        (overlay_set_position, "$g_presentation_obj_38", pos1),
+#        (overlay_set_size, "$g_presentation_obj_38", pos2),
+        
+        (create_mesh_overlay, "$g_presentation_obj_39", "mesh_weave_select_all"),
+        (overlay_set_position, "$g_presentation_obj_39", pos1),
+        (overlay_set_size, "$g_presentation_obj_39", pos2),
+        
+        ### END ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+
+        ### ADDED FOR BATTLE-TIME WEAVE SELECTION
+
+		#Little Pos Helper by Kuba begin
+		#(create_text_overlay, "$g_little_pos_helper", "@00,00"),
+		#(overlay_set_color, "$g_little_pos_helper", 0xFFFFFFFF),
+		#(position_set_x, pos1, 10),
+		#(position_set_y, pos1, 650),
+		#(overlay_set_position, "$g_little_pos_helper", pos1),
+		#Little Pos Helper by Kuba end
+
+
+        (position_set_x, pos2, 1),
+        (position_set_y, pos2, 1),
+
+        (position_set_x, pos1, 350),
+        (position_set_y, pos1, 400),        
+
+        (create_mesh_overlay, "$g_presentation_obj_41", "mesh_weave_air_blast"),
+        (overlay_set_position, "$g_presentation_obj_41", pos1),
+        (overlay_set_size, "$g_presentation_obj_41", pos2),
+
+        (position_set_x, pos1, 390),
+        (position_set_y, pos1, 400),               
+        
+        (create_mesh_overlay, "$g_presentation_obj_42", "mesh_weave_freeze_blast"),
+        (overlay_set_position, "$g_presentation_obj_42", pos1),
+        (overlay_set_size, "$g_presentation_obj_42", pos2),
+
+        (position_set_x, pos1, 430),
+        (position_set_y, pos1, 400),               
+        
+        (create_mesh_overlay, "$g_presentation_obj_43", "mesh_weave_heal"),
+        (overlay_set_position, "$g_presentation_obj_43", pos1),
+        (overlay_set_size, "$g_presentation_obj_43", pos2),
+
+        (position_set_x, pos1, 470),
+        (position_set_y, pos1, 400),               
+        
+        (create_mesh_overlay, "$g_presentation_obj_44", "mesh_weave_fire_ball"),
+        (overlay_set_position, "$g_presentation_obj_44", pos1),
+        (overlay_set_size, "$g_presentation_obj_44", pos2),
+
+        (position_set_x, pos1, 510),
+        (position_set_y, pos1, 400),               
+        
+        (create_mesh_overlay, "$g_presentation_obj_45", "mesh_weave_unravel"),
+        (overlay_set_position, "$g_presentation_obj_45", pos1),
+        (overlay_set_size, "$g_presentation_obj_45", pos2),
+
+        (position_set_x, pos1, 550),
+        (position_set_y, pos1, 400),          
+        
+        (create_mesh_overlay, "$g_presentation_obj_46", "mesh_weave_defensive_blast"),
+        (overlay_set_position, "$g_presentation_obj_46", pos1),
+        (overlay_set_size, "$g_presentation_obj_46", pos2),
+
+        (position_set_x, pos1, 590),
+        (position_set_y, pos1, 400),          
+        
+        (create_mesh_overlay, "$g_presentation_obj_47", "mesh_weave_ranged_earth_blast"),
+        (overlay_set_position, "$g_presentation_obj_47", pos1),
+        (overlay_set_size, "$g_presentation_obj_47", pos2),
+
+        (position_set_x, pos1, 350),
+        (position_set_y, pos1, 350),          
+        
+        (create_mesh_overlay, "$g_presentation_obj_48", "mesh_weave_bind"),
+        (overlay_set_position, "$g_presentation_obj_48", pos1),
+        (overlay_set_size, "$g_presentation_obj_48", pos2),
+
+        (position_set_x, pos1, 390),
+        (position_set_y, pos1, 350),          
+        
+        (create_mesh_overlay, "$g_presentation_obj_49", "mesh_weave_chain_lightning"),
+        (overlay_set_position, "$g_presentation_obj_49", pos1),
+        (overlay_set_size, "$g_presentation_obj_49", pos2),
+
+        (position_set_x, pos1, 430),
+        (position_set_y, pos1, 350),         
+        
+        (create_mesh_overlay, "$g_presentation_obj_50", "mesh_weave_fire_curtain"),
+        (overlay_set_position, "$g_presentation_obj_50", pos1),
+        (overlay_set_size, "$g_presentation_obj_50", pos2),
+
+        (position_set_x, pos1, 470),
+        (position_set_y, pos1, 350),         
+        
+        (create_mesh_overlay, "$g_presentation_obj_51", "mesh_weave_shield"),
+        (overlay_set_position, "$g_presentation_obj_51", pos1),
+        (overlay_set_size, "$g_presentation_obj_51", pos2),
+
+        (position_set_x, pos1, 510),
+        (position_set_y, pos1, 350),         
+        
+        (create_mesh_overlay, "$g_presentation_obj_52", "mesh_weave_seeker"),
+        (overlay_set_position, "$g_presentation_obj_52", pos1),
+        (overlay_set_size, "$g_presentation_obj_52", pos2),
+
+        (position_set_x, pos1, 550),
+        (position_set_y, pos1, 350),         
+        
+        (create_mesh_overlay, "$g_presentation_obj_53", "mesh_weave_compulsion"),
+        (overlay_set_position, "$g_presentation_obj_53", pos1),
+        (overlay_set_size, "$g_presentation_obj_53", pos2),
+
+        (position_set_x, pos1, 590),
+        (position_set_y, pos1, 350),         
+        
+        (create_mesh_overlay, "$g_presentation_obj_54", "mesh_weave_balefire"),
+        (overlay_set_position, "$g_presentation_obj_54", pos1),
+        (overlay_set_size, "$g_presentation_obj_54", pos2),        
+
+
+
+        
+        ### END ADDED FOR BATTLE-TIME WEAVE SELECTION
+        
+        (presentation_set_duration, 999999),
+       ]),
+      (ti_on_presentation_run,
+       [
+        (store_trigger_param_1, ":cur_time"),
+        
+        (set_fixed_point_multiplier, 1000),
+        (assign, ":player_count", 0),
+        (assign, ":ally_count", 0),
+        (assign, ":enemy_count", 0),
+        (assign, ":total_count", 0),
+        
+        (try_for_agents, ":cur_agent"),
+          (agent_is_human, ":cur_agent"),
+          (agent_is_alive, ":cur_agent"),
+          (agent_get_party_id, ":agent_party", ":cur_agent"),
+          (try_begin),
+            (eq, ":agent_party", "p_main_party"),
+            (val_add, ":player_count", 1),
+          (else_try),
+            (agent_is_ally, ":cur_agent"),
+            (val_add, ":ally_count", 1),
+          (else_try),
+            (val_add, ":enemy_count", 1),
+          (try_end),
+        (try_end),
+        (val_add, ":total_count", ":player_count"),
+        (val_add, ":total_count", ":ally_count"),
+        (val_add, ":total_count", ":enemy_count"),
+
+        (position_set_x, pos1, 12000),
+        (position_set_y, pos1, 300),
+        (overlay_set_size, "$g_presentation_obj_2", pos1),
+        
+        (store_add, ":ally_percent", ":player_count", ":ally_count"),
+        (val_mul, ":ally_percent", 12000),
+        (val_div, ":ally_percent", ":total_count"),
+        (position_set_x, pos1, ":ally_percent"),
+        (position_set_y, pos1, 300),
+        (overlay_set_size, "$g_presentation_obj_3", pos1),
+        
+        (store_mul, ":player_percent", ":player_count", 12000),
+        (val_div, ":player_percent", ":total_count"),
+        (position_set_x, pos1, ":player_percent"),
+        (position_set_y, pos1, 300),
+        (overlay_set_size, "$g_presentation_obj_4", pos1),
+        
+        (store_add, ":ally_percent_2", ":player_count", ":ally_count"),
+        (val_mul, ":ally_percent_2", 240),
+        (val_div, ":ally_percent_2", ":total_count"),
+        (val_add, ":ally_percent_2", 35),
+        (position_set_x, pos1, ":ally_percent_2"),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_7", pos1),
+        
+        (store_mul, ":player_percent_2", ":player_count", 240),
+        (val_div, ":player_percent_2", ":total_count"),
+        (val_add, ":player_percent_2", 35),
+        (position_set_x, pos1, ":player_percent_2"),
+        (position_set_y, pos1, 700),
+        (overlay_set_position, "$g_presentation_obj_8", pos1),
+
+
+        ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+        (get_player_agent_no, ":player_agent"),
+        (agent_get_wielded_item,":player_item_wielded",":player_agent",0),  # check weapon wielded in right hand
+        (try_begin),
+        (this_or_next|agent_has_item_equipped, ":player_agent", "itm_power_player"),
+        (eq, ":player_item_wielded","itm_power_player"),        
+
+            (assign, ":zero", 0),
+            (troop_get_slot, ":current_channeling_stamina", "$g_tgs_player_troop", slot_troop_current_channeling_stamina),
+            (troop_get_slot, ":maximum_channeling_stamina", "$g_tgs_player_troop", slot_troop_max_channeling_stamina),
+
+            (position_set_x, pos1, 12000), # 12000
+            (position_set_y, pos1, 300), # 300
+            (overlay_set_size, "$g_presentation_obj_12", pos1),
+        
+            (store_add, ":channeling_stamina_percent", ":zero", ":current_channeling_stamina"),
+            (val_mul, ":channeling_stamina_percent", 12000), # 12000
+            (val_div, ":channeling_stamina_percent", ":maximum_channeling_stamina"),
+            (position_set_x, pos1, ":channeling_stamina_percent"),
+            (position_set_y, pos1, 300), # 300
+            (overlay_set_size, "$g_presentation_obj_13", pos1),
+        
+            (store_mul, ":channeling_stamina_percent_2", ":zero", 12000), # 12000
+            (val_div, ":channeling_stamina_percent_2", ":maximum_channeling_stamina"),
+            (position_set_x, pos1, ":channeling_stamina_percent_2"),
+            (position_set_y, pos1, 300), #300
+            (overlay_set_size, "$g_presentation_obj_14", pos1),
+        
+            (store_add, ":channeling_stamina_percent_3", ":zero", ":current_channeling_stamina"),
+            (val_mul, ":channeling_stamina_percent_3", 132), #240 ################(width of bar)
+            (val_div, ":channeling_stamina_percent_3", ":maximum_channeling_stamina"),
+            (val_add, ":channeling_stamina_percent_3", 845), # 35
+            (position_set_x, pos1, ":channeling_stamina_percent_3"),
+            (position_set_y, pos1, 170), # 700
+            (overlay_set_position, "$g_presentation_obj_17", pos1),
+        
+            (store_mul, ":channeling_stamina_percent_4", ":zero", 132), # 240 #################(width of bar)
+            (val_div, ":channeling_stamina_percent_4", ":maximum_channeling_stamina"),
+            (val_add, ":channeling_stamina_percent_4", 845), # 35
+            (position_set_x, pos1, ":channeling_stamina_percent_4"),
+            (position_set_y, pos1, 170), # 700
+            (overlay_set_position, "$g_presentation_obj_18", pos1), 
+
+        ### END ADDED THIS FOR TGS CHANNELING STAMINA BAR
+
+
+        ### ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+
+            (position_set_x, pos1, 800),
+            (position_set_y, pos1, 1200),
+
+            (position_set_x, pos2, 1),
+            (position_set_y, pos2, 1),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, AIR_BLAST_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_21", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, FREEZE_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_22", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+#                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, HEAL_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_23", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+#                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, FIREBALL_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_24", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+#                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, UNRAVEL_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_25", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+#                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, DEFENSIVE_BLAST_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_26", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+#                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, EARTH_BLAST_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_27", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+#                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, BIND_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_28", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+#                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, CHAIN_LIGHTNING_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_29", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+#                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, FIRE_CURTAIN_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_30", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+#                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, SHIELD_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_31", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+#                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, SEEKER_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_32", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+#                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, COMPULSION_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_33", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+#                (overlay_set_size, "$g_presentation_obj_33", pos2),
+                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (else_try),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_active_weave, BALEFIRE_WEAVE),
+                (overlay_set_size, "$g_presentation_obj_34", pos1),
+        
+                (overlay_set_size, "$g_presentation_obj_21", pos2),
+                (overlay_set_size, "$g_presentation_obj_22", pos2),
+                (overlay_set_size, "$g_presentation_obj_23", pos2),
+                (overlay_set_size, "$g_presentation_obj_24", pos2),
+                (overlay_set_size, "$g_presentation_obj_25", pos2),
+                (overlay_set_size, "$g_presentation_obj_26", pos2),
+                (overlay_set_size, "$g_presentation_obj_27", pos2),
+                (overlay_set_size, "$g_presentation_obj_28", pos2),
+                (overlay_set_size, "$g_presentation_obj_29", pos2),
+                (overlay_set_size, "$g_presentation_obj_30", pos2),
+                (overlay_set_size, "$g_presentation_obj_31", pos2),
+                (overlay_set_size, "$g_presentation_obj_32", pos2),
+                (overlay_set_size, "$g_presentation_obj_33", pos2),
+#                (overlay_set_size, "$g_presentation_obj_34", pos2),
+            (try_end),
+
+        
+
+#            (try_begin),
+#            (eq, "$g_weave_toggle_mode", 1),
+#                (overlay_set_size, "$g_presentation_obj_35", pos1),
+        
+#                #(overlay_set_size, "$g_presentation_obj_35", pos2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos2),
+#                (overlay_set_size, "$g_presentation_obj_37", pos2),
+#                (overlay_set_size, "$g_presentation_obj_38", pos2),
+#                (overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (else_try),
+#            (eq, "$g_weave_toggle_mode", 2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_35", pos2),
+#                #(overlay_set_size, "$g_presentation_obj_36", pos2),
+#                (overlay_set_size, "$g_presentation_obj_37", pos2),
+#                (overlay_set_size, "$g_presentation_obj_38", pos2),
+#                (overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (else_try),
+#            (eq, "$g_weave_toggle_mode", 3),
+#                (overlay_set_size, "$g_presentation_obj_37", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_35", pos2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos2),
+#                #(overlay_set_size, "$g_presentation_obj_37", pos2),
+#                (overlay_set_size, "$g_presentation_obj_38", pos2),
+#                (overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (else_try),
+#            (eq, "$g_weave_toggle_mode", 4),
+#                (overlay_set_size, "$g_presentation_obj_38", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_35", pos2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos2),
+#                (overlay_set_size, "$g_presentation_obj_37", pos2),
+#                #(overlay_set_size, "$g_presentation_obj_38", pos2),
+#                (overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (else_try),
+#            (eq, "$g_weave_toggle_mode", 5),
+#                (overlay_set_size, "$g_presentation_obj_39", pos1),
+        
+#                (overlay_set_size, "$g_presentation_obj_35", pos2),
+#                (overlay_set_size, "$g_presentation_obj_36", pos2),
+#                (overlay_set_size, "$g_presentation_obj_37", pos2),
+#                (overlay_set_size, "$g_presentation_obj_38", pos2),
+#                #(overlay_set_size, "$g_presentation_obj_39", pos2),
+#            (try_end),
+
+            # show the channeling 'wheel' icon when the item is active
+            (try_begin),
+            (eq, ":player_item_wielded","itm_power_player"),
+                (overlay_set_size, "$g_presentation_obj_39", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_39", pos2),
+            (try_end),        
+
+        ### END ADDED THIS FOR THE CHANNELING CHANGE WEAVE MESHES
+
+
+        ### ADDED FOR BATTLE-TIME WEAVE SELECTION
+        
+
+        #Little Pos Helper by Kuba begin
+        #(mouse_get_position, pos1),
+        #(position_get_x, reg1, pos1),
+        #(position_get_y, reg2, pos1),
+        #(overlay_set_text, "$g_little_pos_helper", "@{reg1},{reg2}"),
+        #Little Pos Helper by Kuba end
+
+
+            (position_set_x, pos1, 800),
+            (position_set_y, pos1, 1200),
+
+            (position_set_x, pos2, 1),
+            (position_set_y, pos2, 1),
+        
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_air_blast_known, 1),
+                (overlay_set_size, "$g_presentation_obj_41", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_41", pos2),
+            (try_end),
+        
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_freeze_known, 1),
+                (overlay_set_size, "$g_presentation_obj_42", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_42", pos2),
+            (try_end),
+        
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_heal_known, 1),
+                (overlay_set_size, "$g_presentation_obj_43", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_43", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_fireball_known, 1),
+                (overlay_set_size, "$g_presentation_obj_44", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_44", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_unravel_known, 1),
+                (overlay_set_size, "$g_presentation_obj_45", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_45", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_defensive_blast_known, 1),
+                (overlay_set_size, "$g_presentation_obj_46", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_46", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_earth_blast_known, 1),
+                (overlay_set_size, "$g_presentation_obj_47", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_47", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_bind_known, 1),
+                (overlay_set_size, "$g_presentation_obj_48", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_48", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_chain_lightning_known, 1),
+                (overlay_set_size, "$g_presentation_obj_49", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_49", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_fire_curtain_known, 1),
+                (overlay_set_size, "$g_presentation_obj_50", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_50", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_shield_known, 1),
+                (overlay_set_size, "$g_presentation_obj_51", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_51", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_known, 1),
+                (overlay_set_size, "$g_presentation_obj_52", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_52", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_compulsion_known, 1),
+                (overlay_set_size, "$g_presentation_obj_53", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_53", pos2),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "$g_tgs_player_troop", slot_troop_balefire_known, 1),
+                (overlay_set_size, "$g_presentation_obj_54", pos1),
+            (else_try),
+                (overlay_set_size, "$g_presentation_obj_54", pos2),
+            (try_end),       
+        
+            (mouse_get_position, pos1),
+            (position_get_x, "$g_weave_select_x", pos1),
+            (position_get_y, "$g_weave_select_y", pos1),
+        
+        
+        ### END ADDED FOR BATTLE-TIME WEAVE SELECTION
+        
+        (try_end),        
+
+        
+        (try_begin),
+        (eq, "$g_run_battle_time_weave_selection", 1),
+        (gt, ":cur_time", 200),
+        (neg|key_is_down, "$key_weave_toggle"),
+          (assign, "$g_run_battle_time_weave_selection", 0),
+          (presentation_set_duration, 0),
+          (start_presentation, "prsnt_troop_ratio_bar"),
+        (try_end),
+       ]),
+       
+     ]),
+#############################################################
+##### troop_ratio_bar (with added bar for channeling stamina)
+############################################################# 
+
+
+
+## End added for TGS
+#########################
+#########################
+  
 ]
 # modmerger_start version=201 type=2
 try:

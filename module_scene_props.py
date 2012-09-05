@@ -2064,6 +2064,10 @@ scene_props = [
   ]),  
 
   ("portcullis",sokf_moveable,"portcullis_a","bo_portcullis_a", []),
+  ## Added for TGS
+  ("TGS_portcullis",sokf_moveable,"portcullis_a","bo_portcullis_a", []),
+  ## End
+  
   ("bed_a",0,"bed_a","bo_bed_a", []),
   ("bed_b",0,"bed_b","bo_bed_b", []),
   ("bed_c",0,"bed_c","bo_bed_c", []),
@@ -3158,6 +3162,7 @@ scene_props = [
 #########SEA BATTLES END
 #################################################
 
+## End added for TGS (Sea Battles)  
 
 ## TGS: mat: Start new banners here
   ("banner_legion",0,"banner_legion","0", []),
@@ -3221,6 +3226,18 @@ scene_props = [
   ("banner_tgs_kingdom_ab",0,"banner_toman_head","0", []),
 ## TGS: mat: End  
 
-## End added for TGS (Sea Battles)  
+## TGS: mat: Start walker waypoints
+  ("TGS_waypoint_1",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_waypoint_2",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_waypoint_3",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_waypoint_4",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_waypoint_5",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_waypoint_6",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_waypoint_7",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_waypoint_8",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_waypoint_9",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_waypoint_10",sokf_invisible,"barrier_capsule","0", []),
+## TGS: mat: End
+
   
 ]

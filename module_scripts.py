@@ -35681,7 +35681,13 @@ scripts = [
 		(faction_set_slot, ":kingdom_b", ":truce_slot", 0),
 		(faction_set_slot, ":kingdom_b", ":provocation_slot", 0),
 
+## TGS: mat: altered to make the declaration 'silent' unless it affects the player
+        (try_begin),
+        (this_or_next|eq, ":kingdom_a", "$players_kingdom"),
+        (eq, ":kingdom_b", "$players_kingdom"),
         (call_script, "script_add_notification_menu", "mnu_notification_war_declared", ":kingdom_a", ":kingdom_b"),
+        (try_end),
+## TGS: mat: end
 
         (call_script, "script_update_faction_notes", ":kingdom_a"),
         (call_script, "script_update_faction_notes", ":kingdom_b"),
@@ -36368,7 +36374,11 @@ scripts = [
         (str_store_faction_name_link, s2, ":kingdom_b"),
       ## Edited for TGS
         (display_log_message, "@{s1} and {s2} have made peace with each other."),
-#        (call_script, "script_add_notification_menu", "mnu_notification_peace_declared", ":kingdom_a", ":kingdom_b"), #stability penalty for early peace is in the menu
+        (try_begin),
+        (this_or_next|eq, ":kingdom_a", "$players_kingdom"),
+        (eq, ":kingdom_b", "$players_kingdom"),
+            (call_script, "script_add_notification_menu", "mnu_notification_peace_declared", ":kingdom_a", ":kingdom_b"), #stability penalty for early peace is in the menu
+        (try_end),
       ## End edited for TGS
         (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", ":kingdom_b"), #cancels quests
         (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", ":kingdom_a"), #cancels quests
@@ -40893,6 +40903,10 @@ scripts = [
       (replace_scene_props, "spr_trebuchet_new", "spr_empty"),
       (replace_scene_props, "spr_stone_ball", "spr_empty"),
       (replace_scene_props, "spr_Village_fire_big", "spr_empty"),
+      ## TGS: mat: Added to remove new portcullis
+      (replace_scene_props, "spr_TGS_portcullis", "spr_empty"),
+      ## TGS: mat: End
+
       ]),
 
   # script_describe_relation_to_s63
@@ -79180,7 +79194,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 ## V: TODO: Drop stuff in global vars so we don't need to calculate the full thing every time
 ("tgs_pay_stamina", [
 	(store_script_param_1,":weaveno"),
-	(assign,":totalweaves",TOTAL_NUMBER_OF_RANKS), # Total number of weaves (RANKS) availible for balance purposes
+	(assign,":totalweaves",TOTAL_NUMBER_OF_RANKS), # Total number of weaves (RANKS) available for balance purposes
     (store_mod,":oech",":totalweaves",2), # mod total weaves (RANKS) by 2
 
 ## mat: added to use a weave ranking that's assigned at the end of module_constants rather than the weave number.
@@ -79244,17 +79258,16 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(store_mul,":2divider",":divider",2),
 
 	(try_begin),
-	(le,":rank_weaveno",":divider"),
+	(lt,":rank_weaveno",":divider"),
 		(store_div,":stascale",":baseno",20),
 		(store_add,":baseno",":baseno",":stascale"),
 		(store_mul,":result",":baseno",":rank_weaveno"),
 	(else_try),
-	(gt,":rank_weaveno",":divider"),
-	(le,":rank_weaveno",":2divider"),
+    (is_between, ":rank_weaveno", ":divider", ":2divider"),
 		(store_add,":baseno",":baseno",":stascale"),
 		(store_mul,":result",":baseno",":rank_weaveno"),
 	(else_try),
-	(gt,":rank_weaveno",":2divider"),
+	(ge,":rank_weaveno",":2divider"),
 		(store_div,":stascale",":baseno",5),
 		(store_add,":baseno",":baseno",":stascale"),
 		(store_mul,":result",":baseno",":rank_weaveno"),
@@ -82018,6 +82031,275 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 ]),  
 
   
+
+##"script_tgs_initialize_additional_walkers"
+## Adds walkers to castles and potentially more troops who 'patrol'
+##
+##INPUT:  arg1    :num_walkers      arg2    :num_patrollers
+##
+##OUTPUT: reg0    :none
+("tgs_initialize_additional_walkers", [
+
+    (store_script_param_1, ":num_walkers"),
+    (store_script_param_2, ":num_patrollers"),
+
+    (val_add, ":num_walkers", 1),
+    (val_add, ":num_patrollers", 1),
+
+    # determine culture of center (which walkers / troops to deploy)
+    (party_get_slot, ":town_lord", "$current_town", slot_town_lord),
+    (try_begin),
+    (gt, ":town_lord", 0), # town lord exists - use his/her culture
+        (store_troop_faction, ":center_faction", ":town_lord"),
+        (faction_get_slot, ":center_culture", ":center_faction", slot_faction_culture),
+    (else_try), # town lord does not exist
+        (party_get_slot, ":center_culture", "$current_town", slot_center_culture),
+    (try_end),
+
+    # Determine walkers based on culture
+    (faction_get_slot, ":male_walker", ":center_culture", slot_faction_town_walker_male_troop),
+    (faction_get_slot, ":female_walker", ":center_culture", slot_faction_town_walker_female_troop),
+
+    # Spawn the extra walkers
+    (try_begin),
+    (eq, "$town_nighttime", 0), # towns folk only appear during the day
+      (try_for_range, ":walker_no", 1, ":num_walkers"),
+
+        # Determine troop
+        (store_mod, ":gender_mod", ":walker_no", 2),
+        (try_begin),
+        (eq, ":gender_mod", 1),
+            (assign, ":cur_walker", ":male_walker"),
+        (else_try),
+            (assign, ":cur_walker", ":female_walker"),
+        (try_end),
+
+        # Determine position
+        (store_mod, ":position_mod", ":walker_no", 10),
+        (try_begin),
+        (eq, ":position_mod", 1),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_1", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 2),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_2", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 3),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_3", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 4),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_4", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 5),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_5", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 6),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_6", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 7),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_7", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 8),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_8", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 9),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_9", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 0),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_10", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (try_end),
+
+        # Spawn troop and set attributes
+        (set_spawn_position, pos1),
+        (spawn_agent, ":cur_walker"), # agent_id stored in reg0
+        (agent_set_slot, reg0, slot_agent_TGS_additional_walker, 1),
+        (agent_set_speed_limit, reg0, 3),
+        (store_random_in_range, ":destination", 1, 11),
+        (agent_set_slot, reg0, slot_agent_TGS_additional_walker_destination, ":destination"),
+
+        # Have walkers start moving towards their destination
+        (try_begin),
+        (eq, ":destination", 1),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_1", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 2),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_2", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 3),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_3", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 4),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_4", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 5),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_5", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 6),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_6", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 7),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_7", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 8),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_8", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 9),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_9", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 10),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_10", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (try_end),
+
+        (agent_set_scripted_destination, reg0, pos1, 1),
+
+      (try_end),
+    (try_end),
+
+
+    # Spawn the extra patrollers
+    (try_for_range, ":walker_no", 1, ":num_patrollers"),
+
+        # Determine troop
+        (store_mod, ":soldier_mod", ":walker_no", 5),
+        (try_begin),
+        (eq, ":soldier_mod", 1),
+            (faction_get_slot, ":cur_walker", ":center_culture", slot_faction_tier_1_troop),
+        (else_try),
+        (eq, ":soldier_mod", 2),
+            (faction_get_slot, ":cur_walker", ":center_culture", slot_faction_tier_2_troop),
+        (else_try),
+        (eq, ":soldier_mod", 3),
+            (faction_get_slot, ":cur_walker", ":center_culture", slot_faction_tier_3_troop),
+        (else_try),
+        (eq, ":soldier_mod", 4),
+            (faction_get_slot, ":cur_walker", ":center_culture", slot_faction_tier_4_troop),
+        (else_try),
+        (eq, ":soldier_mod", 0),
+            (faction_get_slot, ":cur_walker", ":center_culture", slot_faction_tier_5_troop),
+        (try_end),
+
+        # Determine position
+        (store_mod, ":position_mod", ":walker_no", 10),
+        (try_begin),
+        (eq, ":position_mod", 1),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_1", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 2),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_2", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 3),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_3", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 4),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_4", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 5),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_5", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 6),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_6", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 7),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_7", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 8),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_8", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 9),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_9", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":position_mod", 0),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_10", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (try_end),
+
+        # Spawn troop and set attributes
+        (set_spawn_position, pos1),
+        (spawn_agent, ":cur_walker"),
+        (agent_set_slot, reg0, slot_agent_TGS_additional_walker, 1),
+        (agent_set_speed_limit, reg0, 3),
+        (store_random_in_range, ":destination", 1, 11),
+        (agent_set_slot, reg0, slot_agent_TGS_additional_walker_destination, ":destination"),
+
+        # Have walkers start moving towards their destination
+        (try_begin),
+        (eq, ":destination", 1),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_1", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 2),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_2", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 3),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_3", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 4),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_4", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 5),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_5", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 6),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_6", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 7),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_7", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 8),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_8", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 9),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_9", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (else_try),
+        (eq, ":destination", 10),
+            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_10", 0),
+            (prop_instance_get_position, pos1, ":instance"),
+        (try_end),
+
+        (agent_set_scripted_destination, reg0, pos1, 1),
+
+    (try_end),
+
+]),
+
+
+
 ###############################
 # TGS Scripts End
 # ---------------------------

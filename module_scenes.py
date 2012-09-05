@@ -923,8 +923,11 @@ scenes = [
   ("castle_11_prison",sf_indoors,"interior_prison_k", "bo_interior_prison_k", (-100,-100),(100,100),-100,"0",
     [],[]),
 #       Plain
-  ("castle_12_exterior",sf_generate,"none", "none", (0,0),(100,100),-100,"0x0000000230054f630005fd820000222a00003de000005f00",
-    [],[],"outer_terrain_town_thir_1"),
+  ## TGS: Malden
+  #("castle_12_exterior",sf_generate,"none", "none", (0,0),(100,100),-100,"0x0000000230054f630005fd820000222a00003de000005f00",
+  #  [],[],"outer_terrain_town_thir_1"),
+  ("castle_12_exterior",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000003003c780000d174700002c1d00000fec00001707",
+    [],[],"outer_terrain_plain"),
   ("castle_12_interior",sf_indoors, "interior_castle_y", "bo_interior_castle_y", (-100,-100),(100,100),-100,"0",
     ["exit"],["castle_12_seneschal"]),
   ("castle_12_prison",sf_indoors,"interior_prison_i", "bo_interior_prison_i", (-100,-100),(100,100),-100,"0",

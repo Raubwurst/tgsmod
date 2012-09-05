@@ -2909,13 +2909,10 @@ triggers = [
                         (try_end),
                     (try_end),
 
-                    (try_begin), # Modified for 75 - 95
+                    (try_begin), # Modified for 95 - 118
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_1"), # legion vs seanchan
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_2"), # band vs seanchan
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_3"), # two rivers vs seanchan
-                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_8"), # altara vs seanchan
-                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_14"), # tarabon vs seanchan
-                    (this_or_next|eq, ":first_kingdom", "fac_kingdom_15"), # amadicia vs seanchan
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_16"), # whitecloaks vs seanchan
                     (eq, ":first_kingdom", "fac_kingdom_22"), # aiel vs seanchan
                     (eq, ":second_kingdom", "fac_kingdom_23"),
@@ -4350,7 +4347,7 @@ triggers = [
             (assign,":proficiency_next_measure",":pro_next_1"),
             (try_begin),
                 (gt,"$g_channeling_proficiency_modifier",":proficiency_next_measure"),
-                (troop_raise_proficiency, "trp_player",wpt_firearm,1),
+                (troop_raise_proficiency_linear, "trp_player",wpt_firearm,1), # so not limited by weapon master level
                 (display_message,"str_channeling_proficiency_increases"),
             (try_end),
         (try_end),
@@ -4392,8 +4389,8 @@ triggers = [
             (store_mul, ":proficiency_next_measure", 2, ":pro_next_add"),
             (try_begin),
                 (gt,"$g_channeling_proficiency_modifier",":proficiency_next_measure"),
-                (troop_raise_proficiency, "trp_player",wpt_firearm,1),
-                (display_message,"str_channeling_proficiency_increases"),
+                (troop_raise_proficiency_linear, "trp_player",wpt_firearm,1),
+                (display_message,"str_channeling_proficiency_increases"), # so not limited by weapon master level
             (try_end),
         (try_end),
     ]),
@@ -5187,7 +5184,7 @@ triggers = [
                 (troop_raise_skill, "trp_player", skl_air, 1),
             (try_end),
 
-            ##Click '/' to add 'all skill'
+            ##Click '/' to add 'all skill' and set channeling proficiency to 300
             (try_begin),
             (key_clicked, key_slash),
                 (troop_raise_skill, "trp_player", skl_fire, 1),
@@ -5195,6 +5192,7 @@ triggers = [
                 (troop_raise_skill, "trp_player", skl_spirit, 1),
                 (troop_raise_skill, "trp_player", skl_water, 1),
                 (troop_raise_skill, "trp_player", skl_air, 1),
+                (troop_raise_proficiency_linear, "trp_player", wpt_firearm, 300),
             (try_end),                 
             
 

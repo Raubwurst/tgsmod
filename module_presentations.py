@@ -7623,18 +7623,20 @@ presentations = [
           #(try_end),
 
           (presentation_set_duration, 0),
+## TGS: mat: DEBUG
           (assign, ":troop_to_change", 0),
-          (assign, ":end_cond", active_npcs_end),
-          (try_for_range, ":cur_troop", active_npcs_begin, ":end_cond"),
-            (troop_slot_eq, ":cur_troop", slot_troop_banner_scene_prop, ":selected_banner_spr"),
-            (assign, ":troop_to_change", ":cur_troop"),
-            (assign, ":end_cond", 0),
+#          (assign, ":end_cond", active_npcs_end),
+#          (try_for_range, ":cur_troop", active_npcs_begin, ":end_cond"),
+#            (troop_slot_eq, ":cur_troop", slot_troop_banner_scene_prop, ":selected_banner_spr"),
+#            (assign, ":troop_to_change", ":cur_troop"),
+#            (assign, ":end_cond", 0),
         ## TGS: mat: Modified for TGS banners
-            (troop_set_slot, ":cur_troop", slot_troop_banner_scene_prop, tgs_banner_scene_props_end),
-            (troop_get_slot, ":cur_party", ":cur_troop", slot_troop_leaded_party),
-            (gt, ":cur_party", 0),
-            (party_set_banner_icon, ":cur_party", tgs_banner_map_icons_end),             
-          (try_end),
+#            (troop_set_slot, ":cur_troop", slot_troop_banner_scene_prop, tgs_banner_scene_props_end),
+#            (troop_get_slot, ":cur_party", ":cur_troop", slot_troop_leaded_party),
+#            (gt, ":cur_party", 0),
+#            (party_set_banner_icon, ":cur_party", tgs_banner_map_icons_end),             
+#          (try_end),
+## TGS: mat: DEBUG
           (try_for_range, ":cur_center", walled_centers_begin, walled_centers_end),
             (try_begin),
               (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
@@ -18444,6 +18446,9 @@ presentations = [
           (this_or_next|game_key_clicked, gk_everyone_hear),
           (game_key_clicked, gk_reverse_order_group),
 		  (presentation_set_duration, 0),
+        ## Added for TGS
+            (assign, "$g_reset_troop_ratio_bar", 1),
+        ## End added for tGS
         (else_try),
 			(assign, ":key", -1),
 		    (try_begin),
@@ -18504,6 +18509,9 @@ presentations = [
 				(try_end),			
 				(presentation_set_duration, 200), #100
 			(try_end),
+        ## Added for TGS
+            (assign, "$g_reset_troop_ratio_bar", 1),
+        ## End added for tGS
         (try_end),
         ]),
 	]),		
@@ -18975,6 +18983,9 @@ presentations = [
         (assign, "$presentation_troop_ratio_bar_active", 1),
         (set_fixed_point_multiplier, 1000),
         
+        (store_current_scene, ":cur_scene"),
+        (try_begin),
+        (neq, ":cur_scene", "scn_ways"),
         (create_mesh_overlay, "$g_presentation_obj_1", "mesh_status_troop_ratio_bar"),
         (position_set_x, pos1, 30),
         (position_set_y, pos1, 700),
@@ -19007,6 +19018,7 @@ presentations = [
 
         (create_mesh_overlay, "$g_presentation_obj_7", "mesh_status_troop_ratio_bar_button"),
         (create_mesh_overlay, "$g_presentation_obj_8", "mesh_status_troop_ratio_bar_button"),
+        (try_end),
 
         ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
         (try_begin),
@@ -19144,6 +19156,10 @@ presentations = [
         (store_trigger_param_1, ":cur_time"),
         
         (set_fixed_point_multiplier, 1000),
+
+        (store_current_scene, ":cur_scene"),
+        (try_begin),
+        (neq, ":cur_scene", "scn_ways"),        
         (assign, ":player_count", 0),
         (assign, ":ally_count", 0),
         (assign, ":enemy_count", 0),
@@ -19198,6 +19214,7 @@ presentations = [
         (position_set_x, pos1, ":player_percent_2"),
         (position_set_y, pos1, 700),
         (overlay_set_position, "$g_presentation_obj_8", pos1),
+        (try_end),
 
 
         ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
@@ -20706,6 +20723,9 @@ presentations = [
         (assign, "$g_run_battle_time_weave_selection", 1),
         (set_fixed_point_multiplier, 1000),
         
+        (store_current_scene, ":cur_scene"),
+        (try_begin),
+        (neq, ":cur_scene", "scn_ways"),        
         (create_mesh_overlay, "$g_presentation_obj_1", "mesh_status_troop_ratio_bar"),
         (position_set_x, pos1, 30),
         (position_set_y, pos1, 700),
@@ -20738,6 +20758,7 @@ presentations = [
 
         (create_mesh_overlay, "$g_presentation_obj_7", "mesh_status_troop_ratio_bar_button"),
         (create_mesh_overlay, "$g_presentation_obj_8", "mesh_status_troop_ratio_bar_button"),
+        (try_end),
 
         ### ADDED THIS FOR TGS CHANNELING STAMINA BAR
         
@@ -20989,6 +21010,10 @@ presentations = [
         (store_trigger_param_1, ":cur_time"),
         
         (set_fixed_point_multiplier, 1000),
+
+        (store_current_scene, ":cur_scene"),
+        (try_begin),
+        (neq, ":cur_scene", "scn_ways"),        
         (assign, ":player_count", 0),
         (assign, ":ally_count", 0),
         (assign, ":enemy_count", 0),
@@ -21043,6 +21068,7 @@ presentations = [
         (position_set_x, pos1, ":player_percent_2"),
         (position_set_y, pos1, 700),
         (overlay_set_position, "$g_presentation_obj_8", pos1),
+        (try_end),
 
 
         ### ADDED THIS FOR TGS CHANNELING STAMINA BAR

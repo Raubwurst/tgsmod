@@ -2940,6 +2940,7 @@ common_wot_pre_initialization_variable_assignment = (
     [
         (assign, "$g_initialize_complete", 0),
         (assign, "$g_channeling_proficiency_modifier_before", "$g_channeling_proficiency_modifier"),  # to ensure xp from channeling
+        (assign, "$g_view_order_counter", 0),
         ])
 
 ## Initialize general player channeling variables
@@ -2967,7 +2968,7 @@ common_wot_initialize_channeling_weave_variables_1 = (
              # set slots for num seekers active and individual seeker status to zero
              (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, 0),
              
-             (try_for_range, ":seeker_no", 200, 251),
+             (try_for_range, ":seeker_no", 1201, 1251),
                  (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
              
                  (store_add, ":target_no", ":seeker_no", 50),
@@ -2990,7 +2991,9 @@ common_wot_initialize_channeling_weave_variables_1 = (
              (try_end),
              
              # set firewall slots to 0
-             (try_for_range, ":slot_no", 300, 361),
+             (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_firewalls_active, 0),
+
+             (try_for_range, ":slot_no", 1601, 1661),
                  (troop_set_slot, "$g_tgs_player_troop", ":slot_no", 0),
              (try_end),
              
@@ -3013,7 +3016,7 @@ common_wot_initialize_channeling_weave_variables_2 = (
              # set slots for num seekers active and individual seeker status to zero
              (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, 0),
              
-             (try_for_range, ":seeker_no", 200, 251),
+             (try_for_range, ":seeker_no", 1201, 1251),
                  (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
              
                  (store_add, ":target_no", ":seeker_no", 50),
@@ -3036,7 +3039,9 @@ common_wot_initialize_channeling_weave_variables_2 = (
              (try_end),
              
              # set firewall slots to 0
-             (try_for_range, ":slot_no", 300, 361),
+             (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_firewalls_active, 0),
+
+             (try_for_range, ":slot_no", 1601, 1661),
                  (troop_set_slot, "$g_tgs_player_troop", ":slot_no", 0),
              (try_end),
              
@@ -4023,6 +4028,25 @@ common_wot_recharge_channeling_stamina_trigger = (
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 0),
                 (try_end),
             
+                ## mat: DEBUG
+                (troop_get_slot, ":current", "$g_tgs_player_troop", slot_troop_current_channeling_stamina),
+                (troop_get_slot, ":max", "$g_tgs_player_troop", slot_troop_max_channeling_stamina),
+
+                # if it bugs with a negative stamina
+                (try_begin),
+                (lt, ":current", 0),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_current_channeling_stamina, 100),
+                    (display_message, "@Fixed negative stamina"),
+                (try_end),
+
+                # if it bugs with a stamina that's greater than the max
+                (try_begin),
+                (gt, ":current", ":max"),
+                    (troop_set_slot, "$g_tgs_player_troop", slot_troop_current_channeling_stamina, ":max"),
+                    (display_message, "@Fixed inflated stamina"),
+                (try_end),
+                ## mat: DEBUG End
+
             (try_end),
         
         ],
@@ -4473,9 +4497,44 @@ common_wot_reset_troop_ratio_bar = (0, 0.1, 0.2,[(eq, "$g_reset_troop_ratio_bar"
              (assign, "$g_reset_troop_ratio_bar", 0),
          ])
 
-common_wot_reset_troop_ratio_bar_additional = (ti_escape_pressed, 0, 0, [],
+#common_wot_reset_troop_ratio_bar_additional = (ti_escape_pressed, 0, 0, [],
+#    [
+#        (assign, "$g_reset_troop_ratio_bar", 1),
+#        ])
+
+common_wot_reset_troop_ratio_bar_additional = (0, 0, 0,
+                                               [
+                                                   (try_begin),
+                                                   (game_key_clicked, gk_view_orders),
+                                                       (val_add, "$g_view_order_counter", 1),
+                                                   (try_end),
+                                                ],
     [
+        (try_begin),
+        #(this_or_next|game_key_clicked, gk_everyone_hear),
+        #(this_or_next|game_key_clicked, gk_infantry_hear),
+        #(this_or_next|game_key_clicked, gk_archers_hear),
+        #(this_or_next|game_key_clicked, gk_cavalry_hear),
+        #(this_or_next|game_key_clicked, gk_group0_hear),
+        #(this_or_next|game_key_clicked, gk_group1_hear),
+        #(this_or_next|game_key_clicked, gk_group2_hear),
+        #(this_or_next|game_key_clicked, gk_group3_hear),
+        #(this_or_next|game_key_clicked, gk_group4_hear),
+        #(this_or_next|game_key_clicked, gk_group5_hear),
+        #(this_or_next|game_key_clicked, gk_group6_hear),
+        #(this_or_next|game_key_clicked, gk_group7_hear),
+        #(this_or_next|game_key_clicked, gk_group8_hear),
+        #(this_or_next|game_key_clicked, gk_everyone_around_hear),
+        (this_or_next|key_clicked, key_tab),
+        (key_clicked, key_escape),
         (assign, "$g_reset_troop_ratio_bar", 1),
+        (else_try),
+        (game_key_clicked, gk_view_orders),
+        (store_mod, ":times_two_check", "$g_view_order_counter", 2),
+        (eq, ":times_two_check", 0),
+        #(eq, "$presentation_troop_ratio_bar_active", 0),
+            (assign, "$g_reset_troop_ratio_bar", 1),
+        (try_end),
         ])
 
 ## Reset troop ratio bar after certain battle menus  (multiplayer) (only needs to run on client side)
@@ -9334,7 +9393,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
       
   ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,),
@@ -9541,7 +9600,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################  
       
     ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
@@ -9745,7 +9804,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
       
       ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
@@ -9917,7 +9976,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
       ],
     ),
@@ -10135,7 +10194,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
     ],
   ),
@@ -10334,7 +10393,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################      
     ],
   ),
@@ -10506,7 +10565,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
     ],
   ),
@@ -10879,7 +10938,7 @@ mission_templates = [
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
@@ -11093,7 +11152,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -11337,7 +11396,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -11726,7 +11785,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -11947,7 +12006,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -12204,7 +12263,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -12414,7 +12473,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -12593,7 +12652,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -13026,11 +13085,149 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
       
+
+## TGS: mat: Added for additional walkers in castles
+
+      ## - (calls the initialization script)
+      (2, 0, ti_once, [(eq, "$g_initialize_complete", 1)],
+        [
+            (try_begin),
+            (eq, "$current_town", "p_castle_12"), # Malden
+                (call_script, "script_tgs_initialize_additional_walkers", 40, 20),
+            (try_end),
+      ]),
+
+      ## - changes waypoints for additional walkers when necessary
+      (3, 0, 0, [(eq, "$g_initialize_complete", 1)],
+        [
+            (try_for_agents, ":agent"),
+                (agent_slot_eq, ":agent", slot_agent_TGS_additional_walker, 1),
+
+                    # find the position of the agent's current destination
+                    (agent_get_slot, ":cur_dest", ":agent", slot_agent_TGS_additional_walker_destination),
+                    (try_begin),
+                    (eq, ":cur_dest", 1),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_1", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (else_try),
+                    (eq, ":cur_dest", 2),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_2", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (else_try),
+                    (eq, ":cur_dest", 3),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_3", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (else_try),
+                    (eq, ":cur_dest", 4),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_4", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (else_try),
+                    (eq, ":cur_dest", 5),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_5", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (else_try),
+                    (eq, ":cur_dest", 6),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_6", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (else_try),
+                    (eq, ":cur_dest", 7),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_7", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (else_try),
+                    (eq, ":cur_dest", 8),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_8", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (else_try),
+                    (eq, ":cur_dest", 9),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_9", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (else_try),
+                    (eq, ":cur_dest", 10),
+                        (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_10", 0),
+                        (prop_instance_get_position, pos1, ":instance"),
+                    (try_end),
+
+                    # find the agent's current position
+                    (agent_get_position, pos2, ":agent"),
+                    (get_distance_between_positions, ":dist", pos1, pos2),
+
+                    # decide whether to pick a new destination or keep traveling towards the current one.
+                    (try_begin),
+                    (lt, ":dist", 300), # made it close enough to the destination. Pick a new one.
+
+                        # pick a new destination
+                        (store_random_in_range, ":new_dest", 1, 11),
+                        (try_begin),
+                        (eq, ":cur_dest", ":new_dest"),
+                            (try_begin),
+                            (eq, ":cur_dest", 10),
+                                (assign, ":new_dest", 1),
+                            (else_try),
+                                (store_add, ":new_dest", ":cur_dest", 1),
+                            (try_end),
+                        (try_end),
+
+                        (agent_set_slot, ":agent", slot_agent_TGS_additional_walker_destination, ":new_dest"),
+
+                        # start traveling towards new destination
+                        (try_begin),
+                        (eq, ":new_dest", 1),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_1", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (else_try),
+                        (eq, ":new_dest", 2),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_2", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (else_try),
+                        (eq, ":new_dest", 3),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_3", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (else_try),
+                        (eq, ":new_dest", 4),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_4", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (else_try),
+                        (eq, ":new_dest", 5),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_5", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (else_try),
+                        (eq, ":new_dest", 6),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_6", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (else_try),
+                        (eq, ":new_dest", 7),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_7", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (else_try),
+                        (eq, ":new_dest", 8),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_8", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (else_try),
+                        (eq, ":new_dest", 9),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_9", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (else_try),
+                        (eq, ":new_dest", 10),
+                            (scene_prop_get_instance, ":instance", "spr_TGS_waypoint_10", 0),
+                            (prop_instance_get_position, pos1, ":instance"),
+                        (try_end),
+
+                        (agent_set_scripted_destination, ":agent", pos1, 1),
+
+                    (try_end),
+
+            (try_end),
+      ]),
+
+## TGS: mat: End
+
+
+
     ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
   ),
 
@@ -13676,7 +13873,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################      
@@ -13829,7 +14026,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -17736,7 +17933,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################      
@@ -17956,7 +18153,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################      
@@ -24668,7 +24865,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -25967,8 +26164,8 @@ mission_templates = [
       common_wot_re_add_one_power_item_to_inventory,
       common_wot_cycle_through_known_weaves,
       common_wot_inventory_click_to_refill_channeling_ammo,
-      #common_wot_reset_troop_ratio_bar,
-      #common_wot_reset_troop_ratio_bar_additional,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
       
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
@@ -26066,11 +26263,14 @@ mission_templates = [
       ###### end TGS triggers
       #########################################################################
       
-##################################################
-##### troop_ratio_bar
-##################################################
-      #(0, 0, ti_once, [], [(start_presentation,"prsnt_troop_ratio_bar")]),
-##################################################
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
 
 			],
 		), 
@@ -26450,7 +26650,7 @@ mission_templates = [
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
@@ -26835,7 +27035,7 @@ mission_templates = [
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################

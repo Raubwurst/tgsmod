@@ -737,6 +737,8 @@ simple_triggers = [
    (store_current_hours, ":number_game_hours_passed"),
    (try_begin),
    (gt, ":number_game_hours_passed", 24*170-6),
+   ## added this also to remove these forever
+   (eq, 0, 1),
    ## TGS: mat: END
    
    (call_script, "script_randomly_start_war_peace_new", 1),
@@ -1193,6 +1195,8 @@ simple_triggers = [
       (store_current_hours, ":number_game_hours_passed"),
       (try_begin),
       (gt, ":number_game_hours_passed", 24*170-6),
+      ## Added this to remove forever
+      (eq, 0, 1),
 ## TGS: mat: End        
         #Auto-indictment or defection
         (try_begin),

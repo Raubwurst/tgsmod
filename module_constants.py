@@ -222,6 +222,11 @@ slot_agent_has_active_seeker      = 500    ## (0 = false, 1 = true)
 slot_agent_seeker_shooter         = 501    ## ID of agent who shot the seeker
 # end
 
+## Additional Walker Slots
+
+slot_agent_TGS_additional_walker                = 601   ## (0 = false, 1 = true)
+slot_agent_TGS_additional_walker_destination    = 602   ## number equals waypoint number agent is traveling towards
+
 
 ### End TGS Slots
     
