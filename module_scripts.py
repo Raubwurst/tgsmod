@@ -12628,7 +12628,15 @@ scripts = [
       (item_set_slot, "itm_book_trade", slot_item_intelligence_requirement, 11),
       (item_set_slot, "itm_book_weapon_mastery", slot_item_intelligence_requirement, 9),
       (item_set_slot, "itm_book_engineering", slot_item_intelligence_requirement, 12),
-
+## V: Begin TGS books
+      (item_set_slot, "itm_book_channeling", slot_item_intelligence_requirement, 16),
+      (item_set_slot, "itm_book_air", slot_item_intelligence_requirement, 14),
+      (item_set_slot, "itm_book_fire", slot_item_intelligence_requirement, 14),
+      (item_set_slot, "itm_book_water", slot_item_intelligence_requirement, 14),
+      (item_set_slot, "itm_book_earth", slot_item_intelligence_requirement, 14),
+      (item_set_slot, "itm_book_spirit", slot_item_intelligence_requirement, 14),	  
+## end TGS books
+	  
       (item_set_slot, "itm_book_wound_treatment_reference", slot_item_intelligence_requirement, 10),
       (item_set_slot, "itm_book_training_reference", slot_item_intelligence_requirement, 10),
       (item_set_slot, "itm_book_surgery_reference", slot_item_intelligence_requirement, 10),	 

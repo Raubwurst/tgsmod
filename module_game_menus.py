@@ -4058,6 +4058,56 @@ game_menus = [
         (jump_to_menu, "mnu_camp_action_read_book_start"),
         ]
        ),
+## V: Begin TGS books
+      ("action_read_book_8",[(player_has_item, "itm_book_channeling"),
+                             (item_slot_eq, "itm_book_channeling", slot_item_book_read, 0),
+                             (str_store_item_name, s1, "itm_book_channeling"),
+                             ],"{s1}.",
+       [(assign, "$temp", "itm_book_channeling"),
+        (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]
+       ),
+      ("action_read_book_9",[(player_has_item, "itm_book_air"),
+                             (item_slot_eq, "itm_book_air", slot_item_book_read, 0),
+                             (str_store_item_name, s1, "itm_book_air"),
+                             ],"{s1}.",
+       [(assign, "$temp", "itm_book_air"),
+        (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]
+       ),
+	  ("action_read_book_10",[(player_has_item, "itm_book_fire"),
+                             (item_slot_eq, "itm_book_fire", slot_item_book_read, 0),
+                             (str_store_item_name, s1, "itm_book_fire"),
+                             ],"{s1}.",
+       [(assign, "$temp", "itm_book_fire"),
+        (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]
+       ),
+      ("action_read_book_11",[(player_has_item, "itm_book_water"),
+                             (item_slot_eq, "itm_book_water", slot_item_book_read, 0),
+                             (str_store_item_name, s1, "itm_book_water"),
+                             ],"{s1}.",
+       [(assign, "$temp", "itm_book_water"),
+        (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]
+       ),
+      ("action_read_book_12",[(player_has_item, "itm_book_earth"),
+                             (item_slot_eq, "itm_book_earth", slot_item_book_read, 0),
+                             (str_store_item_name, s1, "itm_book_earth"),
+                             ],"{s1}.",
+       [(assign, "$temp", "itm_book_earth"),
+        (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]
+       ),
+      ("action_read_book_13",[(player_has_item, "itm_book_spirit"),
+                             (item_slot_eq, "itm_book_spirit", slot_item_book_read, 0),
+                             (str_store_item_name, s1, "itm_book_spirit"),
+                             ],"{s1}.",
+       [(assign, "$temp", "itm_book_spirit"),
+        (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]
+       ),	   
+## end TGS books
       ("camp_action_4",[],"Back to camp menu.",
        [(jump_to_menu, "mnu_camp"),
         ]

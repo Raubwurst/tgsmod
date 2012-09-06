@@ -1296,7 +1296,7 @@ items = [
 ############################################################
 #itcf_thrust_onehanded|itcf_thrust_onehanded_lance_horseback
  
- ["power_npc_companion_ranged","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(140) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65)|difficulty(0),imodbits_missile,
+ ["power_npc_companion_ranged","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_unique|itp_type_pistol|itp_primary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(140) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65)|difficulty(0),imodbits_missile,
   [(ti_on_weapon_attack, [
 
 #            (get_player_agent_no,":player_agent"),
@@ -3827,7 +3827,7 @@ items = [
 ############### Multiplayer One Power Item #####################################
 ################################################################################
 
- ["power_player_multiplayer","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
+ ["power_player_multiplayer","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_unique|itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
   [(ti_on_weapon_attack, [
 
 #                    (get_player_agent_no,":player_agent"),
@@ -3898,7 +3898,7 @@ items = [
 ######## The backup of the 2nd try at Multiplayer ###############
 #################################################################
 
- ["power_player_multiplayer_backup","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
+ ["power_player_multiplayer_backup","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_unique|itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
   [(ti_on_weapon_attack, [
 
 #                    (get_player_agent_no,":player_agent"),
@@ -6239,7 +6239,7 @@ items = [
 ################################################################################ 
 #### Backup (Original) version of the multiplayer One Power Item ###############
 
- ["power_player_multiplayer_backup_original","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
+ ["power_player_multiplayer_backup_original","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_unique|itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
   [(ti_on_weapon_attack, [
 
 #                    (get_player_agent_no,":player_agent"),
@@ -9192,14 +9192,14 @@ items = [
  
 
 # other special items
-["suldam_dagger",         "Sul'dam Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
+["suldam_dagger",         "Sul'dam Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
 37 , weight(0.75)|difficulty(1)|spd_rtng(109) | weapon_length(47)|swing_damage(22 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high ],
-["der_suldam_dagger",         "Der Sul'dam Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
+["der_suldam_dagger",         "Der Sul'dam Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
 37 , weight(0.75)|difficulty(1)|spd_rtng(109) | weapon_length(47)|swing_damage(22 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high ],
 
- ["channeler_dagger",         "Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_type_one_handed_wpn|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
+ ["channeler_dagger",         "Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
 37 , weight(0.75)|difficulty(0)|spd_rtng(109) | weapon_length(47)|swing_damage(22 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high ],
-["sword_secondary", "Sword", [("sword_medieval_a",0),("sword_medieval_a_scabbard", ixmesh_carry)], itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
+["sword_secondary", "Sword", [("sword_medieval_a",0),("sword_medieval_a_scabbard", ixmesh_carry)], itp_unique|itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
  163 , weight(1.5)|difficulty(0)|spd_rtng(99) | weapon_length(95)|swing_damage(27 , cut) | thrust_damage(22 ,  pierce),imodbits_sword_high ],
 
 
@@ -9839,15 +9839,15 @@ items = [
 
 
  # Shadowspawn
- ["trolloc_hawk_helmet", "Trolloc Hawk Helmet", [("trolloc_hawk_helmet",0)], itp_type_head_armor|itp_covers_head   ,0,
+ ["trolloc_hawk_helmet", "Trolloc Hawk Helmet", [("trolloc_hawk_helmet",0)], itp_unique|itp_type_head_armor|itp_covers_head   ,0,
   300 , weight(2)|abundance(100)|head_armor(30)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
- ["trolloc_wolf_helmet", "Trolloc Wolf Helmet", [("trolloc_wolf_helmet",0)], itp_type_head_armor|itp_covers_head    ,0,
+ ["trolloc_wolf_helmet", "Trolloc Wolf Helmet", [("trolloc_wolf_helmet",0)], itp_unique|itp_type_head_armor|itp_covers_head    ,0,
   500 , weight(2)|abundance(100)|head_armor(35)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
- ["trolloc_goat_helmet", "Trolloc Goat Helmet", [("trolloc_goat_helmet",0)], itp_type_head_armor|itp_covers_head   ,0,
+ ["trolloc_goat_helmet", "Trolloc Goat Helmet", [("trolloc_goat_helmet",0)], itp_unique|itp_type_head_armor|itp_covers_head   ,0,
   900 , weight(2)|abundance(100)|head_armor(40)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
- ["myrddraal_hood_helmet", "Myrddraal Helmet", [("myrddraal_hood_helmet",0)], itp_type_head_armor|itp_covers_head   ,0,
+ ["myrddraal_hood_helmet", "Myrddraal Helmet", [("myrddraal_hood_helmet",0)], itp_unique|itp_type_head_armor|itp_covers_head   ,0,
   1500 , weight(2)|abundance(100)|head_armor(45)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
- ["draghkar_helmet", "Draghkar Helmet", [("draghkar_helmet",0)], itp_type_head_armor|itp_covers_head   ,0,
+ ["draghkar_helmet", "Draghkar Helmet", [("draghkar_helmet",0)], itp_unique|itp_type_head_armor|itp_covers_head   ,0,
   1200 , weight(2)|abundance(100)|head_armor(20)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
 
  ["trolloc_weak_armor", "Trolloc Weak Armor", [("trolloc_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
@@ -9876,7 +9876,7 @@ items = [
 
  ["black_mail_gauntlets","Black Mail Gauntlets", [("black_mail_gauntlets_L",0), ("black_mail_gauntlets_Lx",0)], itp_merchandise|itp_type_hand_armor,0,
   400, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
- ["draghkar_gloves","Draghkar Gloves", [("draghkar_gloves_L",0), ("draghkar_gloves_Lx",0)], itp_type_hand_armor,0,
+ ["draghkar_gloves","Draghkar Gloves", [("draghkar_gloves_L",0), ("draghkar_gloves_Lx",0)], itp_unique|itp_type_hand_armor,0,
   200, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
 
  ["trolloc_mace", "Trolloc Mace", [("mace_morningstar_new",0)], itp_crush_through|itp_type_two_handed_wpn|itp_merchandise|itp_can_knock_down|itp_primary|itp_two_handed|itp_wooden_parry|itp_wooden_attack|itp_unbalanced, itc_nodachi|itcf_carry_spear, 
@@ -9900,7 +9900,7 @@ items = [
 
  ## Other Items ##
 
- ["padan_fain_dagger", "Padan Fain's Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
+ ["padan_fain_dagger", "Padan Fain's Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
 5000 , weight(0.75)|difficulty(1)|spd_rtng(109) | weapon_length(47)|swing_damage(22 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high ],
 
  ["lord_warhorse_1","Lordly War Horse", [("kher_warhorse1",0)], itp_merchandise|itp_type_horse, 0,
@@ -10058,7 +10058,14 @@ items = [
 # And if you don't want the ravens, just take "_ravens" out of the mesh name entry.
 ######################
 
+ ["book_channeling","100 Weaves", [("book_g",0)], itp_type_book, 0, 2900,weight(2)|abundance(100),imodbits_none],
+ ["book_air","Heavy Wind and Clear Skies", [("book_h",0)], itp_type_book, 0, 3100,weight(2)|abundance(100),imodbits_none],
+ ["book_fire", "A Roaring Inferno", [("book_i",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
+ ["book_water","Waves and Whirlpools", [("book_j",0)], itp_type_book, 0, 2900,weight(2)|abundance(100),imodbits_none],
+ ["book_earth","Smashing Stone and Shattering Mountains", [("book_k",0)], itp_type_book, 0, 3100,weight(2)|abundance(100),imodbits_none],
+ ["book_spirit", "Forgotten Fragments of the Forbidden Weaves", [("book_l",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
 
+ 
 # end TGS Specific Items
 
 
