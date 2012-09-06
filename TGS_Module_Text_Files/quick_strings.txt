@@ -1,4 +1,4 @@
-1350
+1352
 qstr_No_active_weaves_to_ No_active_weaves_to_unravel...
 qstr_Too_many_active_seek Too_many_active_seekers!!
 qstr_You_are_no_longer_sh You_are_no_longer_shielded_from_the_One_Power!!
@@ -789,6 +789,8 @@ qstr_{s1}:_cavalry_format {s1}:_cavalry_formation_disassembled.
 qstr_{s1}:_formation_disa {s1}:_formation_disassembled.
 qstr_Cavalry_formation_di Cavalry_formation_disassembled.
 qstr_You_got_keys_of_dung You_got_keys_of_dungeon.
+qstr_Fixed_negative_stami Fixed_negative_stamina
+qstr_Fixed_inflated_stami Fixed_inflated_stamina
 qstr_You_have_been_knocke You_have_been_knocked_out_by_the_enemy._Watch_your_men_continue_the_fight_without_you_or_press_Tab_to_retreat.
 qstr_Everyone_you_know_wh Everyone,_you_know_what_to_do._To_your_positions!
 qstr_{reg2?You:Your_mount {reg2?You:Your_mount}_received_{reg1}_extra_damage!

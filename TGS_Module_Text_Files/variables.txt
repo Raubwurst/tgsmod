@@ -1311,6 +1311,7 @@ g_ways_point
 g_ways_entered
 when_f1_first_detected
 g_initialize_complete
+g_view_order_counter
 g_number_of_weaves_used
 g_one_second_timer
 g_one_tenth_second_timer
