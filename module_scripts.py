@@ -44267,7 +44267,6 @@ scripts = [
       (try_end),
 
 ##diplomacy end
-
     # removed for TGS
        #(val_mul, ":upper_limit", 3),
        #(store_add, ":amount_random_divider", 2, ":volunteer_troop_tier"),
@@ -52144,10 +52143,13 @@ scripts = [
         (try_begin),
           (eq, ":has_horse", 1),
           (store_add, ":cur_total_chance", ":total_chance", ":lance_chance"),
-          (val_add, ":cur_total_chance", ":javelin_chance"),
+## V: Moved javelin val_add to block immediately below
           (val_add, ":cur_total_chance", ":mounted_bow_chance"),
         (else_try),
           (store_add, ":cur_total_chance", ":total_chance", ":bow_chance"),
+## V: Added for TGS to allow Aiel javelins
+		  (val_add, ":cur_total_chance", ":javelin_chance"),
+##
         (try_end),
         (store_random_in_range, ":random_no", 0, ":cur_total_chance"),
         (store_add, ":cur_shield_item", "itm_arena_shield_red", ":cur_team"),
@@ -52190,7 +52192,9 @@ scripts = [
           (mission_tpl_entry_add_override_item, "mt_arena_melee_fight", ":i_ep", ":cur_shield_item"),
 #          (mission_tpl_entry_add_override_item, "mt_arena_melee_fight", ":i_ep", "itm_practice_shield"),
         (else_try),
-          (eq, ":has_horse", 1),
+## TGS, allows Aiel tourneys to have javelins
+		(eq, ":has_horse", 0),
+## End TGS
           (val_sub, ":random_no", ":javelin_chance"),
           (lt, ":random_no", 0),
           (mission_tpl_entry_add_override_item, "mt_arena_melee_fight", ":i_ep", "itm_practice_javelin"),
