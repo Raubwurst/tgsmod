@@ -1568,10 +1568,10 @@ scn_castle_11_prison castle_11_prison 1 interior_prison_k bo_interior_prison_k -
   0 
   0 
  0 
-scn_castle_12_exterior castle_12_exterior 256 none none 0.000000 0.000000 100.000000 100.000000 -100.000000 0x0000000230054f630005fd820000222a00003de000005f00 
+scn_castle_12_exterior castle_12_exterior 256 none none 0.000000 0.000000 100.000000 100.000000 -100.000000 0x000000003003c780000d174700002c1d00000fec00001707 
   0 
   0 
- outer_terrain_town_thir_1 
+ outer_terrain_plain 
 scn_castle_12_interior castle_12_interior 1 interior_castle_y bo_interior_castle_y -100.000000 -100.000000 100.000000 100.000000 -100.000000 0 
   1  100000 
   1  1135 
