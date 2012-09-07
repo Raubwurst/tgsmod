@@ -2382,7 +2382,10 @@ scripts = [
     (try_end),
 # end added for npc companion one power item
 
-
+# Set Faction based training slots to zero
+    (try_for_range, ":slot_no", 3201, 3229),
+        (troop_set_slot, "trp_player", ":slot_no", 0),
+    (try_end),
 
   #### End added for TGS
 
@@ -22422,35 +22425,141 @@ scripts = [
     (try_begin),
       (this_or_next|eq,":party_no","p_main_party"),
       (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
-      (party_get_skill_level, ":pathfinding_skill", ":party_no", skl_pathfinding),
-      (val_mul,":pathfinding_skill",3),
-      (val_add,":speed_multiplier",":pathfinding_skill"),
+        (party_get_skill_level, ":pathfinding_skill", ":party_no", skl_pathfinding),
+        (val_mul,":pathfinding_skill",3), ## TGS: was 3
+        (val_add,":speed_multiplier",":pathfinding_skill"), ## TGS: Note: Pathfinding skill affects
     (try_end),
 
-## TGS: mat: Added to give certain cultures faster speeds while on the ocean
-    (party_get_current_terrain, ":terrain", ":party_no"),
+## TGS: mat: Added to give certain cultures faster speeds while on certain terrain
     (try_begin),
-    (eq, ":terrain", 7), # 7 = rt_bridge (water)
-    (store_faction_of_party, ":cur_party_faction", ":party_no"),
-        (try_begin),
-        (eq, ":cur_party_faction", "fac_kingdom_26"), ## Sea Folk - faster
-            (val_add, ":speed_multiplier", 70),
-        (else_try),
-        (eq, ":cur_party_faction", "fac_kingdom_23"), ## Seanchan - faster
-            (val_add, ":speed_multiplier", 50),
-        (else_try),
-        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_4"), ## Mayene - faster
-        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_6"), ## Illian - faster
-        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_9"), ## Arad Doman - faster
-        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_10"), ## Tear - faster
-        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_14"), ## Tarabon - faster
-        (eq, ":cur_party_faction", "fac_kingdom_28"), ## Toman Head - faster
-            (val_add, ":speed_multiplier", 20),
-        (else_try),
-        (eq, ":cur_party_faction", "fac_kingdom_22"), ## Aiel - ** slower **
-            (val_sub, ":speed_multiplier", 50),
+    (this_or_next|eq,":party_no","p_main_party"),
+    (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
+
+        (party_get_current_terrain, ":terrain", ":party_no"),
+        (store_faction_of_party, ":cur_party_faction", ":party_no"),
+
+        (try_begin), ## Give sea faring nations an advantage to water travel speed (Aiel get a disadvantage)
+        (eq, ":terrain", 7), # 7 = rt_bridge (water - ocean travel)
+            (try_begin),
+            (eq, ":cur_party_faction", "fac_kingdom_26"), ## Sea Folk - faster
+                (val_add, ":speed_multiplier", 100),
+            (else_try),
+            (eq, ":cur_party_faction", "fac_kingdom_23"), ## Seanchan - faster
+                (val_add, ":speed_multiplier", 80),
+            (else_try),
+            (this_or_next|eq, ":cur_party_faction", "fac_kingdom_4"), ## Mayene - faster
+            (this_or_next|eq, ":cur_party_faction", "fac_kingdom_6"), ## Illian - faster
+            (this_or_next|eq, ":cur_party_faction", "fac_kingdom_8"), ## Altara - faster
+            (this_or_next|eq, ":cur_party_faction", "fac_kingdom_9"), ## Arad Doman - faster
+            (this_or_next|eq, ":cur_party_faction", "fac_kingdom_10"), ## Tear - faster
+            (this_or_next|eq, ":cur_party_faction", "fac_kingdom_14"), ## Tarabon - faster
+            (eq, ":cur_party_faction", "fac_kingdom_28"), ## Toman Head - faster
+                (val_add, ":speed_multiplier", 40),
+            (else_try),
+            (eq, ":cur_party_faction", "fac_kingdom_22"), ## Aiel - ** slower **
+                (val_sub, ":speed_multiplier", 40),
+            (try_end),
+
+        (else_try), # non-water, give Aiel a bonus, with extra bonus on desert
+        (eq, ":cur_party_faction", "fac_kingdom_22"), ## Aiel
+            (try_begin),
+            (eq, ":terrain", 5), # 5 = rt_desert
+                (val_add, ":speed_multiplier", 70),
+            (else_try),
+                (val_add, ":speed_multiplier", 40),
+            (try_end),
+
+        (else_try), # non-water, give Band of the Red Hand a bonus
+        (eq, ":cur_party_faction", "fac_kingdom_2"), ## Band of the Red Hand
+            (val_add, ":speed_multiplier", 30),
         (try_end),
+
     (try_end),
+
+## TGS: mat: Give player party speed bonuses if they have the required Faction training
+
+    (try_begin),
+    (eq,":party_no","p_main_party"),
+        (party_get_current_terrain, ":terrain", ":party_no"),
+
+        ## Ocean speed bonus if player trained by Sea Folk, Seanchan, Mayene, Tear, Illian, Altara, Tarabon, Toman Head, or Arad Doman
+        (try_begin),
+        (eq, ":terrain", 7), # 7 = rt_bridge (water - ocean travel)
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_sea_folk_training, 1),
+                (val_add, ":speed_multiplier", 20),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_seanchan_training, 1),
+                (val_add, ":speed_multiplier", 15),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_mayene_training, 1),
+                (val_add, ":speed_multiplier", 5),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_illian_training, 1),
+                (val_add, ":speed_multiplier", 5),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_altara_training, 1),
+                (val_add, ":speed_multiplier", 5),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_arad_doman_training, 1),
+                (val_add, ":speed_multiplier", 5),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_tear_training, 1),
+                (val_add, ":speed_multiplier", 5),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_tarabon_training, 1),
+                (val_add, ":speed_multiplier", 5),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_toman_head_training, 1),
+                (val_add, ":speed_multiplier", 5),
+            (try_end),
+
+        (try_end),
+
+        ## Desert land speed bonus to player if trained by Aiel
+        (try_begin),
+        (eq, ":terrain", 5), # 5 = rt_desert
+        (troop_slot_eq, "trp_player", slot_troop_has_aiel_training, 1),
+            (val_add, ":speed_multiplier", 25),
+        (try_end),
+
+        ## Non-desert land speed bonus to player if trained by Aiel or the Band
+        (try_begin),
+        (neq, ":terrain", 7), # 7 = rt_bridge (water - ocean travel)
+        (neq, ":terrain", 5), # 5 = rt_desert
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_aiel_training, 1),
+                (val_add, ":speed_multiplier", 20),
+            (try_end),
+
+            (try_begin),
+            (troop_slot_eq, "trp_player", slot_troop_has_band_training, 1),
+                (val_add, ":speed_multiplier", 15),
+            (try_end),
+
+        (try_end),
+
+    (try_end),
+
+
 ## TGS: mat: End
 
     (try_begin),

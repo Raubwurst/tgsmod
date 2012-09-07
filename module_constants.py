@@ -229,7 +229,7 @@ slot_agent_TGS_additional_walker_destination    = 602   ## number equals waypoin
 
 
 ### End TGS Slots
-    
+
 ########################################################
 ##  FACTION SLOTS          #############################
 ########################################################
@@ -1659,6 +1659,36 @@ slot_troop_channeling_stamina_recharge_rate_campaign    = 3053
 ## other channeler slots
 slot_troop_player_knows_channeling                      = 3100
 
+## Faction based training slots
+slot_troop_has_legion_training          = 3201  ## (0 = false, 1 = true)
+slot_troop_has_band_training            = 3202  ## (0 = false, 1 = true)
+slot_troop_has_two_rivers_training      = 3203  ## (0 = false, 1 = true)
+slot_troop_has_mayene_training          = 3204  ## (0 = false, 1 = true)
+slot_troop_has_cairhien_training        = 3205  ## (0 = false, 1 = true)
+slot_troop_has_illian_training          = 3206  ## (0 = false, 1 = true)
+slot_troop_has_murandy_training         = 3207  ## (0 = false, 1 = true)
+slot_troop_has_altara_training          = 3208  ## (0 = false, 1 = true)
+slot_troop_has_arad_doman_training      = 3209  ## (0 = false, 1 = true)
+slot_troop_has_tear_training            = 3210  ## (0 = false, 1 = true)
+slot_troop_has_andor_training           = 3211  ## (0 = false, 1 = true)
+slot_troop_has_ghealdan_training        = 3212  ## (0 = false, 1 = true)
+slot_troop_has_far_madding_training     = 3213  ## (0 = false, 1 = true)
+slot_troop_has_tarabon_training         = 3214  ## (0 = false, 1 = true)
+slot_troop_has_amadicia_training        = 3215  ## (0 = false, 1 = true)
+slot_troop_has_whitecloak_training      = 3216  ## (0 = false, 1 = true)
+slot_troop_has_shienar_training         = 3217  ## (0 = false, 1 = true)
+slot_troop_has_arafel_training          = 3218  ## (0 = false, 1 = true)
+slot_troop_has_kandor_training          = 3219  ## (0 = false, 1 = true)
+slot_troop_has_saldaea_training         = 3220  ## (0 = false, 1 = true)
+slot_troop_has_white_tower_training     = 3221  ## (0 = false, 1 = true)
+slot_troop_has_aiel_training            = 3222  ## (0 = false, 1 = true)
+slot_troop_has_seanchan_training        = 3223  ## (0 = false, 1 = true)
+slot_troop_has_shadowspawn_training     = 3224  ## (0 = false, 1 = true)
+slot_troop_has_shara_training           = 3225  ## (0 = false, 1 = true)
+slot_troop_has_sea_folk_training        = 3226  ## (0 = false, 1 = true)
+slot_troop_has_madmen_training          = 3227  ## (0 = false, 1 = true)
+slot_troop_has_toman_head_training      = 3228  ## (0 = false, 1 = true)
+
 
 #######################
 ## end added for TGS ##
@@ -3030,7 +3060,7 @@ spt_gateway					= 401
 
 ### WAYS parties list BEGIN
 waygates_begin = "p_karindi_gate"
-waygates_end = "p_salt_mine" 
+waygates_end = "p_salt_mine"
 ### WAYS parties list END
 
 ### spt_border_tower for border tower parties BEGIN
@@ -3049,26 +3079,26 @@ skirmish_max_distance = 2500 #Max distance to maintain, in cm. Where agent will 
 current_version = 900
 slot_party_pbod_mod_version           = 46  #slot_village_player_can_not_steal_cattle
 #Deployment
-slot_troop_prebattle_first_round      = 37  #slot_lady_no_messages 
-#slot_troop_prebattle_array            = 38  #slot_lady_last_suitor 
-slot_troop_prebattle_num_upgrade      = 52  #slot_lord_reputation_type  
-slot_troop_prebattle_preupgrade_check = 39  #slot_troop_betrothal_time   
-slot_party_prebattle_customized_deployment = 47  #slot_center_accumulated_rents  
-slot_party_prebattle_battle_size           = 48  #slot_center_accumulated_tariffs 
-slot_party_prebattle_size_in_battle        = 49  #slot_town_wealth  
+slot_troop_prebattle_first_round      = 37  #slot_lady_no_messages
+#slot_troop_prebattle_array            = 38  #slot_lady_last_suitor
+slot_troop_prebattle_num_upgrade      = 52  #slot_lord_reputation_type
+slot_troop_prebattle_preupgrade_check = 39  #slot_troop_betrothal_time
+slot_party_prebattle_customized_deployment = 47  #slot_center_accumulated_rents
+slot_party_prebattle_battle_size           = 48  #slot_center_accumulated_tariffs
+slot_party_prebattle_size_in_battle        = 49  #slot_town_wealth
 slot_party_prebattle_in_battle_count       = 50  #slot_town_prosperity
 #Split Divisions
-slot_party_prebattle_customized_divisions  = 51  #slot_town_player_odds 
+slot_party_prebattle_customized_divisions  = 51  #slot_town_player_odds
 slot_party_reinforcement_stage 		       = 107 #for main_party_backup
 slot_troop_prebattle_alt_division          = 48  #slot_troop_set_decision_seed
-slot_troop_prebattle_alt_division_percent  = 49  #slot_troop_temp_decision_seed 
-slot_troop_prebattle_alt_division_amount   = 50  #slot_troop_recruitment_random 
+slot_troop_prebattle_alt_division_percent  = 49  #slot_troop_temp_decision_seed
+slot_troop_prebattle_alt_division_amount   = 50  #slot_troop_recruitment_random
 #Troop slots--for soldiers (non-heros, non-lords, non-player) only
 #Party slots--for the main party and main party backup only
 #Orders
 slot_party_prebattle_plan                  = 231 #slot_center_shipyards
-slot_party_prebattle_num_orders            = 232 #slot_center_household_gardens 
-slot_party_prebattle_order_array_begin     = 250 #slot_town_trade_good_prices_begin 
+slot_party_prebattle_num_orders            = 232 #slot_center_household_gardens
+slot_party_prebattle_order_array_begin     = 250 #slot_town_trade_good_prices_begin
 #Party slots--for the main party only--up to 320 used in this version
 #reg()s from 6-50 used in this version (only during order presentation)
 #Weather Prof Decrease
@@ -3163,7 +3193,7 @@ slot_item_horse_charge	= slot_item_swing_damage
 #-- Dunde's Key Config BEGIN
 #-- Parts to modify as your mod need --------------
 from header_triggers import *
-keys_list = [ 
+keys_list = [
               ("$key_camera_forward",key_up),
               ("$key_camera_backward",key_down),
 	          ("$key_camera_left", key_left),
@@ -3185,12 +3215,12 @@ keys_list = [
               ## End added for TGS
 			]
 #--------------------------------------------------
-             
+
 all_keys_list   = [ 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x1e, 0x30, 0x2e, 0x20, 0x12, 0x21, 0x22, 0x23, 0x17, 0x24,
-                    0x25, 0x26, 0x32, 0x31, 0x18, 0x19, 0x10, 0x13, 0x1f, 0x14, 0x16, 0x2f, 0x11, 0x2d, 0x15, 0x2c, 0x52, 0x4f, 0x50, 0x51, 
-                    0x4b, 0x4c, 0x4d, 0x47, 0x48, 0x49, 0x45, 0xb5, 0x37, 0x4a, 0x4e, 0x9c, 0x53, 0xd2, 0xd3, 0xc7, 0xcf, 0xc9, 0xd1, 0xc8, 
-                    0xd0, 0xcb, 0xcd, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f, 0x40, 0x41, 0x42, 0x43, 0x44, 0x57, 0x58, 0x39, 0x1c, 0x0f, 0x0e, 0x1a, 
-                    0x1b, 0x33, 0x34, 0x35, 0x2b, 0x0d, 0x0c, 0x27, 0x28, 0x29, 0x3a, 0x2a, 0x36, 0x1d, 0x9d, 0x38, 0xb8, 0xe0, 0xe1, 0xe2, 
+                    0x25, 0x26, 0x32, 0x31, 0x18, 0x19, 0x10, 0x13, 0x1f, 0x14, 0x16, 0x2f, 0x11, 0x2d, 0x15, 0x2c, 0x52, 0x4f, 0x50, 0x51,
+                    0x4b, 0x4c, 0x4d, 0x47, 0x48, 0x49, 0x45, 0xb5, 0x37, 0x4a, 0x4e, 0x9c, 0x53, 0xd2, 0xd3, 0xc7, 0xcf, 0xc9, 0xd1, 0xc8,
+                    0xd0, 0xcb, 0xcd, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f, 0x40, 0x41, 0x42, 0x43, 0x44, 0x57, 0x58, 0x39, 0x1c, 0x0f, 0x0e, 0x1a,
+                    0x1b, 0x33, 0x34, 0x35, 0x2b, 0x0d, 0x0c, 0x27, 0x28, 0x29, 0x3a, 0x2a, 0x36, 0x1d, 0x9d, 0x38, 0xb8, 0xe0, 0xe1, 0xe2,
                     0xe3, 0xe4, 0xe5, 0xe6, 0xe7, 0xee, 0xef, ]
 
 number_of_keys            = len(keys_list)
