@@ -542,7 +542,7 @@ strings = [
 
 # meet_spy_in_enemy_town quest secret sentences
   ("secret_sign_1",  "The armoire dances at midnight..."),
-  ("secret_sign_2",  "I am selling these fine Khergit tapestries. Would you like to buy some?"),
+  ("secret_sign_2",  "I am selling these fine Altaran tapestries. Would you like to buy some?"),
   ("secret_sign_3",  "The friend of a friend sent me..."),
   ("secret_sign_4",  "The wind blows hard from the east and the river runs red..."),
   
@@ -579,31 +579,31 @@ strings = [
   ("name_25", "Pechnak"),
 
 # Surname
-  ("surname_1",  "{s50} of Uxhal"),
-  ("surname_2",  "{s50} of Wercheg"),
-  ("surname_3",  "{s50} of Reyvadin"),
-  ("surname_4",  "{s50} of Suno"),
-  ("surname_5",  "{s50} of Jelkala"),
-  ("surname_6",  "{s50} of Veluca"),
-  ("surname_7",  "{s50} of Halmar"),
-  ("surname_8",  "{s50} of Curaw"),
-  ("surname_9",  "{s50} of Sargoth"),
-  ("surname_10", "{s50} of Tihr"),
-  ("surname_11", "{s50} of Zendar"),
-  ("surname_12", "{s50} of Rivacheg"),
-  ("surname_13", "{s50} of Wercheg"),
-  ("surname_14", "{s50} of Ehlerdag"),
-  ("surname_15", "{s50} of Yaragar"),
-  ("surname_16", "{s50} of Burglen"),
-  ("surname_17", "{s50} of Shapeshte"),
-  ("surname_18", "{s50} of Hanun"),
-  ("surname_19", "{s50} of Saren"),
-  ("surname_20", "{s50} of Tosdhar"),
+  ("surname_1",  "{s50} of Cairhien"),
+  ("surname_2",  "{s50} of Caemlyn"),
+  ("surname_3",  "{s50} of Amadicia"),
+  ("surname_4",  "{s50} of Ebou Dar"),
+  ("surname_5",  "{s50} of Toman Head"),
+  ("surname_6",  "{s50} of Fal Moran"),
+  ("surname_7",  "{s50} of Katar"),
+  ("surname_8",  "{s50} of Seandar"),
+  ("surname_9",  "{s50} of Illian"),
+  ("surname_10", "{s50} of Lugard"),
+  ("surname_11", "{s50} of Tanchico"),
+  ("surname_12", "{s50} of Tear"),
+  ("surname_13", "{s50} of the Two Rivers"),
+  ("surname_14", "{s50} of Falme"),
+  ("surname_15", "{s50} of Far-Madding"),
+  ("surname_16", "{s50} of Katar"),
+  ("surname_17", "{s50} of Mayene"),
+  ("surname_18", "{s50} of the Drowned Lands"),
+  ("surname_19", "{s50} of Whitebridge"),
+  ("surname_20", "{s50} of Bandar Eban"),
   ("surname_21", "{s50} the Long"),
   ("surname_22", "{s50} the Gaunt"),
   ("surname_23", "{s50} Silkybeard"),
-  ("surname_24", "{s50} the Sparrow"),
-  ("surname_25", "{s50} the Pauper"),
+  ("surname_24", "{s50} the Biteme"),
+  ("surname_25", "{s50} the Gleeman"),
   ("surname_26", "{s50} the Scarred"),
   ("surname_27", "{s50} the Fair"),
   ("surname_28", "{s50} the Grim"),
@@ -617,7 +617,7 @@ strings = [
   ("surname_36", "{s50} the Coward"),
   ("surname_37", "{s50} Bright"),
   ("surname_38", "{s50} the Quick"),
-  ("surname_39", "{s50} the Minstrel"),
+  ("surname_39", "{s50} the Bard"),
   ("surname_40", "{s50} the Bold"),
   ("surname_41", "{s50} Hot-Head"),
   
@@ -690,7 +690,7 @@ strings = [
  and a ripple of shock passes through the realm when he names you to the hereditary title of {count/countess} of {s9}.\
  Vast fiefs and fortunes are now yours to rule. You quickly become your liege's most trusted advisor,\
  almost his equal and charged with much of the running of his realm,\
- and you sit a throne in your own splendourous palace as one of the most powerful figures in Calradia."),
+ and you sit a throne in your own splendourous palace as one of the most powerful figures in the land."),
 
 
 #NPC companion changes begin
@@ -1488,7 +1488,7 @@ strings = [
 #The game will select the first comment in each block which meets all the tag requirements
 
 #Beginning of game comments
-("comment_intro_liege_affiliated", "I am told that you are pledged to one of the pretenders who disputes my claim to the crown of Calradia. But we may still talk."),
+("comment_intro_liege_affiliated", "I am told that you are pledged to one of the pretenders who disputes my claim to the throne. But we may still talk."),
 ##diplomacy start+ (documentation only)
 #NOTE:
 #  The comment_* strings below are used with script_lord_comment_to_s43
@@ -1518,7 +1518,7 @@ strings = [
 ("comment_intro_noble_cunning", "I see that you carry a nobleman's banner, but I do not recognize the device. Still, it is always worthwhile to make the acquaintance of {men/women} who may one day prove themselves to be great warriors."),
 ("comment_intro_noble_sadistic", "I see that you carry a nobleman's banner, but I do not recognize the device. Perhaps you are the bastard {son/daughter} of a puffed-up cattle thief? Or perhaps you stole it?"),
 ("comment_intro_noble_goodnatured", "I see that you carry a nobleman's banner, but I do not recognize the device. Forgive my ignorance, {sir/my lady}! It is good to make your acquaintance."),
-("comment_intro_noble_upstanding", "I see that you carry a nobleman's banner, but I do not recognize the device. No doubt you have come to Calradia in search of wealth and glory. If this indeed is the case, then I only ask that you show mercy to those poor souls caught in the path of war."),
+("comment_intro_noble_upstanding", "I see that you carry a nobleman's banner, but I do not recognize the device. No doubt you have come in search of wealth and glory. If this indeed is the case, then I only ask that you show mercy to those poor souls caught in the path of war."),
 
 
 ("comment_intro_common_liege", "You may be of common birth, but know that I am always looking for good men to fight for me, if they can prove themselves to be worthy of my trust."),
@@ -1553,8 +1553,8 @@ strings = [
 ("comment_intro_female_noble_liege", "It is not often that I meet a {male/woman} who aspires to lead {warriors/men} into battle. But these are dark and troubled times, and I for one will not turn away hands that can grip a sword, should their owner be brave and loyal."),
 ("comment_intro_female_noble_martial", "I do not recognize the device on your banner, but clearly you are a {boy/lady} of rank. Please consider me your most humble servant."),
 ("comment_intro_female_noble_badtempered", "I don't recognize the device on that banner. Clearly another foreigner come to our lands, bringing their strange ways."),
-("comment_intro_female_noble_pitiless", "I see that you carry a noble's banner, but I do not recognize the device... You should know, {boy/lady}, that in Calradia it is the {women/men} to ride to war, and if you seek to overturn the natural order of things, you will find your fair head stuck on a pike -- like that of any other rebel!"),
-("comment_intro_female_noble_cunning", "It is not unheard-of for a {male/woman} to seek {his/her} fortune on the battlefields of Calradia, but neither is it usual. I shall be most interested in your progress."),
+("comment_intro_female_noble_pitiless", "I see that you carry a noble's banner, but I do not recognize the device... You should know, {boy/lady}, that it is the {women/men} to ride to war, and if you seek to overturn the natural order of things, you will find your fair head stuck on a pike -- like that of any other rebel!"),
+("comment_intro_female_noble_cunning", "It is not unheard-of for a {male/woman} to seek {his/her} fortune on the battlefields, but neither is it usual. I shall be most interested in your progress."),
 ("comment_intro_female_noble_sadistic", "You appear to be of noble rank, but I don't recognize your banner. Clearly, another foreigner come to our shores -- no doubt from a land where {women/men} are weak, and the {men/women} ride to war in their place!"),
 ("comment_intro_female_noble_goodnatured", "I see that you carry a {noblewoman/nobleman}'s banner, but I do not recognize the device. Forgive my ignorance, {dear boy/my lady}! It is good to make your acquaintance."),
 ("comment_intro_female_noble_upstanding", "It is not every day that we see a {male/woman} caparisoned for war. Please do not take this amiss, {dear boy/my lady}, for you have every right to protect yourself, but I cannot pretend to be fully comfortable with your decision to fight in battle. I would prefer that {males/women} be untouched by these wars, as I believe the {male/female} to be the custodian of what little gentility and tenderness remains to us."),
@@ -1578,7 +1578,7 @@ strings = [
 ("comment_intro_female_common_martial", "I must say, {dear boy/my lady} -- do be careful, riding about this dangerous land. If you ever wished to seek a more... em... settled life, I'm sure I could find you a worthy {wife/husband} from among my {warriors/men}."),
 ("comment_intro_female_common_badtempered", "By the way, {boy/girl} -- does your {mistress/husband} know that you nicked {her/his} weapons and armor? I'll bet you're in for a right old beating when you get home!"),
 ("comment_intro_female_common_pitiless", "These are fallen times indeed, when even {males/women} turn brigand, to pick the leavings from the wreckage of war."),
-("comment_intro_female_common_cunning", "It is not unheard-of for a {male/woman} to seek {his/her} fortune on the battlefields of Calradia, but neither is it usual. I shall be most interested in your progress."),
+("comment_intro_female_common_cunning", "It is not unheard-of for a {male/woman} to seek {his/her} fortune on the battlefields, but neither is it usual. I shall be most interested in your progress."),
 ("comment_intro_female_common_sadistic", "A {male/woman}, caparisoned for war! Well, I suppose that you're {not much less/no more} womanly than most of those in my service who call themselves warriors."),
 ("comment_intro_female_common_goodnatured", "From the look of you, I suppose you can handle yourself, but do be careful out there, {dear boy/my lady}."),
 ("comment_intro_female_common_upstanding", "It is not every day that we see a {male/woman} caparisoned for war. Please do not take this amiss, {dear boy/my lady}, for you have every right to protect yourself, but I cannot pretend to be fully comfortable with your decision to fight in battle. I would prefer that {males/women} be untouched by these wars, as I believe the {male/female} to be the custodian of what little gentility and tenderness remains to us."),
@@ -1586,7 +1586,7 @@ strings = [
 #Rejoinder
 ##(... continuing dplmc+ changes to include female-to-male versions ...)
 ("rejoinder_intro_female_common_badtempered", "I won my weapons in battle. Would you care to test their edge?"),
-("rejoinder_intro_female_noble_sadistic", "Never mind my country. Here in Calradia, it seems, dogs lead {soldiers/men} to war."),
+("rejoinder_intro_female_noble_sadistic", "Never mind my country. Here, it seems, dogs lead {soldiers/men} to war."),
 ("rejoinder_intro_female_common_sadistic", "And you, {madam/sir}, are no more bestial than my horse."),
 ("rejoinder_intro_female_noble_pitiless", "I would restore the natural order, so that you no longer speak from your arse."),
 ("rejoinder_intro_female_common_pitiless", "Indeed, these are fallen times, when brigands call themselves 'Lord'."),
@@ -3049,7 +3049,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("trade_explanation_apples", "I'm just coming in from the orchards, where we grow apples. We dry them for storage, or they can also be made into cider or vinegar."),
 
   ("trade_explanation_grapes", "I work in the vineyards on the hillsides, growing grapes to be made into fine wines for the tables of the lords, ladies, and merchants, and cheap wine to be mixed with water to quench the thirst of the commons."),
-  ("trade_explanation_dyes", "I work in the caravanseries, unloading dyes brought in from the lands outside Calradia -- the crimson of oak beetles and the red roots of madder, the blue of indigo and woad shrubs, the yellow of weld root and greenweed. The weavers use it to color the silks and velvets of the great lords of the realm."),
+  ("trade_explanation_dyes", "I work in the caravanseries, unloading dyes brought in from faraway lands -- the crimson of oak beetles and the red roots of madder, the blue of indigo and woad shrubs, the yellow of weld root and greenweed. The weavers use it to color the silks and velvets of the great lords of the realm."),
 ##diplomacy start+ replace {sir/my lady} with {s0} so it can be "my lord" or "your highness"
   ("trade_explanation_leatherwork", "I work in the tanneries outside the walls, turning cured hides from the countryside into good, supple leather. It's foul work, and I come home stinking of urine, dung, and lime -- but that's where your boots, saddles, and bridles come from, {s0}."),
   ("trade_explanation_flax", "I sew and harvest linseed, and rot the stems to make flax fibers. That's the source of your fine linens, {s0} -- a rotting pit on the edge of a field."),
@@ -3217,7 +3217,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ##diplomacy end+
   ("you_speak_of_giving_me_land_good_i_ask_for_no_more_than_my_due", "You speak of giving me land. Good. I ask for no more than my due."),
   ("you_speak_of_giving_me_land_unfortunately_you_are_not_wellknown_for_rewarding_those_to_whom_you_have_made_such_offers", "You speak of giving me land. Unfortunately, you are not well-known for rewarding those to whom you have made such offers."),
-  ("you_speak_of_unifying_calradia_well_i_believe_that_well_always_be_fighting__its_important_that_we_fight_for_a_rightful_cause", "You speak of unifying Calradia. Well, I believe that we'll always be fighting - it's important that we fight for a rightful cause."),
+  ("you_speak_of_unifying_calradia_well_i_believe_that_well_always_be_fighting__its_important_that_we_fight_for_a_rightful_cause", "You speak of unifying for the Last Battle. Well, I believe that we'll always be fighting - it's important that we fight for a rightful cause."),
   ("you_talk_of_claims_to_the_throne_but_i_leave_bickering_about_legalities_to_the_lawyers_and_clerks", "You talk of claims to the throne, but I leave bickering about legalities to the lawyers and clerks."),
 ##diplomacy start+: change "king" to "{s14}" 
 #  ("you_speak_of_ruling_justly_hah_ill_believe_theres_such_a_thing_as_a_just_king_when_i_see_one", "You speak of ruling justly. Hah! I'll believe there's such a thing as a just king when I see one."),
@@ -3227,8 +3227,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ##diplomacy end+
   ("you_speak_of_giving_me_land_ay_well_lets_see_if_you_deliver", "You speak of giving me land. Ay, well, let's see if you deliver."),
   ("you_speak_of_giving_me_land_bah_youre_not_known_for_delivering_on_your_pledges", "You speak of giving me land. Bah. You're not known for delivering on your pledges."),
-  ("you_speak_of_unifying_calradia_well_youve_done_a_good_job_at_making_calradia_bend_its_knee_to_you_so_maybe_thats_not_just_talk", "You speak of unifying Calradia. Well, you've done a good job at making Calradia bend its knee to you, so maybe that's not just talk."),
-  ("you_speak_of_unifying_calradia_id_be_impressed_if_i_thought_you_could_do_it_but_unfortunately_you_dont", "You speak of unifying Calradia. I'd be impressed if I thought you could do it. But unfortunately, you don't."),
+  ("you_speak_of_unifying_calradia_well_youve_done_a_good_job_at_making_calradia_bend_its_knee_to_you_so_maybe_thats_not_just_talk", "You speak of unifying for the Last Battle. Well, you've done a good job at making the realm bend its knee to you, so maybe that's not just talk."),
+  ("you_speak_of_unifying_calradia_id_be_impressed_if_i_thought_you_could_do_it_but_unfortunately_you_dont", "You speak of unifying for the Last Battle. I'd be impressed if I thought you could do it. But unfortunately, you don't."),
   ("you_speak_of_claims_to_the_throne_well_any_peasant_can_claim_to_be_a_kings_bastard", "You speak of claims to the throne. Well, any peasant can claim to be a king's bastard"),
   ("well_its_a_fine_thing_to_court_the_commons_with_promises_but_what_do_you_have_to_offer_me", "Well, it's a fine thing to court the commons with promises, but what do you have to offer me?"),
 ##diplomacy start+: change "lords" to "{s15}", and "lord" to "{s14}" 
@@ -3239,8 +3239,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ##diplomacy end+
   ("you_speak_of_giving_me_land_well_my_family_is_of_ancient_and_noble_lineage_so_you_promise_me_no_more_than_my_due_still_your_gesture_is_appreciated", "You speak of giving me land. Well, my family is of ancient and noble lineage, so you promise me no more than my due. Still, your gesture is appreciated."),
   ("you_speak_of_giving_me_land_well_you_make_that_pledge_but_i_am_not_impressed", "You speak of giving me land. Well, you make that pledge, but I am not impressed."),
-  ("you_speak_of_unifying_calradia_well_much_of_this_land_now_bends_its_knee_to_you_so_perhaps_that_is_not_just_talk", "You speak of unifying Calradia. Well, much of this land now bends its knee to you, so perhaps that is not just talk."),
-  ("you_speak_of_unifying_calradia_but_right_now_yours_is_just_one_squabbling_faction_among_many", "You speak of unifying Calradia, but right now yours is just one squabbling faction among many."),
+  ("you_speak_of_unifying_calradia_well_much_of_this_land_now_bends_its_knee_to_you_so_perhaps_that_is_not_just_talk", "You speak of unifying for the Last Battle. Well, much of this land now bends its knee to you, so perhaps that is not just talk."),
+  ("you_speak_of_unifying_calradia_but_right_now_yours_is_just_one_squabbling_faction_among_many", "You speak of unifying for the Last Battle, but right now yours is just one squabbling faction among many."),
   ("you_speak_of_claims_well_no_offense_but_a_claim_unsupported_by_might_rarely_prospers", "You speak of claims. Well, no offense, but a claim unsupported by might rarely prospers."),
   ("you_speak_of_protecting_the_commons_well_i_suppose_that_will_make_for_a_more_prosperous_realm_ive_always_tried_to_treat_my_peasants_decently_saves_going_to_bed_worrying_about_whether_youll_wake_up_with_the_roof_on_fire", "You speak of protecting the commons. Well, I suppose that will make for a more prosperous realm. I've always tried to treat my peasants decently. Saves going to bed worrying about whether you'll wake up with the roof on fire."),
   ("you_speak_of_protecting_the_commons_very_well_but_remember_that_peasants_are_more_likely_to_cause_trouble_if_you_make_promises_then_dont_deliver_than_if_you_never_made_the_promise_in_the_first_place", "You speak of protecting the commons. Very well. But remember that peasants are more likely to cause trouble if you make promises then don't deliver, than if you never made the promise in the first place."),
@@ -3251,8 +3251,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("you_speak_of_protecting_the_rights_of_lords_very_well_but_remember__failing_to_keep_promises_which_you_made_while_scrambling_up_the_throne_is_the_quickest_way_to_topple_off_of_it_once_you_get_there", "You speak of protecting the rights of {s14}. Very well. But remember -- failing to keep promises which you made while scrambling up the throne is the quickest way to topple off of it once you get there."),
 ##diplomacy end+
   ("you_speak_of_giving_me_land_very_good_but_often_i_find_that_when_a_man_makes_too_many_promises_trying_to_get_to_the_top_he_has_trouble_keeping_them_once_he_reaches_it", "You speak of giving me land. Very good, but often I find that when a man makes too many promises trying to get to the top, he has trouble keeping them once he reaches it."),
-  ("you_speak_of_unifying_calradia_well_many_have_said_that_you_might_very_well_be_the_one_to_do_it", "You speak of unifying Calradia. Well, many have said that, you might very well be the one to do it."),
-  ("you_speak_of_unifying_calradia_well_all_the_kings_say_that_im_not_sure_that_you_will_succeed_while_they_fail", "You speak of unifying Calradia. Well, all the kings say that. I'm not sure that you will succeed while they fail."),
+  ("you_speak_of_unifying_calradia_well_many_have_said_that_you_might_very_well_be_the_one_to_do_it", "You speak of unifying for the Last Battle. Well, many have said that, you might very well be the one to do it."),
+  ("you_speak_of_unifying_calradia_well_all_the_kings_say_that_im_not_sure_that_you_will_succeed_while_they_fail", "You speak of unifying for the Last Battle. Well, all the kings say that. I'm not sure that you will succeed while they fail."),
   ("you_speak_of_claims_do_you_think_i_care_for_the_nattering_of_lawyers", "You speak of claims. Do you think I care for the nattering of lawyers?"),
 ##diplomacy start+
 ##Replace "swineherd" with "{s14}"
@@ -3264,8 +3264,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ##diplomacy end+
   ("you_speak_of_giving_me_land_yes_very_good__but_you_had_best_deliver", "You speak of giving me land. Yes, very good -- but you had best deliver."),
   ("you_speak_of_giving_me_land_hah_perhaps_all_those_others_to_whom_you_promised_lands_will_simply_step_aside", "You speak of giving me land. Hah! Perhaps all those others to whom you promised lands will simply step aside?"),
-  ("you_speak_of_unifying_calradia_you_may_indeed_humble_the_other_kings_of_this_land_and_in_that_case_i_would_hope_that_you_would_remember_me_as_your_faithful_servant", "You speak of unifying Calradia. You may indeed humble the other kings of this land, and in that case I would hope that you would remember me as your faithful servant."),
-  ("you_speak_of_unifying_calradia_but_you_are_weak_and_i_think_that_you_will_remain_weak", "You speak of unifying Calradia. But you are weak, and I think that you will remain weak."),
+  ("you_speak_of_unifying_calradia_you_may_indeed_humble_the_other_kings_of_this_land_and_in_that_case_i_would_hope_that_you_would_remember_me_as_your_faithful_servant", "You speak of unifying for the Last Battle. You may indeed humble the other kings of this land, and in that case I would hope that you would remember me as your faithful servant."),
+  ("you_speak_of_unifying_calradia_but_you_are_weak_and_i_think_that_you_will_remain_weak", "You speak of unifying for the Last Battle. But you are weak, and I think that you will remain weak."),
 ##diplomacy start+: replace "king" with "{s14}", and remove extraneous space
 #  ("you_speak_of_claims_its_good_for_a_king_to_have_a_strong_claim_although_admittedly_im_more_concerned_that_he_rules_just_ly_than_with_legalities_anyway_your_claim_seems_wellfounded_to_me", "You speak of claims. It's good for a king to have a strong claim, although admittedly I'm more concerned that he rules just ly than with legalities. Anyway, your claim seems well-founded to me."),
   ("you_speak_of_claims_its_good_for_a_king_to_have_a_strong_claim_although_admittedly_im_more_concerned_that_he_rules_just_ly_than_with_legalities_anyway_your_claim_seems_wellfounded_to_me", "You speak of claims. It's good for a {s14} to have a strong claim, although admittedly I'm more concerned that he rules justly than with legalities. Anyway, your claim seems well-founded to me."),
@@ -3280,7 +3280,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("you_speak_of_giving_me_land_its_kind_of_you_really_though_that_is_not_necessary", "You speak of giving me land. It's kind of you. Really, though, that is not necessary."),
 ##diplomacy start+: replace "by the sword" with "by the {s14}"
 #  ("you_speak_of_unifying_calradia_well_maybe_you_can_unite_this_land_by_the_sword_but_im_not_sure_that_this_will_make_you_a_good_ruler", "You speak of unifying Calradia. Well, maybe you can unite this land by the sword. But I'm not sure that this will make you a good ruler."),
-  ("you_speak_of_unifying_calradia_well_maybe_you_can_unite_this_land_by_the_sword_but_im_not_sure_that_this_will_make_you_a_good_ruler", "You speak of unifying Calradia. Well, maybe you can unite this land by the {s14}. But I'm not sure that this will make you a good ruler."),
+  ("you_speak_of_unifying_calradia_well_maybe_you_can_unite_this_land_by_the_sword_but_im_not_sure_that_this_will_make_you_a_good_ruler", "You speak of unifying for the Last Battle. Well, maybe you can unite this land by the {s14}. But I'm not sure that this will make you a good ruler."),
 ##Replace "king" with "{s14}"
 #  ("you_speak_of_claims_a_king_must_have_a_strong_legal_claim_for_there_not_to_be_chaos_in_the_realm_and_yours_is_wellestablished", "You speak of claims. A king must have a strong legal claim for there not to be chaos in the realm, and yours is well-established."),
   ("you_speak_of_claims_a_king_must_have_a_strong_legal_claim_for_there_not_to_be_chaos_in_the_realm_and_yours_is_wellestablished", "You speak of claims. A {s14} must have a strong legal claim for there not to be chaos in the realm, and yours is well-established."),
@@ -3299,8 +3299,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("you_speak_of_protecting_the_commons_i_would_be_pleased_to_serve_a_king_who_respected_the_rights_of_his_subjects_however_i_would_like_to_know_that_you_would_indeed_deliver_on_your_promises", "You speak of protecting the commons. I would be pleased to serve a {s14} who respected the rights of his subjects. However, I would like to know that you would indeed deliver on your promises."),
 ##diplomacy end+ (finish adding alternate cultural terms)
   ("i_am_not_swayed_by_promises_of_reward", "I am not swayed by promises of reward"),
-  ("you_speak_of_unifying_calradia_it_would_be_good_to_bring_peace_to_the_realm_and_i_believe_that_you_are_strong_enough_to_do_so", "You speak of unifying Calradia. It would be good to bring peace to the realm, and I believe that you are strong enough to do so."),
-  ("you_speak_of_unifying_calradia_it_would_be_good_to_bring_peace_the_realm_but_with_your_kingdom_in_its_current_state_i_worry_that_you_are_just_bringing_more_discord", "You speak of unifying Calradia. It would be good to bring peace the realm, but with your kingdom in its current state, I worry that you are just bringing more discord."),
+  ("you_speak_of_unifying_calradia_it_would_be_good_to_bring_peace_to_the_realm_and_i_believe_that_you_are_strong_enough_to_do_so", "You speak of unifying for the Last Battle. It would be good to bring peace to the realm, and I believe that you are strong enough to do so."),
+  ("you_speak_of_unifying_calradia_it_would_be_good_to_bring_peace_the_realm_but_with_your_kingdom_in_its_current_state_i_worry_that_you_are_just_bringing_more_discord", "You speak of unifying for the Last Battle. It would be good to bring peace to the realm, but with your kingdom in its current state, I worry that you are just bringing more discord."),
 ##diplomacy start+ duplicate definition of s15...
 #at the very least, fix its defects
 #  ("s15", "{!}{s15"),
@@ -3610,9 +3610,9 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("man", "man"),
   ("noble", "noble"),
   ("common", "common"),
-  ("may_find_that_you_are_able_to_take_your_place_among_calradias_great_lords_relatively_quickly", "may find that you are able to take your place among Calradia's great lords relatively quickly"),
-  ("may_face_some_difficulties_establishing_yourself_as_an_equal_among_calradias_great_lords", "may face some difficulties establishing yourself as an equal among Calradia's great lords"),
-  ("may_face_great_difficulties_establishing_yourself_as_an_equal_among_calradias_great_lords", "may face great difficulties establishing yourself as an equal among Calradia's great lords"),
+  ("may_find_that_you_are_able_to_take_your_place_among_calradias_great_lords_relatively_quickly", "may find that you are able to take your place among the great lords relatively quickly"),
+  ("may_face_some_difficulties_establishing_yourself_as_an_equal_among_calradias_great_lords", "may face some difficulties establishing yourself as an equal among the great lords"),
+  ("may_face_great_difficulties_establishing_yourself_as_an_equal_among_calradias_great_lords", "may face great difficulties establishing yourself as an equal among the great lords"),
   ("current_party_morale_is_reg5_current_party_morale_modifiers_are__base_morale__50_party_size_s2reg1_leadership_s3reg2_food_variety_s4reg3s5s6_recent_events_s7reg4_total__reg5___", "Current party morale is {reg5}.^Current party morale modifiers are:^^Base morale:  +{reg6}^Party size: {s2}{reg1}^Leadership: {s3}{reg2}^Food variety: {s4}{reg3}{s5}{s6}^Recent events: {s7}{reg4}^TOTAL:  {reg5}^^^"),
   ("s1extra_morale_for_s9_troops__reg6_", "{s1}Extra morale for {s9} troops : {reg6}^"),
   ("courtships_in_progress_", "Courtships in progress:^"),
@@ -3666,7 +3666,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s11_also_s12_was_wounded_and_had_to_be_left_behind", "{s11} Also, {s12} was wounded and had to be left behind."),
   ("trial_influences_s17s_relation_with_s18_by_reg3", "{!}Trial influences {s17}'s relation with {s18} by {reg3}"),
   ("with_the_s10", "with the {s10}"),
-  ("outside_calradia", "outside Calradia."),
+  ("outside_calradia", "outside, in faraway lands."),
   ("you_have_been_indicted_for_treason_to_s7_your_properties_have_been_confiscated_and_you_would_be_well_advised_to_flee_for_your_life", "You have been indicted for treason to {s7}. Your properties have been confiscated, and you would be well advised to flee for your life."),
 ##diplomacy start+ replaced "He" with "{reg4?She:He}"
   ("by_order_of_s6_s4_of_the_s5_has_been_indicted_for_treason_the_lord_has_been_stripped_of_all_reg4herhis_properties_and_has_fled_for_reg4herhis_life_he_is_rumored_to_have_gone_into_exile_s11", "By order of {s6}, {s4} of the {s5} has been indicted for treason. The lord has been stripped of all {reg4?her:his} properties, and has fled for {reg4?her:his} life. {reg4?She:He} is rumored to have gone into exile {s11}."),
@@ -3807,7 +3807,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("really_well_this_is_the_first_i_have_heard_of_it_unless_you_build_up_support_for_that_claim_you_may_find_it_difficult_to_find_allies_however_whenever_you_see_fit_to_declare_yourself_publically_as_queen_i_should_be_honored_to_be_your_consort", "Really? Well, this is the first I have heard of it. Unless you build up support for that claim, you may find it difficult to find allies. However, whenever you see fit to declare yourself publically as {s0}, I should be honored to be your consort."),
   ##diplomacy end+
   ("yes_i_have_heard_such_talk_while_it_is_good_that_you_are_building_up_your_support_i_do_not_think_that_you_are_quite_ready_to_proclaim_yourself_yet_however_i_will_let_you_be_the_judge_of_that_and_when_you_decide_i_should_be_honored_to_be_your_consort", "Yes... I have heard such talk. While it is good that you are building up your support, I do not think that you are quite ready to proclaim yourself yet. However, I will let you be the judge of that, and when you decide, I should be honored to be your consort."),
-  ("yes_and_many_others_in_calradia_think_so_as_well_perhaps_it_is_time_that_you_declared_yourself_and_we_shall_ride_forth_together_to_claim_your_throne_i_should_be_honored_to_be_your_consort", "Yes... and many others in Calradia think so as well. Perhaps it is time that you declared yourself, and we shall ride forth together to claim your throne. I should be honored to be your consort."),
+  ("yes_and_many_others_in_calradia_think_so_as_well_perhaps_it_is_time_that_you_declared_yourself_and_we_shall_ride_forth_together_to_claim_your_throne_i_should_be_honored_to_be_your_consort", "Yes... and many others think so as well. Perhaps it is time that you declared yourself, and we shall ride forth together to claim your throne. I should be honored to be your consort."),
   ("i_am_disturbed_about_my_lord_s15s_choice_of_companions", "I am disturbed about my lord {s15}'s choice of companions."),
   ("well_ill_be_honest_i_feel_that_sometimes_s15_overlooks_my_rights_and_extends_his_protection_to_the_unworthy", "Well, I'll be honest. I feel that sometimes {s15} overlooks my rights, and extends {reg15?her:his} protection to the unworthy."),
   ("heh_one_thing_that_ill_say_about_s15_is_that_he_has_a_ripe_batch_of_bastards_in_his_court", "Heh. One thing that I'll say about {s15} is that {reg15?she:he} has a ripe batch of bastards in {reg15?her:his} court."),
@@ -3818,8 +3818,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("well_s15_is_not_like_you_ill_say_that_much", "Well, {s15} is not like you. I'll say that much."),
   ("s15_long_may_he_live", "{s15}? Long may {reg15?she:he} live!"),
   ("he_is_my_liege_that_is_all_that_i_will_say_on_this_matter", "{s15} is my liege. That is all that I will say on this matter."),
-  ("that_you_are_the_rightful_heir_to_the_throne_of_calradia", "That you are the rightful heir to the throne of Calradia?"),
-  ("that_s14_is_the_rightful_ruler_of_calradia", "That {s14} is the rightful ruler of Calradia?"),
+  ("that_you_are_the_rightful_heir_to_the_throne_of_calradia", "That you are the rightful heir to the throne of the entire realm?"),
+  ("that_s14_is_the_rightful_ruler_of_calradia", "That {s14} is the rightful ruler of the entire realm?"),
   ("that_s14_will_rule_this_land_justly", "That {s14} will rule this land justly?"),
   ("that_s14_will_protect_our_rights_as_nobles", "That {s14} will protect our rights as nobles?"),
   ("that_s14_will_unify_this_land_and_end_this_war", "That {s14} will unify this land and end this war?"),
@@ -3836,7 +3836,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("queen", "queen"),
   ("khan", "khan"),
   ("i", "I"),
-  ("according_to_the_ancient_law_and_custom_of_the_calradians_s45_should_be_s47", "According to the ancient law and custom of the Calradians, {s45} should be {s47}"),
+  ("according_to_the_ancient_law_and_custom_of_the_calradians_s45_should_be_s47", "According to ancient law and custom, {s45} should be {s47}"),
   ("because_s44_is_the_rightful_s47_of_the_s46", "Because {s44} is the rightful {s47} of the {s46}"),
   ("you_speak_of_claims_and_legalities_yet_to_others_you_talk_of_bringing_peace_by_force", "You speak of claims and legalities, yet to others you talk of bringing peace by force"),
   ("you_speak_of_bringing_peace_by_force_yet_to_others_you_make_legal_claims", "You speak of bringing peace by force, yet to others you make legal claims."),
@@ -3944,7 +3944,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("once_again_", "once again "),
   ("cheat__marriage_proposal", "Cheat - marriage proposal"),
 ##diplomacy start+ gender correction
-  ("you_plan_to_marry_s4_as_you_have_no_family_in_calradia_he_will_organize_the_wedding_feast", "You plan to marry {s4}. As you have no family in Calradia, {she/he} will organize the wedding feast."),
+  ("you_plan_to_marry_s4_as_you_have_no_family_in_calradia_he_will_organize_the_wedding_feast", "You plan to marry {s4}. As you have no family here, {she/he} will organize the wedding feast."),
 ##diplomacy end+
   ("s43_just_so_you_know_if_you_attack_me_you_will_be_in_violation_of_the_truce_you_signed_with_the_s34", "{s43} Just so you know, if you attack me, you will be in violation of the truce you signed with the {s34}"),
 ##diplomacy start+ gender correction
@@ -4057,7 +4057,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s12there_is_a_feast_of_the_s3_in_progress_at_s4_which_has_only_just_begun_", "{s12}There is a feast of the {s3} in progress at {s4}, which has only just begun. "),
   ("not_at_this_time_no", "Not at this time, no."),
   ("s12the_great_lords_bring_their_daughters_and_sisters_to_these_occasions_to_see_and_be_seen_so_they_represent_an_excellent_opportunity_to_make_a_ladys_acquaintance", "{s12}The great lords bring their daughters and sisters to these occasions to see and be seen, so they represent an excellent opportunity to make a lady's acquaintance."),
-  ("you_will_not_be_disappointed_sirmadam_you_will_not_find_better_warriors_in_all_calradia", "You will not be disappointed {sir/madam}. You will not find better warriors in all Calradia."),
+  ("you_will_not_be_disappointed_sirmadam_you_will_not_find_better_warriors_in_all_calradia", "You will not be disappointed {sir/madam}. You will not find better warriors anywhere else."),
   ("your_excellency", "your excellency"),
   ("s10_and_s11", "{s10} and {s11}"),
   ("your_loyal_subjects", "your loyal subjects"),
@@ -4153,7 +4153,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("lord_indicted_dialog_approach", "Greetings, {my lord/my lady}. You may have heard of my ill treatment at the hands of {s10}. You have a reputation as one who treats {his/her} vassals well, and if you will have me, I would be honored to pledge myself as your vassal."),
   ("lord_indicted_dialog_approach_yes", "And I would be honored to accept your pledge."),
   ("lord_indicted_dialog_approach_no", "I'm sorry. Your service is not required."),
-  ("lord_indicted_dialog_rejected",    "Indeed? Well, perhaps your reputation is misleading. Good day, {my lord/my lady} -- I go to see if another ruler in Calradia is more appreciative of my talents."),
+  ("lord_indicted_dialog_rejected",    "Indeed? Well, perhaps your reputation is misleading. Good day, {my lord/my lady} -- I go to see if another ruler is more appreciative of my talents."),
 
 ##diplomacy start+ fix gender of pronouns with reg4
   ("_has_been_worried_about_bandits_establishing_a_hideout_near_his_home", " has been worried about bandits establishing a hideout in {reg4?her:his} area."),
@@ -4232,7 +4232,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("my_friend_s15", "my friend {s15}"), 
   ("custom_battle", "Custom Battle"),
   
-  ("comment_intro_liege_affiliated_to_player", "I am told that you would dispute my claim to the crown of Calradia. Needless to say, I am not pleased by this news. However, we may still talk."),
+  ("comment_intro_liege_affiliated_to_player", "I am told that you would dispute my claim to the crown. Needless to say, I am not pleased by this news. However, we may still talk."),
 
   ("s21_the_s8_declared_war_out_of_personal_enmity", "{s21} The {s8} declared war out of personal enmity"),
   ("s21_the_s8_declared_war_in_response_to_border_provocations", "{s21} The {s8} declared war in response to border provocations"),
@@ -4452,13 +4452,13 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("missing_after_battle", "Missing after battle"),
   ("retrieve_garrison_warning", " (Troops might not be retrievable if fortress awarded to another)"),
 
-  ("s12s15_declared_war_to_control_calradia", "{s12}{s15} may attack {s16} without pretext, as a bid to extend control over all of Calradia."),
+  ("s12s15_declared_war_to_control_calradia", "{s12}{s15} may attack {s16} without pretext, as a bid to extend control over the entire realm."),
   ("offer_gift_description", " improve my standing by offering a gift."),
   ("resolve_dispute_description", " improve my standing by resolving a dispute."),
 #diplomacy start+ potential gender correction
   ("feast_wedding_opportunity", " If your betrothed and {her/his} family are present, then this may be an opportunity for you to celebrate the wedding."),
 #diplomacy end+
-  ("s21_the_s8_declared_war_as_part_of_a_bid_to_conquer_all_calradia", "{s21}. The {s8} declared war with very little pretext, as part of a bid to conquer all Calradia."),
+  ("s21_the_s8_declared_war_as_part_of_a_bid_to_conquer_all_calradia", "{s21}. The {s8} declared war with very little pretext, as part of a bid to conquer the entire realm."),
   ("master_vinter", "Master vinter"),
   ("s54_has_left_the_realm", "{s54} has left the realm."),
   ("enterprise_s5_at_s0", "Net revenue from {s5} at {s0}"),  
