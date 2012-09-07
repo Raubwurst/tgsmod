@@ -1043,7 +1043,7 @@ Pick up the javelins you see over there and try to hit those three targets. ",
 [
 (eq, "$g_tutorial_training_ground_archer_trainer_completed_chapters", 3),
 ],
-"Well, with that you have recevied the basic skills to use all three types of ranged weapons. The rest will come with practice. Train each and every day, and in time you will be as good as the best marksmen in Calradia.",
+"Well, with that you have recevied the basic skills to use all three types of ranged weapons. The rest will come with practice. Train each and every day, and in time you will be as good as the best marksmen.",
 "ranged_end", []],
 
 [trp_tutorial_master_archer, "ranged_end", [],
@@ -2014,7 +2014,7 @@ Overall, {s30}.", "pretender_progress_2",[]],
 "Let me think about this some more.", "supported_pretender_pretalk",[]],
 
 [anyone,"pretender_quit_rebel", [],
-"So be it. Then my cause is lost. There is only one thing to do for me now. I will go from Calradia and never come back. With me gone, you may try to make your peace with {s4}.", "close_window",
+"So be it. Then my cause is lost. There is only one thing to do for me now. I will go from here and never come back. With me gone, you may try to make your peace with {s4}.", "close_window",
 [
 (troop_get_slot, ":original_faction", "$g_talk_troop", slot_troop_original_faction),
 (faction_get_slot, ":original_faction_leader", ":original_faction", slot_faction_leader),
@@ -3066,7 +3066,7 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 (check_quest_active, "qst_save_relative_of_merchant"),
 (check_quest_succeeded, "qst_save_relative_of_merchant"),
 ],
-"Well... My brother is home safe. I'm not sure what to do with him -- maybe pack him off to a university outside Calradia. That way, if he gets knocked on the head in a street brawl, no one can say it's my fault. But that's not your problem. Here's the rest of your reward. It was well-earned.", "merchant_quest_3b",
+"Well... My brother is home safe. I'm not sure what to do with him -- maybe pack him off to a university in some faraway land. That way, if he gets knocked on the head in a street brawl, no one can say it's my fault. But that's not your problem. Here's the rest of your reward. It was well-earned.", "merchant_quest_3b",
 [
 (call_script, "script_finish_quest", "qst_save_relative_of_merchant", 100),
 (troop_add_gold, "trp_player", 200),
@@ -3101,7 +3101,7 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 
 [anyone, "merchant_quest_4b2",
 [],
-"As a consequence, it seems, our captain turned to villainy to recoup his fortune. I supposed I'd do the same if, the Heavens forbid, I ever faced indebtedness and ruination. Now, any watch captain worth his salary will have a few thieves and robbers on his payroll, to inform on the rest, but our captain decides to employ these bastards wholesale. He brings them into the town, lets them do as they will, and takes a share of their take. You've heard of poachers turning gamekeepers? Well, in the unfortunate land of Calradia, sometimes gamekeepers will turn poacher. Luckily, there's are still a few brave, honest souls in the watch who've told me how he works.", "merchant_quest_4b3",
+"As a consequence, it seems, our captain turned to villainy to recoup his fortune. I supposed I'd do the same if, the Heavens forbid, I ever faced indebtedness and ruination. Now, any watch captain worth his salary will have a few thieves and robbers on his payroll, to inform on the rest, but our captain decides to employ these bastards wholesale. He brings them into the town, lets them do as they will, and takes a share of their take. You've heard of poachers turning gamekeepers? Well, sometimes gamekeepers will turn poacher. Luckily, there's are still a few brave, honest souls in the watch who've told me how he works.", "merchant_quest_4b3",
 []],
 
 [anyone, "merchant_quest_4b3",
@@ -3415,7 +3415,7 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 ],
 #"my boy" = "my girl", not "my lady"
 #change "He" to "{reg4?She:He}" and so forth
-"Fair? This is Calradia, {my boy/my girl}! Kings do what they will, and the rest of us do as they must. {reg4?She:He} didn't string me up, and instead gave me time to sell my properties -- even put in a word with the other merchants that they best pay me a fair price, too. That's gracious enough, as kings go -- but {reg4?she:he}'s a weak king, as they all are here, and weak kings must always look to their authority first, and justice second. I suppose I'd do the same, in {reg4?her:his} shoes.", "merchant_closing_statement_4",
+"Fair? Fair!? Kings do what they will, and the rest of us do as they must. {reg4?She:He} didn't string me up, and instead gave me time to sell my properties -- even put in a word with the other merchants that they best pay me a fair price, too. That's gracious enough, as kings go -- but {reg4?she:he}'s a weak king, as they all are here, and weak kings must always look to their authority first, and justice second. I suppose I'd do the same, in {reg4?her:his} shoes.", "merchant_closing_statement_4",
 #diplomacy end+
 []],
 
@@ -4104,7 +4104,7 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 [
 (lt, "$player_right_to_rule", 30),
 ],
-"If I may offer you a world of advice, my {lord/lady}, it seems that your right to rule as an independent monarch is not sufficiently recognized, and this may bring us problems further down the road. It may be advisable to find another kingdom with whom you have shared interests and seek its recognition, to establish yourself as an equal with Calradia's other kings.", "minister_talk",[]],
+"If I may offer you a world of advice, my {lord/lady}, it seems that your right to rule as an independent monarch is not sufficiently recognized, and this may bring us problems further down the road. It may be advisable to find another kingdom with whom you have shared interests and seek its recognition, to establish yourself as an equal with other kings.", "minister_talk",[]],
 
 
 [anyone, "minister_issues",
@@ -6892,7 +6892,7 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 [
 (le, "$g_player_chamberlain", 0),
 ],
-"We need a treasury to recruit new soldiers. You have to appoint a chamberlain first.", "dplmc_constable_pretalk",
+"We need a treasury to recruit new soldiers. You have to appoint a housekeeper first.", "dplmc_constable_pretalk",
 []],
 
 [anyone, "dplmc_constable_recruit",
@@ -8782,7 +8782,7 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 ##diplomacy end+
 (eq, ":has_fief", 1),
 ],
-"I want to appoint a constable.", "dplmc_talk_appoint_constable",
+"I want to appoint a Captain.", "dplmc_talk_appoint_constable",
 []],
 
 ##diplomacy start+
@@ -8790,21 +8790,21 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 [anyone, "dplmc_talk_appoint_constable",
 [(troop_slot_ge, "trp_dplmc_constable", slot_troop_met, 1),
 ],
-"I assume you will want to rehire your former constable Miles de Gloucester?  His rate is still 15 denars each week, and the appointment will cost us 20 denars.", "dplmc_talk_appoint_constable_confirm", []],
+"I assume you will want to rehire your former Captain Lothor?  His rate is still 15 denars each week, and the appointment will cost us 20 denars.", "dplmc_talk_appoint_constable_confirm", []],
 
 #Variant: Don't give the "friend of the family" description if it is not appropriate
 #(it might be for some companions in some mods, but by default it probably isn't)
 [anyone, "dplmc_talk_appoint_constable",
 [(is_between, "$g_talk_troop", companions_begin, companions_end),
 ],
-"I have heard good things about a local nobleman by the name of Miles de Gloucester, and I believe he would be well-suited for the job. He demands 15 denars each week, though. The appointment will cost us 20 denars.", "dplmc_talk_appoint_constable_confirm",
+"I have heard good things about a local nobleman by the name of Lothor, and I believe he would be well-suited for the job. He demands 15 denars each week, though. The appointment will cost us 20 denars.", "dplmc_talk_appoint_constable_confirm",
 []],
 ##diplomacy end+
 
 [anyone, "dplmc_talk_appoint_constable",
 [
 ],
-"That's a wise idea. May I suggest a very capable nobleman and friend of my family? His name is Miles de Gloucester. He demands 15 denars each week, though. The appointment will cost us 20 denars.", "dplmc_talk_appoint_constable_confirm",
+"That's a wise idea. May I suggest a very capable nobleman and friend of my family? His name is Lothor. He demands 15 denars each week, though. The appointment will cost us 20 denars.", "dplmc_talk_appoint_constable_confirm",
 []],
 
 [anyone|plyr, "dplmc_talk_appoint_constable_confirm",
@@ -8880,7 +8880,7 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 ##diplomacy end+
 (eq, ":has_fief", 1),
 ],
-"I want to appoint a chamberlain to handle financial affairs.", "dplmc_talk_appoint_chamberlain",
+"I want to appoint a housekeeper to handle financial affairs.", "dplmc_talk_appoint_chamberlain",
 []],
 
 ##diplomacy start+
@@ -8888,20 +8888,20 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 [anyone, "dplmc_talk_appoint_chamberlain",
 [(troop_slot_ge, "trp_dplmc_chamberlain", slot_troop_met, 1),
 ],
-"I assume you will want to rehire your former chamberlain Aubrey de Vere?  His rate is still 15 denars each week, and the appointment will cost us 20 denars.", "dplmc_talk_appoint_chamberlain_confirm", []],
+"I assume you will want to rehire your former housekeeper Jyain?  His rate is still 15 denars each week, and the appointment will cost us 20 denars.", "dplmc_talk_appoint_chamberlain_confirm", []],
 
 #Variant: Don't give the "friend of the family" description if it is not appropriate
 #(it might be for some companions in some mods, but by default it probably isn't)
 [anyone, "dplmc_talk_appoint_chamberlain",
 [(is_between, "$g_talk_troop", companions_begin, companions_end),
 ],
-"I have heard good things about a local nobleman by the name of Aubrey de Vere, and I believe he would be well-suited for the job. He demands 15 denars each week, though. The appointment will cost us 20 denars.", "dplmc_talk_appoint_chamberlain_confirm",
+"I have heard good things about a local nobleman by the name of Jyain, and I believe he would be well-suited for the job. He demands 15 denars each week, though. The appointment will cost us 20 denars.", "dplmc_talk_appoint_chamberlain_confirm",
 []],
 ##diplomacy end+
 [anyone, "dplmc_talk_appoint_chamberlain",
 [
 ],
-"That's a wise idea. May I suggest a very capable nobleman and friend of my family? His name is Aubrey de Vere. He demands 15 denars each week, though. The appointment will cost us 20 denars.", "dplmc_talk_appoint_chamberlain_confirm",
+"That's a wise idea. May I suggest a very capable nobleman and friend of my family? His name is Jyain. He demands 15 denars each week, though. The appointment will cost us 20 denars.", "dplmc_talk_appoint_chamberlain_confirm",
 []],
 
 [anyone|plyr, "dplmc_talk_appoint_chamberlain_confirm",
@@ -9707,7 +9707,7 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 ]],
 
 [anyone,"dplmc_lord_family_affiliate_leave", [],
-"You dare stand and face me to declaim your disavowal ! Well, your betrayal cannot make up for frankness. You disappoint the confidence my clan have put in you, {playername}. Each will condemn you in all conscience... but since I avouched your phoney allegiance, I will personally report to Calradia noblemen about your frivolous plot.", "close_window",[
+"You dare stand and face me to declaim your disavowal ! Well, your betrayal cannot make up for frankness. You disappoint the confidence my clan have put in you, {playername}. Each will condemn you in all conscience... but since I avouched your phoney allegiance, I will personally report to noblemen around the land about your frivolous plot.", "close_window",[
 (call_script, "script_dplmc_affiliate_end", 0),
 ]],
 
@@ -9892,7 +9892,7 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 (str_store_string, s10, "@Agreed! Your words convice me as much as your blade."),
 (else_try),
 (troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_cunning),
-(str_store_string, s10, "@I trust you, my family could use your resourcefulness. Together we will spread our influence all over Calradia."),
+(str_store_string, s10, "@I trust you, my family could use your resourcefulness. Together we will spread our influence all over these realms."),
 (else_try),
 (troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_debauched),
 (str_store_string, s10, "@May God have mercy on our enemy souls, because we won't!"),
@@ -10159,7 +10159,7 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 (try_end),
 (eq, ":companion_found", 1),
 ],
-"We currently only have the option to hand over a fief since we don't have a chamberlain.", "dplmc_minister_gift_type_select",
+"We currently only have the option to hand over a fief since we don't have a housekeeper.", "dplmc_minister_gift_type_select",
 []],
 
 ##send few horses
@@ -19482,7 +19482,7 @@ I'll send some men to take him to our prison with due haste.", "lord_pretalk", [
 	(call_script, "script_dplmc_print_cultural_word_to_sreg", "$g_talk_troop", DPLMC_CULTURAL_TERM_KING, 0),
 (try_end),
 ],
-"I am the rightful {s0} of Calradia", "lord_spouse_leave_faction_proclaim_queen",[]],
+"I am the rightful {s0} of these lands!", "lord_spouse_leave_faction_proclaim_queen",[]],
 #diplomacy end+
 
 [anyone|plyr,"lord_spouse_leave_faction_2", [
@@ -20322,7 +20322,7 @@ I'll send some men to take him to our prison with due haste.", "lord_pretalk", [
 (faction_get_slot, ":players_liege", "$players_kingdom", slot_faction_leader),
 (eq, ":players_liege", "trp_player"),
 ],
-"I ask for your support for the throne of Calradia", "lord_recruit_3_why",
+"I ask for your support for the throne", "lord_recruit_3_why",
 [
 (troop_set_slot, "$g_talk_troop", slot_lord_recruitment_candidate, "trp_player"),
 (try_begin),
@@ -20345,7 +20345,7 @@ I'll send some men to take him to our prison with due haste.", "lord_pretalk", [
 (str_store_troop_name, s45, ":players_liege"),
 
 ],
-"I ask you to pledge allegiance to my liege, {s45}, as monarch of all Calradia", "lord_recruit_3_why",
+"I ask you to pledge allegiance to my liege, {s45}, as monarch of all", "lord_recruit_3_why",
 [
 (faction_get_slot, ":players_liege", "$players_kingdom", slot_faction_leader),
 (troop_set_slot, "$g_talk_troop", slot_lord_recruitment_candidate, ":players_liege"),
@@ -20496,7 +20496,7 @@ I'll send some men to take him to our prison with due haste.", "lord_pretalk", [
 
 [anyone|plyr,"lord_recruit_3_d",
 [],
-"Because {s45} can unify Calradia and end this discord.", "lord_recruit_3_claim",
+"Because {s45} can unify the lands and end this discord before we face the Last Battle.", "lord_recruit_3_claim",
 [
 (troop_set_slot, "$g_talk_troop", slot_lord_recruitment_argument, argument_victory),
 (val_add, "$victory_arguments_made", 1),
@@ -21897,7 +21897,7 @@ and perhaps I shall be able to repay the debt I owe you.", "lord_rescue_by_repla
 (lt, "$player_right_to_rule", 10),
 
 ], "{playername}, you are a {lord/lady} without a master, holding lands in your name, with only the barest scrap of a claim to legitimacy.\
-No king in Calradia would accept a lasting peace with you.", "lord_pretalk",[]],
+No king would accept a lasting peace with you.", "lord_pretalk",[]],
 
 [anyone,"lord_ask_pardon",
 [
@@ -25770,7 +25770,7 @@ And to think I would offer you a place among my nobles. Begone, beggar, before I
 
 #  (troop_get_slot, ":husband", "trp_player", slot_troop_spouse),
 ##diplomacy start+ Add bizarro-world version
-], "My {lord/lady}, you seem to have the makings of a good war leader. For a {man/woman} to show such skill is an uncommon thing in Calradia, but not completely without precedent. Noble{men/women} have often taken command of armies after their {wives/husbands} or {mothers/fathers} were slain or captured, for example.", "lord_ask_enter_service_female_2",[
+], "My {lord/lady}, you seem to have the makings of a good war leader. For a {man/woman} to show such skill is an uncommon thing, but not completely without precedent. Noble{men/women} have often taken command of armies after their {wives/husbands} or {mothers/fathers} were slain or captured, for example.", "lord_ask_enter_service_female_2",[
 (assign, "$bypass_female_vassal_explanation", 1),
 ##diplomacy end+
 ]],
@@ -25784,7 +25784,7 @@ And to think I would offer you a place among my nobles. Begone, beggar, before I
 	(call_script, "script_dplmc_print_cultural_word_to_sreg", "$g_talk_troop", DPLMC_CULTURAL_TERM_KING, 0),
 (try_end),
 ],#next line, replace king with {s0} and gendered words with either-way equivalent
-"However, I have never heard of a {s0} who granted a fief to a {man/woman}, no matter how valorous, simply because {reg65?she:he} needed an extra vassal. Were I to do such a thing, I would raise eyebrows across Calradia. {People/Men} would say that I was besotted or bewitched, or that I aimed to overturn the natural order of things. As much as I regret it, I cannot afford to grant you a fief.", "lord_ask_enter_service_female_response",[]],
+"However, I have never heard of a {s0} who granted a fief to a {man/woman}, no matter how valorous, simply because {reg65?she:he} needed an extra vassal. Were I to do such a thing, I would raise eyebrows everywhere! {People/Men} would say that I was besotted or bewitched, or that I aimed to overturn the natural order of things. As much as I regret it, I cannot afford to grant you a fief.", "lord_ask_enter_service_female_response",[]],
 ##diplomacy end+
 
 [anyone|plyr, "lord_ask_enter_service_female_response", [],
@@ -30823,7 +30823,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	 (troop_slot_eq, "$g_talk_troop", slot_lady_courtship_comic_recited, 0),
 
      ],
-   "All the silks of Veluca/All the furs of Khudan...", "lady_recite_poetry_response",[
+   "All the silks of Cairhien/All the furs of Saldea...", "lady_recite_poetry_response",[
    (assign, "$poem_selected", courtship_poem_comic),
    (troop_set_slot, "$g_talk_troop", slot_lady_courtship_comic_recited, 1),
 
@@ -34015,10 +34015,10 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr,"ransom_broker_info_talk",[(eq, "$ransom_broker_prices_told",0)], "What can I get for a prisoner?", "ransom_broker_prices",[]],
   [anyone, "ransom_broker_prices", [], "It varies. I fancy that I have a fine eye for assessing a ransom.\
  There are a dozen little things about a man that will tell you whether he goes to bed hungry, or dines each night on soft dumplings and goose.\
- The real money of course is in the gentry, and if you ever want to do my job you'll want to learn about every landowning family in Calradia,\
+ The real money of course is in the gentry, and if you ever want to do my job you'll want to learn about every landowning family in these realms,\
  their estates, their heraldry, their offspring both lawful and bastard, and, of course, their credit with the merchants.", "ransom_broker_info_talk",[(assign, "$ransom_broker_prices_told",1)]],
   [anyone|plyr,"ransom_broker_info_talk",[(eq, "$ransom_broker_ransom_me_told",0)], "Would you be able to ransom me if I were taken?", "ransom_broker_ransom_me",[]],
-  [anyone, "ransom_broker_ransom_me", [], "Of course. I'm welcome in every court in Calradia.\
+  [anyone, "ransom_broker_ransom_me", [], "Of course. I'm welcome in every court in every realm.\
  There's not many who can say that! So always be sure to keep a pot of denars buried somewhere,\
  and a loyal servant who can find it in a hurry.", "ransom_broker_info_talk",[(assign, "$ransom_broker_ransom_me_told",1)]],
   [anyone|plyr,"ransom_broker_info_talk",[], "That's all I need to know. Thank you.", "ransom_broker_pretalk",[]],
@@ -34155,7 +34155,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                      (eq,"$g_talk_troop_met",0),
                      ],
    "Greetings, friend. You look like the kind of {man/person} who'd do well to know me.\
- I travel a lot all across Calradia and keep an open ear.\
+ I travel a lot and keep an open ear.\
  I can provide you information that you might find useful. For a meager price of course.", "tavern_traveler_talk", [(assign, "$traveler_land_asked", 0)]],
 
   [anyone, "start",
@@ -34203,12 +34203,12 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
  but in time of war, a king will not hesitate to accept someone who distinguishes {himself/herself} on the battlefield as a vassal, and grant {him/her} the right to own land.",
    "tavern_traveler_tell_kingdoms_4a", []],
 
-  [anyone, "tavern_traveler_tell_kingdoms_4a", [], "It is not unheard-of for adventurers to renounce allegiance to a Calradian king altogether, declare themselves kings, and claim land in their own name. This is a difficult path, however, as the great nobles of the land, with their long ancestries, are not likely to accept such upstarts as their monarch. Such rulers would need to be very careful in establishing their right to rule, or they would be set upon from all sides.",
+  [anyone, "tavern_traveler_tell_kingdoms_4a", [], "It is not unheard-of for adventurers to renounce allegiance to a king altogether, declare themselves kings, and claim land in their own name. This is a difficult path, however, as the great nobles of the land, with their long ancestries, are not likely to accept such upstarts as their monarch. Such rulers would need to be very careful in establishing their right to rule, or they would be set upon from all sides.",
    "tavern_traveler_tell_kingdoms_4", []],
 
 
   [anyone, "tavern_traveler_tell_kingdoms_4", [], "It might be easier for an adventurer like yourself to pledge support to an existing king's rival.\
-  There are many such pretenders in Calradia -- those who are born to the right family, who go around and stir up trouble saying they have a better claim to the throne than the current king.\
+  There are many such pretenders -- those who are born to the right family, who go around and stir up trouble saying they have a better claim to the throne than the current king.\
  If those claim holders could find supporters, they could easily start civil wars and perhaps even replace the king one day.",
    "tavern_traveler_tell_kingdoms_5", []],
 
@@ -34435,7 +34435,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 (try_end),
 (is_between, ":player_center", centers_begin, centers_end),
 (str_store_troop_name, s11, "trp_dplmc_chamberlain"),
-], "My fomer chamberlain, {s11}.", "dplmc_tavern_traveler_employee_3", [
+], "My fomer housekeeper, {s11}.", "dplmc_tavern_traveler_employee_3", [
 (assign, "$temp", "trp_dplmc_chamberlain"),
 ]],
 
@@ -34452,7 +34452,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 (try_end),
 (is_between, ":player_center", walled_centers_begin, walled_centers_end),
 (str_store_troop_name, s11, "trp_dplmc_constable"),
-], "My fomer constable, {s11}.", "dplmc_tavern_traveler_employee_3", [
+], "My fomer Captain, {s11}.", "dplmc_tavern_traveler_employee_3", [
 (assign, "$temp", "trp_dplmc_constable"),
 ]],
 
@@ -34626,7 +34626,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    [(assign, "$minstrels_introduced", 1), ]],
 
   [anyone|plyr, "minstrel_1", [(eq, "$minstrels_introduced", 1)  ],
-   "I have some questions about courtship in Calradia",
+   "I have some questions about courtship",
    "minstrel_courtship_questions", []],
 
   [anyone|plyr, "minstrel_1", [(eq, "$minstrels_introduced", 1)  ],
@@ -34684,14 +34684,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	(this_or_next|eq, "$g_talk_troop", "trp_tavern_minstrel_5"),
 		(eq, "$g_talk_troop", "trp_tavern_minstrel_4"),
   ],
-   "I can teach you the poem, 'An Argument in the Garden.' It is a comic poem, which satirizes the conventions of courtly love. A lover steals into a garden in Veluca, and plies her with lots of witty lines to persuade his lover to submit to his embraces. She shoots down all of his advances one by one, then when he is downcast, she takes him in her arms and tells him that she wanted him all along, except on her terms, not his. A lady with a sense of humor may find it amusing, but others might feel that they are the ones who are being mocked.",
+   "I can teach you the poem, 'An Argument in the Garden.' It is a comic poem, which satirizes the conventions of courtly love. A lover steals into a garden in Cairhien, and plies her with lots of witty lines to persuade his lover to submit to his embraces. She shoots down all of his advances one by one, then when he is downcast, she takes him in her arms and tells him that she wanted him all along, except on her terms, not his. A lady with a sense of humor may find it amusing, but others might feel that they are the ones who are being mocked.",
    "minstrel_courtship_poem_teach", [
    (assign, "$poem_selected", courtship_poem_comic),
    ]],
 
 
   [anyone, "minstrel_courtship_poem_teach", [],
-   "To teach it to you, I will need some hours of your time -- and, of course, a small fee for my services. About 300 denars would suffice.",
+   "To teach it to you, I will need some hours of your time -- and, of course, a small fee for my services. About 300 crowns would suffice.",
    "minstrel_courtship_poem_teach_2", []],
 
   [anyone, "minstrel_courtship_poem", [],
@@ -34767,7 +34767,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone, "minstrel_courtship_poem_teach_3", [
   (eq, "$poem_selected", courtship_poem_comic),
   ],
-  "Very well -- repeat after me:^All the silks of Veluca, all the furs of Khudan^Would buy you not the briefest kiss^What I bestow, I bestow for love^And the sake of my own happiness^But brought you a gift? Let us see! Let us see!^Or should tell my father how you came to see me?",
+  "Very well -- repeat after me:^All the silks of Cairhien, all the furs of Saldea^Would buy you not the briefest kiss^What I bestow, I bestow for love^And the sake of my own happiness^But brought you a gift? Let us see! Let us see!^Or should tell my father how you came to see me?",
   "minstrel_courtship_poem_teach_4", [
    ]],
 
@@ -34797,7 +34797,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr, "minstrel_courtship_poem_teach_4", [
   (eq, "$poem_selected", courtship_poem_tragic),
   ],
-  "'The wind that blows the dry steppe dust...'",
+  "'The wind that blows the dry northern dust...'",
   "minstrel_learn_poem_continue", [
     (troop_remove_gold, "trp_player", 300),
 	(val_add, "$tragic_poem_recitations", 1),
@@ -34807,7 +34807,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr, "minstrel_courtship_poem_teach_4", [
   (eq, "$poem_selected", courtship_poem_heroic),
   ],
-  "'A light pierced the gloom over Wercheg cliffs...'",
+  "'A light pierced the gloom over the cliffs...'",
   "minstrel_learn_poem_continue", [
     (troop_remove_gold, "trp_player", 300),
 	(val_add, "$heroic_poem_recitations", 1),
@@ -34817,7 +34817,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr, "minstrel_courtship_poem_teach_4", [
   (eq, "$poem_selected", courtship_poem_comic),
   ],
-  "'All the silks of Veluca...'",
+  "'All the silks of Cairhien...'",
   "minstrel_learn_poem_continue", [
     (troop_remove_gold, "trp_player", 300),
 	(val_add, "$comic_poem_recitations", 1),
@@ -35346,17 +35346,17 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 
   [anyone|plyr, "minstrel_courtship_questions_2", [],
-   "Tell me about marriage and love among the nobility of Calradia",
+   "Tell me about marriage and love among the nobility",
    "minstrel_nobles", [
    (assign, "$minstrels_discussed_love", 1),
    ]],
 
   [anyone, "minstrel_nobles", [],
-   "Nobles are an odd lot. In Calradia, a daughter is a political asset, to be given away to a lord with whom her father wishes to make an alliance. Yet the great families of this land idealize pure love between man and woman, and I have seen many a hardened warrior weep copious tears at the doomed ardour of Sahira and Janun in the songs -- even as he made plans to break his own daughter's heart.",
+   "Nobles are an odd lot. In most of the realms, a daughter is a political asset, to be given away to a lord with whom her father wishes to make an alliance. Yet the great families of this land idealize pure love between man and woman, and I have seen many a hardened warrior weep copious tears at the doomed ardour of Sahira and Janun in the songs -- even as he made plans to break his own daughter's heart.",
 "minstrel_nobles_2", []],
 
   [anyone, "minstrel_nobles_2", [],
-   "Fathers differ, of course. Some Calradian nobles will let their daughters choose a husband who pleases them. Others, however, feel that to allow their daughters any choice at all would be to diminish their own authority, and insist on imposing a groom whether she likes it or not.",
+   "Fathers differ, of course. Some nobles will let their daughters choose a husband who pleases them. Others, however, feel that to allow their daughters any choice at all would be to diminish their own authority, and insist on imposing a groom whether she likes it or not.",
 "minstrel_nobles_3", []],
 
   [anyone, "minstrel_nobles_3", [], "But the majority will steer a middle course -- they will want to make the final decision about a groom, but will weigh their daughter's preferences heavily. Among other factors, a happy marriage is more likely to produce heirs. So, there is a place for courtship, and for the use of skill and passion to win a lady's heart.",
@@ -35379,7 +35379,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    [anyone, "minstrel_player_role", [
    (troop_get_type, ":is_female", "trp_player"),
    (eq, ":is_female", 0),
-   ], "Of course! Calradian lords make a great deal of lineage, but in the end, lands and money speak louder than one's ancestors. Even though you are a foreigner, if you are coming up in the world, then many parents will consider you a fine catch.",
+   ], "Of course! Lords make a great deal of lineage, but in the end, lands and money speak louder than one's ancestors. Even though you are a foreigner, if you are coming up in the world, then many parents will consider you a fine catch.",
    "minstrel_player_role_2", []],
 
    [anyone, "minstrel_player_role_2", [
@@ -35392,7 +35392,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 ##diplomacy start+ Make either-gender version, if gender roles are reversed
   [anyone, "minstrel_player_role", [
-   ], "{Sir/Lady} -- I will speak bluntly. Most of the {ladies/lords} of this land are looking for a demure {lad/maiden}, whose skin as fair as snow -- and your skin is burnt brown by the sun. They want a {boy/maiden} whose voice is soft as bells -- and your voice is hoarse from commanding {soldiers/men} in battle. Also, athough the {ladies/lords} of Calradia appreciate poems about love, most also want heirs, and few {men/women} can ride and fight while {caring for their children/with child}.",
+   ], "{Sir/Lady} -- I will speak bluntly. Most of the {ladies/lords} of this land are looking for a demure {lad/maiden}, whose skin as fair as snow -- and your skin is burnt brown by the sun. They want a {boy/maiden} whose voice is soft as bells -- and your voice is hoarse from commanding {soldiers/men} in battle. Also, athough the {ladies/lords} appreciate poems about love, most also want heirs, and few {men/women} can ride and fight while {caring for their children/with child}.",
    "minstrel_female_player_3", []],
 
 
@@ -35416,7 +35416,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
   [anyone, "minstrel_wife_benefits_2", [
   ],
-   "What's more, most of the great families of Calradia have at some point intermarried with royalty, which would boost your own claim to rule -- should you ever choose to assert it...",
+   "What's more, most of the great families of have at some point intermarried with royalty, which would boost your own claim to rule -- should you ever choose to assert it...",
    "minstrel_prequestions", []],
 
   [anyone, "minstrel_spouse_benefits", [
@@ -35429,7 +35429,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 
    [anyone, "minstrel_player_advice_meet", [
-   ], "Every so often, a king or great lord of Calradia will hold a feast. In towns they will often be accompanied by tournaments, and in castles they will be accompanied by hunts. The feasts provide a chance for the lords to repair some of the rivalries that may undermine the strength of the realm. They also provide an opportunity for families to show off their eligible daughters, and ladies will often be allowed to mingle unsupervised with the guests.",
+   ], "Every so often, a king or great lord will hold a feast. In towns they will often be accompanied by tournaments, and in castles they will be accompanied by hunts. The feasts provide a chance for the lords to repair some of the rivalries that may undermine the strength of the realm. They also provide an opportunity for families to show off their eligible daughters, and ladies will often be allowed to mingle unsupervised with the guests.",
    "minstrel_player_advice_meet_2", []],
 
    [anyone, "minstrel_player_advice_meet_2", [
@@ -35442,7 +35442,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    "minstrel_player_advice_woo_2", []],
 
   [anyone, "minstrel_player_advice_woo_2", [
-   ], "Having arranged an assignment, you may then attempt to charm her and win her favor. Perhaps one of the most difficult aspects of this is finding a topic of conversation. Most Calradian noblewomen lead a cloistered life, at least until they are married, and thus will have little to say that will interest you. On other hand, she will soon tire of hearing of your own deeds in the outside world.",
+   ], "Having arranged an assignment, you may then attempt to charm her and win her favor. Perhaps one of the most difficult aspects of this is finding a topic of conversation. Most noblewomen lead a cloistered life, at least until they are married, and thus will have little to say that will interest you. On other hand, she will soon tire of hearing of your own deeds in the outside world.",
    "minstrel_player_advice_woo_3", []],
 
   [anyone, "minstrel_player_advice_woo_3", [
@@ -35459,7 +35459,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 
   [anyone|plyr, "minstrel_courtship_questions_2", [],
-   "What is it that you poets and musicians do again?",
+   "What is it that you bards and gleemen types do again?",
    "minstrel_job_description", []],
 
    [anyone, "minstrel_job_description", [],
@@ -35753,7 +35753,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 											##diplomacy start+ {sir/madame} -> {s0}
 											(call_script, "script_dplmc_print_subordinate_says_sir_madame_to_s0"),
                                             (str_store_string, s17,
-                                             "@Well done, {s0}. Keep the money and wine coming our way, and there's no foe in Calradia you need fear."),
+                                             "@Well done, {s0}. Keep the money and wine coming our way, and there's no foe you need fear."),
 											 ##diplomacy end+
                                           (else_try),
                                             (eq, ":rand", 2),
@@ -36670,7 +36670,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   ]],
 
   [anyone|plyr,"mayor_talk",[
-  ], "How does the wealth of this region compare with the rest of Calradia?", "mayor_wealth_comparison_1",[
+  ], "How does the wealth of this region compare with the rest of the realms?", "mayor_wealth_comparison_1",[
   ]],
 
 
@@ -37071,7 +37071,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 								(try_end),
   ], "Did I mention that we here are all {s9}? Because I can't stress that enough... Anyway... Is there anything else?", "mayor_political_questions",[]],
 
-   [anyone|plyr,"mayor_political_questions",[], "What is the cause of all these wars in Calradia?", "mayor_war_description_1",[
+   [anyone|plyr,"mayor_political_questions",[], "What is the cause of all these wars?", "mayor_war_description_1",[
   ]],
 
   [anyone,"mayor_war_description_1",[ (faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),
@@ -37088,13 +37088,13 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone,"mayor_war_description_2",[ (faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),
 								(str_store_troop_name, s10, ":faction_leader"),
 								(troop_get_type, reg4, ":faction_leader"),
-  ], "In practice, to make war is exhausting work. It is easy enough to lay waste to the enemy's farmland, but crops will grow back, and it is a far different matter to capture an enemy stronghold and to hold it. So the monarchs of Calradia will fight a little, sign a truce, fight a little more, and so on and so forth. Often, a monarch will go to war when another realm provokes them. At such times, some bad influences who look to enrich themselves with ransoms and pillage will clamor for retribution, and thus the damage caused by war to a monarch's treasury is less than the damage caused by doing nothing would be to his authority... I'm of course not talking about {s10}, as no one would ever question {reg4?her:his} authority", "mayor_war_description_3",[]],
+  ], "In practice, to make war is exhausting work. It is easy enough to lay waste to the enemy's farmland, but crops will grow back, and it is a far different matter to capture an enemy stronghold and to hold it. So the monarchs of will fight a little, sign a truce, fight a little more, and so on and so forth. Often, a monarch will go to war when another realm provokes them. At such times, some bad influences who look to enrich themselves with ransoms and pillage will clamor for retribution, and thus the damage caused by war to a monarch's treasury is less than the damage caused by doing nothing would be to his authority... I'm of course not talking about {s10}, as no one would ever question {reg4?her:his} authority", "mayor_war_description_3",[]],
 
   [anyone,"mayor_war_description_3",[
  	(faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),
 	(troop_get_type, reg4, ":faction_leader"),
 
-  ], "I would stress again that we in the guild have nothing to do with politics. But if {s10} were to ask for my advice on these matters, as a loyal subject, I would tell {reg4?her:him} that while {reg4?her:his} claim to all of Calradia is truly just, even the most legitimate claim must be backed by armed men, and armed men want money, and money comes from trade, and war ruins trade, so sometimes the best way to push a claim is not to push it, if you know what I mean...", "mayor_war_description_4",[]],
+  ], "I would stress again that we in the guild have nothing to do with politics. But if {s10} were to ask for my advice on these matters, as a loyal subject, I would tell {reg4?her:him} that while {reg4?her:his} claim to every land is truly just, even the most legitimate claim must be backed by armed men, and armed men want money, and money comes from trade, and war ruins trade, so sometimes the best way to push a claim is not to push it, if you know what I mean...", "mayor_war_description_4",[]],
 
   [anyone,"mayor_war_description_4",[
     (str_store_party_name, s4, "$g_encountered_party"),
@@ -37115,7 +37115,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	  (assign, ":continue", 1), #at least 1 faction is active
 	(try_end),
 	(eq, ":continue", 1),
-  ], "What is {s10}'s policy in regards to the other realms of Calradia?", "mayor_politics_assess",[
+  ], "What is {s10}'s policy in regards to other realms?", "mayor_politics_assess",[
   ]],
 
   [anyone,"mayor_politics_assess",[], "Which realm did you have in mind?", "mayor_politics_assess_realm",[
@@ -37143,7 +37143,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   (faction_get_slot, ":leader", "$g_encountered_party_faction", slot_faction_leader),
   (str_store_troop_name, s5, ":leader"),
   (troop_get_type, reg4, ":leader"),
-  ], "Well, here in the {s4} we are all united by our love for {s5} and support for {reg4?her:his} legitimate claim to the rulership of all Calradia. But I have heard some talk of internal bickering in other realms...", "mayor_internal_politics_2",[
+  ], "Well, here in the {s4} we are all united by our love for {s5} and support for {reg4?her:his} legitimate claim to stand above all other rulers and lead us in the Last Battle. But I have heard some talk of internal bickering in other realms...", "mayor_internal_politics_2",[
   ]],
 
   [anyone,"mayor_internal_politics_2",[], "The lords of a realm often have very different ideas about honor, strategy, and the way a nobleman should behave. In addition, they compete with each other for the ruler's favor, and are constantly weighing up their position -- how they stand, how their friends and family stand, and how their enemies stand.", "mayor_internal_politics_3", []],
@@ -42014,7 +42014,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 ##diplomacy start+ change to use script_dplmc_print_subordinate_says_sir_madame_to_s0
   [anyone,"trade_requested_weapons", [(call_script,"script_dplmc_print_subordinate_says_sir_madame_to_s0"),], "Ah, yes {s0}. These arms are the best you'll find anywhere.", "merchant_trade",[[change_screen_trade]]],
-  [anyone,"trade_requested_armor", [(call_script,"script_dplmc_print_subordinate_says_sir_madame_to_s0"),], "Of course, {s0}. You won't find better quality armour than these in all Calradia.", "merchant_trade",[[change_screen_trade]]],
+  [anyone,"trade_requested_armor", [(call_script,"script_dplmc_print_subordinate_says_sir_madame_to_s0"),], "Of course, {s0}. You won't find better quality armour than these anywhere else.", "merchant_trade",[[change_screen_trade]]],
   [anyone,"trade_requested_horse", [(call_script,"script_dplmc_print_subordinate_says_sir_madame_to_s0"),], "You have a fine eye for horses, {s0}. You won't find better beasts than these anywhere else.", "merchant_trade",[[change_screen_trade]]],
 ##diplomacy end+
 
@@ -42655,7 +42655,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
   [anyone,"merchant_quest_1_prologue_3",
   [],
-  "So here's my proposition. You look like you've had a bit of experience with a blade -- and more importantly, you must have a bit of fire in your belly, or you wouldn't be coming to Calradia to seek your fortune. So here's what I'm asking you to do: gather a small party, track down these bandits to their lair, teach them a lesson they won't forget, and get my brother back safe. In return, you'll earn my lasting gratitude and a bit of silver. What do you say?", "merchant_quest_1a",[]],
+  "So here's my proposition. You look like you've had a bit of experience with a blade -- and more importantly, you must have a bit of fire in your belly, or you wouldn't be coming here to seek your fortune. So here's what I'm asking you to do: gather a small party, track down these bandits to their lair, teach them a lesson they won't forget, and get my brother back safe. In return, you'll earn my lasting gratitude and a bit of silver. What do you say?", "merchant_quest_1a",[]],
 
   [anyone|plyr,"merchant_quest_1a",
   [
@@ -42944,7 +42944,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   (str_store_party_name, s5, "$g_encountered_party"),
   (str_store_party_name, s4, ":wealthiest_center"),
 
-  ], "Overall, the wealthiest town in Calradia is known to be {s4}. Here in {s5}, we are poorer than {reg4} towns, and richer than {reg5}.", "mayor_wealth_comparison_2",[
+  ], "Overall, the wealthiest town is known to be {s4}. Here in {s5}, we are poorer than {reg4} towns, and richer than {reg5}.", "mayor_wealth_comparison_2",[
   ]],
   #Production of this town
   #Production of the hinterland
@@ -43003,7 +43003,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   (str_store_party_name, s5, "$g_encountered_party"),
   (str_store_party_name, s4, ":wealthiest_center"),
 
-  ], "In terms of local industry, the most productive town in Calradia is known to be {s4}. Here in {s5}, we produce less than {reg4} towns, and produce more than {reg5}. Production is of course affected by the supply of raw materials, as well as by the overall prosperity of the town.", "mayor_wealth_comparison_3",[
+  ], "In terms of local industry, the most productive town is known to be {s4}. Here in {s5}, we produce less than {reg4} towns, and produce more than {reg5}. Production is of course affected by the supply of raw materials, as well as by the overall prosperity of the town.", "mayor_wealth_comparison_3",[
   ]],
 
   [anyone,"mayor_wealth_comparison_3",[
@@ -43069,7 +43069,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   (str_store_party_name, s5, "$g_encountered_party"),
   (str_store_party_name, s4, ":wealthiest_center"),
 
-  ], "In terms of the output of the surrounding villages, the town of {s4} is the richest in Calradia. Here in {s5}, the villages produce less than the hinterland around {reg4} towns, and produce more than {reg5}. The wealth of a town's hinterland, of course, is heavily dependent on the tides of war. Looting and pillage, and shifts in territory, can make a major impact.", "mayor_wealth_comparison_4",[
+  ], "In terms of the output of the surrounding villages, the town of {s4} is the richest. Here in {s5}, the villages produce less than the hinterland around {reg4} towns, and produce more than {reg5}. The wealth of a town's hinterland, of course, is heavily dependent on the tides of war. Looting and pillage, and shifts in territory, can make a major impact.", "mayor_wealth_comparison_4",[
   ]],
 
 
