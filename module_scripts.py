@@ -12634,9 +12634,9 @@ scripts = [
       (item_set_slot, "itm_book_fire", slot_item_intelligence_requirement, 14),
       (item_set_slot, "itm_book_water", slot_item_intelligence_requirement, 14),
       (item_set_slot, "itm_book_earth", slot_item_intelligence_requirement, 14),
-      (item_set_slot, "itm_book_spirit", slot_item_intelligence_requirement, 14),	  
+      (item_set_slot, "itm_book_spirit", slot_item_intelligence_requirement, 14),
 ## end TGS books
-	  
+
       (item_set_slot, "itm_book_wound_treatment_reference", slot_item_intelligence_requirement, 10),
       (item_set_slot, "itm_book_training_reference", slot_item_intelligence_requirement, 10),
       (item_set_slot, "itm_book_surgery_reference", slot_item_intelligence_requirement, 10),
@@ -22426,6 +22426,32 @@ scripts = [
       (val_mul,":pathfinding_skill",3),
       (val_add,":speed_multiplier",":pathfinding_skill"),
     (try_end),
+
+## TGS: mat: Added to give certain cultures faster speeds while on the ocean
+    (party_get_current_terrain, ":terrain", ":party_no"),
+    (try_begin),
+    (eq, ":terrain", 7), # 7 = rt_bridge (water)
+    (store_faction_of_party, ":cur_party_faction", ":party_no"),
+        (try_begin),
+        (eq, ":cur_party_faction", "fac_kingdom_26"), ## Sea Folk - faster
+            (val_add, ":speed_multiplier", 70),
+        (else_try),
+        (eq, ":cur_party_faction", "fac_kingdom_23"), ## Seanchan - faster
+            (val_add, ":speed_multiplier", 50),
+        (else_try),
+        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_4"), ## Mayene - faster
+        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_6"), ## Illian - faster
+        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_9"), ## Arad Doman - faster
+        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_10"), ## Tear - faster
+        (this_or_next|eq, ":cur_party_faction", "fac_kingdom_14"), ## Tarabon - faster
+        (eq, ":cur_party_faction", "fac_kingdom_28"), ## Toman Head - faster
+            (val_add, ":speed_multiplier", 20),
+        (else_try),
+        (eq, ":cur_party_faction", "fac_kingdom_22"), ## Aiel - ** slower **
+            (val_sub, ":speed_multiplier", 50),
+        (try_end),
+    (try_end),
+## TGS: mat: End
 
     (try_begin),
       (eq,":party_no","p_main_party"),

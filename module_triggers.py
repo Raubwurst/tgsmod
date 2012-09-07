@@ -19,7 +19,7 @@ from module_constants import *
 #    Every time the trigger is checked, the conditions block will be executed.
 #    If the conditions block returns true, the consequences block will be executed.
 #    If the conditions block is empty, it is assumed that it always evaluates to true.
-# 5) Consequences block (list). This must be a valid operation block. See header_operations.py for reference. 
+# 5) Consequences block (list). This must be a valid operation block. See header_operations.py for reference.
 ####################################################################################################################
 
 # Some constants for use below
@@ -50,7 +50,7 @@ triggers = [
       (troop_set_slot, "trp_player", slot_troop_compulsion_known, 0),
       (troop_set_slot, "trp_player", slot_troop_balefire_known, 0),
 
-      (troop_set_slot, "trp_player", slot_troop_player_knows_channeling, 0),      
+      (troop_set_slot, "trp_player", slot_troop_player_knows_channeling, 0),
       #### End
     ]),
 
@@ -58,13 +58,13 @@ triggers = [
 
 # Refresh Merchants
   (0.0, 0, 168.0, [],
-  [    
+  [
     (call_script, "script_refresh_center_inventories"),
                      ]),
 
 # Refresh Armor sellers
   (0.0, 0, 168.0, [],
-  [    
+  [
     (call_script, "script_refresh_center_armories"),
                      ]),
 
@@ -79,7 +79,7 @@ triggers = [
   [
     (call_script, "script_refresh_center_stables"),
                      ]),
-  
+
 
 #############
 
@@ -96,9 +96,9 @@ triggers = [
 #    ]),
 
 
-  (5.7, 0, 0.0, 
+  (5.7, 0, 0.0,
   [
-    (store_num_parties_of_template, reg2, "pt_manhunters"),    
+    (store_num_parties_of_template, reg2, "pt_manhunters"),
     (lt, reg2, 4)
   ],
   [
@@ -114,7 +114,7 @@ triggers = [
   (check_quest_active, "qst_track_down_bandits"),
   (neg|check_quest_failed, "qst_track_down_bandits"),
   (neg|check_quest_succeeded, "qst_track_down_bandits"),
-  
+
   ],
    [
     (quest_get_slot, ":bandit_party", "qst_track_down_bandits", slot_quest_target_party),
@@ -122,21 +122,21 @@ triggers = [
 		(party_is_active, ":bandit_party"),
 		(store_faction_of_party, ":bandit_party_faction", ":bandit_party"),
 		(neg|is_between, ":bandit_party_faction", kingdoms_begin, kingdoms_end), #ie, the party has not respawned as a non-bandit
-		
-		
+
+
 		(assign, ":spot_range", 8),
 		(try_begin),
 			(is_currently_night),
 			(assign, ":spot_range", 5),
 		(try_end),
-		
+
 		(try_for_parties, ":party"),
 			(gt, ":party", "p_spawn_points_end"),
-			
+
 			(store_faction_of_party, ":faction", ":party"),
 			(is_between, ":faction", kingdoms_begin, kingdoms_end),
-			
-			
+
+
 			(store_distance_to_party_from_party, ":distance", ":party", ":bandit_party"),
 			(lt, ":distance", ":spot_range"),
 			(try_begin),
@@ -144,7 +144,7 @@ triggers = [
 				(str_store_party_name, s4, ":party"),
 				(display_message, "@{!}DEBUG -- Wanted bandits spotted by {s4}"),
 			(try_end),
-			
+
 			(call_script, "script_get_closest_center", ":bandit_party"),
 			(assign, ":nearest_center", reg0),
 #			(try_begin),
@@ -227,7 +227,7 @@ triggers = [
 ##               (party_set_ai_object,reg(2),reg0),
 ##               (party_set_flags, reg(2), pf_default_behavior, 0),
 ##            ]),
-  
+
   (4.0, 0, 0.0,
    [
      (eq, "$caravan_escort_state", 1), #cancel caravan_escort_state if caravan leaves the destination
@@ -274,8 +274,8 @@ triggers = [
     (party_set_ai_object,reg(2),reg0),
     (party_set_flags, reg(2), pf_default_behavior, 0),
     ]),
-  
-  
+
+
 
 #Deserters
 
@@ -286,7 +286,7 @@ triggers = [
 #                         (assign, "$pin_limit", 4),
 #                         (call_script,"script_cf_spawn_party_at_faction_town_if_below_limit"),
 #                    ]),
-  
+
 #  (10.2, 0, 0.0, [],
 #                     [
 #                         (assign, "$pin_faction", "fac_vaegirs"),
@@ -377,7 +377,7 @@ triggers = [
 #  (0.0, 0.0, ti_once, [], [(assign,"$peak_vaegir_scouts",4)]),
 #  (0.0, 0.0, ti_once, [], [(assign,"$peak_vaegir_harassers",3)]),
 #  (0.0, 0.0, ti_once, [], [(assign,"$peak_vaegir_war_parties",2)]),
-  
+
 
 #  (10.2, 0, 0.0, [],
 #                     [
@@ -437,7 +437,7 @@ triggers = [
 ##                    ]),
 
 #  [1.0, 96.0, ti_once, [], [[assign,"$peak_dark_hunters",3]]],
-  
+
 ##  (10.1, 0, 0.0, [],
 ##                     [
 ##                         (assign, "$pin_party_template", "pt_dark_hunters"),
@@ -453,7 +453,7 @@ triggers = [
 ##       (main_party_has_troop,"trp_borcha"),
 ##       (eq,"$borcha_freed",0)
 ##    ],
-##   
+##
 ##   [
 ##       (assign,"$borcha_arrive_sargoth_as_prisoner", 1),
 ##       (start_map_conversation, "trp_borcha", -1)
@@ -470,7 +470,7 @@ triggers = [
 ##       (start_map_conversation, "trp_borcha", -1)
 ##    ]
 ##   ),
-##  
+##
 ##  (2, 0, ti_once,
 ##   [
 ##      (map_free, 0),
@@ -1102,9 +1102,9 @@ triggers = [
        (try_begin),
          (eq, ":abort_meeting", 1),
          (party_set_ai_object, "$qst_follow_spy_spy_party", ":quest_giver_center"),
-         
+
          (party_set_ai_object, "$qst_follow_spy_spy_partners_party", ":quest_object_center"),
-         
+
          (party_set_ai_behavior, "$qst_follow_spy_spy_party", ai_bhvr_travel_to_party),
          (party_set_ai_behavior, "$qst_follow_spy_spy_partners_party", ai_bhvr_travel_to_party),
          (party_set_flags, "$qst_follow_spy_spy_party", pf_default_behavior, 0),
@@ -1170,7 +1170,7 @@ triggers = [
 ##       (party_set_flags, ":quest_target_party", pf_default_behavior, 0),
 ##    ]
 ##   ),
-##  
+##
 ##  (0.1, 0.0, 0.0,
 ##   [
 ##       (check_quest_active, "qst_hunt_down_raiders"),
@@ -1183,7 +1183,7 @@ triggers = [
 ##       (call_script, "script_succeed_quest", "qst_hunt_down_raiders"),
 ##    ]
 ##   ),
-##  
+##
 ##  (1.3, 0, 0.0,
 ##   [
 ##       (check_quest_active, "qst_hunt_down_raiders"),
@@ -1205,7 +1205,7 @@ triggers = [
 
 #########################################################################
 # Random MERCHANT quest triggers
-####################################  
+####################################
  # Apply interest to merchants guild debt  1% per week
   (24.0 * 7, 0.0, 0.0,
    [],
@@ -1264,7 +1264,7 @@ triggers = [
                    (neq, ":cur_eliminated_by_player", "$qst_troublesome_bandits_eliminated_by_player"),
                    ],
                   [(call_script, "script_succeed_quest", "qst_troublesome_bandits"),]),
-				  
+
 # Kidnapped girl:
    (1, 0, 0,
    [(check_quest_active, "qst_kidnapped_girl"),
@@ -1278,7 +1278,7 @@ triggers = [
 
 
 #Rebellion changes begin
-#move 
+#move
 
   (0, 0, 24 * 14,
    [
@@ -1296,7 +1296,7 @@ triggers = [
             (store_faction_of_party, ":town_faction", ":town"),
             (store_relation, ":relation", ":town_faction", ":target_faction"),
             (le, ":relation", 0), #fail if nothing qualifies
-           
+
             (troop_set_slot, ":pretender", slot_troop_cur_center, ":town"),
             (try_begin),
               (eq, "$cheat_mode", 1),
@@ -1318,7 +1318,7 @@ triggers = [
 #            (le, ":relation", 0), #fail if nothing qualifies
 
  #           (faction_set_slot, ":rebel_faction", slot_faction_inactive_leader_location, ":town"),
-        (try_end), 
+        (try_end),
        ],
 []
 ),
@@ -1326,7 +1326,7 @@ triggers = [
 
 #NPC system changes begin
 #Move unemployed NPCs around taverns
-   (24 * 15 , 0, 0, 
+   (24 * 15 , 0, 0,
    [
     (call_script, "script_update_companion_candidates_in_taverns"),
     ],
@@ -1369,7 +1369,7 @@ triggers = [
         (try_end),
 #
 
-         
+
         (try_for_range, ":npc", companions_begin, companions_end),
 ###Reset meeting variables
             (troop_set_slot, ":npc", slot_troop_turned_down_twice, 0),
@@ -1404,9 +1404,9 @@ triggers = [
 
 				(troop_get_slot, ":other_npc", ":npc", slot_troop_kingsupport_opponent),
 				(troop_slot_eq, ":other_npc", slot_troop_kingsupport_objection_state, 0),
-				
+
 				(troop_set_slot, ":other_npc", slot_troop_kingsupport_objection_state, 1),
-				
+
 				(str_store_troop_name, s3, ":npc"),
 				(str_store_troop_name, s4, ":other_npc"),
 
@@ -1419,7 +1419,7 @@ triggers = [
 			#Check for quitting
             (try_begin),
                 (main_party_has_troop, ":npc"),
-				
+
                 (call_script, "script_npc_morale", ":npc"),
                 (assign, ":npc_morale", reg0),
 
@@ -1470,7 +1470,7 @@ triggers = [
                 (try_end),
 
 
-				
+
 #Check for new personality clashes
 
 				#Active personality clash 1 if at least 24 hours have passed
@@ -1488,17 +1488,17 @@ triggers = [
 				#Personality clash 2 and personality match is triggered by battles
 				(try_begin),
 					(eq, "$npc_with_political_grievance", 0),
-				
+
 					(troop_slot_eq, ":npc", slot_troop_kingsupport_objection_state, 1),
 					(assign, "$npc_with_political_grievance", ":npc"),
 				(try_end),
 
 			#main party does not have troop, and the troop is a companion
-			(else_try), 
+			(else_try),
 				(neg|main_party_has_troop, ":npc"),
 				(eq, ":occupation", slto_player_companion),
 
-				
+
 				(troop_get_slot, ":days_on_mission", ":npc", slot_troop_days_on_mission),
 				(try_begin),
 					(gt, ":days_on_mission", 0),
@@ -1512,13 +1512,13 @@ triggers = [
           (troop_set_slot, "trp_hired_blade", slot_troop_mission_object, ":npc"),
           (assign, "$npc_to_rejoin_party", "trp_hired_blade"),
         ##diplomacy end
-				(else_try), 
+				(else_try),
 					(troop_slot_ge, ":npc", slot_troop_current_mission, 1),
-					
+
 					#If the hero can join
 					(this_or_next|neg|troop_slot_eq, ":npc", slot_troop_current_mission, npc_mission_rejoin_when_possible),
 						(hero_can_join, ":npc"),
-						
+
 					(assign, "$npc_to_rejoin_party", ":npc"),
 				(try_end),
             (try_end),
@@ -1532,7 +1532,7 @@ triggers = [
    (1, 0, 0,
    [
      (troop_get_type, ":is_female", "trp_player"),
-     (eq, ":is_female", 1),       
+     (eq, ":is_female", 1),
      (try_for_range, ":companion", companions_begin, companions_end),
        (troop_slot_eq, ":companion", slot_troop_occupation, slto_player_companion),
 
@@ -1545,7 +1545,7 @@ triggers = [
 	 	 (this_or_next|eq, ":item_id", "itm_great_sword"),
 	 	 (this_or_next|eq, ":item_id", "itm_sword_two_handed_a"),
 		 (eq, ":item_id", "itm_strange_great_sword"),
-		 		 
+
 		 (unlock_achievement, ACHIEVEMENT_LADY_OF_THE_LAKE),
 		 (assign, ":inv_cap", 0),
 	   (try_end),
@@ -1559,7 +1559,7 @@ triggers = [
 
 ##diplomacy begin
   # Appoint chamberlain
-   (24 , 0, 24 * 12, 
+   (24 , 0, 24 * 12,
    [],
    [
     (assign, ":has_fief", 0),
@@ -1569,7 +1569,7 @@ triggers = [
       (assign, ":has_fief", 1),
     (try_end),
     (eq, ":has_fief", 1),
-    
+
     (try_begin), #debug
       (eq, "$cheat_mode", 1),
       (assign, reg0, "$g_player_chamberlain"),
@@ -1585,15 +1585,15 @@ triggers = [
       (neq, "$g_player_chamberlain", "trp_dplmc_chamberlain"),
       (assign, ":notification", 1),
     (try_end),
-    
+
     (try_begin),
       (eq, ":notification", 1),
       (call_script, "script_add_notification_menu", "mnu_dplmc_notification_appoint_chamberlain", 0, 0),
     (try_end),]
    ),
-   
+
   # Appoint constable
-   (24 , 0, 24 * 13, 
+   (24 , 0, 24 * 13,
    [],
    [
     (assign, ":has_fief", 0),
@@ -1603,7 +1603,7 @@ triggers = [
       (assign, ":has_fief", 1),
     (try_end),
     (eq, ":has_fief", 1),
-    
+
     (try_begin), #debug
       (eq, "$cheat_mode", 1),
       (assign, reg0, "$g_player_constable"),
@@ -1619,16 +1619,16 @@ triggers = [
       (neq, "$g_player_constable", "trp_dplmc_constable"),
       (assign, ":notification", 1),
     (try_end),
-    
+
     (try_begin),
       (eq, ":notification", 1),
       (call_script, "script_add_notification_menu", "mnu_dplmc_notification_appoint_constable", 0, 0),
     (try_end),
     ]
    ),
-   
+
   # Appoint chancellor
-   (24 , 0, 24 * 14, 
+   (24 , 0, 24 * 14,
    [],
    [
    (assign, ":has_fief", 0),
@@ -1638,7 +1638,7 @@ triggers = [
       (assign, ":has_fief", 1),
     (try_end),
     (eq, ":has_fief", 1),
-    
+
     (try_begin), #debug
       (eq, "$cheat_mode", 1),
       (assign, reg0, "$g_player_chancellor"),
@@ -1654,37 +1654,37 @@ triggers = [
       (neq, "$g_player_chancellor", "trp_dplmc_chancellor"),
       (assign, ":notification", 1),
     (try_end),
-    
+
     (try_begin),
       (eq, ":notification", 1),
       (call_script, "script_add_notification_menu", "mnu_dplmc_notification_appoint_chancellor", 0, 0),
     (try_end),
     ]),
-   
+
   #initialize autoloot feature if you have a chamberlain
   ##diplomacy start+
   #Disable this: autoloot gets initialized elsewhere.
-  (24, 0, ti_once, 
+  (24, 0, ti_once,
   [
 	  ##NEW:
 	  (eq, 0, 1),
 	  ##OLD:
       #(store_skill_level, ":inv_skill", "skl_inventory_management", "trp_player"),
       #(gt, "$g_player_chamberlain", 0),
-      #(ge, ":inv_skill", 3),      
-  ], 
+      #(ge, ":inv_skill", 3),
+  ],
   [
 	##NEW:
 	#This doesn't ever get called, but if it did here's what should happen"
 	(call_script, "script_dplmc_initialize_autoloot", 1),#argument "1" forces this to make changes
 	##OLD:
-    #(call_script, "script_dplmc_init_item_difficulties"),       
-    #(call_script, "script_dplmc_init_item_base_score"), 
+    #(call_script, "script_dplmc_init_item_difficulties"),
+    #(call_script, "script_dplmc_init_item_base_score"),
     #(assign, "$g_autoloot", 1),
   ]),
-  
+
   (0.1, 0.5, 0, [(map_free,0),(eq,"$g_move_fast", 1)], [(assign,"$g_move_fast", 0)]),
-    
+
 ##diplomacy end
 
 ################################################
@@ -1699,19 +1699,19 @@ triggers = [
                 ],
    [
         (store_current_hours, ":number_game_hours_passed"),
-        
+
         (try_for_range, ":first_kingdom", "fac_kingdom_1", kingdoms_end),
-        
+
             (store_add, ":first_kingdom_plus_one", ":first_kingdom", 1),
             (try_for_range, ":second_kingdom", ":first_kingdom_plus_one", kingdoms_end),
-        
+
                 (store_relation, ":rel", ":first_kingdom", ":second_kingdom"),
                 (assign, ":diplo_action_taken", 0),
-        
+
                 (try_begin),
 
       #Set diplomacy for the first 30 days
-    
+
       #Legion is at peace with everyone
       #Southland Coalition is at war with Southland Alliance, Seanchan and at peace with everyone else
       #Southland Alliance is at war with Southland Coalition, Seanchan and at peace with everyone else
@@ -1719,12 +1719,12 @@ triggers = [
       #White Tower is at war with Shadowspawn and at peace with everyone else
       #Aiel Nation is at war with Shadowspawn, neutral with Borderlands, and at peace with everyone else
       #Seanchan are at war with Southland Coalition, Southland Alliance and at peace with everyone else
-      #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else        
-        
+      #Shadowspawn are at war with Aiel Nation, Borderlands, and White Tower and at peace with everyone else
+
                 (is_between, ":number_game_hours_passed", 0, 24*30-6),
 
-        
-                    # Nations at War        
+
+                    # Nations at War
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_6"),
                     (this_or_next|eq, ":second_kingdom", "fac_kingdom_10"), # illian vs tear
@@ -1737,7 +1737,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_7"),
                     (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
@@ -1749,7 +1749,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_9"),
                     (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
@@ -1761,7 +1761,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
@@ -1789,9 +1789,9 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),        
+                    (try_end),
 
-        
+
                     # Nations at Peace
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_1"),
@@ -1906,8 +1906,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),                
-        
+                    (try_end),
+
 
                     # Nations who are Neutral - may squabble, but not actively warring (Default State)
                     (try_begin),
@@ -1918,11 +1918,11 @@ triggers = [
                         (try_end),
                     (try_end),
 
-        
+
 
 
       #Set diplomacy for days 30 though 45
-    
+
       #Legion is neutral with Southland Alliance and at peace with everyone else  (High peace with Aiel after 45 days)
       #Southland Coalition is at war with Southland Alliance, Seanchan, and at peace with everyone else
       #Southland Alliance is at war with Southland Coalition, Seanchan, neutral with Legion, Aiel Nation, and at peace with everyone else
@@ -1935,7 +1935,7 @@ triggers = [
                 (else_try),
                 (is_between, ":number_game_hours_passed", 24*30-6, 24*45-6),
 
-        
+
                     # Nations at War
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_6"),
@@ -1949,7 +1949,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_7"),
                     (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
@@ -1961,7 +1961,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_9"),
                     (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
@@ -1973,7 +1973,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
@@ -2002,7 +2002,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),            
+                    (try_end),
 
 
                     # Nations at Peace
@@ -2122,8 +2122,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),                
-        
+                    (try_end),
+
 
                     # Nations who are Neutral - may squabble, but not actively warring (Default State)
                     (try_begin),
@@ -2135,7 +2135,7 @@ triggers = [
                     (try_end),
 
       #Set diplomacy for days 45 though 60
-    
+
       #Legion is neutral with Southland Alliance and at peace with everyone else  (High peace with Aiel after 45 days)
       #Southland Coalition is at war with Southland Alliance, Seanchan, and at peace with everyone else
       #Southland Alliance is at war with Southland Coalition, Seanchan, neutral with Legion, Aiel Nation, and at peace with everyone else
@@ -2148,7 +2148,7 @@ triggers = [
                 (else_try),
                 (is_between, ":number_game_hours_passed", 24*45-6, 24*60-6),
 
-        
+
                     # Nations at War
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_6"),
@@ -2162,7 +2162,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_7"),
                     (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
@@ -2174,7 +2174,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_9"),
                     (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
@@ -2186,7 +2186,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_17"), # shienar vs shadowspawn
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_18"), # arafel vs shadowspawn
@@ -2213,7 +2213,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
-                        (try_end),        
+                        (try_end),
                     (try_end),
 
                     (try_begin), # New for 45 - 60
@@ -2227,8 +2227,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),            
-        
+                    (try_end),
+
 
                     # Nations at Peace
                     (try_begin), # Modified for 45 - 60
@@ -2350,8 +2350,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),                
-        
+                    (try_end),
+
 
                     # Nations who are Neutral - may squabble, but not actively warring (Default State)
                     (try_begin),
@@ -2363,7 +2363,7 @@ triggers = [
                     (try_end),
 
       #Set diplomacy for days 60 though 75
-    
+
       #Legion is neutral with Southland Coalition, Southland Alliance, Seanchan, Shadowspawn and at peace with everyone else  (Super peace with Aiel Nation)
       #Southland Coalition is at war with Southland Alliance, Seanchan, neutral with Legion, Aiel Nation and at peace with everyone else
       #Southland Alliance is at war with Southland Coalition and Seanchan, neutral with Legion, Aiel Nation and at peace with everyone else
@@ -2376,7 +2376,7 @@ triggers = [
                 (else_try),
                 (is_between, ":number_game_hours_passed", 24*60-6, 24*75-6),
 
-        
+
                     # Nations at War
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_6"),
@@ -2390,7 +2390,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_7"),
                     (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
@@ -2402,7 +2402,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_9"),
                     (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
@@ -2414,7 +2414,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Modified for 60 - 75
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_1"), # legion vs shadowspawn
                     (this_or_next|eq, ":first_kingdom", "fac_kingdom_2"), # band vs shadowspawn
@@ -2461,8 +2461,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),           
-        
+                    (try_end),
+
 
                     # Nations at Peace
                     (try_begin), # Modified for 45 - 60
@@ -2584,8 +2584,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),                
-        
+                    (try_end),
+
 
                     # Nations who are Neutral - may squabble, but not actively warring (Default State)
                     (try_begin),
@@ -2597,7 +2597,7 @@ triggers = [
                     (try_end),
 
       #Set diplomacy for days 75 though 95
-    
+
       #Legion is neutral with Southland Coalition, Shadowspawn, war with Seanchan and at peace with everyone else  (Super peace with Aiel Nation)
       #Southland Coalition is neutral with Southland Alliance, Legion, Aiel Nation at war with Seanchan and at peace with everyone else
       #Southland Alliance is neutral with Southland Coalition, at war with Seanchan, and at peace with everyone else
@@ -2610,7 +2610,7 @@ triggers = [
                 (else_try),
                 (is_between, ":number_game_hours_passed", 24*75-6, 24*95-6),
 
-        
+
                     # Nations at War
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_6"),
@@ -2624,7 +2624,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_7"),
                     (eq, ":second_kingdom", "fac_kingdom_11"), # murandy vs andor
@@ -2636,7 +2636,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_9"),
                     (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
@@ -2699,7 +2699,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),           
+                    (try_end),
 
 
                     # Nations at Peace
@@ -2759,7 +2759,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),        
+                    (try_end),
 
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_11"),
@@ -2837,8 +2837,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),                
-        
+                    (try_end),
+
 
                     # Nations who are Neutral - may squabble, but not actively warring (Default State)
                     (try_begin),
@@ -2850,7 +2850,7 @@ triggers = [
                     (try_end),
 
       #Set diplomacy for days 95 though 118
-    
+
       #Legion is neutral with Southland Coalition, Shadowspawn, war with Seanchan and at peace with everyone else  (Super peace with Aiel Nation)
       #Southland Coalition is neutral with Southland Alliance, Legion, Aiel Nation at war with Seanchan and at peace with everyone else
       #Southland Alliance is neutral with Southland Coalition, at war with Seanchan, and at peace with everyone else
@@ -2863,7 +2863,7 @@ triggers = [
                 (else_try),
                 (is_between, ":number_game_hours_passed", 24*95-6, 24*118-6),
 
-        
+
                     # Nations at War
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_7"),
@@ -2876,7 +2876,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_9"),
                     (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
@@ -2935,7 +2935,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),           
+                    (try_end),
 
 
                     # Nations at Peace
@@ -3054,7 +3054,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),           
+                    (try_end),
 
                     (try_begin), # Modified for 95 - 118
                     (eq, ":first_kingdom", "fac_kingdom_8"),
@@ -3127,7 +3127,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),            
+                    (try_end),
 
                     (try_begin), # Modified for 95 - 118
                     (eq, ":first_kingdom", "fac_kingdom_14"),
@@ -3165,7 +3165,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),         
+                    (try_end),
 
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_17"),
@@ -3219,8 +3219,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),                
-        
+                    (try_end),
+
 
                     # Nations who are Neutral - may squabble, but not actively warring (Default State)
                     (try_begin),
@@ -3232,7 +3232,7 @@ triggers = [
                     (try_end),
 
       #Set diplomacy for days 118 though 120
-    
+
       #Legion is neutral with Southland Coalition, Shadowspawn, war with Seanchan and at peace with everyone else  (Super peace with Aiel Nation)
       #Southland Coalition is neutral with Southland Alliance, Legion, Aiel Nation at war with Seanchan and at peace with everyone else
       #Southland Alliance is neutral with Southland Coalition, at war with Seanchan, and at peace with everyone else
@@ -3245,7 +3245,7 @@ triggers = [
                 (else_try),
                 (is_between, ":number_game_hours_passed", 24*118-6, 24*120-6),
 
-        
+
                     # Nations at War
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_7"),
@@ -3258,7 +3258,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_9"),
                     (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
@@ -3314,7 +3314,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),         
+                    (try_end),
 
 
                     # Nations at Peace
@@ -3433,7 +3433,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),           
+                    (try_end),
 
                     (try_begin), # Modified for 95 - 118
                     (eq, ":first_kingdom", "fac_kingdom_8"),
@@ -3506,7 +3506,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),            
+                    (try_end),
 
                     (try_begin), # Modified for 95 - 118
                     (eq, ":first_kingdom", "fac_kingdom_14"),
@@ -3544,7 +3544,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),         
+                    (try_end),
 
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_17"),
@@ -3598,8 +3598,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),                
-        
+                    (try_end),
+
 
                     # Nations who are Neutral - may squabble, but not actively warring (Default State)
                     (try_begin),
@@ -3612,14 +3612,14 @@ triggers = [
 
       #Set diplomacy for days 120 though 170
 
-############################################################################################################        
-    
+############################################################################################################
+
       #All at war with the Shadowspawn for at least 50 days (other stuff stays somewhat the same)
 
                 (else_try),
                 (is_between, ":number_game_hours_passed", 24*120-6, 24*170-6),
 
-        
+
                     # Nations at War
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_7"),
@@ -3632,7 +3632,7 @@ triggers = [
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
                     (try_end),
-        
+
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_9"),
                     (eq, ":second_kingdom", "fac_kingdom_14"), # arad doman vs tarabon
@@ -3714,7 +3714,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),              
+                    (try_end),
 
 
                     # Nations at Peace
@@ -3833,7 +3833,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),           
+                    (try_end),
 
                     (try_begin), # Modified for 95 - 118
                     (eq, ":first_kingdom", "fac_kingdom_8"),
@@ -3906,7 +3906,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),            
+                    (try_end),
 
                     (try_begin), # Modified for 95 - 118
                     (eq, ":first_kingdom", "fac_kingdom_14"),
@@ -3944,7 +3944,7 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),         
+                    (try_end),
 
                     (try_begin), # Original
                     (eq, ":first_kingdom", "fac_kingdom_17"),
@@ -3998,8 +3998,8 @@ triggers = [
                         (else_try),
                             (assign, ":diplo_action_taken", 1),
                         (try_end),
-                    (try_end),                
-        
+                    (try_end),
+
 
                     # Nations who are Neutral - may squabble, but not actively warring (Default State)
                     (try_begin),
@@ -4008,7 +4008,7 @@ triggers = [
                         (neg|is_between, ":rel", -5, 6),
                             (call_script, "script_diplomacy_start_neutral_between_kingdoms", ":first_kingdom", ":second_kingdom", 1),
                         (try_end),
-                    (try_end),          
+                    (try_end),
 
 
 
@@ -4017,10 +4017,10 @@ triggers = [
 
             ## try_for_range's final brackets
             (try_end),
-        (try_end),        
-    ]), 
+        (try_end),
+    ]),
 ## TGS: mat: End
-  
+
 # TGS Initialization
   (0.1, 0, ti_once, [(eq, "$g_tutorial_complete", 1)],
     [
@@ -4035,7 +4035,7 @@ triggers = [
         (assign, reg0, "$g_day_number"),
         (display_message, "@Day {reg0} ..."),
         (val_add, "$g_day_number", 1),
-    ]),  
+    ]),
 
 ################## Timeline changes begin ##############
 
@@ -4070,7 +4070,7 @@ triggers = [
         (call_script,"script_give_center_to_faction_aux", "p_town_33","fac_kingdom_23"),
 
         (dialog_box, "str_seanchan_retreat"),
-    ]),    
+    ]),
 
 # Faction city and lord changes at 30 days:
   (1, 24*30, ti_once, [(eq, "$g_tutorial_complete", 1)],
@@ -4089,7 +4089,7 @@ triggers = [
         (call_script,"script_change_troop_faction","trp_knight_10_6","fac_kingdom_1"),
         (call_script,"script_give_center_to_faction_aux", "p_castle_22","fac_kingdom_1"),
 
-## Removed for splitting the factions (just make Mayene allied w/ Legion instead)        
+## Removed for splitting the factions (just make Mayene allied w/ Legion instead)
         #Mayene... Berelain sur Paendrag Paeron... to the Legion of the Dragon
 #        (call_script,"script_change_troop_faction","trp_knight_2_2","fac_kingdom_1"),
 #        (call_script,"script_give_center_to_faction_aux", "p_town_12","fac_kingdom_1"),
@@ -4142,7 +4142,7 @@ triggers = [
         #Salidar... to the White Tower, to Lelaine Sedai
         (call_script,"script_give_center_to_faction_aux", "p_castle_34","fac_kingdom_21"),
         (call_script,"script_give_center_to_lord","p_castle_34","trp_knight_21_9",1),
-        
+
         (dialog_box, "str_rebel_aes_sedai_to_salidar"),
 
     ]),
@@ -4204,7 +4204,7 @@ triggers = [
         #Grunwalder Castle... to the Seanchan Empire... to Lieutenant-General Abaldar Yulan
         (call_script,"script_give_center_to_faction_aux", "p_castle_28","fac_kingdom_23"),
         (call_script,"script_give_center_to_lord","p_castle_28","trp_knight_23_8",1),
-        
+
         (dialog_box, "str_seanchan_invade_amadicia"),
 
     ]),
@@ -4367,7 +4367,7 @@ triggers = [
 
             (assign, "$g_channeling_proficiency_modifier_before", "$g_channeling_proficiency_modifier"),
        (try_end),
-       
+
         #get player channeling proficiency...
         (store_proficiency_level,":proficiency_current","trp_player",wpt_firearm),
         #deterimine whether or not proficiency should rise
@@ -4513,7 +4513,7 @@ triggers = [
              # Player channeling stamina maximum
              (store_skill_level, ":channeling_affinity", skl_channeling, "trp_player"),
              (store_attribute_level, ":intelligence", "trp_player", ca_intelligence),
-             (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm), 
+             (store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),
 
              (store_mul, ":stamina_1", ":channeling_affinity", 4000),
              (store_mul, ":stamina_2", ":intelligence", 700),
@@ -4527,13 +4527,13 @@ triggers = [
              (store_add, ":recharge_rate_2", ":recharge_rate_1", ":channeling_proficiency"),
              (val_div, ":recharge_rate_2", 2), # for now...
              (troop_set_slot, "trp_player", slot_troop_channeling_stamina_recharge_rate_battle, ":recharge_rate_2"),
-             
+
              # campaign map re-charge rate (per hour)
              (store_mul, ":recharge_rate_campaign", ":recharge_rate_2", 10),
              (troop_set_slot, "trp_player", slot_troop_channeling_stamina_recharge_rate_campaign, ":recharge_rate_campaign"),
-             
+
              (assign, "$g_ready_for_channeling_stamina_recharge", 1),
-             
+
     ]),
 
   # Campaign map channeling stamina recharge
@@ -4544,7 +4544,7 @@ triggers = [
       (eq, "$g_ready_for_channeling_stamina_recharge", 1),
               ],
     [
-            
+
             (troop_get_slot, ":current", "trp_player", slot_troop_current_channeling_stamina),
             (troop_get_slot, ":maximum", "trp_player", slot_troop_max_channeling_stamina),
             (troop_get_slot, ":recharge_rate", "trp_player", slot_troop_channeling_stamina_recharge_rate_campaign),
@@ -4555,7 +4555,7 @@ triggers = [
                 (try_begin),
                 (le, ":check_value", ":maximum"),
                     (troop_set_slot, "trp_player", slot_troop_current_channeling_stamina, ":check_value"),
-            
+
                     # display percentage of channeling stamina every hour when it's filling
                     (try_begin),
                     (eq, "$g_stamina_counter", 5),
@@ -4566,14 +4566,14 @@ triggers = [
                     (else_try),
                         (val_add, "$g_stamina_counter", 1),
                     (try_end),
-                         
+
                 (else_try),
                     (troop_set_slot, "trp_player", slot_troop_current_channeling_stamina, ":maximum"),
                     (display_message, "@Channeling Stamina at 100%"),
                 (try_end),
             (try_end),
-            
-    ]),    
+
+    ]),
 
   ## New main map hotkeys
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1)],
@@ -4629,7 +4629,7 @@ triggers = [
                     (try_end),
                  (troop_set_slot, ":troop_no", slot_troop_npc_companion_known_weaves, ":known_weaves"),
              (try_end),
-        ]),  
+        ]),
 
   ## New main map testing hotkeys HACK: make sure this doesn't work in non-development versions
         (0, 0, 0, [(eq, "$g_tutorial_complete", 1), #  to enable cheats, remove the second line in the condition
@@ -4646,7 +4646,7 @@ triggers = [
                     (gt, ":player_check", 0),
                         (try_begin),
                         (eq, "$g_cheat_recruit_add", 1),
-            
+
                             (party_add_members, ":party", "trp_legion_recruit_channeler", 5),
                             (party_add_members, ":party", "trp_ashaman_soldier", 5),
                             (party_add_members, ":party", "trp_ashaman_dedicated", 5),
@@ -4658,8 +4658,8 @@ triggers = [
                             #(party_add_members, ":party", "trp_aes_sedai_blue_veteran", 3),
                             #(party_add_members, ":party", "trp_aes_sedai_white_veteran", 3),
                             #(party_add_members, ":party", "trp_aes_sedai_brown_veteran", 3),
-                            #(party_add_members, ":party", "trp_aes_sedai_grey_veteran", 3),            
-            
+                            #(party_add_members, ":party", "trp_aes_sedai_grey_veteran", 3),
+
 #                            (party_add_members, ":party", "trp_legion_recruit_army", 2),
 #                            (party_add_members, ":party", "trp_legion_footman", 2),
 #                            (party_add_members, ":party", "trp_legion_infantry", 2),
@@ -4681,9 +4681,9 @@ triggers = [
 #                            (party_add_members, ":party", "trp_red_hand_infantry", 3),
 #                            (party_add_members, ":party", "trp_red_hand_pikeman", 3),
 #                            (party_add_members, ":party", "trp_red_hand_crossbowman", 3),
-#                            (party_add_members, ":party", "trp_red_hand_man_at_arms", 3),            
+#                            (party_add_members, ":party", "trp_red_hand_man_at_arms", 3),
 #                            (party_add_members, ":party", "trp_red_hand_light_cavalry", 3),
-            
+
 #                            (party_add_members, ":party", "trp_red_hand_bannerman", 4),
 #                            (party_add_members, ":party", "trp_red_hand_swordsman", 4),
 #                            (party_add_members, ":party", "trp_red_hand_fast_crossbowman", 10),
@@ -4694,7 +4694,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_two_rivers_farmer", 5),
 #                            (party_add_members, ":party", "trp_two_rivers_spearman", 5),
 #                            (party_add_members, ":party", "trp_two_rivers_longbowman", 5),
-            
+
 #                            (party_add_members, ":party", "trp_two_rivers_halberdier", 10),
 #                            (party_add_members, ":party", "trp_two_rivers_scout", 10),
 #                            (party_add_members, ":party", "trp_two_rivers_marksman", 10),
@@ -4716,7 +4716,7 @@ triggers = [
 #            (party_add_members, ":party", "trp_npc15",1),
 #            (party_add_members, ":party", "trp_npc16",1),
 
-            
+
             ## Hack for Shara
 #            (party_add_members, ":party", "trp_shara_recruit",2),
 #            (party_add_members, ":party", "trp_shara_armsman",2),
@@ -4770,25 +4770,25 @@ triggers = [
 #            (party_add_members, ":party", "trp_madmen_thunderhoof",2),
 #            (party_add_members, ":party", "trp_madmen_plains_rider",2),
 #            (party_add_members, ":party", "trp_madmen_storm_caller",2),
-            
+
             ## Hack for Toman Head
 #            (party_add_members, ":party", "trp_toman_head_recruit",8),
 #            (party_add_members, ":party", "trp_toman_head_footman",8),
 #            (party_add_members, ":party", "trp_toman_head_city_guard",8),
 #            (party_add_members, ":party", "trp_toman_head_bowman",8),
-#            (party_add_members, ":party", "trp_toman_head_scout",8), 
+#            (party_add_members, ":party", "trp_toman_head_scout",8),
 
 
-            
+
 
                         (else_try),
                         (eq, "$g_cheat_recruit_add", 2),
-            
+
 #                            (party_add_members, ":party", "trp_mayene_recruit", 5),
 #                            (party_add_members, ":party", "trp_mayene_militia", 5),
 #                            (party_add_members, ":party", "trp_mayene_man_at_arms", 5),
 #                            (party_add_members, ":party", "trp_mayene_lancer", 5),
-            
+
 #                            (party_add_members, ":party", "trp_mayene_swordsman", 5),
 #                            (party_add_members, ":party", "trp_mayene_bowman", 5),
 #                            (party_add_members, ":party", "trp_mayene_royal_guard", 5),
@@ -4797,7 +4797,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_cairhien_militia", 5),
 #                            (party_add_members, ":party", "trp_cairhien_pikeman", 5),
 #                            (party_add_members, ":party", "trp_cairhien_man_at_arms", 5),
-            
+
 #                            (party_add_members, ":party", "trp_cairhien_crossbowman", 5),
 #                            (party_add_members, ":party", "trp_cairhien_bannerman", 5),
 #                            (party_add_members, ":party", "trp_cairhien_light_cavalry", 5),
@@ -4810,7 +4810,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_illian_bowman", 5),
 #                            (party_add_members, ":party", "trp_illian_crossbowman", 5),
 #                            (party_add_members, ":party", "trp_illian_scout", 5),
-            
+
 #                            (party_add_members, ":party", "trp_illian_companion_captain", 5),
 #                            (party_add_members, ":party", "trp_illian_marksman", 5),
 #                            (party_add_members, ":party", "trp_illian_man_at_arms", 5),
@@ -4821,7 +4821,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_murandy_bowman", 5),
 #                            (party_add_members, ":party", "trp_murandy_scout", 5),
 #                            (party_add_members, ":party", "trp_murandy_lancer", 5),
-            
+
 #                            (party_add_members, ":party", "trp_murandy_berserker", 5),
 #                            (party_add_members, ":party", "trp_murandy_marksman", 5),
 #                            (party_add_members, ":party", "trp_murandy_captain", 5),
@@ -4830,7 +4830,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_altara_dueler", 5),
 #                            (party_add_members, ":party", "trp_altara_swordsman", 5),
 #                            (party_add_members, ":party", "trp_altara_scout53),
-            
+
 #                            (party_add_members, ":party", "trp_altara_royal_guard", 5),
 #                            (party_add_members, ":party", "trp_altara_knife_thrower", 5),
 #                            (party_add_members, ":party", "trp_altara_man_at_arms", 5),
@@ -4840,13 +4840,13 @@ triggers = [
 #                            (party_add_members, ":party", "trp_arad_doman_rabble", 5),
 #                            (party_add_members, ":party", "trp_arad_doman_swordsman", 5),
 #                            (party_add_members, ":party", "trp_arad_doman_scout", 5),
-            
+
 #                            (party_add_members, ":party", "trp_arad_doman_long_swordsman", 5),
 #                            (party_add_members, ":party", "trp_arad_doman_bowman", 5),
 #                            (party_add_members, ":party", "trp_arad_doman_man_at_arms", 5),
                         (else_try),
                         (eq, "$g_cheat_recruit_add", 3),
-            
+
 #                            (party_add_members, ":party", "trp_tear_recruit", 5),
 #                            (party_add_members, ":party", "trp_tear_town_watch", 5),
 #                            (party_add_members, ":party", "trp_tear_swordsman", 5),
@@ -4854,7 +4854,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_tear_bowman", 5),
 #                            (party_add_members, ":party", "trp_tear_scout", 5),
 #                            (party_add_members, ":party", "trp_tear_lancer", 5),
-            
+
 #                            (party_add_members, ":party", "trp_tear_blademaster", 5),
 #                            (party_add_members, ":party", "trp_tear_defender_captain", 5),
 #                            (party_add_members, ":party", "trp_tear_crossbowman", 5),
@@ -4868,7 +4868,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_andor_scout", 5),
 #                            (party_add_members, ":party", "trp_andor_lancer", 5),
 #                            (party_add_members, ":party", "trp_andor_queens_guard", 5),
-            
+
 #                            (party_add_members, ":party", "trp_andor_blademaster", 5),
 #                            (party_add_members, ":party", "trp_andor_halberdier", 5),
 #                            (party_add_members, ":party", "trp_andor_crossbowman", 5),
@@ -4881,7 +4881,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_ghealdan_bowman", 5),
 #                            (party_add_members, ":party", "trp_ghealdan_scout", 5),
 #                            (party_add_members, ":party", "trp_ghealdan_lancer", 5),
-            
+
 #                            (party_add_members, ":party", "trp_ghealdan_heavy_axeman", 10),
 #                            (party_add_members, ":party", "trp_ghealdan_marksman", 5),
 #                            (party_add_members, ":party", "trp_ghealdan_man_at_arms", 5),
@@ -4889,7 +4889,7 @@ triggers = [
 
 #                            (party_add_members, ":party", "trp_far_madding_recruit", 10),
 #                            (party_add_members, ":party", "trp_far_madding_footman", 10),
-            
+
 #                            (party_add_members, ":party", "trp_far_madding_city_guard", 20),
 #                            (party_add_members, ":party", "trp_far_madding_crossbowman", 20),
 
@@ -4906,10 +4906,10 @@ triggers = [
 #                            (party_add_members, ":party", "trp_amadicia_militia", 3),
 #                            (party_add_members, ":party", "trp_amadicia_pikeman", 5),
 #                            (party_add_members, ":party", "trp_amadicia_bowman", 5),
-            
+
 #                            (party_add_members, ":party", "trp_amadicia_captain", 5),
 #                            (party_add_members, ":party", "trp_amadicia_skirmisher", 5),
-            
+
 #                            (party_add_members, ":party", "trp_whitecloak_recruit", 2),
 #                            (party_add_members, ":party", "trp_whitecloak_footman", 3),
 #                            (party_add_members, ":party", "trp_whitecloak_swordsman", 5),
@@ -4921,7 +4921,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_whitecloak_lancer", 5),
                         (else_try),
                         (eq, "$g_cheat_recruit_add", 4),
-            
+
 #                            (party_add_members, ":party", "trp_shienar_recruit", 2),
 #                            (party_add_members, ":party", "trp_shienar_militia", 3),
 #                            (party_add_members, ":party", "trp_shienar_spearman", 5),
@@ -4930,7 +4930,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_shienar_light_cavalry", 5),
 #                            (party_add_members, ":party", "trp_shienar_lancer", 5),
 #                            (party_add_members, ":party", "trp_shienar_heavy_lancer", 5),
-            
+
 #                            (party_add_members, ":party", "trp_shienar_pikeman", 5),
 #                            (party_add_members, ":party", "trp_shienar_blademaster", 5),
 #                            (party_add_members, ":party", "trp_shienar_marksman", 5),
@@ -4943,7 +4943,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_arafel_halberdier", 5),
 #                            (party_add_members, ":party", "trp_arafel_bowman", 5),
 #                            (party_add_members, ":party", "trp_arafel_man_at_arms", 5),
-            
+
 #                            (party_add_members, ":party", "trp_arafel_blademaster", 10),
 #                            (party_add_members, ":party", "trp_arafel_bannerman", 10),
 #                            (party_add_members, ":party", "trp_arafel_marksman", 5),
@@ -4956,7 +4956,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_kandor_berserker", 5),
 #                            (party_add_members, ":party", "trp_kandor_bowman", 5),
 #                            (party_add_members, ":party", "trp_kandor_man_at_arms", 5),
-            
+
 #                            (party_add_members, ":party", "trp_kandor_captain", 10),
 #                            (party_add_members, ":party", "trp_kandor_maceman", 10),
 #                            (party_add_members, ":party", "trp_kandor_crossbowman", 5),
@@ -4971,7 +4971,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_saldaea_light_cavalry", 5),
 #                            (party_add_members, ":party", "trp_saldaea_elite_light_cavalry", 5),
 #                            (party_add_members, ":party", "trp_saldaea_skirmisher", 5),
-            
+
 #                            (party_add_members, ":party", "trp_saldaea_bannerman", 5),
 #                            (party_add_members, ":party", "trp_saldaea_halberdier", 5),
 #                            (party_add_members, ":party", "trp_saldaea_marksman", 5),
@@ -4979,14 +4979,14 @@ triggers = [
 #                            (party_add_members, ":party", "trp_saldaea_elite_skirmisher", 5),
                         (else_try),
                         (eq, "$g_cheat_recruit_add", 5),
-            
+
                             (party_add_members, ":party", "trp_aes_sedai_green", 1),
                             (party_add_members, ":party", "trp_aes_sedai_red", 1),#                            (party_add_members, ":party", "trp_aes_sedai_yellow", 1),
                             (party_add_members, ":party", "trp_aes_sedai_blue", 1),
                             (party_add_members, ":party", "trp_aes_sedai_white", 1),
                             (party_add_members, ":party", "trp_aes_sedai_brown", 1),
                             (party_add_members, ":party", "trp_aes_sedai_grey", 1),
-            
+
                             (party_add_members, ":party", "trp_aes_sedai_green_veteran", 1),
                             (party_add_members, ":party", "trp_aes_sedai_red_veteran", 1),
                             (party_add_members, ":party", "trp_aes_sedai_yellow_veteran", 1),
@@ -5001,7 +5001,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_accepted_academic", 1),
 #                            (party_add_members, ":party", "trp_accepted_political", 1),
 #                            (party_add_members, ":party", "trp_accepted_military", 1),
-            
+
 #                            (party_add_members, ":party", "trp_tar_valon_street_patrol", 2),
 #                            (party_add_members, ":party", "trp_tower_guard_infantry", 2),
 #                            (party_add_members, ":party", "trp_tower_guard_captain", 2),
@@ -5016,7 +5016,7 @@ triggers = [
                             (party_add_members, ":party", "trp_wise_one_apprentice", 2),
                             (party_add_members, ":party", "trp_wise_one", 2),
                             (party_add_members, ":party", "trp_wise_one_dream_walker", 2),
-            
+
 #                            (party_add_members, ":party", "trp_aiel_recruit_soldier", 1),
 #                            (party_add_members, ":party", "trp_aiel_recruit_lithe", 2),
 #                            (party_add_members, ":party", "trp_aiel_raider", 2),
@@ -5047,7 +5047,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_seanchan_recruit_channeler", 2),
 #                            (party_add_members, ":party", "trp_suldam", 1),
                             (party_add_members, ":party", "trp_der_suldam", 15),
-            
+
 #                            (party_add_members, ":party", "trp_seanchan_recruit_soldier", 2),
 #                            (party_add_members, ":party", "trp_seanchan_armsman", 2),
 #                            (party_add_members, ":party", "trp_seanchan_footman", 2),
@@ -5058,7 +5058,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_seanchan_scout", 2),
 #                            (party_add_members, ":party", "trp_seanchan_man_at_arms", 2),
 #                            (party_add_members, ":party", "trp_seanchan_lancer", 2),
-            
+
 #                            (party_add_members, ":party", "trp_seanchan_deathwatch_guard", 4),
 #                            (party_add_members, ":party", "trp_seanchan_halberdier", 4),
 #                            (party_add_members, ":party", "trp_seanchan_marksman", 4),
@@ -5066,13 +5066,13 @@ triggers = [
 #######                            (party_add_members, ":party", "trp_seanchan_morat_torm", 2),
 #                            (party_add_members, ":party", "trp_seanchan_captain", 4),
 #                            (party_add_members, ":party", "trp_seanchan_skirmisher", 4),
-            
+
 #                            (party_add_members, ":party", "trp_seanchan_tarabon_ally", 1),
 #                            (party_add_members, ":party", "trp_seanchan_amadicia_ally", 1),
 #                            (party_add_members, ":party", "trp_seanchan_altara_ally", 1),
                         (else_try),
                         (eq, "$g_cheat_recruit_add", 8),
-            
+
 #                            (party_add_members, ":party", "trp_shadowspawn_recruit_creature", 2),
 #                            (party_add_members, ":party", "trp_trolloc_grunt", 2),
 #                            (party_add_members, ":party", "trp_trolloc_hewer", 2),
@@ -5082,7 +5082,7 @@ triggers = [
 #                            (party_add_members, ":party", "trp_trolloc_archer", 2),
 #                            (party_add_members, ":party", "trp_trolloc_stalker", 2),
                             (party_add_members, ":party", "trp_draghkar", 50),
-            
+
 #                            (party_add_members, ":party", "trp_darkfriend_channeler", 4),
 #                            (party_add_members, ":party", "trp_aes_sedai_black", 4),
 #                            (party_add_members, ":party", "trp_dreadlord", 4),
@@ -5193,8 +5193,8 @@ triggers = [
                 (troop_raise_skill, "trp_player", skl_water, 1),
                 (troop_raise_skill, "trp_player", skl_air, 1),
                 (troop_raise_proficiency_linear, "trp_player", wpt_firearm, 300),
-            (try_end),                 
-            
+            (try_end),
+
 
         ]),
 
@@ -5231,13 +5231,13 @@ triggers = [
      (try_end),
      ## TGS: mat: End
 ]),
-  
+
 ## TGS: mat: Removed to stop the stuttering
 #    (0.1, 0, 0, [(party_get_current_terrain,":terrain","p_main_party"),
 #      (neq,":terrain",7),], # 7 = rt_bridge
 #   [(party_set_icon,"p_main_party", "icon_player"),]),
 ## TGS: mat: End
-  
+
  (0.1, 0, 0.0, [],
 [(try_for_parties, ":cur_party"),
    (party_get_current_terrain, ":terrain", ":cur_party"),
@@ -5269,7 +5269,16 @@ triggers = [
    (neq,":terrain",7), # 7 = rt_bridge
      (party_get_template_id, ":cur_template", ":cur_party"),
      (eq, ":cur_template", "pt_kingdom_hero_party"),
-       (party_set_icon,":cur_party","icon_flagbearer_a"),
+        (store_faction_of_party, ":cur_party_faction", ":cur_party"),
+        (try_begin),
+        (eq, ":cur_party_faction", "fac_kingdom_22"), ## Aiel Nation
+            (party_set_icon,":cur_party","icon_flagbearer_c"),
+        (else_try),
+        (eq, ":cur_party_faction", "fac_kingdom_26"), ## Sea Folk
+            (party_set_icon,":cur_party","icon_flagbearer_d"),
+        (else_try),
+            (party_set_icon,":cur_party","icon_flagbearer_a"),
+        (try_end),
    (else_try),
  # added by mat2rivs
      (this_or_next|eq, ":cur_template", "pt_merchant_caravan"),
@@ -5312,7 +5321,7 @@ triggers = [
      (this_or_next|eq, ":cur_template", "pt_taiga_bandits"),
      (eq, ":cur_template", "pt_steppe_bandits"),
        (party_set_icon,":cur_party","icon_khergit"),
- # end 
+ # end
    (else_try),
      (eq, ":cur_template", "pt_cattle_herd"),
         (party_set_icon,":cur_party","icon_cattle"),
@@ -5332,7 +5341,7 @@ triggers = [
                 #(party_get_position, pos2, "p_town_6"),
                 #(get_distance_between_positions, reg1, pos1, pos2),
                 #(display_message, "@Main party is {reg1} cm from Bandar Eban..."),
-            
+
                 (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
                 (try_begin),
                 (eq, reg0, 0),
@@ -5362,11 +5371,11 @@ triggers = [
 
         ]),
 
-## TGS: Sea Battles end  
+## TGS: Sea Battles end
 
 
 
-#Don't remove the bracket after this comment   
+#Don't remove the bracket after this comment
 
- 
+
 ]

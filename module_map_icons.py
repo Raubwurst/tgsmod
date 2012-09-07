@@ -10,7 +10,7 @@ from ID_sounds import *
 #     The prefix icon_ is automatically added before each map icon id.
 #  2) Map icon flags. See header_map icons.py for a list of available flags
 #  3) Mesh name.
-#  4) Scale. 
+#  4) Scale.
 #  5) Sound.
 #  6) Offset x position for the flag icon.
 #  7) Offset y position for the flag icon.
@@ -33,6 +33,12 @@ map_icons = [
   ("axeman",0,"bandit_a", avatar_scale,snd_footstep_grass, 0.15, 0.173, 0),
   ("woman",0,"woman_a", avatar_scale,snd_footstep_grass, 0.15, 0.173, 0),
   ("woman_b",0,"woman_b", avatar_scale,snd_footstep_grass, 0.15, 0.173, 0),
+
+## TGS: mat: new Party Icons
+  ("flagbearer_c",0,"bandit_a", avatar_scale, snd_footstep_grass, 0.15, 0.173, 0),  ## Aiel
+  ("flagbearer_d",0,"woman_a", avatar_scale, snd_footstep_grass, 0.15, 0.173, 0),  ## Sea Folk
+## TGS: mat: End
+
   ("town",mcn_no_shadow,"map_town_a", 0.35,0),
   ("town_steppe",mcn_no_shadow,"map_town_steppe_a", 0.35,0),
   ("town_desert",mcn_no_shadow,"map_town_desert_a", 0.35,0),
@@ -177,7 +183,7 @@ map_icons = [
   ("banner_61",0,"map_flag_41", banner_scale,0),
   ("banner_62",0,"map_flag_42", banner_scale,0),
   #end
-  
+
   ("banner_63",0,"map_flag_43", banner_scale,0),
   ("banner_64",0,"map_flag_44", banner_scale,0),
   ("banner_65",0,"map_flag_45", banner_scale,0),
@@ -221,7 +227,7 @@ map_icons = [
   ("banner_102",0,"map_flag_62", banner_scale,0),
   ("banner_103",0,"map_flag_63", banner_scale,0),
   #end
-  
+
   ("banner_104",0,"map_flag_d01", banner_scale,0),
   ("banner_105",0,"map_flag_d02", banner_scale,0),
   ("banner_106",0,"map_flag_d03", banner_scale,0),
@@ -243,7 +249,7 @@ map_icons = [
   ("banner_122",0,"map_flag_d19", banner_scale,0),
   ("banner_123",0,"map_flag_d20", banner_scale,0),
   ("banner_124",0,"map_flag_d21", banner_scale,0),
-  
+
   ("banner_125",0,"map_flag_e01", banner_scale,0),
   ("banner_126",0,"map_flag_e02", banner_scale,0),
   ("banner_127",0,"map_flag_e03", banner_scale,0),
@@ -286,7 +292,7 @@ map_icons = [
   ("banner_163",0,"map_flag_f18", banner_scale,0),
   ("banner_164",0,"map_flag_f19", banner_scale,0),
   ("banner_165",0,"map_flag_f20", banner_scale,0),
-  
+
   #seanchan banners
   ("banner_166",0,"map_flag_01", banner_scale,0),
   ("banner_167",0,"map_flag_02", banner_scale,0),
@@ -334,7 +340,7 @@ map_icons = [
   ("banner_206",0,"map_flag_d20", banner_scale,0),
   ("banner_207",0,"map_flag_d21", banner_scale,0),
   #end
-  
+
   #custom banners
   ("banner_208",0,"map_flag_f01", banner_scale,0), #166 if only 6 TGS Factions
   ("banner_209",0,"map_flag_f02", banner_scale,0),
@@ -348,7 +354,7 @@ map_icons = [
   ("banner_217",0,"map_flag_f10", banner_scale,0),
 
 
-  
+
   ("map_flag_kingdom_a",0,"map_flag_kingdom_a", banner_scale,0),
   ("map_flag_kingdom_b",0,"map_flag_kingdom_b", banner_scale,0),
   ("map_flag_kingdom_c",0,"map_flag_kingdom_c", banner_scale,0),
@@ -361,7 +367,7 @@ map_icons = [
 
 
 
-  
+
   ("bandit_lair",mcn_no_shadow,"map_bandit_lair", 0.45, 0),
 
 ## TGS: mat: Added new banners
@@ -393,7 +399,7 @@ map_icons = [
   ("banner_sea_folk",0,"map_flag_sea_folk", banner_scale,0),
   ("banner_madmen",0,"map_flag_madmen", banner_scale,0),
   ("banner_toman_head",0,"map_flag_toman_head", banner_scale,0),
-## TGS: mat: End  
+## TGS: mat: End
 
 
 ## TGS: mat: Added new kingdom banners
@@ -424,8 +430,8 @@ map_icons = [
   ("map_flag_tgs_kingdom_y",0,"map_flag_shara", banner_scale,0),
   ("map_flag_tgs_kingdom_z",0,"map_flag_sea_folk", banner_scale,0),
   ("map_flag_tgs_kingdom_aa",0,"map_flag_madmen", banner_scale,0),
-  ("map_flag_tgs_kingdom_ab",0,"map_flag_toman_head", banner_scale,0), 
-## TGS: mat: End  
+  ("map_flag_tgs_kingdom_ab",0,"map_flag_toman_head", banner_scale,0),
+## TGS: mat: End
 
-  
+
 ]
