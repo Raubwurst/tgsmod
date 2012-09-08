@@ -1,0 +1,45 @@
+Initial information from Lorenzogarch
+
+
+Father was:
+   Lord: noble title, +500 gold, good horse
+   Warder: +10 renown, good horse
+   Soldier: good sword/armor
+   Adventurer: pretty good sword/horse
+   Merchant: +250 gold
+   Farmer: +1 str
+   Thief: +1 agi
+Mother was:
+   Lady: noble title, +500 gold 
+   Aes Sedai: channeling path
+   Housewife: +1 first aid
+   Adventurer: pretty good shield/armor
+   Merchant: trading goods
+   Farmer: +1 first aid
+   Whore: +1 cha
+Childhood
+   Page/lady-in-waiting: +1 cha, +1 riding skill, +250 gold
+   Novice/Asha'man Soldier, channeling path, +45 channeling
+   Warder trainee: +1 weapon master, +45 2 hand weapon, +1 power strike
+   Hunting/farming: +1 power draw, +1 pathfinding, +1 tracking
+   Left to fend for self: +1 agi, +1 looting
+   Assistant to village Wisdom: channeling path, +1 first aid, +1 surgery,
+Young adult
+   Minor noble: noble title, +10 soldiers, +1 leadership, +500 gold, good items
+   Border soldier: +1 weapon master, +1 power strike, +50 2 hand weapon, +50 1 hand weapon
+   Warder: Warder cloak, warder sword, +1 weapon master, +1 power strike, +75 2 hand weapon
+   Aed Sedai/Asha'man: channeling path, +75 channeling, angreal (if implemented)
+   Merchant: +1 trading, +1 cha, +500 gold
+   Wisdom: +1 first aid, +1 surgery, channeling path, +25 channeling
+   Thief: +1 agi, +1 cha, +1 athletics
+   Hunter: +1 power draw, bow, +1 tracking, +1 pathfinding
+Great achievement
+   Noble: Noble title, +1000 gold, +30 soldiers, very good items
+   Famed border soldier: +1 weapon master, +1 power strike, +50 2 hand weapon, +50 1 hand weapon, +15 renown, LOTS of weapons
+   Captain of the guard: +15 soldiers, +1 weapon master, +10 renown, +1 tactics, good items
+   Blademaster: Heron-mark blade, +1 weapon master, +100 2 hand sword, +15 renown
+   New/ improved weave (only for channeling choices from childhood): +10 renown, +100 channeling, sa'angreal (if implemented) 
+   Famed merchant: +2 trading, +1000 gold, +10 renown
+   Stole from a lord: +750 gold, some really good items
+   Learned to speak to wolves: +2 tracking, +2 pathfinding, +1 str
+
