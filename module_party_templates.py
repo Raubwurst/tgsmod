@@ -43,7 +43,7 @@ party_templates = [
   # edited for TGS
   ("looters","Bandit Rabble",icon_axeman|carries_goods(8),0,fac_outlaws,bandit_personality,[(trp_looter,15,125), (trp_arad_doman_rabble, 5, 30), (trp_tarabon_rabble, 5, 50), (trp_forest_bandit, 5, 25)]), #Looters
 # Ryan END
-  ("manhunters","White Cloaks",icon_gray_knight,0,fac_manhunters,soldier_personality,[(trp_whitecloak_swordsman,10,30), (trp_whitecloak_bowman, 10,30), (trp_whitecloak_lancer, 8,24)]),
+  ("manhunters","Children of the Light",icon_gray_knight,0,fac_manhunters,soldier_personality,[(trp_whitecloak_swordsman,10,30), (trp_whitecloak_bowman, 10,30), (trp_whitecloak_lancer, 8,24)]),
 ##  ("peasant","Peasant",icon_peasant,0,fac_commoners,merchant_personality,[(trp_farmer,1,6),(trp_peasant_woman,0,7)]),
 
 #  ("black_khergit_raiders","Black Khergit Raiders",icon_khergit_horseman_b|carries_goods(2),0,fac_black_khergits,bandit_personality,[(trp_black_khergit_guard,1,10),(trp_black_khergit_horseman,5,5)]),
@@ -55,7 +55,7 @@ party_templates = [
   ("sea_raiders","Coastal Raiders",icon_axeman|carries_goods(2),0,fac_outlaws,wot_bandit_personality,[(trp_sea_raider,10,50), (trp_tear_recruit,10,25),(trp_altara_dueler,10,25), (trp_altara_knife_thrower, 10, 25), (trp_tarabon_bowman, 10, 25), (trp_illian_militia, 10, 25)]),
   
   ("trollocs","Marauding Trollocs",icon_axeman|carries_goods(2),0,fac_trollocs,wot_trolloc_personality,[(trp_trolloc_grunt_bandit,20,90), (trp_trolloc_hewer,15,40),(trp_trolloc_stalker,15,40),(trp_myrddraal,1,3)]),
-  # end edited for TGS
+# end edited for TGS
 
   ("deserters","Deserters",icon_vaegir_knight|carries_goods(3),0,fac_deserters,bandit_personality,[]),
     

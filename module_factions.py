@@ -112,7 +112,7 @@ factions = [
 ##  ("rebel_peasants","Rebel Peasants", 0, 0.5,[("vaegirs",-0.5),("player_faction",0.0)], []),
 
   #edited for TGS
-  ("manhunters","Whitecloaks", 0, 0.5,[("outlaws",-0.6),("player_faction",0.1)], []),#Manhunters
+  ("manhunters","Children of the Light", 0, 0.5,[("outlaws",-0.6),("player_faction",0.1)], []),#Manhunters
   #end edited for TGS
   ("deserters","Deserters", 0, 0.5,[("manhunters",-0.6),("merchants",-0.5),("player_faction",-0.1)], [], 0x888888),
   ("mountain_bandits","Mountain Bandits", 0, 0.5,[("commoners",-0.2),("merchants",-0.5),("manhunters",-0.6),("player_faction",-0.15)], [], 0x888888),

@@ -4873,7 +4873,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("far_madding_recruit", "Far Madding"),
   ("tarabon_recruit", "Tarabon"),
   ("amadicia_recruit", "Amadicia"),
-  ("whitecloak_recruit", "Whitecloak"),
+  ("whitecloak_recruit", "Child of the Light"),
   ("shienar_recruit", "Shienar"),
   ("arafel_recruit", "Arafel"),
   ("kandor_recruit", "Kandor"),

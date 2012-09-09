@@ -1736,10 +1736,10 @@ or you won't be able to hang on to a single man you catch.", "ramun_ask_about_ca
 ##  [party_tpl|pt_peasant,"peasant_talk_2b", [], "Outlaws? They are everywhere. They are making life miserable for us.\
 ## I pray to God you will kill them all.", "close_window",[(assign, "$g_leave_encounter",1)]],
 
-[party_tpl|pt_manhunters,"start", [(eq,"$talk_context",tc_party_encounter)], "Hey, you there! You seen any outlaws around here?", "manhunter_talk_b",[]],
+[party_tpl|pt_manhunters,"start", [(eq,"$talk_context",tc_party_encounter)], "Hey, you there! You seen any Darkfriends or rabble around here?", "manhunter_talk_b",[]],
 [party_tpl|pt_manhunters|plyr,"manhunter_talk_b", [], "Yes, they went this way about an hour ago.", "manhunter_talk_b1",[]],
-[party_tpl|pt_manhunters,"manhunter_talk_b1", [], "I knew it! Come on, lads, lets go get these bastards! Thanks a lot, friend.", "close_window",[(assign, "$g_leave_encounter",1)]],
-[party_tpl|pt_manhunters|plyr,"manhunter_talk_b", [], "No, haven't seen any outlaws lately.", "manhunter_talk_b2",[]],
+[party_tpl|pt_manhunters,"manhunter_talk_b1", [], "I knew it! Come on, lads, let's go get them!", "close_window",[(assign, "$g_leave_encounter",1)]],
+[party_tpl|pt_manhunters|plyr,"manhunter_talk_b", [], "No, I haven't seen any Darkfriends lately.", "manhunter_talk_b2",[]],
 [party_tpl|pt_manhunters,"manhunter_talk_b2", [], "Bah. They're holed up in this country like rats, but we'll smoke them out yet. Sooner or later.", "close_window",[(assign, "$g_leave_encounter",1)]],
 
 [party_tpl|pt_looters|auto_proceed,"start", [(eq,"$talk_context",tc_party_encounter),(encountered_party_is_attacker),], "{!}Warning: This line should never be displayed.", "looters_1",[
@@ -3101,7 +3101,7 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 
 [anyone, "merchant_quest_4b2",
 [],
-"As a consequence, it seems, our captain turned to villainy to recoup his fortune. I supposed I'd do the same if, the Heavens forbid, I ever faced indebtedness and ruination. Now, any watch captain worth his salary will have a few thieves and robbers on his payroll, to inform on the rest, but our captain decides to employ these bastards wholesale. He brings them into the town, lets them do as they will, and takes a share of their take. You've heard of poachers turning gamekeepers? Well, sometimes gamekeepers will turn poacher. Luckily, there's are still a few brave, honest souls in the watch who've told me how he works.", "merchant_quest_4b3",
+"As a consequence, it seems, our captain turned to villainy to recoup his fortune. I supposed I'd do the same if, the Heavens forbid, I ever faced indebtedness and ruination. Now, any watch captain worth his salary will have a few thieves and robbers on his payroll, to inform on the rest, but our captain decides to employ these Light-blinded fools wholesale. He brings them into the town, lets them do as they will, and takes a share of their take. You've heard of poachers turning gamekeepers? Well, sometimes gamekeepers will turn poacher. Luckily, there's are still a few brave, honest souls in the watch who've told me how he works.", "merchant_quest_4b3",
 []],
 
 [anyone, "merchant_quest_4b3",
@@ -36518,7 +36518,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
       (try_end),
   ],
    "Well done, {playername}, that's the last of the goods I need. Here is the money for your {s6}, and a small bonus for helping me out.\
- I'm afraid I won't be paying for any more goods, nor bounties on looters, but you're welcome to keep hunting the bastards if any remain.\
+ I'm afraid I won't be paying for any more goods, nor bounties on looters, but you're welcome to keep hunting the fools if any remain.\
  Thank you for your help, I won't forget it.",
    "close_window",[
       ]],

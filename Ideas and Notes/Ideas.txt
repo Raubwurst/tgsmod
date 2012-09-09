@@ -175,6 +175,8 @@ Change time scale and refine list of events, hide Black Tower until it's foundat
 
 Madmen become a part of the endgame - Madman spawn around a portal stone, invading the Westlands. Portal Stone leads back to the Land of Madmen that must be conquered to progress. Madmen come in vast hoards, have strong destructive channeling units and live like savages.
 
+Faction, village and town reputation affect recruiting - elite & channelling units should be slightly more difficult to get.
+
 Different Villager, Guild Masters, produce etc for each culture.
 
 Fix Pretenders. 
