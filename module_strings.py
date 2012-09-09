@@ -4767,50 +4767,50 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 
 #Comments for when cities change factions
   #10 days
-  ("tarwins_gap","The armies of Shienar win a great victory over the Shadowspawn at Tarwin's Gap. Many believe the Creator himself lended aid."),
+  ("tarwins_gap","The armies of Shienar win a great victory over the Shadowspawn at Tarwin's Gap. Many believe the Creator himself lended aid, some talk of a duel in the sky above the battle."),
   #15 days
-  ("falme_falls","Falme is invaded by mysterious forces."),
+  ("falme_falls","Falme is invaded by mysterious forces, rumoured to have sailed from far across the Aryth Ocean."),
   #20 days
-  ("falme_liberated","Heros from the dead are summoned and the Seanchan invaders are pushed back into the seas. There are reports that the Dragon Reborn fought the Dark One in the skies over Falme!"),
+  ("falme_liberated","The Seanchan invaders are pushed back into the seas. There are reports that the Dragon Reborn fought the Dark One in the skies over Falme, and that heroes rose from the dead to fight as his army!"),
   #25 days
   ("seanchan_retreat","The Seanchan retreat to Tremalking to rebuild their attack forces."),
   #30 days
-  ("dragon_is_reborn_1","The Stone of Tear has fallen!!  Callandor was wielded by the Dragon's hand!!"),
-  ("dragon_is_reborn_2","Rand al'Thor has proclaimed himself the Dragon Reborn!!"),
+  ("dragon_is_reborn_1","The Stone of Tear has fallen! Callandor was wielded by the Dragon's hand!"),
+  ("dragon_is_reborn_2","Rand al'Thor has proclaimed himself the Dragon Reborn!"),
   #43 days
-  ("siuan_deposed","Siuan Sanche has been deposed... The White Tower is broken..."),
+  ("siuan_deposed","Siuan Sanche has been deposed, with a new Amyrlin Seat rising in her place. The White Tower is broken..."),
   #45 days
-  ("caracarn","Rand al'Thor is the Car'a'carn... The Aiel have found He Who Comes With The Dawn..."),
+  ("caracarn","Rand al'Thor has proclaimed himself Car'a'carn of the Aiel, they have found He Who Comes With The Dawn..."),
   #47 days
-  ("seanchan_invade_tarabon","The Seanchan Empire invades Tarabon..."),
+  ("seanchan_invade_tarabon","The Seanchan Empire invades Tarabon in a blistering response to the loss of Falme."),
   #55 days
-  ("rebel_aes_sedai_to_salidar","The rebel Aes Sedai flee to the villiage of Salidar..."),
+  ("rebel_aes_sedai_to_salidar","In quiet corners, there are whispers of an Aes Sedai rebellion. The town of Salidar is on many lips."),
   #60 days
-  ("dragon_takes_cairhien","The Shaido assault on Cairhien was repelled and the Dragon Reborn claims the city..."),
+  ("dragon_takes_cairhien","The Shaido assault on Cairhien was repelled and the Dragon Reborn claims the city."),
   #62 days
-  ("dragon_takes_caemlyn","Rand al'Thor battles Rhavin in Caemlyn and liberates the city..."),
+  ("dragon_takes_caemlyn","Rand al'Thor battles Rahvin in Caemlyn and liberates the city from the self-proclaimed 'Lord Gaebril'."),
   #65 days
-  ("rebel_aes_sedai_raise_egwene_to_amyrlin","The rebel Aes Sedai in Salidar raise Egwene al'Vere to Amyrlin Seat..."),
+  ("rebel_aes_sedai_raise_egwene_to_amyrlin","The rebel Aes Sedai in Salidar raise Egwene al'Vere to Amyrlin Seat."),
   #70 days
-  ("seanchan_invade_amadicia","The Seanchan Empire invades Amadicia..."),
+  ("seanchan_invade_amadicia","The Seanchan Empire invades Amadicia."),
   #72 days
-  ("seanchan_invade_altara","The Seanchan Empire invades Altara..."),
+  ("seanchan_invade_altara","The Seanchan Empire invades Altara."),
   #73 days
-  ("dragon_takes_illian","Rand al'Thor battles Sammael in Shadar Logoth and liberates the city of Illian..."),
+  ("dragon_takes_illian","Rand al'Thor battles Sammael in Shadar Logoth and liberates the city of Illian."),
   #75 days
-  ("queen_alliandra_swears_fealty","Queen Alliandre of Ghealdan swears fealty to Lord Perrin Aybara..."),
+  ("queen_alliandra_swears_fealty","Queen Alliandre of Ghealdan swears fealty to Lord Perrin Aybara of the Two Rivers."),
   #77 days
-  ("elayne_claims_andor_throne","Elayne Trakand places her claim to the Lion Throne of Andor..."),
+  ("elayne_claims_andor_throne","Elayne Trakand places her claim to the Lion Throne of Andor."),
   #90 days
-  ("dragon_takes_arad_doman","Rand al'Thor works to bring peace to the cities of Arad Doman..."),
+  ("dragon_takes_arad_doman","Rand al'Thor works to bring peace to the cities of Arad Doman."),
   #95 days
-  ("dragon_prepares_for_last_battle","Rand al'Thor begins preparing the lands for the Last Battle..."),
+  ("dragon_prepares_for_last_battle","The Dragon Reborn begins preparing the lands for the Last Battle."),
   #100 days
-  ("egwene_unites_white_tower","Egwene al'Vere unites both Aes Sedai factions and begins rebuilding the White Tower..."),
+  ("egwene_unites_white_tower","Egwene al'Vere unites both Aes Sedai factions and begins rebuilding the White Tower as the new Amyrlin Seat."),
   #115 days
-  ("last_battle_near","Trollocs are seen in great number all along the Blight border..."),
+  ("last_battle_near","Trollocs are seen in great number all along the Blight border. Food is spoiling in storage and tales of the Shadow's curses causing misfortune and death are on every man's lips."),
   #120 days
-  ("last_battle_begins","Shadowspawn armies pour from the Blight and smash the Borderlands...  The Last Battle has begun!!"),
+  ("last_battle_begins","Shadowspawn armies pour from the Blight and smash the Borderlands. Betrayal and paranoia is everywhere...  The Last Battle has begun!!"),
   
   
   
@@ -4836,7 +4836,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("weave_14", "Preparing Balefire Weave..."),
 
   # Warn that player is low on 'ammo'
-  ("almost_out_of_ammo","You are almost out of channeling ammo!!! Hit the 'Inventory' key, and then click 'Return' for more..."),
+  ("almost_out_of_ammo","You are almost out of channeling ammo! Hit the 'Inventory' key, and then click 'Return' for more..."),
 
   # Other World Map messages
   ("welcome_to_randland", "'The Wheel of Time turns, and Ages come and pass, leaving memories that become legend. Legend fades to myth, and even myth is long forgotten when the Age that gave it birth comes again. In one Age, called the Third Age by some, an Age yet to come, an Age long past, a wind rose in the Mountains of Mist. The wind was not the beginning. There are neither beginnings nor endings to the turning of the Wheel of Time. But it was a beginning.'  - Robert Jordan, The Eye of the World"),
@@ -4844,7 +4844,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("learn_weave", "You have learned a new weave."),
   ("learn_weave_1", "The One Power... What started as a fearful searching during your youth has become a quest for knowledge and a source of strength. You have found that practice is the best teacher. In the journey ahead, you must decide whether to use the Creator's gift for good or evil: The first weave you learn is Air Blast. Use it to push enemies who attack you from the front. Minimal damage inflicted..."),
   ("learn_weave_2", "Through exploration, you learn that you can not only control air, but it's temperature as well. Learn Freeze Weave. Chill all nearby people to the bone, slowing their movement speed. No damage inflicted..."),
-  ("learn_weave_3", "At last, you have found a constructive use for your new abilities. Learn Heal Weave. Restore health to your closest injured ally..."),
+  ("learn_weave_3", "At last, you have found a constructive use for your new abilities. You learn the Heal Weave. This restores some health to your closest injured ally..."),
   ("learn_weave_4", "Fire, important since the beginning of the Age to the birth of civilization... but also a powerful weapon. Learn Fire Ball Weave. Create a violent stream of fire that burns all in it's path.  Friend and foe alike will have a hard time extinguishing the flames..."),
   ("learn_weave_5", "Over time, you realize that some actions need to be corrected. Learn Unravel Weave. Undo the effects of weaves made by the enemy. But beware, stronger enemies are harder to counter..."),
   ("learn_weave_6", "Once, when surrounded by foes, you discovered that you didn't like being boxed in. Learn Defensive Blast Weave. Push all nearby troops far away. Inflict moderate damage..."),
