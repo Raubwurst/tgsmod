@@ -1451,7 +1451,7 @@ game_menus = [
       (str_store_string,s13,"@{reg3?woman:man}"),
       (str_store_string,s12,"@Battle was in your blood, but you also felt a\
  strong desire to serve a greater purpose. You saw the evil growing in the world and were drawn\
- towards the White Tower, seeing the Aes Sedai as a bastian against the Shadow. You talked to one of\
+ towards the White Tower, seeing the Aes Sedai as a bastion against the Shadow. You talked to one of\
  the warders and were surprised to learn that if you could keep up, you would be allowed to train with them.\
  The next four years were spent transforming your body into a weapon. During this time you also became aquainted\
  one of the accepted. A year later, when she was raised to full Aes Sedai, you chose to become her warder."),
@@ -1509,7 +1509,7 @@ game_menus = [
       (str_store_string,s12,"@Working hard was never something you enjoyed\
  while growing up. Or maybe it was just the burden of playing by the rules. But, you were interested\
  in money, and had a knack for finding out who needed what and what they were willing to pay. Sure you\
- sometimes didn't play tarifs on the goods you sold, but who were the greedy nobles to tax every transaction?\
+ sometimes didn't play tariffs on the goods you sold, but who were the greedy nobles to tax every transaction?\
  Thankfully, a quick mind and an eye that could spot trouble a mile away kept you one step ahead of the authoritied."),
 	(jump_to_menu,"mnu_start_character_4"),
         ]),
