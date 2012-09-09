@@ -1,4 +1,6 @@
 #!/bin/sh
+target="/srv/http/TGS-work"
+
 if [ -f ./module_info.py ] ; then
 	echo "module_info exists, temporarily appending .bak"
 	mv ./module_info.py ./module_info.py.bak
@@ -6,21 +8,22 @@ else
 	echo "module_info does not exist, I will create it"
 fi
 
-echo "export_dir = \"The Gathering Storm/\"" > ./module_info.py
+echo "export_dir = \"$target/\"" > ./module_info.py
 
-echo "moving module folder to build..."
-mv ~/.wine/drive_c/Program\ Files\ \(x86\)/Mount\&Blade\ Warband/Modules/The\ Gathering\ Storm/ .
+# Client only
+#echo "moving module folder to build..."
+#mv ~/.wine/drive_c/Program\ Files\ \(x86\)/Mount\&Blade\ Warband/Modules/The\ Gathering\ Storm/ .
 
 echo "copying resources..."
 
 copydirs=( Data languages Music Resource SceneObj Sounds Textures )
 for directory in ${copydirs[@]} ; do
 	echo "copying $directory to target" 
-	rsync -r --exclude=.svn ./$directory/ ./The\ Gathering\ Storm/$directory
+	rsync -r --exclude=.git "./$directory/" "$target/$directory"
 done
 
 echo "copying module.ini to target"
-cp ./module.ini ./The\ Gathering\ Storm
+cp ./module.ini "$target/module.ini"
 
 echo "beginning build..."
 echo "-------------------------------------------"
@@ -59,12 +62,14 @@ if [ -f ./module_info.py.bak ] ; then
 	echo "moving old module_info back"
 	mv ./module_info.py.bak ./module_info.py 
 fi
-mv ./The\ Gathering\ Storm ~/.wine/drive_c/Program\ Files\ \(x86\)/Mount\&Blade\ Warband/Modules/
+# Client only
+#mv "$target" "~/.wine/drive_c/Program\ Files\ \(x86\)/Mount\&Blade\ Warband/Modules/"
 rm *.pyc
 echo ''
 echo '______________________________'
 echo ''
 echo 'Script processing has ended.'
-read -sn 1 -p 'Press any key to exit. . .'
+# Client only
+#read -sn 1 -p 'Press any key to exit. . .'
 echo ''
 exit
