@@ -157,6 +157,12 @@ items = [
  ["book_trade","Dealings with the Territory of Mayene, 500-750 NE", [("book_f",0)], itp_type_book, 0, 3100,weight(2)|abundance(100),imodbits_none],
  ["book_weapon_mastery", "Meditations of the Kindling Flame", [("book_d",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
  ["book_engineering","Wake of the Breaking", [("book_open",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none],
+ ["book_channeling","100 Weaves", [("book_b",0)], itp_type_book, 0, 2900,weight(2)|abundance(100),imodbits_none],
+ ["book_air","Heavy Wind and Clear Skies", [("book_e",0)], itp_type_book, 0, 3100,weight(2)|abundance(100),imodbits_none],
+ ["book_fire", "A Roaring Inferno", [("book_a",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
+ ["book_water","Waves and Whirlpools", [("book_open",0)], itp_type_book, 0, 2900,weight(2)|abundance(100),imodbits_none],
+ ["book_earth","Smashing Stone and Shattering Mountains", [("book_b",0)], itp_type_book, 0, 3100,weight(2)|abundance(100),imodbits_none],
+ ["book_spirit", "Forgotten Fragments of the Forbidden Weaves", [("book_d",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
 
 #Reference books
 #This book must be at the beginning of reference books
@@ -10057,13 +10063,6 @@ items = [
 # I put value(in-game) to 0 as I'd imagine only Mat will have it...
 # And if you don't want the ravens, just take "_ravens" out of the mesh name entry.
 ######################
-
- ["book_channeling","100 Weaves", [("book_g",0)], itp_type_book, 0, 2900,weight(2)|abundance(100),imodbits_none],
- ["book_air","Heavy Wind and Clear Skies", [("book_h",0)], itp_type_book, 0, 3100,weight(2)|abundance(100),imodbits_none],
- ["book_fire", "A Roaring Inferno", [("book_i",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
- ["book_water","Waves and Whirlpools", [("book_j",0)], itp_type_book, 0, 2900,weight(2)|abundance(100),imodbits_none],
- ["book_earth","Smashing Stone and Shattering Mountains", [("book_k",0)], itp_type_book, 0, 3100,weight(2)|abundance(100),imodbits_none],
- ["book_spirit", "Forgotten Fragments of the Forbidden Weaves", [("book_l",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
 
  
 # end TGS Specific Items
