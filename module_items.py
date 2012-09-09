@@ -150,19 +150,19 @@ items = [
 # A treatise on The Method of Mechanical Theorems Archimedes
 
 #This book must be at the beginning of readable books
- ["book_tactics","De Re Militari", [("book_a",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none],
- ["book_persuasion","Rhetorica ad Herennium", [("book_b",0)], itp_type_book, 0, 5000,weight(2)|abundance(100),imodbits_none],
- ["book_leadership","The Life of Alixenus the Great", [("book_d",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
- ["book_intelligence","Essays on Logic", [("book_e",0)], itp_type_book, 0, 2900,weight(2)|abundance(100),imodbits_none],
- ["book_trade","A Treatise on the Value of Things", [("book_f",0)], itp_type_book, 0, 3100,weight(2)|abundance(100),imodbits_none],
- ["book_weapon_mastery", "On the Art of Fighting with Swords", [("book_d",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
- ["book_engineering","Method of Mechanical Theorems", [("book_open",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none],
+ ["book_tactics","Fog and Steel", [("book_a",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none],
+ ["book_persuasion","The Proper Taming of Power", [("book_b",0)], itp_type_book, 0, 5000,weight(2)|abundance(100),imodbits_none],
+ ["book_leadership","The Flame, the Blade and the Heart", [("book_d",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
+ ["book_intelligence","Marks and Remarks", [("book_e",0)], itp_type_book, 0, 2900,weight(2)|abundance(100),imodbits_none],
+ ["book_trade","Dealings with the Territory of Mayene, 500-750 NE", [("book_f",0)], itp_type_book, 0, 3100,weight(2)|abundance(100),imodbits_none],
+ ["book_weapon_mastery", "Meditations of the Kindling Flame", [("book_d",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
+ ["book_engineering","Wake of the Breaking", [("book_open",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none],
 
 #Reference books
 #This book must be at the beginning of reference books
- ["book_wound_treatment_reference","The Book of Healing", [("book_c",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
- ["book_training_reference","Manual of Arms", [("book_open",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
- ["book_surgery_reference","The Great Book of Surgery", [("book_c",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
+ ["book_wound_treatment_reference","Herbs of Healing", [("book_c",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
+ ["book_training_reference","The Blademaster and His Prodigy", [("book_open",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
+ ["book_surgery_reference","Mending Men of the Aiel War", [("book_c",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
 
  #other trade goods (first one is spice)
  ["spice","Spice", [("spice_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 880,weight(40)|abundance(25)|max_ammo(50),imodbits_none],
