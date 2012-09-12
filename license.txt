@@ -1,0 +1,122 @@
+-----------------------------------------------------------------
+The Gathering Storm - A Wheel of Time Mod for Mount&Blade:Warband
+-----------------------------------------------------------------
+
+--------------------
+License information:
+--------------------
+
+
+
+List of authors must be maintained, and license.txt must be included in any distribution of the mod.
+
+--------
+Credits:
+--------
+
+Mod Team:
+---------
+
+mat2rivs - Project Lead, Scripting, Modeling, Texturing, Mapmaking, Scening
+Vaerraent - Project Tech Lead, Scripting, Story Writing, Lore Checker
+Vieira - Modeling, Texturing
+Disco Ninja - Lead Tester, Brainstorming, Error Tracking
+Teofish - Scene Blueprints, Concept Drawings, Banners
+
+Additional Help:
+----------------
+
+lorenzogarch - Error Tracking, Story Writing (character creation screens)
+Kairyudragon - Error Tracking, Brainstorming
+backstrom - The Ways (base code)
+Verbeek - 2d art, Signatures, Splash Screens
+   - Screens use altered artwork by the following artists.
+      -Lord of Chaos e-book cover by Greg Manchess
+      -Crossroads of Twilight  e-book cover by Greg Ruth
+      -The Shadow Rising  e-book cover by Sam Weber
+   * Note:  I have attempted to contact each of these artists to ask permission, but 	have not heard back from any of them.  In the event that they contact me and ask that I remove their work from the mod, I will do so.
+Bgfan - Signatures
+Caba'drin - Scripting tips and general Module System mastery
+Tumetsu - Error Tracking, Brainstorming
+
+Other Resources Used:
+---------------------
+
+Troop Ratio Bar - rubik
+http://forums.taleworlds.net/index.php/topic,53062.msg1368604.html#msg1368604
+
+Autoloot - rubik & fisheye
+http://forums.taleworlds.net/index.php/topic,60097.0.html
+
+Original Magic Ideas Curtain of Fire - Mirathei
+http://forums.taleworlds.net/index.php/topic,30512.msg784362.html#msg784362
+
+Samurai Weapons & Armor Pack - walzou
+http://forums.taleworlds.net/index.php/topic,58290.0.html
+
+Open Source Project - Original and Retextured materials
+http://forums.taleworlds.com/index.php/topic,50086.0.html
+
+OSP Narf's Transitional Armour Pack - by Narf
+OSP Faradons Weaponry - by Faradon
+OSP Eastern Armor - by Njunja
+OSP Narf's Plate Armour Pack - by Narf
+OSP Unique Armory - by Talak
+OSP Viking Model Pack - by dejawolf
+OSP Medieval Helmet Pack - by dejawolf
+OSP Indo-Persian Armor and Shield Pack - by dariel
+OSP Woad Skins - by Kolba and Comissar
+Rock&Mountain Pack v3 - Goosemaner
+
+Base code for Water Travel and Naval Battles
+     -thrakkemarn, for his fixes to the original code posted by Ruthven
+     -Mirathei, for writing the original ship codes
+     -James for the longship model/texture
+     -Ruthven, for explanation+main code manipulation and basic scenes
+     -MartinF for the trigger that changes you into a ship
+     -Jubal for writing the original sea battle guide
+     -Dudro for extended scene editing
+     -Lumos for bugfix
+
+Diplomacy 4.2 - Waihti, zParsifal, and the Diplomacy team
+http://forums.taleworlds.com/index.php/board,176.0.html
+
+PBOD 0.90.1 (bundled with Diplomacy 4.2) - Caba'drin
+
+Recruiter Kit (bundled with Diplomacy 4.2)
+	- Hessuu            (Coding.)
+	- Stoker            (Advicing me on how to implement the recruiter spawning.)
+	- Blankin           (Coding the dialogs.)
+	- Alkhadias Master  (Doing most of the coding for version 1.10 scripts.)
+	- cdvader           (Giving an excellent example on how to implent a feature.)
+	- Janus             (Maker of the mod installer script.)
+
+Talk to Village Elder from Village menu (bundled with Diplomacy 4.2) - HokieBT
+
+Open BRF - mtarini
+http://forums.taleworlds.com/index.php/topic,72279.msg1878649.html
+
+MapEditor - Thorgim
+http://forums.taleworlds.com/index.php/topic,5646.msg81956.html#msg81956
+
+Taleworlds - A big thanks for their Native code and the Module System. Also, many of their models were retextured for this mod.
+
+Robert Jordan and his amazing series:
+
+The World of Robert Jordan's Wheel of Time:  for many of the identifier graphics for different countries.
+
+The Wheel of Time is © Copyright Robert Jordan.
+The phrases The Wheel of Time™ and The Dragon Reborn™ are trademarks of Robert Jordan.
+
+Thanks To:
+----------
+
+Feral - Inspiration to make this mod for Warband
+Followers of the Taleworlds thread for all their feedback
+
+
+------------
+Other Notes:
+------------
+
+All non-TGS assets, including the Wheel of Time IP and books are copyrighted by their owners and creators.
