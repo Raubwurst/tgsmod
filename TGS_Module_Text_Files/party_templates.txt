@@ -5,9 +5,9 @@ pt_rescued_prisoners Rescued_Prisoners 2 0 1 7 -1 -1 -1 -1 -1 -1
 pt_enemy Enemy 2 0 74 7 -1 -1 -1 -1 -1 -1 
 pt_hero_party Hero_Party 2 0 1 7 -1 -1 -1 -1 -1 -1 
 pt_village_defenders Village_Defenders 6 0 1 7 25 10 20 0 541 0 4 0 -1 -1 -1 -1 
-pt_cattle_herd Cattle_Herd 2814749767106598 0 3 7 24 80 120 0 -1 -1 -1 -1 -1 
+pt_cattle_herd Cattle_Herd 2814749767106600 0 3 7 24 80 120 0 -1 -1 -1 -1 -1 
 pt_looters Bandit_Rabble 2251799813685257 0 2 312 516 15 125 0 87 5 30 0 113 5 50 0 520 5 25 0 -1 -1 
-pt_manhunters White_Cloaks 2 0 69 137 122 10 30 0 123 10 30 0 368 8 24 0 -1 -1 -1 
+pt_manhunters Children_of_the_Light 2 0 69 137 122 10 30 0 123 10 30 0 368 8 24 0 -1 -1 -1 
 pt_steppe_bandits Dragonsworn_Bandits 562949953421319 0 2 376 525 10 90 0 113 10 90 0 520 10 40 0 115 10 30 0 519 10 40 0 28 15 30 0 
 pt_taiga_bandits Dragonsworn_Bandits 562949953421319 0 2 376 525 10 90 0 113 10 90 0 520 10 40 0 115 10 30 0 519 10 40 0 28 15 30 0 
 pt_desert_bandits Aiel_Renegades 562949953421321 0 2 376 526 10 45 0 178 10 45 0 443 5 10 0 445 5 10 0 -1 -1 
@@ -21,9 +21,9 @@ pt_troublesome_bandits Troublesome_Bandits 2533274790658057 0 2 312 517 14 55 0 
 pt_bandits_awaiting_ransom Bandits_Awaiting_Ransom 2533274790789129 0 3 312 517 24 58 0 543 1 1 1 -1 -1 -1 -1 
 pt_kidnapped_girl Kidnapped_Girl 262154 0 3 7 543 1 1 0 -1 -1 -1 -1 -1 
 pt_village_farmers Village_Farmers 67108870 0 4 7 25 5 10 0 541 3 8 0 -1 -1 -1 -1 
-pt_spy_partners Unremarkable_Travellers 2814749767434242 0 3 7 1676 1 1 0 28 5 11 0 -1 -1 -1 -1 
+pt_spy_partners Unremarkable_Travellers 2814749767434242 0 3 7 1788 1 1 0 28 5 11 0 -1 -1 -1 -1 
 pt_runaway_serfs Runaway_Serfs 2251799814012934 0 3 7 25 6 7 0 541 3 3 0 -1 -1 -1 -1 
-pt_spy Ordinary_Townsman 1125899907170306 0 3 7 1675 1 1 0 -1 -1 -1 -1 -1 
+pt_spy Ordinary_Townsman 1125899907170306 0 3 7 1787 1 1 0 -1 -1 -1 -1 -1 
 pt_sacrificed_messenger Sacrificed_Messenger 844424930459650 0 3 7 -1 -1 -1 -1 -1 -1 
 pt_forager_party Foraging_Party 1407374887747586 0 1 7 -1 -1 -1 -1 -1 -1 
 pt_scout_party Scouts 281474980904962 0 1 312 -1 -1 -1 -1 -1 -1 
@@ -31,7 +31,7 @@ pt_patrol_party Patrol 562949957615618 0 1 137 -1 -1 -1 -1 -1 -1
 pt_messenger_party Messenger 4194306 0 1 7 -1 -1 -1 -1 -1 -1 
 pt_raider_party Raiders 4503599627632642 0 1 312 -1 -1 -1 -1 -1 -1 
 pt_raider_captives Raider_Captives 0 0 1 0 541 6 30 1 -1 -1 -1 -1 -1 
-pt_kingdom_caravan_party Caravan 7036874421960741 0 1 7 542 1 1 0 28 12 40 0 -1 -1 -1 -1 
+pt_kingdom_caravan_party Caravan 7036874421960743 0 1 7 542 1 1 0 28 12 40 0 -1 -1 -1 -1 
 pt_prisoner_train_party Prisoner_Train 1407374887747586 0 1 7 -1 -1 -1 -1 -1 -1 
 pt_default_prisoners Default_Prisoners 0 0 1 0 517 5 10 1 -1 -1 -1 -1 -1 
 pt_routed_warriors Routed_Enemies 3 0 1 137 -1 -1 -1 -1 -1 -1 
@@ -261,15 +261,15 @@ pt_kingdom_28_reinforcements_e {!}kingdom_28_reinforcements_e 0 0 1 0 244 5 10 0
 pt_kingdom_28_reinforcements_f {!}kingdom_28_reinforcements_f 0 0 1 0 244 5 10 0 245 4 8 0 509 3 6 0 510 3 6 0 511 4 8 0 -1 
 pt_kingdom_28_reinforcements_g {!}kingdom_28_reinforcements_g 0 0 1 0 244 5 10 0 245 4 8 0 509 3 6 0 510 3 6 0 511 4 8 0 -1 
 pt_kingdom_28_reinforcements_h {!}kingdom_28_reinforcements_h 0 0 1 0 244 5 10 0 245 4 8 0 509 3 6 0 510 3 6 0 511 4 8 0 -1 
-pt_steppe_bandit_lair Dragonsworn_Bandit_Lair 562949955519762 0 3 312 87 10 30 0 113 10 30 0 520 10 20 0 115 10 20 0 519 10 20 0 28 15 20 0 
-pt_taiga_bandit_lair Dragonsworn_Bandit_Lair 562949955519762 0 3 312 87 10 30 0 113 10 30 0 520 10 20 0 115 10 20 0 519 10 20 0 28 15 20 0 
-pt_desert_bandit_lair Aiel_Renegades_Lair 562949955519762 0 3 312 176 10 45 0 178 10 45 0 443 5 10 0 445 5 10 0 -1 -1 
-pt_forest_bandit_lair Forest_Raiders_Camp 562949955519762 0 3 312 520 15 58 0 79 10 20 0 75 5 15 0 127 5 10 0 105 10 20 0 -1 
-pt_mountain_bandit_lair Bandit_Hideout 562949955519762 0 3 312 519 15 58 0 152 10 20 0 167 10 20 0 78 10 20 0 100 10 20 0 285 10 20 0 
-pt_sea_raider_lair Coastal_Raider_Landing 562949955519762 0 3 312 70 10 50 0 90 10 25 0 83 10 25 0 306 10 20 0 114 10 20 0 276 5 20 0 
-pt_looter_lair Kidnappers'_Hideout 562949955519762 0 3 312 516 15 25 0 -1 -1 -1 -1 -1 
+pt_steppe_bandit_lair Dragonsworn_Bandit_Lair 562949955519764 0 3 312 87 10 30 0 113 10 30 0 520 10 20 0 115 10 20 0 519 10 20 0 28 15 20 0 
+pt_taiga_bandit_lair Dragonsworn_Bandit_Lair 562949955519764 0 3 312 87 10 30 0 113 10 30 0 520 10 20 0 115 10 20 0 519 10 20 0 28 15 20 0 
+pt_desert_bandit_lair Aiel_Renegades_Lair 562949955519764 0 3 312 176 10 45 0 178 10 45 0 443 5 10 0 445 5 10 0 -1 -1 
+pt_forest_bandit_lair Forest_Raiders_Camp 562949955519764 0 3 312 520 15 58 0 79 10 20 0 75 5 15 0 127 5 10 0 105 10 20 0 -1 
+pt_mountain_bandit_lair Bandit_Hideout 562949955519764 0 3 312 519 15 58 0 152 10 20 0 167 10 20 0 78 10 20 0 100 10 20 0 285 10 20 0 
+pt_sea_raider_lair Coastal_Raider_Landing 562949955519764 0 3 312 70 10 50 0 90 10 25 0 83 10 25 0 306 10 20 0 114 10 20 0 276 5 20 0 
+pt_looter_lair Kidnappers'_Hideout 562949955519764 0 3 312 516 15 25 0 -1 -1 -1 -1 -1 
 pt_bandit_lair_templates_end {!}bandit_lair_templates_end 562949953422345 0 2 312 521 15 50 0 -1 -1 -1 -1 -1 
-pt_leaded_looters Band_of_robbers 2251799813947401 0 3 312 2009 1 1 0 516 3 3 0 -1 -1 -1 -1 
+pt_leaded_looters Band_of_robbers 2251799813947401 0 3 312 2121 1 1 0 516 3 3 0 -1 -1 -1 -1 
 pt_dplmc_spouse Your_spouse 71303178 0 3 7 -1 -1 -1 -1 -1 -1 
-pt_dplmc_gift_caravan Your_Caravan 7036874421960741 0 1 11 542 1 1 0 28 5 25 0 -1 -1 -1 -1 
-pt_dplmc_recruiter Recruiter 4194306 0 3 7 2018 1 1 0 -1 -1 -1 -1 -1 
+pt_dplmc_gift_caravan Your_Caravan 7036874421960743 0 1 11 542 1 1 0 28 5 25 0 -1 -1 -1 -1 
+pt_dplmc_recruiter Recruiter 4194306 0 3 7 2130 1 1 0 -1 -1 -1 -1 -1 

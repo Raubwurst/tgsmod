@@ -4,7 +4,7 @@ strings = [
   ("empty_string", " "),
   ("yes", "Yes."),
   ("no", "No."),
-# Strings before this point are hardwired.  
+# Strings before this point are hardwired.
   ("blank_string", " "),
   ("ERROR_string", "{!}ERROR!!!ERROR!!!!ERROR!!!ERROR!!!ERROR!!!ERROR!!!!ERROR!!!ERROR!!!!ERROR!!!ERROR!!!!ERROR!!!ERROR!!!!ERROR!!!ERROR!!!!ERROR!!!ERROR!!!!!"),
 ##  ("none", "none"),
@@ -241,7 +241,7 @@ strings = [
 
   ("delivered_damage", "Delivered {reg60} damage."),
   ("archery_target_hit", "Distance: {reg61} yards. Score: {reg60}"),
-  
+
   ("use_baggage_for_inventory","Use your baggage to access your inventory during battle (it's at your starting position)."),
 ##  ("cant_leave_now","Can't leave the area now."),
   ("cant_use_inventory_now","Can't access inventory now."),
@@ -262,7 +262,7 @@ strings = [
   ("october_reg1_reg2", "October {reg1}, {reg2}"),
   ("november_reg1_reg2", "November {reg1}, {reg2}"),
   ("december_reg1_reg2", "December {reg1}, {reg2}"),
-  
+
 ##  ("you_approach_town","You approach the town of "),
 ##  ("you_are_in_town","You are in the town of "),
 ##  ("you_are_in_castle","You are at the castle of "),
@@ -318,7 +318,7 @@ strings = [
   ("troop_relation_detoriated", "Your relation with {s1} has deteriorated from {reg1} to {reg2}."),
   ("faction_relation_increased", "Your relation with {s1} has increased from {reg1} to {reg2}."),
   ("faction_relation_detoriated", "Your relation with {s1} has deteriorated from {reg1} to {reg2}."),
-  
+
   ("party_gained_morale", "Your party gains {reg1} morale."),
   ("party_lost_morale",   "Your party loses {reg1} morale."),
   ("other_party_gained_morale", "{s1} gains {reg1} morale."),
@@ -350,7 +350,7 @@ strings = [
   ("relation_mnus_60",  "Hateful"),
   ##diplomacy start+
   # What the hell?!  These stupid spaces make otherwise-useful constants unusable.
-  # Changing them to strip out the space padding.  
+  # Changing them to strip out the space padding.
 #  ("relation_mnus_50",  " Hostile"),
 #  ("relation_mnus_40",  "  Angry"),
 #  ("relation_mnus_30",  "    Resentful"),
@@ -365,7 +365,7 @@ strings = [
 #  ("relation_plus_60",  "               Gracious"),
 #  ("relation_plus_70",  "                 Fond"),
 #  ("relation_plus_80",  "                  Loyal"),
-#  ("relation_plus_90",  "                   Devoted"), 
+#  ("relation_plus_90",  "                   Devoted"),
   ("relation_mnus_50",  " Hostile".strip()),
   ("relation_mnus_40",  "  Angry".strip()),
   ("relation_mnus_30",  "    Resentful".strip()),
@@ -408,28 +408,28 @@ strings = [
   ("relation_plus_70_ns",  "{s60} is fond of you."),
   ("relation_plus_80_ns",  "{s60} is loyal to you."),
   ("relation_plus_90_ns",  "{s60} is devoted to you."),
-  
+
   ("relation_reg1", " Relation: {reg1}"),
 
   ("center_relation_mnus_100", "The populace hates you with a passion"), # -100..-94
   ("center_relation_mnus_90",  "The populace hates you intensely"), # -95..-84
-  ("center_relation_mnus_80",  "The populace hates you strongly"), 
-  ("center_relation_mnus_70",  "The populace hates you"), 
-  ("center_relation_mnus_60",  "The populace is hateful to you"), 
-  ("center_relation_mnus_50",  "The populace is extremely hostile to you"), 
-  ("center_relation_mnus_40",  "The populace is very hostile to you"), 
-  ("center_relation_mnus_30",  "The populace is hostile to you"), 
-  ("center_relation_mnus_20",  "The populace is against you"), 
-  ("center_relation_mnus_10",  "The populace is opposed to you"), 
-  ("center_relation_plus_0",   "The populace is indifferent to you"), 
-  ("center_relation_plus_10",  "The populace is acceptive to you"), 
-  ("center_relation_plus_20",  "The populace is cooperative to you"), 
-  ("center_relation_plus_30",  "The populace is somewhat supportive to you"), 
-  ("center_relation_plus_40",  "The populace is supportive to you"), 
-  ("center_relation_plus_50",  "The populace is very supportive to you"), 
-  ("center_relation_plus_60",  "The populace is loyal to you"), 
-  ("center_relation_plus_70",  "The populace is highly loyal to you"), 
-  ("center_relation_plus_80",  "The populace is devoted to you"), 
+  ("center_relation_mnus_80",  "The populace hates you strongly"),
+  ("center_relation_mnus_70",  "The populace hates you"),
+  ("center_relation_mnus_60",  "The populace is hateful to you"),
+  ("center_relation_mnus_50",  "The populace is extremely hostile to you"),
+  ("center_relation_mnus_40",  "The populace is very hostile to you"),
+  ("center_relation_mnus_30",  "The populace is hostile to you"),
+  ("center_relation_mnus_20",  "The populace is against you"),
+  ("center_relation_mnus_10",  "The populace is opposed to you"),
+  ("center_relation_plus_0",   "The populace is indifferent to you"),
+  ("center_relation_plus_10",  "The populace is acceptive to you"),
+  ("center_relation_plus_20",  "The populace is cooperative to you"),
+  ("center_relation_plus_30",  "The populace is somewhat supportive to you"),
+  ("center_relation_plus_40",  "The populace is supportive to you"),
+  ("center_relation_plus_50",  "The populace is very supportive to you"),
+  ("center_relation_plus_60",  "The populace is loyal to you"),
+  ("center_relation_plus_70",  "The populace is highly loyal to you"),
+  ("center_relation_plus_80",  "The populace is devoted to you"),
   ("center_relation_plus_90",  "The populace is fiercely devoted to you"),
 
   ("town_prosperity_0",   "The poverty of the town of {s60} is unbearable"),
@@ -474,14 +474,14 @@ strings = [
   ("oasis_village_alt_prosperity_40",   "Men and women are busy tending the palm groves, climbing to the tops of trees to pollinate the fruit. Healthy animals draw the pumps and wheels that bring water to the fields. Some of the irrigation canals and cisterns, however, could use some maintenance."),
   ("oasis_village_alt_prosperity_60",   "The palm groves and orchards are humming with activity. Farmers call to each other cheerfully from the tops of the trees, where they pollinate the date fruit. The creak of wooden pumps, the bellowing of draft animals, and the rush of flowing water speak of an irrigation system that is thriving under the villagers' attention."),
   ("oasis_village_alt_prosperity_80",   "The palm groves are humming with activity, as farmers load up a bumper crop of dates for sale to the market. Men and women are hard at work digging new wells and canals, to bring additional land under irrigation."),
-  
-  
-  
+
+
+
   ("acres_grain",       "acres of grainfields"),
   ("acres_orchard",     "acres of orchards and vineyards"),
   ("acres_oasis",       "acres of irrigated oasis gardens"),
 
-  
+
   ("looms",     		"looms"),
   ("boats",     		"boats"),
   ("head_cattle",       "head of cattle"),
@@ -499,7 +499,7 @@ strings = [
   ("traps",     "traps"),
   ("gardens",   "small gardens"),
   ("tanneries", "tanning vats"),
-  
+
   ("master_miller",  "Master miller"),
   ("master_brewer",  "Master brewer"),
   ("master_presser", "Master presser"),
@@ -507,9 +507,9 @@ strings = [
   ("master_tanner",  "Master tanner"),
   ("master_weaver",  "Master weaver"),
   ("master_dyer",    "Master dyer"),
-  
-  
-  
+
+
+
   ("war_report_minus_4",   "we are about to lose the war"),
   ("war_report_minus_3",   "the situation looks bleak"),
   ("war_report_minus_2",   "things aren't going too well for us"),
@@ -538,20 +538,20 @@ strings = [
   ("persuasion_summary_very_good","You deliver an impassioned speech that echoes through all listening ears like poetry.\
  The world itself seems to quiet down in order to hear you better .\
  The inspiring words have moved {s50} deeply, and {reg51?she:he} looks much more well-disposed towards helping you."),
-  
+
 
 # meet_spy_in_enemy_town quest secret sentences
   ("secret_sign_1",  "The armoire dances at midnight..."),
   ("secret_sign_2",  "I am selling these fine Altaran tapestries. Would you like to buy some?"),
   ("secret_sign_3",  "The friend of a friend sent me..."),
   ("secret_sign_4",  "The wind blows hard from the east and the river runs red..."),
-  
+
   ("countersign_1",  "But does he dance for the dresser or the candlestick?"),
   ("countersign_2",  "Yes I would, do you have any in blue?"),
   ("countersign_3",  "But, my friend, your friend's friend will never have a friend like me."),
   ("countersign_4",  "Have you been sick?"),
 
-# Names  
+# Names
   ("name_1",  "Albard"),
   ("name_2",  "Euscarl"),
   ("name_3",  "Sigmar"),
@@ -620,9 +620,9 @@ strings = [
   ("surname_39", "{s50} the Bard"),
   ("surname_40", "{s50} the Bold"),
   ("surname_41", "{s50} Hot-Head"),
-  
+
   ("surnames_end", "surnames_end"),
-  
+
 
   ("number_of_troops_killed_reg1", "Number of troops killed: {reg1}"),
   ("number_of_troops_wounded_reg1", "Number of troops wounded: {reg1}"),
@@ -733,20 +733,20 @@ strings = [
 
 
 # strings for opinion
-  ("npc_morale_report", "I'm {s6} your choice of companions, {s7} your style of leadership, and {s8} the general state of affairs"), 
+  ("npc_morale_report", "I'm {s6} your choice of companions, {s7} your style of leadership, and {s8} the general state of affairs"),
   ("happy", "happy about"),
   ("content", "content with"),
   ("concerned", "concerned about"),
   ("not_happy", "not at all happy about"),
-  ("miserable", "downright appalled at"),  
+  ("miserable", "downright appalled at"),
 
 
   ("morale_reg1",    " Morale: {reg1}"),
-  ("bar_enthusiastic", "                   Enthusiastic"),  
+  ("bar_enthusiastic", "                   Enthusiastic"),
   ("bar_content",      "              Content"),
   ("bar_weary",        "          Weary"),
   ("bar_disgruntled",  "     Disgruntled"),
-  ("bar_miserable",    "  Miserable"),  
+  ("bar_miserable",    "  Miserable"),
 
 
 #other strings
@@ -878,7 +878,7 @@ strings = [
   ("npc16_backstory_c", "Still, a life of adventuring is far from easy, and I often find myself lonely, not to mention hungry. In fact I've been looking for a company such as yours to join for companionship. Let me know if you are interested."), # mat
 
 
-### use these if there is a short period of time between the last meeting 
+### use these if there is a short period of time between the last meeting
   ("npc1_backstory_later", "I've been travelling yet, seeking that village. It seems, though, that it is not to be found."),
   ("npc2_backstory_later", "I have signed on to wandering companies for the odd battle, but the Power seems to cause as much fear amoungst my employers as it does to the enemy."),
   ("npc3_backstory_later", "I have been following some most interesting movements in court. It does so amuse me that some think that they serve themselves, when in fact they are serving my Master. Court does become droll, however."),
@@ -1107,7 +1107,7 @@ strings = [
   ("npc15_personalityclash_speech_b", "What's more, I'm not sure I trust her. During the last battle, I think some of the fireballs she threw killed one of our own men. I remember that man behaving a little forward with her one night while we were camping, but that's not reason enough to kill him. I asked her about it, and she said I must have been mistaken. I heard stories about how Aes Sedai cannot tell a lie, but I know what I saw. Please just keep an eye on her."), # mat
   ("npc16_personalityclash_speech_b", "I did a little asking around and found out that she was forced to flee her own village.  Apparently there were Whitecloaks involved. Also, she's been bugging me about running away from home when I was younger. I love my parents, I just didn't think I was cut out for that type of life."), # mat
 
- 
+
 ### set off by behavior after victorious battle
   ("npc1_personalityclash2_speech", "Commander! I cannot stand {s11} - he disgusts me! He stands in my way when I try to Heal the enemy wounded, even when I just wish to give the dying some final words of comfort."),
   ("npc2_personalityclash2_speech", "I would request that you keep me on the other side of the battlefield of that black-eyed Aiel, {s11}."),
@@ -1259,7 +1259,7 @@ strings = [
   ("npc7_home_description_2", "They found me guilty of murder, my punishment was exile, to be mentioned at the next meeting of the Great Stump. To an ogier, this is akin to a death sentence - I have no choice but to find unpopulated stedding, as my own people will refuse me access should I arrive at theirs, even if I suffer from the Longing."),
   ("npc8_home_description_2", "If it were up to me, I'd keep moving west until we reach Jehannah. Besides, there's a few folks there who I need to catch up with."), # mat
   ("npc9_home_description_2", "Still, even though Emond's Field is small, in all my travels I have yet to meet folk who I'd rather live with than those from home. We are a strong community who will help eachother recover from just about any setback. And once we get a though in our minds, we won't rest until we see it through."), # mat
-  ("npc10_home_description_2", "I've just never had much respect for those who make themselves rich at the expense of those who be poor. So, if by providing goods at a lower rate I keep a few crowns from the hands of the nobles, this seems like a fair trade to me."), # mat 
+  ("npc10_home_description_2", "I've just never had much respect for those who make themselves rich at the expense of those who be poor. So, if by providing goods at a lower rate I keep a few crowns from the hands of the nobles, this seems like a fair trade to me."), # mat
   ("npc11_home_description_2", "It has only been more recently that the School started up. It is a center for higher learning. Here the study of science and engineering is encouraged. And with the Dragon Reborn as our benefactor, we don't have to fear being shut down by some of the skeptical nobles."), # mat
   ("npc12_home_description_2", "You see, this region has an openly matriarchal society. So, while it may seem odd in other lands to find a female gleeman, I would fit right in at home. There are many other customs in this area that are not like those of other lands, so be sure to ask if you have any questions."), # mat
   ("npc13_home_description_2", "If we do head into town, just remember to keep your head uncovered. You wouldn't want to be mistaken for a Fade, now would you?"), # mat
@@ -1334,7 +1334,7 @@ strings = [
   ("npc14_kingsupport_2", "I would indeed, Battle Leader. I think you can unite this land, and then we'll be able to raise an army such as these lands have not seen for many generations. In time of battle, almost every member of society will pick up a spear. And it will be no different for you. I just ask that when you have victory, you continue to rule with honor as you have up until this point."), #mat
   ("npc15_kingsupport_2", "I would. People might say that you don't have royal blood in your veins. But everyone knows that those who work hard can be appointed to the Blood. Kings and nobles will take out loans or commission building projects without half a thought to how they're ever going to pay back all those commoners who expect to eat after an honest day's work. Having been in your servcie for many months, having you as my {king/queen} would be more desireable that any of those who are born into the Blood."), # mat
   ("npc16_kingsupport_2", "Of course, my friend. And what's more, I figure a guy like me could do you a bit of a service raising support with the lords of this land. I may have only had a small part in their schemes and intrigues over the years, but I think I know what they want. And I'm willing to beguile them with tales of all the adventures we've been on. With plenty of details concerning the rich lands you control, of course."), # mat
-  
+
   ("npc1_kingsupport_2a", "Indeed it would, go on..."), #Borcha
   ("npc2_kingsupport_2a", "Please continue..."), #marnid
   ("npc3_kingsupport_2a", "Please continue..."), #ymira
@@ -1473,10 +1473,10 @@ strings = [
   ("npc14_turn_against", "Well, {playername}. Though I once gladly called you Battle Leader, we now meet as enemies. I confess that I have mixed feelings. It grieves me to make war on you, but if we meet in battle and I prevail, I will have defeated the worthiest foe in these lands, and I will know that my mastery of the military art is complete!"), #mat
   ("npc15_turn_against", "Ah... I have not been looking forward to this day. I hope with all that we have been through we can reach some type of peaceful settlement. But no doubt you see it differently."), #mat
   ("npc16_turn_against", "Hello, Friend! So, I guess we're enemies! I'm not certain how it came to this, just know that it's not personal. Maybe if we both walk away from this, we can meet once more as friends?"), #mat
-  
+
 #NPC companion changes end
 
-# End modified for TGS  
+# End modified for TGS
 
 
 
@@ -1613,24 +1613,24 @@ strings = [
 
 
 #Actions vis-a-vis civilians
-  ("comment_you_raided_my_village_enemy_benevolent",    "You have attacked innocent farmers under my protection in the village of {s51}. I will punish you for your misdeeds!"), 
-  ("comment_you_raided_my_village_enemy_spiteful",      "You have raided my village of {s51}, destroying my property and killing the tenants. I will take my compensation in blood!"), 
-  ("comment_you_raided_my_village_enemy_coldblooded",   "You have raided my village of {s51}, destroying my property and killing the tenants. I will make you think twice before you disrupt my revenues like that again."), 
-  ("comment_you_raided_my_village_enemy",               "You have raided my village of {s51}, destroying my property and killing tenants under my protection. You will pay the price for your crime!"), 
+  ("comment_you_raided_my_village_enemy_benevolent",    "You have attacked innocent farmers under my protection in the village of {s51}. I will punish you for your misdeeds!"),
+  ("comment_you_raided_my_village_enemy_spiteful",      "You have raided my village of {s51}, destroying my property and killing the tenants. I will take my compensation in blood!"),
+  ("comment_you_raided_my_village_enemy_coldblooded",   "You have raided my village of {s51}, destroying my property and killing the tenants. I will make you think twice before you disrupt my revenues like that again."),
+  ("comment_you_raided_my_village_enemy",               "You have raided my village of {s51}, destroying my property and killing tenants under my protection. You will pay the price for your crime!"),
   ("comment_you_raided_my_village_unfriendly_spiteful", "You have raided my village of {s51}. Do it again and I'll gut you like a fish."),
   ("comment_you_raided_my_village_friendly",            "You have raided my village of {s51}. This will place a grave strain on our friendship."),
   ("comment_you_raided_my_village_default",             "You have raided my village of {s51}. If you continue to behave this way, we may soon come to blows."),
 
-  ("comment_you_stole_cattles_from_my_village_enemy_benevolent",    "I have heard that you have stolen cattles from innocent farmers under my protection in the village of {s51}. I will punish you for your misdeeds!"), 
-  ("comment_you_stole_cattles_from_my_village_enemy_spiteful",      "I have heard that you have stolen cattles from my villagers living at {s51}, stoling my villager's property. You will pay results of this dishonorable act!"), 
+  ("comment_you_stole_cattles_from_my_village_enemy_benevolent",    "I have heard that you have stolen cattles from innocent farmers under my protection in the village of {s51}. I will punish you for your misdeeds!"),
+  ("comment_you_stole_cattles_from_my_village_enemy_spiteful",      "I have heard that you have stolen cattles from my villagers living at {s51}, stoling my villager's property. You will pay results of this dishonorable act!"),
   ("comment_you_stole_cattles_from_my_village_enemy_coldblooded",   "I have heard that you have stolen cattles from my villagers living at {s51}, stoling my villager's property. I will make you think twice before you disrupt my revenues like that again."),
-  ("comment_you_stole_cattles_from_my_village_enemy",               "I have heard that you have stolen cattles from my villagers living at {s51}, stoling my villager's property. You will pay results of this dishonorable act!"), 
+  ("comment_you_stole_cattles_from_my_village_enemy",               "I have heard that you have stolen cattles from my villagers living at {s51}, stoling my villager's property. You will pay results of this dishonorable act!"),
   ("comment_you_stole_cattles_from_my_village_unfriendly_spiteful", "I have heard that you have stolen cattles from my villagers living at {s51}. Do it again and I'll gut you like a fish."),
   ("comment_you_stole_cattles_from_my_village_friendly",            "I have heard that you have stolen cattles from my villagers living at {s51}. This will place a grave strain on our friendship."),
   ("comment_you_stole_cattles_from_my_village_default",             "I have heard that you have stolen cattles from my villagers living at {s51}. If you continue to behave this way, we may soon come to blows."),
 
-  ("comment_you_robbed_my_village_enemy_coldblooded", "You have robbed my tenants in the village of {s51}. I take that as a personal insult."), 
-  ("comment_you_robbed_my_village_enemy",             "You have robbed innocent farmers under my protection in the village of {s51}.  I will punish you for your misdeeds!"), 
+  ("comment_you_robbed_my_village_enemy_coldblooded", "You have robbed my tenants in the village of {s51}. I take that as a personal insult."),
+  ("comment_you_robbed_my_village_enemy",             "You have robbed innocent farmers under my protection in the village of {s51}.  I will punish you for your misdeeds!"),
   ("comment_you_robbed_my_village_friendly_spiteful", "I have heard that you pinched some food from my tenants at {s51}. Well, I'll not begrudge you a scrap or two, but keep in mind that I'm the one who must listen to their whining afterward."),
   ("comment_you_robbed_my_village_friendly",          "I have heard that you requisitioned supplies from my tenants at {s51}. I am sure that you would not have done so were you not desperately in need."),
   ("comment_you_robbed_my_village_default",           "You have robbed my tenants in the village of {s51}. If you continue to behave this way, we may soon come to blows."),
@@ -1650,37 +1650,37 @@ strings = [
   #can be added some more here acc. characteristic.
 
 #Combat-related events
-  ("comment_you_captured_a_castle_allied_friendly",            "I heard that you have besieged and taken {s51}. That was a great dead, and I am proud to call you my friend!"), 
-  ("comment_you_captured_a_castle_allied_spiteful",            "I heard that you have besieged and taken {s51}. Good work! Soon, we will have all their fortresses to despoil, their treasuries to ransack, their grieving widows to serve us our wine."), 
-  ("comment_you_captured_a_castle_allied_unfriendly_spiteful", "I heard that you have besieged and taken {s51}. Well, every dog has his day, or so they say. Enjoy it while you can, until your betters kick you back out in the cold where you belong."), 
-  ("comment_you_captured_a_castle_allied_unfriendly",          "I heard that you have besieged and taken {s51}. Whatever our differences in the past, I must offer you my congratulations."), 
-  ("comment_you_captured_a_castle_allied",                     "I heard that you have besieged and taken {s51}. We have them on the run!"), 
+  ("comment_you_captured_a_castle_allied_friendly",            "I heard that you have besieged and taken {s51}. That was a great dead, and I am proud to call you my friend!"),
+  ("comment_you_captured_a_castle_allied_spiteful",            "I heard that you have besieged and taken {s51}. Good work! Soon, we will have all their fortresses to despoil, their treasuries to ransack, their grieving widows to serve us our wine."),
+  ("comment_you_captured_a_castle_allied_unfriendly_spiteful", "I heard that you have besieged and taken {s51}. Well, every dog has his day, or so they say. Enjoy it while you can, until your betters kick you back out in the cold where you belong."),
+  ("comment_you_captured_a_castle_allied_unfriendly",          "I heard that you have besieged and taken {s51}. Whatever our differences in the past, I must offer you my congratulations."),
+  ("comment_you_captured_a_castle_allied",                     "I heard that you have besieged and taken {s51}. We have them on the run!"),
 
   ("comment_you_captured_my_castle_enemy_spiteful",            "I hear that you have broken into my home at {s51}. I hope the dungeon is to your liking, as you will be spending much time there in the years to come."),
   ("comment_you_captured_my_castle_enemy_chivalrous",          "You hold {s51}, my rightful fief. I hope you will give me the chance to win it back!"),
   ("comment_you_captured_my_castle_enemy",                     "You have something that belongs to me -- {s51}. I will make you relinquish it."),
-  
+
 ###Add some variation to these
-  ("comment_we_defeated_a_lord_unfriendly_spiteful",           "I suppose you will want to drink to the memory of our victory over {s54}. Well, save your wine -- it will take more than that to wipe out the stain of your earlier disgraces."), 
-  ("comment_we_defeated_a_lord_unfriendly",                    "I will not forget how we fought together against {s54}, but I can also not forget the other matters that lie between us."), 
-  ("comment_we_defeated_a_lord_cruel",                         "That was a great victory over {s54}, wasn't it? We made of his army a feast for the crows!"), 
-  ("comment_we_defeated_a_lord_quarrelsome",                   "I won't forget how we whipped {s54}? I enjoyed that."), 
-  ("comment_we_defeated_a_lord_upstanding",                    "I will not forget our victory over {s54}. Let us once again give thanks to heaven, and pray that we not grow too proud."), 
-  ("comment_we_defeated_a_lord_default",                       "That was a great victory over {s54}, wasn't it? I am honoured to have fought by your side."), 
+  ("comment_we_defeated_a_lord_unfriendly_spiteful",           "I suppose you will want to drink to the memory of our victory over {s54}. Well, save your wine -- it will take more than that to wipe out the stain of your earlier disgraces."),
+  ("comment_we_defeated_a_lord_unfriendly",                    "I will not forget how we fought together against {s54}, but I can also not forget the other matters that lie between us."),
+  ("comment_we_defeated_a_lord_cruel",                         "That was a great victory over {s54}, wasn't it? We made of his army a feast for the crows!"),
+  ("comment_we_defeated_a_lord_quarrelsome",                   "I won't forget how we whipped {s54}? I enjoyed that."),
+  ("comment_we_defeated_a_lord_upstanding",                    "I will not forget our victory over {s54}. Let us once again give thanks to heaven, and pray that we not grow too proud."),
+  ("comment_we_defeated_a_lord_default",                       "That was a great victory over {s54}, wasn't it? I am honoured to have fought by your side."),
 
-  ("comment_we_fought_in_siege_unfriendly_spiteful",           "I suppose you will want to drink to the memory of our capture of {s51}. Well, save your wine -- it will take more than that to wipe out the stain of your earlier disgraces."), 
-  ("comment_we_fought_in_siege_unfriendly",                    "I will not forget how we together we stormed {s51}, but I can also not forget the other matters that lie between us."), 
-  ("comment_we_fought_in_siege_cruel",                         "I won't forget how we broke through the walls of {s51} and put its defenders to the sword. It is a sweet memory."), 
-  ("comment_we_fought_in_siege_quarrelsome",                   "Remember how the enemy squealed when we came over the walls of {s51}? They had thought they were safe! We wiped the smug smiles of their faces!"), 
-  ("comment_we_fought_in_siege_upstanding",                    "I will not forget our capture of {s51}. Let us once again give thanks to heaven, and pray that we not grow too proud."), 
-  ("comment_we_fought_in_siege_default",                       "I will not forget how together we captured {s51}. I am honoured to have fought by your side."), 
+  ("comment_we_fought_in_siege_unfriendly_spiteful",           "I suppose you will want to drink to the memory of our capture of {s51}. Well, save your wine -- it will take more than that to wipe out the stain of your earlier disgraces."),
+  ("comment_we_fought_in_siege_unfriendly",                    "I will not forget how we together we stormed {s51}, but I can also not forget the other matters that lie between us."),
+  ("comment_we_fought_in_siege_cruel",                         "I won't forget how we broke through the walls of {s51} and put its defenders to the sword. It is a sweet memory."),
+  ("comment_we_fought_in_siege_quarrelsome",                   "Remember how the enemy squealed when we came over the walls of {s51}? They had thought they were safe! We wiped the smug smiles of their faces!"),
+  ("comment_we_fought_in_siege_upstanding",                    "I will not forget our capture of {s51}. Let us once again give thanks to heaven, and pray that we not grow too proud."),
+  ("comment_we_fought_in_siege_default",                       "I will not forget how together we captured {s51}. I am honoured to have fought by your side."),
 
-  ("comment_we_fought_in_major_battle_unfriendly_spiteful",    "I suppose you will want to drink to the memory of our great victory near {s51}. Well, save your wine -- it will take more than that to wipe out the stain of your earlier disgraces."), 
-  ("comment_we_fought_in_major_battle_unfriendly",             "I will not forget how we fought together in the great battle near {s51}, but I can also not forget the other matters that lie between us."), 
-  ("comment_we_fought_in_major_battle_cruel",                  "I won't forget the great battle near {s51}, when we broke through the enemy lines and they ran screaming before us. It is a sweet memory."), 
-  ("comment_we_fought_in_major_battle_quarrelsome",            "That was a fine fight near {s51}, when we made those bastards run!"), 
-  ("comment_we_fought_in_major_battle_upstanding",             "I will not forget how we fought side by side at the great battle near {s51}. Let us once again give thanks to heaven, and pray that we not grow too proud."), 
-  ("comment_we_fought_in_major_battle_default",                "I will not forget how we fought side by side at the great battle near {s51}. I am honoured to have fought by your side."), 
+  ("comment_we_fought_in_major_battle_unfriendly_spiteful",    "I suppose you will want to drink to the memory of our great victory near {s51}. Well, save your wine -- it will take more than that to wipe out the stain of your earlier disgraces."),
+  ("comment_we_fought_in_major_battle_unfriendly",             "I will not forget how we fought together in the great battle near {s51}, but I can also not forget the other matters that lie between us."),
+  ("comment_we_fought_in_major_battle_cruel",                  "I won't forget the great battle near {s51}, when we broke through the enemy lines and they ran screaming before us. It is a sweet memory."),
+  ("comment_we_fought_in_major_battle_quarrelsome",            "That was a fine fight near {s51}, when we made those bastards run!"),
+  ("comment_we_fought_in_major_battle_upstanding",             "I will not forget how we fought side by side at the great battle near {s51}. Let us once again give thanks to heaven, and pray that we not grow too proud."),
+  ("comment_we_fought_in_major_battle_default",                "I will not forget how we fought side by side at the great battle near {s51}. I am honoured to have fought by your side."),
 
 
 
@@ -1693,15 +1693,15 @@ strings = [
   ("comment_you_defeated_a_lord_allied",                         "I heard that you fought and defeated {s54}. I wish you joy of your victory."),
   ##diplomacy end+
 
-  ("comment_you_defeated_me_enemy_chivalrous", "I will not begrudge you your victory the last time that we met, but I am anxious for another round!"), 
-  ("comment_you_defeated_me_enemy_spiteful",   "I have been looking forward to meeting you again. Your tricks will not deceive me a second time, and I will relish hearing your cries for mercy."), 
-  ("comment_you_defeated_me_enemy",            "When last we met, {playername}, you had the better of me. But I assure you that it will not happen again!"), 
+  ("comment_you_defeated_me_enemy_chivalrous", "I will not begrudge you your victory the last time that we met, but I am anxious for another round!"),
+  ("comment_you_defeated_me_enemy_spiteful",   "I have been looking forward to meeting you again. Your tricks will not deceive me a second time, and I will relish hearing your cries for mercy."),
+  ("comment_you_defeated_me_enemy",            "When last we met, {playername}, you had the better of me. But I assure you that it will not happen again!"),
 
-  ("comment_I_defeated_you_enemy_spiteful",          "Back for more? Make me fight you again, and I'll feed your bowels to my hounds."), 
-  ("comment_I_defeated_you_enemy_chivalrous",        "Come to test your valor against me again, {playername}?"), 
-  ("comment_I_defeated_you_enemy_benevolent",        "So once again you come at me? Will you ever learn?"), 
+  ("comment_I_defeated_you_enemy_spiteful",          "Back for more? Make me fight you again, and I'll feed your bowels to my hounds."),
+  ("comment_I_defeated_you_enemy_chivalrous",        "Come to test your valor against me again, {playername}?"),
+  ("comment_I_defeated_you_enemy_benevolent",        "So once again you come at me? Will you ever learn?"),
   ("comment_I_defeated_you_enemy_coldblooded",       "You are persistent, but a nuisance."),
-  ("comment_I_defeated_you_enemy",                   "How many times must I chastise you before you learn to keep your distance?"), 
+  ("comment_I_defeated_you_enemy",                   "How many times must I chastise you before you learn to keep your distance?"),
 
   ##diplomacy start+
   #Make gender correct, using reg4 for the gender of s54.  Making this work required altering script_get_relevant_comment_to_s42
@@ -1748,17 +1748,17 @@ strings = [
   ("comment_you_ran_from_me_enemy_chivalrous",        "Last time we met, you fled from me. Learn to stand and fight like a gentleman!"),
   ("comment_you_ran_from_me_enemy_benevolent",        "When I saw you flee the last time that we met, I had hoped that I would not have to fight you again."),
   ("comment_you_ran_from_me_enemy_coldblooded",       "Last time we met, you fled from me. That was a wise decision"),
-  ("comment_you_ran_from_me_enemy",                   "You may have been able to escape the last time we crossed paths, but the next time I doubt that you be so lucky."), 
+  ("comment_you_ran_from_me_enemy",                   "You may have been able to escape the last time we crossed paths, but the next time I doubt that you be so lucky."),
 
-  ("comment_you_ran_from_foe_allied_chivalrous",      "They say that you fled from {s54}, leaving your men behind. I pray that this is not true, for such conduct does dishonour to us all."), 
-  ("comment_you_ran_from_foe_allied_upstanding",      "They say that you fled from {s54}, leaving your men behind. I do not always believe such rumors, and I also know that desperate straits call for desperate measures. But I beg you to take more care of your good name, for men will not fight in our armies if they hear that we abandon them on the field of battle."), 
-  ("comment_you_ran_from_foe_allied_spiteful",        "By the way, they said that you ran away from {s54} like a quaking little rabbit, leaving your men behind to be butchered. Ha! What a sight that would have been to see!"), 
+  ("comment_you_ran_from_foe_allied_chivalrous",      "They say that you fled from {s54}, leaving your men behind. I pray that this is not true, for such conduct does dishonour to us all."),
+  ("comment_you_ran_from_foe_allied_upstanding",      "They say that you fled from {s54}, leaving your men behind. I do not always believe such rumors, and I also know that desperate straits call for desperate measures. But I beg you to take more care of your good name, for men will not fight in our armies if they hear that we abandon them on the field of battle."),
+  ("comment_you_ran_from_foe_allied_spiteful",        "By the way, they said that you ran away from {s54} like a quaking little rabbit, leaving your men behind to be butchered. Ha! What a sight that would have been to see!"),
 
 
-  ("comment_you_defeated_my_friend_enemy_pragmatic",  "You may have bested {s54}, but you cannot defeat us all."), 
-  ("comment_you_defeated_my_friend_enemy_chivalrous", "I have heard that you defeated {s54}, and ever since have been anxious to cross swords with you."), 
-  ("comment_you_defeated_my_friend_enemy_spiteful",   "Your fame runs before you, {playername}. {s54} may have fallen for your tricks, but if you fight me, you'll find a me a much more slippery foe."), 
-  ("comment_you_defeated_my_friend_enemy",            "They say that you have defeated {s54}. But I will be a truer test of your skill at arms."), 
+  ("comment_you_defeated_my_friend_enemy_pragmatic",  "You may have bested {s54}, but you cannot defeat us all."),
+  ("comment_you_defeated_my_friend_enemy_chivalrous", "I have heard that you defeated {s54}, and ever since have been anxious to cross swords with you."),
+  ("comment_you_defeated_my_friend_enemy_spiteful",   "Your fame runs before you, {playername}. {s54} may have fallen for your tricks, but if you fight me, you'll find a me a much more slippery foe."),
+  ("comment_you_defeated_my_friend_enemy",            "They say that you have defeated {s54}. But I will be a truer test of your skill at arms."),
 
   ##diplomacy start+
   #Make gender correct, using reg4 for the gender of s54.  Making this work required altering script_get_relevant_comment_to_s42
@@ -1818,7 +1818,7 @@ strings = [
   ("comment_you_renounced_your_alliegance_enemy",                      "I heard that you renounced your allegiance to our lord, {s54}. Well, it is the way of the world for old comrades to become enemies."),
   ("comment_you_renounced_your_alliegance_default",                    "I heard that you renounced your allegiance to our lord, {s54}. Well, that is your decision, but do not expect me to go easy on you when we meet on the battlefield."),
 
-#player claim throne statements  
+#player claim throne statements
   ("comment_you_claimed_the_throne_1_player_liege",             "My informants tell me that some people in this realm are speaking of you as the next king. I assume that you will quickly put a stop to such idle and dangerous talk."),
   ("comment_you_claimed_the_throne_2_player_liege",             "My informants tell me that some of your companions have telling the peasants that you have a claim to the throne. I sincerely hope that they have been acting without your orders."),
 
@@ -1851,7 +1851,7 @@ strings = [
   ("comment_you_enfiefed_a_commoner_derisive",   "I understand that you have given {s51} to a commoner who calls {reg4?herself:himself} {s54}. Do not the ancients warn us against making royal robes out of the hides of pigs?"),
   ("comment_you_enfiefed_a_commoner_nasty",      "I understand that you have given {s51} to a commoner who has taken the name of {s54}. Have a care! A dog may turn on its master."),
   ##diplomacy end+
-  
+
   ##diplomacy start+
   #Make gender correct, using reg4 for the gender of s50.  Making this work required altering script_get_relevant_comment_to_s42
   #Don't change the order of the following strings!  (Refer to script_get_relevant_comment_to_s42 if you must)
@@ -1862,12 +1862,12 @@ strings = [
   ("comment_marriage_elopement_family",  "Well... You somehow persuaded my {s11} {s50} to marry you. I don't know what you did to make {reg4?her:him} accept you, but our family will not forget this humiliation."),
   ("comment_marriage_elopement_liege",   "I hear that you have eloped with {s50}, against {reg4?her:his} family's wishes. I am not pleased. {reg4?Her:His} family are among the great lords of my realm, and I do not like to see them made to look like fools."),
   ##diplomacy end+
-  
+
   ("comment_you_broke_truce_as_my_vassal",  		"I hear that you have broken my truce by attacking {s55}. Do you know how this makes me look? If you were acting under my orders, I appear dishonorable. If you were not, I look weak. I have half a mind to indict you for treason here and now."),
   ("comment_you_attacked_neutral_as_my_vassal", "I hear that you have attacked subjects of the {s55}. You have given them an excuse to attack me, if they want... We shall see what comes of this. A fine day's work you have done!"),
 
 
-   
+
   ("personality_archetypes",   "liege"),
   ("martial",                  "martial"),
   ("quarrelsome",              "bad-tempered"),
@@ -2020,7 +2020,7 @@ strings = [
   ("lord_insult_goodnatured",           "unpleasant fellow"),
   ("lord_insult_upstanding",            "disgraceful scoundrel"),
 
-  
+
   ("lord_derogatory_default",               "base and vile"),
   ("lord_derogatory_martial",               "bullheaded"),
   ("lord_derogatory_quarrelsome",           "quarrelsome and divisive"),
@@ -2029,7 +2029,7 @@ strings = [
   ("lord_derogatory_sadistic",              "vile and dishonorable"),
   ("lord_derogatory_goodnatured",           "hopelessly naive"),
   ("lord_derogatory_upstanding",            "stiffnecked and sanctimonious"),
-  
+
   ("lord_derogatory_result",                "bring us to ruin"),
   ("lord_derogatory_martial_action",        "attack the enemy without thought or plan, and throw away the lives of your men"),
   ("lord_derogatory_quarrelsome_action",    "pick fights with other lords, leaving us divided and weak"),
@@ -2038,8 +2038,8 @@ strings = [
   ("lord_derogatory_sadistic_action",       "bring shame upon our cause and our realm"),
   ("lord_derogatory_goodnatured_action",    "take pity on our enemies, rather than fight them"),
   ("lord_derogatory_upstanding_action",     "place your own exaggerated sense of honor above the needs of the realm"),
-  
-  
+
+
 
   ("rebellion_dilemma_default",                 "{!}[liege]"),
   ("rebellion_dilemma_martial",                 "{s45} was clearly wronged. Although I gave an oath to {s46}, it does not bind me to support him if he usurped his throne illegally."),
@@ -2059,7 +2059,7 @@ strings = [
   ("rebellion_dilemma_2_goodnatured",           "{s46} has always treated me decently, yet it's true that he did wrong to {s45}. I hesitate to renounce my homage to {s46}, yet I also don't think it's right to support injustice."),
   ("rebellion_dilemma_2_upstanding",            "I feel that I must do whatever is best for the realm, to avoid it being laid waste by civil war and ravaged by its enemies."),
 
-  
+
   ("political_philosophy_default",               "{!}[liege]"),
   ("political_philosophy_martial",               "My sword is at the disposal of my rightful liege, so long as he upholds his duty to me."),
   ("political_philosophy_quarrelsome",           "Bah. They're all a bunch of bastards. I try to make sure that the ones who wrong me learn to regret it."),
@@ -2073,7 +2073,7 @@ strings = [
   ("political_philosophy_custodian",             "A good ruler creates the proper conditions for people to prosper. Personally, I intend to use my wealth to create more wealth, for myself and for the common benefit."),
 
 
-  
+
   ("rebellion_prior_argument_very_favorable",   "I have already heard some arguments for supporting your candidate for the throne, and I tend to agree with them."),
   ("rebellion_prior_argument_favorable",        "I have already heard some arguments for supporting your candidate for the throne, and I tend to agree with them."),
   ("rebellion_prior_argument_unfavorable",      "I have already heard some arguments for supporting your candidate for the throne, but I do not find them convincing."),
@@ -2169,7 +2169,7 @@ strings = [
 
 
 
-  
+
 #steve lord recruitment changes begin
   ("changed_my_mind_default",                   "{!}[liege]"),
   ("changed_my_mind_martial",                   "However, your stirring words make me reconsider my position."),
@@ -2380,8 +2380,8 @@ strings = [
   ("feast_lengthy_description_4", 		      "You have provided enough food and drink, and with sufficient varieties, to do yourself credit. The food, drink, and merriment have loosened your guests tongues, allowing them to converse candidly about the matters of the realm, and deepening their trust in you."),
   ("feast_lengthy_description_5", 			  "You have provided a bountiful table not just for your noble guests but for their retinues, with food left over to be distributed to the poor. Your guests lavish praise upon you for your generosity, and for your understanding of the social obligations of your rank. The conversation, fueled by the food and drink, has been merry, strengthening the bonds between those who attended."),
   ("feast_lengthy_description_6", 			  "The realm will be speaking of the bounty of your table for months to come, and it will become the standard to which all other feasts will aspire. You have filled the bellies not just of your noble guests and their retinues, but also of the poor who flocked to the gates. "),
-  
-  
+
+
   #altered for TGS
   ("kingdom_1_adjective",                     "the Legion"),
   ("kingdom_2_adjective",                     "the Band"),
@@ -2414,7 +2414,7 @@ strings = [
   ("kingdom_27_adjective",                     "the Land of Madmen"),
   ("kingdom_28_adjective",                     "Toman Head"),
   #end added for TGS
-  
+
 
   ("credits_1", "Mount&Blade: Warband Copyright 2008-2010 Taleworlds Entertainment"),
   ("credits_2", "Game design:^Armagan Yavuz^Steve Negus^Cem Cimenbicer"),
@@ -2668,6 +2668,25 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("multi_sea_land", "Landing Battle"),
   ("multi_ship_battle", "New Sea Battle"),
   ("multi_ship_landing", "New Landing Battle"),
+  # blanks
+  ("multi_blank_desert_small", "Blank Desert Small"),
+  ("multi_blank_desert_medium", "Blank Desert Medium"),
+  ("multi_blank_desert_large", "Blank Desert Large"),
+  ("multi_blank_desert_huge", "Blank Desert Huge"),
+  ("multi_blank_snow_small", "Blank Snow Small"),
+  ("multi_blank_snow_medium", "Blank Snow Medium"),
+  ("multi_blank_snow_large", "Blank Snow Large"),
+  ("multi_blank_snow_huge", "Blank Snow Huge"),
+  ("multi_blank_plain_small", "Blank Plain Small"),
+  ("multi_blank_plain_medium", "Blank Plain Medium"),
+  ("multi_blank_plain_large", "Blank Plain Large"),
+  ("multi_blank_plain_huge", "Blank Plain Huge"),
+  ("multi_blank_steppe_small", "Blank Steppe Small"),
+  ("multi_blank_steppe_medium", "Blank Steppe Medium"),
+  ("multi_blank_steppe_large", "Blank Steppe Large"),
+  ("multi_blank_steppe_huge", "Blank Steppe Huge"),
+  # others
+  ("multi_taien", "Taien"),
   # end
   #("multi_town_6_walls", "Town 6 Walls"),
   #("multi_town_7_walls", "Town 7 Walls"),
@@ -2708,7 +2727,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("map", "Map:"),
   ("game_type", "Game type:"),
   ("max_number_of_players", "Maximum number of players:"),
-  ("number_of_bots_in_team_reg1", "Number of bots in team {reg1}:"), 
+  ("number_of_bots_in_team_reg1", "Number of bots in team {reg1}:"),
   ("team_reg1_faction", "Team {reg1} faction:"),
   ("enable_valve_anti_cheat", "Enable Valve Anti-cheat (Requires valid Steam account)"),
   ("allow_friendly_fire", "Allow ranged friendly fire"),
@@ -2754,7 +2773,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("round_earnings_multiplier", "Round gold bonus (%):"),
   ("allow_player_banners", "Allow individual banners"),
   ("force_default_armor", "Force minimum armor"),
-  
+
   ("reg0", "{!}{reg0}"),
   ("s0_reg0", "{!}{s0} {reg0}"),
   ("s0_s1", "{!}{s0} {s1}"),
@@ -2787,17 +2806,17 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s1_destroyed_all_targets", "{s1} destroyed all targets!"),
   ("s1_saved_1_target", "{s1} saved one target."),
   ("s1_saved_2_targets", "{s1} saved all targets."),
-  
+
   ("s1_defended_castle", "{s1} defended their castle!"),
   ("s1_captured_castle", "{s1} captured the castle!"),
-  
+
   ("auto_team_balance_in_20_seconds", "Auto-balance will be done in 20 seconds."),
   ("auto_team_balance_next_round", "Auto-balance will be done next round."),
   ("auto_team_balance_done", "Teams have been auto-balanced."),
   ("s1_won_round", "{s1} has won the round!"),
   ("round_draw", "Time is up. Round draw."),
   ("round_draw_no_one_remained", "No one left. Round draw."),
-  ("death_mode_started", "Hurry! Become master of the field!"),  
+  ("death_mode_started", "Hurry! Become master of the field!"),
 
   ("reset_to_default", "Reset to Default"),
   ("done", "Done"),
@@ -2958,7 +2977,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s4_changing_sides_aborts_quest", "{!}{s4} changing sides aborts quest"),
   ("s4_awarded_to_s5", "{s4} awarded to {s5}"),
   ("s11_reacts_to_granting_of_s12_to_s10", "{!}{s11} reacts to granting of {s12} to {s10}"),
-  ("debug__hiring_men_to_s7_ideal_size__reg6_ideal_top_size__reg7_hiring_budget__reg8", "{!}DEBUG : hiring men to {s7} ideal size : {reg6}, ideal top size : {reg7}, hiring budget : {reg8}"),  
+  ("debug__hiring_men_to_s7_ideal_size__reg6_ideal_top_size__reg7_hiring_budget__reg8", "{!}DEBUG : hiring men to {s7} ideal size : {reg6}, ideal top size : {reg7}, hiring budget : {reg8}"),
   ("debug__hiring_men_to_party_for_s0", "{!}DEBUG : hiring men to party for {s0}"),
   ("calculating_sortie_for_s4_strength_of_reg3_vs_reg4_enemies", "Calculating sortie for {s4}, strength of {reg3} vs {reg4} enemies"),
   ("s4_sorties", "{!}{s4} sorties"),
@@ -2987,7 +3006,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s4_is_present_at_the_center_and_is_awaiting_the_player_in_private", "{s4} is present at the center and is awaiting the player in private"),
   ("s4_is_present_at_the_center_and_is_allowed_to_meet_the_player", "{s4} is present at the center and is allowed to meet the player"),
   ("s4_is_present_at_the_center_and_is_not_allowed_to_meet_the_player", "{s4} is present at the center and is not allowed to meet the player"),
-  
+
   #Relative types
   ("no_relation", "no relation"),
   ("wife", "wife"),
@@ -3012,7 +3031,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("print_party_members_entered", "print party members entered"),
   ("num_companion_stacks_=_reg10", "num companion stacks = {reg10}"),
   ("someone", "someone"),
-  
+
   #Trade explanations
 ##diplomacy start+ replace {sir/madame} with {s0} so it can be "my lord" or "your highness"
   ("i_take_what_work_i_can_sirmadame_i_carry_water_or_help_the_merchants_with_their_loads_or_help_build_things_if_theres_things_to_be_built", "I take what work I can, {s0}. I carry water, or help the merchants with their loads, or help build things, if there are things to be built."),
@@ -3057,11 +3076,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("trade_explanation_dates", "I tend to a grove of date palms. I hope you don't mind me saying so, but it takes great skill to tend them, as we must climb to the tops of the palms to ensure that the trees will flower. We export the fruit far and wide, as they keep for many months when properly dried. As sweet as honey, and they grant the eater health and strength."),
   ("trade_explanation_dates", "I tend to a grove of date palms. We grow them using well-water, and export the fruit far and wide, as they keep for many months when properly dried. As sweet as honey, and they grant the eater health and vigor."),
   ("trade_explanation_olives", "I tend to a grove of olive trees. You can eat the fruit or preserve it in brine, but we end up sending most of it to be pressed, to be made into oil."),
-  
-  
-  
-  
-  
+
+
+
+
+
   ("s10_has_reg4_needs_reg5", "{!}{s10} has {reg4}, needs {reg5}"),
   ("s14_i_hear_that_you_can_find_a_good_price_for_it_in_s15", "{s14}. I hear that you can find a good price for it in {s15}."),
   ("s1_reg1", "{!}{s1} ({reg1})"),
@@ -3140,7 +3159,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("about_two_weeks_ago", "about two weeks ago"),
   ("several_weeks_ago", "several weeks ago"),
   ("unknown_assailants", "unknown assailants"),
-  
+
   #Faction descriptors
   #edited for TGS
   ("swadians", "Legionmen"),
@@ -3174,12 +3193,12 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("kingdom_27", "Madmen"),
   ("kingdom_28", "Toman Head Folk"),
   #end added for TGS
-  
+
   ("bandits", "bandits"),
-  ("deserters", "deserters"),  
+  ("deserters", "deserters"),
   ("your_followers", "your followers"),
-  
-  
+
+
   ("we_have_heard_that_travellers_heading_to_s40_were_attacked_on_the_road_s46_by_s39", "We have heard that travellers heading to {s40} were attacked on the road {s46} by {s39}"),
   ("s43_s44", "{!}{s43}^{s44}"),
   ("we_have_heard_that_travellers_coming_from_s40_were_attacked_on_the_road_s46_by_s39", "We have heard that travellers coming from {s40} were attacked on the road {s46} by {s39}"),
@@ -3219,7 +3238,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("you_speak_of_giving_me_land_unfortunately_you_are_not_wellknown_for_rewarding_those_to_whom_you_have_made_such_offers", "You speak of giving me land. Unfortunately, you are not well-known for rewarding those to whom you have made such offers."),
   ("you_speak_of_unifying_calradia_well_i_believe_that_well_always_be_fighting__its_important_that_we_fight_for_a_rightful_cause", "You speak of unifying for the Last Battle. Well, I believe that we'll always be fighting - it's important that we fight for a rightful cause."),
   ("you_talk_of_claims_to_the_throne_but_i_leave_bickering_about_legalities_to_the_lawyers_and_clerks", "You talk of claims to the throne, but I leave bickering about legalities to the lawyers and clerks."),
-##diplomacy start+: change "king" to "{s14}" 
+##diplomacy start+: change "king" to "{s14}"
 #  ("you_speak_of_ruling_justly_hah_ill_believe_theres_such_a_thing_as_a_just_king_when_i_see_one", "You speak of ruling justly. Hah! I'll believe there's such a thing as a just king when I see one."),
   ("you_speak_of_ruling_justly_hah_ill_believe_theres_such_a_thing_as_a_just_king_when_i_see_one", "You speak of ruling justly. Hah! I'll believe there's such a thing as a just {s14} when I see one."),
 #  ("you_spoke_of_protecting_the_rights_of_the_nobles_if_you_did_youd_be_the_first_king_to_do_so_in_a_very_long_time", "You spoke of protecting the rights of the nobles. If you did, you'd be the first king to do so in a very long time."),
@@ -3231,7 +3250,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("you_speak_of_unifying_calradia_id_be_impressed_if_i_thought_you_could_do_it_but_unfortunately_you_dont", "You speak of unifying for the Last Battle. I'd be impressed if I thought you could do it. But unfortunately, you don't."),
   ("you_speak_of_claims_to_the_throne_well_any_peasant_can_claim_to_be_a_kings_bastard", "You speak of claims to the throne. Well, any peasant can claim to be a king's bastard"),
   ("well_its_a_fine_thing_to_court_the_commons_with_promises_but_what_do_you_have_to_offer_me", "Well, it's a fine thing to court the commons with promises, but what do you have to offer me?"),
-##diplomacy start+: change "lords" to "{s15}", and "lord" to "{s14}" 
+##diplomacy start+: change "lords" to "{s15}", and "lord" to "{s14}"
 #  ("you_speak_of_protecting_the_rights_of_lords_that_would_make_a_fine_change_if_my_rights_as_lord_would_be_respected", "You speak of protecting the rights of lords. That would make a fine change, if my rights as lord would be respected."),
   ("you_speak_of_protecting_the_rights_of_lords_that_would_make_a_fine_change_if_my_rights_as_lord_would_be_respected", "You speak of protecting the rights of {s15}. That would make a fine change, if my rights as {s14} would be respected."),
 #  ("you_speak_of_protecting_the_rights_of_lords_that_would_make_a_fine_change_if_my_rights_as_lord_would_be_respected_however_it_is_easy_for_you_to_make_promises_while_you_are_weak_that_you_have_no_intention_of_keeping_when_you_are_strong", "You speak of protecting the rights of lords. That would make a fine change, if my rights as lord would be respected. However, it is easy for you to make promises while you are weak, that you have no intention of keeping when you are strong."),
@@ -3288,14 +3307,14 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("you_speak_of_claims_a_king_must_have_a_strong_legal_claim_for_there_not_to_be_chaos_in_the_realm_but_your_claim_is_not_so_strong", "You speak of claims. A {s14} must have a strong legal claim for there not to be chaos in the realm, but your claim is not so strong."),
 ##Replace "king" with "{s14}", and "lords" with "{s15}"
 #  ("you_speak_of_protecting_the_rights_of_lords_it_is_of_course_important_that_a_king_respect_the_rights_of_his_vassals_although_i_worry_that_a_king_who_took_a_throne_without_proper_cause_would_not_rule_with_justice", "You speak of protecting the rights of lords. It is of course important that a king respect the rights of his vassals, although I worry that a king who took a throne without proper cause would not rule with justice."),
-  ("you_speak_of_protecting_the_rights_of_lords_it_is_of_course_important_that_a_king_respect_the_rights_of_his_vassals_although_i_worry_that_a_king_who_took_a_throne_without_proper_cause_would_not_rule_with_justice", "You speak of protecting the rights of lords. It is of course important that a {s14} respect the rights of his vassals, although I worry that a {s14} who took a throne without proper cause would not rule with justice."),  
+  ("you_speak_of_protecting_the_rights_of_lords_it_is_of_course_important_that_a_king_respect_the_rights_of_his_vassals_although_i_worry_that_a_king_who_took_a_throne_without_proper_cause_would_not_rule_with_justice", "You speak of protecting the rights of lords. It is of course important that a {s14} respect the rights of his vassals, although I worry that a {s14} who took a throne without proper cause would not rule with justice."),
 #  ("you_speak_of_protecting_the_rights_of_lords_it_is_of_course_important_that_a_king_respect_the_rights_of_his_vassals_however_i_would_like_to_know_that_you_would_indeed_deliver_on_your_promises", "You speak of protecting the rights of lords. It is of course important that a king respect the rights of his vassals. However, I would like to know that you would indeed deliver on your promises."),
   ("you_speak_of_protecting_the_rights_of_lords_it_is_of_course_important_that_a_king_respect_the_rights_of_his_vassals_however_i_would_like_to_know_that_you_would_indeed_deliver_on_your_promises", "You speak of protecting the rights of {s15}. It is of course important that a {s14} respect the rights of his vassals. However, I would like to know that you would indeed deliver on your promises."),
-  
+
 #  ("you_speak_of_protecting_the_commons_i_would_be_pleased_to_serve_a_king_who_respected_the_rights_of_his_subjects_although_i_worry_that_a_king_who_took_a_throne_without_proper_cause_would_not_rule_with_justice", "You speak of protecting the commons. I would be pleased to serve a king who respected the rights of his subjects, although I worry that a king who took a throne without proper cause would not rule with justice."),
   ("you_speak_of_protecting_the_commons_i_would_be_pleased_to_serve_a_king_who_respected_the_rights_of_his_subjects_although_i_worry_that_a_king_who_took_a_throne_without_proper_cause_would_not_rule_with_justice", "You speak of protecting the commons. I would be pleased to serve a {s14} who respected the rights of his subjects, although I worry that a {s14} who took a throne without proper cause would not rule with justice."),
 
-#  ("you_speak_of_protecting_the_commons_i_would_be_pleased_to_serve_a_king_who_respected_the_rights_of_his_subjects_however_i_would_like_to_know_that_you_would_indeed_deliver_on_your_promises", "You speak of protecting the commons. I would be pleased to serve a king who respected the rights of his subjects. However, I would like to know that you would indeed deliver on your promises."),  
+#  ("you_speak_of_protecting_the_commons_i_would_be_pleased_to_serve_a_king_who_respected_the_rights_of_his_subjects_however_i_would_like_to_know_that_you_would_indeed_deliver_on_your_promises", "You speak of protecting the commons. I would be pleased to serve a king who respected the rights of his subjects. However, I would like to know that you would indeed deliver on your promises."),
   ("you_speak_of_protecting_the_commons_i_would_be_pleased_to_serve_a_king_who_respected_the_rights_of_his_subjects_however_i_would_like_to_know_that_you_would_indeed_deliver_on_your_promises", "You speak of protecting the commons. I would be pleased to serve a {s14} who respected the rights of his subjects. However, I would like to know that you would indeed deliver on your promises."),
 ##diplomacy end+ (finish adding alternate cultural terms)
   ("i_am_not_swayed_by_promises_of_reward", "I am not swayed by promises of reward"),
@@ -3963,7 +3982,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("playername__i_am_so_glad_to_see_you_again_i_must_say_i_do_envy_your_freedom_to_ride_out_and_experience_the_world", " I must say, I do envy your freedom to ride out and experience the world."),
   ("playername__i_am_so_glad_to_see_you_i_trust_that_you_have_been_behaving_honorably_since_last_we_met", " I trust that you have been behaving honorably since last we met."),
   ("playername__i_am_so_glad_that_you_were_able_to_come", " I am so glad that you were able to come."),
-##diplomacy start+ make both-gender versions (reg65 is speaker's gender) 
+##diplomacy start+ make both-gender versions (reg65 is speaker's gender)
   ("i_do_enjoy_speaking_to_you_but_i_am_sure_you_understand_that_our_people_cluck_their_tongues_at_a_woman_to_spend_too_long_conversing_with_a_man_outside_her_family__although_the_heavens_know_its_never_the_man_who_is_held_to_blame_", "I do enjoy speaking to you. But I am sure you understand that our people cluck their tongues at a {reg65?woman:boy} to spend too long conversing with a {man/woman} outside {reg65?her:his} family -- although the heavens know it's never the {man/woman} who is held to blame. "),
   ("as_much_as_i_enjoy_speaking_to_you_i_do_not_care_to_be_gossiped_about_by_others_who_might_lack_my_grace_and_beauty_", "As much as I enjoy speaking to you, I do not care to be gossiped about by others who might lack my grace and beauty. "),
   ("i_do_so_enjoy_speaking_to_you_but_as_a_daughter_of_one_of_the_great_families_of_this_land_i_must_set_an_example_of_propriety_", "I do so enjoy speaking to you. But as a {reg65?daughter:scion} of one of the great families of this land, I must set an example of propriety. "),
@@ -4029,7 +4048,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("log_entry_type_reg4_for_s4_total_entries_reg5", "{!}DEBUG : Log entry type: {reg4} for {s4}, total entries: {reg5}"),
   ("ERROR__reputation_type_for_s9_not_within_range", "{!}ERROR - reputation type for {s9} not within range"),
 ##diplomacy start+ make gender-flipped versions, using reg4 for gender of s9
-#xxx yyy zzz TODO: make sure you set reg4 before calling this! 
+#xxx yyy zzz TODO: make sure you set reg4 before calling this!
   ("they_say_that_s9_is_a_most_conventional_maiden__devoted_to_her_family_of_a_kind_and_gentle_temperament_a_lady_in_all_her_way", "They say that {s9} is a most conventional {reg4?maiden:lad} - devoted to {reg4?her:his} family, of a kind and gentle temperament, a {reg4?lady:young gentleman} in all {reg4?her:his} way."),
   ("they_say_that_s9_is_a_bit_of_a_romantic_a_dreamer__of_a_gentle_temperament_yet_unpredictable_she_is_likely_to_be_led_by_her_passions_and_will_be_trouble_for_her_family_ill_wager", "They say that {s9} is a bit of a romantic, a dreamer -- of a gentle temperament, yet unpredictable. {reg4?She:He} is likely to be led by {reg4?her:his} passions, and will be trouble for {reg4?her:his} family, I'll wager."),
   ("they_say_that_s9_is_determined_to_marry_well_and_make_her_mark_in_the_world_she_may_be_a_tremendous_asset_for_her_husband__provided_he_can_satisfy_her_ambition", "They say that {s9} is determined to marry well and make {reg4?her:his} mark in the world. {reg4?She:He} may be a tremendous asset for {reg4?her husband:his wife} -- provided {reg4?he:she} can satisfy {reg4?her:his} ambition!"),
@@ -4075,19 +4094,19 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("who_do_you_wish_to_give_it_to", "Who do you wish to give it to?"),
   ("sire_my_lady_we_have_taken_s1_s2", "{Sire/My lady}, we have taken {s1}. {s2}"),
   ("s12i_want_to_have_s1_for_myself", "{s12}I want to have {s1} for myself. {s2}"),
-  ("fiefs_s0", "(fiefs: {s0})"),  
+  ("fiefs_s0", "(fiefs: {s0})"),
 
   #reserved strigs
   ("reserved_001", "{!}Reserved 001"),
   #reserved strings end
-  
+
   ("production_setting_buy_from_market",      "We are buying raw materials from the market."),
   ("production_setting_buy_from_inventory",   "We are only using the raw materials in our inventory."),
   ("production_setting_produce_to_inventory", "We are putting our output into the inventory."),
   ("production_setting_produce_to_market",    "We are selling our output directly into the inventory."),
-  
-  
-  
+
+
+
   #Strings to add...
   #Strings for political quest outcomes
 
@@ -4103,27 +4122,27 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("olive_groves", "acres of olive groves"),
   ("acres_flax", "acres of flax fields"),
   ("enterprise_enemy_realm", "{Sir/Madame}, you are an enemy of this realm. We cannot allow you to buy land here."),
-  ("intrigue_success_chance", "{!}Your modified relation: {reg5}, {s4}'s relation: {reg4}"),  
+  ("intrigue_success_chance", "{!}Your modified relation: {reg5}, {s4}'s relation: {reg4}"),
 
   ("you_intend_to_denounce_s14_to_s13_on_behalf_of_s12", "You intend to privately denounce {s14} to {s13} on behalf of {s12}"),
   ("you_intend_to_denounce_s14_to_his_face_on_behalf_of_s14", "You intend to openly denounce {s14} to his face, on behalf of {s12}"),
   ("you_intend_to_bring_gift_for_s14", "You intend to bring velvet and furs to {s12}. Then, speak to {s14}, to see if {s12} was able to arrange a reconciliation."),
-  
+
   #Strategy AI string
   ("we_will_gather_the_army_but_not_ride_until_we_have_an_objective", "We will gather the army, but not ride forth until we have an objective."),
   ("we_shall_lay_siege_to_an_easy_fortress_to_capture", "We are concentrating out forces on their most vulnerable fortress."),
   ("we_shall_strike_at_the_heart_of_our_foe_and_seize_the_fortress_of_s14", "We intend to strike a blow which will do them the greatest damage."),
   ("we_shall_take_the_fortress_of_s14_which_appears_easily_defensible", "We aim to take a fortress which is easy for us to defend."),
   ("we_shall_cut_a_fiery_trail_through_their_richest_lands_to_draw_them_out_to_battle", "We leave a fiery trail through their richest lands to draw them out to battle."),
-  
+
   #Strategy AI string
   ("strategy_criticism_rash",     "I believe that this strategy is rash, and needlessly exposes our forces to danger."),
   ("strategy_criticism_cautious", "I believe that this strategy is overly cautious, and will see our army melt away from boredom without us achieving any successes."),
 
-  
+
   ("tavernkeeper_invalid_quest", " had some sort of business going on, but I'm having trouble remembering the details."),
-  
-  
+
+
   ("faction_title_male_player", "Lord {s0}"),
   ("faction_title_male_1", "Count {s0}"),
   ("faction_title_male_2", "Boyar {s0}"),
@@ -4159,7 +4178,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("_has_been_worried_about_bandits_establishing_a_hideout_near_his_home", " has been worried about bandits establishing a hideout in {reg4?her:his} area."),
 ##diplomacy end+
   ("bandit_lair_quest_description", "Find and destroy the {s9}, and report back to {s11}."),
-  
+
   ("bandit_hideout_preattack", "You approach the hideout. The {s4} don't appear to have spotted you yet, and you could still sneak away unnoticed. The difficult approach to the site -- {s5} -- means that only a handful of troops in your party will be able to join the attack, and they will be unable to bring their horses. If your initial attack fails, the {s4} will easily be able to make their escape and disperse. Do you wish to attack the hideout, or wait for another occasion?"),
   ("bandit_hideout_failure", "The {s4} beat back your attack. You regroup, and advance again to find that they have dispersed and vanished into the surrounding countryside, where no doubt they will continue to threaten travellers."),
   ("bandit_hideout_success", "With their retreat cut off, the {s4} fall one by one to your determined attack. Their hideout, and their ill-gotten gains, as now yours."),
@@ -4169,14 +4188,14 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("bandit_approach_thickets", "through a series of dense thickets"),
   ("bandit_approach_cliffs", "up a path along the side of a cliff"),
   ("bandit_approach_cove", "down a stream bed cutting through the sea-cliffs"),
-  
+
   ("political_explanation_lord_lacks_center", "In this case, the fief should go to a lord who has no land and no income."),
   ("political_explanation_lord_took_center", "In this case, the fortress should go to the one who captured it."),
   ("political_explanation_most_deserving_friend", "In this case, I looked to my close friends and companions, and decided to give the fief to the most deserving."),
   ("political_explanation_most_deserving_in_faction", "In this case, I looked to all the lords of the realm, and decided to give the fief to the most deserving."),
   ("political_explanation_self", "In the absence of any clear other candidate, I nominate myself."),
   ("political_explanation_marshal", "I chose the most valiant of our nobles, whom I trust, and whose name is not currently tainted by controversy."),
-  
+
   ("prisoner_at_large", "large, after the captors were defeated in battle. I expect your friend will resurface shortly."),
 
   ("quick_battle_scene_1", "Farmhouse"),
@@ -4226,12 +4245,12 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("i_need_to_raise_some_men_before_attempting_anything_else", "I need to raise some men before attempting anything else"),
   ("we_are_currently_at_peace", "We are currently at peace."),
   ("the_marshalship", "the marshalship"),
-  
-  ("you", "you"), 
-  ("myself", "myself"), 
-  ("my_friend_s15", "my friend {s15}"), 
+
+  ("you", "you"),
+  ("myself", "myself"),
+  ("my_friend_s15", "my friend {s15}"),
   ("custom_battle", "Custom Battle"),
-  
+
   ("comment_intro_liege_affiliated_to_player", "I am told that you would dispute my claim to the crown. Needless to say, I am not pleased by this news. However, we may still talk."),
 
   ("s21_the_s8_declared_war_out_of_personal_enmity", "{s21} The {s8} declared war out of personal enmity"),
@@ -4242,10 +4261,10 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("_family_", "^Family: "),
 
   ("we_are_conducting_recce", "We will first scout the area, and then decide what to do."),
-  
+
   ("_family_", "^Family:"),
   ("s49_s12_s11_end", "{s49} {s12} ({s11})."),
-  
+
   ("center_party_not_active", "is not our target, because we don't have a leader who has taken the field."),
   ("center_is_friendly", "is not our enemy."),
   ("center_is_already_besieged", "is already under siege."),
@@ -4257,19 +4276,19 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("center_far_away_we_can_reconnoiter_but_will_delay_decision_until_we_get_close", "NOT USED"),
   ("center_far_away_our_cautious_marshal_does_not_wish_to_reconnoiter", "is too far away, even to reconnoiter."),
   ("center_far_away_even_for_our_aggressive_marshal_to_reconnoiter", "is too far away, even to reconnoiter."),
-  
+
   ("center_far_away_reason", "{s6} is further than {s5} to our centers, therefore it will be harder for us to protect after taking it."),
   ("center_closer_but_this_is_not_enought", "{s6} is closer than {s5} to our borders, but because of other reasons we are not attacking {s6} for now."),
-  
+
   ("center_protected_by_enemy_army_aggressive", "is protected by enemy forces, which we believe to be substantially stronger than our own."),
-  ("center_protected_by_enemy_army_cautious", "is protected by an enemy army, which we believe to be too strong to engage with confidence of victory."),  
-  
+  ("center_protected_by_enemy_army_cautious", "is protected by an enemy army, which we believe to be too strong to engage with confidence of victory."),
+
   ("center_cautious_marshal_believes_center_too_difficult_to_capture", "would require a bloody and risky siege."),
   ("center_even_aggressive_marshal_believes_center_too_difficult_to_capture", "is too heavily defended to capture."),
-  
+
   ("center_value_outweighed_by_difficulty_of_capture", "is not of sufficient value to justify the difficulty of attacking it"),
   ("center_value_justifies_the_difficulty_of_capture", "can be taken, and is of sufficient value to justify an attack."),
-   
+
   ("center_is_indefensible", "is too far away from our other fortresses to be defended."),
   ("we_are_waiting_for_selection_of_marshal", "We are waiting for the selection of a marshal"),
   ("best_to_attack_the_enemy_lands", "Given the size of our forces, we believe the best approach is to attack the enemy's lands."),
@@ -4277,11 +4296,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("we_will_gather_to_defend_the_beleaguered_fortress", "We will gather to defend the beleaguered fortress"),
   ("the_enemy_temporarily_has_the_field", "The enemy temporarily has the field, and we should seek refuge until the storm passes"),
   ("center_has_not_been_scouted", "has not been recently scouted by our forces, but we can go there, and decide what to do when we get close."),
-  ("we_have_assembled_some_vassals", "We have assembled some of the vassals, but we will wait until we have more before venturing into enemy territory."),    
-  
+  ("we_have_assembled_some_vassals", "We have assembled some of the vassals, but we will wait until we have more before venturing into enemy territory."),
+
   ("we_are_waiting_here_for_vassals", "We are waiting for the vassals to join us."),
   ("we_are_travelling_to_s11_for_vassals", "We are travelling to {s11}, so that the vassals may more easily join our host before we ride forth."),
-  
+
   ("center_strength_not_scouted", "We have not scouted it recently, and do not know how strongly it is defended"),
   ("center_strength_strongly_defended", "We believe it to be strongly defended"),
   ("center_strength_moderately_defended", "We believe it to be moderately well defended"),
@@ -4316,19 +4335,19 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("tutorial_training_ground_horseman_text_4", "Strike the next dummy that has an arrow on top of it!"),
   ("tutorial_training_ground_horseman_text_5", "Shoot at the archery target that has an arrow on top of it!"),
   ("tutorial_training_ground_horseman_text_6", "You have finished the exercise successfully. Now go back to the trainer and talk to him."),
-  
-  ("the_great_lords_of_your_kingdom_plan_to_gather_at_your_hall_in_s10_for_a_feast", "The great lords of your kingdom plan to gather at your hall in {s10} for a feast"),  
+
+  ("the_great_lords_of_your_kingdom_plan_to_gather_at_your_hall_in_s10_for_a_feast", "The great lords of your kingdom plan to gather at your hall in {s10} for a feast"),
   ("your_previous_court_some_time_ago", "your previous court some time ago,"),
   ("awaiting_the_capture_of_a_fortress_which_can_serve_as_your_court", "awaiting the recapture of a fortress which can serve as your court."),
   ("but_if_this_goes_badly", " I value your advice. But if this goes badly, I shall hold you responsible."),
- 
+
   ("i_realize_that_you_are_on_good_terms_with_s4_but_we_ask_you_to_do_this_for_the_good_of_the_realm", " I realize that you are on good terms with {s4}, but this is all for the good of the realm"),
 ##diplomacy start+ todo xxx gender correct ##diplomacy end+
   ("i_realize_that_you_are_on_good_terms_with_s4_but_the_blow_will_hurt_him_more", "I realize that you are on good terms with {s4} -- but this only means that your blow will hit him even harder!"),
 
   ("killed_bandit_at_alley_fight", "The merchant takes you to his house. Once inside, he stands by the door for a while checking the street, and then, finally convinced you have not been followed, comes near you to speak..."),
   ("wounded_by_bandit_at_alley_fight", "You are struck down. However, before you lose consciousness, you hear shouts and a rush of footfalls... You awake to find yourself indoors, weak but alive."),
-  
+
   ("cannot_leave_now", "Cannot leave now."),
   ("press_tab_to_exit_from_town", "Press Tab to leave now. You can press Tab key to quickly exit any location in the game."),
   ("find_the_lair_near_s9_and_free_the_brother_of_the_prominent_s10_merchant", "Find the bandit lair near {s9}, and free the brother of the {s10} merchant."),
@@ -4336,7 +4355,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("you_need_more_men_sir_my_lady", "Look -- you need more men. Right now, you have only {reg0} in your party. If you attack them with too few men, you may find their hideout by getting yourself dragged up to it in fetters, and that's not the plan. Do not take that risk. Go out and visit some more villages to find more volunteers, and then you can start paying them back in their own coin."),
   ("good_you_have_enough_men", "Good, good. You did well. You have enough men. Now, go and knock some of those robbers over the head, and make them tell you how to find their hideout."),
   ("do_not_waste_time_go_and_learn_where_my_brother_is", "Look, {sir/my lady}. Time is at a bit of premium, here. Now, if you could go find out where they are hiding my brother, that would be appreciated."),
-  
+
   ("start_up_quest_message_1", "{s9} wants you to collect at least five men from nearby villages. After you collect these men, find and speak with him. He is in the tavern at {s1}"),
   ("start_up_quest_message_2", "Find and defeat a group of bandits lurking near {s9}, and learn where your employer's brother has been taken."),
   ("start_up_quest_message_3", "Rescue the merchant's brother from the robber's hideout located near {s9}."),
@@ -4351,38 +4370,38 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("reason_7", "We believe it to be strongly defended."),
   ("reason_8", "We believe it to be moderately well defended."),
   ("reason_9", "We believe it to be weakly defended."),
-  
+
   ("has_decided_that_an_attack_on_", "has decided to attack"),
   ("this_would_be_better_worth_the_effort", "This would be better worth the effort, taking into consideration its value, and its distance, and the likely number of defenders."),
   ("has_decided_to_defend_", "has decided to defend"),
   ("before_going_offensive_we_should_protect_our_lands_if_there_is_any_threat_so_this_can_be_reason_marshall_choosed_defending_s4", "Before going offensive we should protect our lands if there is any threat. So this can be reason marshall choosed defending {s4}."),
-  
+
   ("are_you_all_right", "Now... Let me explain my proposition"),
   ("you_are_awake", "Ah -- you're awake. It's good to see that you can still walk. You're lucky that we came along. I had been speaking with the watch, when we heard the sounds of a fight and ran to see what was happening. We didn't arrive in time to prevent you getting knocked down, but we may have saved you from getting your throat cut... Now... Maybe you can help me..."),
   ("save_town_from_bandits", "Save {s9} from bandits."),
 
-  ("you_fought_well_at_town_fight_survived", "Hah! Well done -- I saw at least three of the enemy go down before you. Keep fighting like that, and you'll make quite a name for yourself in this land. "), 
-  ("you_fought_normal_at_town_fight_survived", "Well done! I hear you accounted for one or two of the bastards, and you're still on your feet. You can't ask for a better outcome of a battle than that..."), 
-  ("you_fought_bad_at_town_fight_survived", "Well, the enemy is in flight, and it looks like you're still on your feet. At the end of the day, that's all that's important in a battle."), 
-  
-  ("you_fought_well_at_town_fight", "Ah! You're awake. You took quite a blow, there. But good news! We defeated them -- and you did them some real damage before you went down. If you hadn't been here, it could have gone very baldy. I'm grateful to you..."), 
-  ("you_wounded_at_town_fight", "Ah! You're alive. That's a relief. You took quite a blow, there. I'm not sure that you got any of them yourself, but thankfully, the rest of us were able to beat them. We'll need to see about getting you some treatment.... "), 
-  
-  ("you_fought_well_at_town_fight_survived_answer", "Let every villain learn to fear the name {playername}!"), 
-  ("you_fought_normal_at_town_fight_survived_answer", "Ah, well, I'm proud to have done my bit along with the rest..."), 
-  ("you_fought_bad_at_town_fight_survived_answer", "Well, I was about to strike one down, but I slipped in some blood, you see..."), 
-  ("you_fought_well_at_town_fight_answer", "Ah well. I guess I don't mind a blow taken in a good cause."), 
-  ("you_wounded_at_town_fight_answer", "Right. I suppose I should be more careful."),   
-  
+  ("you_fought_well_at_town_fight_survived", "Hah! Well done -- I saw at least three of the enemy go down before you. Keep fighting like that, and you'll make quite a name for yourself in this land. "),
+  ("you_fought_normal_at_town_fight_survived", "Well done! I hear you accounted for one or two of the bastards, and you're still on your feet. You can't ask for a better outcome of a battle than that..."),
+  ("you_fought_bad_at_town_fight_survived", "Well, the enemy is in flight, and it looks like you're still on your feet. At the end of the day, that's all that's important in a battle."),
+
+  ("you_fought_well_at_town_fight", "Ah! You're awake. You took quite a blow, there. But good news! We defeated them -- and you did them some real damage before you went down. If you hadn't been here, it could have gone very baldy. I'm grateful to you..."),
+  ("you_wounded_at_town_fight", "Ah! You're alive. That's a relief. You took quite a blow, there. I'm not sure that you got any of them yourself, but thankfully, the rest of us were able to beat them. We'll need to see about getting you some treatment.... "),
+
+  ("you_fought_well_at_town_fight_survived_answer", "Let every villain learn to fear the name {playername}!"),
+  ("you_fought_normal_at_town_fight_survived_answer", "Ah, well, I'm proud to have done my bit along with the rest..."),
+  ("you_fought_bad_at_town_fight_survived_answer", "Well, I was about to strike one down, but I slipped in some blood, you see..."),
+  ("you_fought_well_at_town_fight_answer", "Ah well. I guess I don't mind a blow taken in a good cause."),
+  ("you_wounded_at_town_fight_answer", "Right. I suppose I should be more careful."),
+
   ("unfortunately_reg0_civilians_wounded_during_fight_more", " Unfortunately, about {reg0} of my lads got themselves wounded. I should go look on on them."),
   ("unfortunately_reg0_civilians_wounded_during_fight", " Unfortunately, one of my lads took a pretty nasty blow. I should go see how he is doing."),
   ("also_one_another_good_news_is_any_civilians_did_not_wounded_during_fight", " Also, no one on our side was hurt very seriously. That's good news"),
-  
+
   ("merchant_and_you_call_some_townsmen_and_guards_to_get_ready_and_you_get_out_from_tavern", "You leave the tavern and go out to the streets. Nervous looking young men are waiting in every street corner. You can see they have daggers and clubs concealed under their clothes, and catch a mixture of fear, anticipation and pride in the quick looks they throw at you as you pass by. Praying that your enemies have not been alarmed by this all too obvious bunch of plotters, you check your weapons for one last time and prepare yourself for the action ahead."),
   ("town_fight_ended_you_and_citizens_cleaned_town_from_bandits", "The remaining few bandits scatter off to the town's narrow alleys, only to be hunted down one by one by the angry townsfolk. Making sure that your victory is complete and all the wounded have been taken care of, you and the merchant head to his house to review the day's events."),
   ("town_fight_ended_you_and_citizens_cleaned_town_from_bandits_you_wounded", "You fall down with that last blow, unable to move and trying hard not to pass out. Soon the sounds of fighting filling the street gives way to the cheers of the townsmen and you realize with relief that your side won the day. Soon, friendly arms pick you up from the ground and you let yourself drift off to a blissful sleep. Hours later, you wake up in the merchants house."),
-  
-  
+
+
   # altered for TGS
   #Tanchico
  ("journey_to_reyvadin", "You have come through the Tarabon lowlands, the plains not exposed to the bitter winds from the north. The land here has summer heat for most of the year, but the forests are rich with fur-bearing game, and the rivers are teaming with fish. The riches of the land draw the traders, but the traders in turn draw bandits. You saw tracks left by bands of dragonsworn, evidence of the turmoil the lack of leadership has brought, and were glad when the harbors of Tanchico came into view across the wide valley of the Andahar river."),
@@ -4403,11 +4422,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("journey_to_shariz", "You came with a merchant train, crossing the great desert to the east of Randland. The Aiel guides chose your route carefully, crossing barren wastelands and skirting boulder fields, then passing to low-lying basins where handfuls of goats grazed. Your great fear was that the merchant train might lose its way and perish of thirst. You never saw them, but the guides said that raiders were shadowing the caravan. Then the mountains came into view, and on the morning of the following day you crested a rocky pass, and were through the Jengai Pass. You continued along the southern slopes of Kinslayer's Dagger, and soon made it to the great city of Tar Valon. Shining in the light of the morning sun, you saw the gleaming pinacle of the White Tower, a symbol of power and mystery."),
    # end altered for TGS
 
-  ("lost_tavern_duel_ordinary", "You slump to the floor, stunned by the drunk's last blow. Your attacker's rage immediately seems to slacken. He drops into a chair and sits there watching you, muttering under his breath, almost regretfully. A few of the other patrons manage to coax him to his feet and bundle him out the door. One of the others attends to your wounds, and soon you too are back on your feet, unsteady but alive."),  
-  ("lost_tavern_duel_assassin", "You slump to the floor, stunned by your attacker's last blow. Slowly and deliberately, he kneels down by your side, pulling a long knife from under his clothes. But before he can finish you off, the tavernkeeper, who seems to have regained his courage, comes up from behind and gives your attacker a clout behind the head. He loses his balance, and then, seeing that his chance to kill you has been lost, makes a dash for the door. He gets away. Meanwhile, the other tavern patrons bind your wounds and haul you to a back room to rest and recover."),  
-  ("lost_startup_hideout_attack", "You recover consciousness a short while later, and see that the kidnappers have celebrated their victory by breaking open a cask of wine, and have forgotten to take a few elementary precautions -- like binding your hands and feet. You manage to slip away. Based on the boisterous sounds coming from the hideout, you suspect that you may yet have some time to gather a few more followers and launch another attack."),  
+  ("lost_tavern_duel_ordinary", "You slump to the floor, stunned by the drunk's last blow. Your attacker's rage immediately seems to slacken. He drops into a chair and sits there watching you, muttering under his breath, almost regretfully. A few of the other patrons manage to coax him to his feet and bundle him out the door. One of the others attends to your wounds, and soon you too are back on your feet, unsteady but alive."),
+  ("lost_tavern_duel_assassin", "You slump to the floor, stunned by your attacker's last blow. Slowly and deliberately, he kneels down by your side, pulling a long knife from under his clothes. But before he can finish you off, the tavernkeeper, who seems to have regained his courage, comes up from behind and gives your attacker a clout behind the head. He loses his balance, and then, seeing that his chance to kill you has been lost, makes a dash for the door. He gets away. Meanwhile, the other tavern patrons bind your wounds and haul you to a back room to rest and recover."),
+  ("lost_startup_hideout_attack", "You recover consciousness a short while later, and see that the kidnappers have celebrated their victory by breaking open a cask of wine, and have forgotten to take a few elementary precautions -- like binding your hands and feet. You manage to slip away. Based on the boisterous sounds coming from the hideout, you suspect that you may yet have some time to gather a few more followers and launch another attack."),
   ("reg1_blank_s3", "{!}{reg1} {s3}"),
-  
+
 ("as_you_no_longer_maintain_an_independent_kingdom_you_no_longer_maintain_a_court",  "As you no longer rule an independent  kingdom, you no longer maintain a court"),
 
 ("rents_from_s0",  "Rents from {s0}:"),
@@ -4428,20 +4447,20 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("attempting_to_rejoin_party", "Attempting to rejoin party,"),
   ("separated_from_party", "Separated from party,"),
   ("whereabouts_unknown", "whereabouts unknown"),
-  
+
   ("none_yet_gathered", "{!}None yet gathered"),
-  
+
   ("betrothed", " Betrothed "),
   ("leading_party", "leading a party"),
-  ("court_disbanded", "As you no longer rule an independent kingdom, your court has been disbanded"), 
+  ("court_disbanded", "As you no longer rule an independent kingdom, your court has been disbanded"),
   ("i_am_not_accompanying_the_marshal_because_will_be_reappointment", " I am not accompanying the marshal, because I suspect that our ruler will shortly appoint another to that post."),
 
   ("persuasion_opportunity", "Persuasion opportunity.^Relation required for automatic success: {reg4}^Current relationship: {reg5}^Chance of success: {reg7}^Chance of losing {reg9} relation point(s): {reg8}"),
 
   ("marshal_warning", "You are not following {s1}. However, you will not suffer any penalty."),
-  
+
   ("follow_army_quest_brief_2", "Your mission is complete. You may continue to follow {s9}'s army, if you wish further assignments."),
- 
+
   ("greetings_playername__it_is_good_to_see_you_i_hope_that_you_have_had_success_in_your_efforts_to_make_your_name_in_the_world", " I am glad to see you. I trust you are having some success out there, making your name in the world"),
 
   ("minister_advice_select_fief", " Might I suggest that you select {s4}, as the vassals have been speculating about how you might assign it."),
@@ -4461,8 +4480,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s21_the_s8_declared_war_as_part_of_a_bid_to_conquer_all_calradia", "{s21}. The {s8} declared war with very little pretext, as part of a bid to conquer the entire realm."),
   ("master_vinter", "Master vinter"),
   ("s54_has_left_the_realm", "{s54} has left the realm."),
-  ("enterprise_s5_at_s0", "Net revenue from {s5} at {s0}"),  
-  
+  ("enterprise_s5_at_s0", "Net revenue from {s5} at {s0}"),
+
   ("bread_site", "mill"),
   ("ale_site", "brewery"),
   ("oil_site", "oil press"),
@@ -4477,15 +4496,15 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("describe_secondary_input", " In addition, you will also need to purchase {s11} worth {reg10} denars."),
   ("profit", "profit"),
   ("loss", "loss"),
-  
+
   ("server_name_s0", "Server Name: {s0}"),
   ("map_name_s0", "Map Name: {s0}"),
-  ("game_type_s0", "Game Type: {s0}"),  
+  ("game_type_s0", "Game Type: {s0}"),
   ("remaining_time_s0reg0_s1reg1", "Remaining Time: {s0}{reg0}:{s1}{reg1}"),
   ("you_are_a_lord_lady_of_s8_s9", "You are a {lord/lady} of {s8}.^{s9}"),
   ("you_are_king_queen_of_s8_s9", "You are {king/queen} of {s8}.^{s9}"),
   ("for_s4", " for {s4}"),
-  
+
   ("cancel_fiancee_quest", " Also, you should please consider that other matter I had asked of you to have been successfully completed. It is not fit for me to commission you with tasks."),
   ("a_duel_request_is_sent_to_s0", "A duel offer is sent to {s0}."),
   ("s0_offers_a_duel_with_you", "{s0} offers a duel with you."),
@@ -4653,7 +4672,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  ("dplmc_little_mercantilist", "a little mercantilist"),
  ("dplmc_quite_mercantilist", "quite mercantilist"),
  ("dplmc_very_mercantilist", "very mercantilist"),
- 
+
   ("dplmc_how_will_your_male_vassals_be_known","How will your male vassals be known?"),
   ("dplmc_how_will_your_female_vassals_be_known","How will your female vassals be known?"),
   ("dplmc_s40_married_s39", "{s40}. Aside from that {reg4?she:he} is married to {s39}."),
@@ -4673,7 +4692,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("dplmc_fief_exchange_refuse_castle", "I don't want to exchange a castle for a mere village."),
   ("dplmc_fief_exchange_refuse_rich", "I don't want to exchange a richer fief for one that much poorer."),
   ("dplmc_fief_exchange_refuse_s14_attack", "Speak of this to me later when {s14} is not under attack."),
-  
+
   ("dplmc_fief_exchange_accept", "That exchange is acceptable to me."),
   ("dplmc_fief_exchange_accept_reg3_denars", "That exchange is acceptable to me, if you are willing to provide {reg3} denars to cover my expenses from the relocation."),
 
@@ -4712,28 +4731,28 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  ("dplmc_s0_and_s1",   "{s0} and {s1}"),
  ("dplmc_s0_newline_s1", "{!}{s0}^{s1}"),
  ##diplomacy end+
- 
+
  ##PBOD
 #-- Dunde's Key Config BEGIN
 # KEY CHAR Label
-("0x02", "1"), ("0x03", "2"), ("0x04", "3"), ("0x05", "4"), ("0x06", "5"), ("0x07", "6"), ("0x08", "7"), ("0x09", "8"), ("0x0a", "9"), ("0x0b", "0"), 
+("0x02", "1"), ("0x03", "2"), ("0x04", "3"), ("0x05", "4"), ("0x06", "5"), ("0x07", "6"), ("0x08", "7"), ("0x09", "8"), ("0x0a", "9"), ("0x0b", "0"),
 ("0x1e", "A"), ("0x30", "B"), ("0x2e", "C"), ("0x20", "D"), ("0x12", "E"), ("0x21", "F"), ("0x22", "G"), ("0x23", "H"), ("0x17", "I"), ("0x24", "J"),
-("0x25", "K"), ("0x26", "L"), ("0x32", "M"), ("0x31", "N"), ("0x18", "O"), ("0x19", "P"), ("0x10", "Q"), ("0x13", "R"), ("0x1f", "S"), ("0x14", "T"), 
-("0x16", "U"), ("0x2f", "V"), ("0x11", "W"), ("0x2d", "X"), ("0x15", "Y"), ("0x2c", "Z"), 
-("0x52", "Numpad 0"), ("0x4f", "Numpad 1"), ("0x50", "Numpad 2"), ("0x51", "Numpad 3"), ("0x4b", "Numpad 4"), 
-("0x4c", "Numpad 5"), ("0x4d", "Numpad 6"), ("0x47", "Numpad 7"), ("0x48", "Numpad 8"), ("0x49", "Numpad 9"), 
-("0x45", "Num Lock"), ("0xb5", "Numpad DIV"), ("0x37", "Numpad MUL"), ("0x4a", "Numpad MIN"), ("0x4e", "Numpad PLUS"), ("0x9c", "Numpad ENTER"), ("0x53", "Numpad DEL)"), 
-("0xd2", "Insert"), ("0xd3", "Delete"), ("0xc7", "Home"), ("0xcf", "End"), ("0xc9", "Page Up"), ("0xd1", "Page Down"), 
+("0x25", "K"), ("0x26", "L"), ("0x32", "M"), ("0x31", "N"), ("0x18", "O"), ("0x19", "P"), ("0x10", "Q"), ("0x13", "R"), ("0x1f", "S"), ("0x14", "T"),
+("0x16", "U"), ("0x2f", "V"), ("0x11", "W"), ("0x2d", "X"), ("0x15", "Y"), ("0x2c", "Z"),
+("0x52", "Numpad 0"), ("0x4f", "Numpad 1"), ("0x50", "Numpad 2"), ("0x51", "Numpad 3"), ("0x4b", "Numpad 4"),
+("0x4c", "Numpad 5"), ("0x4d", "Numpad 6"), ("0x47", "Numpad 7"), ("0x48", "Numpad 8"), ("0x49", "Numpad 9"),
+("0x45", "Num Lock"), ("0xb5", "Numpad DIV"), ("0x37", "Numpad MUL"), ("0x4a", "Numpad MIN"), ("0x4e", "Numpad PLUS"), ("0x9c", "Numpad ENTER"), ("0x53", "Numpad DEL)"),
+("0xd2", "Insert"), ("0xd3", "Delete"), ("0xc7", "Home"), ("0xcf", "End"), ("0xc9", "Page Up"), ("0xd1", "Page Down"),
 ("0xc8", "Up"), ("0xd0", "Down"), ("0xcb", "Left"), ("0xcd", "Right"),
-("0x3b", "F1"), ("0x3c", "F2"), ("0x3d", "F3"), ("0x3e", "F4"),  ("0x3f", "F5"),  ("0x40", "F6"), 
+("0x3b", "F1"), ("0x3c", "F2"), ("0x3d", "F3"), ("0x3e", "F4"),  ("0x3f", "F5"),  ("0x40", "F6"),
 ("0x41", "F7"), ("0x42", "F8"), ("0x43", "F9"), ("0x44", "F10"), ("0x57", "F11"), ("0x58", "F12"),
-("0x39", "Space Bar"), ("0x1c", "Enter"), ("0x0f", "Tab"), ("0x0e", "Backspace"), 
-("0x1a", "[ "), ("0x1b", " ] "), ("0x33", " < "), ("0x34", " > "), ("0x35", " ? "), ("0x2b", "\\"), ("0x0d", " = "), ("0x0c", " -- "), 
+("0x39", "Space Bar"), ("0x1c", "Enter"), ("0x0f", "Tab"), ("0x0e", "Backspace"),
+("0x1a", "[ "), ("0x1b", " ] "), ("0x33", " < "), ("0x34", " > "), ("0x35", " ? "), ("0x2b", "\\"), ("0x0d", " = "), ("0x0c", " -- "),
 ("0x27", "Semicolon"), ("0x28", "Apostrophe"), ("0x29", "Tilde"), ("0x3a", "Caps Lock"),
 ("0x2a", "Left Shift"), ("0x36", "Right Shift"), ("0x1d", "Left Ctrl"), ("0x9d", "Right Ctrl"), ("0x38", "Left Alt"), ("0xb8", "Right Alt"),
 ("0xe0", "Left Click"), ("0xe1", "Right Click"),
 ("0xe2", "Mouse Button 3"), ("0xe3", "Mouse Button 4"), ("0xe4", "Mouse Button 5"), ("0xe5", "Mouse Button 6"), ("0xe6", "Mouse Button 7"), ("0xe7", "Mouse Button 8"),
-("0xee", "Scroll Up"), ("0xef", "Scroll Down"), 
+("0xee", "Scroll Up"), ("0xef", "Scroll Down"),
 
 # KEY Function Assignment Label
 #-- Parts to modify as your mod need --------------
@@ -4756,11 +4775,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ("key_no15", "Toggle Active Weave"), # only works for channelers
 ("key_no16", "Recover Lost One Power Item"), # only works for channelers
 ## End added for TGS
-  
+
 #--------------------------------------------------
 #-- Dunde's Key Config END
 ##PBOD
- 
+
 ######################
 # TGS Start
 ######################
@@ -4811,13 +4830,13 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("last_battle_near","Trollocs are seen in great number all along the Blight border. Food is spoiling in storage and tales of the Shadow's curses causing misfortune and death are on every man's lips."),
   #120 days
   ("last_battle_begins","Shadowspawn armies pour from the Blight and smash the Borderlands. Betrayal and paranoia is everywhere...  The Last Battle has begun!!"),
-  
-  
-  
+
+
+
 #Channeling usage comments
   #Proficiency Increase
   ("channeling_proficiency_increases","Your channeling proficiency increases due to use in battle..."),
-  
+
   # Debug strings for switching weaves
 
   ("weave_1", "Preparing Air Blast Weave..."),
@@ -4856,7 +4875,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("learn_weave_12", "Projectiles are great but sometimes you encounter an enemy who has the Dark One's luck. When that happens, take luck out of the equation. Learn Seeker Weave. Create a ball of energy that follows targets until the end. Inflict catastrophic damage..."),
   ("learn_weave_13", "Some enemies would make good allies. Whether they want to join you is besides the point... Learn Compulsion Weave. 'Persuade' enemies to join your cause..."),
   ("learn_weave_14", "Some things are not meant for mortal men. Some things are so dangerous that even the Shadow fears them. Will you follow reason? Or risk the Pattern itself? Learn Balefire Weave. Rip souls from the Pattern. Resurrect the dead..."),
-  
+
   # Faction Recruiting
   ("legion_army_recruit", "Legion Army"),
   ("red_hand_recruit", "Red Hand"),
@@ -4898,11 +4917,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("companion_weave_8", "Shield"),
   ("companion_weave_9", "Seeker"),
   ("companion_weave_10", "Compulsion"),
-  ("companion_weave_11", "Balefire"),  
-  
+  ("companion_weave_11", "Balefire"),
+
 
 ######################
 # TGS End
 ######################
-  
+
 ]

@@ -20,11 +20,11 @@ check_item_use_trigger = (ti_on_scene_prop_use,
     [
       (store_trigger_param_1, ":agent_id"),
       (store_trigger_param_2, ":instance_id"),
-      
+
       #for only server itself-----------------------------------------------------------------------------------------------
       (call_script, "script_use_item", ":instance_id", ":agent_id"),
       #for only server itself-----------------------------------------------------------------------------------------------
-      (get_max_players, ":num_players"),                               
+      (get_max_players, ":num_players"),
       (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
         (player_is_active, ":player_no"),
         (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_use_item, ":instance_id", ":agent_id"),
@@ -38,24 +38,24 @@ check_sally_door_use_trigger_double = (ti_on_scene_prop_use,
 
       (agent_get_position, pos1, ":agent_id"),
       (prop_instance_get_starting_position, pos2, ":instance_id"),
-      
+
       (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
 
       (try_begin),
         #out doors like castle sally door can be opened only from inside, if door coordinate is behind your coordinate. Also it can be closed from both sides.
-        
+
         (prop_instance_get_scene_prop_kind, ":scene_prop_id", ":instance_id"),
-        
+
         (assign, ":can_open_door", 0),
         (try_begin),
           (neg|eq, ":scene_prop_id", "spr_viking_keep_destroy_sally_door_right"),
           (neg|eq, ":scene_prop_id", "spr_viking_keep_destroy_sally_door_left"),
           (neg|eq, ":scene_prop_id", "spr_earth_sally_gate_right"),
           (neg|eq, ":scene_prop_id", "spr_earth_sally_gate_left"),
-          
+
           (position_is_behind_position, pos1, pos2),
           (assign, ":can_open_door", 1),
-        (else_try),  
+        (else_try),
           (this_or_next|eq, ":scene_prop_id", "spr_viking_keep_destroy_sally_door_right"),
           (this_or_next|eq, ":scene_prop_id", "spr_viking_keep_destroy_sally_door_left"),
           (this_or_next|eq, ":scene_prop_id", "spr_earth_sally_gate_right"),
@@ -64,15 +64,15 @@ check_sally_door_use_trigger_double = (ti_on_scene_prop_use,
           (neg|position_is_behind_position, pos1, pos2),
           (assign, ":can_open_door", 1),
         (try_end),
-        
+
         (this_or_next|eq, ":can_open_door", 1),
         (eq, ":opened_or_closed", 1),
-      
+
         (try_begin),
           #for only server itself-----------------------------------------------------------------------------------------------
           (call_script, "script_use_item", ":instance_id", ":agent_id"),
           #for only server itself-----------------------------------------------------------------------------------------------
-          (get_max_players, ":num_players"),                               
+          (get_max_players, ":num_players"),
           (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
             (player_is_active, ":player_no"),
             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_use_item, ":instance_id", ":agent_id"),
@@ -88,19 +88,19 @@ check_sally_door_use_trigger = (ti_on_scene_prop_use,
 
       (agent_get_position, pos1, ":agent_id"),
       (prop_instance_get_starting_position, pos2, ":instance_id"),
-      
+
       (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
 
       (try_begin),
         #out doors like castle sally door can be opened only from inside, if door coordinate is behind your coordinate. Also it can be closed from both sides.
         (this_or_next|position_is_behind_position, pos1, pos2),
         (eq, ":opened_or_closed", 1),
-      
+
         (try_begin),
           #for only server itself-----------------------------------------------------------------------------------------------
           (call_script, "script_use_item", ":instance_id", ":agent_id"),
           #for only server itself-----------------------------------------------------------------------------------------------
-          (get_max_players, ":num_players"),                               
+          (get_max_players, ":num_players"),
           (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
             (player_is_active, ":player_no"),
             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_use_item, ":instance_id", ":agent_id"),
@@ -116,7 +116,7 @@ check_castle_door_use_trigger = (ti_on_scene_prop_use,
 
       (agent_get_position, pos1, ":agent_id"),
       (prop_instance_get_starting_position, pos2, ":instance_id"),
-      
+
       (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
 
       (try_begin),
@@ -126,12 +126,12 @@ check_castle_door_use_trigger = (ti_on_scene_prop_use,
         #in doors like castle room doors can be opened from both sides, but only defenders can open these doors. Also it can be closed from both sides.
         (this_or_next|eq, ":agent_team", 0),
         (eq, ":opened_or_closed", 1),
-      
+
         (try_begin),
           #for only server itself-----------------------------------------------------------------------------------------------
           (call_script, "script_use_item", ":instance_id", ":agent_id"),
           #for only server itself-----------------------------------------------------------------------------------------------
-          (get_max_players, ":num_players"),                               
+          (get_max_players, ":num_players"),
           (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
             (player_is_active, ":player_no"),
             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_use_item, ":instance_id", ":agent_id"),
@@ -141,7 +141,7 @@ check_castle_door_use_trigger = (ti_on_scene_prop_use,
     ])
 
 check_ladder_animate_trigger = (ti_on_scene_prop_is_animating,
-    [      
+    [
       (store_trigger_param_1, ":instance_id"),
       (store_trigger_param_2, ":remaining_time"),
 
@@ -260,12 +260,12 @@ scene_props = [
         (particle_system_add_new, "psys_torch_fire_sparks"),
 
         (play_sound, "snd_torch_loop", 0),
-        
+
         (set_position_delta,0,-35,56),
         (particle_system_add_new, "psys_fire_glow_1"),
 #        (particle_system_emit, "psys_fire_glow_1",9000000),
 
-#second method        
+#second method
         (get_trigger_object_position, pos2),
         (set_position_delta,0,0,0),
         (position_move_y, pos2, -35),
@@ -297,7 +297,7 @@ scene_props = [
   ("barrier_8m" ,sokf_invisible|sokf_type_barrier,"barrier_8m" ,"bo_barrier_8m" , []),
   ("barrier_4m" ,sokf_invisible|sokf_type_barrier,"barrier_4m" ,"bo_barrier_4m" , []),
   ("barrier_2m" ,sokf_invisible|sokf_type_barrier,"barrier_2m" ,"bo_barrier_2m" , []),
-  
+
   ("exit_4m" ,sokf_invisible|sokf_type_barrier_leave,"barrier_4m" ,"bo_barrier_4m" , []),
   ("exit_8m" ,sokf_invisible|sokf_type_barrier_leave,"barrier_8m" ,"bo_barrier_8m" , []),
   ("exit_16m" ,sokf_invisible|sokf_type_barrier_leave,"barrier_16m" ,"bo_barrier_16m" , []),
@@ -345,28 +345,28 @@ scene_props = [
   ("destroy_heap",0,"destroy_heap","bo_destroy_heap", []),
   ("destroy_castle_a",0,"destroy_castle_a","bo_destroy_castle_a", []),
   ("destroy_castle_b",0,"destroy_castle_b","bo_destroy_castle_b", []),
-  
+
   ("destroy_castle_c",0,"destroy_castle_c","bo_destroy_castle_c", []),
-  
+
   ("destroy_castle_d",0,"destroy_castle_d","bo_destroy_castle_d", []),
   ("destroy_windmill",0,"destroy_windmill","bo_destroy_windmill", []),
   ("destroy_tree_a",0,"destroy_tree_a","bo_destroy_tree_a", []),
-  ("destroy_tree_b",0,"destroy_tree_b","bo_destroy_tree_b", []),  
-  ("destroy_bridge_a",0,"destroy_bridge_a","bo_destroy_bridge_a", []),  
-  ("destroy_bridge_b",0,"destroy_bridge_b","bo_destroy_bridge_b", []),  
+  ("destroy_tree_b",0,"destroy_tree_b","bo_destroy_tree_b", []),
+  ("destroy_bridge_a",0,"destroy_bridge_a","bo_destroy_bridge_a", []),
+  ("destroy_bridge_b",0,"destroy_bridge_b","bo_destroy_bridge_b", []),
 
 
   ("catapult",0,"Catapult","bo_Catapult", []),
-  
+
   ("catapult_destructible",sokf_moveable|sokf_show_hit_point_bar|sokf_destructible,"Catapult","bo_Catapult", [
    (ti_on_init_scene_prop,
     [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 1600),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
-    [          
+    [
       (play_sound, "snd_dummy_destroyed"),
 
       (try_begin),
@@ -374,10 +374,10 @@ scene_props = [
 		(neg|game_in_multiplayer_mode),
 
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (prop_instance_get_position, pos1, ":instance_no"),
         (particle_system_burst, "psys_dummy_smoke_big", pos1, 100),
-        (particle_system_burst, "psys_dummy_straw_big", pos1, 100),      
+        (particle_system_burst, "psys_dummy_straw_big", pos1, 100),
         (position_move_z, pos1, -500),
         (position_rotate_x, pos1, 90),
         (prop_instance_animate_to_position, ":instance_no", pos1, 300), #animate to 6 meters below in 6 second
@@ -387,32 +387,32 @@ scene_props = [
           (scene_prop_get_team, ":scene_prop_team_no", ":instance_no"),
           (try_begin),
             (eq, ":scene_prop_team_no", 0),
-            (assign, ":scene_prop_team_no_multiplier", -1), 
+            (assign, ":scene_prop_team_no_multiplier", -1),
           (else_try),
-            (assign, ":scene_prop_team_no_multiplier", 1), 
+            (assign, ":scene_prop_team_no_multiplier", 1),
           (try_end),
 
           (try_begin),
-            (eq, "$g_number_of_targets_destroyed", 0),        
+            (eq, "$g_number_of_targets_destroyed", 0),
             (store_mul, ":target_no_mul_scene_prop_team", ":scene_prop_team_no_multiplier", 1), #1 means destroyed object is a catapult
-            #for only server itself-----------------------------------------------------------------------------------------------                                                                                                      
-            (call_script, "script_show_multiplayer_message", multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"), 
-            #for only server itself-----------------------------------------------------------------------------------------------     
-            (get_max_players, ":num_players"),                               
+            #for only server itself-----------------------------------------------------------------------------------------------
+            (call_script, "script_show_multiplayer_message", multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"),
+            #for only server itself-----------------------------------------------------------------------------------------------
+            (get_max_players, ":num_players"),
             (try_for_range, ":player_no", 1, ":num_players"),
               (player_is_active, ":player_no"),
-              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"), 
+              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"),
             (try_end),
             (val_add, "$g_number_of_targets_destroyed", 1),
           (else_try),
             (store_mul, ":target_no_mul_scene_prop_team", ":scene_prop_team_no_multiplier", 9), #9 means attackers destroyed all targets
-            #for only server itself-----------------------------------------------------------------------------------------------      
-            (call_script, "script_show_multiplayer_message", multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"), 
-            #for only server itself-----------------------------------------------------------------------------------------------     
-            (get_max_players, ":num_players"),                               
+            #for only server itself-----------------------------------------------------------------------------------------------
+            (call_script, "script_show_multiplayer_message", multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"),
+            #for only server itself-----------------------------------------------------------------------------------------------
+            (get_max_players, ":num_players"),
             (try_for_range, ":player_no", 1, ":num_players"),
               (player_is_active, ":player_no"),
-              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"), 
+              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"),
             (try_end),
             (val_add, "$g_number_of_targets_destroyed", 1),
           (try_end),
@@ -421,10 +421,10 @@ scene_props = [
         #giving gold for destroying target (for catapult)
         #step-1 calculating total damage given to that scene prop
         (assign, ":total_damage_given", 0),
-        (get_max_players, ":num_players"),                               
-        (try_for_range, ":player_no", 0, ":num_players"), 
+        (get_max_players, ":num_players"),
+        (try_for_range, ":player_no", 0, ":num_players"),
           (player_is_active, ":player_no"),
-          
+
           (try_begin),
             (eq, "spr_catapult_destructible", "$g_destructible_target_1"),
             (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_1),
@@ -437,23 +437,23 @@ scene_props = [
 
         #step-2 sharing 1000 gold (if num active players < 20 then 50 * num active players) to players which gave damage with the damage amounts.
         (assign, ":destroy_money_addition", 0),
-        (get_max_players, ":num_players"),                               
-        (try_for_range, ":player_no", 0, ":num_players"), 
+        (get_max_players, ":num_players"),
+        (try_for_range, ":player_no", 0, ":num_players"),
           (player_is_active, ":player_no"),
           (val_add, ":destroy_money_addition", 50),
         (try_end),
-      
+
         (try_begin),
           (ge, ":destroy_money_addition", multi_destroy_target_money_add),
           (assign, ":destroy_money_addition", multi_destroy_target_money_add),
         (try_end),
         (val_mul, ":destroy_money_addition", "$g_multiplayer_battle_earnings_multiplier"),
         (val_div, ":destroy_money_addition", 100),
-      
-        (get_max_players, ":num_players"),                               
-        (try_for_range, ":player_no", 0, ":num_players"), 
+
+        (get_max_players, ":num_players"),
+        (try_for_range, ":player_no", 0, ":num_players"),
           (player_is_active, ":player_no"),
-          
+
           (try_begin),
             (eq, "spr_catapult_destructible", "$g_destructible_target_1"),
             (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_1),
@@ -472,18 +472,18 @@ scene_props = [
           (else_try),
             (assign, ":gold_earned", 0),
           (try_end),
-        
+
           (val_add, ":player_gold", ":gold_earned"),
-          (player_set_gold, ":player_no", ":player_gold", multi_max_gold_that_can_be_stored),              
+          (player_set_gold, ":player_no", ":player_gold", multi_max_gold_that_can_be_stored),
         (try_end),
       (try_end),
-    ]),     
+    ]),
 
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -509,7 +509,7 @@ scene_props = [
           (neg|agent_is_non_player, ":attacker_agent_id"),
           (agent_get_player_id, ":attacker_player_id", ":attacker_agent_id"),
           (ge, ":attacker_player_id", 0),
-          (player_is_active, ":attacker_player_id"),        
+          (player_is_active, ":attacker_player_id"),
           (try_begin),
             (eq, "spr_catapult_destructible", "$g_destructible_target_1"),
             (player_get_slot, ":damage_given", ":attacker_player_id", slot_player_damage_given_to_target_1),
@@ -524,7 +524,7 @@ scene_props = [
       (try_end),
     ]),
   ]),
-  
+
   ("broom",0,"broom","0", []),
   ("garlic",0,"garlic","0", []),
   ("garlic_b",0,"garlic_b","0", []),
@@ -536,10 +536,10 @@ scene_props = [
 
   ("bridge_wooden",0,"bridge_wooden","bo_bridge_wooden", []),
   ("bridge_wooden_snowy",0,"bridge_wooden_snowy","bo_bridge_wooden", []),
-  
+
   ("grave_a",0,"grave_a","bo_grave_a", []),
 
-  
+
   ("village_house_e",0,"village_house_e","bo_village_house_e", []),
   ("village_house_f",0,"village_house_f","bo_village_house_f", []),
   ("village_house_g",0,"village_house_g","bo_village_house_g", []),
@@ -549,7 +549,7 @@ scene_props = [
   ("village_wall_a",0,"village_wall_a","bo_village_wall_a", []),
   ("village_wall_b",0,"village_wall_b","bo_village_wall_b", []),
 
-  ("village_snowy_house_a",0,"village_snowy_house_a","bo_village_snowy_house_a", []),  
+  ("village_snowy_house_a",0,"village_snowy_house_a","bo_village_snowy_house_a", []),
   ("village_snowy_house_b",0,"village_snowy_house_b","bo_village_snowy_house_b", []),
   ("village_snowy_house_c",0,"village_snowy_house_c","bo_village_snowy_house_c", []),
   ("village_snowy_house_d",0,"village_snowy_house_d","bo_village_snowy_house_d", []),
@@ -651,18 +651,18 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 2000),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
     [
       (play_sound, "snd_dummy_destroyed"),
-      
+
       (assign, ":rotate_side", 86),
-      
+
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (store_trigger_param_2, ":attacker_agent_no"),
 
         (set_fixed_point_multiplier, 100),
@@ -676,7 +676,7 @@ scene_props = [
             (val_mul, ":rotate_side", -1),
           (try_end),
         (try_end),
-      
+
         (init_position, pos3),
 
         (try_begin),
@@ -685,7 +685,7 @@ scene_props = [
         (else_try),
           (position_move_y, pos3, 100),
         (try_end),
-      
+
         (position_move_x, pos3, -50),
         (position_transform_position_to_parent, pos4, pos1, pos3),
         (position_move_z, pos4, 100),
@@ -704,13 +704,13 @@ scene_props = [
         (position_rotate_x, pos1, ":rotate_side"),
         (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
       (try_end),
-    ]),       
+    ]),
 
     (ti_on_scene_prop_hit,
     [
       (play_sound, "snd_dummy_hit"),
       (particle_system_burst, "psys_dummy_smoke", pos1, 3),
-      (particle_system_burst, "psys_dummy_straw", pos1, 10),      
+      (particle_system_burst, "psys_dummy_straw", pos1, 10),
     ]),
   ]),
 
@@ -725,7 +725,7 @@ scene_props = [
   ("interior_prison_a",0,"interior_prison_a","bo_interior_prison_a", []),
   ("interior_prison_b",0,"interior_prison_b","bo_interior_prison_b", []),
   ("interior_prison_cell_a",0,"interior_prison_cell_a","bo_interior_prison_cell_a", []),
-  ("interior_prison_d",0,"interior_prison_d","bo_interior_prison_d", []),  
+  ("interior_prison_d",0,"interior_prison_d","bo_interior_prison_d", []),
 
   ("arena_archery_target_a",0,"arena_archery_target_a","bo_arena_archery_target_a", []),
   ("archery_butt_a",0,"archery_butt","bo_archery_butt", [
@@ -872,7 +872,7 @@ scene_props = [
   ("castle_f_battlement_corner_a",0,"castle_f_battlement_corner_a","bo_castle_f_battlement_corner_a", []),
   ("castle_f_battlement_corner_b",0,"castle_f_battlement_corner_b","bo_castle_f_battlement_corner_b", []),
   ("castle_f_battlement_corner_c",0,"castle_f_battlement_corner_c","bo_castle_f_battlement_corner_c", []),
-  
+
   ("castle_f_door_a",sokf_moveable|sokf_show_hit_point_bar|sokf_destructible|spr_use_time(0),"castle_f_door_a","bo_castle_f_door_a", [
     check_castle_door_use_trigger,
 
@@ -881,18 +881,18 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 1000),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
     [
       (play_sound, "snd_dummy_destroyed"),
-      
+
       (assign, ":rotate_side", 86),
-      
+
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (store_trigger_param_2, ":attacker_agent_no"),
 
         (set_fixed_point_multiplier, 100),
@@ -906,7 +906,7 @@ scene_props = [
             (val_mul, ":rotate_side", -1),
           (try_end),
         (try_end),
-      
+
         (init_position, pos3),
 
         (try_begin),
@@ -915,7 +915,7 @@ scene_props = [
         (else_try),
           (position_move_y, pos3, 100),
         (try_end),
-      
+
         (position_move_x, pos3, -50),
         (position_transform_position_to_parent, pos4, pos1, pos3),
         (position_move_z, pos4, 100),
@@ -936,13 +936,13 @@ scene_props = [
         (position_rotate_x, pos1, ":rotate_side"),
         (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
       (try_end),
-    ]),       
-  
+    ]),
+
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -959,12 +959,12 @@ scene_props = [
 
         (particle_system_burst, "psys_dummy_smoke", pos1, 3),
         (particle_system_burst, "psys_dummy_straw", pos1, 10),
-      (try_end),      
+      (try_end),
     ]),
   ]),
 
   ("castle_f_doors_top_a",0,"castle_f_doors_top_a","bo_castle_f_doors_top_a", []),
-    
+
   ("castle_f_sally_door_a",sokf_moveable|sokf_show_hit_point_bar|sokf_destructible|spr_use_time(0),"castle_f_sally_door_a","bo_castle_f_sally_door_a", [
     check_sally_door_use_trigger,
 
@@ -973,18 +973,18 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 1000),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
     [
       (play_sound, "snd_dummy_destroyed"),
-      
+
       (assign, ":rotate_side", 86),
-      
+
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (store_trigger_param_2, ":attacker_agent_no"),
 
         (set_fixed_point_multiplier, 100),
@@ -998,7 +998,7 @@ scene_props = [
             (val_mul, ":rotate_side", -1),
           (try_end),
         (try_end),
-      
+
         (init_position, pos3),
 
         (try_begin),
@@ -1007,7 +1007,7 @@ scene_props = [
         (else_try),
           (position_move_y, pos3, 100),
         (try_end),
-      
+
         (position_move_x, pos3, -50),
         (position_transform_position_to_parent, pos4, pos1, pos3),
         (position_move_z, pos4, 100),
@@ -1026,13 +1026,13 @@ scene_props = [
         (position_rotate_x, pos1, ":rotate_side"),
         (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
       (try_end),
-    ]),       
+    ]),
 
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -1049,7 +1049,7 @@ scene_props = [
 
         (particle_system_burst, "psys_dummy_smoke", pos1, 3),
         (particle_system_burst, "psys_dummy_straw", pos1, 10),
-      (try_end),      
+      (try_end),
     ]),
   ]),
 
@@ -1065,7 +1065,7 @@ scene_props = [
   ("castle_g_battlement_a1",0,"castle_g_battlement_a1","bo_castle_g_battlement_a1", []),
   ("castle_g_battlement_c",0,"castle_g_battlement_c","bo_castle_g_battlement_c", []),
   ("castle_g_corner_a",0,"castle_g_corner_a","bo_castle_g_corner_a", []),
-  ("castle_g_corner_c",0,"castle_g_corner_c","bo_castle_g_corner_c", []),  
+  ("castle_g_corner_c",0,"castle_g_corner_c","bo_castle_g_corner_c", []),
   ("castle_g_tower_a",sokf_type_ladder,"castle_g_tower_a","bo_castle_g_tower_a", []),
   ("castle_g_gate_house",0,"castle_g_gate_house","bo_castle_g_gate_house", []),
   ("castle_g_gate_house_door_a",0,"castle_g_gate_house_door_a","bo_castle_g_gate_house_door_a", []),
@@ -1076,7 +1076,7 @@ scene_props = [
   ("castle_i_battlement_a1",0,"castle_i_battlement_a1","bo_castle_i_battlement_a1", []),
   ("castle_i_battlement_c",0,"castle_i_battlement_c","bo_castle_i_battlement_c", []),
   ("castle_i_corner_a",0,"castle_i_corner_a","bo_castle_i_corner_a", []),
-  ("castle_i_corner_c",0,"castle_i_corner_c","bo_castle_i_corner_c", []),  
+  ("castle_i_corner_c",0,"castle_i_corner_c","bo_castle_i_corner_c", []),
   ("castle_i_tower_a",sokf_type_ladder,"castle_i_tower_a","bo_castle_i_tower_a", []),
   ("castle_i_gate_house",0,"castle_i_gate_house","bo_castle_i_gate_house", []),
   ("castle_i_gate_house_door_a",0,"castle_i_gate_house_door_a","bo_castle_i_gate_house_door_a", []),
@@ -1121,7 +1121,7 @@ scene_props = [
         ]),
      ]),
 
-#modified for TGS  
+#modified for TGS
 
   ("banner_a",0,"banner_a01","0", []),
   ("banner_b",0,"banner_a02","0", []),
@@ -1144,7 +1144,7 @@ scene_props = [
   ("banner_s",0,"banner_a19","0", []),
   ("banner_t",0,"banner_a20","0", []),
   ("banner_u",0,"banner_a21","0", []),
-  
+
   ("banner_ba",0,"banner_b01","0", []),
   ("banner_bb",0,"banner_b02","0", []),
   ("banner_bc",0,"banner_b03","0", []),
@@ -1188,7 +1188,7 @@ scene_props = [
   ("banner_ct",0,"banner_b20","0", []),
   ("banner_cu",0,"banner_b21","0", []),
 #end
-  
+
   ("banner_da",0,"banner_c01","0", []),
   ("banner_db",0,"banner_c02","0", []),
   ("banner_dc",0,"banner_c03","0", []),
@@ -1232,7 +1232,7 @@ scene_props = [
   ("banner_et",0,"banner_c20","0", []),
   ("banner_eu",0,"banner_c21","0", []),
 #end
-  
+
   ("banner_fa",0,"banner_d01","0", []),
   ("banner_fb",0,"banner_d02","0", []),
   ("banner_fc",0,"banner_d03","0", []),
@@ -1254,7 +1254,7 @@ scene_props = [
   ("banner_fs",0,"banner_d19","0", []),
   ("banner_ft",0,"banner_d20","0", []),
   ("banner_fu",0,"banner_d21","0", []),
-  
+
   ("banner_ga",0,"banner_e01","0", []),
   ("banner_gb",0,"banner_e02","0", []),
   ("banner_gc",0,"banner_e03","0", []),
@@ -1344,7 +1344,7 @@ scene_props = [
   ("banner_jt",0,"banner_d20","0", []),
   ("banner_ju",0,"banner_d21","0", []),
   #end
- 
+
   ("banner_k01", 0, "banner_f01", "0", []),
   ("banner_k02", 0, "banner_f02", "0", []),
   ("banner_k03", 0, "banner_f03", "0", []),
@@ -1494,7 +1494,7 @@ scene_props = [
   ("town_house_o",0,"town_house_o","bo_town_house_o", []),
   ("town_house_p",0,"town_house_p","bo_town_house_p", []),
   ("town_house_q",0,"town_house_q","bo_town_house_q", []),
-  
+
   ("passage_house_a",0,"passage_house_a","bo_passage_house_a", []),
   ("passage_house_b",0,"passage_house_b","bo_passage_house_b", []),
   ("passage_house_c",0,"passage_house_c","bo_passage_house_c", []),
@@ -1503,7 +1503,7 @@ scene_props = [
 
   ("house_extension_a",0,"house_extension_a","bo_house_extension_a", []),
   ("house_extension_b",0,"house_extension_b","bo_house_extension_b", []),
-  ("house_extension_c",0,"house_extension_c","bo_house_extension_a", []),#reuse 
+  ("house_extension_c",0,"house_extension_c","bo_house_extension_a", []),#reuse
   ("house_extension_d",0,"house_extension_d","bo_house_extension_d", []),
 
   ("house_extension_e",0,"house_extension_e","bo_house_extension_e", []),
@@ -1530,7 +1530,7 @@ scene_props = [
   ("town_house_y",0,"town_house_y","bo_town_house_y", []),
   ("town_house_z",0,"town_house_z","bo_town_house_z", []),
   ("town_house_za",0,"town_house_za","bo_town_house_za", []),
-  
+
   ("windmill",0,"windmill","bo_windmill", []),
   ("windmill_fan_turning",sokf_moveable,"windmill_fan_turning","bo_windmill_fan_turning", []),
   ("windmill_fan",0,"windmill_fan","bo_windmill_fan", []),
@@ -1581,8 +1581,8 @@ scene_props = [
   ("village_steppe_e",0,"village_steppe_e","bo_village_steppe_e", []),
   ("village_steppe_f",0,"village_steppe_f","bo_village_steppe_f", []),
   ("town_house_aa",0,"town_house_aa","bo_town_house_aa", []),
-  
-  
+
+
   ("snowy_house_a",0,"snowy_house_a","bo_snowy_house_a", []),
   ("snowy_house_b",0,"snowy_house_b","bo_snowy_house_b", []),
   ("snowy_house_c",0,"snowy_house_c","bo_snowy_house_c", []),
@@ -1602,7 +1602,7 @@ scene_props = [
   ("snowy_castle_tower_a",0,"snowy_castle_tower_a","bo_snowy_castle_tower_a", []),
   ("snowy_castle_battlement_a",0,"snowy_castle_battlement_a","bo_snowy_castle_battlement_a", []),
   ("snowy_castle_battlement_a_destroyed",0,"snowy_castle_battlement_a_destroyed","bo_snowy_castle_battlement_a_destroyed", []),
- 
+
   ("snowy_castle_battlement_b",0,"snowy_castle_battlement_b","bo_snowy_castle_battlement_b", []),
   ("snowy_castle_battlement_corner_a",0,"snowy_castle_battlement_corner_a","bo_snowy_castle_battlement_corner_a", []),
   ("snowy_castle_battlement_corner_b",0,"snowy_castle_battlement_corner_b","bo_snowy_castle_battlement_corner_b", []),
@@ -1631,7 +1631,7 @@ scene_props = [
 
   ("gatehouse_b",0,"gatehouse_b","bo_gatehouse_b", []),
   ("castle_gaillard",0,"castle_gaillard","bo_castle_gaillard", []),
-  
+
   ("castle_e_battlement_a",0,"castle_e_battlement_a","bo_castle_e_battlement_a", []),
   ("castle_e_battlement_c",0,"castle_e_battlement_c","bo_castle_e_battlement_c", []),
   ("castle_e_battlement_a_destroyed",0,"castle_e_battlement_a_destroyed","bo_castle_e_battlement_a_destroyed", []),
@@ -1644,14 +1644,14 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 3000),
     ]),
-     
+
 ##   (ti_on_scene_prop_destroy,
 ##    [
 ##      (play_sound, "snd_dummy_destroyed"),
-##      
+##
 ##      (try_begin),
 ##        (multiplayer_is_server),
-##        (store_trigger_param_1, ":instance_no"),      
+##        (store_trigger_param_1, ":instance_no"),
 ##        (store_trigger_param_2, ":attacker_agent_no"),
 ##
 ##        (try_begin),
@@ -1666,23 +1666,23 @@ scene_props = [
 ##        (else_try),
 ##          (assign, ":rotate_side", 80),
 ##        (try_end),
-##      
+##
 ##        (position_rotate_x, pos1, ":rotate_side"),
 ##        (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
 ##      (try_end),
-##    ]),     
+##    ]),
 
    (ti_on_scene_prop_destroy,
     [
       (play_sound, "snd_dummy_destroyed"),
-      
+
       (assign, ":rotate_side", 86),
-      
+
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
-		
-        (store_trigger_param_1, ":instance_no"),      
+
+        (store_trigger_param_1, ":instance_no"),
         (store_trigger_param_2, ":attacker_agent_no"),
 
         (set_fixed_point_multiplier, 100),
@@ -1696,7 +1696,7 @@ scene_props = [
             (val_mul, ":rotate_side", -1),
           (try_end),
         (try_end),
-      
+
         (init_position, pos3),
 
         (try_begin),
@@ -1705,7 +1705,7 @@ scene_props = [
         (else_try),
           (position_move_y, pos3, 100),
         (try_end),
-      
+
         (position_move_x, pos3, -50),
         (position_transform_position_to_parent, pos4, pos1, pos3),
         (position_move_z, pos4, 100),
@@ -1726,13 +1726,13 @@ scene_props = [
         (position_rotate_x, pos1, ":rotate_side"),
         (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
       (try_end),
-    ]),       
+    ]),
 
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -1749,7 +1749,7 @@ scene_props = [
 
         (particle_system_burst, "psys_dummy_smoke", pos1, 3),
         (particle_system_burst, "psys_dummy_straw", pos1, 10),
-      (try_end),      
+      (try_end),
     ]),
   ]),
 
@@ -1765,7 +1765,7 @@ scene_props = [
   ("castle_e_house_a",0,"castle_e_house_a","bo_castle_e_house_a", []),
   ("castle_e_house_b",0,"castle_e_house_b","bo_castle_e_house_b", []),
 
-  
+
   ("arena_block_a",0,"arena_block_a","bo_arena_block_ab", []),
   ("arena_block_b",0,"arena_block_b","bo_arena_block_ab", []),
   ("arena_block_c",0,"arena_block_c","bo_arena_block_c", []),
@@ -1849,19 +1849,19 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 2400),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
-    [          
+    [
       (play_sound, "snd_dummy_destroyed"),
 
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (prop_instance_get_position, pos1, ":instance_no"),
         (particle_system_burst, "psys_dummy_smoke_big", pos1, 100),
-        (particle_system_burst, "psys_dummy_straw_big", pos1, 100),      
+        (particle_system_burst, "psys_dummy_straw_big", pos1, 100),
         (position_move_z, pos1, -500),
         (position_rotate_x, pos1, 90),
         (prop_instance_animate_to_position, ":instance_no", pos1, 300), #animate to 6 meters below in 6 second
@@ -1871,35 +1871,35 @@ scene_props = [
           (scene_prop_get_team, ":scene_prop_team_no", ":instance_no"),
           (try_begin),
             (eq, ":scene_prop_team_no", 0),
-            (assign, ":scene_prop_team_no_multiplier", -1), 
+            (assign, ":scene_prop_team_no_multiplier", -1),
           (else_try),
-            (assign, ":scene_prop_team_no_multiplier", 1), 
+            (assign, ":scene_prop_team_no_multiplier", 1),
           (try_end),
 
           (try_begin),
             (eq, "$g_number_of_targets_destroyed", 0),
-            
+
             (store_mul, ":target_no_mul_scene_prop_team", ":scene_prop_team_no_multiplier", 2), #2 means destroyed object is a trebuchet
 
-            #for only server itself-----------------------------------------------------------------------------------------------                                                                                                      
-            (call_script, "script_show_multiplayer_message", multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"), 
-            #for only server itself-----------------------------------------------------------------------------------------------     
-            (get_max_players, ":num_players"),                               
+            #for only server itself-----------------------------------------------------------------------------------------------
+            (call_script, "script_show_multiplayer_message", multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"),
+            #for only server itself-----------------------------------------------------------------------------------------------
+            (get_max_players, ":num_players"),
             (try_for_range, ":player_no", 1, ":num_players"),
               (player_is_active, ":player_no"),
-              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"), 
+              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"),
             (try_end),
             (val_add, "$g_number_of_targets_destroyed", 1),
           (else_try),
             (store_mul, ":target_no_mul_scene_prop_team", ":scene_prop_team_no_multiplier", 9), #9 means attackers destroyed all targets
 
-            #for only server itself-----------------------------------------------------------------------------------------------      
-            (call_script, "script_show_multiplayer_message", multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"), 
-            #for only server itself-----------------------------------------------------------------------------------------------     
-            (get_max_players, ":num_players"),                                
+            #for only server itself-----------------------------------------------------------------------------------------------
+            (call_script, "script_show_multiplayer_message", multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"),
+            #for only server itself-----------------------------------------------------------------------------------------------
+            (get_max_players, ":num_players"),
             (try_for_range, ":player_no", 1, ":num_players"),
               (player_is_active, ":player_no"),
-              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"), 
+              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_target_destroyed, ":target_no_mul_scene_prop_team"),
             (try_end),
             (val_add, "$g_number_of_targets_destroyed", 1),
           (try_end),
@@ -1908,10 +1908,10 @@ scene_props = [
         #giving gold for destroying target (for trebuchet)
         #step-1 calculating total damage given to that scene prop
         (assign, ":total_damage_given", 0),
-        (get_max_players, ":num_players"),                               
-        (try_for_range, ":player_no", 0, ":num_players"), 
+        (get_max_players, ":num_players"),
+        (try_for_range, ":player_no", 0, ":num_players"),
           (player_is_active, ":player_no"),
-          
+
           (try_begin),
             (eq, "spr_trebuchet_destructible", "$g_destructible_target_1"),
             (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_1),
@@ -1925,12 +1925,12 @@ scene_props = [
         #step-2 sharing 1000 gold (if num active players < 20 then 50 * num active players) to players which gave damage with the damage amounts.
         #(scene_prop_get_max_hit_points, ":max_hit_points", ":instance_no"),
         (assign, ":destroy_money_addition", 0),
-        (get_max_players, ":num_players"),                               
-        (try_for_range, ":player_no", 0, ":num_players"), 
+        (get_max_players, ":num_players"),
+        (try_for_range, ":player_no", 0, ":num_players"),
           (player_is_active, ":player_no"),
           (val_add, ":destroy_money_addition", 50),
         (try_end),
-      
+
         (try_begin),
           (ge, ":destroy_money_addition", multi_destroy_target_money_add),
           (assign, ":destroy_money_addition", multi_destroy_target_money_add),
@@ -1938,10 +1938,10 @@ scene_props = [
         (val_mul, ":destroy_money_addition", "$g_multiplayer_battle_earnings_multiplier"),
         (val_div, ":destroy_money_addition", 100),
 
-        (get_max_players, ":num_players"),                               
-        (try_for_range, ":player_no", 0, ":num_players"), 
+        (get_max_players, ":num_players"),
+        (try_for_range, ":player_no", 0, ":num_players"),
           (player_is_active, ":player_no"),
-          
+
           (try_begin),
             (eq, "spr_trebuchet_destructible", "$g_destructible_target_1"),
             (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_1),
@@ -1953,18 +1953,18 @@ scene_props = [
 
           (val_mul, ":damage_given", ":destroy_money_addition"),
           (store_div, ":gold_earned", ":damage_given", ":total_damage_given"),
-        
+
           (val_add, ":player_gold", ":gold_earned"),
-          (player_set_gold, ":player_no", ":player_gold", multi_max_gold_that_can_be_stored),              
-        (try_end),      
-      (try_end),      
-    ]),     
+          (player_set_gold, ":player_no", ":player_gold", multi_max_gold_that_can_be_stored),
+        (try_end),
+      (try_end),
+    ]),
 
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -2023,51 +2023,51 @@ scene_props = [
   ("crude_fence",0,"fence","bo_fence", []),
   ("crude_fence_small",0,"crude_fence_small","bo_crude_fence_small", []),
   ("crude_fence_small_b",0,"crude_fence_small_b","bo_crude_fence_small_b", []),
-  
+
   ("ramp_12m",0,"ramp_12m","bo_ramp_12m", []),
   ("ramp_14m",0,"ramp_14m","bo_ramp_14m", []),
 
-  ("siege_ladder_6m",sokf_type_ladder,"siege_ladder_move_6m","bo_siege_ladder_move_6m", []), 
+  ("siege_ladder_6m",sokf_type_ladder,"siege_ladder_move_6m","bo_siege_ladder_move_6m", []),
   ("siege_ladder_8m",sokf_type_ladder,"siege_ladder_move_8m","bo_siege_ladder_move_8m", []),
   ("siege_ladder_10m",sokf_type_ladder,"siege_ladder_move_10m","bo_siege_ladder_move_10m", []),
   ("siege_ladder_12m",sokf_type_ladder,"siege_ladder_12m","bo_siege_ladder_12m", []),
   ("siege_ladder_14m",sokf_type_ladder,"siege_ladder_14m","bo_siege_ladder_14m", []),
 
-  ("siege_ladder_move_6m",sokf_type_ladder|sokf_moveable|spr_use_time(2),"siege_ladder_move_6m","bo_siege_ladder_move_6m", [    
+  ("siege_ladder_move_6m",sokf_type_ladder|sokf_moveable|spr_use_time(2),"siege_ladder_move_6m","bo_siege_ladder_move_6m", [
    check_item_use_trigger,
    check_ladder_animate_trigger,
    check_ladder_animation_finish_trigger,
-  ]),  
+  ]),
 
-  ("siege_ladder_move_8m",sokf_type_ladder|sokf_moveable|spr_use_time(2),"siege_ladder_move_8m","bo_siege_ladder_move_8m", [    
+  ("siege_ladder_move_8m",sokf_type_ladder|sokf_moveable|spr_use_time(2),"siege_ladder_move_8m","bo_siege_ladder_move_8m", [
    check_item_use_trigger,
    check_ladder_animate_trigger,
    check_ladder_animation_finish_trigger,
-  ]),  
+  ]),
 
-  ("siege_ladder_move_10m",sokf_type_ladder|sokf_moveable|spr_use_time(3),"siege_ladder_move_10m","bo_siege_ladder_move_10m", [    
+  ("siege_ladder_move_10m",sokf_type_ladder|sokf_moveable|spr_use_time(3),"siege_ladder_move_10m","bo_siege_ladder_move_10m", [
    check_item_use_trigger,
    check_ladder_animate_trigger,
    check_ladder_animation_finish_trigger,
-  ]),  
+  ]),
 
-  ("siege_ladder_move_12m",sokf_type_ladder|sokf_moveable|spr_use_time(3),"siege_ladder_move_12m","bo_siege_ladder_move_12m", [    
+  ("siege_ladder_move_12m",sokf_type_ladder|sokf_moveable|spr_use_time(3),"siege_ladder_move_12m","bo_siege_ladder_move_12m", [
    check_item_use_trigger,
    check_ladder_animate_trigger,
    check_ladder_animation_finish_trigger,
-  ]),  
+  ]),
 
-  ("siege_ladder_move_14m",sokf_type_ladder|sokf_moveable|spr_use_time(4),"siege_ladder_move_14m","bo_siege_ladder_move_14m", [    
+  ("siege_ladder_move_14m",sokf_type_ladder|sokf_moveable|spr_use_time(4),"siege_ladder_move_14m","bo_siege_ladder_move_14m", [
    check_item_use_trigger,
    check_ladder_animate_trigger,
    check_ladder_animation_finish_trigger,
-  ]),  
+  ]),
 
   ("portcullis",sokf_moveable,"portcullis_a","bo_portcullis_a", []),
   ## Added for TGS
   ("TGS_portcullis",sokf_moveable,"portcullis_a","bo_portcullis_a", []),
   ## End
-  
+
   ("bed_a",0,"bed_a","bo_bed_a", []),
   ("bed_b",0,"bed_b","bo_bed_b", []),
   ("bed_c",0,"bed_c","bo_bed_c", []),
@@ -2080,7 +2080,7 @@ scene_props = [
   ("towngate_door_right",sokf_moveable,"door_g_right","bo_door_right", []),
   ("towngate_rectangle_door_left",sokf_moveable,"towngate_rectangle_door_left","bo_towngate_rectangle_door_left", []),
   ("towngate_rectangle_door_right",sokf_moveable,"towngate_rectangle_door_right","bo_towngate_rectangle_door_right", []),
-  
+
   ("door_screen",sokf_moveable,"door_screen","0", []),
   ("door_a",sokf_moveable,"door_a","bo_door_a", []),
   ("door_b",sokf_moveable,"door_b","bo_door_a", []),
@@ -2191,7 +2191,7 @@ scene_props = [
   ("gatehouse_new_snowy_a",0,"gatehouse_new_snowy_a","bo_gatehouse_new_b", []),
 
   ("winch",sokf_moveable,"winch","bo_winch", []),
-  
+
   ("winch_b",sokf_moveable|spr_use_time(5),"winch_b","bo_winch", [
    (ti_on_scene_prop_use,
     [
@@ -2201,14 +2201,14 @@ scene_props = [
       #for only server itself-----------------------------------------------------------------------------------------------
       (call_script, "script_use_item", ":instance_id", ":agent_id"),
       #for only server itself-----------------------------------------------------------------------------------------------
-      (get_max_players, ":num_players"),                               
+      (get_max_players, ":num_players"),
       (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
         (player_is_active, ":player_no"),
         (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_use_item, ":instance_id", ":agent_id"),
       (try_end),
     ]),
   ]),
-  
+
   ("drawbridge",0,"drawbridge","bo_drawbridge", []),
   ("gatehouse_door_left",sokf_moveable,"gatehouse_door_left","bo_gatehouse_door_left", []),
   ("gatehouse_door_right",sokf_moveable,"gatehouse_door_right","bo_gatehouse_door_right", []),
@@ -2440,7 +2440,7 @@ scene_props = [
  ("arabian_castle_keep_a",0,"arabian_castle_keep_a","bo_arabian_castle_keep_a", []),
 
 
- 
+
 
 
 
@@ -2461,11 +2461,11 @@ scene_props = [
 
  ("headquarters_flag_red",sokf_moveable|sokf_face_player,"tutorial_flag_red","0", []),
  ("headquarters_flag_blue",sokf_moveable|sokf_face_player,"tutorial_flag_blue","0", []),
- ("headquarters_flag_gray",sokf_moveable|sokf_face_player,"tutorial_flag_yellow","0", []),  
+ ("headquarters_flag_gray",sokf_moveable|sokf_face_player,"tutorial_flag_yellow","0", []),
 
  ("headquarters_flag_red_code_only",sokf_moveable|sokf_face_player,"mp_flag_red","0", []),
  ("headquarters_flag_blue_code_only",sokf_moveable|sokf_face_player,"mp_flag_blue","0", []),
- ("headquarters_flag_gray_code_only",sokf_moveable|sokf_face_player,"mp_flag_white","0", []),  
+ ("headquarters_flag_gray_code_only",sokf_moveable|sokf_face_player,"mp_flag_white","0", []),
  ("headquarters_pole_code_only",sokf_moveable,"mp_flag_pole","0", []),
 
  ("headquarters_flag_swadian",sokf_moveable|sokf_face_player,"flag_swadian","0", []),
@@ -2543,14 +2543,14 @@ scene_props = [
      (particle_system_add_new, "psys_sea_foam_a"),
     ]),
    ]),
-   
+
  ("viking_keep_destroy",0,"viking_keep_destroy","bo_viking_keep_destroy", []),
  ("viking_keep_destroy_door",0,"viking_keep_destroy_door","bo_viking_keep_destroy_door", []),
  ("earth_tower_small_b",0,"earth_tower_small_b","bo_earth_tower_small_b", []),
  ("earth_gate_house_b",0,"earth_gate_house_b","bo_earth_gate_house_b", []),
  ("earth_tower_a",0,"earth_tower_a","bo_earth_tower_a", []),
  ("earth_stairs_c",0,"earth_stairs_c","bo_earth_stairs_c", []),
- 
+
   ("earth_sally_gate_left",sokf_moveable|sokf_show_hit_point_bar|sokf_destructible|spr_use_time(0),"earth_sally_gate_left","bo_earth_sally_gate_left", [
     check_sally_door_use_trigger_double,
 
@@ -2559,18 +2559,18 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 2000),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
     [
       (play_sound, "snd_dummy_destroyed"),
-      
+
       (assign, ":rotate_side", 86),
-      
+
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (store_trigger_param_2, ":attacker_agent_no"),
 
         (set_fixed_point_multiplier, 100),
@@ -2584,7 +2584,7 @@ scene_props = [
             (val_mul, ":rotate_side", -1),
           (try_end),
         (try_end),
-      
+
         (init_position, pos3),
 
         (try_begin),
@@ -2593,7 +2593,7 @@ scene_props = [
         (else_try),
           (position_move_y, pos3, 100),
         (try_end),
-      
+
         (position_move_x, pos3, -50),
         (position_transform_position_to_parent, pos4, pos1, pos3),
         (position_move_z, pos4, 100),
@@ -2612,13 +2612,13 @@ scene_props = [
         (position_rotate_x, pos1, ":rotate_side"),
         (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
       (try_end),
-    ]),       
+    ]),
 
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -2635,7 +2635,7 @@ scene_props = [
 
         (particle_system_burst, "psys_dummy_smoke", pos1, 3),
         (particle_system_burst, "psys_dummy_straw", pos1, 10),
-      (try_end),      
+      (try_end),
     ]),
   ]),
 
@@ -2647,18 +2647,18 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 2000),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
     [
       (play_sound, "snd_dummy_destroyed"),
-      
+
       (assign, ":rotate_side", 86),
-      
+
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (store_trigger_param_2, ":attacker_agent_no"),
 
         (set_fixed_point_multiplier, 100),
@@ -2672,7 +2672,7 @@ scene_props = [
             (val_mul, ":rotate_side", -1),
           (try_end),
         (try_end),
-      
+
         (init_position, pos3),
 
         (try_begin),
@@ -2681,7 +2681,7 @@ scene_props = [
         (else_try),
           (position_move_y, pos3, 100),
         (try_end),
-      
+
         (position_move_x, pos3, -50),
         (position_transform_position_to_parent, pos4, pos1, pos3),
         (position_move_z, pos4, 100),
@@ -2700,13 +2700,13 @@ scene_props = [
         (position_rotate_x, pos1, ":rotate_side"),
         (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
       (try_end),
-    ]),       
+    ]),
 
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -2723,7 +2723,7 @@ scene_props = [
 
         (particle_system_burst, "psys_dummy_smoke", pos1, 3),
         (particle_system_burst, "psys_dummy_straw", pos1, 10),
-      (try_end),      
+      (try_end),
     ]),
   ]),
 
@@ -2744,18 +2744,18 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 3000),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
     [
       (play_sound, "snd_dummy_destroyed"),
-      
+
       (assign, ":rotate_side", 86),
-      
+
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (store_trigger_param_2, ":attacker_agent_no"),
 
         (set_fixed_point_multiplier, 100),
@@ -2769,7 +2769,7 @@ scene_props = [
             (val_mul, ":rotate_side", -1),
           (try_end),
         (try_end),
-      
+
         (init_position, pos3),
 
         (try_begin),
@@ -2778,7 +2778,7 @@ scene_props = [
         (else_try),
           (position_move_y, pos3, 100),
         (try_end),
-      
+
         (position_move_x, pos3, -50),
         (position_transform_position_to_parent, pos4, pos1, pos3),
         (position_move_z, pos4, 100),
@@ -2797,13 +2797,13 @@ scene_props = [
         (position_rotate_x, pos1, ":rotate_side"),
         (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
       (try_end),
-    ]),       
+    ]),
 
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -2820,7 +2820,7 @@ scene_props = [
 
         (particle_system_burst, "psys_dummy_smoke", pos1, 3),
         (particle_system_burst, "psys_dummy_straw", pos1, 10),
-      (try_end),      
+      (try_end),
     ]),
   ]),
 
@@ -2832,18 +2832,18 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 3000),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
     [
       (play_sound, "snd_dummy_destroyed"),
-      
+
       (assign, ":rotate_side", 86),
-      
+
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (store_trigger_param_2, ":attacker_agent_no"),
 
         (set_fixed_point_multiplier, 100),
@@ -2857,7 +2857,7 @@ scene_props = [
             (val_mul, ":rotate_side", -1),
           (try_end),
         (try_end),
-      
+
         (init_position, pos3),
 
         (try_begin),
@@ -2866,7 +2866,7 @@ scene_props = [
         (else_try),
           (position_move_y, pos3, 100),
         (try_end),
-      
+
         (position_move_x, pos3, -50),
         (position_transform_position_to_parent, pos4, pos1, pos3),
         (position_move_z, pos4, 100),
@@ -2885,13 +2885,13 @@ scene_props = [
         (position_rotate_x, pos1, ":rotate_side"),
         (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
       (try_end),
-    ]),       
+    ]),
 
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -2908,7 +2908,7 @@ scene_props = [
 
         (particle_system_burst, "psys_dummy_smoke", pos1, 3),
         (particle_system_burst, "psys_dummy_straw", pos1, 10),
-      (try_end),      
+      (try_end),
     ]),
   ]),
 
@@ -2920,18 +2920,18 @@ scene_props = [
       (store_trigger_param_1, ":instance_no"),
       (scene_prop_set_hit_points, ":instance_no", 1000),
     ]),
-     
+
    (ti_on_scene_prop_destroy,
     [
       (play_sound, "snd_dummy_destroyed"),
-      
+
       (assign, ":rotate_side", 86),
-      
+
       (try_begin),
         (this_or_next|multiplayer_is_server),
 		(neg|game_in_multiplayer_mode),
 
-        (store_trigger_param_1, ":instance_no"),      
+        (store_trigger_param_1, ":instance_no"),
         (store_trigger_param_2, ":attacker_agent_no"),
 
         (set_fixed_point_multiplier, 100),
@@ -2945,7 +2945,7 @@ scene_props = [
             (val_mul, ":rotate_side", -1),
           (try_end),
         (try_end),
-      
+
         (init_position, pos3),
 
         (try_begin),
@@ -2954,7 +2954,7 @@ scene_props = [
         (else_try),
           (position_move_y, pos3, 100),
         (try_end),
-      
+
         (position_move_x, pos3, -50),
         (position_transform_position_to_parent, pos4, pos1, pos3),
         (position_move_z, pos4, 100),
@@ -2975,13 +2975,13 @@ scene_props = [
         (position_rotate_x, pos1, ":rotate_side"),
         (prop_instance_animate_to_position, ":instance_no", pos1, 70), #animate to position 1 in 0.7 second
       (try_end),
-    ]),       
-  
+    ]),
+
     (ti_on_scene_prop_hit,
     [
-      (store_trigger_param_1, ":instance_no"),       
+      (store_trigger_param_1, ":instance_no"),
       (store_trigger_param_2, ":damage"),
-      
+
       (try_begin),
         (scene_prop_get_hit_points, ":hit_points", ":instance_no"),
         (val_sub, ":hit_points", ":damage"),
@@ -2998,7 +2998,7 @@ scene_props = [
 
         (particle_system_burst, "psys_dummy_smoke", pos1, 3),
         (particle_system_burst, "psys_dummy_straw", pos1, 10),
-      (try_end),      
+      (try_end),
     ]),
   ]),
 
@@ -3014,7 +3014,7 @@ scene_props = [
   ("arabian_lighthouse_a",0,"arabian_lighthouse_a","bo_arabian_lighthouse_a", []),
   ("arabian_ramp_a",0,"arabian_ramp_a","bo_arabian_ramp_a", []),
   ("arabian_ramp_b",0,"arabian_ramp_b","bo_arabian_ramp_b", []),
-  
+
   ("winery_interior",0,"winery_interior","bo_winery_interior", []),
   ("winery_barrel_shelf",0,"winery_barrel_shelf","bo_winery_barrel_shelf", []),
   ("winery_wall_shelf",0,"winery_wall_shelf","bo_winery_wall_shelf", []),
@@ -3025,33 +3025,33 @@ scene_props = [
   ("winery_wine_cart_small_empty",0,"winery_wine_cart_small_empty","bo_winery_wine_cart_small_empty", []),
   ("winery_wine_cart_empty",0,"winery_wine_cart_empty","bo_winery_wine_cart_empty", []),
   ("winery_wine_cart_loaded",0,"winery_wine_cart_loaded","bo_winery_wine_cart_loaded", []),
-  
+
   ("weavery_interior",0,"weavery_interior","bo_weavery_interior", []),
   ("weavery_loom_a",0,"weavery_loom_a","bo_weavery_loom_a", []),
   ("weavery_spinning_wheel",0,"weavery_spinning_wheel","bo_weavery_spinning_wheel", []),
-  
+
   ("mill_interior",0,"mill_interior","bo_mill_interior", []),
   ("mill_flour_sack", 0,"mill_flour_sack","bo_mill_flour_sack", []),
   ("mill_flour_sack_desk_a", 0,"mill_flour_sack_desk_a","bo_mill_flour_sack_desk_a", []),
   ("mill_flour_sack_desk_b", 0,"mill_flour_sack_desk_b","bo_mill_flour_sack_desk_b", []),
-  
+
   ("smithy_interior", 0,"smithy_interior","bo_smithy_interior", []),
   ("smithy_grindstone_wheel", 0,"smithy_grindstone_wheel","bo_smithy_grindstone_wheel", []),
   ("smithy_forge_bellows", 0,"smithy_forge_bellows","bo_smithy_forge_bellows", []),
   ("smithy_forge", 0,"smithy_forge","bo_smithy_forge", []),
   ("smithy_anvil", 0,"smithy_anvil","bo_smithy_anvil", []),
-  
+
   ("tannery_hide_a", 0,"tannery_hide_a","bo_tannery_hide_a", []),
   ("tannery_hide_b", 0,"tannery_hide_b","bo_tannery_hide_b", []),
   ("tannery_pools_a", 0,"tannery_pools_a","bo_tannery_pools_a", []),
   ("tannery_pools_b", 0,"tannery_pools_b","bo_tannery_pools_b", []),
-  
 
 
 
-  
-  
- 
+
+
+
+
 
  ("fountain", 0, "fountain", "bo_fountain", []),
 
@@ -3063,7 +3063,7 @@ scene_props = [
  ("rhodok_house_passage_a",0,"rhodok_house_passage_a","bo_rhodok_house_passage_a", []),
 
  ("bridge_b",0,"bridge_b","bo_bridge_b", []),
- 
+
 ("brewery_pool", 0,"brewery_pool","bo_brewery_pool", []),
 ("brewery_big_bucket", 0,"brewery_big_bucket","bo_brewery_big_bucket", []),
 ("brewery_interior", 0,"brewery_interior","bo_brewery_interior", []),
@@ -3104,7 +3104,7 @@ scene_props = [
    ]),
 
 ###TGS magic explosion
-  
+
   ("explosion",0,0,"asplode", []),
   ("tgs_empty",0,0,0,[]),
 ###End TGS magic explosion
@@ -3162,7 +3162,7 @@ scene_props = [
 #########SEA BATTLES END
 #################################################
 
-## End added for TGS (Sea Battles)  
+## End added for TGS (Sea Battles)
 
 ## TGS: mat: Start new banners here
   ("banner_legion",0,"banner_legion","0", []),
@@ -3193,7 +3193,7 @@ scene_props = [
   ("banner_sea_folk",0,"banner_sea_folk","0", []),
   ("banner_madmen",0,"banner_madmen","0", []),
   ("banner_toman_head",0,"banner_toman_head","0", []),
-## TGS: mat: End  
+## TGS: mat: End
 
 ## TGS: mat: New kingdom banners
   ("banner_tgs_kingdom_a",0,"banner_legion","0", []),
@@ -3224,7 +3224,7 @@ scene_props = [
   ("banner_tgs_kingdom_z",0,"banner_sea_folk","0", []),
   ("banner_tgs_kingdom_aa",0,"banner_madmen","0", []),
   ("banner_tgs_kingdom_ab",0,"banner_toman_head","0", []),
-## TGS: mat: End  
+## TGS: mat: End
 
 ## TGS: mat: Start walker waypoints
   ("TGS_waypoint_1",sokf_invisible,"barrier_capsule","0", []),
@@ -3239,5 +3239,666 @@ scene_props = [
   ("TGS_waypoint_10",sokf_invisible,"barrier_capsule","0", []),
 ## TGS: mat: End
 
-  
+
+## TGS
+#ROCK AND MOUNTAIN PACK V3#
+
+("a_acantilado-05",0,"acantilado-05","co_acantilado-05", []),
+("a_acantilado-05-m",0,"acantilado-05-m","co_acantilado-05-m", []),
+("a_acantilado-06",0,"acantilado-06","co_acantilado-06", []),
+("a_acantilado-06-m",0,"acantilado-06-m","co_acantilado-06-m", []),
+("a_acantilado-07",0,"acantilado-07","co_acantilado-07", []),
+("a_acantilado-07-m",0,"acantilado-07-m","co_acantilado-07-m", []),
+("a_columna-01",0,"columna-01","co_columna-01", []),
+("a_cornisa-01",0,"cornisa-01","co_cornisa-01", []),
+("a_cornisa-01-m",0,"cornisa-01-m","co_cornisa-01-m", []),
+("a_cornisa-02",0,"cornisa-02","co_cornisa-02", []),
+("a_cave-01c2-hole",0,"cueva-01c2-hole","co_cueva-01c2-hole", []),
+("a_cave-01c2-hole-m",0,"cueva-01c2-hole-m","co_cueva-01c2-hole-m", []),
+("a_estalactita-01",0,"estalactita-01","co_estalactita-01", []),
+("a_mont-01",0,"mont-01","co_mont-01", []),
+("a_mont-01-m",0,"mont-01-m","co_mont-01-m", []),
+("a_mont-02",0,"mont-02","co_mont-02", []),
+("a_mont-03",0,"mont-03","co_mont-03", []),
+("a_mont-03-m",0,"mont-03-m","co_mont-03-m", []),
+("a_mo-wall-01",0,"mo-wall-01","co_mo-wall-01", []),
+("a_mo-wall-01-m",0,"mo-wall-01-m","co_mo-wall-01-m", []),
+("a_mo-wall-02",0,"mo-wall-02","co_mo-wall-02", []),
+("a_pasarela-01",0,"pasarela-01","co_pasarela-01", []),
+("a_pasarela-02",0,"pasarela-02","co_pasarela-02", []),
+("a_pasarela-03",0,"pasarela-03","co_pasarela-03", []),
+("a_pasarela-03-m",0,"pasarela-03-m","co_pasarela-03-m", []),
+("a_rock-01",0,"rock-01","co_rock-01", []),
+("a_rock-02",0,"rock-02","co_rock-02", []),
+("a_rock-03",0,"rock-03","co_rock-03", []),
+("a_rock-04",0,"rock-04","co_rock-04", []),
+("a_rock-05",0,"rock-05","co_rock-05", []),
+("a_rock-06",0,"rock-06","co_rock-06", []),
+("a_cave_subterraneo-01",0,"subterraneo-01","co_subterraneo-01", []),
+("a_cave_subterraneo-01-m",0,"subterraneo-01-m","co_subterraneo-01-m", []),
+("a_mont-01-big",0,"mont-01-big","co_mont-01-big", []),
+("a_way-01",0,"way-01","co_way-01", []),
+("a_way-01-bank-01",0,"way-01-bank-01","co_way-01-bank-01", []),
+("a_mont-02-big",0,"mont-02-big","co_mont-02-big", []),
+("a_acantilado-06-p1",0,"acantilado-06-p1","co_acantilado-06-p1", []),
+("a_acantilado-06-p1-m",0,"acantilado-06-p1-m","co_acantilado-06-p1-m", []),
+("a_acantilado-06-p2",0,"acantilado-06-p2","co_acantilado-06-p2", []),
+("a_acantilado-06-p2-m",0,"acantilado-06-p2-m","co_acantilado-06-p2-m", []),
+("a_acantilado-07-p1",0,"acantilado-07-p1","co_acantilado-07-p1", []),
+("a_acantilado-07-p1-m",0,"acantilado-07-p1-m","co_acantilado-07-p1-m", []),
+("a_acantilado-07-p2",0,"acantilado-07-p2","co_acantilado-07-p2", []),
+("a_acantilado-07-p3",0,"acantilado-07-p3","co_acantilado-07-p3", []),
+("a_mont-01-p1",0,"mont-01-p1","co_mont-01-p1", []),
+("a_mont-01-p1-m",0,"mont-01-p1-m","co_mont-01-p1-m", []),
+("a_mont-01-p2",0,"mont-01-p2","co_mont-01-p2", []),
+("a_mont-01-p2-m",0,"mont-01-p2-m","co_mont-01-p2-m", []),
+("a_mont-03-p1",0,"mont-03-p1","co_mont-03-p1", []),
+("a_mont-03-p1-m",0,"mont-03-p1-m","co_mont-03-p1-m", []),
+("a_mont-03-p2",0,"mont-03-p2","co_mont-03-p2", []),
+("a_mont-03-p2-m",0,"mont-03-p2-m","co_mont-03-p2-m", []),
+("a_mont-03-p3",0,"mont-03-p3","co_mont-03-p3", []),
+("a_mont-03-p3-m",0,"mont-03-p3-m","co_mont-03-p3-m", []),
+("a_mont-04-big",0,"mont-04-big","co_mont-04-big", []),
+("a_barandilla-01",0,"barandilla-01","co_barandilla-01", []),
+("a_cave-01c-ext",0,"cueva-01c-ext","co_cueva-01c-ext", []),
+("a_cave_tunnel-01",0,"tunnel-01","co_tunnel-01", []),
+("a_cave_tunnel-01-m",0,"tunnel-01-m","co_tunnel-01-m", []),
+("a_cave_tunnel-02",0,"tunnel-02","co_tunnel-02", []),
+("a_cave_tunnel-02-m",0,"tunnel-02-m","co_tunnel-02-m", []),
+("a_cave_tunnel-03",0,"tunnel-03","co_tunnel-03", []),
+("a_cave_tunnel-03-m",0,"tunnel-03-m","co_tunnel-03-m", []),
+("a_columna-02",0,"columna-02","co_columna-02", []),
+("a_mont-01-big-p01",0,"mont-01-big-p01","co_mont-01-big-p01", []),
+("a_mont-01-big-p02",0,"mont-01-big-p02","co_mont-01-big-p02", []),
+("a_mont-01-big-p03",0,"mont-01-big-p03","co_mont-01-big-p03", []),
+("a_mont-01-big-p04",0,"mont-01-big-p04","co_mont-01-big-p04", []),
+("a_mont-02-big-p01",0,"mont-02-big-p01","co_mont-02-big-p01", []),
+("a_mont-02-big-p02",0,"mont-02-big-p02","co_mont-02-big-p02", []),
+("a_mont-02-big-p03",0,"mont-02-big-p03","co_mont-02-big-p03", []),
+("a_mont-02-big-p04",0,"mont-02-big-p04","co_mont-02-big-p04", []),
+("a_mont-04-big-p01",0,"mont-04-big-p01","co_mont-04-big-p01", []),
+("a_mont-04-big-p02",0,"mont-04-big-p02","co_mont-04-big-p02", []),
+("a_mont-04-big-p03",0,"mont-04-big-p03","co_mont-04-big-p03", []),
+("a_mont-04-big-p04",0,"mont-04-big-p04","co_mont-04-big-p04", []),
+("a_cave_mont-01-big-cave-p01",0,"mont-01-big-cave-p01","co_mont-01-big-cave-p01", []),
+("a_cave_mont-01-big-cave-p02",0,"mont-01-big-cave-p02","co_mont-01-big-cave-p02", []),
+("a_cave_mont-01-big-cave-p03",0,"mont-01-big-cave-p03","co_mont-01-big-cave-p03", []),
+("a_cave_mont-01-big-cave-p04",0,"mont-01-big-cave-p04","co_mont-01-big-cave-p04", []),
+("a_cave_mont-02-big-cave-p01",0,"mont-02-big-cave-p01","co_mont-02-big-cave-p01", []),
+("a_cave_mont-02-big-cave-p02",0,"mont-02-big-cave-p02","co_mont-02-big-cave-p02", []),
+("a_cave_mont-02-big-cave-p03",0,"mont-02-big-cave-p03","co_mont-02-big-cave-p03", []),
+("a_cave_mont-02-big-cave-p04",0,"mont-02-big-cave-p04","co_mont-02-big-cave-p04", []),
+("a_cave_mont-04-big-cave-p01",0,"mont-04-big-cave-p01","co_mont-04-big-cave-p01", []),
+("a_cave_mont-04-big-cave-p02",0,"mont-04-big-cave-p02","co_mont-04-big-cave-p02", []),
+("a_cave_mont-04-big-cave-p03",0,"mont-04-big-cave-p03","co_mont-04-big-cave-p03", []),
+("a_cave_mont-04-big-cave-p04",0,"mont-04-big-cave-p04","co_mont-04-big-cave-p04", []),
+("a_cave_subterraneo-01-empty",0,"subterraneo-01-empty","co_subterraneo-01-empty", []),
+("a_cave_subterraneo-01-empty-m",0,"subterraneo-01-empty-m","co_subterraneo-01-empty-m", []),
+("a_cave-01",0,"cave-01","co_cave-01", []),
+("a_cave-p01",0,"cave-p01","co_cave-p01", []),
+("a_cave-p02",0,"cave-p02","co_cave-p02", []),
+("a_cave-p03",0,"cave-p03","co_cave-p03", []),
+("a_columna-03",0,"columna-03","co_columna-03", []),
+("a_estalactita-02",0,"estalactita-02","co_estalactita-02", []),
+("a_estalactita-03",0,"estalactita-03","co_estalactita-03", []),
+("a_pasarela-04",0,"pasarela-04","co_pasarela-04", []),
+("a_pasarela-05",0,"pasarela-05","co_pasarela-05", []),
+("a_cave-frame-01",0,"cave-frame-01","co_cave-frame-01", []),
+("a_cave-frame-01-m",0,"cave-frame-01-m","co_cave-frame-01-m", []),
+("a_cave-frame-02",0,"cave-frame-02","co_cave-frame-02", []),
+("a_cave-frame-02-m",0,"cave-frame-02-m","co_cave-frame-02-m", []),
+("a_cave_dungeon_a_o",0,"dungeon_a_o","bo_dungeon_a_o", []),
+("a_mont-01-big-01",0,"mont-01-big-01","co_mont-01-big-01", []),
+("a_mont-02-big-01",0,"mont-02-big-01","co_mont-02-big-01", []),
+("a_mont-04-big-01",0,"mont-04-big-01","co_mont-04-big-01", []),
+("a_cave_mont-01-big-cave-01",0,"mont-01-big-cave-01","co_mont-01-big-cave-01", []),
+("a_cave_mont-02-big-cave-01",0,"mont-02-big-cave-01","co_mont-02-big-cave-01", []),
+("a_cave_mont-04-big-cave-01",0,"mont-04-big-cave-01","co_mont-04-big-cave-01", []),
+("a_mont-01-med-01",0,"mont-01-med-01","co_mont-01-med-01", []),
+("a_mont-02-med-01",0,"mont-02-med-01","co_mont-02-med-01", []),
+("a_mont-04-med-01",0,"mont-04-med-01","co_mont-04-med-01", []),
+("a_cave_mont-01-med-cave-01",0,"mont-01-med-cave-01","co_mont-01-med-cave-01", []),
+("a_cave_mont-02-med-cave-01",0,"mont-02-med-cave-01","co_mont-02-med-cave-01", []),
+("a_cave_mont-04-med-cave-01",0,"mont-04-med-cave-01","co_mont-04-med-cave-01", []),
+("a_mont-01-sma-01",0,"mont-01-sma-01","co_mont-01-sma-01", []),
+("a_mont-02-sma-01",0,"mont-02-sma-01","co_mont-02-sma-01", []),
+("a_mont-04-sma-01",0,"mont-04-sma-01","co_mont-04-sma-01", []),
+("a_cave_mont-01-sma-cave-01",0,"mont-01-sma-cave-01","co_mont-01-sma-cave-01", []),
+("a_cave_mont-02-sma-cave-01",0,"mont-02-sma-cave-01","co_mont-02-sma-cave-01", []),
+("a_cave_mont-04-sma-cave-01",0,"mont-04-sma-cave-01","co_mont-04-sma-cave-01", []),
+("a_desfiladero-long-small-slope-01",0,"desfiladero-long-small-slope-01","co_desfiladero-long-small-slope-01", []),
+("a_desfiladero-short-small-slope-01",0,"desfiladero-short-small-slope-01","co_desfiladero-short-small-slope-01", []),
+("a_desfiladero-long-small-curve-01",0,"desfiladero-long-small-curve-01","co_desfiladero-long-small-curve-01", []),
+("a_desfiladero-short-small-curve-01",0,"desfiladero-short-small-curve-01","co_desfiladero-short-small-curve-01", []),
+("a_desfiladero-tall-long-curve-90-slope-01",0,"desfiladero-tall-long-curve-90-slope-01","co_desfiladero-tall-long-curve-90-slope-01", []),
+("a_desfiladero-short-long-curve-90-slope-01",0,"desfiladero-short-long-curve-90-slope-01","co_desfiladero-short-long-curve-90-slope-01", []),
+("a_desfiladero-tall-short-curve-180-02",0,"desfiladero-tall-short-curve-180-02","co_desfiladero-tall-short-curve-180-02", []),
+("a_desfiladero-tall-long-curve-180-01",0,"desfiladero-tall-long-curve-180-01","co_desfiladero-tall-long-curve-180-01", []),
+("a_desfiladero-tall-long-slope-01",0,"desfiladero-tall-long-slope-01","co_desfiladero-tall-long-slope-01", []),
+("a_desfiladero-tall-short-slope-02",0,"desfiladero-tall-short-slope-02","co_desfiladero-tall-short-slope-02", []),
+("a_desfiladero-tall-short-curve-90-01",0,"desfiladero-tall-short-curve-90-01","co_desfiladero-tall-short-curve-90-01", []),
+("a_desfiladero-tall-long-curve-90-01",0,"desfiladero-tall-long-curve-90-01","co_desfiladero-tall-long-curve-90-01", []),
+("a_desfiladero-tall-long-01",0,"desfiladero-tall-long-01","co_desfiladero-tall-long-01", []),
+("a_desfiladero-short-long-01",0,"desfiladero-short-long-01","co_desfiladero-short-long-01", []),
+("a_desfiladero-tall-long-02",0,"desfiladero-tall-long-02","co_desfiladero-tall-long-02", []),
+("a_desfiladero-short-long-04",0,"desfiladero-short-long-04","co_desfiladero-short-long-04", []),
+("a_desfiladero-tall-long-03",0,"desfiladero-tall-long-03","co_desfiladero-tall-long-03", []),
+("a_desfiladero-long-small-slope-01-m",0,"desfiladero-long-small-slope-01-m","co_desfiladero-long-small-slope-01-m", []),
+("a_desfiladero-short-small-slope-01-m",0,"desfiladero-short-small-slope-01-m","co_desfiladero-short-small-slope-01-m", []),
+("a_desfiladero-long-small-curve-01-m",0,"desfiladero-long-small-curve-01-m","co_desfiladero-long-small-curve-01-m", []),
+("a_desfiladero-short-small-curve-01-m",0,"desfiladero-short-small-curve-01-m","co_desfiladero-short-small-curve-01-m", []),
+("a_desfiladero-tall-long-curve-90-slope-01-m",0,"desfiladero-tall-long-curve-90-slope-01-m","co_desfiladero-tall-long-curve-90-slope-01-m", []),
+("a_desfiladero-short-long-curve-90-slope-01-m",0,"desfiladero-short-long-curve-90-slope-01-m","co_desfiladero-short-long-curve-90-slope-01-m", []),
+("a_desfiladero-tall-short-curve-180-02-m",0,"desfiladero-tall-short-curve-180-02-m","co_desfiladero-tall-short-curve-180-02-m", []),
+("a_desfiladero-tall-long-curve-180-01-m",0,"desfiladero-tall-long-curve-180-01-m","co_desfiladero-tall-long-curve-180-01-m", []),
+("a_desfiladero-tall-long-slope-01-m",0,"desfiladero-tall-long-slope-01-m","co_desfiladero-tall-long-slope-01-m", []),
+("a_desfiladero-tall-short-slope-02-m",0,"desfiladero-tall-short-slope-02-m","co_desfiladero-tall-short-slope-02-m", []),
+("a_desfiladero-tall-short-curve-90-01-m",0,"desfiladero-tall-short-curve-90-01-m","co_desfiladero-tall-short-curve-90-01-m", []),
+("a_desfiladero-tall-long-curve-90-01-m",0,"desfiladero-tall-long-curve-90-01-m","co_desfiladero-tall-long-curve-90-01-m", []),
+("a_desfiladero-tall-long-01-m",0,"desfiladero-tall-long-01-m","co_desfiladero-tall-long-01-m", []),
+("a_desfiladero-short-long-01-m",0,"desfiladero-short-long-01-m","co_desfiladero-short-long-01-m", []),
+("a_desfiladero-tall-long-02-m",0,"desfiladero-tall-long-02-m","co_desfiladero-tall-long-02-m", []),
+("a_desfiladero-short-long-04-m",0,"desfiladero-short-long-04-m","co_desfiladero-short-long-04-m", []),
+("a_desfiladero-tall-long-03-m",0,"desfiladero-tall-long-03-m","co_desfiladero-tall-long-03-m", []),
+("a_desfiladero-hole-long-small-slope-01",0,"desfiladero-hole-long-small-slope-01","co_desfiladero-hole-long-small-slope-01", []),
+("a_desfiladero-hole-short-small-slope-01",0,"desfiladero-hole-short-small-slope-01","co_desfiladero-hole-short-small-slope-01", []),
+("a_desfiladero-hole-long-small-curve-01",0,"desfiladero-hole-long-small-curve-01","co_desfiladero-hole-long-small-curve-01", []),
+("a_desfiladero-hole-short-small-curve-01",0,"desfiladero-hole-short-small-curve-01","co_desfiladero-hole-short-small-curve-01", []),
+("a_desfiladero-hole-tall-long-curve-90-slope-01",0,"desfiladero-hole-tall-long-curve-90-slope-01","co_desfiladero-hole-tall-long-curve-90-slope-01", []),
+("a_desfiladero-hole-short-long-curve-90-slope-01",0,"desfiladero-hole-short-long-curve-90-slope-01","co_desfiladero-hole-short-long-curve-90-slope-01", []),
+("a_desfiladero-hole-tall-short-curve-180-02",0,"desfiladero-hole-tall-short-curve-180-02","co_desfiladero-hole-tall-short-curve-180-02", []),
+("a_desfiladero-hole-tall-long-curve-180-01",0,"desfiladero-hole-tall-long-curve-180-01","co_desfiladero-hole-tall-long-curve-180-01", []),
+("a_desfiladero-hole-tall-long-slope-01",0,"desfiladero-hole-tall-long-slope-01","co_desfiladero-hole-tall-long-slope-01", []),
+("a_desfiladero-hole-tall-short-slope-02",0,"desfiladero-hole-tall-short-slope-02","co_desfiladero-hole-tall-short-slope-02", []),
+("a_desfiladero-hole-tall-short-curve-90-01",0,"desfiladero-hole-tall-short-curve-90-01","co_desfiladero-hole-tall-short-curve-90-01", []),
+("a_desfiladero-hole-tall-long-curve-90-01",0,"desfiladero-hole-tall-long-curve-90-01","co_desfiladero-hole-tall-long-curve-90-01", []),
+("a_desfiladero-hole-tall-long-01",0,"desfiladero-hole-tall-long-01","co_desfiladero-hole-tall-long-01", []),
+("a_desfiladero-hole-short-long-01",0,"desfiladero-hole-short-long-01","co_desfiladero-hole-short-long-01", []),
+("a_desfiladero-hole-tall-long-02",0,"desfiladero-hole-tall-long-02","co_desfiladero-hole-tall-long-02", []),
+("a_desfiladero-hole-short-long-04",0,"desfiladero-hole-short-long-04","co_desfiladero-hole-short-long-04", []),
+("a_desfiladero-hole-tall-long-03",0,"desfiladero-hole-tall-long-03","co_desfiladero-hole-tall-long-03", []),
+("a_desfiladero-hole-long-small-slope-01-m",0,"desfiladero-hole-long-small-slope-01-m","co_desfiladero-hole-long-small-slope-01-m", []),
+("a_desfiladero-hole-short-small-slope-01-m",0,"desfiladero-hole-short-small-slope-01-m","co_desfiladero-hole-short-small-slope-01-m", []),
+("a_desfiladero-hole-long-small-curve-01-m",0,"desfiladero-hole-long-small-curve-01-m","co_desfiladero-hole-long-small-curve-01-m", []),
+("a_desfiladero-hole-short-small-curve-01-m",0,"desfiladero-hole-short-small-curve-01-m","co_desfiladero-hole-short-small-curve-01-m", []),
+("a_desfiladero-hole-tall-long-curve-90-slope-01-m",0,"desfiladero-hole-tall-long-curve-90-slope-01-m","co_desfiladero-hole-tall-long-curve-90-slope-01-m", []),
+("a_desfiladero-hole-short-long-curve-90-slope-01-m",0,"desfiladero-hole-short-long-curve-90-slope-01-m","co_desfiladero-hole-short-long-curve-90-slope-01-m", []),
+("a_desfiladero-hole-tall-short-curve-180-02-m",0,"desfiladero-hole-tall-short-curve-180-02-m","co_desfiladero-hole-tall-short-curve-180-02-m", []),
+("a_desfiladero-hole-tall-long-curve-180-01-m",0,"desfiladero-hole-tall-long-curve-180-01-m","co_desfiladero-hole-tall-long-curve-180-01-m", []),
+("a_desfiladero-hole-tall-long-slope-01-m",0,"desfiladero-hole-tall-long-slope-01-m","co_desfiladero-hole-tall-long-slope-01-m", []),
+("a_desfiladero-hole-tall-short-slope-02-m",0,"desfiladero-hole-tall-short-slope-02-m","co_desfiladero-hole-tall-short-slope-02-m", []),
+("a_desfiladero-hole-tall-short-curve-90-01-m",0,"desfiladero-hole-tall-short-curve-90-01-m","co_desfiladero-hole-tall-short-curve-90-01-m", []),
+("a_desfiladero-hole-tall-long-curve-90-01-m",0,"desfiladero-hole-tall-long-curve-90-01-m","co_desfiladero-hole-tall-long-curve-90-01-m", []),
+("a_desfiladero-hole-tall-long-01-m",0,"desfiladero-hole-tall-long-01-m","co_desfiladero-hole-tall-long-01-m", []),
+("a_desfiladero-hole-short-long-01-m",0,"desfiladero-hole-short-long-01-m","co_desfiladero-hole-short-long-01-m", []),
+("a_desfiladero-hole-tall-long-02-m",0,"desfiladero-hole-tall-long-02-m","co_desfiladero-hole-tall-long-02-m", []),
+("a_desfiladero-hole-short-long-04-m",0,"desfiladero-hole-short-long-04-m","co_desfiladero-hole-short-long-04-m", []),
+("a_desfiladero-hole-tall-long-03-m",0,"desfiladero-hole-tall-long-03-m","co_desfiladero-tall-long-03-m", []),
+("a_desfiladero-tiny-long-small-slope-01",0,"desfiladero-tiny-long-small-slope-01","co_desfiladero-tiny-long-small-slope-01", []),
+("a_desfiladero-tiny-short-small-slope-01",0,"desfiladero-tiny-short-small-slope-01","co_desfiladero-tiny-short-small-slope-01", []),
+("a_desfiladero-tiny-long-small-curve-01",0,"desfiladero-tiny-long-small-curve-01","co_desfiladero-tiny-long-small-curve-01", []),
+("a_desfiladero-tiny-short-small-curve-01",0,"desfiladero-tiny-short-small-curve-01","co_desfiladero-tiny-short-small-curve-01", []),
+("a_desfiladero-tiny-tall-long-curve-90-slope-01",0,"desfiladero-tiny-tall-long-curve-90-slope-01","co_desfiladero-tiny-tall-long-curve-90-slope-01", []),
+("a_desfiladero-tiny-short-long-curve-90-slope-01",0,"desfiladero-tiny-short-long-curve-90-slope-01","co_desfiladero-tiny-short-long-curve-90-slope-01", []),
+("a_desfiladero-tiny-tall-short-curve-180-02",0,"desfiladero-tiny-tall-short-curve-180-02","co_desfiladero-tiny-tall-short-curve-180-02", []),
+("a_desfiladero-tiny-tall-long-curve-180-01",0,"desfiladero-tiny-tall-long-curve-180-01","co_desfiladero-tiny-tall-long-curve-180-01", []),
+("a_desfiladero-tiny-tall-long-slope-01",0,"desfiladero-tiny-tall-long-slope-01","co_desfiladero-tiny-tall-long-slope-01", []),
+("a_desfiladero-tiny-tall-short-slope-02",0,"desfiladero-tiny-tall-short-slope-02","co_desfiladero-tiny-tall-short-slope-02", []),
+("a_desfiladero-tiny-tall-short-curve-90-01",0,"desfiladero-tiny-tall-short-curve-90-01","co_desfiladero-tiny-tall-short-curve-90-01", []),
+("a_desfiladero-tiny-tall-long-curve-90-01",0,"desfiladero-tiny-tall-long-curve-90-01","co_desfiladero-tiny-tall-long-curve-90-01", []),
+("a_desfiladero-tiny-tall-long-01",0,"desfiladero-tiny-tall-long-01","co_desfiladero-tiny-tall-long-01", []),
+("a_desfiladero-tiny-short-long-01",0,"desfiladero-tiny-short-long-01","co_desfiladero-tiny-short-long-01", []),
+("a_desfiladero-tiny-tall-long-02",0,"desfiladero-tiny-tall-long-02","co_desfiladero-tiny-tall-long-02", []),
+("a_desfiladero-tiny-short-long-04",0,"desfiladero-tiny-short-long-04","co_desfiladero-tiny-short-long-04", []),
+("a_desfiladero-tiny-tall-long-03",0,"desfiladero-tiny-tall-long-03","co_desfiladero-tiny-tall-long-03", []),
+("a_desfiladero-tiny-long-small-slope-01-m",0,"desfiladero-tiny-long-small-slope-01-m","co_desfiladero-tiny-long-small-slope-01-m", []),
+("a_desfiladero-tiny-short-small-slope-01-m",0,"desfiladero-tiny-short-small-slope-01-m","co_desfiladero-tiny-short-small-slope-01-m", []),
+("a_desfiladero-tiny-long-small-curve-01-m",0,"desfiladero-tiny-long-small-curve-01-m","co_desfiladero-tiny-long-small-curve-01-m", []),
+("a_desfiladero-tiny-short-small-curve-01-m",0,"desfiladero-tiny-short-small-curve-01-m","co_desfiladero-tiny-short-small-curve-01-m", []),
+("a_desfiladero-tiny-tall-long-curve-90-slope-01-m",0,"desfiladero-tiny-tall-long-curve-90-slope-01-m","co_desfiladero-tiny-tall-long-curve-90-slope-01-m", []),
+("a_desfiladero-tiny-short-long-curve-90-slope-01-m",0,"desfiladero-tiny-short-long-curve-90-slope-01-m","co_desfiladero-tiny-short-long-curve-90-slope-01-m", []),
+("a_desfiladero-tiny-tall-short-curve-180-02-m",0,"desfiladero-tiny-tall-short-curve-180-02-m","co_desfiladero-tiny-tall-short-curve-180-02-m", []),
+("a_desfiladero-tiny-tall-long-curve-180-01-m",0,"desfiladero-tiny-tall-long-curve-180-01-m","co_desfiladero-tiny-tall-long-curve-180-01-m", []),
+("a_desfiladero-tiny-tall-long-slope-01-m",0,"desfiladero-tiny-tall-long-slope-01-m","co_desfiladero-tiny-tall-long-slope-01-m", []),
+("a_desfiladero-tiny-tall-short-slope-02-m",0,"desfiladero-tiny-tall-short-slope-02-m","co_desfiladero-tiny-tall-short-slope-02-m", []),
+("a_desfiladero-tiny-tall-short-curve-90-01-m",0,"desfiladero-tiny-tall-short-curve-90-01-m","co_desfiladero-tiny-tall-short-curve-90-01-m", []),
+("a_desfiladero-tiny-tall-long-curve-90-01-m",0,"desfiladero-tiny-tall-long-curve-90-01-m","co_desfiladero-tiny-tall-long-curve-90-01-m", []),
+("a_desfiladero-tiny-tall-long-01-m",0,"desfiladero-tiny-tall-long-01-m","co_desfiladero-tiny-tall-long-01-m", []),
+("a_desfiladero-tiny-short-long-01-m",0,"desfiladero-tiny-short-long-01-m","co_desfiladero-tiny-short-long-01-m", []),
+("a_desfiladero-tiny-tall-long-02-m",0,"desfiladero-tiny-tall-long-02-m","co_desfiladero-tiny-tall-long-02-m", []),
+("a_desfiladero-tiny-short-long-04-m",0,"desfiladero-tiny-short-long-04-m","co_desfiladero-tiny-short-long-04-m", []),
+("a_desfiladero-tiny-tall-long-03-m",0,"desfiladero-tiny-tall-long-03-m","co_desfiladero-tiny-tall-long-03-m", []),
+("a_desfiladero-tiny-hole-long-small-slope-01",0,"desfiladero-tiny-hole-long-small-slope-01","co_desfiladero-tiny-hole-long-small-slope-01", []),
+("a_desfiladero-tiny-hole-short-small-slope-01",0,"desfiladero-tiny-hole-short-small-slope-01","co_desfiladero-tiny-hole-short-small-slope-01", []),
+("a_desfiladero-tiny-hole-long-small-curve-01",0,"desfiladero-tiny-hole-long-small-curve-01","co_desfiladero-tiny-hole-long-small-curve-01", []),
+("a_desfiladero-tiny-hole-short-small-curve-01",0,"desfiladero-tiny-hole-short-small-curve-01","co_desfiladero-tiny-hole-short-small-curve-01", []),
+("a_desfiladero-tiny-hole-tall-long-curve-90-slope-01",0,"desfiladero-tiny-hole-tall-long-curve-90-slope-01","co_desfiladero-tiny-hole-tall-long-curve-90-slope-01", []),
+("a_desfiladero-tiny-hole-short-long-curve-90-slope-01",0,"desfiladero-tiny-hole-short-long-curve-90-slope-01","co_desfiladero-tiny-hole-short-long-curve-90-slope-01", []),
+("a_desfiladero-tiny-hole-tall-short-curve-180-02",0,"desfiladero-tiny-hole-tall-short-curve-180-02","co_desfiladero-tiny-hole-tall-short-curve-180-02", []),
+("a_desfiladero-tiny-hole-tall-long-curve-180-01",0,"desfiladero-tiny-hole-tall-long-curve-180-01","co_desfiladero-tiny-hole-tall-long-curve-180-01", []),
+("a_desfiladero-tiny-hole-tall-long-slope-01",0,"desfiladero-tiny-hole-tall-long-slope-01","co_desfiladero-tiny-hole-tall-long-slope-01", []),
+("a_desfiladero-tiny-hole-tall-short-slope-02",0,"desfiladero-tiny-hole-tall-short-slope-02","co_desfiladero-tiny-hole-tall-short-slope-02", []),
+("a_desfiladero-tiny-hole-tall-short-curve-90-01",0,"desfiladero-tiny-hole-tall-short-curve-90-01","co_desfiladero-tiny-hole-tall-short-curve-90-01", []),
+("a_desfiladero-tiny-hole-tall-long-curve-90-01",0,"desfiladero-tiny-hole-tall-long-curve-90-01","co_desfiladero-tiny-hole-tall-long-curve-90-01", []),
+("a_desfiladero-tiny-hole-tall-long-01",0,"desfiladero-tiny-hole-tall-long-01","co_desfiladero-tiny-hole-tall-long-01", []),
+("a_desfiladero-tiny-hole-short-long-01",0,"desfiladero-tiny-hole-short-long-01","co_desfiladero-tiny-hole-short-long-01", []),
+("a_desfiladero-tiny-hole-tall-long-02",0,"desfiladero-tiny-hole-tall-long-02","co_desfiladero-tiny-hole-tall-long-02", []),
+("a_desfiladero-tiny-hole-short-long-04",0,"desfiladero-tiny-hole-short-long-04","co_desfiladero-tiny-hole-short-long-04", []),
+("a_desfiladero-tiny-hole-tall-long-03",0,"desfiladero-tiny-hole-tall-long-03","co_desfiladero-tiny-hole-tall-long-03", []),
+("a_desfiladero-tiny-hole-long-small-slope-01-m",0,"desfiladero-tiny-hole-long-small-slope-01-m","co_desfiladero-tiny-hole-long-small-slope-01-m", []),
+("a_desfiladero-tiny-hole-short-small-slope-01-m",0,"desfiladero-tiny-hole-short-small-slope-01-m","co_desfiladero-tiny-hole-short-small-slope-01-m", []),
+("a_desfiladero-tiny-hole-long-small-curve-01-m",0,"desfiladero-tiny-hole-long-small-curve-01-m","co_desfiladero-tiny-hole-long-small-curve-01-m", []),
+("a_desfiladero-tiny-hole-short-small-curve-01-m",0,"desfiladero-tiny-hole-short-small-curve-01-m","co_desfiladero-tiny-hole-short-small-curve-01-m", []),
+("a_desfiladero-tiny-hole-tall-long-curve-90-slope-01-m",0,"desfiladero-tiny-hole-tall-long-curve-90-slope-01-m","co_desfiladero-tiny-hole-tall-long-curve-90-slope-01-m", []),
+("a_desfiladero-tiny-hole-short-long-curve-90-slope-01-m",0,"desfiladero-tiny-hole-short-long-curve-90-slope-01-m","co_desfiladero-tiny-hole-short-long-curve-90-slope-01-m", []),
+("a_desfiladero-tiny-hole-tall-short-curve-180-02-m",0,"desfiladero-tiny-hole-tall-short-curve-180-02-m","co_desfiladero-tiny-hole-tall-short-curve-180-02-m", []),
+("a_desfiladero-tiny-hole-tall-long-curve-180-01-m",0,"desfiladero-tiny-hole-tall-long-curve-180-01-m","co_desfiladero-tiny-hole-tall-long-curve-180-01-m", []),
+("a_desfiladero-tiny-hole-tall-long-slope-01-m",0,"desfiladero-tiny-hole-tall-long-slope-01-m","co_desfiladero-tiny-hole-tall-long-slope-01-m", []),
+("a_desfiladero-tiny-hole-tall-short-slope-02-m",0,"desfiladero-tiny-hole-tall-short-slope-02-m","co_desfiladero-tiny-hole-tall-short-slope-02-m", []),
+("a_desfiladero-tiny-hole-tall-short-curve-90-01-m",0,"desfiladero-tiny-hole-tall-short-curve-90-01-m","co_desfiladero-tiny-hole-tall-short-curve-90-01-m", []),
+("a_desfiladero-tiny-hole-tall-long-curve-90-01-m",0,"desfiladero-tiny-hole-tall-long-curve-90-01-m","co_desfiladero-tiny-hole-tall-long-curve-90-01-m", []),
+("a_desfiladero-tiny-hole-tall-long-01-m",0,"desfiladero-tiny-hole-tall-long-01-m","co_desfiladero-tiny-hole-tall-long-01-m", []),
+("a_desfiladero-tiny-hole-short-long-01-m",0,"desfiladero-tiny-hole-short-long-01-m","co_desfiladero-tiny-hole-short-long-01-m", []),
+("a_desfiladero-tiny-hole-tall-long-02-m",0,"desfiladero-tiny-hole-tall-long-02-m","co_desfiladero-tiny-hole-tall-long-02-m", []),
+("a_desfiladero-tiny-hole-short-long-04-m",0,"desfiladero-tiny-hole-short-long-04-m","co_desfiladero-tiny-hole-short-long-04-m", []),
+("a_desfiladero-tiny-hole-tall-long-03-m",0,"desfiladero-tiny-hole-tall-long-03-m","co_desfiladero-tiny-tall-long-03-m", []),
+("a_valleyRock_flat_1",0,"valleyRock_flat_1","bo_valleyRock_flat_1", []),
+("a_valleyRock_flat_2",0,"valleyRock_flat_2","bo_valleyRock_flat_2", []),
+("a_valleyRock_flat_3",0,"valleyRock_flat_3","bo_valleyRock_flat_3", []),
+("a_valleyRock_flat_4",0,"valleyRock_flat_4","bo_valleyRock_flat_4", []),
+("a_valleyRock_flat_5",0,"valleyRock_flat_5","bo_valleyRock_flat_5", []),
+("a_valleyRock_flat_6",0,"valleyRock_flat_6","bo_valleyRock_flat_6", []),
+("a_valleyRock_rounded_1",0,"valleyRock_rounded_1","bo_valleyRock_rounded_1", []),
+("a_valleyRock_rounded_2",0,"valleyRock_rounded_2","bo_valleyRock_rounded_2", []),
+("a_valleyRock_rounded_3",0,"valleyRock_rounded_3","bo_valleyRock_rounded_3", []),
+("a_valleyRock_rounded_4",0,"valleyRock_rounded_4","bo_valleyRock_rounded_4", []),
+("a_cave_entrance_1_open",0,"cave_entrance_1_open","co_cave_entrance_1_open", []),
+("a_valleyRock_flatRounded_big_1",0,"valleyRock_flatRounded_big_1","bo_valleyRock_flatRounded_big_1", []),
+("a_valleyRock_flatRounded_big_2",0,"valleyRock_flatRounded_big_2","bo_valleyRock_flatRounded_big_2", []),
+("a_valleyRock_flatRounded_small_1",0,"valleyRock_flatRounded_small_1","bo_valleyRock_flatRounded_small_1", []),
+("a_valleyRock_flatRounded_small_2",0,"valleyRock_flatRounded_small_2","bo_valleyRock_flatRounded_small_2", []),
+("a_valleyRock_flatRounded_small_3",0,"valleyRock_flatRounded_small_3","bo_valleyRock_flatRounded_small_3", []),
+("a_base-01",0,"base-01","co_base-01", []),
+("a_mont-01-big-generic",0,"mont-01-big-generic","co_mont-01-big-generic", []),
+("a_mont-02-big-generic",0,"mont-02-big-generic","co_mont-02-big-generic", []),
+("a_mont-04-big-generic",0,"mont-04-big-generic","co_mont-04-big-generic", []),
+("a_mont-04-big-generic-empty",0,"mont-04-big-generic-empty","co_mont-04-big-generic-empty", []),
+("a_cave_entrance_1_open-2-sides",0,"cave_entrance_1_open-2-sides","co_cave_entrance_1_open-2-sides", []),
+("a_cave_entrance_1_open-2-sides-full",0,"cave_entrance_1_open-2-sides-full","co_cave_entrance_1_open-2-sides-full", []),
+("a_str_arabian_castle_stairs_b",0,"str_arabian_castle_stairs_b","co_str_arabian_castle_stairs_b", []),
+("a_str_arabian_castle_stairs_c",0,"str_arabian_castle_stairs_c","co_str_arabian_castle_stairs_c", []),
+("a_str_castle_stairs_a",0,"str_castle_stairs_a","co_str_castle_stairs_a", []),
+("a_str_snowy_castle_stairs_a",0,"str_snowy_castle_stairs_a","co_str_snowy_castle_stairs_a", []),
+("a_str_square_stairs_a",0,"str_square_stairs_a","co_str_square_stairs_a", []),
+("a_str_stone_stairs_a",0,"str_stone_stairs_a","co_str_stone_stairs_a", []),
+("a_str_stone_stairs_b",0,"str_stone_stairs_b","co_str_stone_stairs_b", []),
+("a_str_stairs_arch_a",0,"str_stairs_arch_a","co_str_stairs_arch_a", []),
+("a_str_earth_stairs_c",0,"str_earth_stairs_c","co_str_earth_stairs_c", []),
+("a_str_castle_e_stairs_a",0,"str_castle_e_stairs_a","co_str_castle_e_stairs_a", []),
+("a_str_castle_f_wall_stairs_b",0,"str_castle_f_wall_stairs_b","co_str_castle_f_wall_stairs_b", []),
+("a_str_castle_f_wall_stairs_a",0,"str_castle_f_wall_stairs_a","co_str_castle_f_wall_stairs_a", []),
+("a_str_castle_f_sally_port_elevation",0,"str_castle_f_sally_port_elevation","co_str_castle_f_sally_port_elevation", []),
+("a_str_castle_h_stairs_a",0,"str_castle_h_stairs_a","co_str_castle_h_stairs_a", []),
+("a_str_castle_h_stairs_b",0,"str_castle_h_stairs_b","co_str_castle_h_stairs_b", []),
+("a_str_small_wall_d",0,"str_small_wall_d","co_str_small_wall_d", []),
+("a_str_castle_h_battlement_barrier",0,"str_castle_h_battlement_barrier","co_str_castle_h_battlement_barrier", []),
+("a_str_small_wall_e",0,"str_small_wall_e","co_str_small_wall_e", []),
+("a_str_arabian_wall_b",0,"str_arabian_wall_b","co_str_arabian_wall_b", []),
+("a_str_arabian_ground_a",0,"str_arabian_ground_a","co_str_arabian_ground_a", []),
+("a_str_small_wall_f",0,"str_small_wall_f","co_str_small_wall_f", []),
+("a_str_stairs_a",0,"str_stairs_a","co_str_stairs_a", []),
+("a_str_arabian_village_stairs",0,"str_arabian_village_stairs","co_str_arabian_village_stairs", []),
+("a_cave_tunnel_long_2g-85",0,"cave_tunnel_long_2g-85","co_cave_tunnel_long_2g-85", []),
+("a_cave_tunnel_long_2g-01",0,"cave_tunnel_long_2g-01","co_cave_tunnel_long_2g-01", []),
+("a_cave_tunnel_long_2g-02",0,"cave_tunnel_long_2g-02","co_cave_tunnel_long_2g-02", []),
+("a_cave_tunnel_long_2g-03",0,"cave_tunnel_long_2g-03","co_cave_tunnel_long_2g-03", []),
+("a_cave_tunnel_long_2g-04",0,"cave_tunnel_long_2g-04","co_cave_tunnel_long_2g-04", []),
+("a_cave_tunnel_long_2g-05",0,"cave_tunnel_long_2g-05","co_cave_tunnel_long_2g-05", []),
+("a_cave_tunnel_long_2g-06",0,"cave_tunnel_long_2g-06","co_cave_tunnel_long_2g-06", []),
+("a_cave_tunnel_long_2g-07",0,"cave_tunnel_long_2g-07","co_cave_tunnel_long_2g-07", []),
+("a_cave_tunnel_long_2g-08",0,"cave_tunnel_long_2g-08","co_cave_tunnel_long_2g-08", []),
+("a_cave_tunnel_long_2g-09",0,"cave_tunnel_long_2g-09","co_cave_tunnel_long_2g-09", []),
+("a_cave_tunnel_long_2g-10",0,"cave_tunnel_long_2g-10","co_cave_tunnel_long_2g-10", []),
+("a_cave_tunnel_long_2g-11",0,"cave_tunnel_long_2g-11","co_cave_tunnel_long_2g-11", []),
+("a_cave_tunnel_long_2g-12",0,"cave_tunnel_long_2g-12","co_cave_tunnel_long_2g-12", []),
+("a_cave_tunnel_long_2g-13",0,"cave_tunnel_long_2g-13","co_cave_tunnel_long_2g-13", []),
+("a_cave_tunnel_long_2g-14",0,"cave_tunnel_long_2g-14","co_cave_tunnel_long_2g-14", []),
+("a_cave_tunnel_long_2g-15",0,"cave_tunnel_long_2g-15","co_cave_tunnel_long_2g-15", []),
+("a_cave_tunnel_long_2g-16",0,"cave_tunnel_long_2g-16","co_cave_tunnel_long_2g-16", []),
+("a_cave_tunnel_long_2g-17",0,"cave_tunnel_long_2g-17","co_cave_tunnel_long_2g-17", []),
+("a_cave_tunnel_long_2g-18",0,"cave_tunnel_long_2g-18","co_cave_tunnel_long_2g-18", []),
+("a_cave_tunnel_long_2g-19",0,"cave_tunnel_long_2g-19","co_cave_tunnel_long_2g-19", []),
+("a_cave_tunnel_long_2g-20",0,"cave_tunnel_long_2g-20","co_cave_tunnel_long_2g-20", []),
+("a_cave_tunnel_long_2g-21",0,"cave_tunnel_long_2g-21","co_cave_tunnel_long_2g-21", []),
+("a_cave_tunnel_long_2g-22",0,"cave_tunnel_long_2g-22","co_cave_tunnel_long_2g-22", []),
+("a_cave_tunnel_long_2g-23",0,"cave_tunnel_long_2g-23","co_cave_tunnel_long_2g-23", []),
+("a_cave_tunnel_long_2g-24",0,"cave_tunnel_long_2g-24","co_cave_tunnel_long_2g-24", []),
+("a_cave_tunnel_long_2g-25",0,"cave_tunnel_long_2g-25","co_cave_tunnel_long_2g-25", []),
+("a_cave_tunnel_long_2g-26",0,"cave_tunnel_long_2g-26","co_cave_tunnel_long_2g-26", []),
+("a_cave_tunnel_long_2g-27",0,"cave_tunnel_long_2g-27","co_cave_tunnel_long_2g-27", []),
+("a_cave_tunnel_long_2g-28",0,"cave_tunnel_long_2g-28","co_cave_tunnel_long_2g-28", []),
+("a_cave_tunnel_long_2g-29",0,"cave_tunnel_long_2g-29","co_cave_tunnel_long_2g-29", []),
+("a_cave_tunnel_long_2g-30",0,"cave_tunnel_long_2g-30","co_cave_tunnel_long_2g-30", []),
+("a_cave_tunnel_long_2g-31",0,"cave_tunnel_long_2g-31","co_cave_tunnel_long_2g-31", []),
+("a_cave_tunnel_long_2g-32",0,"cave_tunnel_long_2g-32","co_cave_tunnel_long_2g-32", []),
+("a_cave_tunnel_long_2g-33",0,"cave_tunnel_long_2g-33","co_cave_tunnel_long_2g-33", []),
+("a_cave_tunnel_long_2g-34",0,"cave_tunnel_long_2g-34","co_cave_tunnel_long_2g-34", []),
+("a_cave_tunnel_long_2g-35",0,"cave_tunnel_long_2g-35","co_cave_tunnel_long_2g-35", []),
+("a_cave_tunnel_long_2g-36",0,"cave_tunnel_long_2g-36","co_cave_tunnel_long_2g-36", []),
+("a_cave_tunnel_long_2g-37",0,"cave_tunnel_long_2g-37","co_cave_tunnel_long_2g-37", []),
+("a_cave_tunnel_long_2g-38",0,"cave_tunnel_long_2g-38","co_cave_tunnel_long_2g-38", []),
+("a_cave_tunnel_long_2g-39",0,"cave_tunnel_long_2g-39","co_cave_tunnel_long_2g-39", []),
+("a_cave_tunnel_long_2g-40",0,"cave_tunnel_long_2g-40","co_cave_tunnel_long_2g-40", []),
+("a_cave_tunnel_long_2g-41",0,"cave_tunnel_long_2g-41","co_cave_tunnel_long_2g-41", []),
+("a_cave_tunnel_long_2g-42",0,"cave_tunnel_long_2g-42","co_cave_tunnel_long_2g-42", []),
+("a_cave_tunnel_long_2g-43",0,"cave_tunnel_long_2g-43","co_cave_tunnel_long_2g-43", []),
+("a_cave_tunnel_long_2g-44",0,"cave_tunnel_long_2g-44","co_cave_tunnel_long_2g-44", []),
+("a_cave_tunnel_long_2g-45",0,"cave_tunnel_long_2g-45","co_cave_tunnel_long_2g-45", []),
+("a_cave_tunnel_long_2g-46",0,"cave_tunnel_long_2g-46","co_cave_tunnel_long_2g-46", []),
+("a_cave_tunnel_long_2g-47",0,"cave_tunnel_long_2g-47","co_cave_tunnel_long_2g-47", []),
+("a_cave_tunnel_long_2g-48",0,"cave_tunnel_long_2g-48","co_cave_tunnel_long_2g-48", []),
+("a_cave_tunnel_long_2g-49",0,"cave_tunnel_long_2g-49","co_cave_tunnel_long_2g-49", []),
+("a_cave_tunnel_long_2g-50",0,"cave_tunnel_long_2g-50","co_cave_tunnel_long_2g-50", []),
+("a_cave_tunnel_long_2g-51",0,"cave_tunnel_long_2g-51","co_cave_tunnel_long_2g-51", []),
+("a_cave_tunnel_long_2g-52",0,"cave_tunnel_long_2g-52","co_cave_tunnel_long_2g-52", []),
+("a_cave_tunnel_long_2g-53",0,"cave_tunnel_long_2g-53","co_cave_tunnel_long_2g-53", []),
+("a_cave_tunnel_long_2g-54",0,"cave_tunnel_long_2g-54","co_cave_tunnel_long_2g-54", []),
+("a_cave_tunnel_long_2g-55",0,"cave_tunnel_long_2g-55","co_cave_tunnel_long_2g-55", []),
+("a_cave_tunnel_long_2g-56",0,"cave_tunnel_long_2g-56","co_cave_tunnel_long_2g-56", []),
+("a_cave_tunnel_long_2g-57",0,"cave_tunnel_long_2g-57","co_cave_tunnel_long_2g-57", []),
+("a_cave_tunnel_long_2g-58",0,"cave_tunnel_long_2g-58","co_cave_tunnel_long_2g-58", []),
+("a_cave_tunnel_long_2g-59",0,"cave_tunnel_long_2g-59","co_cave_tunnel_long_2g-59", []),
+("a_cave_tunnel_long_2g-60",0,"cave_tunnel_long_2g-60","co_cave_tunnel_long_2g-60", []),
+("a_cave_tunnel_long_2g-61",0,"cave_tunnel_long_2g-61","co_cave_tunnel_long_2g-61", []),
+("a_cave_tunnel_long_2g-62",0,"cave_tunnel_long_2g-62","co_cave_tunnel_long_2g-62", []),
+("a_cave_tunnel_long_2g-63",0,"cave_tunnel_long_2g-63","co_cave_tunnel_long_2g-63", []),
+("a_cave_tunnel_long_2g-64",0,"cave_tunnel_long_2g-64","co_cave_tunnel_long_2g-64", []),
+("a_cave_tunnel_long_2g-65",0,"cave_tunnel_long_2g-65","co_cave_tunnel_long_2g-65", []),
+("a_cave_tunnel_long_2g-66",0,"cave_tunnel_long_2g-66","co_cave_tunnel_long_2g-66", []),
+("a_cave_tunnel_long_2g-67",0,"cave_tunnel_long_2g-67","co_cave_tunnel_long_2g-67", []),
+("a_cave_tunnel_long_2g-68",0,"cave_tunnel_long_2g-68","co_cave_tunnel_long_2g-68", []),
+("a_cave_tunnel_long_2g-69",0,"cave_tunnel_long_2g-69","co_cave_tunnel_long_2g-69", []),
+("a_cave_tunnel_long_2g-70",0,"cave_tunnel_long_2g-70","co_cave_tunnel_long_2g-70", []),
+("a_cave_tunnel_long_2g-71",0,"cave_tunnel_long_2g-71","co_cave_tunnel_long_2g-71", []),
+("a_cave_tunnel_long_2g-72",0,"cave_tunnel_long_2g-72","co_cave_tunnel_long_2g-72", []),
+("a_cave_tunnel_long_2g-73",0,"cave_tunnel_long_2g-73","co_cave_tunnel_long_2g-73", []),
+("a_cave_tunnel_long_2g-74",0,"cave_tunnel_long_2g-74","co_cave_tunnel_long_2g-74", []),
+("a_cave_tunnel_long_2g-75",0,"cave_tunnel_long_2g-75","co_cave_tunnel_long_2g-75", []),
+("a_cave_tunnel_long_2g-76",0,"cave_tunnel_long_2g-76","co_cave_tunnel_long_2g-76", []),
+("a_cave_tunnel_long_2g-77",0,"cave_tunnel_long_2g-77","co_cave_tunnel_long_2g-77", []),
+("a_cave_tunnel_long_2g-78",0,"cave_tunnel_long_2g-78","co_cave_tunnel_long_2g-78", []),
+("a_cave_tunnel_long_2g-79",0,"cave_tunnel_long_2g-79","co_cave_tunnel_long_2g-79", []),
+("a_cave_tunnel_long_2g-80",0,"cave_tunnel_long_2g-80","co_cave_tunnel_long_2g-80", []),
+("a_cave_tunnel_long_2g-81",0,"cave_tunnel_long_2g-81","co_cave_tunnel_long_2g-81", []),
+("a_cave_tunnel_long_2g-82",0,"cave_tunnel_long_2g-82","co_cave_tunnel_long_2g-82", []),
+("a_cave_tunnel_long_2g-83",0,"cave_tunnel_long_2g-83","co_cave_tunnel_long_2g-83", []),
+("a_cave_tunnel_long_2g-84",0,"cave_tunnel_long_2g-84","co_cave_tunnel_long_2g-84", []),
+("a_cave_tunnel_short_2g-01",0,"cave_tunnel_short_2g-01","co_cave_tunnel_short_2g-01", []),
+("a_cave_tunnel_short_2g-02",0,"cave_tunnel_short_2g-02","co_cave_tunnel_short_2g-02", []),
+("a_cave_tunnel_short_2g-03",0,"cave_tunnel_short_2g-03","co_cave_tunnel_short_2g-03", []),
+("a_cave_tunnel_short_2g-04",0,"cave_tunnel_short_2g-04","co_cave_tunnel_short_2g-04", []),
+("a_cave_tunnel_short_2g-05",0,"cave_tunnel_short_2g-05","co_cave_tunnel_short_2g-05", []),
+("a_cave_tunnel_short_2g-06",0,"cave_tunnel_short_2g-06","co_cave_tunnel_short_2g-06", []),
+("a_cave_tunnel_short_2g-07",0,"cave_tunnel_short_2g-07","co_cave_tunnel_short_2g-07", []),
+("a_cave_tunnel_short_2g-08",0,"cave_tunnel_short_2g-08","co_cave_tunnel_short_2g-08", []),
+("a_cave_tunnel_short_2g-03-m",0,"cave_tunnel_short_2g-03-m","co_cave_tunnel_short_2g-03-m", []),
+("a_cave_tunnel_short_2g-04-m",0,"cave_tunnel_short_2g-04-m","co_cave_tunnel_short_2g-04-m", []),
+("a_cave_tunnel_short_2g-05-m",0,"cave_tunnel_short_2g-05-m","co_cave_tunnel_short_2g-05-m", []),
+("a_cave_tunnel_short_2g-06-m",0,"cave_tunnel_short_2g-06-m","co_cave_tunnel_short_2g-06-m", []),
+("a_cave_tunnel_short_2g-07-m",0,"cave_tunnel_short_2g-07-m","co_cave_tunnel_short_2g-07-m", []),
+("a_cave_tunnel_short_2g-08-m",0,"cave_tunnel_short_2g-08-m","co_cave_tunnel_short_2g-08-m", []),
+("a_cave_tunnel_long_3g-01",0,"cave_tunnel_long_3g-01","co_cave_tunnel_long_3g-01", []),
+("a_cave_tunnel_long_3g-02",0,"cave_tunnel_long_3g-02","co_cave_tunnel_long_3g-02", []),
+("a_cave_tunnel_long_3g-03",0,"cave_tunnel_long_3g-03","co_cave_tunnel_long_3g-03", []),
+("a_cave_tunnel_long_3g-04",0,"cave_tunnel_long_3g-04","co_cave_tunnel_long_3g-04", []),
+("a_cave_tunnel_long_3g-05",0,"cave_tunnel_long_3g-05","co_cave_tunnel_long_3g-05", []),
+("a_cave_tunnel_long_3g-06",0,"cave_tunnel_long_3g-06","co_cave_tunnel_long_3g-06", []),
+("a_cave_tunnel_long_3g-07",0,"cave_tunnel_long_3g-07","co_cave_tunnel_long_3g-07", []),
+("a_cave_tunnel_long_3g-08",0,"cave_tunnel_long_3g-08","co_cave_tunnel_long_3g-08", []),
+("a_cave_tunnel_long_3g-09",0,"cave_tunnel_long_3g-09","co_cave_tunnel_long_3g-09", []),
+("a_cave_tunnel_long_3g-10",0,"cave_tunnel_long_3g-10","co_cave_tunnel_long_3g-10", []),
+("a_cave_tunnel_long_3g-11",0,"cave_tunnel_long_3g-11","co_cave_tunnel_long_3g-11", []),
+("a_cave_tunnel_long_3g-12",0,"cave_tunnel_long_3g-12","co_cave_tunnel_long_3g-12", []),
+("a_cave_tunnel_long_3g-13",0,"cave_tunnel_long_3g-13","co_cave_tunnel_long_3g-13", []),
+("a_cave_tunnel_long_3g-14",0,"cave_tunnel_long_3g-14","co_cave_tunnel_long_3g-14", []),
+("a_cave_tunnel_long_3g-15",0,"cave_tunnel_long_3g-15","co_cave_tunnel_long_3g-15", []),
+("a_cave_tunnel_long_3g-16",0,"cave_tunnel_long_3g-16","co_cave_tunnel_long_3g-16", []),
+("a_cave_tunnel_long_3g-17",0,"cave_tunnel_long_3g-17","co_cave_tunnel_long_3g-17", []),
+("a_cave_tunnel_long_3g-18",0,"cave_tunnel_long_3g-18","co_cave_tunnel_long_3g-18", []),
+("a_cave_tunnel_long_3g-19",0,"cave_tunnel_long_3g-19","co_cave_tunnel_long_3g-19", []),
+("a_cave_tunnel_long_3g-20",0,"cave_tunnel_long_3g-20","co_cave_tunnel_long_3g-20", []),
+("a_cave_tunnel_long_3g-21",0,"cave_tunnel_long_3g-21","co_cave_tunnel_long_3g-21", []),
+("a_cave_tunnel_long_3g-22",0,"cave_tunnel_long_3g-22","co_cave_tunnel_long_3g-22", []),
+("a_cave_tunnel_long_3g-23",0,"cave_tunnel_long_3g-23","co_cave_tunnel_long_3g-23", []),
+("a_cave_tunnel_long_3g-24",0,"cave_tunnel_long_3g-24","co_cave_tunnel_long_3g-24", []),
+("a_cave_tunnel_long_3g-25",0,"cave_tunnel_long_3g-25","co_cave_tunnel_long_3g-25", []),
+("a_cave_tunnel_long_3g-26",0,"cave_tunnel_long_3g-26","co_cave_tunnel_long_3g-26", []),
+("a_cave_tunnel_long_3g-27",0,"cave_tunnel_long_3g-27","co_cave_tunnel_long_3g-27", []),
+("a_cave_tunnel_long_3g-28",0,"cave_tunnel_long_3g-28","co_cave_tunnel_long_3g-28", []),
+("a_cave_tunnel_long_3g-29",0,"cave_tunnel_long_3g-29","co_cave_tunnel_long_3g-29", []),
+("a_cave_tunnel_long_3g-30",0,"cave_tunnel_long_3g-30","co_cave_tunnel_long_3g-30", []),
+("a_cave_tunnel_long_3g-31",0,"cave_tunnel_long_3g-31","co_cave_tunnel_long_3g-31", []),
+("a_cave_tunnel_long_3g-32",0,"cave_tunnel_long_3g-32","co_cave_tunnel_long_3g-32", []),
+("a_cave_tunnel_long_3g-33",0,"cave_tunnel_long_3g-33","co_cave_tunnel_long_3g-33", []),
+("a_cave_tunnel_long_3g-34",0,"cave_tunnel_long_3g-34","co_cave_tunnel_long_3g-34", []),
+("a_cave_tunnel_long_3g-35",0,"cave_tunnel_long_3g-35","co_cave_tunnel_long_3g-35", []),
+("a_cave_tunnel_long_3g-36",0,"cave_tunnel_long_3g-36","co_cave_tunnel_long_3g-36", []),
+("a_cave_tunnel_long_3g-37",0,"cave_tunnel_long_3g-37","co_cave_tunnel_long_3g-37", []),
+("a_cave_tunnel_long_3g-38",0,"cave_tunnel_long_3g-38","co_cave_tunnel_long_3g-38", []),
+("a_cave_tunnel_long_3g-39",0,"cave_tunnel_long_3g-39","co_cave_tunnel_long_3g-39", []),
+("a_cave_tunnel_long_3g-40",0,"cave_tunnel_long_3g-40","co_cave_tunnel_long_3g-40", []),
+("a_cave_tunnel_long_3g-41",0,"cave_tunnel_long_3g-41","co_cave_tunnel_long_3g-41", []),
+("a_cave_tunnel_long_3g-09-m",0,"cave_tunnel_long_3g-09-m","co_cave_tunnel_long_3g-09-m", []),
+("a_cave_tunnel_long_3g-13-m",0,"cave_tunnel_long_3g-13-m","co_cave_tunnel_long_3g-13-m", []),
+("a_cave_tunnel_long_3g-21-m",0,"cave_tunnel_long_3g-21-m","co_cave_tunnel_long_3g-21-m", []),
+("a_cave_tunnel_long_3g-27-m",0,"cave_tunnel_long_3g-27-m","co_cave_tunnel_long_3g-27-m", []),
+("a_cave_tunnel_long_3g-28-m",0,"cave_tunnel_long_3g-28-m","co_cave_tunnel_long_3g-28-m", []),
+("a_cave_tunnel_long_3g-29-m",0,"cave_tunnel_long_3g-29-m","co_cave_tunnel_long_3g-29-m", []),
+("a_cave_tunnel_long_3g-30-m",0,"cave_tunnel_long_3g-30-m","co_cave_tunnel_long_3g-30-m", []),
+("a_cave_tunnel_long_3g-31-m",0,"cave_tunnel_long_3g-31-m","co_cave_tunnel_long_3g-31-m", []),
+("a_cave_tunnel_long_3g-32-m",0,"cave_tunnel_long_3g-32-m","co_cave_tunnel_long_3g-32-m", []),
+("a_cave_tunnel_long_3g-33-m",0,"cave_tunnel_long_3g-33-m","co_cave_tunnel_long_3g-33-m", []),
+("a_cave_tunnel_long_3g-34-m",0,"cave_tunnel_long_3g-34-m","co_cave_tunnel_long_3g-34-m", []),
+("a_cave_tunnel_long_3g-35-m",0,"cave_tunnel_long_3g-35-m","co_cave_tunnel_long_3g-35-m", []),
+("a_cave_tunnel_long_3g-36-m",0,"cave_tunnel_long_3g-36-m","co_cave_tunnel_long_3g-36-m", []),
+("a_cave_tunnel_long_3g-37-m",0,"cave_tunnel_long_3g-37-m","co_cave_tunnel_long_3g-37-m", []),
+("a_cave_tunnel_long_3g-38-m",0,"cave_tunnel_long_3g-38-m","co_cave_tunnel_long_3g-38-m", []),
+("a_cave_tunnel_long_3g-39-m",0,"cave_tunnel_long_3g-39-m","co_cave_tunnel_long_3g-39-m", []),
+("a_cave_tunnel_long_3g-40-m",0,"cave_tunnel_long_3g-40-m","co_cave_tunnel_long_3g-40-m", []),
+("a_cave_tunnel_long_3g-41-m",0,"cave_tunnel_long_3g-41-m","co_cave_tunnel_long_3g-41-m", []),
+("a_cave_tunnel_long_4g-01",0,"cave_tunnel_long_4g-01","co_cave_tunnel_long_4g-01", []),
+("a_cave_tunnel_long_4g-02",0,"cave_tunnel_long_4g-02","co_cave_tunnel_long_4g-02", []),
+("a_cave_tunnel_long_4g-03",0,"cave_tunnel_long_4g-03","co_cave_tunnel_long_4g-03", []),
+("a_cave_tunnel_long_4g-04",0,"cave_tunnel_long_4g-04","co_cave_tunnel_long_4g-04", []),
+("a_cave_tunnel_long_4g-05",0,"cave_tunnel_long_4g-05","co_cave_tunnel_long_4g-05", []),
+("a_cave_tunnel_long_4g-06",0,"cave_tunnel_long_4g-06","co_cave_tunnel_long_4g-06", []),
+("a_cave_tunnel_long_4g-07",0,"cave_tunnel_long_4g-07","co_cave_tunnel_long_4g-07", []),
+("a_cave_tunnel_long_4g-08",0,"cave_tunnel_long_4g-08","co_cave_tunnel_long_4g-08", []),
+("a_cave_tunnel_long_4g-09",0,"cave_tunnel_long_4g-09","co_cave_tunnel_long_4g-09", []),
+("a_cave_tunnel_long_4g-10",0,"cave_tunnel_long_4g-10","co_cave_tunnel_long_4g-10", []),
+("a_cave_tunnel_long_4g-11",0,"cave_tunnel_long_4g-11","co_cave_tunnel_long_4g-11", []),
+("a_cave_tunnel_long_4g-12",0,"cave_tunnel_long_4g-12","co_cave_tunnel_long_4g-12", []),
+("a_cave_tunnel_long_4g-13",0,"cave_tunnel_long_4g-13","co_cave_tunnel_long_4g-13", []),
+("a_cave_tunnel_long_4g-14",0,"cave_tunnel_long_4g-14","co_cave_tunnel_long_4g-14", []),
+("a_cave_tunnel_long_4g-15",0,"cave_tunnel_long_4g-15","co_cave_tunnel_long_4g-15", []),
+("a_cave_tunnel_long_4g-16",0,"cave_tunnel_long_4g-16","co_cave_tunnel_long_4g-16", []),
+("a_cave_tunnel_long_4g-17",0,"cave_tunnel_long_4g-17","co_cave_tunnel_long_4g-17", []),
+("a_cave_tunnel_long_4g-18",0,"cave_tunnel_long_4g-18","co_cave_tunnel_long_4g-18", []),
+("a_cave_tunnel_long_4g-19",0,"cave_tunnel_long_4g-19","co_cave_tunnel_long_4g-19", []),
+("a_cave_tunnel_long_4g-20",0,"cave_tunnel_long_4g-20","co_cave_tunnel_long_4g-20", []),
+("a_cave_tunnel_long_4g-21",0,"cave_tunnel_long_4g-21","co_cave_tunnel_long_4g-21", []),
+("a_cave_tunnel_long_4g-22",0,"cave_tunnel_long_4g-22","co_cave_tunnel_long_4g-22", []),
+("a_cave_tunnel_long_4g-23",0,"cave_tunnel_long_4g-23","co_cave_tunnel_long_4g-23", []),
+("a_cave_tunnel_long_4g-24",0,"cave_tunnel_long_4g-24","co_cave_tunnel_long_4g-24", []),
+("a_cave_tunnel_long_4g-25",0,"cave_tunnel_long_4g-25","co_cave_tunnel_long_4g-25", []),
+("a_cave_tunnel_long_4g-26",0,"cave_tunnel_long_4g-26","co_cave_tunnel_long_4g-26", []),
+("a_cave_tunnel_long_4g-02-m",0,"cave_tunnel_long_4g-02-m","co_cave_tunnel_long_4g-02-m", []),
+("a_cave_tunnel_long_4g-04-m",0,"cave_tunnel_long_4g-04-m","co_cave_tunnel_long_4g-04-m", []),
+("a_cave_tunnel_long_4g-05-m",0,"cave_tunnel_long_4g-05-m","co_cave_tunnel_long_4g-05-m", []),
+("a_cave_tunnel_long_4g-06-m",0,"cave_tunnel_long_4g-06-m","co_cave_tunnel_long_4g-06-m", []),
+("a_cave_tunnel_long_4g-08-m",0,"cave_tunnel_long_4g-08-m","co_cave_tunnel_long_4g-08-m", []),
+("a_cave_tunnel_long_4g-09-m",0,"cave_tunnel_long_4g-09-m","co_cave_tunnel_long_4g-09-m", []),
+("a_cave_tunnel_long_4g-10-m",0,"cave_tunnel_long_4g-10-m","co_cave_tunnel_long_4g-10-m", []),
+("a_cave_tunnel_long_4g-11-m",0,"cave_tunnel_long_4g-11-m","co_cave_tunnel_long_4g-11-m", []),
+("a_cave_tunnel_long_4g-12-m",0,"cave_tunnel_long_4g-12-m","co_cave_tunnel_long_4g-12-m", []),
+("a_cave_tunnel_long_4g-13-m",0,"cave_tunnel_long_4g-13-m","co_cave_tunnel_long_4g-13-m", []),
+("a_cave_tunnel_long_4g-15-m",0,"cave_tunnel_long_4g-15-m","co_cave_tunnel_long_4g-15-m", []),
+("a_cave_tunnel_long_4g-16-m",0,"cave_tunnel_long_4g-16-m","co_cave_tunnel_long_4g-16-m", []),
+("a_cave_tunnel_long_4g-20-m",0,"cave_tunnel_long_4g-20-m","co_cave_tunnel_long_4g-20-m", []),
+("a_cave_tunnel_long_4g-21-m",0,"cave_tunnel_long_4g-21-m","co_cave_tunnel_long_4g-21-m", []),
+("a_cave_tunnel_long_4g-22-m",0,"cave_tunnel_long_4g-22-m","co_cave_tunnel_long_4g-22-m", []),
+("a_cave_tunnel_long_4g-23-m",0,"cave_tunnel_long_4g-23-m","co_cave_tunnel_long_4g-23-m", []),
+("a_cave_tunnel_long_4g-24-m",0,"cave_tunnel_long_4g-24-m","co_cave_tunnel_long_4g-24-m", []),
+("a_cave_tunnel_long_4g-25-m",0,"cave_tunnel_long_4g-25-m","co_cave_tunnel_long_4g-25-m", []),
+("a_cave_tunnel_long_4g-26-m",0,"cave_tunnel_long_4g-26-m","co_cave_tunnel_long_4g-26-m", []),
+("a_cave_tunnel_long_4g-V2-01",0,"cave_tunnel_long_4g-V2-01","co_cave_tunnel_long_4g-V2-01", []),
+("a_cave_tunnel_long_4g-V2-02",0,"cave_tunnel_long_4g-V2-02","co_cave_tunnel_long_4g-V2-02", []),
+("a_cave_tunnel_long_4g-V2-03",0,"cave_tunnel_long_4g-V2-03","co_cave_tunnel_long_4g-V2-03", []),
+("a_cave_tunnel_long_4g-V2-04",0,"cave_tunnel_long_4g-V2-04","co_cave_tunnel_long_4g-V2-04", []),
+("a_cave_tunnel_long_4g-V2-05",0,"cave_tunnel_long_4g-V2-05","co_cave_tunnel_long_4g-V2-05", []),
+("a_cave_tunnel_long_4g-V2-06",0,"cave_tunnel_long_4g-V2-06","co_cave_tunnel_long_4g-V2-06", []),
+("a_cave_tunnel_long_4g-V2-07",0,"cave_tunnel_long_4g-V2-07","co_cave_tunnel_long_4g-V2-07", []),
+("a_cave_tunnel_long_4g-V2-08",0,"cave_tunnel_long_4g-V2-08","co_cave_tunnel_long_4g-V2-08", []),
+("a_cave_tunnel_long_4g-V2-09",0,"cave_tunnel_long_4g-V2-09","co_cave_tunnel_long_4g-V2-09", []),
+("a_cave_tunnel_long_4g-V2-10",0,"cave_tunnel_long_4g-V2-10","co_cave_tunnel_long_4g-V2-10", []),
+("a_cave_tunnel_long_4g-V2-11",0,"cave_tunnel_long_4g-V2-11","co_cave_tunnel_long_4g-V2-11", []),
+("a_cave_tunnel_long_4g-V2-12",0,"cave_tunnel_long_4g-V2-12","co_cave_tunnel_long_4g-V2-12", []),
+("a_cave_tunnel_long_4g-V2-13",0,"cave_tunnel_long_4g-V2-13","co_cave_tunnel_long_4g-V2-13", []),
+("a_cave_tunnel_long_4g-V2-14",0,"cave_tunnel_long_4g-V2-14","co_cave_tunnel_long_4g-V2-14", []),
+("a_cave_tunnel_long_4g-V2-15",0,"cave_tunnel_long_4g-V2-15","co_cave_tunnel_long_4g-V2-15", []),
+("a_cave_tunnel_long_4g-V2-16",0,"cave_tunnel_long_4g-V2-16","co_cave_tunnel_long_4g-V2-16", []),
+("a_cave_tunnel_long_4g-V2-17",0,"cave_tunnel_long_4g-V2-17","co_cave_tunnel_long_4g-V2-17", []),
+("a_cave_tunnel_long_4g-V2-18",0,"cave_tunnel_long_4g-V2-18","co_cave_tunnel_long_4g-V2-18", []),
+("a_cave_tunnel_long_4g-V2-19",0,"cave_tunnel_long_4g-V2-19","co_cave_tunnel_long_4g-V2-19", []),
+("a_cave_tunnel_long_4g-V2-20",0,"cave_tunnel_long_4g-V2-20","co_cave_tunnel_long_4g-V2-20", []),
+("a_cave_tunnel_long_4g-V2-21",0,"cave_tunnel_long_4g-V2-21","co_cave_tunnel_long_4g-V2-21", []),
+("a_cave_tunnel_long_4g-V2-22",0,"cave_tunnel_long_4g-V2-22","co_cave_tunnel_long_4g-V2-22", []),
+("a_cave_tunnel_long_4g-V2-23",0,"cave_tunnel_long_4g-V2-23","co_cave_tunnel_long_4g-V2-23", []),
+("a_cave_tunnel_long_4g-V2-24",0,"cave_tunnel_long_4g-V2-24","co_cave_tunnel_long_4g-V2-24", []),
+("a_cave_tunnel_long_4g-V2-25",0,"cave_tunnel_long_4g-V2-25","co_cave_tunnel_long_4g-V2-25", []),
+("a_cave_tunnel_long_4g-V2-26",0,"cave_tunnel_long_4g-V2-26","co_cave_tunnel_long_4g-V2-26", []),
+("a_cave_tunnel_long_4g-V2-27",0,"cave_tunnel_long_4g-V2-27","co_cave_tunnel_long_4g-V2-27", []),
+("a_cave_tunnel_long_4g-V2-28",0,"cave_tunnel_long_4g-V2-28","co_cave_tunnel_long_4g-V2-28", []),
+("a_cave_tunnel_long_4g-V2-29",0,"cave_tunnel_long_4g-V2-29","co_cave_tunnel_long_4g-V2-29", []),
+("a_cave_tunnel_long_4g-V2-30",0,"cave_tunnel_long_4g-V2-30","co_cave_tunnel_long_4g-V2-30", []),
+("a_cave_tunnel_long_4g-V2-31",0,"cave_tunnel_long_4g-V2-31","co_cave_tunnel_long_4g-V2-31", []),
+("a_cave_tunnel_long_4g-V2-32",0,"cave_tunnel_long_4g-V2-32","co_cave_tunnel_long_4g-V2-32", []),
+("a_cave_tunnel_long_4g-V2-33",0,"cave_tunnel_long_4g-V2-33","co_cave_tunnel_long_4g-V2-33", []),
+("a_cave_tunnel_long_4g-V2-34",0,"cave_tunnel_long_4g-V2-34","co_cave_tunnel_long_4g-V2-34", []),
+("a_cave_tunnel_long_4g-V2-35",0,"cave_tunnel_long_4g-V2-35","co_cave_tunnel_long_4g-V2-35", []),
+("a_cave_tunnel_long_4g-V2-36",0,"cave_tunnel_long_4g-V2-36","co_cave_tunnel_long_4g-V2-36", []),
+("a_cave_tunnel_long_4g-V2-37",0,"cave_tunnel_long_4g-V2-37","co_cave_tunnel_long_4g-V2-37", []),
+("a_cave_tunnel_long_4g-V2-38",0,"cave_tunnel_long_4g-V2-38","co_cave_tunnel_long_4g-V2-38", []),
+("a_cave_tunnel_long_4g-V2-39",0,"cave_tunnel_long_4g-V2-39","co_cave_tunnel_long_4g-V2-39", []),
+("a_cave_tunnel_long_4g-V2-40",0,"cave_tunnel_long_4g-V2-40","co_cave_tunnel_long_4g-V2-40", []),
+("a_cave_tunnel_long_4g-V2-41",0,"cave_tunnel_long_4g-V2-41","co_cave_tunnel_long_4g-V2-41", []),
+("a_cave_tunnel_long_4g-V2-42",0,"cave_tunnel_long_4g-V2-42","co_cave_tunnel_long_4g-V2-42", []),
+("a_cave_tunnel_long_4g-V2-43",0,"cave_tunnel_long_4g-V2-43","co_cave_tunnel_long_4g-V2-43", []),
+("a_cave_tunnel_long_4g-V2-11-m",0,"cave_tunnel_long_4g-V2-11-m","co_cave_tunnel_long_4g-V2-11-m", []),
+("a_cave_tunnel_long_4g-V2-12-m",0,"cave_tunnel_long_4g-V2-12-m","co_cave_tunnel_long_4g-V2-12-m", []),
+("a_cave_tunnel_long_4g-V2-13-m",0,"cave_tunnel_long_4g-V2-13-m","co_cave_tunnel_long_4g-V2-13-m", []),
+("a_cave_tunnel_long_4g-V2-14-m",0,"cave_tunnel_long_4g-V2-14-m","co_cave_tunnel_long_4g-V2-14-m", []),
+("a_cave_tunnel_long_4g-V2-15-m",0,"cave_tunnel_long_4g-V2-15-m","co_cave_tunnel_long_4g-V2-15-m", []),
+("a_cave_tunnel_long_4g-V2-16-m",0,"cave_tunnel_long_4g-V2-16-m","co_cave_tunnel_long_4g-V2-16-m", []),
+("a_cave_tunnel_long_4g-V2-19-m",0,"cave_tunnel_long_4g-V2-19-m","co_cave_tunnel_long_4g-V2-19-m", []),
+("a_cave_tunnel_long_4g-V2-20-m",0,"cave_tunnel_long_4g-V2-20-m","co_cave_tunnel_long_4g-V2-20-m", []),
+("a_cave_tunnel_long_4g-V2-21-m",0,"cave_tunnel_long_4g-V2-21-m","co_cave_tunnel_long_4g-V2-21-m", []),
+("a_cave_tunnel_long_4g-V2-22-m",0,"cave_tunnel_long_4g-V2-22-m","co_cave_tunnel_long_4g-V2-22-m", []),
+("a_cave_tunnel_long_4g-V2-29-m",0,"cave_tunnel_long_4g-V2-29-m","co_cave_tunnel_long_4g-V2-29-m", []),
+("a_cave_tunnel_long_4g-V2-30-m",0,"cave_tunnel_long_4g-V2-30-m","co_cave_tunnel_long_4g-V2-30-m", []),
+("a_cave_tunnel_long_4g-V2-31-m",0,"cave_tunnel_long_4g-V2-31-m","co_cave_tunnel_long_4g-V2-31-m", []),
+("a_cave_tunnel_long_4g-V2-32-m",0,"cave_tunnel_long_4g-V2-32-m","co_cave_tunnel_long_4g-V2-32-m", []),
+("a_cave_tunnel_long_4g-V2-33-m",0,"cave_tunnel_long_4g-V2-33-m","co_cave_tunnel_long_4g-V2-33-m", []),
+("a_cave_tunnel_long_4g-V2-34-m",0,"cave_tunnel_long_4g-V2-34-m","co_cave_tunnel_long_4g-V2-34-m", []),
+("a_cave_tunnel_long_4g-V2-35-m",0,"cave_tunnel_long_4g-V2-35-m","co_cave_tunnel_long_4g-V2-35-m", []),
+("a_cave_tunnel_long_4g-V2-36-m",0,"cave_tunnel_long_4g-V2-36-m","co_cave_tunnel_long_4g-V2-36-m", []),
+("a_cave_tunnel_long_4g-V2-37-m",0,"cave_tunnel_long_4g-V2-37-m","co_cave_tunnel_long_4g-V2-37-m", []),
+("a_cave_tunnel_long_4g-V2-38-m",0,"cave_tunnel_long_4g-V2-38-m","co_cave_tunnel_long_4g-V2-38-m", []),
+("a_cave_tunnel_long_4g-V2-40-m",0,"cave_tunnel_long_4g-V2-40-m","co_cave_tunnel_long_4g-V2-40-m", []),
+("a_cave_tunnel_long_4g-V2-41-m",0,"cave_tunnel_long_4g-V2-41-m","co_cave_tunnel_long_4g-V2-41-m", []),
+("a_cave_tunnel_long_4g-V2-42-m",0,"cave_tunnel_long_4g-V2-42-m","co_cave_tunnel_long_4g-V2-42-m", []),
+("a_cave_tunnel_long_4g-V2-43-m",0,"cave_tunnel_long_4g-V2-43-m","co_cave_tunnel_long_4g-V2-43-m", []),
+("a_cave-way-01",0,"cave-way-01","co_cave-way-01", []),
+("a_cave-way-02",0,"cave-way-02","co_cave-way-02", []),
+("a_cave-way-03",0,"cave-way-03","co_cave-way-03", []),
+("a_cave-way-04",0,"cave-way-04","co_cave-way-04", []),
+("a_cave-way-05",0,"cave-way-05","co_cave-way-05", []),
+("a_cave-way-06",0,"cave-way-06","co_cave-way-06", []),
+("a_cave-way-07",0,"cave-way-07","co_cave-way-07", []),
+("a_cave-way-08",0,"cave-way-08","co_cave-way-08", []),
+("a_cave-way-09",0,"cave-way-09","co_cave-way-09", []),
+("a_cave-way-01-m",0,"cave-way-01-m","co_cave-way-01-m", []),
+("a_cave-way-02-m",0,"cave-way-02-m","co_cave-way-02-m", []),
+("a_cave-way-03-m",0,"cave-way-03-m","co_cave-way-03-m", []),
+("a_cave-way-04-m",0,"cave-way-04-m","co_cave-way-04-m", []),
+("a_cave-way-05-m",0,"cave-way-05-m","co_cave-way-05-m", []),
+("a_cave-way-06-m",0,"cave-way-06-m","co_cave-way-06-m", []),
+("a_cave-way-07-m",0,"cave-way-07-m","co_cave-way-07-m", []),
+("a_cave-way-08-m",0,"cave-way-08-m","co_cave-way-08-m", []),
+("a_cave-way-09-m",0,"cave-way-09-m","co_cave-way-09-m", []),
+("a_str_spike_a",0,"str_spike_a","co_str_spike_a", []),
+("a_str_spike_group_a",0,"str_spike_group_a","co_str_spike_group_a", []),
+("a_str_destroy_house_a",0,"str_destroy_house_a","co_str_destroy_house_a", []),
+("a_str_destroy_house_b",0,"str_destroy_house_b","co_str_destroy_house_b", []),
+("a_str_destroy_house_c",0,"str_destroy_house_c","co_str_destroy_house_c", []),
+("a_str_destroy_heap",0,"str_destroy_heap","co_str_destroy_heap", []),
+("a_str_destroy_castle_a",0,"str_destroy_castle_a","co_str_destroy_castle_a", []),
+("a_str_destroy_castle_b",0,"str_destroy_castle_b","co_str_destroy_castle_b", []),
+("a_str_destroy_castle_c",0,"str_destroy_castle_c","co_str_destroy_castle_c", []),
+("a_str_destroy_castle_d",0,"str_destroy_castle_d","co_str_destroy_castle_d", []),
+("a_str_destroy_windmill",0,"str_destroy_windmill","co_str_destroy_windmill", []),
+("a_str_destroy_bridge_a",0,"str_destroy_bridge_a","co_str_destroy_bridge_a", []),
+("a_str_destroy_bridge_b",0,"str_destroy_bridge_b","co_str_destroy_bridge_b", []),
+("a_str_bridge_modular_a",0,"str_bridge_modular_a","co_str_bridge_modular_a", []),
+("a_str_bridge_modular_b",0,"str_bridge_modular_b","co_str_bridge_modular_b", []),
+("a_str_passage_house_d",0,"str_passage_house_d","co_str_passage_house_d", []),
+("a_str_small_wall_b",0,"str_small_wall_b","co_str_small_wall_b", []),
+("a_str_small_wall_c",0,"str_small_wall_c","co_str_small_wall_c", []),
+("a_str_stone_heap",0,"str_stone_heap","co_str_stone_heap", []),
+("a_str_small_wall_c_destroy",0,"str_small_wall_c_destroy","co_str_small_wall_c_destroy", []),
+("a_str_stone_step_b",0,"str_stone_step_b","co_str_stone_step_b", []),
+("a_str_arena_circle_a",0,"str_arena_circle_a","co_str_arena_circle_a", []),
+("a_str_tree_house_guard_a",0,"str_tree_house_guard_a","co_str_tree_house_guard_a", []),
+("a_str_tree_house_guard_b",0,"str_tree_house_guard_b","co_str_tree_house_guard_b", []),
+("a_str_bridge_b",0,"str_bridge_b","co_str_bridge_b", []),
+("a_cave_columna-01_int",0,"columna-01_int","co_columna-01", []),
+("a_cave_columna-02_int",0,"columna-02_int","co_columna-02", []),
+("a_cave_pasarela-01_int",0,"pasarela-01_int","co_pasarela-01", []),
+("a_cave_pasarela-02_int",0,"pasarela-02_int","co_pasarela-02", []),
+("a_cave_pasarela-03_int",0,"pasarela-03_int","co_pasarela-03", []),
+("a_cave_pasarela-03-m_int",0,"pasarela-03-m_int","co_pasarela-03-m", []),
+("a_cave_estalactita-01_int",0,"estalactita-01_int","co_estalactita-01", []),
+("a_cave_mo-wall-01_int",0,"mo-wall-01_int","co_mo-wall-01", []),
+("a_cave_mo-wall-01-m_int",0,"mo-wall-01-m_int","co_mo-wall-01-m", []),
+("a_cave_mo-wall-02_int",0,"mo-wall-02_int","co_mo-wall-02", []),
+("a_cave_rock-01_int",0,"rock-01_int","co_rock-01", []),
+("a_cave_rock-02_int",0,"rock-02_int","co_rock-02", []),
+("a_cave_rock-03_int",0,"rock-03_int","co_rock-03", []),
+("a_cave_rock-03-m_int",0,"rock-03-m_int","co_rock-03-m", []),
+("a_cave_rock-04_int",0,"rock-04_int","co_rock-04", []),
+("a_cave_rock-05_int",0,"rock-05_int","co_rock-05", []),
+("a_cave_rock-06_int",0,"rock-06_int","co_rock-06", []),
+("a_cave_way-01_int",0,"way-01_int","co_way-01", []),
+("a_cave_way-01-bank-01_int",0,"way-01-bank-01_int","co_way-01-bank-01", []),
+("a_cave_estalactita-02_int",0,"estalactita-02_int","co_estalactita-02", []),
+("a_cave_estalactita-03_int",0,"estalactita-03_int","co_estalactita-03", []),
+("a_cave_pasarela-04_int",0,"pasarela-04_int","co_pasarela-04", []),
+("a_cave_pasarela-05_int",0,"pasarela-05_int","co_pasarela-05", []),
+("a_cave-frame-01_int",0,"cave-frame-01_int","co_cave-frame-01", []),
+("a_cave-frame-01-m_int",0,"cave-frame-01-m_int","co_cave-frame-01-m", []),
+("a_cave-frame-02_int",0,"cave-frame-02_int","co_cave-frame-02", []),
+("a_cave-frame-02-m_int",0,"cave-frame-02-m_int","co_cave-frame-02-m", []),
+("a_cave_mont-01-big-01_int",0,"mont-01-big-01_int","co_mont-01-big-01", []),
+("a_cave_mont-01-med-01_int",0,"mont-01-med-01_int","co_mont-01-med-01", []),
+("a_cave_columna-03_int",0,"columna-03_int","co_columna-03", []),
+("a_str_cave-gate-01",0,"str_cave-gate-01","co_str_cave-gate-01", []),
+("a_str_cave-gate-02",0,"str_cave-gate-02","co_str_cave-gate-02", []),
+("a_str_cave-gate-03",0,"str_cave-gate-03","co_str_cave-gate-03", []),
+("a_str_cave-gate-04",0,"str_cave-gate-04","co_str_cave-gate-04", []),
+("a_cave-mont-01-big",0,"cave-mont-01-big","co_cave-mont-01-big", []),
+("a_cave-mont-01-big-b",0,"cave-mont-01-big-b","co_cave-mont-01-big-b", []),
+
+#ROCK AND MOUNTAIN PACK V3#
+## TGS
+
 ]

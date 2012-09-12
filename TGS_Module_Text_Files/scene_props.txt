@@ -1,5 +1,5 @@
 scene_propsfile version 1
- 1206
+ 1860
 spr_invalid_object 0 0 question_mark 0 0
 
 
@@ -3712,5 +3712,1967 @@ spr_TGS_waypoint_9 16384 0 barrier_capsule 0 0
 
 
 spr_TGS_waypoint_10 16384 0 barrier_capsule 0 0
+
+
+spr_a_acantilado-05 0 0 acantilado-05 co_acantilado-05 0
+
+
+spr_a_acantilado-05-m 0 0 acantilado-05-m co_acantilado-05-m 0
+
+
+spr_a_acantilado-06 0 0 acantilado-06 co_acantilado-06 0
+
+
+spr_a_acantilado-06-m 0 0 acantilado-06-m co_acantilado-06-m 0
+
+
+spr_a_acantilado-07 0 0 acantilado-07 co_acantilado-07 0
+
+
+spr_a_acantilado-07-m 0 0 acantilado-07-m co_acantilado-07-m 0
+
+
+spr_a_columna-01 0 0 columna-01 co_columna-01 0
+
+
+spr_a_cornisa-01 0 0 cornisa-01 co_cornisa-01 0
+
+
+spr_a_cornisa-01-m 0 0 cornisa-01-m co_cornisa-01-m 0
+
+
+spr_a_cornisa-02 0 0 cornisa-02 co_cornisa-02 0
+
+
+spr_a_cave-01c2-hole 0 0 cueva-01c2-hole co_cueva-01c2-hole 0
+
+
+spr_a_cave-01c2-hole-m 0 0 cueva-01c2-hole-m co_cueva-01c2-hole-m 0
+
+
+spr_a_estalactita-01 0 0 estalactita-01 co_estalactita-01 0
+
+
+spr_a_mont-01 0 0 mont-01 co_mont-01 0
+
+
+spr_a_mont-01-m 0 0 mont-01-m co_mont-01-m 0
+
+
+spr_a_mont-02 0 0 mont-02 co_mont-02 0
+
+
+spr_a_mont-03 0 0 mont-03 co_mont-03 0
+
+
+spr_a_mont-03-m 0 0 mont-03-m co_mont-03-m 0
+
+
+spr_a_mo-wall-01 0 0 mo-wall-01 co_mo-wall-01 0
+
+
+spr_a_mo-wall-01-m 0 0 mo-wall-01-m co_mo-wall-01-m 0
+
+
+spr_a_mo-wall-02 0 0 mo-wall-02 co_mo-wall-02 0
+
+
+spr_a_pasarela-01 0 0 pasarela-01 co_pasarela-01 0
+
+
+spr_a_pasarela-02 0 0 pasarela-02 co_pasarela-02 0
+
+
+spr_a_pasarela-03 0 0 pasarela-03 co_pasarela-03 0
+
+
+spr_a_pasarela-03-m 0 0 pasarela-03-m co_pasarela-03-m 0
+
+
+spr_a_rock-01 0 0 rock-01 co_rock-01 0
+
+
+spr_a_rock-02 0 0 rock-02 co_rock-02 0
+
+
+spr_a_rock-03 0 0 rock-03 co_rock-03 0
+
+
+spr_a_rock-04 0 0 rock-04 co_rock-04 0
+
+
+spr_a_rock-05 0 0 rock-05 co_rock-05 0
+
+
+spr_a_rock-06 0 0 rock-06 co_rock-06 0
+
+
+spr_a_cave_subterraneo-01 0 0 subterraneo-01 co_subterraneo-01 0
+
+
+spr_a_cave_subterraneo-01-m 0 0 subterraneo-01-m co_subterraneo-01-m 0
+
+
+spr_a_mont-01-big 0 0 mont-01-big co_mont-01-big 0
+
+
+spr_a_way-01 0 0 way-01 co_way-01 0
+
+
+spr_a_way-01-bank-01 0 0 way-01-bank-01 co_way-01-bank-01 0
+
+
+spr_a_mont-02-big 0 0 mont-02-big co_mont-02-big 0
+
+
+spr_a_acantilado-06-p1 0 0 acantilado-06-p1 co_acantilado-06-p1 0
+
+
+spr_a_acantilado-06-p1-m 0 0 acantilado-06-p1-m co_acantilado-06-p1-m 0
+
+
+spr_a_acantilado-06-p2 0 0 acantilado-06-p2 co_acantilado-06-p2 0
+
+
+spr_a_acantilado-06-p2-m 0 0 acantilado-06-p2-m co_acantilado-06-p2-m 0
+
+
+spr_a_acantilado-07-p1 0 0 acantilado-07-p1 co_acantilado-07-p1 0
+
+
+spr_a_acantilado-07-p1-m 0 0 acantilado-07-p1-m co_acantilado-07-p1-m 0
+
+
+spr_a_acantilado-07-p2 0 0 acantilado-07-p2 co_acantilado-07-p2 0
+
+
+spr_a_acantilado-07-p3 0 0 acantilado-07-p3 co_acantilado-07-p3 0
+
+
+spr_a_mont-01-p1 0 0 mont-01-p1 co_mont-01-p1 0
+
+
+spr_a_mont-01-p1-m 0 0 mont-01-p1-m co_mont-01-p1-m 0
+
+
+spr_a_mont-01-p2 0 0 mont-01-p2 co_mont-01-p2 0
+
+
+spr_a_mont-01-p2-m 0 0 mont-01-p2-m co_mont-01-p2-m 0
+
+
+spr_a_mont-03-p1 0 0 mont-03-p1 co_mont-03-p1 0
+
+
+spr_a_mont-03-p1-m 0 0 mont-03-p1-m co_mont-03-p1-m 0
+
+
+spr_a_mont-03-p2 0 0 mont-03-p2 co_mont-03-p2 0
+
+
+spr_a_mont-03-p2-m 0 0 mont-03-p2-m co_mont-03-p2-m 0
+
+
+spr_a_mont-03-p3 0 0 mont-03-p3 co_mont-03-p3 0
+
+
+spr_a_mont-03-p3-m 0 0 mont-03-p3-m co_mont-03-p3-m 0
+
+
+spr_a_mont-04-big 0 0 mont-04-big co_mont-04-big 0
+
+
+spr_a_barandilla-01 0 0 barandilla-01 co_barandilla-01 0
+
+
+spr_a_cave-01c-ext 0 0 cueva-01c-ext co_cueva-01c-ext 0
+
+
+spr_a_cave_tunnel-01 0 0 tunnel-01 co_tunnel-01 0
+
+
+spr_a_cave_tunnel-01-m 0 0 tunnel-01-m co_tunnel-01-m 0
+
+
+spr_a_cave_tunnel-02 0 0 tunnel-02 co_tunnel-02 0
+
+
+spr_a_cave_tunnel-02-m 0 0 tunnel-02-m co_tunnel-02-m 0
+
+
+spr_a_cave_tunnel-03 0 0 tunnel-03 co_tunnel-03 0
+
+
+spr_a_cave_tunnel-03-m 0 0 tunnel-03-m co_tunnel-03-m 0
+
+
+spr_a_columna-02 0 0 columna-02 co_columna-02 0
+
+
+spr_a_mont-01-big-p01 0 0 mont-01-big-p01 co_mont-01-big-p01 0
+
+
+spr_a_mont-01-big-p02 0 0 mont-01-big-p02 co_mont-01-big-p02 0
+
+
+spr_a_mont-01-big-p03 0 0 mont-01-big-p03 co_mont-01-big-p03 0
+
+
+spr_a_mont-01-big-p04 0 0 mont-01-big-p04 co_mont-01-big-p04 0
+
+
+spr_a_mont-02-big-p01 0 0 mont-02-big-p01 co_mont-02-big-p01 0
+
+
+spr_a_mont-02-big-p02 0 0 mont-02-big-p02 co_mont-02-big-p02 0
+
+
+spr_a_mont-02-big-p03 0 0 mont-02-big-p03 co_mont-02-big-p03 0
+
+
+spr_a_mont-02-big-p04 0 0 mont-02-big-p04 co_mont-02-big-p04 0
+
+
+spr_a_mont-04-big-p01 0 0 mont-04-big-p01 co_mont-04-big-p01 0
+
+
+spr_a_mont-04-big-p02 0 0 mont-04-big-p02 co_mont-04-big-p02 0
+
+
+spr_a_mont-04-big-p03 0 0 mont-04-big-p03 co_mont-04-big-p03 0
+
+
+spr_a_mont-04-big-p04 0 0 mont-04-big-p04 co_mont-04-big-p04 0
+
+
+spr_a_cave_mont-01-big-cave-p01 0 0 mont-01-big-cave-p01 co_mont-01-big-cave-p01 0
+
+
+spr_a_cave_mont-01-big-cave-p02 0 0 mont-01-big-cave-p02 co_mont-01-big-cave-p02 0
+
+
+spr_a_cave_mont-01-big-cave-p03 0 0 mont-01-big-cave-p03 co_mont-01-big-cave-p03 0
+
+
+spr_a_cave_mont-01-big-cave-p04 0 0 mont-01-big-cave-p04 co_mont-01-big-cave-p04 0
+
+
+spr_a_cave_mont-02-big-cave-p01 0 0 mont-02-big-cave-p01 co_mont-02-big-cave-p01 0
+
+
+spr_a_cave_mont-02-big-cave-p02 0 0 mont-02-big-cave-p02 co_mont-02-big-cave-p02 0
+
+
+spr_a_cave_mont-02-big-cave-p03 0 0 mont-02-big-cave-p03 co_mont-02-big-cave-p03 0
+
+
+spr_a_cave_mont-02-big-cave-p04 0 0 mont-02-big-cave-p04 co_mont-02-big-cave-p04 0
+
+
+spr_a_cave_mont-04-big-cave-p01 0 0 mont-04-big-cave-p01 co_mont-04-big-cave-p01 0
+
+
+spr_a_cave_mont-04-big-cave-p02 0 0 mont-04-big-cave-p02 co_mont-04-big-cave-p02 0
+
+
+spr_a_cave_mont-04-big-cave-p03 0 0 mont-04-big-cave-p03 co_mont-04-big-cave-p03 0
+
+
+spr_a_cave_mont-04-big-cave-p04 0 0 mont-04-big-cave-p04 co_mont-04-big-cave-p04 0
+
+
+spr_a_cave_subterraneo-01-empty 0 0 subterraneo-01-empty co_subterraneo-01-empty 0
+
+
+spr_a_cave_subterraneo-01-empty-m 0 0 subterraneo-01-empty-m co_subterraneo-01-empty-m 0
+
+
+spr_a_cave-01 0 0 cave-01 co_cave-01 0
+
+
+spr_a_cave-p01 0 0 cave-p01 co_cave-p01 0
+
+
+spr_a_cave-p02 0 0 cave-p02 co_cave-p02 0
+
+
+spr_a_cave-p03 0 0 cave-p03 co_cave-p03 0
+
+
+spr_a_columna-03 0 0 columna-03 co_columna-03 0
+
+
+spr_a_estalactita-02 0 0 estalactita-02 co_estalactita-02 0
+
+
+spr_a_estalactita-03 0 0 estalactita-03 co_estalactita-03 0
+
+
+spr_a_pasarela-04 0 0 pasarela-04 co_pasarela-04 0
+
+
+spr_a_pasarela-05 0 0 pasarela-05 co_pasarela-05 0
+
+
+spr_a_cave-frame-01 0 0 cave-frame-01 co_cave-frame-01 0
+
+
+spr_a_cave-frame-01-m 0 0 cave-frame-01-m co_cave-frame-01-m 0
+
+
+spr_a_cave-frame-02 0 0 cave-frame-02 co_cave-frame-02 0
+
+
+spr_a_cave-frame-02-m 0 0 cave-frame-02-m co_cave-frame-02-m 0
+
+
+spr_a_cave_dungeon_a_o 0 0 dungeon_a_o bo_dungeon_a_o 0
+
+
+spr_a_mont-01-big-01 0 0 mont-01-big-01 co_mont-01-big-01 0
+
+
+spr_a_mont-02-big-01 0 0 mont-02-big-01 co_mont-02-big-01 0
+
+
+spr_a_mont-04-big-01 0 0 mont-04-big-01 co_mont-04-big-01 0
+
+
+spr_a_cave_mont-01-big-cave-01 0 0 mont-01-big-cave-01 co_mont-01-big-cave-01 0
+
+
+spr_a_cave_mont-02-big-cave-01 0 0 mont-02-big-cave-01 co_mont-02-big-cave-01 0
+
+
+spr_a_cave_mont-04-big-cave-01 0 0 mont-04-big-cave-01 co_mont-04-big-cave-01 0
+
+
+spr_a_mont-01-med-01 0 0 mont-01-med-01 co_mont-01-med-01 0
+
+
+spr_a_mont-02-med-01 0 0 mont-02-med-01 co_mont-02-med-01 0
+
+
+spr_a_mont-04-med-01 0 0 mont-04-med-01 co_mont-04-med-01 0
+
+
+spr_a_cave_mont-01-med-cave-01 0 0 mont-01-med-cave-01 co_mont-01-med-cave-01 0
+
+
+spr_a_cave_mont-02-med-cave-01 0 0 mont-02-med-cave-01 co_mont-02-med-cave-01 0
+
+
+spr_a_cave_mont-04-med-cave-01 0 0 mont-04-med-cave-01 co_mont-04-med-cave-01 0
+
+
+spr_a_mont-01-sma-01 0 0 mont-01-sma-01 co_mont-01-sma-01 0
+
+
+spr_a_mont-02-sma-01 0 0 mont-02-sma-01 co_mont-02-sma-01 0
+
+
+spr_a_mont-04-sma-01 0 0 mont-04-sma-01 co_mont-04-sma-01 0
+
+
+spr_a_cave_mont-01-sma-cave-01 0 0 mont-01-sma-cave-01 co_mont-01-sma-cave-01 0
+
+
+spr_a_cave_mont-02-sma-cave-01 0 0 mont-02-sma-cave-01 co_mont-02-sma-cave-01 0
+
+
+spr_a_cave_mont-04-sma-cave-01 0 0 mont-04-sma-cave-01 co_mont-04-sma-cave-01 0
+
+
+spr_a_desfiladero-long-small-slope-01 0 0 desfiladero-long-small-slope-01 co_desfiladero-long-small-slope-01 0
+
+
+spr_a_desfiladero-short-small-slope-01 0 0 desfiladero-short-small-slope-01 co_desfiladero-short-small-slope-01 0
+
+
+spr_a_desfiladero-long-small-curve-01 0 0 desfiladero-long-small-curve-01 co_desfiladero-long-small-curve-01 0
+
+
+spr_a_desfiladero-short-small-curve-01 0 0 desfiladero-short-small-curve-01 co_desfiladero-short-small-curve-01 0
+
+
+spr_a_desfiladero-tall-long-curve-90-slope-01 0 0 desfiladero-tall-long-curve-90-slope-01 co_desfiladero-tall-long-curve-90-slope-01 0
+
+
+spr_a_desfiladero-short-long-curve-90-slope-01 0 0 desfiladero-short-long-curve-90-slope-01 co_desfiladero-short-long-curve-90-slope-01 0
+
+
+spr_a_desfiladero-tall-short-curve-180-02 0 0 desfiladero-tall-short-curve-180-02 co_desfiladero-tall-short-curve-180-02 0
+
+
+spr_a_desfiladero-tall-long-curve-180-01 0 0 desfiladero-tall-long-curve-180-01 co_desfiladero-tall-long-curve-180-01 0
+
+
+spr_a_desfiladero-tall-long-slope-01 0 0 desfiladero-tall-long-slope-01 co_desfiladero-tall-long-slope-01 0
+
+
+spr_a_desfiladero-tall-short-slope-02 0 0 desfiladero-tall-short-slope-02 co_desfiladero-tall-short-slope-02 0
+
+
+spr_a_desfiladero-tall-short-curve-90-01 0 0 desfiladero-tall-short-curve-90-01 co_desfiladero-tall-short-curve-90-01 0
+
+
+spr_a_desfiladero-tall-long-curve-90-01 0 0 desfiladero-tall-long-curve-90-01 co_desfiladero-tall-long-curve-90-01 0
+
+
+spr_a_desfiladero-tall-long-01 0 0 desfiladero-tall-long-01 co_desfiladero-tall-long-01 0
+
+
+spr_a_desfiladero-short-long-01 0 0 desfiladero-short-long-01 co_desfiladero-short-long-01 0
+
+
+spr_a_desfiladero-tall-long-02 0 0 desfiladero-tall-long-02 co_desfiladero-tall-long-02 0
+
+
+spr_a_desfiladero-short-long-04 0 0 desfiladero-short-long-04 co_desfiladero-short-long-04 0
+
+
+spr_a_desfiladero-tall-long-03 0 0 desfiladero-tall-long-03 co_desfiladero-tall-long-03 0
+
+
+spr_a_desfiladero-long-small-slope-01-m 0 0 desfiladero-long-small-slope-01-m co_desfiladero-long-small-slope-01-m 0
+
+
+spr_a_desfiladero-short-small-slope-01-m 0 0 desfiladero-short-small-slope-01-m co_desfiladero-short-small-slope-01-m 0
+
+
+spr_a_desfiladero-long-small-curve-01-m 0 0 desfiladero-long-small-curve-01-m co_desfiladero-long-small-curve-01-m 0
+
+
+spr_a_desfiladero-short-small-curve-01-m 0 0 desfiladero-short-small-curve-01-m co_desfiladero-short-small-curve-01-m 0
+
+
+spr_a_desfiladero-tall-long-curve-90-slope-01-m 0 0 desfiladero-tall-long-curve-90-slope-01-m co_desfiladero-tall-long-curve-90-slope-01-m 0
+
+
+spr_a_desfiladero-short-long-curve-90-slope-01-m 0 0 desfiladero-short-long-curve-90-slope-01-m co_desfiladero-short-long-curve-90-slope-01-m 0
+
+
+spr_a_desfiladero-tall-short-curve-180-02-m 0 0 desfiladero-tall-short-curve-180-02-m co_desfiladero-tall-short-curve-180-02-m 0
+
+
+spr_a_desfiladero-tall-long-curve-180-01-m 0 0 desfiladero-tall-long-curve-180-01-m co_desfiladero-tall-long-curve-180-01-m 0
+
+
+spr_a_desfiladero-tall-long-slope-01-m 0 0 desfiladero-tall-long-slope-01-m co_desfiladero-tall-long-slope-01-m 0
+
+
+spr_a_desfiladero-tall-short-slope-02-m 0 0 desfiladero-tall-short-slope-02-m co_desfiladero-tall-short-slope-02-m 0
+
+
+spr_a_desfiladero-tall-short-curve-90-01-m 0 0 desfiladero-tall-short-curve-90-01-m co_desfiladero-tall-short-curve-90-01-m 0
+
+
+spr_a_desfiladero-tall-long-curve-90-01-m 0 0 desfiladero-tall-long-curve-90-01-m co_desfiladero-tall-long-curve-90-01-m 0
+
+
+spr_a_desfiladero-tall-long-01-m 0 0 desfiladero-tall-long-01-m co_desfiladero-tall-long-01-m 0
+
+
+spr_a_desfiladero-short-long-01-m 0 0 desfiladero-short-long-01-m co_desfiladero-short-long-01-m 0
+
+
+spr_a_desfiladero-tall-long-02-m 0 0 desfiladero-tall-long-02-m co_desfiladero-tall-long-02-m 0
+
+
+spr_a_desfiladero-short-long-04-m 0 0 desfiladero-short-long-04-m co_desfiladero-short-long-04-m 0
+
+
+spr_a_desfiladero-tall-long-03-m 0 0 desfiladero-tall-long-03-m co_desfiladero-tall-long-03-m 0
+
+
+spr_a_desfiladero-hole-long-small-slope-01 0 0 desfiladero-hole-long-small-slope-01 co_desfiladero-hole-long-small-slope-01 0
+
+
+spr_a_desfiladero-hole-short-small-slope-01 0 0 desfiladero-hole-short-small-slope-01 co_desfiladero-hole-short-small-slope-01 0
+
+
+spr_a_desfiladero-hole-long-small-curve-01 0 0 desfiladero-hole-long-small-curve-01 co_desfiladero-hole-long-small-curve-01 0
+
+
+spr_a_desfiladero-hole-short-small-curve-01 0 0 desfiladero-hole-short-small-curve-01 co_desfiladero-hole-short-small-curve-01 0
+
+
+spr_a_desfiladero-hole-tall-long-curve-90-slope-01 0 0 desfiladero-hole-tall-long-curve-90-slope-01 co_desfiladero-hole-tall-long-curve-90-slope-01 0
+
+
+spr_a_desfiladero-hole-short-long-curve-90-slope-01 0 0 desfiladero-hole-short-long-curve-90-slope-01 co_desfiladero-hole-short-long-curve-90-slope-01 0
+
+
+spr_a_desfiladero-hole-tall-short-curve-180-02 0 0 desfiladero-hole-tall-short-curve-180-02 co_desfiladero-hole-tall-short-curve-180-02 0
+
+
+spr_a_desfiladero-hole-tall-long-curve-180-01 0 0 desfiladero-hole-tall-long-curve-180-01 co_desfiladero-hole-tall-long-curve-180-01 0
+
+
+spr_a_desfiladero-hole-tall-long-slope-01 0 0 desfiladero-hole-tall-long-slope-01 co_desfiladero-hole-tall-long-slope-01 0
+
+
+spr_a_desfiladero-hole-tall-short-slope-02 0 0 desfiladero-hole-tall-short-slope-02 co_desfiladero-hole-tall-short-slope-02 0
+
+
+spr_a_desfiladero-hole-tall-short-curve-90-01 0 0 desfiladero-hole-tall-short-curve-90-01 co_desfiladero-hole-tall-short-curve-90-01 0
+
+
+spr_a_desfiladero-hole-tall-long-curve-90-01 0 0 desfiladero-hole-tall-long-curve-90-01 co_desfiladero-hole-tall-long-curve-90-01 0
+
+
+spr_a_desfiladero-hole-tall-long-01 0 0 desfiladero-hole-tall-long-01 co_desfiladero-hole-tall-long-01 0
+
+
+spr_a_desfiladero-hole-short-long-01 0 0 desfiladero-hole-short-long-01 co_desfiladero-hole-short-long-01 0
+
+
+spr_a_desfiladero-hole-tall-long-02 0 0 desfiladero-hole-tall-long-02 co_desfiladero-hole-tall-long-02 0
+
+
+spr_a_desfiladero-hole-short-long-04 0 0 desfiladero-hole-short-long-04 co_desfiladero-hole-short-long-04 0
+
+
+spr_a_desfiladero-hole-tall-long-03 0 0 desfiladero-hole-tall-long-03 co_desfiladero-hole-tall-long-03 0
+
+
+spr_a_desfiladero-hole-long-small-slope-01-m 0 0 desfiladero-hole-long-small-slope-01-m co_desfiladero-hole-long-small-slope-01-m 0
+
+
+spr_a_desfiladero-hole-short-small-slope-01-m 0 0 desfiladero-hole-short-small-slope-01-m co_desfiladero-hole-short-small-slope-01-m 0
+
+
+spr_a_desfiladero-hole-long-small-curve-01-m 0 0 desfiladero-hole-long-small-curve-01-m co_desfiladero-hole-long-small-curve-01-m 0
+
+
+spr_a_desfiladero-hole-short-small-curve-01-m 0 0 desfiladero-hole-short-small-curve-01-m co_desfiladero-hole-short-small-curve-01-m 0
+
+
+spr_a_desfiladero-hole-tall-long-curve-90-slope-01-m 0 0 desfiladero-hole-tall-long-curve-90-slope-01-m co_desfiladero-hole-tall-long-curve-90-slope-01-m 0
+
+
+spr_a_desfiladero-hole-short-long-curve-90-slope-01-m 0 0 desfiladero-hole-short-long-curve-90-slope-01-m co_desfiladero-hole-short-long-curve-90-slope-01-m 0
+
+
+spr_a_desfiladero-hole-tall-short-curve-180-02-m 0 0 desfiladero-hole-tall-short-curve-180-02-m co_desfiladero-hole-tall-short-curve-180-02-m 0
+
+
+spr_a_desfiladero-hole-tall-long-curve-180-01-m 0 0 desfiladero-hole-tall-long-curve-180-01-m co_desfiladero-hole-tall-long-curve-180-01-m 0
+
+
+spr_a_desfiladero-hole-tall-long-slope-01-m 0 0 desfiladero-hole-tall-long-slope-01-m co_desfiladero-hole-tall-long-slope-01-m 0
+
+
+spr_a_desfiladero-hole-tall-short-slope-02-m 0 0 desfiladero-hole-tall-short-slope-02-m co_desfiladero-hole-tall-short-slope-02-m 0
+
+
+spr_a_desfiladero-hole-tall-short-curve-90-01-m 0 0 desfiladero-hole-tall-short-curve-90-01-m co_desfiladero-hole-tall-short-curve-90-01-m 0
+
+
+spr_a_desfiladero-hole-tall-long-curve-90-01-m 0 0 desfiladero-hole-tall-long-curve-90-01-m co_desfiladero-hole-tall-long-curve-90-01-m 0
+
+
+spr_a_desfiladero-hole-tall-long-01-m 0 0 desfiladero-hole-tall-long-01-m co_desfiladero-hole-tall-long-01-m 0
+
+
+spr_a_desfiladero-hole-short-long-01-m 0 0 desfiladero-hole-short-long-01-m co_desfiladero-hole-short-long-01-m 0
+
+
+spr_a_desfiladero-hole-tall-long-02-m 0 0 desfiladero-hole-tall-long-02-m co_desfiladero-hole-tall-long-02-m 0
+
+
+spr_a_desfiladero-hole-short-long-04-m 0 0 desfiladero-hole-short-long-04-m co_desfiladero-hole-short-long-04-m 0
+
+
+spr_a_desfiladero-hole-tall-long-03-m 0 0 desfiladero-hole-tall-long-03-m co_desfiladero-tall-long-03-m 0
+
+
+spr_a_desfiladero-tiny-long-small-slope-01 0 0 desfiladero-tiny-long-small-slope-01 co_desfiladero-tiny-long-small-slope-01 0
+
+
+spr_a_desfiladero-tiny-short-small-slope-01 0 0 desfiladero-tiny-short-small-slope-01 co_desfiladero-tiny-short-small-slope-01 0
+
+
+spr_a_desfiladero-tiny-long-small-curve-01 0 0 desfiladero-tiny-long-small-curve-01 co_desfiladero-tiny-long-small-curve-01 0
+
+
+spr_a_desfiladero-tiny-short-small-curve-01 0 0 desfiladero-tiny-short-small-curve-01 co_desfiladero-tiny-short-small-curve-01 0
+
+
+spr_a_desfiladero-tiny-tall-long-curve-90-slope-01 0 0 desfiladero-tiny-tall-long-curve-90-slope-01 co_desfiladero-tiny-tall-long-curve-90-slope-01 0
+
+
+spr_a_desfiladero-tiny-short-long-curve-90-slope-01 0 0 desfiladero-tiny-short-long-curve-90-slope-01 co_desfiladero-tiny-short-long-curve-90-slope-01 0
+
+
+spr_a_desfiladero-tiny-tall-short-curve-180-02 0 0 desfiladero-tiny-tall-short-curve-180-02 co_desfiladero-tiny-tall-short-curve-180-02 0
+
+
+spr_a_desfiladero-tiny-tall-long-curve-180-01 0 0 desfiladero-tiny-tall-long-curve-180-01 co_desfiladero-tiny-tall-long-curve-180-01 0
+
+
+spr_a_desfiladero-tiny-tall-long-slope-01 0 0 desfiladero-tiny-tall-long-slope-01 co_desfiladero-tiny-tall-long-slope-01 0
+
+
+spr_a_desfiladero-tiny-tall-short-slope-02 0 0 desfiladero-tiny-tall-short-slope-02 co_desfiladero-tiny-tall-short-slope-02 0
+
+
+spr_a_desfiladero-tiny-tall-short-curve-90-01 0 0 desfiladero-tiny-tall-short-curve-90-01 co_desfiladero-tiny-tall-short-curve-90-01 0
+
+
+spr_a_desfiladero-tiny-tall-long-curve-90-01 0 0 desfiladero-tiny-tall-long-curve-90-01 co_desfiladero-tiny-tall-long-curve-90-01 0
+
+
+spr_a_desfiladero-tiny-tall-long-01 0 0 desfiladero-tiny-tall-long-01 co_desfiladero-tiny-tall-long-01 0
+
+
+spr_a_desfiladero-tiny-short-long-01 0 0 desfiladero-tiny-short-long-01 co_desfiladero-tiny-short-long-01 0
+
+
+spr_a_desfiladero-tiny-tall-long-02 0 0 desfiladero-tiny-tall-long-02 co_desfiladero-tiny-tall-long-02 0
+
+
+spr_a_desfiladero-tiny-short-long-04 0 0 desfiladero-tiny-short-long-04 co_desfiladero-tiny-short-long-04 0
+
+
+spr_a_desfiladero-tiny-tall-long-03 0 0 desfiladero-tiny-tall-long-03 co_desfiladero-tiny-tall-long-03 0
+
+
+spr_a_desfiladero-tiny-long-small-slope-01-m 0 0 desfiladero-tiny-long-small-slope-01-m co_desfiladero-tiny-long-small-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-short-small-slope-01-m 0 0 desfiladero-tiny-short-small-slope-01-m co_desfiladero-tiny-short-small-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-long-small-curve-01-m 0 0 desfiladero-tiny-long-small-curve-01-m co_desfiladero-tiny-long-small-curve-01-m 0
+
+
+spr_a_desfiladero-tiny-short-small-curve-01-m 0 0 desfiladero-tiny-short-small-curve-01-m co_desfiladero-tiny-short-small-curve-01-m 0
+
+
+spr_a_desfiladero-tiny-tall-long-curve-90-slope-01-m 0 0 desfiladero-tiny-tall-long-curve-90-slope-01-m co_desfiladero-tiny-tall-long-curve-90-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-short-long-curve-90-slope-01-m 0 0 desfiladero-tiny-short-long-curve-90-slope-01-m co_desfiladero-tiny-short-long-curve-90-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-tall-short-curve-180-02-m 0 0 desfiladero-tiny-tall-short-curve-180-02-m co_desfiladero-tiny-tall-short-curve-180-02-m 0
+
+
+spr_a_desfiladero-tiny-tall-long-curve-180-01-m 0 0 desfiladero-tiny-tall-long-curve-180-01-m co_desfiladero-tiny-tall-long-curve-180-01-m 0
+
+
+spr_a_desfiladero-tiny-tall-long-slope-01-m 0 0 desfiladero-tiny-tall-long-slope-01-m co_desfiladero-tiny-tall-long-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-tall-short-slope-02-m 0 0 desfiladero-tiny-tall-short-slope-02-m co_desfiladero-tiny-tall-short-slope-02-m 0
+
+
+spr_a_desfiladero-tiny-tall-short-curve-90-01-m 0 0 desfiladero-tiny-tall-short-curve-90-01-m co_desfiladero-tiny-tall-short-curve-90-01-m 0
+
+
+spr_a_desfiladero-tiny-tall-long-curve-90-01-m 0 0 desfiladero-tiny-tall-long-curve-90-01-m co_desfiladero-tiny-tall-long-curve-90-01-m 0
+
+
+spr_a_desfiladero-tiny-tall-long-01-m 0 0 desfiladero-tiny-tall-long-01-m co_desfiladero-tiny-tall-long-01-m 0
+
+
+spr_a_desfiladero-tiny-short-long-01-m 0 0 desfiladero-tiny-short-long-01-m co_desfiladero-tiny-short-long-01-m 0
+
+
+spr_a_desfiladero-tiny-tall-long-02-m 0 0 desfiladero-tiny-tall-long-02-m co_desfiladero-tiny-tall-long-02-m 0
+
+
+spr_a_desfiladero-tiny-short-long-04-m 0 0 desfiladero-tiny-short-long-04-m co_desfiladero-tiny-short-long-04-m 0
+
+
+spr_a_desfiladero-tiny-tall-long-03-m 0 0 desfiladero-tiny-tall-long-03-m co_desfiladero-tiny-tall-long-03-m 0
+
+
+spr_a_desfiladero-tiny-hole-long-small-slope-01 0 0 desfiladero-tiny-hole-long-small-slope-01 co_desfiladero-tiny-hole-long-small-slope-01 0
+
+
+spr_a_desfiladero-tiny-hole-short-small-slope-01 0 0 desfiladero-tiny-hole-short-small-slope-01 co_desfiladero-tiny-hole-short-small-slope-01 0
+
+
+spr_a_desfiladero-tiny-hole-long-small-curve-01 0 0 desfiladero-tiny-hole-long-small-curve-01 co_desfiladero-tiny-hole-long-small-curve-01 0
+
+
+spr_a_desfiladero-tiny-hole-short-small-curve-01 0 0 desfiladero-tiny-hole-short-small-curve-01 co_desfiladero-tiny-hole-short-small-curve-01 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-curve-90-slope-01 0 0 desfiladero-tiny-hole-tall-long-curve-90-slope-01 co_desfiladero-tiny-hole-tall-long-curve-90-slope-01 0
+
+
+spr_a_desfiladero-tiny-hole-short-long-curve-90-slope-01 0 0 desfiladero-tiny-hole-short-long-curve-90-slope-01 co_desfiladero-tiny-hole-short-long-curve-90-slope-01 0
+
+
+spr_a_desfiladero-tiny-hole-tall-short-curve-180-02 0 0 desfiladero-tiny-hole-tall-short-curve-180-02 co_desfiladero-tiny-hole-tall-short-curve-180-02 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-curve-180-01 0 0 desfiladero-tiny-hole-tall-long-curve-180-01 co_desfiladero-tiny-hole-tall-long-curve-180-01 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-slope-01 0 0 desfiladero-tiny-hole-tall-long-slope-01 co_desfiladero-tiny-hole-tall-long-slope-01 0
+
+
+spr_a_desfiladero-tiny-hole-tall-short-slope-02 0 0 desfiladero-tiny-hole-tall-short-slope-02 co_desfiladero-tiny-hole-tall-short-slope-02 0
+
+
+spr_a_desfiladero-tiny-hole-tall-short-curve-90-01 0 0 desfiladero-tiny-hole-tall-short-curve-90-01 co_desfiladero-tiny-hole-tall-short-curve-90-01 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-curve-90-01 0 0 desfiladero-tiny-hole-tall-long-curve-90-01 co_desfiladero-tiny-hole-tall-long-curve-90-01 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-01 0 0 desfiladero-tiny-hole-tall-long-01 co_desfiladero-tiny-hole-tall-long-01 0
+
+
+spr_a_desfiladero-tiny-hole-short-long-01 0 0 desfiladero-tiny-hole-short-long-01 co_desfiladero-tiny-hole-short-long-01 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-02 0 0 desfiladero-tiny-hole-tall-long-02 co_desfiladero-tiny-hole-tall-long-02 0
+
+
+spr_a_desfiladero-tiny-hole-short-long-04 0 0 desfiladero-tiny-hole-short-long-04 co_desfiladero-tiny-hole-short-long-04 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-03 0 0 desfiladero-tiny-hole-tall-long-03 co_desfiladero-tiny-hole-tall-long-03 0
+
+
+spr_a_desfiladero-tiny-hole-long-small-slope-01-m 0 0 desfiladero-tiny-hole-long-small-slope-01-m co_desfiladero-tiny-hole-long-small-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-short-small-slope-01-m 0 0 desfiladero-tiny-hole-short-small-slope-01-m co_desfiladero-tiny-hole-short-small-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-long-small-curve-01-m 0 0 desfiladero-tiny-hole-long-small-curve-01-m co_desfiladero-tiny-hole-long-small-curve-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-short-small-curve-01-m 0 0 desfiladero-tiny-hole-short-small-curve-01-m co_desfiladero-tiny-hole-short-small-curve-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-curve-90-slope-01-m 0 0 desfiladero-tiny-hole-tall-long-curve-90-slope-01-m co_desfiladero-tiny-hole-tall-long-curve-90-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-short-long-curve-90-slope-01-m 0 0 desfiladero-tiny-hole-short-long-curve-90-slope-01-m co_desfiladero-tiny-hole-short-long-curve-90-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-short-curve-180-02-m 0 0 desfiladero-tiny-hole-tall-short-curve-180-02-m co_desfiladero-tiny-hole-tall-short-curve-180-02-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-curve-180-01-m 0 0 desfiladero-tiny-hole-tall-long-curve-180-01-m co_desfiladero-tiny-hole-tall-long-curve-180-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-slope-01-m 0 0 desfiladero-tiny-hole-tall-long-slope-01-m co_desfiladero-tiny-hole-tall-long-slope-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-short-slope-02-m 0 0 desfiladero-tiny-hole-tall-short-slope-02-m co_desfiladero-tiny-hole-tall-short-slope-02-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-short-curve-90-01-m 0 0 desfiladero-tiny-hole-tall-short-curve-90-01-m co_desfiladero-tiny-hole-tall-short-curve-90-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-curve-90-01-m 0 0 desfiladero-tiny-hole-tall-long-curve-90-01-m co_desfiladero-tiny-hole-tall-long-curve-90-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-01-m 0 0 desfiladero-tiny-hole-tall-long-01-m co_desfiladero-tiny-hole-tall-long-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-short-long-01-m 0 0 desfiladero-tiny-hole-short-long-01-m co_desfiladero-tiny-hole-short-long-01-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-02-m 0 0 desfiladero-tiny-hole-tall-long-02-m co_desfiladero-tiny-hole-tall-long-02-m 0
+
+
+spr_a_desfiladero-tiny-hole-short-long-04-m 0 0 desfiladero-tiny-hole-short-long-04-m co_desfiladero-tiny-hole-short-long-04-m 0
+
+
+spr_a_desfiladero-tiny-hole-tall-long-03-m 0 0 desfiladero-tiny-hole-tall-long-03-m co_desfiladero-tiny-tall-long-03-m 0
+
+
+spr_a_valleyRock_flat_1 0 0 valleyRock_flat_1 bo_valleyRock_flat_1 0
+
+
+spr_a_valleyRock_flat_2 0 0 valleyRock_flat_2 bo_valleyRock_flat_2 0
+
+
+spr_a_valleyRock_flat_3 0 0 valleyRock_flat_3 bo_valleyRock_flat_3 0
+
+
+spr_a_valleyRock_flat_4 0 0 valleyRock_flat_4 bo_valleyRock_flat_4 0
+
+
+spr_a_valleyRock_flat_5 0 0 valleyRock_flat_5 bo_valleyRock_flat_5 0
+
+
+spr_a_valleyRock_flat_6 0 0 valleyRock_flat_6 bo_valleyRock_flat_6 0
+
+
+spr_a_valleyRock_rounded_1 0 0 valleyRock_rounded_1 bo_valleyRock_rounded_1 0
+
+
+spr_a_valleyRock_rounded_2 0 0 valleyRock_rounded_2 bo_valleyRock_rounded_2 0
+
+
+spr_a_valleyRock_rounded_3 0 0 valleyRock_rounded_3 bo_valleyRock_rounded_3 0
+
+
+spr_a_valleyRock_rounded_4 0 0 valleyRock_rounded_4 bo_valleyRock_rounded_4 0
+
+
+spr_a_cave_entrance_1_open 0 0 cave_entrance_1_open co_cave_entrance_1_open 0
+
+
+spr_a_valleyRock_flatRounded_big_1 0 0 valleyRock_flatRounded_big_1 bo_valleyRock_flatRounded_big_1 0
+
+
+spr_a_valleyRock_flatRounded_big_2 0 0 valleyRock_flatRounded_big_2 bo_valleyRock_flatRounded_big_2 0
+
+
+spr_a_valleyRock_flatRounded_small_1 0 0 valleyRock_flatRounded_small_1 bo_valleyRock_flatRounded_small_1 0
+
+
+spr_a_valleyRock_flatRounded_small_2 0 0 valleyRock_flatRounded_small_2 bo_valleyRock_flatRounded_small_2 0
+
+
+spr_a_valleyRock_flatRounded_small_3 0 0 valleyRock_flatRounded_small_3 bo_valleyRock_flatRounded_small_3 0
+
+
+spr_a_base-01 0 0 base-01 co_base-01 0
+
+
+spr_a_mont-01-big-generic 0 0 mont-01-big-generic co_mont-01-big-generic 0
+
+
+spr_a_mont-02-big-generic 0 0 mont-02-big-generic co_mont-02-big-generic 0
+
+
+spr_a_mont-04-big-generic 0 0 mont-04-big-generic co_mont-04-big-generic 0
+
+
+spr_a_mont-04-big-generic-empty 0 0 mont-04-big-generic-empty co_mont-04-big-generic-empty 0
+
+
+spr_a_cave_entrance_1_open-2-sides 0 0 cave_entrance_1_open-2-sides co_cave_entrance_1_open-2-sides 0
+
+
+spr_a_cave_entrance_1_open-2-sides-full 0 0 cave_entrance_1_open-2-sides-full co_cave_entrance_1_open-2-sides-full 0
+
+
+spr_a_str_arabian_castle_stairs_b 0 0 str_arabian_castle_stairs_b co_str_arabian_castle_stairs_b 0
+
+
+spr_a_str_arabian_castle_stairs_c 0 0 str_arabian_castle_stairs_c co_str_arabian_castle_stairs_c 0
+
+
+spr_a_str_castle_stairs_a 0 0 str_castle_stairs_a co_str_castle_stairs_a 0
+
+
+spr_a_str_snowy_castle_stairs_a 0 0 str_snowy_castle_stairs_a co_str_snowy_castle_stairs_a 0
+
+
+spr_a_str_square_stairs_a 0 0 str_square_stairs_a co_str_square_stairs_a 0
+
+
+spr_a_str_stone_stairs_a 0 0 str_stone_stairs_a co_str_stone_stairs_a 0
+
+
+spr_a_str_stone_stairs_b 0 0 str_stone_stairs_b co_str_stone_stairs_b 0
+
+
+spr_a_str_stairs_arch_a 0 0 str_stairs_arch_a co_str_stairs_arch_a 0
+
+
+spr_a_str_earth_stairs_c 0 0 str_earth_stairs_c co_str_earth_stairs_c 0
+
+
+spr_a_str_castle_e_stairs_a 0 0 str_castle_e_stairs_a co_str_castle_e_stairs_a 0
+
+
+spr_a_str_castle_f_wall_stairs_b 0 0 str_castle_f_wall_stairs_b co_str_castle_f_wall_stairs_b 0
+
+
+spr_a_str_castle_f_wall_stairs_a 0 0 str_castle_f_wall_stairs_a co_str_castle_f_wall_stairs_a 0
+
+
+spr_a_str_castle_f_sally_port_elevation 0 0 str_castle_f_sally_port_elevation co_str_castle_f_sally_port_elevation 0
+
+
+spr_a_str_castle_h_stairs_a 0 0 str_castle_h_stairs_a co_str_castle_h_stairs_a 0
+
+
+spr_a_str_castle_h_stairs_b 0 0 str_castle_h_stairs_b co_str_castle_h_stairs_b 0
+
+
+spr_a_str_small_wall_d 0 0 str_small_wall_d co_str_small_wall_d 0
+
+
+spr_a_str_castle_h_battlement_barrier 0 0 str_castle_h_battlement_barrier co_str_castle_h_battlement_barrier 0
+
+
+spr_a_str_small_wall_e 0 0 str_small_wall_e co_str_small_wall_e 0
+
+
+spr_a_str_arabian_wall_b 0 0 str_arabian_wall_b co_str_arabian_wall_b 0
+
+
+spr_a_str_arabian_ground_a 0 0 str_arabian_ground_a co_str_arabian_ground_a 0
+
+
+spr_a_str_small_wall_f 0 0 str_small_wall_f co_str_small_wall_f 0
+
+
+spr_a_str_stairs_a 0 0 str_stairs_a co_str_stairs_a 0
+
+
+spr_a_str_arabian_village_stairs 0 0 str_arabian_village_stairs co_str_arabian_village_stairs 0
+
+
+spr_a_cave_tunnel_long_2g-85 0 0 cave_tunnel_long_2g-85 co_cave_tunnel_long_2g-85 0
+
+
+spr_a_cave_tunnel_long_2g-01 0 0 cave_tunnel_long_2g-01 co_cave_tunnel_long_2g-01 0
+
+
+spr_a_cave_tunnel_long_2g-02 0 0 cave_tunnel_long_2g-02 co_cave_tunnel_long_2g-02 0
+
+
+spr_a_cave_tunnel_long_2g-03 0 0 cave_tunnel_long_2g-03 co_cave_tunnel_long_2g-03 0
+
+
+spr_a_cave_tunnel_long_2g-04 0 0 cave_tunnel_long_2g-04 co_cave_tunnel_long_2g-04 0
+
+
+spr_a_cave_tunnel_long_2g-05 0 0 cave_tunnel_long_2g-05 co_cave_tunnel_long_2g-05 0
+
+
+spr_a_cave_tunnel_long_2g-06 0 0 cave_tunnel_long_2g-06 co_cave_tunnel_long_2g-06 0
+
+
+spr_a_cave_tunnel_long_2g-07 0 0 cave_tunnel_long_2g-07 co_cave_tunnel_long_2g-07 0
+
+
+spr_a_cave_tunnel_long_2g-08 0 0 cave_tunnel_long_2g-08 co_cave_tunnel_long_2g-08 0
+
+
+spr_a_cave_tunnel_long_2g-09 0 0 cave_tunnel_long_2g-09 co_cave_tunnel_long_2g-09 0
+
+
+spr_a_cave_tunnel_long_2g-10 0 0 cave_tunnel_long_2g-10 co_cave_tunnel_long_2g-10 0
+
+
+spr_a_cave_tunnel_long_2g-11 0 0 cave_tunnel_long_2g-11 co_cave_tunnel_long_2g-11 0
+
+
+spr_a_cave_tunnel_long_2g-12 0 0 cave_tunnel_long_2g-12 co_cave_tunnel_long_2g-12 0
+
+
+spr_a_cave_tunnel_long_2g-13 0 0 cave_tunnel_long_2g-13 co_cave_tunnel_long_2g-13 0
+
+
+spr_a_cave_tunnel_long_2g-14 0 0 cave_tunnel_long_2g-14 co_cave_tunnel_long_2g-14 0
+
+
+spr_a_cave_tunnel_long_2g-15 0 0 cave_tunnel_long_2g-15 co_cave_tunnel_long_2g-15 0
+
+
+spr_a_cave_tunnel_long_2g-16 0 0 cave_tunnel_long_2g-16 co_cave_tunnel_long_2g-16 0
+
+
+spr_a_cave_tunnel_long_2g-17 0 0 cave_tunnel_long_2g-17 co_cave_tunnel_long_2g-17 0
+
+
+spr_a_cave_tunnel_long_2g-18 0 0 cave_tunnel_long_2g-18 co_cave_tunnel_long_2g-18 0
+
+
+spr_a_cave_tunnel_long_2g-19 0 0 cave_tunnel_long_2g-19 co_cave_tunnel_long_2g-19 0
+
+
+spr_a_cave_tunnel_long_2g-20 0 0 cave_tunnel_long_2g-20 co_cave_tunnel_long_2g-20 0
+
+
+spr_a_cave_tunnel_long_2g-21 0 0 cave_tunnel_long_2g-21 co_cave_tunnel_long_2g-21 0
+
+
+spr_a_cave_tunnel_long_2g-22 0 0 cave_tunnel_long_2g-22 co_cave_tunnel_long_2g-22 0
+
+
+spr_a_cave_tunnel_long_2g-23 0 0 cave_tunnel_long_2g-23 co_cave_tunnel_long_2g-23 0
+
+
+spr_a_cave_tunnel_long_2g-24 0 0 cave_tunnel_long_2g-24 co_cave_tunnel_long_2g-24 0
+
+
+spr_a_cave_tunnel_long_2g-25 0 0 cave_tunnel_long_2g-25 co_cave_tunnel_long_2g-25 0
+
+
+spr_a_cave_tunnel_long_2g-26 0 0 cave_tunnel_long_2g-26 co_cave_tunnel_long_2g-26 0
+
+
+spr_a_cave_tunnel_long_2g-27 0 0 cave_tunnel_long_2g-27 co_cave_tunnel_long_2g-27 0
+
+
+spr_a_cave_tunnel_long_2g-28 0 0 cave_tunnel_long_2g-28 co_cave_tunnel_long_2g-28 0
+
+
+spr_a_cave_tunnel_long_2g-29 0 0 cave_tunnel_long_2g-29 co_cave_tunnel_long_2g-29 0
+
+
+spr_a_cave_tunnel_long_2g-30 0 0 cave_tunnel_long_2g-30 co_cave_tunnel_long_2g-30 0
+
+
+spr_a_cave_tunnel_long_2g-31 0 0 cave_tunnel_long_2g-31 co_cave_tunnel_long_2g-31 0
+
+
+spr_a_cave_tunnel_long_2g-32 0 0 cave_tunnel_long_2g-32 co_cave_tunnel_long_2g-32 0
+
+
+spr_a_cave_tunnel_long_2g-33 0 0 cave_tunnel_long_2g-33 co_cave_tunnel_long_2g-33 0
+
+
+spr_a_cave_tunnel_long_2g-34 0 0 cave_tunnel_long_2g-34 co_cave_tunnel_long_2g-34 0
+
+
+spr_a_cave_tunnel_long_2g-35 0 0 cave_tunnel_long_2g-35 co_cave_tunnel_long_2g-35 0
+
+
+spr_a_cave_tunnel_long_2g-36 0 0 cave_tunnel_long_2g-36 co_cave_tunnel_long_2g-36 0
+
+
+spr_a_cave_tunnel_long_2g-37 0 0 cave_tunnel_long_2g-37 co_cave_tunnel_long_2g-37 0
+
+
+spr_a_cave_tunnel_long_2g-38 0 0 cave_tunnel_long_2g-38 co_cave_tunnel_long_2g-38 0
+
+
+spr_a_cave_tunnel_long_2g-39 0 0 cave_tunnel_long_2g-39 co_cave_tunnel_long_2g-39 0
+
+
+spr_a_cave_tunnel_long_2g-40 0 0 cave_tunnel_long_2g-40 co_cave_tunnel_long_2g-40 0
+
+
+spr_a_cave_tunnel_long_2g-41 0 0 cave_tunnel_long_2g-41 co_cave_tunnel_long_2g-41 0
+
+
+spr_a_cave_tunnel_long_2g-42 0 0 cave_tunnel_long_2g-42 co_cave_tunnel_long_2g-42 0
+
+
+spr_a_cave_tunnel_long_2g-43 0 0 cave_tunnel_long_2g-43 co_cave_tunnel_long_2g-43 0
+
+
+spr_a_cave_tunnel_long_2g-44 0 0 cave_tunnel_long_2g-44 co_cave_tunnel_long_2g-44 0
+
+
+spr_a_cave_tunnel_long_2g-45 0 0 cave_tunnel_long_2g-45 co_cave_tunnel_long_2g-45 0
+
+
+spr_a_cave_tunnel_long_2g-46 0 0 cave_tunnel_long_2g-46 co_cave_tunnel_long_2g-46 0
+
+
+spr_a_cave_tunnel_long_2g-47 0 0 cave_tunnel_long_2g-47 co_cave_tunnel_long_2g-47 0
+
+
+spr_a_cave_tunnel_long_2g-48 0 0 cave_tunnel_long_2g-48 co_cave_tunnel_long_2g-48 0
+
+
+spr_a_cave_tunnel_long_2g-49 0 0 cave_tunnel_long_2g-49 co_cave_tunnel_long_2g-49 0
+
+
+spr_a_cave_tunnel_long_2g-50 0 0 cave_tunnel_long_2g-50 co_cave_tunnel_long_2g-50 0
+
+
+spr_a_cave_tunnel_long_2g-51 0 0 cave_tunnel_long_2g-51 co_cave_tunnel_long_2g-51 0
+
+
+spr_a_cave_tunnel_long_2g-52 0 0 cave_tunnel_long_2g-52 co_cave_tunnel_long_2g-52 0
+
+
+spr_a_cave_tunnel_long_2g-53 0 0 cave_tunnel_long_2g-53 co_cave_tunnel_long_2g-53 0
+
+
+spr_a_cave_tunnel_long_2g-54 0 0 cave_tunnel_long_2g-54 co_cave_tunnel_long_2g-54 0
+
+
+spr_a_cave_tunnel_long_2g-55 0 0 cave_tunnel_long_2g-55 co_cave_tunnel_long_2g-55 0
+
+
+spr_a_cave_tunnel_long_2g-56 0 0 cave_tunnel_long_2g-56 co_cave_tunnel_long_2g-56 0
+
+
+spr_a_cave_tunnel_long_2g-57 0 0 cave_tunnel_long_2g-57 co_cave_tunnel_long_2g-57 0
+
+
+spr_a_cave_tunnel_long_2g-58 0 0 cave_tunnel_long_2g-58 co_cave_tunnel_long_2g-58 0
+
+
+spr_a_cave_tunnel_long_2g-59 0 0 cave_tunnel_long_2g-59 co_cave_tunnel_long_2g-59 0
+
+
+spr_a_cave_tunnel_long_2g-60 0 0 cave_tunnel_long_2g-60 co_cave_tunnel_long_2g-60 0
+
+
+spr_a_cave_tunnel_long_2g-61 0 0 cave_tunnel_long_2g-61 co_cave_tunnel_long_2g-61 0
+
+
+spr_a_cave_tunnel_long_2g-62 0 0 cave_tunnel_long_2g-62 co_cave_tunnel_long_2g-62 0
+
+
+spr_a_cave_tunnel_long_2g-63 0 0 cave_tunnel_long_2g-63 co_cave_tunnel_long_2g-63 0
+
+
+spr_a_cave_tunnel_long_2g-64 0 0 cave_tunnel_long_2g-64 co_cave_tunnel_long_2g-64 0
+
+
+spr_a_cave_tunnel_long_2g-65 0 0 cave_tunnel_long_2g-65 co_cave_tunnel_long_2g-65 0
+
+
+spr_a_cave_tunnel_long_2g-66 0 0 cave_tunnel_long_2g-66 co_cave_tunnel_long_2g-66 0
+
+
+spr_a_cave_tunnel_long_2g-67 0 0 cave_tunnel_long_2g-67 co_cave_tunnel_long_2g-67 0
+
+
+spr_a_cave_tunnel_long_2g-68 0 0 cave_tunnel_long_2g-68 co_cave_tunnel_long_2g-68 0
+
+
+spr_a_cave_tunnel_long_2g-69 0 0 cave_tunnel_long_2g-69 co_cave_tunnel_long_2g-69 0
+
+
+spr_a_cave_tunnel_long_2g-70 0 0 cave_tunnel_long_2g-70 co_cave_tunnel_long_2g-70 0
+
+
+spr_a_cave_tunnel_long_2g-71 0 0 cave_tunnel_long_2g-71 co_cave_tunnel_long_2g-71 0
+
+
+spr_a_cave_tunnel_long_2g-72 0 0 cave_tunnel_long_2g-72 co_cave_tunnel_long_2g-72 0
+
+
+spr_a_cave_tunnel_long_2g-73 0 0 cave_tunnel_long_2g-73 co_cave_tunnel_long_2g-73 0
+
+
+spr_a_cave_tunnel_long_2g-74 0 0 cave_tunnel_long_2g-74 co_cave_tunnel_long_2g-74 0
+
+
+spr_a_cave_tunnel_long_2g-75 0 0 cave_tunnel_long_2g-75 co_cave_tunnel_long_2g-75 0
+
+
+spr_a_cave_tunnel_long_2g-76 0 0 cave_tunnel_long_2g-76 co_cave_tunnel_long_2g-76 0
+
+
+spr_a_cave_tunnel_long_2g-77 0 0 cave_tunnel_long_2g-77 co_cave_tunnel_long_2g-77 0
+
+
+spr_a_cave_tunnel_long_2g-78 0 0 cave_tunnel_long_2g-78 co_cave_tunnel_long_2g-78 0
+
+
+spr_a_cave_tunnel_long_2g-79 0 0 cave_tunnel_long_2g-79 co_cave_tunnel_long_2g-79 0
+
+
+spr_a_cave_tunnel_long_2g-80 0 0 cave_tunnel_long_2g-80 co_cave_tunnel_long_2g-80 0
+
+
+spr_a_cave_tunnel_long_2g-81 0 0 cave_tunnel_long_2g-81 co_cave_tunnel_long_2g-81 0
+
+
+spr_a_cave_tunnel_long_2g-82 0 0 cave_tunnel_long_2g-82 co_cave_tunnel_long_2g-82 0
+
+
+spr_a_cave_tunnel_long_2g-83 0 0 cave_tunnel_long_2g-83 co_cave_tunnel_long_2g-83 0
+
+
+spr_a_cave_tunnel_long_2g-84 0 0 cave_tunnel_long_2g-84 co_cave_tunnel_long_2g-84 0
+
+
+spr_a_cave_tunnel_short_2g-01 0 0 cave_tunnel_short_2g-01 co_cave_tunnel_short_2g-01 0
+
+
+spr_a_cave_tunnel_short_2g-02 0 0 cave_tunnel_short_2g-02 co_cave_tunnel_short_2g-02 0
+
+
+spr_a_cave_tunnel_short_2g-03 0 0 cave_tunnel_short_2g-03 co_cave_tunnel_short_2g-03 0
+
+
+spr_a_cave_tunnel_short_2g-04 0 0 cave_tunnel_short_2g-04 co_cave_tunnel_short_2g-04 0
+
+
+spr_a_cave_tunnel_short_2g-05 0 0 cave_tunnel_short_2g-05 co_cave_tunnel_short_2g-05 0
+
+
+spr_a_cave_tunnel_short_2g-06 0 0 cave_tunnel_short_2g-06 co_cave_tunnel_short_2g-06 0
+
+
+spr_a_cave_tunnel_short_2g-07 0 0 cave_tunnel_short_2g-07 co_cave_tunnel_short_2g-07 0
+
+
+spr_a_cave_tunnel_short_2g-08 0 0 cave_tunnel_short_2g-08 co_cave_tunnel_short_2g-08 0
+
+
+spr_a_cave_tunnel_short_2g-03-m 0 0 cave_tunnel_short_2g-03-m co_cave_tunnel_short_2g-03-m 0
+
+
+spr_a_cave_tunnel_short_2g-04-m 0 0 cave_tunnel_short_2g-04-m co_cave_tunnel_short_2g-04-m 0
+
+
+spr_a_cave_tunnel_short_2g-05-m 0 0 cave_tunnel_short_2g-05-m co_cave_tunnel_short_2g-05-m 0
+
+
+spr_a_cave_tunnel_short_2g-06-m 0 0 cave_tunnel_short_2g-06-m co_cave_tunnel_short_2g-06-m 0
+
+
+spr_a_cave_tunnel_short_2g-07-m 0 0 cave_tunnel_short_2g-07-m co_cave_tunnel_short_2g-07-m 0
+
+
+spr_a_cave_tunnel_short_2g-08-m 0 0 cave_tunnel_short_2g-08-m co_cave_tunnel_short_2g-08-m 0
+
+
+spr_a_cave_tunnel_long_3g-01 0 0 cave_tunnel_long_3g-01 co_cave_tunnel_long_3g-01 0
+
+
+spr_a_cave_tunnel_long_3g-02 0 0 cave_tunnel_long_3g-02 co_cave_tunnel_long_3g-02 0
+
+
+spr_a_cave_tunnel_long_3g-03 0 0 cave_tunnel_long_3g-03 co_cave_tunnel_long_3g-03 0
+
+
+spr_a_cave_tunnel_long_3g-04 0 0 cave_tunnel_long_3g-04 co_cave_tunnel_long_3g-04 0
+
+
+spr_a_cave_tunnel_long_3g-05 0 0 cave_tunnel_long_3g-05 co_cave_tunnel_long_3g-05 0
+
+
+spr_a_cave_tunnel_long_3g-06 0 0 cave_tunnel_long_3g-06 co_cave_tunnel_long_3g-06 0
+
+
+spr_a_cave_tunnel_long_3g-07 0 0 cave_tunnel_long_3g-07 co_cave_tunnel_long_3g-07 0
+
+
+spr_a_cave_tunnel_long_3g-08 0 0 cave_tunnel_long_3g-08 co_cave_tunnel_long_3g-08 0
+
+
+spr_a_cave_tunnel_long_3g-09 0 0 cave_tunnel_long_3g-09 co_cave_tunnel_long_3g-09 0
+
+
+spr_a_cave_tunnel_long_3g-10 0 0 cave_tunnel_long_3g-10 co_cave_tunnel_long_3g-10 0
+
+
+spr_a_cave_tunnel_long_3g-11 0 0 cave_tunnel_long_3g-11 co_cave_tunnel_long_3g-11 0
+
+
+spr_a_cave_tunnel_long_3g-12 0 0 cave_tunnel_long_3g-12 co_cave_tunnel_long_3g-12 0
+
+
+spr_a_cave_tunnel_long_3g-13 0 0 cave_tunnel_long_3g-13 co_cave_tunnel_long_3g-13 0
+
+
+spr_a_cave_tunnel_long_3g-14 0 0 cave_tunnel_long_3g-14 co_cave_tunnel_long_3g-14 0
+
+
+spr_a_cave_tunnel_long_3g-15 0 0 cave_tunnel_long_3g-15 co_cave_tunnel_long_3g-15 0
+
+
+spr_a_cave_tunnel_long_3g-16 0 0 cave_tunnel_long_3g-16 co_cave_tunnel_long_3g-16 0
+
+
+spr_a_cave_tunnel_long_3g-17 0 0 cave_tunnel_long_3g-17 co_cave_tunnel_long_3g-17 0
+
+
+spr_a_cave_tunnel_long_3g-18 0 0 cave_tunnel_long_3g-18 co_cave_tunnel_long_3g-18 0
+
+
+spr_a_cave_tunnel_long_3g-19 0 0 cave_tunnel_long_3g-19 co_cave_tunnel_long_3g-19 0
+
+
+spr_a_cave_tunnel_long_3g-20 0 0 cave_tunnel_long_3g-20 co_cave_tunnel_long_3g-20 0
+
+
+spr_a_cave_tunnel_long_3g-21 0 0 cave_tunnel_long_3g-21 co_cave_tunnel_long_3g-21 0
+
+
+spr_a_cave_tunnel_long_3g-22 0 0 cave_tunnel_long_3g-22 co_cave_tunnel_long_3g-22 0
+
+
+spr_a_cave_tunnel_long_3g-23 0 0 cave_tunnel_long_3g-23 co_cave_tunnel_long_3g-23 0
+
+
+spr_a_cave_tunnel_long_3g-24 0 0 cave_tunnel_long_3g-24 co_cave_tunnel_long_3g-24 0
+
+
+spr_a_cave_tunnel_long_3g-25 0 0 cave_tunnel_long_3g-25 co_cave_tunnel_long_3g-25 0
+
+
+spr_a_cave_tunnel_long_3g-26 0 0 cave_tunnel_long_3g-26 co_cave_tunnel_long_3g-26 0
+
+
+spr_a_cave_tunnel_long_3g-27 0 0 cave_tunnel_long_3g-27 co_cave_tunnel_long_3g-27 0
+
+
+spr_a_cave_tunnel_long_3g-28 0 0 cave_tunnel_long_3g-28 co_cave_tunnel_long_3g-28 0
+
+
+spr_a_cave_tunnel_long_3g-29 0 0 cave_tunnel_long_3g-29 co_cave_tunnel_long_3g-29 0
+
+
+spr_a_cave_tunnel_long_3g-30 0 0 cave_tunnel_long_3g-30 co_cave_tunnel_long_3g-30 0
+
+
+spr_a_cave_tunnel_long_3g-31 0 0 cave_tunnel_long_3g-31 co_cave_tunnel_long_3g-31 0
+
+
+spr_a_cave_tunnel_long_3g-32 0 0 cave_tunnel_long_3g-32 co_cave_tunnel_long_3g-32 0
+
+
+spr_a_cave_tunnel_long_3g-33 0 0 cave_tunnel_long_3g-33 co_cave_tunnel_long_3g-33 0
+
+
+spr_a_cave_tunnel_long_3g-34 0 0 cave_tunnel_long_3g-34 co_cave_tunnel_long_3g-34 0
+
+
+spr_a_cave_tunnel_long_3g-35 0 0 cave_tunnel_long_3g-35 co_cave_tunnel_long_3g-35 0
+
+
+spr_a_cave_tunnel_long_3g-36 0 0 cave_tunnel_long_3g-36 co_cave_tunnel_long_3g-36 0
+
+
+spr_a_cave_tunnel_long_3g-37 0 0 cave_tunnel_long_3g-37 co_cave_tunnel_long_3g-37 0
+
+
+spr_a_cave_tunnel_long_3g-38 0 0 cave_tunnel_long_3g-38 co_cave_tunnel_long_3g-38 0
+
+
+spr_a_cave_tunnel_long_3g-39 0 0 cave_tunnel_long_3g-39 co_cave_tunnel_long_3g-39 0
+
+
+spr_a_cave_tunnel_long_3g-40 0 0 cave_tunnel_long_3g-40 co_cave_tunnel_long_3g-40 0
+
+
+spr_a_cave_tunnel_long_3g-41 0 0 cave_tunnel_long_3g-41 co_cave_tunnel_long_3g-41 0
+
+
+spr_a_cave_tunnel_long_3g-09-m 0 0 cave_tunnel_long_3g-09-m co_cave_tunnel_long_3g-09-m 0
+
+
+spr_a_cave_tunnel_long_3g-13-m 0 0 cave_tunnel_long_3g-13-m co_cave_tunnel_long_3g-13-m 0
+
+
+spr_a_cave_tunnel_long_3g-21-m 0 0 cave_tunnel_long_3g-21-m co_cave_tunnel_long_3g-21-m 0
+
+
+spr_a_cave_tunnel_long_3g-27-m 0 0 cave_tunnel_long_3g-27-m co_cave_tunnel_long_3g-27-m 0
+
+
+spr_a_cave_tunnel_long_3g-28-m 0 0 cave_tunnel_long_3g-28-m co_cave_tunnel_long_3g-28-m 0
+
+
+spr_a_cave_tunnel_long_3g-29-m 0 0 cave_tunnel_long_3g-29-m co_cave_tunnel_long_3g-29-m 0
+
+
+spr_a_cave_tunnel_long_3g-30-m 0 0 cave_tunnel_long_3g-30-m co_cave_tunnel_long_3g-30-m 0
+
+
+spr_a_cave_tunnel_long_3g-31-m 0 0 cave_tunnel_long_3g-31-m co_cave_tunnel_long_3g-31-m 0
+
+
+spr_a_cave_tunnel_long_3g-32-m 0 0 cave_tunnel_long_3g-32-m co_cave_tunnel_long_3g-32-m 0
+
+
+spr_a_cave_tunnel_long_3g-33-m 0 0 cave_tunnel_long_3g-33-m co_cave_tunnel_long_3g-33-m 0
+
+
+spr_a_cave_tunnel_long_3g-34-m 0 0 cave_tunnel_long_3g-34-m co_cave_tunnel_long_3g-34-m 0
+
+
+spr_a_cave_tunnel_long_3g-35-m 0 0 cave_tunnel_long_3g-35-m co_cave_tunnel_long_3g-35-m 0
+
+
+spr_a_cave_tunnel_long_3g-36-m 0 0 cave_tunnel_long_3g-36-m co_cave_tunnel_long_3g-36-m 0
+
+
+spr_a_cave_tunnel_long_3g-37-m 0 0 cave_tunnel_long_3g-37-m co_cave_tunnel_long_3g-37-m 0
+
+
+spr_a_cave_tunnel_long_3g-38-m 0 0 cave_tunnel_long_3g-38-m co_cave_tunnel_long_3g-38-m 0
+
+
+spr_a_cave_tunnel_long_3g-39-m 0 0 cave_tunnel_long_3g-39-m co_cave_tunnel_long_3g-39-m 0
+
+
+spr_a_cave_tunnel_long_3g-40-m 0 0 cave_tunnel_long_3g-40-m co_cave_tunnel_long_3g-40-m 0
+
+
+spr_a_cave_tunnel_long_3g-41-m 0 0 cave_tunnel_long_3g-41-m co_cave_tunnel_long_3g-41-m 0
+
+
+spr_a_cave_tunnel_long_4g-01 0 0 cave_tunnel_long_4g-01 co_cave_tunnel_long_4g-01 0
+
+
+spr_a_cave_tunnel_long_4g-02 0 0 cave_tunnel_long_4g-02 co_cave_tunnel_long_4g-02 0
+
+
+spr_a_cave_tunnel_long_4g-03 0 0 cave_tunnel_long_4g-03 co_cave_tunnel_long_4g-03 0
+
+
+spr_a_cave_tunnel_long_4g-04 0 0 cave_tunnel_long_4g-04 co_cave_tunnel_long_4g-04 0
+
+
+spr_a_cave_tunnel_long_4g-05 0 0 cave_tunnel_long_4g-05 co_cave_tunnel_long_4g-05 0
+
+
+spr_a_cave_tunnel_long_4g-06 0 0 cave_tunnel_long_4g-06 co_cave_tunnel_long_4g-06 0
+
+
+spr_a_cave_tunnel_long_4g-07 0 0 cave_tunnel_long_4g-07 co_cave_tunnel_long_4g-07 0
+
+
+spr_a_cave_tunnel_long_4g-08 0 0 cave_tunnel_long_4g-08 co_cave_tunnel_long_4g-08 0
+
+
+spr_a_cave_tunnel_long_4g-09 0 0 cave_tunnel_long_4g-09 co_cave_tunnel_long_4g-09 0
+
+
+spr_a_cave_tunnel_long_4g-10 0 0 cave_tunnel_long_4g-10 co_cave_tunnel_long_4g-10 0
+
+
+spr_a_cave_tunnel_long_4g-11 0 0 cave_tunnel_long_4g-11 co_cave_tunnel_long_4g-11 0
+
+
+spr_a_cave_tunnel_long_4g-12 0 0 cave_tunnel_long_4g-12 co_cave_tunnel_long_4g-12 0
+
+
+spr_a_cave_tunnel_long_4g-13 0 0 cave_tunnel_long_4g-13 co_cave_tunnel_long_4g-13 0
+
+
+spr_a_cave_tunnel_long_4g-14 0 0 cave_tunnel_long_4g-14 co_cave_tunnel_long_4g-14 0
+
+
+spr_a_cave_tunnel_long_4g-15 0 0 cave_tunnel_long_4g-15 co_cave_tunnel_long_4g-15 0
+
+
+spr_a_cave_tunnel_long_4g-16 0 0 cave_tunnel_long_4g-16 co_cave_tunnel_long_4g-16 0
+
+
+spr_a_cave_tunnel_long_4g-17 0 0 cave_tunnel_long_4g-17 co_cave_tunnel_long_4g-17 0
+
+
+spr_a_cave_tunnel_long_4g-18 0 0 cave_tunnel_long_4g-18 co_cave_tunnel_long_4g-18 0
+
+
+spr_a_cave_tunnel_long_4g-19 0 0 cave_tunnel_long_4g-19 co_cave_tunnel_long_4g-19 0
+
+
+spr_a_cave_tunnel_long_4g-20 0 0 cave_tunnel_long_4g-20 co_cave_tunnel_long_4g-20 0
+
+
+spr_a_cave_tunnel_long_4g-21 0 0 cave_tunnel_long_4g-21 co_cave_tunnel_long_4g-21 0
+
+
+spr_a_cave_tunnel_long_4g-22 0 0 cave_tunnel_long_4g-22 co_cave_tunnel_long_4g-22 0
+
+
+spr_a_cave_tunnel_long_4g-23 0 0 cave_tunnel_long_4g-23 co_cave_tunnel_long_4g-23 0
+
+
+spr_a_cave_tunnel_long_4g-24 0 0 cave_tunnel_long_4g-24 co_cave_tunnel_long_4g-24 0
+
+
+spr_a_cave_tunnel_long_4g-25 0 0 cave_tunnel_long_4g-25 co_cave_tunnel_long_4g-25 0
+
+
+spr_a_cave_tunnel_long_4g-26 0 0 cave_tunnel_long_4g-26 co_cave_tunnel_long_4g-26 0
+
+
+spr_a_cave_tunnel_long_4g-02-m 0 0 cave_tunnel_long_4g-02-m co_cave_tunnel_long_4g-02-m 0
+
+
+spr_a_cave_tunnel_long_4g-04-m 0 0 cave_tunnel_long_4g-04-m co_cave_tunnel_long_4g-04-m 0
+
+
+spr_a_cave_tunnel_long_4g-05-m 0 0 cave_tunnel_long_4g-05-m co_cave_tunnel_long_4g-05-m 0
+
+
+spr_a_cave_tunnel_long_4g-06-m 0 0 cave_tunnel_long_4g-06-m co_cave_tunnel_long_4g-06-m 0
+
+
+spr_a_cave_tunnel_long_4g-08-m 0 0 cave_tunnel_long_4g-08-m co_cave_tunnel_long_4g-08-m 0
+
+
+spr_a_cave_tunnel_long_4g-09-m 0 0 cave_tunnel_long_4g-09-m co_cave_tunnel_long_4g-09-m 0
+
+
+spr_a_cave_tunnel_long_4g-10-m 0 0 cave_tunnel_long_4g-10-m co_cave_tunnel_long_4g-10-m 0
+
+
+spr_a_cave_tunnel_long_4g-11-m 0 0 cave_tunnel_long_4g-11-m co_cave_tunnel_long_4g-11-m 0
+
+
+spr_a_cave_tunnel_long_4g-12-m 0 0 cave_tunnel_long_4g-12-m co_cave_tunnel_long_4g-12-m 0
+
+
+spr_a_cave_tunnel_long_4g-13-m 0 0 cave_tunnel_long_4g-13-m co_cave_tunnel_long_4g-13-m 0
+
+
+spr_a_cave_tunnel_long_4g-15-m 0 0 cave_tunnel_long_4g-15-m co_cave_tunnel_long_4g-15-m 0
+
+
+spr_a_cave_tunnel_long_4g-16-m 0 0 cave_tunnel_long_4g-16-m co_cave_tunnel_long_4g-16-m 0
+
+
+spr_a_cave_tunnel_long_4g-20-m 0 0 cave_tunnel_long_4g-20-m co_cave_tunnel_long_4g-20-m 0
+
+
+spr_a_cave_tunnel_long_4g-21-m 0 0 cave_tunnel_long_4g-21-m co_cave_tunnel_long_4g-21-m 0
+
+
+spr_a_cave_tunnel_long_4g-22-m 0 0 cave_tunnel_long_4g-22-m co_cave_tunnel_long_4g-22-m 0
+
+
+spr_a_cave_tunnel_long_4g-23-m 0 0 cave_tunnel_long_4g-23-m co_cave_tunnel_long_4g-23-m 0
+
+
+spr_a_cave_tunnel_long_4g-24-m 0 0 cave_tunnel_long_4g-24-m co_cave_tunnel_long_4g-24-m 0
+
+
+spr_a_cave_tunnel_long_4g-25-m 0 0 cave_tunnel_long_4g-25-m co_cave_tunnel_long_4g-25-m 0
+
+
+spr_a_cave_tunnel_long_4g-26-m 0 0 cave_tunnel_long_4g-26-m co_cave_tunnel_long_4g-26-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-01 0 0 cave_tunnel_long_4g-V2-01 co_cave_tunnel_long_4g-V2-01 0
+
+
+spr_a_cave_tunnel_long_4g-V2-02 0 0 cave_tunnel_long_4g-V2-02 co_cave_tunnel_long_4g-V2-02 0
+
+
+spr_a_cave_tunnel_long_4g-V2-03 0 0 cave_tunnel_long_4g-V2-03 co_cave_tunnel_long_4g-V2-03 0
+
+
+spr_a_cave_tunnel_long_4g-V2-04 0 0 cave_tunnel_long_4g-V2-04 co_cave_tunnel_long_4g-V2-04 0
+
+
+spr_a_cave_tunnel_long_4g-V2-05 0 0 cave_tunnel_long_4g-V2-05 co_cave_tunnel_long_4g-V2-05 0
+
+
+spr_a_cave_tunnel_long_4g-V2-06 0 0 cave_tunnel_long_4g-V2-06 co_cave_tunnel_long_4g-V2-06 0
+
+
+spr_a_cave_tunnel_long_4g-V2-07 0 0 cave_tunnel_long_4g-V2-07 co_cave_tunnel_long_4g-V2-07 0
+
+
+spr_a_cave_tunnel_long_4g-V2-08 0 0 cave_tunnel_long_4g-V2-08 co_cave_tunnel_long_4g-V2-08 0
+
+
+spr_a_cave_tunnel_long_4g-V2-09 0 0 cave_tunnel_long_4g-V2-09 co_cave_tunnel_long_4g-V2-09 0
+
+
+spr_a_cave_tunnel_long_4g-V2-10 0 0 cave_tunnel_long_4g-V2-10 co_cave_tunnel_long_4g-V2-10 0
+
+
+spr_a_cave_tunnel_long_4g-V2-11 0 0 cave_tunnel_long_4g-V2-11 co_cave_tunnel_long_4g-V2-11 0
+
+
+spr_a_cave_tunnel_long_4g-V2-12 0 0 cave_tunnel_long_4g-V2-12 co_cave_tunnel_long_4g-V2-12 0
+
+
+spr_a_cave_tunnel_long_4g-V2-13 0 0 cave_tunnel_long_4g-V2-13 co_cave_tunnel_long_4g-V2-13 0
+
+
+spr_a_cave_tunnel_long_4g-V2-14 0 0 cave_tunnel_long_4g-V2-14 co_cave_tunnel_long_4g-V2-14 0
+
+
+spr_a_cave_tunnel_long_4g-V2-15 0 0 cave_tunnel_long_4g-V2-15 co_cave_tunnel_long_4g-V2-15 0
+
+
+spr_a_cave_tunnel_long_4g-V2-16 0 0 cave_tunnel_long_4g-V2-16 co_cave_tunnel_long_4g-V2-16 0
+
+
+spr_a_cave_tunnel_long_4g-V2-17 0 0 cave_tunnel_long_4g-V2-17 co_cave_tunnel_long_4g-V2-17 0
+
+
+spr_a_cave_tunnel_long_4g-V2-18 0 0 cave_tunnel_long_4g-V2-18 co_cave_tunnel_long_4g-V2-18 0
+
+
+spr_a_cave_tunnel_long_4g-V2-19 0 0 cave_tunnel_long_4g-V2-19 co_cave_tunnel_long_4g-V2-19 0
+
+
+spr_a_cave_tunnel_long_4g-V2-20 0 0 cave_tunnel_long_4g-V2-20 co_cave_tunnel_long_4g-V2-20 0
+
+
+spr_a_cave_tunnel_long_4g-V2-21 0 0 cave_tunnel_long_4g-V2-21 co_cave_tunnel_long_4g-V2-21 0
+
+
+spr_a_cave_tunnel_long_4g-V2-22 0 0 cave_tunnel_long_4g-V2-22 co_cave_tunnel_long_4g-V2-22 0
+
+
+spr_a_cave_tunnel_long_4g-V2-23 0 0 cave_tunnel_long_4g-V2-23 co_cave_tunnel_long_4g-V2-23 0
+
+
+spr_a_cave_tunnel_long_4g-V2-24 0 0 cave_tunnel_long_4g-V2-24 co_cave_tunnel_long_4g-V2-24 0
+
+
+spr_a_cave_tunnel_long_4g-V2-25 0 0 cave_tunnel_long_4g-V2-25 co_cave_tunnel_long_4g-V2-25 0
+
+
+spr_a_cave_tunnel_long_4g-V2-26 0 0 cave_tunnel_long_4g-V2-26 co_cave_tunnel_long_4g-V2-26 0
+
+
+spr_a_cave_tunnel_long_4g-V2-27 0 0 cave_tunnel_long_4g-V2-27 co_cave_tunnel_long_4g-V2-27 0
+
+
+spr_a_cave_tunnel_long_4g-V2-28 0 0 cave_tunnel_long_4g-V2-28 co_cave_tunnel_long_4g-V2-28 0
+
+
+spr_a_cave_tunnel_long_4g-V2-29 0 0 cave_tunnel_long_4g-V2-29 co_cave_tunnel_long_4g-V2-29 0
+
+
+spr_a_cave_tunnel_long_4g-V2-30 0 0 cave_tunnel_long_4g-V2-30 co_cave_tunnel_long_4g-V2-30 0
+
+
+spr_a_cave_tunnel_long_4g-V2-31 0 0 cave_tunnel_long_4g-V2-31 co_cave_tunnel_long_4g-V2-31 0
+
+
+spr_a_cave_tunnel_long_4g-V2-32 0 0 cave_tunnel_long_4g-V2-32 co_cave_tunnel_long_4g-V2-32 0
+
+
+spr_a_cave_tunnel_long_4g-V2-33 0 0 cave_tunnel_long_4g-V2-33 co_cave_tunnel_long_4g-V2-33 0
+
+
+spr_a_cave_tunnel_long_4g-V2-34 0 0 cave_tunnel_long_4g-V2-34 co_cave_tunnel_long_4g-V2-34 0
+
+
+spr_a_cave_tunnel_long_4g-V2-35 0 0 cave_tunnel_long_4g-V2-35 co_cave_tunnel_long_4g-V2-35 0
+
+
+spr_a_cave_tunnel_long_4g-V2-36 0 0 cave_tunnel_long_4g-V2-36 co_cave_tunnel_long_4g-V2-36 0
+
+
+spr_a_cave_tunnel_long_4g-V2-37 0 0 cave_tunnel_long_4g-V2-37 co_cave_tunnel_long_4g-V2-37 0
+
+
+spr_a_cave_tunnel_long_4g-V2-38 0 0 cave_tunnel_long_4g-V2-38 co_cave_tunnel_long_4g-V2-38 0
+
+
+spr_a_cave_tunnel_long_4g-V2-39 0 0 cave_tunnel_long_4g-V2-39 co_cave_tunnel_long_4g-V2-39 0
+
+
+spr_a_cave_tunnel_long_4g-V2-40 0 0 cave_tunnel_long_4g-V2-40 co_cave_tunnel_long_4g-V2-40 0
+
+
+spr_a_cave_tunnel_long_4g-V2-41 0 0 cave_tunnel_long_4g-V2-41 co_cave_tunnel_long_4g-V2-41 0
+
+
+spr_a_cave_tunnel_long_4g-V2-42 0 0 cave_tunnel_long_4g-V2-42 co_cave_tunnel_long_4g-V2-42 0
+
+
+spr_a_cave_tunnel_long_4g-V2-43 0 0 cave_tunnel_long_4g-V2-43 co_cave_tunnel_long_4g-V2-43 0
+
+
+spr_a_cave_tunnel_long_4g-V2-11-m 0 0 cave_tunnel_long_4g-V2-11-m co_cave_tunnel_long_4g-V2-11-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-12-m 0 0 cave_tunnel_long_4g-V2-12-m co_cave_tunnel_long_4g-V2-12-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-13-m 0 0 cave_tunnel_long_4g-V2-13-m co_cave_tunnel_long_4g-V2-13-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-14-m 0 0 cave_tunnel_long_4g-V2-14-m co_cave_tunnel_long_4g-V2-14-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-15-m 0 0 cave_tunnel_long_4g-V2-15-m co_cave_tunnel_long_4g-V2-15-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-16-m 0 0 cave_tunnel_long_4g-V2-16-m co_cave_tunnel_long_4g-V2-16-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-19-m 0 0 cave_tunnel_long_4g-V2-19-m co_cave_tunnel_long_4g-V2-19-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-20-m 0 0 cave_tunnel_long_4g-V2-20-m co_cave_tunnel_long_4g-V2-20-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-21-m 0 0 cave_tunnel_long_4g-V2-21-m co_cave_tunnel_long_4g-V2-21-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-22-m 0 0 cave_tunnel_long_4g-V2-22-m co_cave_tunnel_long_4g-V2-22-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-29-m 0 0 cave_tunnel_long_4g-V2-29-m co_cave_tunnel_long_4g-V2-29-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-30-m 0 0 cave_tunnel_long_4g-V2-30-m co_cave_tunnel_long_4g-V2-30-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-31-m 0 0 cave_tunnel_long_4g-V2-31-m co_cave_tunnel_long_4g-V2-31-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-32-m 0 0 cave_tunnel_long_4g-V2-32-m co_cave_tunnel_long_4g-V2-32-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-33-m 0 0 cave_tunnel_long_4g-V2-33-m co_cave_tunnel_long_4g-V2-33-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-34-m 0 0 cave_tunnel_long_4g-V2-34-m co_cave_tunnel_long_4g-V2-34-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-35-m 0 0 cave_tunnel_long_4g-V2-35-m co_cave_tunnel_long_4g-V2-35-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-36-m 0 0 cave_tunnel_long_4g-V2-36-m co_cave_tunnel_long_4g-V2-36-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-37-m 0 0 cave_tunnel_long_4g-V2-37-m co_cave_tunnel_long_4g-V2-37-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-38-m 0 0 cave_tunnel_long_4g-V2-38-m co_cave_tunnel_long_4g-V2-38-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-40-m 0 0 cave_tunnel_long_4g-V2-40-m co_cave_tunnel_long_4g-V2-40-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-41-m 0 0 cave_tunnel_long_4g-V2-41-m co_cave_tunnel_long_4g-V2-41-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-42-m 0 0 cave_tunnel_long_4g-V2-42-m co_cave_tunnel_long_4g-V2-42-m 0
+
+
+spr_a_cave_tunnel_long_4g-V2-43-m 0 0 cave_tunnel_long_4g-V2-43-m co_cave_tunnel_long_4g-V2-43-m 0
+
+
+spr_a_cave-way-01 0 0 cave-way-01 co_cave-way-01 0
+
+
+spr_a_cave-way-02 0 0 cave-way-02 co_cave-way-02 0
+
+
+spr_a_cave-way-03 0 0 cave-way-03 co_cave-way-03 0
+
+
+spr_a_cave-way-04 0 0 cave-way-04 co_cave-way-04 0
+
+
+spr_a_cave-way-05 0 0 cave-way-05 co_cave-way-05 0
+
+
+spr_a_cave-way-06 0 0 cave-way-06 co_cave-way-06 0
+
+
+spr_a_cave-way-07 0 0 cave-way-07 co_cave-way-07 0
+
+
+spr_a_cave-way-08 0 0 cave-way-08 co_cave-way-08 0
+
+
+spr_a_cave-way-09 0 0 cave-way-09 co_cave-way-09 0
+
+
+spr_a_cave-way-01-m 0 0 cave-way-01-m co_cave-way-01-m 0
+
+
+spr_a_cave-way-02-m 0 0 cave-way-02-m co_cave-way-02-m 0
+
+
+spr_a_cave-way-03-m 0 0 cave-way-03-m co_cave-way-03-m 0
+
+
+spr_a_cave-way-04-m 0 0 cave-way-04-m co_cave-way-04-m 0
+
+
+spr_a_cave-way-05-m 0 0 cave-way-05-m co_cave-way-05-m 0
+
+
+spr_a_cave-way-06-m 0 0 cave-way-06-m co_cave-way-06-m 0
+
+
+spr_a_cave-way-07-m 0 0 cave-way-07-m co_cave-way-07-m 0
+
+
+spr_a_cave-way-08-m 0 0 cave-way-08-m co_cave-way-08-m 0
+
+
+spr_a_cave-way-09-m 0 0 cave-way-09-m co_cave-way-09-m 0
+
+
+spr_a_str_spike_a 0 0 str_spike_a co_str_spike_a 0
+
+
+spr_a_str_spike_group_a 0 0 str_spike_group_a co_str_spike_group_a 0
+
+
+spr_a_str_destroy_house_a 0 0 str_destroy_house_a co_str_destroy_house_a 0
+
+
+spr_a_str_destroy_house_b 0 0 str_destroy_house_b co_str_destroy_house_b 0
+
+
+spr_a_str_destroy_house_c 0 0 str_destroy_house_c co_str_destroy_house_c 0
+
+
+spr_a_str_destroy_heap 0 0 str_destroy_heap co_str_destroy_heap 0
+
+
+spr_a_str_destroy_castle_a 0 0 str_destroy_castle_a co_str_destroy_castle_a 0
+
+
+spr_a_str_destroy_castle_b 0 0 str_destroy_castle_b co_str_destroy_castle_b 0
+
+
+spr_a_str_destroy_castle_c 0 0 str_destroy_castle_c co_str_destroy_castle_c 0
+
+
+spr_a_str_destroy_castle_d 0 0 str_destroy_castle_d co_str_destroy_castle_d 0
+
+
+spr_a_str_destroy_windmill 0 0 str_destroy_windmill co_str_destroy_windmill 0
+
+
+spr_a_str_destroy_bridge_a 0 0 str_destroy_bridge_a co_str_destroy_bridge_a 0
+
+
+spr_a_str_destroy_bridge_b 0 0 str_destroy_bridge_b co_str_destroy_bridge_b 0
+
+
+spr_a_str_bridge_modular_a 0 0 str_bridge_modular_a co_str_bridge_modular_a 0
+
+
+spr_a_str_bridge_modular_b 0 0 str_bridge_modular_b co_str_bridge_modular_b 0
+
+
+spr_a_str_passage_house_d 0 0 str_passage_house_d co_str_passage_house_d 0
+
+
+spr_a_str_small_wall_b 0 0 str_small_wall_b co_str_small_wall_b 0
+
+
+spr_a_str_small_wall_c 0 0 str_small_wall_c co_str_small_wall_c 0
+
+
+spr_a_str_stone_heap 0 0 str_stone_heap co_str_stone_heap 0
+
+
+spr_a_str_small_wall_c_destroy 0 0 str_small_wall_c_destroy co_str_small_wall_c_destroy 0
+
+
+spr_a_str_stone_step_b 0 0 str_stone_step_b co_str_stone_step_b 0
+
+
+spr_a_str_arena_circle_a 0 0 str_arena_circle_a co_str_arena_circle_a 0
+
+
+spr_a_str_tree_house_guard_a 0 0 str_tree_house_guard_a co_str_tree_house_guard_a 0
+
+
+spr_a_str_tree_house_guard_b 0 0 str_tree_house_guard_b co_str_tree_house_guard_b 0
+
+
+spr_a_str_bridge_b 0 0 str_bridge_b co_str_bridge_b 0
+
+
+spr_a_cave_columna-01_int 0 0 columna-01_int co_columna-01 0
+
+
+spr_a_cave_columna-02_int 0 0 columna-02_int co_columna-02 0
+
+
+spr_a_cave_pasarela-01_int 0 0 pasarela-01_int co_pasarela-01 0
+
+
+spr_a_cave_pasarela-02_int 0 0 pasarela-02_int co_pasarela-02 0
+
+
+spr_a_cave_pasarela-03_int 0 0 pasarela-03_int co_pasarela-03 0
+
+
+spr_a_cave_pasarela-03-m_int 0 0 pasarela-03-m_int co_pasarela-03-m 0
+
+
+spr_a_cave_estalactita-01_int 0 0 estalactita-01_int co_estalactita-01 0
+
+
+spr_a_cave_mo-wall-01_int 0 0 mo-wall-01_int co_mo-wall-01 0
+
+
+spr_a_cave_mo-wall-01-m_int 0 0 mo-wall-01-m_int co_mo-wall-01-m 0
+
+
+spr_a_cave_mo-wall-02_int 0 0 mo-wall-02_int co_mo-wall-02 0
+
+
+spr_a_cave_rock-01_int 0 0 rock-01_int co_rock-01 0
+
+
+spr_a_cave_rock-02_int 0 0 rock-02_int co_rock-02 0
+
+
+spr_a_cave_rock-03_int 0 0 rock-03_int co_rock-03 0
+
+
+spr_a_cave_rock-03-m_int 0 0 rock-03-m_int co_rock-03-m 0
+
+
+spr_a_cave_rock-04_int 0 0 rock-04_int co_rock-04 0
+
+
+spr_a_cave_rock-05_int 0 0 rock-05_int co_rock-05 0
+
+
+spr_a_cave_rock-06_int 0 0 rock-06_int co_rock-06 0
+
+
+spr_a_cave_way-01_int 0 0 way-01_int co_way-01 0
+
+
+spr_a_cave_way-01-bank-01_int 0 0 way-01-bank-01_int co_way-01-bank-01 0
+
+
+spr_a_cave_estalactita-02_int 0 0 estalactita-02_int co_estalactita-02 0
+
+
+spr_a_cave_estalactita-03_int 0 0 estalactita-03_int co_estalactita-03 0
+
+
+spr_a_cave_pasarela-04_int 0 0 pasarela-04_int co_pasarela-04 0
+
+
+spr_a_cave_pasarela-05_int 0 0 pasarela-05_int co_pasarela-05 0
+
+
+spr_a_cave-frame-01_int 0 0 cave-frame-01_int co_cave-frame-01 0
+
+
+spr_a_cave-frame-01-m_int 0 0 cave-frame-01-m_int co_cave-frame-01-m 0
+
+
+spr_a_cave-frame-02_int 0 0 cave-frame-02_int co_cave-frame-02 0
+
+
+spr_a_cave-frame-02-m_int 0 0 cave-frame-02-m_int co_cave-frame-02-m 0
+
+
+spr_a_cave_mont-01-big-01_int 0 0 mont-01-big-01_int co_mont-01-big-01 0
+
+
+spr_a_cave_mont-01-med-01_int 0 0 mont-01-med-01_int co_mont-01-med-01 0
+
+
+spr_a_cave_columna-03_int 0 0 columna-03_int co_columna-03 0
+
+
+spr_a_str_cave-gate-01 0 0 str_cave-gate-01 co_str_cave-gate-01 0
+
+
+spr_a_str_cave-gate-02 0 0 str_cave-gate-02 co_str_cave-gate-02 0
+
+
+spr_a_str_cave-gate-03 0 0 str_cave-gate-03 co_str_cave-gate-03 0
+
+
+spr_a_str_cave-gate-04 0 0 str_cave-gate-04 co_str_cave-gate-04 0
+
+
+spr_a_cave-mont-01-big 0 0 cave-mont-01-big co_cave-mont-01-big 0
+
+
+spr_a_cave-mont-01-big-b 0 0 cave-mont-01-big-b co_cave-mont-01-big-b 0
 
 
