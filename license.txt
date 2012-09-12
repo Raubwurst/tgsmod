@@ -6,15 +6,43 @@ The Gathering Storm - A Wheel of Time Mod for Mount&Blade:Warband
 License information:
 --------------------
 
+All mod-specific assets are covered by the modified 2-clause BSD license printed below:
 
+Copyright (c) 2012, TGS Mod Team and contributors
+All rights reserved.
 
-List of authors must be maintained, and license.txt must be included in any distribution of the mod.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met: 
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions, the full list of credits and copyright notices and the 
+   following disclaimer. 
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions, the full list of credits and copyright notices and 
+   the following disclaimer in the documentation and/or other materials provided 
+   with the distribution. 
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The entire unmodified license.txt, this file, must be included with any redistribution of this mod.
+
+All other resources and contributions are covered by their own specific licenses, 
+this document does not imply any change to pre-existing licenses for any content. 
 
 --------
 Credits:
 --------
 
-Mod Team:
+TGS Mod Team:
 ---------
 
 mat2rivs - Project Lead, Scripting, Modeling, Texturing, Mapmaking, Scening
@@ -23,7 +51,7 @@ Vieira - Modeling, Texturing
 Disco Ninja - Lead Tester, Brainstorming, Error Tracking
 Teofish - Scene Blueprints, Concept Drawings, Banners
 
-Additional Help:
+Contributers:
 ----------------
 
 lorenzogarch - Error Tracking, Story Writing (character creation screens)
@@ -32,9 +60,11 @@ backstrom - The Ways (base code)
 Verbeek - 2d art, Signatures, Splash Screens
    - Screens use altered artwork by the following artists.
       -Lord of Chaos e-book cover by Greg Manchess
-      -Crossroads of Twilight  e-book cover by Greg Ruth
-      -The Shadow Rising  e-book cover by Sam Weber
-   * Note:  I have attempted to contact each of these artists to ask permission, but 	have not heard back from any of them.  In the event that they contact me and ask that I remove their work from the mod, I will do so.
+      -Crossroads of Twilight e-book cover by Greg Ruth
+      -The Shadow Rising e-book cover by Sam Weber
+   * Note:  I have attempted to contact each of these artists to ask permission, but 
+	have not heard back from any of them. In the event that they contact me and ask 
+	that I remove their work from the mod, I will do so.
 Bgfan - Signatures
 Caba'drin - Scripting tips and general Module System mastery
 Tumetsu - Error Tracking, Brainstorming
@@ -101,9 +131,9 @@ http://forums.taleworlds.com/index.php/topic,5646.msg81956.html#msg81956
 
 Taleworlds - A big thanks for their Native code and the Module System. Also, many of their models were retextured for this mod.
 
-Robert Jordan and his amazing series:
+Robert Jordan and his amazing series.
 
-The World of Robert Jordan's Wheel of Time:  for many of the identifier graphics for different countries.
+The World of Robert Jordan's Wheel of Time for many of the identifier graphics for different countries.
 
 The Wheel of Time is © Copyright Robert Jordan.
 The phrases The Wheel of Time™ and The Dragon Reborn™ are trademarks of Robert Jordan.
@@ -119,4 +149,4 @@ Followers of the Taleworlds thread for all their feedback
 Other Notes:
 ------------
 
-All non-TGS assets, including the Wheel of Time IP and books are copyrighted by their owners and creators.
+All non-TGS assets, including the Wheel of Time IP and books and the Mount&Blade: Warband Module System are copyrighted and/or trademarked by their owners and creators.
