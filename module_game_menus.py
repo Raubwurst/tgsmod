@@ -36,21 +36,38 @@ from module_constants import *
 ####################################################################################################################
 
 game_menus = [
+
   ("start_game_0",menu_text_color(0xFF000000)|mnf_disable_all_keys,
   ##diplomacy begin (tweaked for TGS)
     "Welcome, adventurer, to The Gathering Storm - A Wheel of Time Mod for Mount & Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
   ##diplomacy end  (tweaked for TGS)
   "none",
-    [],
+#    [],
+#    [
+#     ("continue",[],"Continue...",
+#       [(jump_to_menu, "mnu_start_game_1"),
+#        ]
+#       ),
+#      ("go_back",[],"Go back",
+#       [
+#         (change_screen_quit),
+#       ]),
+#    ]
+# ),
+     [(try_begin),
+        (neq, "$creation_canceled", 999),
+        (call_script, "script_randomize_background", 0),
+        (start_presentation, "prsnt_player_background"),
+     (try_end),],
     [
-     ("continue",[],"Continue...",
-       [(jump_to_menu, "mnu_start_game_1"),
-        ]
-       ),
-      ("go_back",[],"Go back",
-       [
-         (change_screen_quit),
-       ]),
+		("start",[],"Create Character",
+		[
+		(start_presentation, "prsnt_player_background"),
+		]),
+		("quit",[],"Cancel",
+		[
+		(change_screen_quit),
+		]),
     ]
   ),
 
@@ -1025,6 +1042,7 @@ game_menus = [
        ]),
     ]
   ),
+
 
   (
     "start_character_1",mnf_disable_all_keys,

@@ -3298,6 +3298,20 @@ TOTAL_NUMBER_OF_RANKS_LINEAR       = TOTAL_NUMBER_OF_WEAVES
 
 ### TGS Special Constants End ###
 
+# Dunde's Background Constants Begin
+nationality_init        = "str_story"
+parent_init             = "str_rhodok"
+childhood_init          = "str_parent_priest"
+job_init                = "str_childhood_acolyte"
+reason_init             = "str_job_preacher"
+story_nationality_init  = "str_story_all"
+story_parent_init       = "str_story_rhodok"
+story_childhood_init    = "str_story_parent_priest"
+story_job_init          = "str_story_childhood_acolyte"
+story_reason_init       = "str_story_job_preacher"
+player          = "trp_player"
+main_party  = "p_main_party"
+# Dunde's Background Constants End
 
 # modmerger_start version=201 type=1
 try:

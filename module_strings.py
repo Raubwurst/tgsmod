@@ -4924,4 +4924,236 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 # TGS End
 ######################
 
+# Dunde's Character Creation Begin
+## Presentations
+  ("cancel", "Cancel"),
+  ("continue", "Continue"),
+  ("close", "Close"),
+  ("ok", "Ok"),
+  ("random", "Random"),
+  ("back", "Back"),
+  ("prev", "Previous"),
+  ("next", "Next"),
+  ("not_available", "N/A"),
+  ("long_string","01234567890123456789012345678901234567890"),
+  ## Player Background
+  ("background_label_1","Character Background"),
+  ("background_label_2","The Story :"), 
+  ("gender", "Gender"),
+  ("gender_value", ":     {reg11?Female:Male}"),
+  ("nationality", "Nationality"),
+  ("nationality_value", ":     {s12}"),
+  ("parent", "Parent"),
+  ("parent_value", ":     {s13}"),
+  ("childhood", "Childhood"),
+  ("childhood_value", ":     {s14}"),
+  ("jobs", "Job"),
+  ("jobs_value", ":     {s15}"),
+  ("reason", "Reason"),
+  ("reason_value", ":     {s16}"),
+  ("story", "{s17}^ "),
+  ## Background stories
+  ("swadian","Swadian"),
+  ("vaegir","Vaegir"),
+  ("khergit","Khergit"),
+  ("nord","Nord"),
+  ("rhodok","Rhodok"),
+  ("parent_noble","Impoverished Noble"),
+  ("parent_merchant","Travelling Merchant"),
+  ("parent_guard","Veteran Warrior"),
+  ("parent_forester","Hunter"),
+  ("parent_nomad","Steppe Nomad"),
+  ("parent_thief","Thief"),
+  ("parent_priest","Priests"),
+  ("childhood_page","Page at a Nobleman's Court"),
+  ("childhood_apprentice","Craftsman's Apprentice"),
+  ("childhood_stockboy","Shop Assistant"),
+  ("childhood_urchin","Street Urchin"),
+  ("childhood_nomad","Steppe Child"),
+  ("childhood_mummer","Mummer"),
+  ("childhood_courtier","Courtier"),
+  ("childhood_noble","Noble in Training"),
+  ("childhood_acolyte","Cleric Acolyte"),
+  ("job_bravo","Travelling Bravo"),
+  ("job_merc","Sellsword in Foreign Lands"),
+  ("job_noble","{reg11?A lady-in-waiting:Squire}"),
+  ("job_troubadour","Troubadour"),
+  ("job_student","University Student"),
+  ("job_peddler","Goods Peddler"),
+  ("job_craftsman","Smith"),
+  ("job_poacher","Game Poacher"),
+  ("job_preacher","Itinerant Preacher"),
+  ("reason_revenge","Personal revenge"),
+  ("reason_death","The loss of a loved one"),
+  ("reason_wanderlust","Wanderlust"),
+  ("reason_fervor","Religious fervor"),
+  ("reason_disown","Being forced out of your home"),
+  ("reason_greed","Lust for money and power"),
+  ("story_all", "{s17}{s1} "),
+  ## The Legend Continues
+  ("story_swadian","You are a Swadian."),
+  ("story_vaegir","You are a Vaegir."),
+  ("story_khergit","You are a Khergit."),
+  ("story_nord","You are a Nord."),
+  ("story_rhodok","You are a Rhodok."),
+  ("story_parent_noble","You came into the world a {reg11?daughter:son} of declining nobility,\
+ owning only the house in which they lived. However, despite your family's hardships,\
+ they afforded you a good education and trained you from childhood for the rigors of aristocracy and life at court."),
+  ("story_parent_merchant","You were born the {reg11?daughter:son} of travelling merchants,\
+ always moving from place to place in search of a profit. Although your parents were wealthier than most\
+ and educated you as well as they could, you found little opportunity to make friends on the road,\
+ living mostly for the moments when you could sell something to somebody."),
+  ("story_parent_guard","As a child, your family scrabbled out a meagre living from your father's wages\
+ as a guardsman to the local lord. It was not an easy existence, and you were too poor to get much of an\
+ education. You learned mainly how to defend yourself on the streets, with or without a weapon in hand."),
+  ("story_parent_forester","You were the {reg11?daughter:son} of a family who lived off the woods,\
+ doing whatever they needed to make ends meet. Hunting, woodcutting, making arrows,\
+ even a spot of poaching whenever things got tight. Winter was never a good time for your family\
+ as the cold took animals and people alike, but you always lived to see another dawn,\
+ though your brothers and sisters might not be so fortunate."),
+  ("story_parent_nomad","You were a child of the steppe, born to a tribe of wandering nomads who lived\
+ in great camps throughout the arid grasslands.\
+ Like the other tribesmen, your family revered horses above almost everything else, and they taught you\
+ how to ride almost before you learned how to walk."),
+  ("story_parent_thief","As the {reg11?daughter:son} of a thief, you had very little 'formal' education.\
+ Instead you were out on the street, begging until you learned how to cut purses, cutting purses\
+ until you learned how to pick locks, all the way through your childhood.\
+ Still, these long years made you streetwise and sharp to the secrets of cities and shadowy backways."),
+  ("story_parent_priest","A {reg11?daughter:son} that nobody wanted, you were left to the church as a baby,\
+ a foundling raised by the priests and nuns to their own traditions.\
+ You were only one of many other foundlings and orphans, but you nonetheless received a lot of attention\
+ as well as many years of study in the church library and before the altar. They taught you many things.\
+ Gradually, faith became such a part of your life that it was no different from the blood coursing through your veins."),
+  ("story_childhood_page","As a {reg11?girl:boy} growing out of childhood,\
+ you were sent to live in the court of one of the nobles of the land.\
+ There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
+ But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn about the adult world of conflict\
+ and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords."),
+  ("story_childhood_apprentice","As a {reg11?girl:boy} growing out of childhood,\
+ you apprenticed with a local craftsman to learn a trade. After years of hard work and study under your\
+ new master, he promoted you to journeyman and employed you as a fully paid craftsman for as long as\
+ you wished to stay."),
+  ("story_childhood_stockboy","As a {reg11?girl:boy} growing out of childhood,\
+ you apprenticed to a wealthy merchant, picking up the trade over years of working shops and driving caravans.\
+ You soon became adept at the art of buying low, selling high, and leaving the customer thinking they'd\
+ got the better deal."),
+  ("story_childhood_urchin","As a {reg11?girl:boy} growing out of childhood,\
+ you took to the streets, doing whatever you must to survive.\
+ Begging, thieving and working for gangs to earn your bread, you lived from day to day in this violent world,\
+ always one step ahead of the law and those who wished you ill."),
+  ("story_childhood_nomad","As a {reg11?girl:boy} growing out of childhood,\
+ you rode the great steppes on a horse of your own, learning the ways of the grass and the desert.\
+ Although you sometimes went hungry, you became a skillful hunter and pathfinder in this trackless country.\
+ Your body too started to harden with muscle as you grew into the life of a nomad {reg11?woman:man}."),
+  ("story_childhood_mummer","As a {reg11?girl:boy} growing out of childhood,\
+ you attached yourself to a troupe of wandering entertainers, going from town to town setting up mummer's\
+ shows. It was a life of hard work, selling, begging and stealing your living from the punters who flocked\
+ to watch your antics. Over time you became a performer well capable of attracting a crowd."),
+  ("story_childhood_courtier","As a {reg11?girl:boy} growing out of childhood,\
+ you spent much of your life at court, inserting yourself into the tightly-knit circles of nobility.\
+ With the years you became more and more involved with the politics and intrigue demanded of a high-born {reg11?woman:man}.\
+ You could not afford to remain a stranger to backstabbing and political violence, even if you wanted to."),
+  ("story_childhood_noble","As a {reg11?girl:boy} growing out of childhood,\
+ {reg11?you were trained and educated to the duties of a noble woman. You learned much about the household arts,\
+ but even more about diplomacy and decorum, and all the things that a future husband might choose to speak of.\
+ Truly, you became every inch as shrewd as any lord, though it would be rude to admit it aloud:you were trained and educated to perform the duties and wield the rights of a noble landowner.\
+ The managing of taxes and rents were equally important in your education as diplomacy and even\
+ personal defence. You learned everything you needed to become a lord of your own hall}."),
+  ("story_childhood_acolyte","@As a {reg11?girl:boy} growing out of childhood,\
+ you became an acolyte in the church, the lowest rank on the way to priesthood.\
+ Years of rigorous learning and hard work followed. You were one of several acolytes,\
+ performing most of the menial labour in the church in addition to being trained for more holy tasks.\
+ On the night of your adulthood you were allowed to conduct your first service.\
+ After that you were no longer an acolyte {reg11?girl:boy}, but a {reg11?girl:boy} waiting to take your vows into the service of God."),
+  ("story_job_bravo","Though the distinction felt sudden to you,\
+ somewhere along the way you had become a {reg11?woman:man}, and the whole world seemed to change around you.\
+ You left your old life behind to travel the roads as a mercenary, a bravo, guarding caravans for coppers\
+ or bashing in heads for silvers. You became a {reg11?daughter:man} of the open road, working with bandits as often as against.\
+ Going from fight to fight, you grew experienced at battle, and you learned what it was to kill."),
+  ("story_job_merc","@Though the distinction felt sudden to you,\
+ somewhere along the way you had become a {reg11?woman:man}, and the whole world seemed to change around you.\
+ You signed on with a mercenary company and travelled far from your home. The life you found was rough and\
+ ready, marching to the beat of strange drums and learning unusual ways of fighting.\
+ There were men who taught you how to wield any weapon you desired, and plenty of battles to hone your skills.\
+ You were one of the charmed few who survived through every campaign in which you marched."),
+  ("story_job_noble","{reg11?Though the distinction felt sudden to you,\
+ somewhere along the way you had become a woman, and the whole world seemed to change around you.\
+ You joined the tightly-knit circle of women at court, ladies who all did proper ladylike things,\
+ the wives and mistresses of noble men as well as maidens who had yet to find a husband.\
+ However, even here you found politics at work as the ladies schemed for prominence and fought each other\
+ bitterly to catch the eye of whatever unmarried man was in fashion at court.\
+ You soon learned ways of turning these situations and goings-on to your advantage. With it came the\
+ realisation that you yourself could wield great influence in the world, if only you applied yourself\
+ with a little bit of subtlety.:Though the distinction felt sudden to you,\
+ somewhere along the way you had become a man, and the whole world seemed to change around you.\
+ When you were named squire to a noble at court, you practiced long hours with weapons,\
+ learning how to deal out hard knocks and how to take them, too.\
+ You were instructed in your obligations to your lord, and of your duties to those who might one day be your vassals.\
+ But in addition to learning the chivalric ideal, you also learned about the less uplifting side\
+ -- old warriors' stories of ruthless power politics, of betrayals and usurpations,\
+ of men who used guile as well as valor to achieve their aims.}"),
+  ("story_job_troubadour","Though the distinction felt sudden to you,\
+ somewhere along the way you had become a {reg11?woman:man}, and the whole world seemed to change around you.\
+ You set out on your own with nothing except the instrument slung over your back and your own voice.\
+ It was a poor existence, with many a hungry night when people failed to appreciate your play,\
+ but you managed to survive on your music alone. As the years went by you became adept at playing the\
+ drunken crowds in your taverns, and even better at talking anyone out of anything you wanted."),
+  ("story_job_student","Though the distinction felt sudden to you,\
+ somewhere along the way you had become a {reg11?woman:man}, and the whole world seemed to change around you.\
+ You found yourself as a student in the university of one of the great cities,\
+ where you studied theology, philosophy, and medicine.\
+ But not all your lessons were learned in the lecture halls.\
+ You may or may not have joined in with your fellows as they roamed the alleys in search of wine, women, and a good fight.\
+ However, you certainly were able to observe how a broken jaw is set,\
+ or how an angry townsman can be persuaded to set down his club and accept cash compensation for the destruction of his shop."),
+  ("story_job_peddler","Though the distinction felt sudden to you,\
+ somewhere along the way you had become a {reg11?woman:man}, and the whole world seemed to change around you.\
+ Heeding the call of the open road, you travelled from village to village buying and selling what you could.\
+ It was not a rich existence, but you became a master at haggling even the most miserly elders into\
+ giving you a good price. Soon, you knew, you would be well-placed to start your own trading empire..."),
+  ("story_job_craftsman","Though the distinction felt sudden to you,\
+ somewhere along the way you had become a {reg11?woman:man}, and the whole world seemed to change around you.\
+ You pursued a career as a smith, crafting items of function and beauty out of simple metal.\
+ As time wore on you became a master of your trade, and fine work started to fetch fine prices.\
+ With food in your belly and logs on your fire, you could take pride in your work and your growing reputation."),
+  ("story_job_poacher","Though the distinction felt sudden to you,\
+ somewhere along the way you had become a {reg11?woman:man}, and the whole world seemed to change around you.\
+ Dissatisfied with common men's desperate scrabble for coin, you took to your local lord's own forests\
+ and decided to help yourself to its bounty, laws be damned. You hunted stags, boars and geese and sold\
+ the precious meat under the table. You cut down trees right under the watchmen's noses and turned them into\
+ firewood that warmed many freezing homes during winter. All for a few silvers, of course."),
+  ("story_job_preacher","Though the distinction felt sudden to you,\
+ somewhere along the way you had become a {reg11?woman:man}, and the whole world seemed to change around you.\
+ You packed your few belongings and went out into the world to spread the word of God. You preached to\
+ anyone who would listen, and impressed many with the passion of your sermons. Though you had taken a vow\
+ to remain in poverty through your itinerant years, you never lacked for food, drink or shelter; the\
+ hospitality of the peasantry was always generous to a rising {reg11?woman:man} of God."),
+  ("story_reason_revenge","^Only you know exactly what caused you to give up your old life and become an adventurer.\
+ Still, it was not a difficult choice to leave, with the rage burning brightly in your heart.\
+ You want vengeance. You want justice. What was done to you cannot be undone,\
+ and these debts can only be paid in blood..."),
+  ("story_reason_death","^Only you know exactly what caused you to give up your old life and become an adventurer.\
+ All you can say is that you couldn't bear to stay, not with the memories of those you loved so close and so\
+ painful. Perhaps your new life will let you forget,\
+ or honour the name that you can no longer bear to speak..."),
+  ("story_reason_wanderlust","^Only you know exactly what caused you to give up your old life and become an adventurer.\
+ You're not even sure when your home became a prison, when the familiar became mundane, but your dreams of\
+ wandering have taken over your life. Whether you yearn for some faraway place or merely for the open road and the\
+ freedom to travel, you could no longer bear to stay in the same place. You simply went and never looked back..."),
+  ("story_reason_fervor","^Only you know exactly what caused you to give up your old life and become an adventurer.\
+ Regardless, the intense faith burning in your soul would not let you find peace in any single place.\
+ There were others in the world, souls to be washed in the light of God. Now you preach wherever you go,\
+ seeking to bring salvation and revelation to the masses, be they faithful or pagan. They will all know the\
+ glory of God by the time you're done..."),
+  ("story_reason_disown","^Only you know exactly what caused you to give up your old life and become an adventurer.\
+ However, you know you cannot go back. There's nothing to go back to. Whatever home you may have had is gone\
+ now, and you must face the fact that you're out in the wide wide world. Alone to sink or swim..."),
+  ("story_reason_greed","^Only you know exactly what caused you to give up your old life and become an adventurer.\
+ To everyone else, it's clear that you're now motivated solely by personal gain.\
+ You want to be rich, powerful, respected, feared.\
+ You want to be the one whom others hurry to obey.\
+ You want people to know your name, and tremble whenever it is spoken.\
+ You want everything, and you won't let anyone stop you from having it..."),
+# Dunde's Character Creation End
+
 ]
