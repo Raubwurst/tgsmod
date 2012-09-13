@@ -1659,7 +1659,7 @@ slot_troop_channeling_stamina_recharge_rate_campaign    = 3053
 ## other channeler slots
 slot_troop_player_knows_channeling                      = 3100
 
-## Faction based training slots
+## Faction based training slots - stored within trp_player
 slot_troop_has_legion_training          = 3201  ## (0 = false, 1 = true)
 slot_troop_has_band_training            = 3202  ## (0 = false, 1 = true)
 slot_troop_has_two_rivers_training      = 3203  ## (0 = false, 1 = true)
@@ -1688,6 +1688,10 @@ slot_troop_has_shara_training           = 3225  ## (0 = false, 1 = true)
 slot_troop_has_sea_folk_training        = 3226  ## (0 = false, 1 = true)
 slot_troop_has_madmen_training          = 3227  ## (0 = false, 1 = true)
 slot_troop_has_toman_head_training      = 3228  ## (0 = false, 1 = true)
+
+## Timeline slot - stored within trp_player
+slot_troop_timeline_current_state       = 3300      # tells which event is active
+slot_troop_timeline_duration_countdown  = 3301      # tells how many game hours remain before the event will 'expire'
 
 
 #######################
@@ -3295,6 +3299,139 @@ COMPULSION_WEAVE_RANK_LINEAR       = 13
 BALEFIRE_WEAVE_RANK_LINEAR         = 14
 
 TOTAL_NUMBER_OF_RANKS_LINEAR       = TOTAL_NUMBER_OF_WEAVES
+
+
+## TGS TIMELINE CONSTANTS ##
+TGS_INTRO_MINUS_ONE                     = 100
+
+## BOOK 1 - THE EYE OF THE WORLD
+# Events
+TGS_INTRO                               = 101
+BOOK_1_TROLLOC_RAID_ON_AL_THOR_FARM     = 102
+BOOK_1_TROLLOC_RAID_ON_EMONDS_FIELD     = 103
+BOOK_1_ENCOUNTER_AT_TAREN_FERRY         = 104
+BOOK_1_ENCOUNTER_AT_BAERLON             = 105
+BOOK_1_ENCOUNTER_AT_SHADAR_LOGOTH       = 106
+
+BOOK_1_EVENTS_END                       = 107
+
+# Durations (in game days)
+TGS_INTRO_DURATION                               = 5
+BOOK_1_TROLLOC_RAID_ON_AL_THOR_FARM_DURATION     = 5
+BOOK_1_TROLLOC_RAID_ON_EMONDS_FIELD_DURATION     = 3
+BOOK_1_ENCOUNTER_AT_TAREN_FERRY_DURATION         = 5
+BOOK_1_ENCOUNTER_AT_BAERLON_DURATION             = 7
+BOOK_1_ENCOUNTER_AT_SHADAR_LOGOTH_DURATION       = 7
+
+
+## BOOK 2 - THE GREAT HUNT
+# Events
+BOOK_2_EVENTS_BEGIN                     = 200
+BOOK_2_EVENTS_END                       = 201
+
+# Durations (in game days)
+
+
+## BOOK 3 - THE DRAGON REBORN
+# Events
+BOOK_3_EVENTS_BEGIN                     = 300
+BOOK_3_EVENTS_END                       = 301
+
+# Durations (in game days)
+
+
+## BOOK 4 - THE SHADOW RISING
+# Events
+BOOK_4_EVENTS_BEGIN                     = 400
+BOOK_4_EVENTS_END                       = 401
+
+# Durations (in game days)
+
+
+## BOOK 5 - THE FIRES OF HEAVEN
+# Events
+BOOK_5_EVENTS_BEGIN                     = 500
+BOOK_5_EVENTS_END                       = 501
+
+# Durations (in game days)
+
+
+## BOOK 6 - LORD OF CHAOS
+# Events
+BOOK_6_EVENTS_BEGIN                     = 600
+BOOK_6_EVENTS_END                       = 601
+
+# Durations (in game days)
+
+
+## BOOK 7 - A CROWN OF SWORDS
+# Events
+BOOK_7_EVENTS_BEGIN                     = 700
+BOOK_7_EVENTS_END                       = 701
+
+# Durations (in game days)
+
+
+## BOOK 8 - THE PATH OF DAGGERS
+# Events
+BOOK_8_EVENTS_BEGIN                     = 800
+BOOK_8_EVENTS_END                       = 801
+
+# Durations (in game days)
+
+
+## BOOK 9 - WINTER'S HEART
+# Events
+BOOK_9_EVENTS_BEGIN                     = 900
+BOOK_9_EVENTS_END                       = 901
+
+# Durations (in game days)
+
+
+## BOOK 10 - CROSSROADS OF TWILIGHT
+# Events
+BOOK_10_EVENTS_BEGIN                     = 1000
+BOOK_10_EVENTS_END                       = 1001
+
+# Durations (in game days)
+
+
+## BOOK 11 - KNIFE OF DREAMS
+# Events
+BOOK_11_EVENTS_BEGIN                     = 1100
+BOOK_11_EVENTS_END                       = 1101
+
+# Durations (in game days)
+
+
+## BOOK 12 - THE GATHERING STORM
+# Events
+BOOK_12_EVENTS_BEGIN                     = 1200
+BOOK_12_EVENTS_END                       = 1201
+
+# Durations (in game days)
+
+
+## BOOK 13 - TOWERS OF MIDNIGHT
+# Events
+BOOK_13_EVENTS_BEGIN                     = 1300
+BOOK_13_EVENTS_END                       = 1301
+
+# Durations (in game days)
+
+
+## BOOK 14 - A MEMORY OF LIGHT
+# Events
+BOOK_14_EVENTS_BEGIN                     = 1400
+BOOK_14_EVENTS_END                       = 1401
+
+# Durations (in game days)
+
+
+
+## END GAME
+TGS_END_GAME        = 5000
+
 
 ### TGS Special Constants End ###
 
