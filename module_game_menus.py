@@ -42,34 +42,36 @@ game_menus = [
     "Welcome, adventurer, to The Gathering Storm - A Wheel of Time Mod for Mount & Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
   ##diplomacy end  (tweaked for TGS)
   "none",
-#    [],
-#    [
-#     ("continue",[],"Continue...",
-#       [(jump_to_menu, "mnu_start_game_1"),
-#        ]
-#       ),
-#      ("go_back",[],"Go back",
-#       [
-#         (change_screen_quit),
-#       ]),
-#    ]
-# ),
-     [(try_begin),
-        (neq, "$creation_canceled", 999),
-        (call_script, "script_randomize_background", 0),
-        (start_presentation, "prsnt_player_background"),
-     (try_end),],
+##
+    [],
     [
-		("start",[],"Create Character",
-		[
-		(start_presentation, "prsnt_player_background"),
-		]),
-		("quit",[],"Cancel",
-		[
-		(change_screen_quit),
-		]),
+     ("continue",[],"Continue...",
+       [(jump_to_menu, "mnu_start_game_1"),
+        ]
+       ),
+      ("go_back",[],"Go back",
+       [
+         (change_screen_quit),
+       ]),
     ]
-  ),
+ ),
+## TODO: Comment out above and uncomment below to enable new character creation (do not use just yet)
+#     [(try_begin),
+#        (neq, "$creation_canceled", 999),
+#        (call_script, "script_randomize_background", 0),
+#        (start_presentation, "prsnt_player_background"),
+#     (try_end),],
+#    [
+#		("start",[],"Create Character",
+#		[
+#		(start_presentation, "prsnt_player_background"),
+#		]),
+#		("quit",[],"Cancel",
+#		[
+#		(change_screen_quit),
+#		]),
+#    ]
+#  ),
 
 # altered for TGS
   ("start_phase_2",mnf_disable_all_keys,
@@ -1446,7 +1448,7 @@ game_menus = [
                       (eq, "$background_type_mother", cb_mother_lady),],"A minor noble.",[
         (assign,"$background_answer_3",cb_young_adulthood_minor_noble),
       (str_store_string,s14,"@{reg3?daughter:man}"),
-      (str_store_string,s12,"@An uxpected death in the family placed the\
+      (str_store_string,s12,"@An unexpected death in the family placed the\
  burden of leadership upon your shoulders. You were named the {reg3?lady:lord} of your\
  house, and immediately started representing your subjects in the courts of the land.\
  The burden of this added responsibility helped shape you into a {reg3?woman:man}\
@@ -1543,11 +1545,11 @@ game_menus = [
  had become one of the merchant's most trusted guards."),
 	(jump_to_menu,"mnu_start_character_4"),
         ]),
-       ("hunter_for_the_horn",[],"A Hunter for the Horn.",[
+       ("hunter_for_the_horn",[],"A Hunter of the Horn.",[
         (assign,"$background_answer_3", cb_young_adulthood_hunter_for_the_horn),
       (str_store_string,s14,"@{reg3?daughter:man}"),
       (str_store_string,s13,"@{reg3?woman:man}"),
-      (str_store_string,s12,"@You were in your upper teens when the Hunt for the Horn was called.\
+      (str_store_string,s12,"@You were in your upper teens when the Hunt of the Horn of Valere was called.\
  Despite your parents' discouragement, you packed up what little you had and snuck off with a group of friends.\
  At first, you didn't find much besides hunger and a lack of sleep. You got robbed once, and were beaten several times.\
  However, you persevered and soon found you were able to handle yourself. Then you found a lead. The Horn was reported\
