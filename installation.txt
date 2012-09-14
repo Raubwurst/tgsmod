@@ -1,0 +1,15 @@
+Download the file.
+Unzip it to your desktop.
+Go to the folder you just unzipped and drill down (open more and more folders) until you find one called just "The Gathering Storm".
+Copy this entire folder into M&B Warband's 'Modules' folder. The path to this folder will depend on where you installed the game.
+
+Usually here: C:\Program Files (x86)\Mount&Blade Warband\Modules
+or here: C:\Program Files (x86)\Steam\SteamApps\common\mountblade warband\Modules
+
+If the file is a patch, then merge the new "The Gathering Storm" folder with the old one, making sure to copy the new files over the old ones.
+
+Then when you start Mount and Blade, just make sure you pick "The Gathering Storm" module.
+
+I have also included the source with the download.  If you are curious about how anything works (or doesn't) and want to look, then feel free to do so.  Please ask me for permission if you want to use any of my code.  (Especially now that I'm not the sole author of all the code for the mod.)  Thanks.
+
+--------------------------------------------------------------------------------
