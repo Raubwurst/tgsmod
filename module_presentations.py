@@ -21628,7 +21628,7 @@ presentations = [
       (create_slider_overlay, "$g_presentation_obj_31",    0, 100), # Gender        : Male/Female
       (create_slider_overlay, "$g_presentation_obj_32",    0, 100), # Channelling	: Born with the Spark/Able to Learn
       (create_slider_overlay, "$g_presentation_obj_33",  100, 400), # Affiliation	: Far East, Far West, North, South-East, South-West
-      (create_slider_overlay, "$g_presentation_obj_34",  100,2400), # Nationality		: ...
+      (create_slider_overlay, "$g_presentation_obj_34",  100,2400), # Nationality	: ...
       (create_slider_overlay, "$g_presentation_obj_35",  100, 800), # Mother		: ...
       (create_slider_overlay, "$g_presentation_obj_36",  100, 800), # Father		: ...
       (create_slider_overlay, "$g_presentation_obj_37",  100, 800), # Childhood		: ...
@@ -21808,7 +21808,8 @@ presentations = [
          (assign, "$creation_canceled", 0),
          (call_script, "script_init_char_stat"),
          (try_begin),
-            (eq, "$background_parent", 1),
+		 # TODO: noble title banner selection
+            (eq, "$character_achievement", 1),
             (start_presentation, "prsnt_banner_selection"),
          (else_try),
             (jump_to_menu, "mnu_auto_return"),

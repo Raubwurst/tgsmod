@@ -3436,16 +3436,16 @@ TGS_END_GAME        = 5000
 ### TGS Special Constants End ###
 
 # Dunde's Background Constants Begin
-nationality_init        = "str_story"
-affiliation_init		= "str_nationality_altara"
-father_init				= "str_affiliation_national"
+affiliation_init		= "str_story"
+nationality_init        = "str_affiliation_national"
+father_init				= "str_nationality_altara"
 mother_init             = "str_father_skilled_tradesman"
 childhood_init          = "str_mother_seamstress"
 adolescence_init        = "str_childhood_wisdom_assistant"
 achievement_init        = "str_adolescent_hunter_of_the_horn"
-story_nationality_init  = "str_story_all" 
-story_affiliation_init  = "str_story_nationality_altara"
-story_father_init    	= "str_story_affiliation_national"
+story_affiliation_init  = "str_story_all"
+story_nationality_init  = "str_story_affiliation_national"
+story_father_init    	= "str_story_nationality_altara"
 story_mother_init       = "str_story_father_skilled_tradesman"
 story_childhood_init    = "str_story_mother_seamstress"
 story_adolescence_init  = "str_story_childhood_wisdom_assistant"

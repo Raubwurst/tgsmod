@@ -4941,7 +4941,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("background_label_2","The Story :"), 
   ("gender_pre", "Gender"),
   ("gender_value", ":     {reg11?Female:Male}"),
-  ("spark", "Channelling:"),
+  ("spark", "Channelling"),
   ("spark_value",":     {reg12?Born with the Spark:Potential to Learn}"),
   ("affiliation", "Affiliation"),
   ("affiliation_value", ":     {s13}"),
@@ -4960,6 +4960,10 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("story", "{s20}^ "),
   
   ## Background stories
+  ("affiliation_neutral","Neutral"),
+  ("affiliation_light","Friend of the Light"),
+  ("affiliation_dark","Friend of the Dark"),
+  ("affiliation_national","Staunch Nationalist"),
   
   ("nationality_sea_folk","Atha'an Miere Islands"),
   ("nationality_seanchan","Seanchan Empire"),
@@ -4989,11 +4993,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("nationality_amadicia","Amadicia"),
   ("nationality_murandy","Murandy"),
   ("nationality_altara","Altara"),
-  
-  ("affiliation_neutral","Neutral"),
-  ("affiliation_light","Friend of the Light"),
-  ("affiliation_dark","Friend of the Dark"),
-  ("affiliation_national","Staunch Nationalist"),
   
   ("father_lord","Lord"),
   ("father_warder","Warder"),
@@ -5044,7 +5043,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("achievement_stole_laurel_crown","Stole the Laurel Crown"),
   ("achievement_traveled_to_shayol_ghul","Traveled to Shayol Ghul"),
   
-  ("story_all", "{s17}{s1} "),
+  ("story_all", "{s20}{s1} "),
  
   ("story_affiliation_neutral","You are a free and fair {reg11?woman:man}"),
   ("story_affiliation_light","You are a Friend of the Light"),
