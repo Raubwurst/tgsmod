@@ -4935,10 +4935,10 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  ("next", "Next"),
  ("not_available", "N/A"),
  ("long_string","01234567890123456789012345678901234567890"),
- 
+
   ## Player Background
   ("background_label_1","Character Background"),
-  ("background_label_2","The Story :"), 
+  ("background_label_2","The Story :"),
   ("gender_pre", "Gender"),
   ("gender_value", ":     {reg11?Female:Male}"),
   ("spark", "Channelling"),
@@ -4958,25 +4958,27 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("achievement", "Achievement"),
   ("achievement_value", ":     {s19}"),
   ("story", "{s20}^ "),
-  
+
   ## Background stories
+  ("affiliation_start","Neutral"), # hack
   ("affiliation_neutral","Neutral"),
   ("affiliation_light","Friend of the Light"),
   ("affiliation_dark","Friend of the Dark"),
   ("affiliation_national","Staunch Nationalist"),
-  
+
+  ("nationality_start","Atha'an Miere Islands"), # hack
   ("nationality_sea_folk","Atha'an Miere Islands"),
   ("nationality_seanchan","Seanchan Empire"),
-  
+
   ("nationality_aiel","Aiel Territories"),
   ("nationality_shara","Shara"),
-  
+
   ("nationality_blight","The Blight"),
   ("nationality_shienar","Shienar"),
   ("nationality_arafel","Arafel"),
   ("nationality_kandor","Kandor"),
   ("nationality_saldea","Saldea"),
-  
+
   ("nationality_tar_valon","Tar Valon"),
   ("nationality_cairhien","Cairhien"),
   ("nationality_tear","Tear"),
@@ -4984,7 +4986,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("nationality_far_madding","Far Madding"),
   ("nationality_illian","Illian"),
   ("nationality_andor","Andor"),
-  
+
   ("nationality_arad_doman","Arad Doman"),
   ("nationality_two_rivers","Two Rivers"),
   ("nationality_toman_head","Toman Head"),
@@ -4993,7 +4995,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("nationality_amadicia","Amadicia"),
   ("nationality_murandy","Murandy"),
   ("nationality_altara","Altara"),
-  
+
+  ("father_start","Lord"), # hack
   ("father_lord","Lord"),
   ("father_warder","Warder"),
   ("father_soldier","Soldier"),
@@ -5002,7 +5005,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("father_farmer","Farmer"),
   ("father_thief","Thief"),
   ("father_skilled_tradesman","Skilled Tradesman"),
-  
+
+  ("mother_start","Lady"), # hack
   ("mother_lady","Lady"),
   ("mother_aes_sedai","Aes Sedai"),
   ("mother_house_wife","Housewife"),
@@ -5011,7 +5015,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("mother_hunter_of_the_horn","Hunter of the Horn"),
   ("mother_tavern_wench","Tavern Wench"),
   ("mother_seamstress","Seamstress"),
-  
+
+  ("childhood_start","Page"), # hack
   ("childhood_page","Page"),
   ("childhood_lady_in_waiting","Lady-in-waiting"),
   ("childhood_novice","Novice of the White Tower"),
@@ -5020,7 +5025,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("childhood_farmer","Farmer"),
   ("childhood_apprentice","Craftman's Apprentice"),
   ("childhood_wisdom_assistant","Village Wisdom's Assistant"),
-  
+
+  ("adolescent_start","Minor Noble"), # hack
   ("adolescent_minor_noble","Minor Noble"),
   ("adolescent_gleeman","Gleeman"),
   ("adolescent_warder","Warder"),
@@ -5031,7 +5037,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("adolescent_smuggler","Smuggler"),
   ("adolescent_merchant_guard","Merchant's Guard"),
   ("adolescent_hunter_of_the_horn","Hunter of the Horn"),
-  
+
+  ("achievement_start","Noble Title"), # hack
   ("achievement_noble_title","Noble Title"),
   ("achievement_captured_a_false_dragon","Captured a False Dragon"),
   ("achievement_mastered_the_flame_and_void","Mastered the Flame and Void"),
@@ -5042,26 +5049,28 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("achievement_became_wealthy_merchant","Became a Wealthy Merchant"),
   ("achievement_stole_laurel_crown","Stole the Laurel Crown"),
   ("achievement_traveled_to_shayol_ghul","Traveled to Shayol Ghul"),
-  
+
   ("story_all", "{s20}{s1} "),
- 
+
+  ("story_affiliation_start","You are a free and fair {reg11?woman:man}"), # hack
   ("story_affiliation_neutral","You are a free and fair {reg11?woman:man}"),
   ("story_affiliation_light","You are a Friend of the Light"),
   ("story_affiliation_dark","You are a Friend of the Dark"),
   ("story_affiliation_national","You are a staunch nationalist"),
-  
+
+  ("story_nationality_start"," from the islands of the Atha'an Miere."), # hack
   ("story_nationality_sea_folk"," from the islands of the Atha'an Miere."),
   ("story_nationality_seanchan"," from the sprawling Seanchan Empire."),
-  
+
   ("story_nationality_aiel"," from deep within the Aiel desert."),
   ("story_nationality_shara"," from the lands some call Shara."),
-  
+
   ("story_nationality_blight"," from the twisted lands of The Blight."),
   ("story_nationality_shienar"," from the front-line of Shienar."),
   ("story_nationality_arafel"," from the honored lands of Arafel."),
   ("story_nationality_kandor"," from the mercantile Kandor."),
   ("story_nationality_saldea"," from the land of your brothers, Saldea."),
-  
+
   ("story_nationality_tar_valon"," from the majestic lands of Tar Valon."),
   ("story_nationality_cairhien"," from the land of the silver-tongue, Cairhien."),
   ("story_nationality_tear"," from the impenetrable Tear."),
@@ -5069,7 +5078,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("story_nationality_far_madding"," from the eternally-peaceful Far Madding."),
   ("story_nationality_illian"," from the home of the Hunt, Illian."),
   ("story_nationality_andor"," from the proud nation of Andor."),
-  
+
   ("story_nationality_arad_doman"," from silk-smooth Arad Doman."),
   ("story_nationality_two_rivers"," from the well-grounded Two Rivers."),
   ("story_nationality_toman_head"," from ever-watchful Toman Head."),
@@ -5078,7 +5087,10 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("story_nationality_amadicia"," from the Whitecloak protectorate, Amadicia."),
   ("story_nationality_murandy"," from the city of Lugard in Murandy."),
   ("story_nationality_altara"," from the patriarchal Altara."),
-  
+
+  ("story_father_start","You came into the world a {reg11?daughter:son} of a powerful noble.\
+ You were afforded a good education and were trained from childhood for the rigors of aristocracy and\
+ life at court. It seemed the world was yours from the very start."), # hack
   ("story_father_lord","You came into the world a {reg11?daughter:son} of a powerful noble.\
  You were afforded a good education and were trained from childhood for the rigors of aristocracy and\
  life at court. It seemed the world was yours from the very start."),
@@ -5105,6 +5117,10 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  Your father put in long days in the workshop and was recognized far and near for his 'wonders'. While watching\
  him work, you gained an understanding of mechanics, woodworking, and metal crafting."),
 
+  ("story_mother_start","Your mother made sure you were raised right;\
+ you were kept from the harmful influence of the common folk.\
+ You were taught the basics of the Game of Houses and also of courtly love. You saw portions of the lives of commoners,\
+ but only through the curtains of a coach or when it was festival time."), # hack
   ("story_mother_lady","Your mother made sure you were raised right;\
  you were kept from the harmful influence of the common folk.\
  You were taught the basics of the Game of Houses and also of courtly love. You saw portions of the lives of commoners,\
@@ -5135,7 +5151,12 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  and through. As a talented seamstress, she was able to make a beautiful outfit out of fabrics\
  that many people would have considered scraps. She taught you how to bargain and also the\
  benefit of good honest labor."),
- 
+
+ ("story_childhood_start","As a {reg11?girl:boy} growing out of childhood,\
+ you were sent to live in the court of one of the nobles of the land.\
+ There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
+ But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn about the adult world of conflict\
+ and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords."), # hack
  ("story_childhood_page","As a {reg11?girl:boy} growing out of childhood,\
  you were sent to live in the court of one of the nobles of the land.\
  There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
@@ -5180,6 +5201,12 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  A Wisdom was also expected to provide other answers such as when to plant crops, or how the weather would\
  be that year. You knew that if you worked hard in your training, you too would grow to be a respected\
  member of your community."),
+
+ ("story_adolescent_start","An unexpected death in the family placed the\
+ burden of leadership upon your shoulders. You were named the {reg11?lady:lord} of your\
+ house, and immediately started representing your subjects in the courts of the land.\
+ The burden of this added responsibility helped shape you into a {reg11?woman:man}\
+ who was greatly respected by your peers."), # hack
  ("story_adolescent_minor_noble","An unexpected death in the family placed the\
  burden of leadership upon your shoulders. You were named the {reg11?lady:lord} of your\
  house, and immediately started representing your subjects in the courts of the land.\
@@ -5234,6 +5261,9 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  to have been seen in a village in southern Shienar. After a few months of travel and then a few months more of searching,\
  you decided that the lead was a fake. But you weren't discouraged. The Hunt was the grandest adventure of all time."),
 
+ ("story_achievement_start","^It was not expected, but you were named the heir of a noble house.\
+ Many thought this was a poor choice, since you were not of noble birth, but you soon taught them respect.\
+ From a young age, you strengthened the position of your house and gained respect in the eyes of your superiors."), # hack
  ("story_achievement_noble_title","^It was not expected, but you were named the heir of a noble house.\
  Many thought this was a poor choice, since you were not of noble birth, but you soon taught them respect.\
  From a young age, you strengthened the position of your house and gained respect in the eyes of your superiors."),
@@ -5292,7 +5322,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  how the Great Lord was planning to destroy the Light. The Myrddraal there were shown your face and told to be sure\
  their trollocs did not hurt you. Except as punishment for betrayal of course. When you left the lands of the Blight,\
  something about you had changed..."),
- 
+
 # Dunde's Character Creation End
 
 ]

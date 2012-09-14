@@ -43,35 +43,35 @@ game_menus = [
   ##diplomacy end  (tweaked for TGS)
   "none",
 ##
-    [],
-    [
-     ("continue",[],"Continue...",
-       [(jump_to_menu, "mnu_start_game_1"),
-        ]
-       ),
-      ("go_back",[],"Go back",
-       [
-         (change_screen_quit),
-       ]),
-    ]
- ),
-## TODO: Comment out above and uncomment below to enable new character creation (do not use just yet)
-#     [(try_begin),
-#        (neq, "$creation_canceled", 999),
-#        (call_script, "script_randomize_background", 0),
-#        (start_presentation, "prsnt_player_background"),
-#     (try_end),],
+#    [],
 #    [
-#		("start",[],"Create Character",
-#		[
-#		(start_presentation, "prsnt_player_background"),
-#		]),
-#		("quit",[],"Cancel",
-#		[
-#		(change_screen_quit),
-#		]),
+#     ("continue",[],"Continue...",
+#       [(jump_to_menu, "mnu_start_game_1"),
+#        ]
+#       ),
+#      ("go_back",[],"Go back",
+#       [
+#         (change_screen_quit),
+#       ]),
 #    ]
-#  ),
+# ),
+## TODO: Comment out above and uncomment below to enable new character creation (do not use just yet)
+     [(try_begin),
+        (neq, "$creation_canceled", 999),
+        (call_script, "script_randomize_background", 0),
+        (start_presentation, "prsnt_player_background"),
+     (try_end),],
+    [
+		("start",[],"Create Character",
+		[
+		(start_presentation, "prsnt_player_background"),
+		]),
+		("quit",[],"Cancel",
+		[
+		(change_screen_quit),
+		]),
+    ]
+  ),
 
 # altered for TGS
   ("start_phase_2",mnf_disable_all_keys,
@@ -709,13 +709,13 @@ game_menus = [
       ("quick_battle_emonds_field",[],"{!}quick_battle_emonds_field",
        [
            (set_jump_mission,"mt_ai_training"),
-           (jump_to_scene,"scn_quick_battle_emonds_field"),(change_screen_mission)        
+           (jump_to_scene,"scn_quick_battle_emonds_field"),(change_screen_mission)
 		]
        ),
       ("quick_battle_shienaran_border_tower",[],"{!}quick_battle_shienaran_border_tower",
        [
            (set_jump_mission,"mt_ai_training"),
-           (jump_to_scene,"scn_quick_battle_shienaran_border_tower"),(change_screen_mission)        
+           (jump_to_scene,"scn_quick_battle_shienaran_border_tower"),(change_screen_mission)
 		]
        ),
       # end added for TGS
@@ -1006,11 +1006,11 @@ game_menus = [
   ),
 
 
-  
+
   #####################################################
   ######## Edited Character Creation for TGS
   #####################################################
-  
+
   ("start_game_1",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "Select your character's gender.",
     "none",
@@ -1070,7 +1070,7 @@ game_menus = [
  life at court. It seemed the world was yours from the very start."),
 	(jump_to_menu,"mnu_start_character_1_mother"),
     ]),
-    
+
     ("start_father_warder",[],"A warder.",[
       (assign,"$background_type",cb_father_warder),
       (assign, reg3, "$character_gender"),
@@ -1079,7 +1079,7 @@ game_menus = [
  and learned how to defend yourself. Your time in Tar Valon also kept you aware of the world around you."),
 	(jump_to_menu,"mnu_start_character_1_mother"),
     ]),
-    
+
     ("start_father_soldier",[],"A veteran soldier.",[
       (assign,"$background_type",cb_father_soldier),
       (assign, reg3, "$character_gender"),
@@ -1088,7 +1088,7 @@ game_menus = [
  education. You learned mainly how to defend yourself on the streets, with or without a weapon in hand."),
 	(jump_to_menu,"mnu_start_character_1_mother"),
     ]),
-    
+
     ("start_father_adventurer",[],"An adventurer.",[
       (assign,"$background_type",cb_father_adventurer),
       (assign, reg3, "$character_gender"),
@@ -1098,7 +1098,7 @@ game_menus = [
  you were taught to fend for yourself from a young age."),
 	(jump_to_menu,"mnu_start_character_1_mother"),
     ]),
-    
+
     ("start_father_merchant",[],"A merchant.",[
       (assign,"$background_type",cb_father_merchant),
       (assign, reg3, "$character_gender"),
@@ -1108,7 +1108,7 @@ game_menus = [
  familiar with the towns and villages, and learned much of the laws governing trade as well."),
 	(jump_to_menu,"mnu_start_character_1_mother"),
     ]),
-    
+
     ("start_father_farmer",[],"A farmer.",[
       (assign,"$background_type",cb_father_farmer),
       (assign, reg3, "$character_gender"),
@@ -1136,7 +1136,7 @@ game_menus = [
  him work, you gained an understanding of mechanics, woodworking, and metal crafting."),
 	(jump_to_menu,"mnu_start_character_1_mother"),
     ]),
-    
+
 ##    ("start_priest",[],"Priests.",[
 ##      (assign,"$background_type",cb_priest),
 ##      (assign, reg3, "$character_gender"),
@@ -1231,7 +1231,7 @@ game_menus = [
  benefit of good honest labor."),
 	(jump_to_menu,"mnu_start_character_2"),
     ]),
-      
+
       ("go_back",[],"Go back.",
      [(jump_to_menu,"mnu_start_character_1"),
     ]),
@@ -1352,7 +1352,7 @@ game_menus = [
  member of your community."),
 	(jump_to_menu,"mnu_start_character_3"),
     ]),
-      
+
 ##      ("mummer",[],"Mummer.",[
 ##      (assign,"$background_answer_2",5),
 ##      (assign, reg3, "$character_gender"),
@@ -1413,7 +1413,7 @@ game_menus = [
     ]
   ),
 
-  ## start_character_3 (young adulthood)    
+  ## start_character_3 (young adulthood)
   (
     "start_character_3",mnf_disable_all_keys,
     "{s11}^^ Then, as a young adult, life changed as it always does. You became...",
@@ -1712,19 +1712,19 @@ game_menus = [
 
   (
     "choose_skill",mnf_disable_all_keys,
-    "{s13}", 
+    "{s13}",
     "none",
     [(assign,"$current_string_reg",10),
 	 (assign, ":difficulty", 0),
-	 
+
 	 (try_begin),
 		(eq, "$character_gender", tf_female),
 		(str_store_string, s14, "str_woman"),
 		(val_add, ":difficulty", 1),
-	 (else_try),	
+	 (else_try),
 		(str_store_string, s14, "str_man"),
 	 (try_end),
-	
+
 	 (try_begin),
          (this_or_next|eq,"$background_answer_3",cb_young_adulthood_minor_noble),
          (eq, "$background_answer_4", cb_crowning_achievement_noble_title),
@@ -1733,7 +1733,7 @@ game_menus = [
 	 (else_try),
 		(str_store_string, s15, "str_common"),
 	 (try_end),
-	 
+
 	 (try_begin),
 		(eq, ":difficulty", -1),
 		(str_store_string, s16, "str_may_find_that_you_are_able_to_take_your_place_among_calradias_great_lords_relatively_quickly"),
@@ -1768,7 +1768,7 @@ game_menus = [
            (troop_set_slot, "trp_player", slot_troop_darkfriend_buff, 0),
            # end
 
-           
+
            (try_begin),
              (eq,"$character_gender",0), # male
              (troop_raise_attribute, "trp_player",ca_strength,1),
@@ -1789,7 +1789,7 @@ game_menus = [
            (troop_raise_attribute, "trp_player",ca_strength,1),
            (troop_raise_attribute, "trp_player",ca_agility,1),
            (troop_raise_attribute, "trp_player",ca_charisma,1),
-           
+
            (troop_raise_skill, "trp_player","skl_leadership",1),
            (troop_raise_skill, "trp_player","skl_riding",1),
 #######################################
@@ -1819,7 +1819,7 @@ game_menus = [
 
       (else_try),
         (eq,"$background_type",cb_father_warder),
-           
+
         (troop_raise_attribute, "trp_player",ca_strength,2),
         (troop_raise_attribute, "trp_player",ca_agility,1),
         (troop_raise_skill, "trp_player","skl_ironflesh",1),
@@ -1845,7 +1845,7 @@ game_menus = [
 
       (else_try),
         (eq,"$background_type",cb_father_soldier),
-           
+
         (troop_raise_attribute, "trp_player",ca_strength,1),
         (troop_raise_attribute, "trp_player",ca_agility,2),
         (troop_raise_skill, "trp_player","skl_power_strike",1),
@@ -1867,10 +1867,10 @@ game_menus = [
         (troop_add_item, "trp_player","itm_spear",0),
         (troop_add_item, "trp_player","itm_tab_shield_round_a",imod_battered),
         ###########
-           
+
       (else_try),
         (eq,"$background_type",cb_father_adventurer),
-           
+
         (troop_raise_attribute, "trp_player",ca_agility,2),
         (troop_raise_attribute, "trp_player",ca_charisma,1),
         (troop_raise_skill, "trp_player","skl_ironflesh",1),
@@ -1893,10 +1893,10 @@ game_menus = [
         (troop_add_item, "trp_player","itm_hunting_bow",imod_battered),
         (troop_add_item, "trp_player","itm_arrows",0),
         ###########
-           
+
       (else_try),
         (eq,"$background_type",cb_father_merchant),
-           
+
         (troop_raise_attribute, "trp_player",ca_intelligence,1),
         (troop_raise_attribute, "trp_player",ca_charisma,2),
         (troop_raise_skill, "trp_player","skl_riding",1),
@@ -1917,10 +1917,10 @@ game_menus = [
         (troop_add_item, "trp_player","itm_saddle_horse",0),
         (troop_add_item, "trp_player","itm_sword_medieval_a",0),
         ###########
-           
+
       (else_try),
         (eq,"$background_type",cb_father_farmer),
-           
+
         (troop_raise_attribute, "trp_player",ca_strength,2),
         (troop_raise_attribute, "trp_player",ca_agility,1),
         (troop_raise_skill, "trp_player","skl_ironflesh",1),
@@ -1941,10 +1941,10 @@ game_menus = [
         (troop_set_slot, "trp_player", slot_troop_renown, 1),
         (troop_add_item, "trp_player","itm_quarter_staff",0),
         ###########
-           
+
       (else_try),
         (eq,"$background_type",cb_father_thief),
-           
+
         (troop_raise_attribute, "trp_player",ca_agility,2),
         (troop_raise_attribute, "trp_player",ca_intelligence,1),
         (troop_raise_skill, "trp_player","skl_power_throw",1),
@@ -1966,7 +1966,7 @@ game_menus = [
 
       (else_try),
         (eq,"$background_type",cb_father_skilled_tradesman),
-        
+
         (troop_raise_attribute, "trp_player",ca_strength,1),
         (troop_raise_attribute, "trp_player",ca_intelligence,1),
         (troop_raise_attribute, "trp_player",ca_charisma,1),
@@ -3553,12 +3553,12 @@ game_menus = [
 	  ("action_prebattle_custom_divisions",[],
 		"Manage Split Troop Assignments.",
        [(start_presentation, "prsnt_prebattle_custom_divisions")]
-      ), 
-	   
+      ),
+
  	  ("action_prebattle_mod_preferences",[],
 		"PBOD Mod Preferences.",
        [(start_presentation, "prsnt_pbod_preferences")]
-      ), 
+      ),
       ## PreBattle Orders & Deployment End
 
 	("dplmc_camp_preferences",
@@ -3580,7 +3580,7 @@ game_menus = [
 			(jump_to_menu, "mnu_TGS_actions")
 		]
 	),
-## End added for TGS      
+## End added for TGS
       ("camp_action",[],"Take an action.",
        [(jump_to_menu, "mnu_camp_action"),
         ]
@@ -3870,7 +3870,7 @@ game_menus = [
        [(jump_to_menu, "mnu_camp_action_read_book"),
         ]
        ),
-	   
+
       ("action_rename_kingdom",
        [
          (eq, "$players_kingdom_name_set", 1),
@@ -4126,7 +4126,7 @@ game_menus = [
        [(assign, "$temp", "itm_book_spirit"),
         (jump_to_menu, "mnu_camp_action_read_book_start"),
         ]
-       ),	   
+       ),
 ## end TGS books
       ("camp_action_4",[],"Back to camp menu.",
        [(jump_to_menu, "mnu_camp"),
@@ -4670,13 +4670,13 @@ game_menus = [
             (set_background_mesh, "mesh_pic_khergit"),
 		  (try_end),
         ## End altered for TGS
-        (try_end),	
-		
+        (try_end),
+
 		## PreBattle Orders & Deployment Begin
 		(try_begin),
 		    (party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
 			(str_store_string, s4, "@^^^^The troops you selected are ready to join you in battle."),
-		(else_try),			
+		(else_try),
 			(str_store_string, s4, "@^^^^Your captains will deal with troop assignments."),
 		(try_end),
 		(try_begin),
@@ -4695,7 +4695,7 @@ game_menus = [
         (neg|troop_is_wounded, "trp_player"),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 2),
-		
+
 		(call_script, "script_party_count_fit_for_battle", "p_collective_friends"),
 		(assign, ":friend_count", reg0),
 		(call_script, "script_party_count_fit_for_battle", "p_collective_enemy"),
@@ -4709,7 +4709,7 @@ game_menus = [
   		(assign, "$g_next_menu", "mnu_simple_encounter"),
 		(start_presentation, "prsnt_prebattle_custom_deployment"),
       ]),
-	  
+
 	  ("encounter_attack_plan",
       [
         (eq, "$encountered_party_friendly", 0),
@@ -4721,10 +4721,10 @@ game_menus = [
       ],
       "Plan your battle with the enemy.",
       [
-  		(assign, "$g_next_menu", "mnu_simple_encounter"),		
+  		(assign, "$g_next_menu", "mnu_simple_encounter"),
 		(start_presentation, "prsnt_prebattle_orders"),
       ]),
-	  
+
 ## TGS: mat: Altered for ship battles / border tower battles
       ### encounter_attack_do_plan ###
 	  ("encounter_attack_do_plan", # original
@@ -4738,18 +4738,18 @@ game_menus = [
       "Enough planning. To battle!",
       [
 	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
-	  
+
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),     
-     
+		(try_end),
+
         (call_script, "script_calculate_renown_value"),
-        
+
 		##diplomacy start+
 		(try_begin),
 			#Call this to properly set cached values for strength
@@ -4775,7 +4775,7 @@ game_menus = [
 
 		(call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
-		
+
 		(set_party_battle_mode),
 		(try_begin),
           (eq, "$g_encounter_type", enctype_fighting_against_village_raid),
@@ -4822,20 +4822,20 @@ game_menus = [
       "Enough planning. Board their ships!", # altered for sea battles
       [
 	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
-	  
+
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),     
-     
+		(try_end),
+
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
-		
+
 		(set_party_battle_mode),
 		(try_begin),
           (eq, "$g_encounter_type", enctype_fighting_against_village_raid),
@@ -4866,7 +4866,7 @@ game_menus = [
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
-	  
+
       # new
 	  ("encounter_attack_do_plan",   # battle on the shoreline
       [
@@ -4882,20 +4882,20 @@ game_menus = [
       "Enough planning. Let's bring our ships to land!", # altered for sea battles
       [
 	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
-	  
+
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),     
-     
+		(try_end),
+
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
-		
+
 		(set_party_battle_mode),
 		(try_begin),
           (eq, "$g_encounter_type", enctype_fighting_against_village_raid),
@@ -4926,8 +4926,8 @@ game_menus = [
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
-## TGS: mat: Added for Sea battles / Border Tower battles end      
-	  
+## TGS: mat: Added for Sea battles / Border Tower battles end
+
 	  ("encounter_attack_clear_plan",
       [
          (this_or_next|party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
@@ -4944,10 +4944,10 @@ game_menus = [
 			(party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
 		    (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0),
 		(try_end),
-		
+
         (jump_to_menu, "mnu_simple_encounter"),
       ]),
-	  
+
 ## TGS: mat: DEBUG: added for sea battles / border tower battles
       ### encounter_attack_hold ###
 	  ("encounter_attack_hold", # original
@@ -4968,23 +4968,23 @@ game_menus = [
       [
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),     
-         
+		(try_end),
+
         (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
 	    (party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
 		(try_begin),
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-		(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),		
-        
+		(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),
+
         (call_script, "script_calculate_renown_value"),
-        
+
 		##diplomacy start+
 		(try_begin),
 			#Call this to properly set cached values for strength
@@ -5011,7 +5011,7 @@ game_menus = [
 		(call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
         (set_party_battle_mode),
-		
+
         (set_jump_mission,"mt_lead_charge"),
         (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
         # added for TGS to initiate border tower battles
@@ -5030,7 +5030,7 @@ game_menus = [
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
-	  
+
       # new
 	  ("encounter_attack_hold", # battle on the high seas
       [
@@ -5050,26 +5050,26 @@ game_menus = [
       [
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),     
-         
+		(try_end),
+
         (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
 	    (party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
 		(try_begin),
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-		(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),		
-        
+		(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),
+
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
         (set_party_battle_mode),
-		
+
         (set_jump_mission,"mt_lead_charge"),
         # this is the main part that's different
         (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
@@ -5109,26 +5109,26 @@ game_menus = [
       [
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),     
-         
+		(try_end),
+
         (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
 	    (party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
 		(try_begin),
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-		(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),		
-        
+		(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),
+
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
         (set_party_battle_mode),
-		
+
         (set_jump_mission,"mt_lead_charge"),
         # this is the main part that's different
         (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
@@ -5167,23 +5167,23 @@ game_menus = [
       [
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),     
-         
+		(try_end),
+
         (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
 		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
 		(try_begin),
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),		
-        
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),
+
         (call_script, "script_calculate_renown_value"),
-        
+
 		##diplomacy start+
 		(try_begin),
 			#Call this to properly set cached values for strength
@@ -5210,7 +5210,7 @@ game_menus = [
 		(call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
         (set_party_battle_mode),
-		
+
         (set_jump_mission,"mt_lead_charge"),
         (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
         # added for TGS to initiate border tower battles
@@ -5229,7 +5229,7 @@ game_menus = [
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
-      
+
       # new
 	  ("encounter_attack_follow", # battle on the high seas
       [
@@ -5249,26 +5249,26 @@ game_menus = [
       [
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),     
-         
+		(try_end),
+
         (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
 		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
 		(try_begin),
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),		
-        
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),
+
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
         (set_party_battle_mode),
-		
+
         (set_jump_mission,"mt_lead_charge"),
         # this is the main part that's different
         (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
@@ -5308,26 +5308,26 @@ game_menus = [
       [
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),     
-         
+		(try_end),
+
         (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 1),
 		(party_get_slot, ":first_order", "p_main_party", slot_party_prebattle_order_array_begin),
 		(try_begin),
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),		
-        
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),
+
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
         (set_party_battle_mode),
-		
+
         (set_jump_mission,"mt_lead_charge"),
         # this is the main part that's different
         (call_script, "script_setup_random_scene"),  # this causes weather and time of day to adjust
@@ -5345,10 +5345,10 @@ game_menus = [
         (change_screen_mission),
       ]),
 ## TGS: mat: End added for ship battles / border tower battles
-     
+
 ## PreBattle Orders & Deployment End
-	
-## TGS: mat: Changed for ship battles / border tower batttles      
+
+## TGS: mat: Changed for ship battles / border tower batttles
       ### encounter_attack ###
       ("encounter_attack", # original
       [
@@ -5362,7 +5362,7 @@ game_menus = [
         (neq,":terrain",rt_bridge),
         ## sea battles end
       ],
-       
+
       "Charge the enemy.",
       [
         (assign, "$g_battle_result", 0),
@@ -5445,19 +5445,19 @@ game_menus = [
         (store_troop_health,reg(5)),(party_get_current_terrain,":terrain","p_main_party"),
         (eq,":terrain",rt_bridge),
         ## sea battles end
-      ],    
-       
+      ],
+
       "Board the enemy.",
       [
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),          
-        
+		(try_end),
+
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
@@ -5507,19 +5507,19 @@ game_menus = [
         (call_script, "script_tgs_check_terrain_around_party", "p_main_party", 275), # will need to find radius
         (eq, reg0, 1), # main party is near shore
         ## sea battles end
-      ],    
-       
+      ],
+
       "Go ashore.",
       [
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
-		(try_end),          
-        
+		(try_end),
+
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
@@ -5552,9 +5552,9 @@ game_menus = [
         (assign, "$g_next_menu", "mnu_simple_encounter"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
-      ]),       
-## TGS: mat: DEBUG - Sea Battles changes end      
-      
+      ]),
+## TGS: mat: DEBUG - Sea Battles changes end
+
       ("encounter_order_attack",
       [
         (eq, "$encountered_party_friendly", 0),
@@ -6407,7 +6407,7 @@ game_menus = [
                 ## modified for TGS
                 (assign, ":best_troop", "trp_two_rivers_marksman"), # was trp_swadian_sharpshooter
                 ## end modified for TGS
-        
+
 				##diplomacy start+
 				#Trivial aesthetic change, change the default troop to be appropriate to the
 				#culture of the player kingdom (instead of defaulting always to a Swadian troop).
@@ -6756,12 +6756,12 @@ game_menus = [
           (leave_encounter),
           (change_screen_return),
         (try_end),
-		
+
 		## PreBattle Orders & Deployment Begin
 		(try_begin),
 		    (party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
 			(str_store_string, s4, "@^^^^The troops you selected are ready to join you in battle."),
-		(else_try),			
+		(else_try),
 			(str_store_string, s4, "@^^^^Your captains will deal with troop assignments."),
 		(try_end),
 		(try_begin),
@@ -6779,7 +6779,7 @@ game_menus = [
         (neg|troop_is_wounded, "trp_player"),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 2),
-		
+
 		(call_script, "script_party_count_fit_for_battle", "p_collective_friends"),
 		(assign, ":friend_count", reg0),
 		(call_script, "script_party_count_fit_for_battle", "p_collective_enemy"),
@@ -6790,10 +6790,10 @@ game_menus = [
       ],
 	   "Choose who will join you in battle.",
       [
-  		(assign, "$g_next_menu", "mnu_join_battle"),	
+  		(assign, "$g_next_menu", "mnu_join_battle"),
 		(start_presentation, "prsnt_prebattle_custom_deployment"),
       ]),
-	  
+
 	  ("join_attack_plan",
       [
         (neg|troop_is_wounded, "trp_player"),
@@ -6802,10 +6802,10 @@ game_menus = [
       ],
 	   "Plan your attack on the enemy.",
       [
-  		(assign, "$g_next_menu", "mnu_join_battle"),	
+  		(assign, "$g_next_menu", "mnu_join_battle"),
 		(start_presentation, "prsnt_prebattle_orders"),
       ]),
-	  
+
 ## TGS: mat: Altered for ship battles / border tower battles
       ### join_attack_do_plan ###
 	  ("join_attack_do_plan", # original
@@ -6819,7 +6819,7 @@ game_menus = [
       "Enough planning. To battle!",
       [
 	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
-	  
+
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
@@ -6845,7 +6845,7 @@ game_menus = [
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
-      
+
       # new
       ("join_attack_do_plan", # battle at sea
       [
@@ -6858,7 +6858,7 @@ game_menus = [
       "Enough planning. Board the enemy!",
       [
 	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
-	  
+
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
@@ -6899,7 +6899,7 @@ game_menus = [
       "Enough planning. Go ashore!",
       [
 	    (party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
-	  
+
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
@@ -6924,7 +6924,7 @@ game_menus = [
         (change_screen_mission),
       ]),
 ## TGS: mat: End new for sea battles
-	  
+
 	  ("join_attack_clear_plan",
       [
         (this_or_next|party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
@@ -6941,10 +6941,10 @@ game_menus = [
 			(party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
 		    (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0),
 		(try_end),
-		
+
         (jump_to_menu, "mnu_join_battle"),
       ]),
-	  	  
+
 ## TGS: mat: DEBUG: changed for Sea Battles / border tower battles
       ### join_attack_hold ###
 	  ("join_attack_hold", # original
@@ -6966,8 +6966,8 @@ game_menus = [
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),	
-	  
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),
+
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
@@ -6993,7 +6993,7 @@ game_menus = [
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
-	  
+
       # new
 	  ("join_attack_hold", # battle at sea
       [
@@ -7014,8 +7014,8 @@ game_menus = [
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),	
-	  
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),
+
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
@@ -7064,8 +7064,8 @@ game_menus = [
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),	
-	  
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 910),
+
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
@@ -7089,7 +7089,7 @@ game_menus = [
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
       ]),
-## TGS: mat: End changed for sea battles      
+## TGS: mat: End changed for sea battles
 
 ## TGS: mat: DEBUG: changed for Sea Battles / border tower battles
       ### join_attack_follow ###
@@ -7112,8 +7112,8 @@ game_menus = [
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),	
-	  
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),
+
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
@@ -7160,8 +7160,8 @@ game_menus = [
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),	
-	  
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),
+
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
@@ -7210,8 +7210,8 @@ game_menus = [
 		    (gt, ":first_order", 0),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, ":first_order"),
         (try_end),
-        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),	
-	  
+        (party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, 911),
+
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
@@ -7236,9 +7236,9 @@ game_menus = [
         (change_screen_mission),
       ]),
 ## TGS: mat: End added for sea battles / border tower battles
-     
+
 ## PreBattle Orders & Deployment End
-	
+
 ## TGS: mat: DEBUG: tweaked for sea battles
       ### join_attack ###
       ("join_attack", # original
@@ -7252,7 +7252,7 @@ game_menus = [
         (neq,":terrain",rt_bridge),
         # end
       ],
-       
+
       "Charge the enemy.",
       [
         (assign, "$g_joined_battle_to_help", 1),
@@ -7292,8 +7292,8 @@ game_menus = [
         (party_get_current_terrain,":terrain","p_main_party"),
         (eq,":terrain",rt_bridge),
         # end
-      ],       
-       
+      ],
+
       "Board the enemy.",
       [
         (assign, "$g_joined_battle_to_help", 1),
@@ -7336,8 +7336,8 @@ game_menus = [
         (eq, reg0, 1), # means party near shore
         # end additional check
         # end sea battles extra
-      ],       
-       
+      ],
+
       "Go ashore.",
       [
         (assign, "$g_joined_battle_to_help", 1),
@@ -7365,7 +7365,7 @@ game_menus = [
         (change_screen_mission),
       ]),
 
-## TGS: mat: DEBUG: sea battles end      
+## TGS: mat: DEBUG: sea battles end
 
       ("join_order_attack",
       [
@@ -7381,7 +7381,7 @@ game_menus = [
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (jump_to_menu,"mnu_join_order_attack"),
       ]),
-      
+
       ("join_leave",[
 	  	## PreBattle Orders & Deployment Begin
 		(party_slot_eq, "p_main_party", slot_party_prebattle_plan, 0),
@@ -7718,12 +7718,12 @@ game_menus = [
           (leave_encounter),
           (change_screen_return),
         (try_end),
-		
+
 		## PreBattle Orders & Deployment Begin
 		(try_begin),
 		    (party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
 			(str_store_string, s4, "@^^^^The troops you selected are ready to join you in battle."),
-		(else_try),			
+		(else_try),
 			(str_store_string, s4, "@^^^^Your captains will deal with troop assignments."),
 		(try_end),
 		(try_begin),
@@ -7747,13 +7747,13 @@ game_menus = [
                                 (assign, "$talk_context", tc_siege_commander),
                                 (change_screen_map_conversation, ":siege_leader_id")]),
 
-	## PreBattle Orders & Deployment Begin							
+	## PreBattle Orders & Deployment Begin
      ("siege_attack_deployment",
       [
         (neg|troop_is_wounded, "trp_player"),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 2),
-		
+
 		(call_script, "script_party_count_fit_for_battle", "p_collective_friends"),
 		(assign, ":friend_count", reg0),
 		(call_script, "script_party_count_fit_for_battle", "p_collective_enemy"),
@@ -7767,7 +7767,7 @@ game_menus = [
   		(assign, "$g_next_menu", "mnu_besiegers_camp_with_allies"),
 		(start_presentation, "prsnt_prebattle_custom_deployment"),
       ]),
-	 
+
 	 ("siege_attack_plan",
       [
         (neg|troop_is_wounded, "trp_player"),
@@ -7776,11 +7776,11 @@ game_menus = [
       ],
       "Plan your assault.",
       [
-  		(assign, "$g_next_menu", "mnu_besiegers_camp_with_allies"),		
+  		(assign, "$g_next_menu", "mnu_besiegers_camp_with_allies"),
 		(start_presentation, "prsnt_prebattle_orders"),
       ]),
      ## PreBattle Orders & Deployment End
-	 
+
 	 ("join_siege_with_allies",[(neg|troop_is_wounded, "trp_player")], "Join the next assault.",
        [
 	       ## PreBattle Orders & Deployment Begin
@@ -7789,7 +7789,7 @@ game_menus = [
 			(party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
 		   (try_end),
 		   ## PreBattle Orders & Deployment End
-           (assign, "$g_joined_battle_to_help", 1), 
+           (assign, "$g_joined_battle_to_help", 1),
            (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
            (try_begin),
              (check_quest_active, "qst_join_siege_with_army"),
@@ -8665,8 +8665,8 @@ game_menus = [
           (assign, "$g_next_menu", "mnu_captivity_start_castle_defeat"),
           (jump_to_menu, "mnu_total_defeat"),
         (try_end),
-		
-						
+
+
 		## PreBattle Orders & Deployment Begin
 		(try_begin),
 		 (ge, "$g_siege_method", 1),
@@ -8676,7 +8676,7 @@ game_menus = [
 		 (try_begin),
 		    (party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
 			(str_store_string, s4, "@^^^^The troops you selected are ready to join you in battle."),
-		 (else_try),			
+		 (else_try),
 			(str_store_string, s4, "@^^^^Your captains will deal with troop assignments."),
 		 (try_end),
 		 (try_begin),
@@ -8720,19 +8720,19 @@ game_menus = [
           (change_screen_return),
           ]),
 
-	## PreBattle Orders & Deployment Begin	
+	## PreBattle Orders & Deployment Begin
 	 ("siege_attack_deployment",
       [
         (neg|troop_is_wounded, "trp_player"),
-		
+
 		(ge, "$g_siege_method", 1),
         (gt, "$g_friend_fit_for_battle", 3),
         (store_current_hours, ":cur_hours"),
         (ge, ":cur_hours", "$g_siege_method_finish_hours"),
-		
+
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 2),
-		
+
 		(call_script, "script_party_count_fit_for_battle", "p_collective_friends"),
 		(assign, ":friend_count", reg0),
 		(call_script, "script_party_count_fit_for_battle", "p_collective_enemy"),
@@ -8746,26 +8746,26 @@ game_menus = [
   		(assign, "$g_next_menu", "mnu_castle_besiege"),
 		(start_presentation, "prsnt_prebattle_custom_deployment"),
       ]),
-	
+
      ("siege_attack_plan",
       [
         (neg|troop_is_wounded, "trp_player"),
-		
+
 		(ge, "$g_siege_method", 1),
         (gt, "$g_friend_fit_for_battle", 3),
         (store_current_hours, ":cur_hours"),
         (ge, ":cur_hours", "$g_siege_method_finish_hours"),
-		
+
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 2),
       ],
       "Plan your assault.",
       [
-  		(assign, "$g_next_menu", "mnu_castle_besiege"),		
+  		(assign, "$g_next_menu", "mnu_castle_besiege"),
 		(start_presentation, "prsnt_prebattle_orders"),
       ]),
      ## PreBattle Orders & Deployment End
-      
+
       ("castle_lead_attack",
        [
          (neg|troop_is_wounded, "trp_player"),
@@ -8782,7 +8782,7 @@ game_menus = [
 			(party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
 		   (try_end),
 		   ## PreBattle Orders & Deployment End
-	   
+
            (try_begin),
              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
              (party_get_slot, ":battle_scene", "$g_encountered_party", slot_town_walls),
@@ -10217,12 +10217,12 @@ game_menus = [
         (try_end),
         (assign, "$g_siege_first_encounter", 0),
         (assign, "$new_encounter", 0),
-		
+
 		## PreBattle Orders & Deployment Begin
 		(try_begin),
 		    (party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1),
 			(str_store_string, s4, "@^^^^The troops you selected are ready to join you in battle."),
-		(else_try),			
+		(else_try),
 			(str_store_string, s4, "@^^^^Your captains will deal with troop assignments."),
 		(try_end),
 		(try_begin),
@@ -10246,13 +10246,13 @@ game_menus = [
         ]),
      ##diplomacy end
 
- ## PreBattle Orders & Deployment Begin	
+ ## PreBattle Orders & Deployment Begin
 	  ("siege_defender_deployment",
       [
         (neg|troop_is_wounded, "trp_player"),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 2),
-		
+
 		(call_script, "script_party_count_fit_for_battle", "p_collective_friends"),
 		(assign, ":friend_count", reg0),
 		(call_script, "script_party_count_fit_for_battle", "p_collective_enemy"),
@@ -10266,26 +10266,26 @@ game_menus = [
   		(assign, "$g_next_menu", "mnu_siege_started_defender"),
 		(start_presentation, "prsnt_prebattle_custom_deployment"),
       ]),
-	 
+
      ("siege_defender_plan",
       [
         (neg|troop_is_wounded, "trp_player"),
-	  	
+
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
 		(ge, ":tactics", 2),
       ],
       "Plan your defense.",
       [
-  		(assign, "$g_next_menu", "mnu_siege_started_defender"),		
+  		(assign, "$g_next_menu", "mnu_siege_started_defender"),
 		(start_presentation, "prsnt_prebattle_orders"),
-      ]),	  
+      ]),
      ## PreBattle Orders & Deployment End
-	  
+
 	  ("siege_defender_join_battle",
        [
          (neg|troop_is_wounded, "trp_player"),
          ],
-          "Join the battle.",[  
+          "Join the battle.",[
 
 	   	   ## PreBattle Orders & Deployment Begin
 		   (try_begin),
@@ -10293,7 +10293,7 @@ game_menus = [
 			(party_set_slot, "p_main_party", slot_party_prebattle_plan, 0),
 		   (try_end),
 		   ## PreBattle Orders & Deployment End
-		   
+
               (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
               (assign, "$g_battle_result", 0),
               (try_begin),
@@ -10736,7 +10736,7 @@ game_menus = [
            (assign, "$g_next_menu", "mnu_village"),
            (jump_to_menu, "mnu_center_manage"),
         ]),
-      
+
       ## edited for TGS  (removed for now because it has been added in diplomacy)
 #      ("recruit_volunteers",
 #      [
@@ -10750,7 +10750,7 @@ game_menus = [
 #           (jump_to_menu, "mnu_recruit_volunteers"),
 #         (try_end),
 #        ]),
-      #SW - Talk to village elder START      
+      #SW - Talk to village elder START
 #      ("village_elder_talk",[(neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
 #                         (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
 #                         (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),]
@@ -12774,25 +12774,25 @@ game_menus = [
                (eq,  "$g_do_one_more_meeting_with_merchant", 1),
 
 			   (assign, ":troop_of_merchant", 0),
-           
+
             # edited for TGS
-           
+
                #(try_begin),
                #  (eq, "$g_encountered_party_faction", "fac_kingdom_1"),
                #  (assign, ":troop_of_merchant", "trp_swadian_merchant"),
-               #(else_try),  
+               #(else_try),
                #  (eq, "$g_encountered_party_faction", "fac_kingdom_2"),
                #  (assign, ":troop_of_merchant", "trp_vaegir_merchant"),
-               #(else_try),                   
+               #(else_try),
                #  (eq, "$g_encountered_party_faction", "fac_kingdom_3"),
                #  (assign, ":troop_of_merchant", "trp_khergit_merchant"),
-               #(else_try),  
+               #(else_try),
                #  (eq, "$g_encountered_party_faction", "fac_kingdom_4"),
                #  (assign, ":troop_of_merchant", "trp_nord_merchant"),
-               #(else_try),  
+               #(else_try),
                #  (eq, "$g_encountered_party_faction", "fac_kingdom_5"),
                #  (assign, ":troop_of_merchant", "trp_rhodok_merchant"),
-               #(else_try),  
+               #(else_try),
                #  (eq, "$g_encountered_party_faction", "fac_kingdom_6"),
                #  (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
                #(try_end),
@@ -12817,7 +12817,7 @@ game_menus = [
                  (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
                (try_end),
                  # end edited for TGS
-           
+
 			   (gt, ":troop_of_merchant", 0),
 
                (set_visitor, ":cur_entry", ":troop_of_merchant"),
@@ -14004,7 +14004,7 @@ game_menus = [
            (else_try),
              # Madmen
              (eq, ":town_original_faction", "fac_kingdom_10"),
-             (call_script, "script_set_items_for_tournament", 30, -1, 30, 80, 30, 10, 10, -1, -1, -1),			 
+             (call_script, "script_set_items_for_tournament", 30, -1, 30, 80, 30, 10, 10, -1, -1, -1),
            (try_end),
            (jump_to_scene, ":arena_scene"),
            (change_screen_mission),
@@ -18312,7 +18312,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 	      (eq, ":template", "pt_looter_lair"),
 	      (assign, ":bandit_troop", "trp_looter"),
 
-## edited for TGS        
+## edited for TGS
 
 	      #(store_faction_of_party, ":starting_town_faction", "$g_starting_town"),
 
@@ -20318,7 +20318,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 ##diplomacy end+
 
 ## added for TGS
-  
+
 #########################
 #### Ways Menu Begin ####
 #########################
@@ -20330,19 +20330,19 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     [],
     [
 		("ways_enter",[],"Enter the Ways...", 		#### This is where we would add check for items, quest or other stuff when trying to enter the ways.
-			[	
+			[
 				(store_sub, ":party_index", "$g_encountered_party", waygates_begin), 	#Could probably change var to global var used, but I'm lazy and it works. Uses the list assigned in constants.
 				(val_add, ":party_index", 2),											# Add to set correct number for entry/menu for enc_party
 				(assign, "$g_ways_point", ":party_index"), 								# Convert it into the global var used for remembering last portal left in the ways (may use in future update of script)
 				(assign, "$g_ways_entered", 1),											# May use in future update
-				(assign, "$pin_player_fallen", 0),										# Needed for the mission template, to not get stuck if you die. 
-				(set_jump_mission, "mt_the_ways"),		
+				(assign, "$pin_player_fallen", 0),										# Needed for the mission template, to not get stuck if you die.
+				(set_jump_mission, "mt_the_ways"),
 				(set_jump_entry, "$g_ways_point"),
 				(jump_to_scene, "scn_ways"),
 				(change_screen_mission)
 			],"ERROR: WAYS.1ntr"
 		),
-		
+
 		("ways_leave",[],"Leave...",
 			[
 				(assign, "$g_ways_entered", 0),
@@ -20497,7 +20497,7 @@ Powers if they dedicate their lives to this purpose.",
       ]
   ),
 
-# Channeling basics - lost power item  
+# Channeling basics - lost power item
   ("TGS_channeling_basics_lost_power_item",0,
    "If a channeler loses his/her One Power item, do not dismay, this is not the same as being 'Stilled'. Simply press the 'Recover Lost Channeling Item' key, \
 (set to 'Z' by default) and the item will re-appear in your inventory.",
@@ -20515,7 +20515,7 @@ Powers if they dedicate their lives to this purpose.",
       ]
   ),
 
-# Channeling basics - toggling active weave 
+# Channeling basics - toggling active weave
   ("TGS_channeling_basics_toggling_active_weave",0,
    "In order for a channeler to change his/her active weave, he/she needs to be in battle, and the One Power item needs to be in one of the four inventory \
 slots. If this is the case, press and hold the 'Weave Toggle' key (set to 'Caps Lock' by default) and the icons for the available weaves will appear \
@@ -20621,8 +20621,8 @@ channeling stamina in order to use your current active weave.",
        [
         (jump_to_menu, "mnu_TGS_channeling_weaves_vol_2"),
         ]
-       ),      
-      
+       ),
+
       ("TGS_camp_action_weaves_return",[],"Back to TGS channeler tips menu.",
        [(jump_to_menu, "mnu_TGS_channeler_tips"),
         ]
@@ -20656,16 +20656,16 @@ channeling stamina in order to use your current active weave.",
        [
         (jump_to_menu, "mnu_TGS_channeling_weaves"),
         ]
-       ),        
-      
+       ),
+
       ("TGS_camp_action_weaves_return",[],"Back to TGS channeler tips menu.",
        [(jump_to_menu, "mnu_TGS_channeler_tips"),
         ]
        ),
       ]
-  ),  
+  ),
 
-# Channeling basics - weaves - Intro  
+# Channeling basics - weaves - Intro
   ("TGS_channeling_weaves_intro",0,
    "'The One Power comes from the True Source, the driving force of creation, the force the Creator made to turn the Wheel of Time. \
 Saidin, the male half of the True Source, and saidar, the female half, work against each other, and at the same time together to \
@@ -20803,7 +20803,7 @@ can be unraveled.",
         ]
        ),
       ]
-  ),   
+  ),
 
   ("TGS_channeling_weaves_unravel",0,
    "The Unravel weave attempts to 'undo' existing effects or weaves caused by enemy channelers. Seekers, burn-over-time effects, and bind \
@@ -20901,7 +20901,7 @@ of Chain Lightning cannot be unraveled because they happen too quickly to be cou
         ]
        ),
       ]
-  ),    
+  ),
 
   ("TGS_channeling_weaves_fire_curtain",0,
    "The Fire Curtain weave creates a wall of fire that causes damage when it is started, and then burns for a set duration and has the ability to \
@@ -21014,7 +21014,7 @@ will cause Shield Breaking to be effective a higher percentage of the time.",
         ]
        ),
       ]
-  ),  
+  ),
 
 ##########################
 ## TGS Camp Actions End ##
@@ -21034,10 +21034,10 @@ They give you directions to the nearest town and you take your leave.",
 			]
 		),
       ]
-  ),  
+  ),
 
-## Border Tower Menu End  
+## Border Tower Menu End
 
-## end added for TGS  
-  
+## end added for TGS
+
  ]
