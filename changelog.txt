@@ -1,0 +1,159 @@
+
+V0.2.7d Beta Hotfix
+Updates:
+-The Malden scene is now completed in multiplayer mode
+-The completed Malden scene has now been implemented in the single player campaign
+
+V0.2.7c Beta Hotfix
+Fixes:
+-Starting as a Noble and chosing a faction's banner should no longer affect that faction's banner on the main map
+-Seekers and Firewalls should not carry over from battle to battle
+-Added additional error fixing measures for the Channeling stamina error
+-Added Weave Select capabilities for the Ways
+-Fixed Seanchan to Altara/Tarabon/Amadicia diplomacy issues from days 95 to 118
+-All war/peace declarations that don't affect the player's kingdom should be 'silent'
+-Fixed the issue where the 'channeling proficiency gained due to use in battle' message fired continually
+-Fixed the troop ratio bar and channeling stamina presentation so it works better with other presentations such as 'View Orders', formations, etc
+-Permanently disabled Defecting Lords (unless they are scripted) and Randomly Generated Conflicts so the endgame won't be as chaotic
+
+V0.2.7b Beta Hotfix
+Fixes:
+-Rescue Merchant's Nephew errors
+ -No Tavernkeepers in some towns error
+ 
+V0.2.7a Beta Hotfix
+Fixes:
+-Infinite channeling stamina error
+ -Sul'dam / Damane script error
+ -Minor Channeling Stamina weave usage tweaks
+
+V0.2.7 Beta Full
+Fixes:
+-Fixed mixed up Companion stuff
+ -Cleaned up non-intended relationships from Diplomacy mod
+ -Fixed error where Kingdom ladies didn't have clothing items
+ -Fixed error where players who picked 'Male', 'Wilder' were spawned wearing a dress
+ -Fixed error where lords are not equipping stuff at feasts
+ -Fixed Faction Relation Presentation - (updated with the latest code from Jrider)
+ -Fixed mst_village_attack_bandit error (I hope...)
+ -Corrected starting tutorial Caravan destination strings for split factions.
+ -Renamed remaining Native Castles
+ -Fixed 'Rahvin/Gaebril' naming error for the Lady Arymilla pretender dialogs
+ -Gave lancers side arms
+ -Many other minor bug fixes.
+ 
+Updated Features:
+-Ported to Diplomacy 4.2 and PBOD 0.90.1
+ -Updated map to add more territories (expanded Blight, Seanchan, Shara, Madmen, Sea Folk Isles)
+ -Added water travel and sea battles
+ -Added border towers that will cause a battle nearby to use the Shienar Border Tower scene
+ -Split the existing eight factions into 24 nation based factions
+ -Added four new factions for Shara, Sea Folk, Madmen, and Toman Head
+ -Added Shara outfits
+ -Added Sea Folk outfits
+ -Added some painted body skins for the Madmen
+ -Gave all lords a random 'reputation' - will need to re-visit and make it specific for the main characters
+ -Overhauled channeling system to make it modular and scalable
+ -Added Skills for Channeling Affinity and the Five Powers
+ -Re-wrote channeling stamina equation (Channeling stamina will no longer re-fill after every battle)
+ -NPC channelers now have AI that governs which weaves they use
+ -Channeling companions will no longer use the Primary/Secondary/All weave selection process (They will use the AI instead.)
+ -Created a new method for weave selection (It's now a 'point and click' method)
+ -Keys for Weave selection and Re-adding lost One Power items are now configurable through the camp menu (Note: don't assign them to keys already used by the base game to avoid errors) (Weave selection is 'Caps Lock' by default. Re-add lost One Power item is 'Z' by default)
+ -Added Camp Menu with basic info for The Gathering Storm. (Mostly for how channeling works. Five-Power skill requirements, etc.)
+ -Added more variety to Warder's equipment
+ -Added menu for visiting a Border Tower (It's bare-bones for now.)
+
+V0.2.6a Beta Patch
+Fixes:
+ -Fixed issue where warring lords would not fight eachother for the first 170 days of gameplay
+ -Fixed the courtship script errors
+ 
+Updated Features:
+ -Integrated with the updated version of Diplomacy 3.3.2+ (with Fief Sharing and PBOD 0.88) for Warband 1.143: http://forums.taleworlds.com/index.php/board,176.0.html
+ 
+V0.2.6 Beta Full
+Fixes:
+-Fixed naked lords
+-Fixed issues with character creation. (Ie, starting without a weapon)
+-Fixed messed up family relationships (Should be more true to Wheel of Time now)
+-Altered scripted diplomacy to work with changes that result from the integration with the Diplomacy mod.
+
+Updated Features:
+-Integrated with Diplomacy 3.3.2+  http://forums.taleworlds.com/index.php/board,176.0.html
+-New splash/loading and menu artwork
+-Early character creation choices will now have an effect on which later choices are available.
+-Added the Ways
+-Updated Pretender dialog to match Wheel of Time
+-Created a One Power item for companions (includes party menu dialogs to set primary and secondary weaves)
+-Added Wheel of Time backstories for all 16 companions
+-Added new hero items for Mat
+
+V0.2.5 Beta Patch
+Fixes:
+-Made it so Kinswomen won't spawn warders
+-Fewer channelers in NPC armies
+-Door to the Prison in towns no longer leads to the Arena
+-Fixed error codes that appear when a Town/Castle is conquered by another faction
+-All bandit parties will now work together once the player is level 5 or higher
+-Friendly fire for channeling has been toned down. (will only occur about 1/4 of the time)
+-Channelers using ranged weaves will now be much more likely to hit distant targets. (no more shooting way over the target's head)
+-Fixed recruiting dialog errors that were present for channelers, trollocs, and outlanders, when you started your own kingdom
+-The number of Lordly warhorses that show up in stores has been greatly reduced
+-No more white and brown spotted Myrddraal horses
+-Draghkar will no longer kill off allies with their kiss
+Updated Features:
+-New Character Creation setup. (with help from Lorenzogarch) Only certain character types will be channelers
+-Compelled agents will be killed at the end of the round. Ie, if you finish a battle but there are 5 compelled enemies on your team, you won't have to enter another battle round to win.
+-You now pick a culture for your new kingdom. (this affects recruiting)
+-Ashaman will now spawn fewer Aes Sedai 'warders'. They will be of all seven ajahs now.
+-Trollocs are now taller/larger than human troops
+
+V0.2.4 Beta Patch
+Fixes:
+-Fixed ground level error that occurs when you siege Bandar Eban
+-Fixed bandit lair troops (no longer only native troops)
+-Fixed the 'all troops show up as archers' error
+-Fixed error where channelers wouldn't use their weapons until they were up close to enemies (accidently created in V0.2.3)
+Updated Features:
+-Made it so Lord armies and castle/town garrisons will mainly be populated with the correct troops based on nationality (not just faction)
+-Made bandits more diverse and powerful (You may feel very weak starting out, but it's much easier to recruit now.)
+-Added recruiting from towns
+-New recruiting option for trollocs (need prisoners)
+-Added to the upgrade tree for women to include hunters of the horn, cha faile, village wisdoms and kinwomen
+-Now have menu option to talk to village elder from village menu and guild master from town menu - credits HokieBT
+-Revamped the village/town recruitment method. Can now ask for locals, outlanders, can bribe locals to get more volunteers
+-New dialogs with Village elder / Guild master for recruiting channelers
+
+V0.2.3 Beta Update:
+Fixes:
+-Fixed the problems with Merchant's Brother starting quests. (Thanks to Lorenzogarch for bug-finding on this one, and hassling me to fix it.   )
+-Made the Seeker travel speed faster.
+-Channeling proficiency can now increase even if weaves are ineffective.  (I promise you it will take forever if you dry-fire weaves all day and hope to advance, so don't use this method to try chain leveling.)
+-Weave name will now show up in single player mode to help players who haven't learned the symbols yet.  (I forgot to add that to custom battle.)
+Updated Features:
+-Player will get additional XP after battles where they use channeling. This is in addition to the XP built into the channeling item that doesn't always give work as it should.  Players should be able to level their characters without ever touching a weapon now.
+-Multiplayer now supports new factions and troops.
+   -Note, some channeling code only seems to work in play-modes where respawns are supported.  (Deathmatch, Siege, etc.)
+   -Note, starting gold is higher (3000) and bots are set to 65 per team.
+   -If the stamina bar disappears when you die, press tab. Also, it may not show up perfectly until a bot respawns. I am not sure what causes this.
+   -I have only tested Multiplayer using bots.  No real hosting, so I'm not sure how things will work in the real multiplayer realm.
+   -If you are a channeler, get more gold to make your stamina recharge faster.
+   -If you are a sul'dam, get more gold to have a higher chance of 'leashing' female enemy channelers. (Leashed channelers change side)
+   -If you are a draghkar, get more gold to have a higher chance of giving the 'kiss of death' to enemies.
+   -Code for additional warder spawns is de-activated for multiplayer.  As is the tweaked pathfinding code.  (Due to causing huge PC burden)
+
+V0.2.2 Beta Patch:
+Fixes:
+-Corrected bad Whitecloak face keys
+-Made it so scenes will match the environment of the surrounding map area (Ie. No more being in the desert on the map and entering a snow-filled scene)
+-Optimized the channeling code to reduce the amount of crashing during large battles.
+-Fixed spawned troops having horses in sieges.
+-Other small fixes.
+Updated Features:
+-Added the Recruiter Kit by hessuu http://forums.taleworlds.com/index.php/topic,62538.msg1622625.html#msg1622625
+-Upgraded Custom/Quick Battle so up to 18 different troops per faction can be spawned. Now quick battle gives a better picture of the troops available to each faction.
+-The Emonds Field Quick battle map has now been integrated into the Single Player campaign.
+-The world map has been changed to add snow to the Borderlands.
+
+
