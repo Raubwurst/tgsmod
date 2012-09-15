@@ -3239,6 +3239,19 @@ scene_props = [
   ("TGS_waypoint_10",sokf_invisible,"barrier_capsule","0", []),
 ## TGS: mat: End
 
+## TGS: mat: Timeline Event waypoints
+  ("TGS_timeline_waypoint_1",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_timeline_waypoint_2",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_timeline_waypoint_3",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_timeline_waypoint_4",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_timeline_waypoint_5",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_timeline_waypoint_6",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_timeline_waypoint_7",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_timeline_waypoint_8",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_timeline_waypoint_9",sokf_invisible,"barrier_capsule","0", []),
+  ("TGS_timeline_waypoint_10",sokf_invisible,"barrier_capsule","0", []),
+## TGS: mat: Timeline Event waypoints
+
 
 ## TGS
 #ROCK AND MOUNTAIN PACK V3#

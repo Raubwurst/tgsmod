@@ -2129,3 +2129,5 @@ trp_dplmc_chancellor = 2127
 trp_dplmc_messenger = 2128
 trp_dplmc_scout = 2129
 trp_dplmc_recruiter = 2130
+trp_tam_al_thor_book_1 = 2131
+trp_rand_al_thor_book_1 = 2132

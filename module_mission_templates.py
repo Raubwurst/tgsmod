@@ -16,7 +16,7 @@ from module_constants import *
 #  3) Mission-type(int): Which mission types this mission template matches.
 #     For mission-types to be used with the default party-meeting system,
 #     this should be 'charge' or 'charge_with_ally' otherwise must be -1.
-#     
+#
 #  4) Mission description text (string).
 #  5) List of spawn records (list): Each spawn record is a tuple that contains the following fields:
 #    5.1) entry-no: Troops spawned from this spawn record will use this entry
@@ -29,7 +29,7 @@ from module_constants import *
 #     See module_triggers.py for infomation about triggers.
 #
 #  Please note that mission templates is work in progress and can be changed in the future versions.
-# 
+#
 ####################################################################################################################
 
 pilgrim_disguise = [itm_pilgrim_hood,itm_pilgrim_disguise,itm_practice_staff, itm_throwing_daggers]
@@ -40,7 +40,7 @@ from header_skills import *
 
 dplmc_horse_speed = (  #called in field_ai_triggers
   1, 0, 0, [(eq, "$g_dplmc_horse_speed", 0)],
-  [  
+  [
   (try_for_agents, ":agent_no"),
     (agent_is_alive, ":agent_no"),
     (agent_is_human, ":agent_no"),
@@ -73,12 +73,12 @@ dplmc_horse_speed = (  #called in field_ai_triggers
 ## Prebattle Orders & Deployment Begin
 common_pbod_triggers = [ #collapse caba_order_triggers into this?
  #init_player_global_variables
- #(ti_after_mission_start, 0, 0, [], [  
+ #(ti_after_mission_start, 0, 0, [], [
  (0, 0, ti_once, [(get_player_agent_no, "$fplayer_agent_no"),(ge, "$fplayer_agent_no", 0)], [
 	#(get_player_agent_no, "$fplayer_agent_no"),
-	(agent_get_team, "$fplayer_team_no", "$fplayer_agent_no"),		
+	(agent_get_team, "$fplayer_team_no", "$fplayer_agent_no"),
 	(agent_get_horse, ":horse", "$fplayer_agent_no"),
-	(agent_set_slot, "$fplayer_agent_no", slot_agent_horse, ":horse"),   
+	(agent_set_slot, "$fplayer_agent_no", slot_agent_horse, ":horse"),
   ]),
 
  (ti_before_mission_start, 0, 0, [],
@@ -88,12 +88,12 @@ common_pbod_triggers = [ #collapse caba_order_triggers into this?
 	(call_script, "script_weather_change_rain_or_snow"),
     (call_script, "script_weather_affect_proficiency", reg0, reg1), #from change_rain_or_snow
    ]),
-  
+
   #Fix for setting divisions, duplicated in formations code, so disabled in mst_lead_charge
   (ti_on_agent_spawn, 0, 0, [(neq, "$g_next_menu", "mnu_simple_encounter"),(neq, "$g_next_menu", "mnu_join_battle")], [(store_trigger_param_1, ":agent"),(call_script, "script_prebattle_agent_fix_division", ":agent")]),
   (0.5, 0, 0, [(neq, "$g_next_menu", "mnu_simple_encounter"), #not mst_lead_charge
 			   (neq, "$g_next_menu", "mnu_join_battle"),
-			   (store_mission_timer_a, reg0),(gt, reg0, 4)], 
+			   (store_mission_timer_a, reg0),(gt, reg0, 4)],
    #Prior conditions: (this_or_next|party_slot_eq, "p_main_party", slot_party_prebattle_customized_divisions, 1),(this_or_next|neg|party_slot_eq, "p_main_party", slot_party_pref_div_no_ammo, 9),(neg|party_slot_eq, "p_main_party", slot_party_pref_div_dehorse, 9)
    [
     (try_for_agents, ":agent"),
@@ -103,10 +103,10 @@ common_pbod_triggers = [ #collapse caba_order_triggers into this?
 		(neg|agent_slot_eq, ":agent", slot_agent_new_division, ":division"),
 		(agent_get_slot, ":new_div", ":agent", slot_agent_new_division),
 		(agent_set_division, ":agent", ":new_div"),
-	(try_end),	
-   ]),   
- ] 
-		
+	(try_end),
+   ]),
+ ]
+
 prebattle_deployment_triggers  = [
  (ti_before_mission_start, 0, 0, [(party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1)], [
 	#Find the number of soldiers in each troop-stack that are ready to upgrade by upgrading the party and finding
@@ -115,24 +115,24 @@ prebattle_deployment_triggers  = [
 	(party_upgrade_with_xp, "p_main_party", 1, 1),
 
 	(party_get_num_companion_stacks, ":previous_num_of_stacks", "p_temp_party"),
-	(try_for_range, ":i", 0, ":previous_num_of_stacks"), 
+	(try_for_range, ":i", 0, ":previous_num_of_stacks"),
 		(party_stack_get_troop_id, ":troop_id", "p_temp_party", ":i"),
 		(neg|troop_is_hero, ":troop_id"),
         (troop_set_slot, ":troop_id", slot_troop_prebattle_preupgrade_check, 0),
 		(troop_set_slot, ":troop_id",  slot_troop_prebattle_num_upgrade, 0),
 	(try_end),
-	
-	(try_for_range, ":i", 0, ":previous_num_of_stacks"), 
+
+	(try_for_range, ":i", 0, ":previous_num_of_stacks"),
 		(party_stack_get_troop_id, ":troop_id", "p_temp_party", ":i"),
 		(neg|troop_is_hero, ":troop_id"),
 		(troop_slot_eq, ":troop_id", slot_troop_prebattle_preupgrade_check, 0),
-		
+
 		(try_for_range, ":down_upgrade_array", slot_party_prebattle_customized_deployment, slot_party_prebattle_customized_deployment + 7),
 		    (party_set_slot, "p_main_party_backup", ":down_upgrade_array", 0), #Create an Array of 6 variables to hold current troop's down/upgrade path
 		(try_end),
 		(assign, ":troop", ":troop_id"),
 		(assign, ":end", 7),
-     	(try_for_range, ":unused", 0, ":end"),		
+     	(try_for_range, ":unused", 0, ":end"),
 			(assign, ":stacks", ":previous_num_of_stacks"),
 		    (try_for_range, ":n", 0, ":stacks"), #Find another troop that upgrades to the current troop in the party
 			    (party_stack_get_troop_id, ":troop_to_upgrade", "p_temp_party", ":n"),
@@ -163,13 +163,13 @@ prebattle_deployment_triggers  = [
 				(assign, ":troop", ":troop_to_upgrade"),
 			(try_end), #Does anything upgrade to this troop? If-Then-Else
 		(try_end), #Downgrade Do...Loop
-		
-		(troop_slot_eq, ":troop_id", slot_troop_prebattle_preupgrade_check, 0), 
+
+		(troop_slot_eq, ":troop_id", slot_troop_prebattle_preupgrade_check, 0),
 		#If this troop was finished above (nothing upgrades to it, so it isn't mid/end of a continuous tree) no need to continue
-		
+
 		(assign, ":troop", ":troop_id"),
 		(assign, ":end", 7),
-     	(try_for_range, ":unused", 0, ":end"),	
+     	(try_for_range, ":unused", 0, ":end"),
 			(troop_get_upgrade_troop, ":upgrade_troop", ":troop", 0),
 			(party_count_members_of_type, ":num_upgrade", "p_main_party", ":upgrade_troop"),
 			(try_begin),
@@ -188,11 +188,11 @@ prebattle_deployment_triggers  = [
 
 		#Use Upgrade and 'Downgrade' paths to calculate upgrade numbers for a continuous troop tree.
 		(assign, ":end", slot_party_prebattle_customized_deployment + 7),
-		(try_for_range, ":down_upgrade_array", slot_party_prebattle_customized_deployment, ":end"), 
+		(try_for_range, ":down_upgrade_array", slot_party_prebattle_customized_deployment, ":end"),
 		    (party_get_slot, ":troop", "p_main_party_backup", ":down_upgrade_array"),
 			(gt, ":troop", 0),
-			(troop_slot_eq, ":troop", slot_troop_prebattle_preupgrade_check, 1), #Find "Beginning" of Upgrade Path	
-			
+			(troop_slot_eq, ":troop", slot_troop_prebattle_preupgrade_check, 1), #Find "Beginning" of Upgrade Path
+
 			(assign, ":begin_upgrade_tree", ":down_upgrade_array"),
 			(assign, ":previous_num_upgraded", 0),
 			(try_for_range_backwards, ":upgrade_array", slot_party_prebattle_customized_deployment, ":begin_upgrade_tree"),
@@ -204,7 +204,7 @@ prebattle_deployment_triggers  = [
 				(val_add, ":difference", ":previous_num_upgraded"),
                 (val_max, ":difference", 0), #don't let it be negative
 				(assign, ":previous_num_upgraded", ":difference"),
-				
+
 				(store_sub, ":prior_troop_slot", ":upgrade_array", 1),
 				(try_begin),
 			        (ge, ":prior_troop_slot", slot_party_prebattle_customized_deployment),
@@ -218,19 +218,19 @@ prebattle_deployment_triggers  = [
 			    (troop_set_slot, ":prior_troop", slot_troop_prebattle_num_upgrade, ":difference"),
 				(troop_set_slot, ":top_troop", slot_troop_prebattle_preupgrade_check, 1),
 			(try_end), #Upgrade Backwards Loop
-			
+
 			(troop_set_slot, ":troop_id", slot_troop_prebattle_preupgrade_check, 1),
-			
+
 			(assign, ":previous_num_upgraded", 0),
 			(try_for_range, ":downgrade_array", ":begin_upgrade_tree", ":end"),
 				(party_get_slot, ":bottom_troop", "p_main_party_backup", ":downgrade_array"),
 				(gt, ":bottom_troop", 0),
-				
+
 				(try_begin),
 				    (troop_slot_eq, ":bottom_troop", slot_troop_prebattle_preupgrade_check, 1),
 					(troop_get_slot, ":previous_num_upgraded", ":bottom_troop", slot_troop_prebattle_num_upgrade),
 				(else_try),
-				    (troop_slot_eq, ":bottom_troop", slot_troop_prebattle_preupgrade_check, 0),				
+				    (troop_slot_eq, ":bottom_troop", slot_troop_prebattle_preupgrade_check, 0),
 					(party_count_members_of_type, ":pre_upgrade", "p_temp_party", ":bottom_troop"),
 		            (party_count_members_of_type, ":post_upgrade", "p_main_party", ":bottom_troop"),
 			        (store_sub, ":difference", ":post_upgrade", ":pre_upgrade"),
@@ -244,11 +244,11 @@ prebattle_deployment_triggers  = [
 			(assign, ":end", slot_party_prebattle_customized_deployment), #Break Loop
 		(try_end), #Locate "Beginning"/End of Upgrade Path 'Loop'
 	(try_end), #Party Stack Loop
-				
+
     (call_script, "script_party_copy", "p_main_party", "p_temp_party"), #Return party to pre-upgrade state
-	
+
 	(troop_set_slot, "trp_player", slot_troop_prebattle_first_round, 1),
-	
+
     #REMOVE 'EXTRA' SOLDIERS FROM THE PARTY, TO ENSURE CORRECT SPAWN
 	(party_get_num_companion_stacks, ":num_of_stacks", "p_main_party"),
 	(val_add, ":num_of_stacks", 1),
@@ -262,15 +262,15 @@ prebattle_deployment_triggers  = [
 	    (party_remove_members_wounded_first, "p_main_party", ":troop_id", ":difference"),
 	(try_end),
     ]),
-	
+
  (ti_after_mission_start, 0, 0, [(party_slot_eq, "p_main_party", slot_party_prebattle_customized_deployment, 1)], [
-    #Add people back to the party 
+    #Add people back to the party
 	(party_get_num_companion_stacks, ":target_num_of_stacks", "p_temp_party"),
 	(try_for_range, ":i", 0, ":target_num_of_stacks"),
 		(party_stack_get_troop_id, ":target_stack_troop", "p_temp_party", ":i"),
 		(neq, ":target_stack_troop", "trp_player"),
 		(party_stack_get_size, ":target_stack_size", "p_temp_party", ":i"),
-		
+
 		(party_get_num_companion_stacks, ":num_of_stacks", "p_main_party"),
 		(assign, ":cur_stack_size", 0),
 		(assign, ":cur_num_wounded", 0),
@@ -281,7 +281,7 @@ prebattle_deployment_triggers  = [
 			(party_stack_get_num_wounded, ":cur_num_wounded", "p_main_party", ":n"),
 			(assign, ":num_of_stacks", 0),
 		(try_end),
-		
+
         (store_sub, ":difference", ":target_stack_size", ":cur_stack_size"),
 
 		(try_begin),
@@ -292,7 +292,7 @@ prebattle_deployment_triggers  = [
 		    (gt, ":target_num_wounded", 0),
             (party_wound_members, "p_main_party", ":stack_troop", ":target_num_wounded"),
 		(try_end),
-		
+
 		#Re-apply XP so troops that were ready to upgrade are still ready to upgrade
 		(neg|troop_is_hero, ":target_stack_troop"),
 		(troop_get_slot, ":num_to_upgrade", ":target_stack_troop", slot_troop_prebattle_num_upgrade),
@@ -309,7 +309,7 @@ prebattle_deployment_triggers  = [
 	(try_end), #Backup party stack loop
 	(party_set_slot, "p_main_party", slot_party_prebattle_customized_deployment, 0),
     ]),
-	
+
  #Split Troop Divisions Triggers
  (ti_after_mission_start, 0, 0, [(party_slot_eq, "p_main_party", slot_party_prebattle_customized_divisions, 1)], [
 	(call_script, "script_prebattle_split_troop_divisions"),
@@ -324,9 +324,9 @@ prebattle_deployment_triggers  = [
 		(assign, ":reinforcement_stage", "$attacker_reinforcement_stage"),
 	(try_end),
 	(neg|party_slot_eq, "p_main_party_backup", slot_party_reinforcement_stage, ":reinforcement_stage"),
-	
+
 	(call_script, "script_prebattle_split_troop_divisions"),
-	
+
 	(party_set_slot, "p_main_party_backup", slot_party_reinforcement_stage, ":reinforcement_stage"),
    ]),
  ]
@@ -335,13 +335,13 @@ prebattle_orders_triggers = [
  (0, 0.6, 2, [(party_slot_ge, "p_main_party", slot_party_prebattle_num_orders, 1)], [ #was ti_once, adjusted to conditions failure to work around engine problems
 		(party_get_slot, ":num_of_orders", "p_main_party", slot_party_prebattle_num_orders),
 		(party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0), #fix test
-		(set_show_messages, 0),	 
-		(assign, ":delay_count", 0),		
-        (try_for_range, ":i", 0, ":num_of_orders"),    
+		(set_show_messages, 0),
+		(assign, ":delay_count", 0),
+        (try_for_range, ":i", 0, ":num_of_orders"),
 		    (store_add, ":ith_order_slot", ":i", slot_party_prebattle_order_array_begin),
             (party_get_slot, ":order_index", "p_main_party", ":ith_order_slot"),
-			(ge, ":order_index", 10), 
-			
+			(ge, ":order_index", 10),
+
 			#Take 3 digit order index and get component parts: group, type, order
 			(store_div, ":ith_order_group", ":order_index", 100),
 			(store_mul, ":ith_order_type", ":ith_order_group", 100),
@@ -354,14 +354,14 @@ prebattle_orders_triggers = [
 			(assign, ":delay_order", 0),
 			(try_begin),
 			    (eq, ":ith_order_type", 1), #Start Position: hold, follow, charge; mordr_ 0-2; 3=11 stand ground
-				(eq, ":ith_order", 3), 
+				(eq, ":ith_order", 3),
 				(assign, ":ith_order", 11), #Stand Ground
 			(else_try),
-			    (eq, ":ith_order_type", 2), #Other movement orders: mordr_ 3-8, 
+			    (eq, ":ith_order_type", 2), #Other movement orders: mordr_ 3-8,
 				(is_between, ":ith_order", 5, 9), #5 - 8; Forward/Back 10 Paces, Stand Closer/Spread Out
 				(assign, ":delay_order", 1), #To fix bugs with these orders, and to accomodate formations
 				(val_add, ":delay_count", 1), #they are delayed 1-2 seconds
-			(else_try), 
+			(else_try),
 			    (eq, ":ith_order_type", 3), #Native Weapon Use orders: mordr_ 9,10,12,13
 				(try_begin),
 				    (eq, ":ith_order", 0),
@@ -391,9 +391,9 @@ prebattle_orders_triggers = [
 			    (is_between, ":ith_order_type", 1, 4),
 				(neq, ":delay_order", 1),
 				(team_give_order, "$fplayer_team_no", ":ith_order_group", ":ith_order"),
-			(try_end),			
-		(try_end), #End Order Slot Loop	
-        (team_set_order_listener, "$fplayer_team_no", grc_everyone), #Reset	
+			(try_end),
+		(try_end), #End Order Slot Loop
+        (team_set_order_listener, "$fplayer_team_no", grc_everyone), #Reset
         (set_show_messages, 1),
 		(display_message, "@Everyone, you know what to do. To your positions!", 0xFFDDDD66),
 		(try_begin),
@@ -401,23 +401,23 @@ prebattle_orders_triggers = [
 			(party_get_slot, ":first_order", "p_main_party_backup", slot_party_prebattle_order_array_begin),
 			(party_set_slot, "p_main_party", slot_party_prebattle_order_array_begin, ":first_order"),
 			(party_set_slot, "p_main_party_backup", slot_party_prebattle_order_array_begin, 0),
-		(try_end),	
+		(try_end),
         # (try_begin),
             # (eq, ":delay_count", 0),
             # (party_set_slot, "p_main_party", slot_party_prebattle_num_orders, 0),
 		# (try_end),
 	]),
-	
+
  (0, 1, 2, [(party_slot_ge, "p_main_party_backup", slot_party_prebattle_num_orders, 1)], [ #was ti_once, adjusted to conditions failure to work around engine problems
         #To fix bugs with Move Forward/Back 10 Paces and Caba Weapon orders
 		#these orders are applied separately, after other orders
 		(party_get_slot, ":num_of_orders", "p_main_party_backup", slot_party_prebattle_num_orders), #change to _backup, fix test
 		(party_set_slot, "p_main_party_backup", slot_party_prebattle_num_orders, 0), #change to _backup, fix test
-		(set_show_messages, 0),	 
-        (try_for_range, ":i", 0, ":num_of_orders"),    
+		(set_show_messages, 0),
+        (try_for_range, ":i", 0, ":num_of_orders"),
 		    (store_add, ":ith_order_slot", ":i", slot_party_prebattle_order_array_begin),
             (party_get_slot, ":order_index", "p_main_party", ":ith_order_slot"),
-			(ge, ":order_index", 10), 
+			(ge, ":order_index", 10),
 
 			#Take 3 digit order index and get component parts: group, type, order
 			(store_div, ":ith_order_group", ":order_index", 100),
@@ -428,10 +428,10 @@ prebattle_orders_triggers = [
 			(eq, ":ith_order_type", 2), #Movement Orders
 			(store_mul, ":ith_order", ":ith_order_type", 10),
 			(store_sub, ":ith_order", ":order_index", ":ith_order"),
-			
+
 			(try_begin),
-                (eq, ":ith_order_type", 2),			
-                (is_between, ":ith_order", 5, 9), #5 - 8; Forward/Back 10 Paces, Stand Closer/Spread Out	
+                (eq, ":ith_order_type", 2),
+                (is_between, ":ith_order", 5, 9), #5 - 8; Forward/Back 10 Paces, Stand Closer/Spread Out
 			    (store_add, ":ith_repeat_slot", ":ith_order_slot", 70), #30 for partial version
 			    (party_get_slot, ":num_repeats", "p_main_party", ":ith_repeat_slot"),
 			    (val_max, ":num_repeats", 1),
@@ -455,9 +455,9 @@ prebattle_orders_triggers = [
 				(team_set_order_listener, "$fplayer_team_no", ":ith_order_group"),
 				(call_script, "script_order_weapon_type_switch", ":ith_order", "$fplayer_team_no"),
 				(team_set_order_listener, "$fplayer_team_no", -1), #Reset
-			(try_end),	
-		(try_end),		
-        (team_set_order_listener, "$fplayer_team_no", grc_everyone), #Reset			
+			(try_end),
+		(try_end),
+        (team_set_order_listener, "$fplayer_team_no", grc_everyone), #Reset
         (set_show_messages, 1),
 	]),
  ]
@@ -467,14 +467,14 @@ caba_order_triggers = [
 		(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(party_set_slot, "p_main_party_backup", slot_party_gk_order, 0),
 		(party_set_slot, 2, slot_party_gk_order_hold_over_there, 0),
-		
+
 		(try_for_range, ":team", 0, 4),
 			(try_for_range, ":i", slot_team_d0_order_weapon, slot_team_d0_order_shield + 9),
 				(team_set_slot, ":team", ":i", clear),
 			(try_end),
-		(try_end),	
+		(try_end),
 	]),
-		
+
     (0, 0, 0, [
         (this_or_next|game_key_clicked, gk_group0_hear),
         (this_or_next|game_key_clicked, gk_group1_hear),
@@ -486,17 +486,17 @@ caba_order_triggers = [
         (this_or_next|game_key_clicked, gk_group7_hear),
         (this_or_next|game_key_clicked, gk_group8_hear),
         (this_or_next|game_key_clicked, gk_everyone_hear),
-		(this_or_next|game_key_clicked, gk_reverse_order_group), 
+		(this_or_next|game_key_clicked, gk_reverse_order_group),
 		(game_key_clicked, gk_everyone_around_hear),
 		(neg|main_hero_fallen)
 	], [
 		(party_set_slot, "p_main_party", slot_party_gk_order, 0),
         (start_presentation, "prsnt_caba_order_display"),
     ]),
-	
+
 	#(ti_escape_pressed, 0, 0, [],          [(party_set_slot, "p_main_party", slot_party_gk_order, 0),(is_presentation_active, "prsnt_caba_order_display"),(presentation_set_duration, 0)]),
 	(0, 0, 0, [(key_is_down, key_escape)], [(party_set_slot, "p_main_party", slot_party_gk_order, 0),(is_presentation_active, "prsnt_caba_order_display"),(presentation_set_duration, 0)]),
-		
+
 	(0, 0, 0, [(game_key_clicked, gk_order_1),(neg|main_hero_fallen)], [
 		(store_mission_timer_c_msec, "$when_f1_first_detected"), #CABA?
 		(try_begin),
@@ -506,7 +506,7 @@ caba_order_triggers = [
 			(party_set_slot, "p_main_party", slot_party_gk_order, gk_order_1),
 			(party_set_slot, 2, slot_party_gk_order_hold_over_there, 0), #also "holdit"
 		(else_try),
-			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),	#HOLD		
+			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),	#HOLD
 			(party_set_slot, 2, slot_party_gk_order_hold_over_there, 1), #as "holdit"
 			#(call_script, "script_player_order_formations", mordr_hold),
 			#(party_set_slot, "p_main_party", slot_party_gk_order, 0),
@@ -520,7 +520,7 @@ caba_order_triggers = [
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
-	
+
 	(0, 0, 0, [(game_key_clicked, gk_order_2),(neg|main_hero_fallen)], [
 		(try_begin),
 			(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),
@@ -541,7 +541,7 @@ caba_order_triggers = [
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
-	
+
 	(0, 0, 0, [(game_key_clicked, gk_order_3),(neg|main_hero_fallen)], [
 		(try_begin),
 			(neg|party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),
@@ -561,7 +561,7 @@ caba_order_triggers = [
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
-	
+
 	(0, 0, 0, [(game_key_clicked, gk_order_4),(neg|main_hero_fallen)], [
 		(try_begin),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, 0),
@@ -571,7 +571,7 @@ caba_order_triggers = [
             (start_presentation, "prsnt_caba_order_display"),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_1),	#STAND GROUND
-			(call_script, "script_player_order_formations", mordr_stand_ground),			
+			(call_script, "script_player_order_formations", mordr_stand_ground),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_2),	#STAND CLOSER
@@ -583,7 +583,7 @@ caba_order_triggers = [
 			(call_script, "script_order_set_team_slot", clear, "$fplayer_team_no"),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
-			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_4),	#FORMATION - RANKS	
+			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_4),	#FORMATION - RANKS
 			(call_script, "script_division_reset_places"), ## CABA - check this new script
 			(agent_get_position, pos49, "$fplayer_agent_no"),
 			(try_for_range, ":division", 0, 9),
@@ -594,21 +594,21 @@ caba_order_triggers = [
 				(team_slot_ge, "$fplayer_team_no", ":slot", 1),
 				(store_add, ":slot", slot_team_d0_fclock, ":division"),
 				(team_set_slot, "$fplayer_team_no", ":slot", 1),
-				
+
 				#Fake out at position
 				(call_script, "script_battlegroup_get_position", Temp_Pos, "$fplayer_team_no", ":division"),
 				(agent_set_position, "$fplayer_agent_no", Temp_Pos),
-				(call_script, "script_player_attempt_formation", ":division", formation_ranks, 1),				
+				(call_script, "script_player_attempt_formation", ":division", formation_ranks, 1),
 			(try_end),
 			(agent_set_position, "$fplayer_agent_no", pos49),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, "$key_order_7"),	#End Special Order
 			(call_script, "script_order_end_active_order", "$fplayer_team_no"),
-			(party_set_slot, "p_main_party", slot_party_gk_order, 0),  
+			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
-	
+
 	(0, 0, 0, [(game_key_clicked, gk_order_5),(neg|main_hero_fallen)], [
 		(try_begin),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, 0),
@@ -633,11 +633,11 @@ caba_order_triggers = [
 				(team_slot_ge, "$fplayer_team_no", ":slot", 1),
 				(store_add, ":slot", slot_team_d0_fclock, ":division"),
 				(team_set_slot, "$fplayer_team_no", ":slot", 1),
-				
+
 				#Fake out at position
 				(call_script, "script_battlegroup_get_position", Temp_Pos, "$fplayer_team_no", ":division"),
 				(agent_set_position, "$fplayer_agent_no", Temp_Pos),
-				(call_script, "script_player_attempt_formation", ":division", formation_shield, 1),				
+				(call_script, "script_player_attempt_formation", ":division", formation_shield, 1),
 			(try_end),
 			(agent_set_position, "$fplayer_agent_no", pos49),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
@@ -645,7 +645,7 @@ caba_order_triggers = [
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_5),	#One-Hander
 			(call_script, "script_order_set_display_text", onehand),
 			(call_script, "script_order_weapon_type_switch", onehand, "$fplayer_team_no"),
-			(party_set_slot, "p_main_party", slot_party_gk_order, 0),		
+			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(else_try),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_6),	#Shield
 			(call_script, "script_order_set_display_text", shield),
@@ -655,10 +655,10 @@ caba_order_triggers = [
 			(party_slot_eq, "p_main_party", slot_party_gk_order, "$key_order_7"),	#Begin Skirmish
 			(call_script, "script_order_set_display_text", begin + 8),
 			(call_script, "script_order_skirmish_begin_end", begin, "$fplayer_team_no"),
-			(party_set_slot, "p_main_party", slot_party_gk_order, 0),    
+			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
-	
+
 	(0, 0, 0, [(game_key_clicked, gk_order_6),(neg|main_hero_fallen)], [
 	    (try_begin),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, 0),
@@ -680,11 +680,11 @@ caba_order_triggers = [
 				(team_slot_ge, "$fplayer_team_no", ":slot", 1),
 				(store_add, ":slot", slot_team_d0_fclock, ":division"),
 				(team_set_slot, "$fplayer_team_no", ":slot", 1),
-				
+
 				#Fake out at position
 				(call_script, "script_battlegroup_get_position", Temp_Pos, "$fplayer_team_no", ":division"),
 				(agent_set_position, "$fplayer_agent_no", Temp_Pos),
-				(call_script, "script_player_attempt_formation", ":division", formation_wedge, 1),				
+				(call_script, "script_player_attempt_formation", ":division", formation_wedge, 1),
 			(try_end),
 			(agent_set_position, "$fplayer_agent_no", pos49),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
@@ -702,13 +702,13 @@ caba_order_triggers = [
 			(party_slot_eq, "p_main_party", slot_party_gk_order, "$key_order_7"),	#Volley
 			(call_script, "script_order_set_display_text", begin + 10),
 			(call_script, "script_order_volley_begin_end", begin, "$fplayer_team_no"),
-			(party_set_slot, "p_main_party", slot_party_gk_order, 0),    
+			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
 
     (0, 0, 0, [(key_clicked, "$key_order_7"),(neg|main_hero_fallen)], [ #f7
 	    (try_begin),
-		    (party_slot_eq, "p_main_party", slot_party_gk_order, 0), 
+		    (party_slot_eq, "p_main_party", slot_party_gk_order, 0),
 		    (party_set_slot, "p_main_party", slot_party_gk_order, "$key_order_7"),
             (start_presentation, "prsnt_caba_order_display"),
 		(else_try),
@@ -723,11 +723,11 @@ caba_order_triggers = [
 				(team_slot_ge, "$fplayer_team_no", ":slot", 1),
 				(store_add, ":slot", slot_team_d0_fclock, ":division"),
 				(team_set_slot, "$fplayer_team_no", ":slot", 1),
-				
+
 				#Fake out at position
 				(call_script, "script_battlegroup_get_position", Temp_Pos, "$fplayer_team_no", ":division"),
 				(agent_set_position, "$fplayer_agent_no", Temp_Pos),
-				(call_script, "script_player_attempt_formation", ":division", formation_square, 1),				
+				(call_script, "script_player_attempt_formation", ":division", formation_square, 1),
 			(try_end),
 			(agent_set_position, "$fplayer_agent_no", pos49),
 			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
@@ -746,10 +746,10 @@ caba_order_triggers = [
 			(party_slot_eq, "p_main_party", slot_party_gk_order, "$key_order_7"),	#Brace Spear
 			(call_script, "script_order_set_display_text", begin + 12),
 			(call_script, "script_order_sp_brace_begin_end", begin, "$fplayer_team_no"),
-			(party_set_slot, "p_main_party", slot_party_gk_order, 0),  
+			(party_set_slot, "p_main_party", slot_party_gk_order, 0),
 		(try_end),
 	]),
-		
+
     (0, 0, 0, [(key_clicked, "$key_order_8"),(neg|main_hero_fallen)], [ #F8
 	    (try_begin),
 			(party_slot_eq, "p_main_party", slot_party_gk_order, gk_order_4), #FORMATION - CANCEL
@@ -763,10 +763,10 @@ caba_order_triggers = [
 		(try_end),
 	]),
 ]
- 
+
 field_ai_triggers = [
   dplmc_horse_speed,
-  (ti_on_agent_spawn, 0, 0, [], [(store_trigger_param_1, ":agent"),(call_script, "script_weapon_use_classify_agent", ":agent")]), # On spawn, mark lancers, spears, horse archers using a slot. Force lancers to equip lances, horse archers to equip bows 
+  (ti_on_agent_spawn, 0, 0, [], [(store_trigger_param_1, ":agent"),(call_script, "script_weapon_use_classify_agent", ":agent")]), # On spawn, mark lancers, spears, horse archers using a slot. Force lancers to equip lances, horse archers to equip bows
   (2, 0, 0, [(this_or_next|party_slot_eq, "p_main_party", slot_party_pref_wu_lance, 1),(this_or_next|party_slot_eq, "p_main_party", slot_party_pref_wu_harcher, 1),(party_slot_eq, "p_main_party", slot_party_pref_wu_spear, 1),(store_mission_timer_a, reg0),(gt, reg0, 4)],
    # Check to make sure there are no lance users on foot, if so force them to
    # switch to their sword. This should also affect troops that were NEVER mounted,
@@ -774,7 +774,7 @@ field_ai_triggers = [
    # Check horse archers ammo, and if none left, switch to sword.
    # For mounted lancers and foot spears, affect their Decision on weapon use,
    # based on if closest 3 enemies are within 5 meters and if currently attacking/defending.
-   [  	   
+   [
 	(try_for_agents, ":agent"), # Run through all active NPCs on the battle field.
      # Hasn't been defeated.
         (agent_is_alive, ":agent"),
@@ -818,7 +818,7 @@ field_ai_triggers = [
                 (call_script, "script_weapon_use_backup_weapon", ":agent", ":inc_two_handers"), # Then equip a close weapon
             (else_try),
      # Still mounted
-                (agent_get_position, pos1, ":agent"),    
+                (agent_get_position, pos1, ":agent"),
                 (call_script, "script_get_closest3_distance_of_enemies_at_pos1", ":team", pos1),
                 (assign, ":avg_dist", reg0), # Find distance of nearest 3 enemies
 				#SHOULD CLOSEST MATTER???
@@ -870,13 +870,13 @@ field_ai_triggers = [
 			(try_end),
 		(else_try),
 		    (party_slot_eq, "p_main_party", slot_party_pref_wu_spear, 1),
-		    (agent_get_slot, ":spear", ":agent", slot_agent_spear),   
-            (gt, ":spear", 0), # Spear-Unit?   
+		    (agent_get_slot, ":spear", ":agent", slot_agent_spear),
+            (gt, ":spear", 0), # Spear-Unit?
 
 			(store_add, ":slot", slot_team_d0_formation, ":class"),
-			(team_slot_eq, ":team", ":slot", formation_none),			
+			(team_slot_eq, ":team", ":slot", formation_none),
 			(neq, ":shield_order", 1),
-			
+
             (agent_get_position, pos1, ":agent"), # Find distance of nearest 3 enemies
             (call_script, "script_get_closest3_distance_of_enemies_at_pos1", ":team", pos1),
             (assign, ":avg_dist", reg0),
@@ -891,25 +891,25 @@ field_ai_triggers = [
                 (call_script, "script_weapon_use_backup_weapon", ":agent", 1), # Then equip a close weapon
             (else_try),
                 (neq, ":wielded", ":spear"), # Enemies farther than 7 meters and/or not fighting, and not using spear?
-                (agent_set_wielded_item, ":agent", ":spear"), # Then equip it!                
+                (agent_set_wielded_item, ":agent", ":spear"), # Then equip it!
             (try_end),
         (try_end),
     (try_end),
     ]),
-	
+
   (ti_on_agent_hit, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_dmg_tweaks, 1)],
-    # Horse Trample buff  
+    # Horse Trample buff
     # Pike vs Horse buff
    [
     (store_trigger_param_1, ":agent"),
 	(store_trigger_param_2, ":attacker"),
 	(store_trigger_param_3, ":damage"),
 	(assign, ":weapon", reg0),
-	
+
 	(assign, ":orig_damage", ":damage"),
-	
+
 	(try_begin),
-	    (agent_is_human, ":agent"), 
+	    (agent_is_human, ":agent"),
 		#(agent_is_non_player, ":agent"), #Maybe remove?
 	    (try_begin), #Horse Trample Buff
 		    (neg|agent_is_human, ":attacker"),
@@ -918,14 +918,14 @@ field_ai_triggers = [
 			(ge, ":horse", 0),
 			(gt, ":orig_damage", 5),
 			(item_get_slot, ":horse_charge", ":horse", slot_item_horse_charge), #Approximation for weight
-            (try_begin),      
+            (try_begin),
                 (lt, ":horse_charge", 18),
 				(val_div, ":horse_charge", 3),
                 (val_max, ":damage", ":horse_charge"),
             (else_try),
                 (is_between, ":horse_charge", 18, 25),
 				(val_div, ":horse_charge", 2),
-                (val_max, ":damage", ":horse_charge"),      
+                (val_max, ":damage", ":horse_charge"),
             (else_try),
                 (val_max, ":damage", ":horse_charge"),
             (try_end),
@@ -945,10 +945,10 @@ field_ai_triggers = [
 		(item_slot_ge, ":weapon", slot_item_length, 150),
 		(agent_get_horse, ":horse", ":attacker"),
 		(eq, ":horse", -1),
-					
+
 		(try_begin),
 		    (agent_get_action_dir, ":direction", ":attacker"), #invalid = -1, down = 0, right = 1, left = 2, up = 3
-		    (eq, ":direction", 0), #thrust	
+		    (eq, ":direction", 0), #thrust
 			(val_mul, ":damage", 2),
     		(val_max, ":damage", 50), #was 120
 		(else_try),
@@ -966,13 +966,13 @@ field_ai_triggers = [
 		(val_sub, ":forward_speed", 3),
 		(val_clamp, ":forward_speed", -2, 4),
 		(store_mul, ":speed_mod", ":forward_speed", 10), #Between -20 and +40
-		(val_add, ":damage", ":speed_mod"),		
+		(val_add, ":damage", ":speed_mod"),
 
 		(agent_get_item_id, ":horse", ":agent"), #New Armor damage reduction
 		(item_get_slot, ":armor", ":horse", slot_item_horse_armor),
 		(val_div, ":armor", 4), #Range of 2-14
 		(val_sub, ":damage", ":armor"),
-		
+
 		#Horses randomly rear if they take damage
 		(store_random_in_range, ":random_no", 0, 100),
 		(try_begin),
@@ -986,15 +986,15 @@ field_ai_triggers = [
 			(try_end),
 			(lt, ":random_no", 10),
 			(agent_set_animation, ":agent", "anim_horse_rear"),
-		(try_end),	
+		(try_end),
 	(try_end), #Human v Horse
-	
+
 	(gt, ":damage", ":orig_damage"),
 	(val_sub, ":damage", ":orig_damage"),
     (store_agent_hit_points, ":hitpoints" , ":agent", 1),
     (val_sub, ":hitpoints", ":damage"),
-	(agent_set_hit_points, ":agent", ":hitpoints", 1),	
-	
+	(agent_set_hit_points, ":agent", ":hitpoints", 1),
+
 	(assign, reg2, -1),
 	(agent_get_horse,":playerhorse","$fplayer_agent_no"),
 	(try_begin),
@@ -1006,7 +1006,7 @@ field_ai_triggers = [
 			(assign, reg2, 1),
 		(try_end),
 		(neq, reg2, -1),
-	    (assign, reg1, ":damage"),		
+	    (assign, reg1, ":damage"),
 	    (display_message, "@{reg2?You:Your mount} received {reg1} extra damage!",0xff4040),
     (else_try),
 	    (try_begin),
@@ -1017,22 +1017,22 @@ field_ai_triggers = [
 			(assign, reg2, 1),
 		(try_end),
 		(neq, reg2, -1),
-		(assign, reg1, ":damage"),	
+		(assign, reg1, ":damage"),
 		(display_message, "@{reg2?You strike:Your horse charges} for {reg1} bonus damage!"),
     (try_end),
-   ]),	
-  
+   ]),
+
   (ti_on_agent_dismount, 0, 0, [(party_get_slot, reg3, "p_main_party", slot_party_pref_div_dehorse),(is_between, reg3, 0, 9)], #De-Horse Trigger #Valid division 0-8
    [
 	(store_trigger_param_2, ":horse"),
 	(neg|agent_is_alive, ":horse"),
-	
-	(store_trigger_param_1, ":rider"), 
+
+	(store_trigger_param_1, ":rider"),
 	(agent_is_alive, ":rider"),
     (agent_is_non_player, ":rider"),
-	
+
 	(agent_get_team, ":team", ":rider"),
-	
+
 	(try_begin),
 	    (eq, ":team", "$fplayer_team_no"),
 		(agent_set_division, ":rider", reg3),
@@ -1050,27 +1050,27 @@ field_ai_triggers = [
 	(item_get_type, ":type", ":weapon"),
 	(this_or_next|eq, ":type", itp_type_bow),
 	(eq, ":type", itp_type_crossbow),
-	
+
 	(store_trigger_param_1, ":agent"),
     (agent_is_alive, ":agent"),
     (agent_is_non_player, ":agent"),
-	
+
 	(agent_get_ammo, ":ammo", ":agent", 0),
-	(le, ":ammo", 0),	
+	(le, ":ammo", 0),
 	(agent_get_horse, ":horse", ":agent"),
 	(eq, ":horse", -1),
-	
+
 	(agent_get_team, ":team", ":agent"),
 	(assign, ":continue", 1),
 	(try_begin),
 		(this_or_next|party_slot_eq, "$g_encountered_party", slot_party_type, spt_town), #Sieges
-		(party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),		
+		(party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
 		(this_or_next|eq, ":team", "$defender_team"),
 		(eq, ":team", "$defender_team_2"),
 		(assign, ":continue", 0), #To not reassign units that will get their ammo refilled.
 	(try_end),
-	(eq, ":continue", 1),	
-	
+	(eq, ":continue", 1),
+
 	(try_begin),
 	    (eq, ":team", "$fplayer_team_no"),
 		(agent_set_division, ":agent", reg3),
@@ -1078,24 +1078,24 @@ field_ai_triggers = [
 	(else_try),
 	    (agent_set_division, ":agent", grc_infantry),
 		(agent_set_slot, ":agent", slot_agent_new_division, grc_infantry),
-	(try_end),  
+	(try_end),
    ]),
-   
+
   (2, 0, ti_once, [(store_mission_timer_a, reg0),(gt, reg0, 2)], [ #Force Cav to Stay Mounted
-    (set_show_messages, 0),   
+    (set_show_messages, 0),
     (try_for_range, ":team", 0, 4),
-	    #(neq, ":team", "$fplayer_team_no"),		
+	    #(neq, ":team", "$fplayer_team_no"),
 		(try_for_range, ":division", 0, 9),
 		    (store_add, ":slot", slot_team_d0_type, ":division"),
 			(this_or_next|team_slot_eq, ":team", ":slot", sdt_cavalry),
 			(team_slot_eq, ":team", ":slot", sdt_harcher),
 			(team_give_order, ":team", ":division", mordr_mount),
-		(try_end),		
+		(try_end),
 	(try_end),
 	(set_show_messages, 1),
    ]),
  # V TODO: Revamp this for TGS
-  (1, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_spear_brace, 1),(store_mission_timer_a, reg0),(gt, reg0, 2)], [ ###GENERAL AI TRIGGER for SPECIAL ORDERS  ##Deal with Formations    
+  (1, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_spear_brace, 1),(store_mission_timer_a, reg0),(gt, reg0, 2)], [ ###GENERAL AI TRIGGER for SPECIAL ORDERS  ##Deal with Formations
 		(set_fixed_point_multiplier, 100),
 		(try_for_range, ":division", 0, 9), #Player auto-remove brace
 			(store_add, ":slot", slot_team_d0_order_sp_brace, ":division"),
@@ -1116,24 +1116,24 @@ field_ai_triggers = [
 			(neq, ":faction", "fac_no_faction"),
 			(try_begin), #Spear Bracing Decision-making
 				(this_or_next|eq, ":faction", "fac_player_supporters_faction"), #Player's lords can brace
-				(eq, ":faction", "fac_kingdom_5"), #Rhodoks	
+				(eq, ":faction", "fac_kingdom_5"), #Rhodoks
 				(try_begin),
 					(team_slot_eq, ":team", slot_team_d0_order_sp_brace, 0), #Spearbrace order not active
-					(store_add, ":slot", slot_team_d0_size, grc_infantry), 
+					(store_add, ":slot", slot_team_d0_size, grc_infantry),
 					(team_slot_ge, ":team", slot_team_d0_size, 10),
 					(store_add, ":slot", slot_team_d0_weapon_length, grc_infantry),
 					(team_slot_ge, ":team", ":slot", 80), #have long weapons/polearms (until bumped to a separate division)
 					(store_add, ":slot", slot_team_d0_formation, grc_infantry),
 					(team_get_movement_order, ":mordr", ":team", grc_infantry),
 					(this_or_next|neg|team_slot_eq, ":team", ":slot", formation_none),
-					(neq, ":mordr", mordr_charge), #Not Charging	
+					(neq, ":mordr", mordr_charge), #Not Charging
 					(assign, ":num_cav", 0),
 					(try_for_range, ":enemy_team", 0, 4),
 						(teams_are_enemies, ":enemy_team", ":team"),
 						(team_slot_ge, ":enemy_team", slot_team_size, 1),
-						(team_get_slot, reg0, ":enemy_team", slot_team_num_cavalry), 
+						(team_get_slot, reg0, ":enemy_team", slot_team_num_cavalry),
 						(val_add, ":num_cav", reg0),
-					(try_end),		
+					(try_end),
 					(ge, ":num_cav", 5), #sufficent enemy cav to care
 					(assign, ":distance", 99999),
 					(call_script, "script_formation_current_position", pos2, ":team", grc_infantry),
@@ -1154,15 +1154,15 @@ field_ai_triggers = [
 						(try_for_range, ":enemy_team", 0, 4),
 							(teams_are_enemies, ":enemy_team", ":team"),
 							(team_slot_ge, ":enemy_team", slot_team_size, 1),
-							(team_get_slot, reg0, ":enemy_team", slot_team_num_cavalry), 
+							(team_get_slot, reg0, ":enemy_team", slot_team_num_cavalry),
 							(val_add, ":num_cav", reg0),
-						(try_end),		
+						(try_end),
 						(team_get_movement_order, ":mordr", ":team", grc_infantry),
 						(this_or_next|eq, ":mordr", mordr_charge),
 						(lt, ":num_cav", 5),
 						(assign, ":end", 1),
 					(else_try),
-						(store_add, ":slot", slot_team_d0_size, grc_infantry), 
+						(store_add, ":slot", slot_team_d0_size, grc_infantry),
 						(neg|team_slot_ge, ":team", slot_team_d0_size, 10),
 						(assign, ":end", 1),
 					(else_try),
@@ -1214,9 +1214,9 @@ field_ai_triggers = [
 					(val_div, reg1, ":size"),
 					(gt, reg1, 25), #>25% archers
 					(team_get_movement_order, ":mordr", ":team", grc_archers),
-					(neq, ":mordr", mordr_charge),	
+					(neq, ":mordr", mordr_charge),
 					(call_script, "script_battlegroup_get_position", pos2, ":team", grc_archers),
-					(call_script, "script_get_nearest_enemy_battlegroup_location", Temp_Pos, ":team", pos2),					
+					(call_script, "script_get_nearest_enemy_battlegroup_location", Temp_Pos, ":team", pos2),
 					(is_between, reg0, 1000, 7000),
 					(team_set_order_listener, ":team", grc_archers),
 					(call_script, "script_order_volley_begin_end", begin, ":team"),
@@ -1227,14 +1227,14 @@ field_ai_triggers = [
 					(assign, ":end", 0),
 					(try_begin),
 						(team_get_movement_order, ":mordr", ":team", grc_archers),
-						(eq, ":mordr", mordr_charge),	
+						(eq, ":mordr", mordr_charge),
 						(assign, ":end", 1),
 					(else_try),
 						(call_script, "script_battlegroup_get_position", pos2, ":team", grc_archers),
 					    (call_script, "script_get_nearest_enemy_battlegroup_location", Temp_Pos, ":team", pos2),
 						(neg|is_between, reg0, 1000, 8000),
 						(assign, ":end", 1),
-					(try_end),					
+					(try_end),
 					(eq, ":end", 1),
 					(team_set_order_listener, ":team", grc_archers),
 					(call_script, "script_order_volley_begin_end", end, ":team"),
@@ -1243,9 +1243,9 @@ field_ai_triggers = [
 			(try_end), #End Skirmish/Volley
 		(try_end), #Team Loop
     ]),
-      
-  (0.5, 0, 0, [(call_script, "script_cf_order_active_check", slot_team_d0_order_skirmish)], [(call_script, "script_order_skirmish_skirmish")]), 
- 
+
+  (0.5, 0, 0, [(call_script, "script_cf_order_active_check", slot_team_d0_order_skirmish)], [(call_script, "script_order_skirmish_skirmish")]),
+
   (1, 0, 0, [(call_script, "script_cf_order_active_check", slot_team_d0_order_volley)], [
 		(try_for_range, ":team", 0, 4),
 			(try_for_range, ":division", 0, 9),
@@ -1256,19 +1256,19 @@ field_ai_triggers = [
 				(team_set_slot, ":team", ":slot", ":volley_counter"),
 			(try_end),
 		(try_end),
-		
+
 		(try_for_agents, ":agent"),
 		    (agent_is_alive, ":agent"),
 			(agent_is_non_player, ":agent"),
 			(agent_slot_ge, ":agent", slot_agent_volley_fire, 1),
 			(agent_get_ammo, ":ammo", ":agent", 1),
 			(gt, ":ammo", 0),
-			
+
 			(agent_get_team, ":team", ":agent"),
 			(agent_get_division, ":division", ":agent"),
 			(store_add, ":slot", slot_team_d0_order_volley, ":division"),
 			(team_get_slot, ":volley_counter", ":team", ":slot"),
-			
+
 			(agent_get_slot, ":volley_wpn_type", ":agent", slot_agent_volley_fire),
 			(try_begin),
 				(eq, ":volley_wpn_type", itp_type_bow),
@@ -1284,8 +1284,8 @@ field_ai_triggers = [
 			#(neq, ":cs", 2),
 			(this_or_next|eq, ":cs", 1),
 			(eq, ":cs", 3),
-						
-			(store_mod, reg0, ":volley_counter", ":delay"),		
+
+			(store_mod, reg0, ":volley_counter", ":delay"),
 			(try_begin),
 				(eq, reg0, 0),
 				(agent_set_attack_action, ":agent", 0, 0), #Fire
@@ -1294,19 +1294,19 @@ field_ai_triggers = [
 			(try_end),
 		(try_end),
      ]),
- 
-  (1, 0, ti_once, [(neq, "$g_battle_result", 0)], [   #Disable Volley @ end of battle 
+
+  (1, 0, ti_once, [(neq, "$g_battle_result", 0)], [   #Disable Volley @ end of battle
 		(try_for_range, ":team", 0, 4),
 			(try_for_range, ":slot", slot_team_d0_order_volley, slot_team_d0_order_volley + 9),
                 (team_set_slot, ":team", ":slot", 0),
 			(try_end),
 		(try_end)
 	 ]),
- 
+
   (0, 0, 3, [(key_clicked, "$key_special_1")], [   #call_horse_trigger
       (agent_get_slot, ":horse", "$fplayer_agent_no", slot_agent_horse),
       (gt, ":horse", 0),
-      (agent_is_active, ":horse"),      
+      (agent_is_active, ":horse"),
       #(agent_play_sound, "$fplayer_agent_no", "snd_whistle"),
 	  (agent_play_sound, "$fplayer_agent_no", "snd_man_breath_hard"),
       (display_message,"@You whistle for your horse."),
@@ -1314,8 +1314,8 @@ field_ai_triggers = [
       (agent_get_position, pos1, "$fplayer_agent_no"),
       (agent_set_scripted_destination, ":horse", pos1, 0),
      ]),
-   
-  ##Spearwall Kit - Edited from The Mercenary by Caba'drin  
+
+  ##Spearwall Kit - Edited from The Mercenary by Caba'drin
   (0.1, 0, 0, [(call_script, "script_cf_order_active_check", slot_team_d0_order_sp_brace)], [ #spearwall_trigger_1
 		(try_for_agents,":agent"),
            (agent_is_alive,":agent"),
@@ -1336,7 +1336,7 @@ field_ai_triggers = [
               (eq,":order",mordr_stand_ground),
 			  (assign, ":continue", 1),
 		   (else_try),
-              (eq, ":agent", "$fplayer_agent_no"), 
+              (eq, ":agent", "$fplayer_agent_no"),
               (agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1),
               (assign, ":continue", 1),
 		   (try_end),
@@ -1349,7 +1349,7 @@ field_ai_triggers = [
 		   #(display_message, "@Speed: {reg0}"),
 		   (eq, ":speed", 0),
 		   (try_begin),
-				(agent_get_animation, ":anim", ":agent"),				
+				(agent_get_animation, ":anim", ":agent"),
 				#Try block for proper animation--high, low, standing; w or w/o shield (hopefully?)
 				(try_begin),
 				    (item_slot_eq, ":weapon", slot_item_pike, 1),
@@ -1410,8 +1410,8 @@ field_ai_triggers = [
 			  #(store_atan2, ":angle", ":x", ":y"), #first value is y, second is x - so say header_operations. not so
 			  #(convert_from_fixed_point, ":angle"), #CABA
 			  # (assign, reg0, ":angle"),
-		      # (display_message, "str_reg0"),			  
-			  #(is_between, ":angle", 0, 21), #40 degree field...perhaps more appropriate for that distance			  			  
+		      # (display_message, "str_reg0"),
+			  #(is_between, ":angle", 0, 21), #40 degree field...perhaps more appropriate for that distance
 			  (agent_get_speed, pos0, ":possible_victim"), #CABA
               (position_get_y, ":speed", pos0), #CABA
 			  (position_get_x, ":speed_x", pos0), #CABA - just be be sure
@@ -1442,7 +1442,7 @@ field_ai_triggers = [
            (val_max,":hp", 0),
            (agent_set_hit_points, ":victim", ":hp", 0), #NEW HP% = Previous HP% - (Speed/8)
            (agent_deliver_damage_to_agent,":victim",":victim"), ##CHANGE TO THE AGENT DEALING DAMAGE? Probably not to avoid double pike-buff
-           (store_agent_hit_points,":hp",":victim",1), #Post-Damage HP 
+           (store_agent_hit_points,":hp",":victim",1), #Post-Damage HP
 		   (try_begin), ## REAR or RIDER DAMAGE
 		       (gt, ":hp", 0), #IF THE HORSE IS STILL ALIVE, base 50% chance of rearing
 			   (store_random_in_range, ":random_no", 0, 100),
@@ -1467,7 +1467,7 @@ field_ai_triggers = [
 		   (try_end),
 		   (try_begin),
               (agent_get_horse,":playerhorse","$fplayer_agent_no"),
-              (eq,":victim",":playerhorse"),         
+              (eq,":victim",":playerhorse"),
               (val_sub,":oldhp",":hp"),
               (assign,reg1,":oldhp"),
               (display_message,"@Your horse received {reg1} damage from a braced spear!",0xff4040),
@@ -1484,7 +1484,7 @@ field_ai_triggers = [
 
   (0, 0, 2, [(key_clicked, "$key_special_0"),(agent_is_alive,"$fplayer_agent_no"),(neg|agent_slot_eq, "$fplayer_agent_no", slot_agent_player_braced, 1)], #spearwall_trigger_2
        [
-      
+
         (agent_get_wielded_item, ":weapon", "$fplayer_agent_no", 0), #CABA
         (assign, ":valid_weapon", 0), #CABA
         (try_begin), #CABA-whole block
@@ -1498,13 +1498,13 @@ field_ai_triggers = [
             (agent_set_slot, "$fplayer_agent_no", slot_agent_spear, ":weapon"),
             (assign, ":valid_weapon", 1),
         (try_end),
-        (eq, ":valid_weapon", 1),       
+        (eq, ":valid_weapon", 1),
 		(str_store_item_name, s1, ":weapon"), #CABA
         (display_message,"@Bracing {s1} for charge.",0x6495ed),
         #(agent_set_animation, "$fplayer_agent_no", "anim_spearwall_hold"),
         (agent_set_slot, "$fplayer_agent_no", slot_agent_player_braced, 1), #CABA
     ]),
-       
+
   (0, 0, 0, [(this_or_next|game_key_clicked, gk_attack),(this_or_next|game_key_clicked, gk_defend), #spearwall_trigger_3
         (this_or_next|game_key_clicked, gk_move_forward),(this_or_next|game_key_clicked, gk_move_backward),
         (this_or_next|game_key_clicked, gk_move_left),(this_or_next|game_key_clicked, gk_move_right),
@@ -1517,9 +1517,9 @@ field_ai_triggers = [
         #(agent_set_animation, "$fplayer_agent_no", "anim_release_thrust_staff"),
 		(agent_set_animation, "$fplayer_agent_no", "anim_spearwall_bracing_recoil"),
         (agent_set_slot, "$fplayer_agent_no", slot_agent_player_braced, 0), #CABA
-    ]), 
+    ]),
   ##Spearwall Kit - Edited from The Mercenary by Caba'drin
- ] 
+ ]
 
 bodyguard_triggers = [
  (ti_after_mission_start, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_bodyguard, 1),(neq, "$g_mt_mode", tcm_disguised)], #condition for not sneaking in; to exclude prison-breaks, etc change to (eq, "$g_mt_mode", tcm_default")
@@ -1531,13 +1531,13 @@ bodyguard_triggers = [
     (val_div, ":renown", 400),
     (store_add, ":max_guards", ":renown", ":leadership"),
     (val_min, ":max_guards", 4),
-   
+
     (ge, ":max_guards", 1),
-	
+
 	#Prepare Scene/Mission Template
 	(assign, ":entry_point", 0),
 	(assign, ":mission_tpl", 0),
-	(try_begin),		
+	(try_begin),
 		(party_slot_eq, "$current_town", slot_party_type, spt_village),
 		(assign, ":entry_point", 11), #Village Elder's Entry
 		(assign, ":mission_tpl", "mt_village_center"),
@@ -1560,12 +1560,12 @@ bodyguard_triggers = [
 		(neq, "$talk_context", tc_tavern_talk),
 		(agent_slot_ge, "$fplayer_agent_no", slot_agent_horse, 1), #If the player spawns with a horse, the bodyguard will too.
 		(mission_tpl_entry_set_override_flags, ":mission_tpl", ":entry_point", 0),
-	(try_end),	
+	(try_end),
 	(store_current_scene, ":cur_scene"),
-	(modify_visitors_at_site, ":cur_scene"),  
-   
+	(modify_visitors_at_site, ":cur_scene"),
+
     #Find and Spawn Bodyguards
-    (assign, ":bodyguard_count", 0),   
+    (assign, ":bodyguard_count", 0),
     (party_get_num_companion_stacks, ":num_of_stacks", "p_main_party"),
     (try_for_range, ":i", 0, ":num_of_stacks"),
         (party_stack_get_troop_id, ":troop_id", "p_main_party", ":i"),
@@ -1573,39 +1573,39 @@ bodyguard_triggers = [
         (troop_is_hero, ":troop_id"),
         (neg|troop_is_wounded, ":troop_id"),
         (val_add, ":bodyguard_count", 1),
-				
+
 		(try_begin), #For prison-breaks
 		    (this_or_next|eq, "$talk_context", tc_escape),
-            (eq, "$talk_context", tc_prison_break),	  
+            (eq, "$talk_context", tc_prison_break),
             (troop_set_slot, ":troop_id", slot_troop_will_join_prison_break, 1),
 		(try_end),
 
         (add_visitors_to_current_scene, ":entry_point", ":troop_id", 1),
 
         (eq, ":bodyguard_count", ":max_guards"),
-        (assign, ":num_of_stacks", 0), #Break Loop       
+        (assign, ":num_of_stacks", 0), #Break Loop
     (try_end), #Stack Loop
     (gt, ":bodyguard_count", 0), #If bodyguards spawned...
-    (set_show_messages, 0),   
+    (set_show_messages, 0),
     (team_give_order, "$fplayer_team_no", 8, mordr_follow), #Division 8 to avoid potential conflicts
 	(team_set_order_listener, "$fplayer_team_no", 8),
-    (set_show_messages, 1),   
-   ]),   
+    (set_show_messages, 1),
+   ]),
 
- (ti_on_agent_spawn, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_bodyguard, 1)], 
+ (ti_on_agent_spawn, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_bodyguard, 1)],
    [
 	(store_trigger_param_1, ":agent"),
 	(agent_get_troop_id, ":troop", ":agent"),
 	(neq, ":troop", "trp_player"),
 	(troop_is_hero, ":troop"),
 	(main_party_has_troop, ":troop"),
-	
+
 	(get_player_agent_no, ":player"),
 	(ge, ":player", 0),
 	(agent_get_team, ":player_team", ":player"),
-	
-	(agent_get_position,pos1,":player"),		
-	
+
+	(agent_get_position,pos1,":player"),
+
 	(agent_set_team, ":agent", ":player_team"),
 	(agent_set_division, ":agent", 8),
 	(agent_add_relation_with_agent, ":agent", ":player", 1),
@@ -1623,11 +1623,11 @@ bodyguard_triggers = [
 	(position_move_x, pos1, ":shift"),
 	(agent_set_position, ":agent", pos1),
    ]),
-  
+
  (ti_on_agent_killed_or_wounded, 0, 0, [(party_slot_eq, "p_main_party", slot_party_pref_bodyguard, 1)],
     [
      (store_trigger_param_1, ":dead_agent"),
-        
+
      (agent_get_troop_id, ":troop", ":dead_agent"),
 	 (neq, ":troop", "trp_player"),
 	 (troop_is_hero, ":troop"),
@@ -1636,14 +1636,14 @@ bodyguard_triggers = [
 	 (party_wound_members, "p_main_party", ":troop", 1),
 	]),
  ]
-  
+
 deathcam_mouse_deadzone = 2 #set this to a positive number (MV: 2 or 3 works well for me, but needs testing on other people's PCs)
-custom_camera_triggers = [  
+custom_camera_triggers = [
  # CUSTOM CAMERA - dunde (Rubik, MartinF) + DEATH CAMERA - MadVader
  (0, 0, ti_once, [(get_player_agent_no, "$cam_current_agent"), (gt, "$cam_current_agent", -1)],
     #camera_init
-    [ (assign,"$cam_mode", 0),(assign, "$shoot_mode",0), (assign, "$cam_free", -1), #cam_free was 0; -1 not free; 0 custom/movement free; 1 all agent cycle free					   
-	  #(assign, "$g_camera_z", 300),(assign, "$g_camera_y", -1000),(assign, "$g_camera_x", 0),	  
+    [ (assign,"$cam_mode", 0),(assign, "$shoot_mode",0), (assign, "$cam_free", -1), #cam_free was 0; -1 not free; 0 custom/movement free; 1 all agent cycle free
+	  #(assign, "$g_camera_z", 300),(assign, "$g_camera_y", -1000),(assign, "$g_camera_x", 0),
 	  (assign, "$deathcam_on", 0), (assign, "$pin_player_fallen", 0),
       # mouse center coordinates (non-windowed)
       (assign, "$camera_mouse_center_x", 500),
@@ -1654,10 +1654,10 @@ custom_camera_triggers = [
       # counts how many cycles the mouse stays in the same position, to determine new center in windowed mode
       (assign, "$camera_mouse_counter", 0),
 	]),
-	
+
  ## MadVader deathcam begin
  (0, 0, 0, [(main_hero_fallen),(eq, "$deathcam_on", 0),(eq, "$cam_mode", 2)],
-   #deathcam_start 
+   #deathcam_start
    #0, 4, ti_once, # 4 seconds delay before the camera activates [(main_hero_fallen),(eq, "$deathcam_on", 0),]
    [
       (agent_get_position, pos1, "$fplayer_agent_no"),
@@ -1710,7 +1710,7 @@ custom_camera_triggers = [
       (try_end),
       (position_move_x, pos47, ":move_x"),
       (position_move_y, pos47, ":move_y"),
-	  (mission_cam_set_position, pos47),   
+	  (mission_cam_set_position, pos47),
     ]),
 
  (0, 0, 0, [(eq, "$deathcam_on", 1),(eq, "$cam_mode", 2),
@@ -1739,15 +1739,15 @@ custom_camera_triggers = [
       (try_end),
       (eq, ":continue", 1), #continue only if mouse has moved
       (assign, "$camera_mouse_counter", 0), # reset recentering hackery
-     
+
       # update recorded mouse position
       (assign, "$camera_mouse_x", reg1),
       (assign, "$camera_mouse_y", reg2),
-     
+
       (mission_cam_get_position, pos47),
       (store_sub, ":shift", "$camera_mouse_center_x", reg1), #horizontal shift for pass 0
       (store_sub, ":shift_vertical", reg2, "$camera_mouse_center_y"), #for pass 1
-     
+
       (try_for_range, ":pass", 0, 2), #pass 0: check mouse x movement (left/right), pass 1: check mouse y movement (up/down)
         (try_begin),
           (eq, ":pass", 1),
@@ -1755,7 +1755,7 @@ custom_camera_triggers = [
         (try_end),
         (this_or_next|lt, ":shift", -deathcam_mouse_deadzone), #skip pass if not needed (mouse deadzone)
         (gt, ":shift", deathcam_mouse_deadzone),
-       
+
         (assign, ":sign", 1),
         (try_begin),
           (lt, ":shift", 0),
@@ -1785,7 +1785,7 @@ custom_camera_triggers = [
       (mission_cam_set_position, pos47),
     ]),
  ## MadVader deathcam end
- 
+
  (0, 0, 0, [(eq, "$deathcam_on", 0),(eq, "$cam_mode", 1)],
    #camera_follow
    [
@@ -1806,7 +1806,7 @@ custom_camera_triggers = [
      (agent_get_horse, ":horse_agent", "$cam_current_agent"),
      (try_begin),
         (ge, ":horse_agent", 0),
-        (position_move_z, pos7, 80),       
+        (position_move_z, pos7, 80),
      (try_end),
      (store_mul, ":reverse", -1, "$g_camera_y"),
      (store_atan2, ":drop", "$g_camera_z", ":reverse"),
@@ -1814,8 +1814,8 @@ custom_camera_triggers = [
      (val_sub, ":angle", ":drop"),
      (position_rotate_x, pos7, ":angle"),
      (mission_cam_animate_to_position, pos7, 100, 0),
-  
-    (try_begin), 
+
+    (try_begin),
 		(neg|main_hero_fallen),
 		(this_or_next|game_key_clicked, gk_view_char),
 		(game_key_clicked, gk_cam_toggle),
@@ -1823,7 +1823,7 @@ custom_camera_triggers = [
 		(assign, "$cam_mode", 0),
 	(try_end),
   ]),
-  
+
  (0, 0, 0, [(key_clicked, "$key_camera_toggle"),(lt, "$cam_mode", 3),(neq, "$shoot_mode", 1)],
    #camera_toggle
    # toggling only when came mode =0 or 1 (2=disable) ; shoot_mode=1 temporary diable toggling
@@ -1840,7 +1840,7 @@ custom_camera_triggers = [
 	    (eq, "$cam_free", -1),
 		(try_begin),
 		    (neg|main_hero_fallen, 0),
-			(get_player_agent_no, "$cam_current_agent"),                 
+			(get_player_agent_no, "$cam_current_agent"),
 		(try_end),
 		(assign, "$cam_mode", 0),
 		#(display_message, "@Mode 0-OFF"),
@@ -1878,11 +1878,11 @@ custom_camera_triggers = [
  (0, 0, 0,[(key_is_down, "$key_camera_backward"), (eq, "$cam_mode", 1)], [(val_sub, "$g_camera_y",1),(neg|key_is_down, key_left_shift),(val_sub, "$g_camera_y",9),]), #camera_backward
  (0, 0, 0,[(key_is_down, "$key_camera_zoom_plus"),(eq, "$cam_mode", 1)], [(val_add, "$g_camera_z",1),(neg|key_is_down, key_left_shift),(val_add, "$g_camera_z",9),]), #camera_up
  (0, 0, 0,[(key_is_down, "$key_camera_zoom_min"), (eq, "$cam_mode", 1)], [(val_sub, "$g_camera_z",1),(neg|key_is_down, key_left_shift),(val_sub, "$g_camera_z",9),(val_max,"$g_camera_z", 50),]), #camera_down
- (0, 0, 0,[(key_clicked, "$key_camera_next"),(eq, "$cam_mode", 1),(ge, "$cam_free", 1)], [(call_script, "script_cust_cam_cycle_forwards")]), #camera_cycle_fowards     
+ (0, 0, 0,[(key_clicked, "$key_camera_next"),(eq, "$cam_mode", 1),(ge, "$cam_free", 1)], [(call_script, "script_cust_cam_cycle_forwards")]), #camera_cycle_fowards
  (0, 0, 0,[(key_clicked, "$key_camera_prev"),(eq, "$cam_mode", 1),(ge, "$cam_free", 1)], [(call_script, "script_cust_cam_cycle_backwards")]), #camera_cycle_backwards
  (0, 0, 0,[(neg|main_hero_fallen),(key_is_down, key_left_mouse_button),(eq, "$cam_mode", 1)], [(eq, "$fplayer_agent_no","$cam_current_agent"),(agent_is_alive, "$fplayer_agent_no"),(agent_get_wielded_item,":weapon","$cam_current_agent",0),(ge, ":weapon", 0),(item_get_type, ":type", ":weapon"), (this_or_next|eq,":type",itp_type_bow),(this_or_next|eq,":type",itp_type_crossbow),(eq,":type",itp_type_thrown),(assign,"$shoot_mode",1),(mission_cam_set_mode, 0)]), #camera_shot
- (0, 0, 0,[(neg|main_hero_fallen),(neg|key_is_down, key_left_mouse_button), (eq, "$shoot_mode",1)], [(assign,"$shoot_mode",0),(mission_cam_set_mode, 1)]) , #camera_return_normal      
-  
+ (0, 0, 0,[(neg|main_hero_fallen),(neg|key_is_down, key_left_mouse_button), (eq, "$shoot_mode",1)], [(assign,"$shoot_mode",0),(mission_cam_set_mode, 1)]) , #camera_return_normal
+
  ]
 ## Prebattle Orders & Deployment End
 
@@ -1899,11 +1899,11 @@ multiplayer_server_check_belfry_movement = (
       (else_try),
         (assign, ":belfry_body_scene_prop", "spr_belfry_b"),
       (try_end),
-    
+
       (scene_prop_get_num_instances, ":num_belfries", ":belfry_body_scene_prop"),
       (try_for_range, ":belfry_no", 0, ":num_belfries"),
         (scene_prop_get_instance, ":belfry_scene_prop_id", ":belfry_body_scene_prop", ":belfry_no"),
-        (prop_instance_get_position, pos1, ":belfry_scene_prop_id"), #pos1 holds position of current belfry 
+        (prop_instance_get_position, pos1, ":belfry_scene_prop_id"), #pos1 holds position of current belfry
         (prop_instance_get_starting_position, pos11, ":belfry_scene_prop_id"),
 
         (store_add, ":belfry_first_entry_point_id", 11, ":belfry_no"), #belfry entry points are 110..119 and 120..129 and 130..139
@@ -1911,16 +1911,16 @@ multiplayer_server_check_belfry_movement = (
           (eq, ":belfry_kind", 1),
           (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),
           (val_add, ":belfry_first_entry_point_id", ":number_of_belfry_a"),
-        (try_end),        
-                
+        (try_end),
+
         (val_mul, ":belfry_first_entry_point_id", 10),
         (store_add, ":belfry_last_entry_point_id", ":belfry_first_entry_point_id", 10),
-    
+
         (try_for_range, ":entry_point_id", ":belfry_first_entry_point_id", ":belfry_last_entry_point_id"),
           (entry_point_is_auto_generated, ":entry_point_id"),
           (assign, ":belfry_last_entry_point_id", ":entry_point_id"),
         (try_end),
-        
+
         (assign, ":belfry_last_entry_point_id_plus_one", ":belfry_last_entry_point_id"),
         (val_sub, ":belfry_last_entry_point_id", 1),
         (assign, reg0, ":belfry_last_entry_point_id"),
@@ -1945,11 +1945,11 @@ multiplayer_server_check_belfry_movement = (
             (ge, ":belfry_next_entry_point_id", 0),
             (entry_point_get_position, pos5, ":belfry_next_entry_point_id"), #pos5 holds belfry next entry point target during its path
           (else_try),
-            (copy_position, pos5, pos11),    
+            (copy_position, pos5, pos11),
           (try_end),
-        
+
           (get_distance_between_positions, ":belfry_next_entry_point_distance", pos1, pos5),
-        
+
           #collecting scene prop ids of belfry parts
           (try_begin),
             (eq, ":belfry_kind", 0),
@@ -1961,12 +1961,12 @@ multiplayer_server_check_belfry_movement = (
             #belfry platform_a
             (scene_prop_get_instance, ":belfry_platform_a_scene_prop_id", "spr_belfry_b_platform_a", ":belfry_no"),
           (try_end),
-    
+
           #belfry wheel_1
           (store_mul, ":wheel_no", ":belfry_no", 3),
           (try_begin),
             (eq, ":belfry_body_scene_prop", "spr_belfry_b"),
-            (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),    
+            (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),
             (store_mul, ":number_of_belfry_a_wheels", ":number_of_belfry_a", 3),
             (val_add, ":wheel_no", ":number_of_belfry_a_wheels"),
           (try_end),
@@ -2003,13 +2003,13 @@ multiplayer_server_check_belfry_movement = (
 
             (this_or_next|eq, ":belfry_kind", 1), #there is this_or_next here because belfry_b has no platform_b
             (neg|scene_prop_has_agent_on_it, ":belfry_platform_b_scene_prop_id", ":agent_id"),
-    
+
             (neg|scene_prop_has_agent_on_it, ":belfry_wheel_1_scene_prop_id", ":agent_id"),#can be removed to make faster
             (neg|scene_prop_has_agent_on_it, ":belfry_wheel_2_scene_prop_id", ":agent_id"),#can be removed to make faster
             (neg|scene_prop_has_agent_on_it, ":belfry_wheel_3_scene_prop_id", ":agent_id"),#can be removed to make faster
             (neg|position_is_behind_position, pos2, pos19),
             (position_is_behind_position, pos2, pos1),
-            (val_add, ":number_of_agents_around_belfry", 1),        
+            (val_add, ":number_of_agents_around_belfry", 1),
           (try_end),
 
           (val_min, ":number_of_agents_around_belfry", 16),
@@ -2021,7 +2021,7 @@ multiplayer_server_check_belfry_movement = (
             (neq, ":next_entry_point_id", ":belfry_next_entry_point_id"),
 
             (try_begin),
-              (eq, ":next_entry_point_id", ":belfry_next_entry_point_id"), #if we are still targetting same entry point subtract 
+              (eq, ":next_entry_point_id", ":belfry_next_entry_point_id"), #if we are still targetting same entry point subtract
               (prop_instance_is_animating, ":is_animating", ":belfry_scene_prop_id"),
               (eq, ":is_animating", 1),
 
@@ -2031,8 +2031,8 @@ multiplayer_server_check_belfry_movement = (
               (assign, ":distance", ":belfry_next_entry_point_distance"),
               (val_mul, ":distance", ":sqrt_number_of_agents_around_belfry"),
               (val_div, ":distance", 100), #100 is because of fixed_point_multiplier
-              (val_mul, ":distance", 4), #multiplying with 4 to make belfry pushing process slower, 
-                                                                 #with 16 agents belfry will go with 4 / 4 = 1 speed (max), with 1 agent belfry will go with 1 / 4 = 0.25 speed (min)    
+              (val_mul, ":distance", 4), #multiplying with 4 to make belfry pushing process slower,
+                                                                 #with 16 agents belfry will go with 4 / 4 = 1 speed (max), with 1 agent belfry will go with 1 / 4 = 0.25 speed (min)
             (try_end),
 
             (try_begin),
@@ -2042,20 +2042,20 @@ multiplayer_server_check_belfry_movement = (
               (init_position, pos9),
               (position_set_y, pos9, -500), #go 5.0 meters back
               (position_set_x, pos9, -300), #go 3.0 meters left
-              (position_transform_position_to_parent, pos10, pos5, pos9), 
+              (position_transform_position_to_parent, pos10, pos5, pos9),
               (position_get_distance_to_terrain, ":height_to_terrain_1", pos10), #learn distance between 5 meters back of entry point(pos10) and ground level at left part of belfry
-      
+
               (init_position, pos9),
               (position_set_y, pos9, -500), #go 5.0 meters back
               (position_set_x, pos9, 300), #go 3.0 meters right
-              (position_transform_position_to_parent, pos10, pos5, pos9), 
+              (position_transform_position_to_parent, pos10, pos5, pos9),
               (position_get_distance_to_terrain, ":height_to_terrain_2", pos10), #learn distance between 5 meters back of entry point(pos10) and ground level at right part of belfry
 
               (store_add, ":height_to_terrain", ":height_to_terrain_1", ":height_to_terrain_2"),
               (val_mul, ":height_to_terrain", 100), #because of fixed point multiplier
 
               (store_div, ":rotate_angle_of_next_entry_point", ":height_to_terrain", 24), #if there is 1 meters of distance (100cm) then next target position will rotate by 2 degrees. #ac sonra
-              (init_position, pos20),    
+              (init_position, pos20),
               (position_rotate_x_floating, pos20, ":rotate_angle_of_next_entry_point"),
               (position_transform_position_to_parent, pos23, pos5, pos20),
 
@@ -2082,18 +2082,18 @@ multiplayer_server_check_belfry_movement = (
               (position_get_distance_to_terrain, ":height_to_terrain_at_right", pos10), #learn distance between 3.0 meters right of entry point(pos10) and ground level
               (store_sub, ":height_to_terrain_2", ":height_to_terrain_at_left", ":height_to_terrain_at_right"),
 
-              (store_add, ":height_to_terrain", ":height_to_terrain_1", ":height_to_terrain_2"),    
+              (store_add, ":height_to_terrain", ":height_to_terrain_1", ":height_to_terrain_2"),
               (val_mul, ":height_to_terrain", 100), #100 is because of fixed_point_multiplier
-              (store_div, ":rotate_angle_of_next_entry_point", ":height_to_terrain", 24), #if there is 1 meters of distance (100cm) then next target position will rotate by 25 degrees. 
+              (store_div, ":rotate_angle_of_next_entry_point", ":height_to_terrain", 24), #if there is 1 meters of distance (100cm) then next target position will rotate by 25 degrees.
               (val_mul, ":rotate_angle_of_next_entry_point", -1),
 
               (init_position, pos20),
               (position_rotate_y_floating, pos20, ":rotate_angle_of_next_entry_point"),
               (position_transform_position_to_parent, pos22, pos23, pos20),
             (else_try),
-              (copy_position, pos22, pos5),      
+              (copy_position, pos22, pos5),
             (try_end),
-              
+
             (try_begin),
               (ge, ":number_of_agents_around_belfry", 1), #if there is any agents pushing belfry
 
@@ -2101,15 +2101,15 @@ multiplayer_server_check_belfry_movement = (
               (store_sqrt, ":sqrt_number_of_agents_around_belfry", ":sqrt_number_of_agents_around_belfry"),
               (val_min, ":sqrt_number_of_agents_around_belfry", 300),
               (val_mul, ":belfry_next_entry_point_distance", 100), #100 is because of fixed_point_multiplier
-              (val_mul, ":belfry_next_entry_point_distance", 3), #multiplying with 3 to make belfry pushing process slower, 
-                                                                 #with 9 agents belfry will go with 3 / 3 = 1 speed (max), with 1 agent belfry will go with 1 / 3 = 0.33 speed (min)    
+              (val_mul, ":belfry_next_entry_point_distance", 3), #multiplying with 3 to make belfry pushing process slower,
+                                                                 #with 9 agents belfry will go with 3 / 3 = 1 speed (max), with 1 agent belfry will go with 1 / 3 = 0.33 speed (min)
               (val_div, ":belfry_next_entry_point_distance", ":sqrt_number_of_agents_around_belfry"),
               #calculating destination coordinates of belfry parts
               #belfry platform_a
               (prop_instance_get_position, pos6, ":belfry_platform_a_scene_prop_id"),
               (position_transform_position_to_local, pos7, pos1, pos6),
               (position_transform_position_to_parent, pos8, pos22, pos7),
-              (prop_instance_animate_to_position, ":belfry_platform_a_scene_prop_id", pos8, ":belfry_next_entry_point_distance"),    
+              (prop_instance_animate_to_position, ":belfry_platform_a_scene_prop_id", pos8, ":belfry_next_entry_point_distance"),
               #belfry platform_b
               (try_begin),
                 (eq, ":belfry_kind", 0),
@@ -2130,7 +2130,7 @@ multiplayer_server_check_belfry_movement = (
               (position_transform_position_to_local, pos7, pos20, pos13),
               (position_transform_position_to_parent, pos21, pos22, pos7),
               (prop_instance_rotate_to_position, ":belfry_wheel_1_scene_prop_id", pos21, ":belfry_next_entry_point_distance", ":belfry_wheel_rotation"),
-      
+
               #belfry wheel_2
               #(prop_instance_get_starting_position, pos13, ":belfry_wheel_2_scene_prop_id"),
               (prop_instance_get_position, pos13, ":belfry_wheel_2_scene_prop_id"),
@@ -2138,7 +2138,7 @@ multiplayer_server_check_belfry_movement = (
               (position_transform_position_to_local, pos7, pos20, pos13),
               (position_transform_position_to_parent, pos21, pos22, pos7),
               (prop_instance_rotate_to_position, ":belfry_wheel_2_scene_prop_id", pos21, ":belfry_next_entry_point_distance", ":belfry_wheel_rotation"),
-      
+
               #belfry wheel_3
               (prop_instance_get_position, pos13, ":belfry_wheel_3_scene_prop_id"),
               (prop_instance_get_position, pos20, ":belfry_scene_prop_id"),
@@ -2147,7 +2147,7 @@ multiplayer_server_check_belfry_movement = (
               (prop_instance_rotate_to_position, ":belfry_wheel_3_scene_prop_id", pos21, ":belfry_next_entry_point_distance", ":belfry_wheel_rotation"),
 
               #belfry main body
-              (prop_instance_animate_to_position, ":belfry_scene_prop_id", pos22, ":belfry_next_entry_point_distance"),    
+              (prop_instance_animate_to_position, ":belfry_scene_prop_id", pos22, ":belfry_next_entry_point_distance"),
             (else_try),
               (prop_instance_is_animating, ":is_animating", ":belfry_scene_prop_id"),
               (eq, ":is_animating", 1),
@@ -2168,15 +2168,15 @@ multiplayer_server_check_belfry_movement = (
               #belfry main body
               (prop_instance_stop_animating, ":belfry_scene_prop_id"),
             (try_end),
-        
-            (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, ":number_of_agents_around_belfry"),    
+
+            (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, ":number_of_agents_around_belfry"),
             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_next_entry_point_id, ":belfry_next_entry_point_id"),
           (try_end),
         (else_try),
           (le, ":dist_between_belfry_and_its_destination", 4),
           (scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
-      
-          (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),    
+
+          (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),
 
           (try_begin),
             (eq, ":belfry_kind", 0),
@@ -2184,9 +2184,9 @@ multiplayer_server_check_belfry_movement = (
           (else_try),
             (scene_prop_get_instance, ":belfry_platform_a_scene_prop_id", "spr_belfry_b_platform_a", ":belfry_no"),
           (try_end),
-    
+
           (prop_instance_get_starting_position, pos0, ":belfry_platform_a_scene_prop_id"),
-          (prop_instance_animate_to_position, ":belfry_platform_a_scene_prop_id", pos0, 400),    
+          (prop_instance_animate_to_position, ":belfry_platform_a_scene_prop_id", pos0, 400),
         (try_end),
       (try_end),
     (try_end),
@@ -2220,9 +2220,9 @@ multiplayer_server_spawn_bots = (
       (else_try),
         (assign, ":rounded_game_first_round_time_limit_past", 1),
       (try_end),
-    
+
       (eq, ":rounded_game_first_round_time_limit_past", 1),
-    
+
       (store_random_in_range, ":random_req", 0, ":total_req"),
       (val_sub, ":random_req", "$g_multiplayer_num_bots_required_team_1"),
       (try_begin),
@@ -2250,7 +2250,7 @@ multiplayer_server_spawn_bots = (
       (else_try),
         (assign, ":look_only_actives", 1),
       (try_end),
-    
+
       (call_script, "script_multiplayer_find_bot_troop_and_group_for_spawn", ":selected_team", ":look_only_actives"),
       (assign, ":selected_troop", reg0),
       (assign, ":selected_group", reg1),
@@ -2276,7 +2276,7 @@ multiplayer_server_spawn_bots = (
         (try_for_range, ":bot_type_wanted_slot", slot_player_bot_type_1_wanted, ":end_cond"),
           (player_slot_ge, ":player_no", ":bot_type_wanted_slot", 1),
           (assign, ":ai_wanted", 1),
-          (assign, ":end_cond", 0), 
+          (assign, ":end_cond", 0),
         (try_end),
 
         (ge, ":ai_wanted", 1),
@@ -2306,17 +2306,17 @@ multiplayer_server_spawn_bots = (
             (lt, ":round_time", 20), #at start of game spawn at base entry point
             (try_begin),
               (eq, ":selected_team", 0),
-              (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 1, ":is_horseman"), 
+              (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 1, ":is_horseman"),
             (else_try),
               (assign, reg0, multi_initial_spawn_point_team_2),
             (try_end),
           (else_try),
-            (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 0, ":is_horseman"), 
+            (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 0, ":is_horseman"),
           (try_end),
         (else_try),
           (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_battle),
           (eq, "$g_multiplayer_game_type", multiplayer_game_type_destroy),
-      
+
           (try_begin),
             (eq, ":selected_team", 0),
             (assign, reg0, 0),
@@ -2324,9 +2324,9 @@ multiplayer_server_spawn_bots = (
             (assign, reg0, 32),
           (try_end),
         (else_try),
-          (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 0, ":is_horseman"), 
+          (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 0, ":is_horseman"),
         (try_end),
-      
+
         (store_current_scene, ":cur_scene"),
         (modify_visitors_at_site, ":cur_scene"),
         (add_visitors_to_current_scene, reg0, ":selected_troop", 1, ":selected_team", ":selected_group"),
@@ -2340,7 +2340,7 @@ multiplayer_server_spawn_bots = (
           (val_sub, "$g_multiplayer_num_bots_required_team_2", 1),
         (try_end),
       (try_end),
-    (try_end),    
+    (try_end),
     ])
 
 multiplayer_server_manage_bots = (
@@ -2386,8 +2386,8 @@ multiplayer_server_check_polls = (
       (call_script, "script_game_set_multiplayer_mission_end"),
     (try_end),
     ])
-    
-multiplayer_server_check_end_map = ( 
+
+multiplayer_server_check_end_map = (
   1, 0, 0, [],
   [
     (multiplayer_is_server),
@@ -2397,7 +2397,7 @@ multiplayer_server_check_end_map = (
       (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_battle),
       (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_destroy),
       (eq, "$g_multiplayer_game_type", multiplayer_game_type_siege),
-    
+
       (try_begin),
         (eq, "$g_round_ended", 1),
 
@@ -2405,8 +2405,8 @@ multiplayer_server_check_end_map = (
         (val_sub, ":seconds_past_till_round_ended", "$g_round_finish_time"),
         (store_sub, ":multiplayer_respawn_period_minus_one", "$g_multiplayer_respawn_period", 1),
         (ge, ":seconds_past_till_round_ended", ":multiplayer_respawn_period_minus_one"),
-  
-        (store_mission_timer_a, ":mission_timer"),    
+
+        (store_mission_timer_a, ":mission_timer"),
         (try_begin),
           (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_battle),
           (eq, "$g_multiplayer_game_type", multiplayer_game_type_destroy),
@@ -2414,13 +2414,13 @@ multiplayer_server_check_end_map = (
         (else_try),
           (assign, ":reduce_amount", 120),
         (try_end),
-    
+
         (store_mul, ":game_max_seconds", "$g_multiplayer_game_max_minutes", 60),
         (store_sub, ":game_max_seconds_min_n_seconds", ":game_max_seconds", ":reduce_amount"), #when round ends if there are 60 seconds to map change time then change map without completing exact map time.
         (gt, ":mission_timer", ":game_max_seconds_min_n_seconds"),
         (assign, ":end_map", 1),
       (try_end),
-      
+
       (eq, ":end_map", 1),
     (else_try),
       (neq, "$g_multiplayer_game_type", multiplayer_game_type_battle), #battle mod has different end map condition by time
@@ -2453,7 +2453,7 @@ multiplayer_server_check_end_map = (
           (assign, ":at_least_one_player_is_at_game", 1),
           (assign, ":num_players", 0),
         (try_end),
-    
+
         (eq, ":at_least_one_player_is_at_game", 1),
 
         (this_or_next|le, ":team_1_score", 0), #in headquarters game ends only if one team has 0 score.
@@ -2465,7 +2465,7 @@ multiplayer_server_check_end_map = (
       (eq, ":end_map", 1),
       (call_script, "script_game_multiplayer_get_game_type_mission_template", "$g_multiplayer_game_type"),
       (start_multiplayer_mission, reg0, "$g_multiplayer_selected_map", 0),
-      (call_script, "script_game_set_multiplayer_mission_end"),           
+      (call_script, "script_game_set_multiplayer_mission_end"),
     (try_end),
     ])
 
@@ -2964,16 +2964,16 @@ common_wot_initialize_timers = (
 ## Initialize channeling weave variables (Version 1: used for single player mode, sets known weaves and total channeling stamina/recharge rate based off player attributes)
 common_wot_initialize_channeling_weave_variables_1 = (
     0.3, 0, ti_once, [],
-         [   
+         [
              # set slots for num seekers active and individual seeker status to zero
              (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, 0),
-             
+
              (try_for_range, ":seeker_no", 1201, 1251),
                  (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
-             
+
                  (store_add, ":target_no", ":seeker_no", 50),
                  (troop_set_slot, "$g_tgs_player_troop", ":target_no", -1),
-             
+
                  (store_add, ":shooter_no", ":seeker_no", 100),
                  (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", -1),
 
@@ -2987,16 +2987,16 @@ common_wot_initialize_channeling_weave_variables_1 = (
                  (troop_set_slot, "$g_tgs_player_troop", ":speed_no", 0),
 
                  (store_add, ":power_no", ":seeker_no", 300),
-                 (troop_set_slot, "$g_tgs_player_troop", ":power_no", 0),               
+                 (troop_set_slot, "$g_tgs_player_troop", ":power_no", 0),
              (try_end),
-             
+
              # set firewall slots to 0
              (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_firewalls_active, 0),
 
              (try_for_range, ":slot_no", 1601, 1661),
                  (troop_set_slot, "$g_tgs_player_troop", ":slot_no", 0),
              (try_end),
-             
+
              (assign, "$g_initialize_complete", 1),
          ])
 
@@ -3015,13 +3015,13 @@ common_wot_initialize_channeling_weave_variables_2 = (
 
              # set slots for num seekers active and individual seeker status to zero
              (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_seekers_active, 0),
-             
+
              (try_for_range, ":seeker_no", 1201, 1251),
                  (troop_set_slot, "$g_tgs_player_troop", ":seeker_no", 0),
-             
+
                  (store_add, ":target_no", ":seeker_no", 50),
                  (troop_set_slot, "$g_tgs_player_troop", ":target_no", -1),
-             
+
                  (store_add, ":shooter_no", ":seeker_no", 100),
                  (troop_set_slot, "$g_tgs_player_troop", ":shooter_no", -1),
 
@@ -3035,21 +3035,21 @@ common_wot_initialize_channeling_weave_variables_2 = (
                  (troop_set_slot, "$g_tgs_player_troop", ":speed_no", 0),
 
                  (store_add, ":power_no", ":seeker_no", 300),
-                 (troop_set_slot, "$g_tgs_player_troop", ":power_no", 0),               
+                 (troop_set_slot, "$g_tgs_player_troop", ":power_no", 0),
              (try_end),
-             
+
              # set firewall slots to 0
              (troop_set_slot, "$g_tgs_player_troop", slot_troop_num_firewalls_active, 0),
 
              (try_for_range, ":slot_no", 1601, 1661),
                  (troop_set_slot, "$g_tgs_player_troop", ":slot_no", 0),
              (try_end),
-             
+
              # assign channeling troop slots
              (try_for_range, ":slot_no", 2000, 2015),
                  (troop_set_slot, "$g_tgs_player_troop", ":slot_no", 1),
              (try_end),
-             
+
              (try_begin),
              (eq, "$g_tgs_player_troop", "trp_quick_battle_troop_1"), # Rand
                  (troop_set_slot, "$g_tgs_player_troop", slot_troop_max_channeling_stamina, 100000),
@@ -3067,14 +3067,14 @@ common_wot_initialize_channeling_weave_variables_2 = (
              (else_try),
                  (troop_set_slot, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 0),
              (try_end),
-             
+
              # set up variable hot-keys
              (assign, "$key_weave_toggle", key_caps_lock), #Toggle Weave
              (assign, "$key_recover_one_power_item", key_z), #Recover_one_power_item
 
 
              (assign, "$g_initialize_complete", 1),
-             
+
          ])
 
 ## Initialize channeling weave variables (Version 3: used for multiplayer mode, sets known weaves and total channeling stamina)
@@ -3086,42 +3086,42 @@ common_wot_initialize_channeling_weave_variables_multi = (
              #(assign, "$g_toggle_weave_long", 0),
              #(assign, "$g_toggle_weave_support", 0),
              #(assign, "$g_toggle_weave_advanced", 0),
-             
+
              (multiplayer_get_my_player, ":player"),
              (player_set_slot, ":player", slot_player_current_weave_toggle_mode, 0),
              (player_set_slot, ":player", slot_player_current_weave, 1),
-             
+
              (try_begin),
              (multiplayer_is_server), # server only
-             
+
                  # initialize slot variables for agents
                  (try_for_agents, ":agent"),
     #                 (agent_is_human, ":agent"),
                      (agent_is_alive, ":agent"),
-                 
+
                      (agent_set_slot, ":agent", slot_agent_has_active_seeker, 0),
                      (agent_set_slot, ":agent", slot_agent_seeker_shooter, -1),
-                 
+
                      (agent_set_slot, ":agent", slot_agent_on_fire, 0),
                      (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
-                 
+
                      (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
                      (agent_set_slot, ":agent", slot_agent_airborne_x_movement, 0),
                      (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
                      (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 0),
-    
+
                      (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
-    
+
                      (agent_set_slot, ":agent", slot_agent_is_bound, 0),
                      (agent_set_slot, ":agent", slot_agent_bound_x, 0),
                      (agent_set_slot, ":agent", slot_agent_bound_y, 0),
-    
+
                      (agent_set_slot, ":agent", slot_agent_is_shielded, 0),
-    
+
                      (agent_set_slot, ":agent", slot_agent_under_compulsion, 0),
-    
+
                      (agent_set_slot, ":agent", slot_agent_hit_by_balefire, 0),
-    
+
                      (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 0),
                      (agent_set_slot, ":agent", slot_agent_is_warder_for_agent, 0),
                      (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, -1),
@@ -3129,17 +3129,17 @@ common_wot_initialize_channeling_weave_variables_multi = (
                      (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_3, -1),
                      (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_4, -1),
                      (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
-    
+
                      (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 0),
                      (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, 0),
-    
+
                      (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
                      (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
                  (try_end),
-             
+
                  # seeker variables
                  (assign, "$g_number_seekers_active", 0),
-                 
+
                  (assign, "$g_seeker_slot_1", 0),
                  (assign, "$g_seeker_slot_2", 0),
                  (assign, "$g_seeker_slot_3", 0),
@@ -3160,7 +3160,7 @@ common_wot_initialize_channeling_weave_variables_multi = (
                  (assign, "$g_seeker_slot_18", 0),
                  (assign, "$g_seeker_slot_19", 0),
                  (assign, "$g_seeker_slot_20", 0),
-                 
+
                  (assign, "$g_seeker_slot_1_target", -1),
                  (assign, "$g_seeker_slot_2_target", -1),
                  (assign, "$g_seeker_slot_3_target", -1),
@@ -3183,15 +3183,15 @@ common_wot_initialize_channeling_weave_variables_multi = (
                  (assign, "$g_seeker_slot_20_target", -1),
 
              (try_end), # end of server only initialization
-             
+
 
              # determine number of weaves known based off channeling (firearms) proficiency
 
              # changed from normal code
-             #(store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),  
+             #(store_proficiency_level,":channeling_proficiency","trp_player",wpt_firearm),
 
              (assign, ":channeling_proficiency", 250),  # added so always strong
-                
+
              #(try_begin),
              #(lt, ":channeling_proficiency",15),
              #    (assign, "$g_number_weaves_known", 1),
@@ -3258,7 +3258,7 @@ common_wot_initialize_channeling_weave_variables_multi = (
              #(store_add, "$g_channeling_stamina_recharge_rate", ":recharge_rate_1", ":recharge_rate_2"),
 
              (assign, "$g_initialize_complete", 1),
-             
+
          ])
 
 ## Multiplayer Server update client Seeker global variables trigger (also used to update agent slots)
@@ -3270,7 +3270,7 @@ common_wot_server_update_client_seeker_global_variables_multi = (
         (get_max_players, ":num_players"),
         (try_for_range, ":player_no", 0, ":num_players"),
         (player_is_active, ":player_no"),
-        
+
             # Update seeker global variables
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 0, 0, 0),
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 1, "$g_seeker_slot_1", "$g_seeker_slot_1_target"),
@@ -3293,18 +3293,18 @@ common_wot_server_update_client_seeker_global_variables_multi = (
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 18, "$g_seeker_slot_18", "$g_seeker_slot_18_target"),
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 19, "$g_seeker_slot_19", "$g_seeker_slot_19_target"),
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_seeker_info_to_player, "$g_number_seekers_active", 20, "$g_seeker_slot_20", "$g_seeker_slot_20_target"),
-        
+
             # Update agent slots
             (try_for_agents, ":agent"),
                 (agent_get_slot, ":slot_value", ":agent", slot_agent_has_active_seeker),
                 (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_has_active_seeker, ":slot_value"),
-             
+
                 (agent_get_slot, ":slot_value", ":agent", slot_agent_on_fire),
                 (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_on_fire, ":slot_value"),
-        
+
                 (agent_get_slot, ":slot_value", ":agent", slot_agent_fire_duration),
                 (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_fire_duration, ":slot_value"),
-             
+
                 (agent_get_slot, ":slot_value", ":agent", slot_agent_is_airborne),
                 (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_is_airborne, ":slot_value"),
                 (agent_get_slot, ":slot_value", ":agent", slot_agent_airborne_x_movement),
@@ -3357,7 +3357,7 @@ common_wot_server_update_client_seeker_global_variables_multi = (
                 (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_has_draghkar_kiss, ":slot_value"),
                 (agent_get_slot, ":slot_value", ":agent", slot_agent_draghkar_cooldown),
                 (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_draghkar_cooldown, ":slot_value"),
-        
+
                 (agent_get_slot, ":slot_value", ":agent", slot_agent_is_channeler),
                 (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_send_slot_info_to_player, 1, ":agent", slot_agent_is_channeler, ":slot_value"),
             (try_end),
@@ -3405,18 +3405,18 @@ common_wot_timer_trigger_one_thousandth = (
 #                 (try_begin),
 #                 (agent_has_item_equipped, ":agent", "itm_power_player"),
 #                     (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
-             
+
                  # added for npc companions
                  #(else_try),
                  #(agent_has_item_equipped, ":agent", "itm_power_npc_companion_ranged"),
                  #    (agent_set_slot, ":agent", slot_agent_is_channeler, 1),
                  # end added for npc companions
-             
+
 #                 (else_try),
 #                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
 
 #                 (try_end),
-             
+
 #             (try_end),
 #         ])
 
@@ -3444,10 +3444,10 @@ common_wot_check_for_channelers_in_the_scene_multi = (
              # end added for multiplayer
 
                  (else_try),
-                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),             
+                     (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
 
                  (try_end),
-             
+
              (try_end),
          ])
 
@@ -3456,11 +3456,11 @@ common_wot_initialize_channeling_slots_on_agent_spawn_1 = (
     ti_on_agent_spawn, 0, 0, [],
          [
                  (store_trigger_param_1, ":agent"),
-                 
+
                  # initialize slot variables for agents
                  (agent_set_slot, ":agent", slot_agent_on_fire, 0),
                  (agent_set_slot, ":agent", slot_agent_fire_duration, 0),
-        
+
                  (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_x_movement, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_y_movement, 0),
@@ -3468,7 +3468,7 @@ common_wot_initialize_channeling_slots_on_agent_spawn_1 = (
                  (agent_set_slot, ":agent", slot_agent_airborne_knockdown, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_push_modifier, 0),
                  (agent_set_slot, ":agent", slot_agent_airborne_start_knockdown, 0),
-         
+
                  (agent_set_slot, ":agent", slot_agent_freeze_duration, 0),
                  (agent_set_slot, ":agent", slot_agent_freeze_damage, 0),
                  (agent_set_slot, ":agent", slot_agent_is_frozen, 0),
@@ -3501,7 +3501,7 @@ common_wot_initialize_channeling_slots_on_agent_spawn_1 = (
 
                  (agent_set_slot, ":agent", slot_agent_has_draghkar_kiss, 0),
                  (agent_set_slot, ":agent", slot_agent_draghkar_cooldown, 0),
-                 
+
                  # Special slot initialization for channelers
                  (try_begin),
 #                 (this_or_next|agent_has_item_equipped, ":agent", "itm_power_npc_companion_ranged"),
@@ -3511,7 +3511,7 @@ common_wot_initialize_channeling_slots_on_agent_spawn_1 = (
                  (else_try),
                      (agent_set_slot, ":agent", slot_agent_is_channeler, 0),
                  (try_end),
-             
+
          ])
 
 ## Spawn Warders, Veteran Warders, and Ashaman Warders (soldier/dedicated) for Aes Sedai, Damane for Sul'dam, and Aes Sedai for Ashaman
@@ -3523,9 +3523,9 @@ common_wot_spawn_warders = (
                  (agent_is_alive, ":agent"),
                  (agent_slot_eq, ":agent", slot_agent_is_warder_for_agent, 0),
                  (agent_slot_eq, ":agent", slot_agent_has_warders_spawned, 0),
-             
+
                      (agent_get_troop_id, ":agent_troop", ":agent"),
-             
+
                      (try_begin), # Yellow, Brown, White, Blue, Grey Ajahs
                      (this_or_next|eq, ":agent_troop", "trp_aes_sedai_yellow"),
                      (this_or_next|eq, ":agent_troop", "trp_aes_sedai_yellow_veteran"),
@@ -3539,7 +3539,7 @@ common_wot_spawn_warders = (
                      (eq, ":agent_troop", "trp_aes_sedai_grey_veteran"),
                      (store_random_in_range, ":random", 1, 100),
                      (le, ":random", 75),
-             
+
                          (agent_get_look_position, pos55, ":agent"),
                          (position_get_x, ":x_agent", pos55),
                          (position_get_y, ":y_agent", pos55),
@@ -3558,7 +3558,7 @@ common_wot_spawn_warders = (
                          (agent_get_party_id, ":agent_party", ":agent"),
 
                          (set_spawn_position, pos55),
-             
+
                          (try_begin),
                          (this_or_next|agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_yellow_shoes"), # Aes Sedai is veteran
                          (this_or_next|agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_brown_shoes"), # Aes Sedai is veteran
@@ -3595,14 +3595,14 @@ common_wot_spawn_warders = (
 
                          (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
                          (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
+
 
                      (else_try), # Red Ajah
                      (this_or_next|eq, ":agent_troop", "trp_aes_sedai_red"),
                      (eq, ":agent_troop", "trp_aes_sedai_red_veteran"),
                      (store_random_in_range, ":random", 1, 100),
                      (le, ":random", 30),
-             
+
                          (agent_get_look_position, pos55, ":agent"),
                          (position_get_x, ":x_agent", pos55),
                          (position_get_y, ":y_agent", pos55),
@@ -3621,7 +3621,7 @@ common_wot_spawn_warders = (
                          (agent_get_party_id, ":agent_party", ":agent"),
 
                          (set_spawn_position, pos55),
-             
+
                          (try_begin),
                          (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_red_shoes"), # Aes Sedai is veteran
                              (spawn_agent, "trp_ashaman_warder"),
@@ -3645,7 +3645,7 @@ common_wot_spawn_warders = (
 
                          (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
                          (agent_set_slot, ":agent", slot_agent_aes_sedai_warder_1, ":new_agent"),
-             
+
                      (else_try), # Green Ajah
                      (this_or_next|eq, ":agent_troop", "trp_aes_sedai_green"),
                      (eq, ":agent_troop", "trp_aes_sedai_green_veteran"),
@@ -3672,7 +3672,7 @@ common_wot_spawn_warders = (
                          (try_for_range, ":warder_number", 1, 5), # Green Ajah has a chance for up to four warders
                          (store_random_in_range, ":random", 1, 100),
                          (le, ":random", 75),
-             
+
                              (try_begin),
                              (agent_has_item_equipped, ":agent", "itm_veteran_aes_sedai_green_shoes"), # Aes Sedai is veteran
                                  (store_random_in_range, ":random", 1, 100),
@@ -3720,10 +3720,10 @@ common_wot_spawn_warders = (
                          (try_end),
 
                          (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 1),
-             
+
                      (else_try), # Ashaman
                      (eq, ":agent_troop", "trp_ashaman"),
-                     
+
                          (agent_get_look_position, pos55, ":agent"),
                          (position_get_x, ":x_agent", pos55),
                          (position_get_y, ":y_agent", pos55),
@@ -3788,7 +3788,7 @@ common_wot_spawn_warders = (
 
                      (else_try), # Ashaman Veteran
                      (eq, ":agent_troop", "trp_ashaman_veteran"),
-                     
+
                          (agent_get_look_position, pos55, ":agent"),
                          (position_get_x, ":x_agent", pos55),
                          (position_get_y, ":y_agent", pos55),
@@ -3856,7 +3856,7 @@ common_wot_spawn_warders = (
                          (store_random_in_range, ":random", 1, 100),
                          (try_begin),
                          (le, ":random", 90),
-             
+
                             (agent_get_look_position, pos55, ":agent"),
                             (position_get_x, ":x_agent", pos55),
                             (position_get_y, ":y_agent", pos55),
@@ -3875,7 +3875,7 @@ common_wot_spawn_warders = (
                             (agent_get_party_id, ":agent_party", ":agent"),
 
                             (set_spawn_position, pos55),
-             
+
                             (spawn_agent, "trp_damane"),
                             (store_random_in_range, ":random", 0, 101),
                             (try_begin),
@@ -3900,7 +3900,7 @@ common_wot_spawn_warders = (
                     (store_random_in_range, ":random", 1, 100),
                         (try_begin),
                         (le, ":random", 75),
-             
+
                             (agent_get_look_position, pos55, ":agent"),
                             (position_get_x, ":x_agent", pos55),
                             (position_get_y, ":y_agent", pos55),
@@ -3919,7 +3919,7 @@ common_wot_spawn_warders = (
                             (agent_get_party_id, ":agent_party", ":agent"),
 
                             (set_spawn_position, pos55),
-             
+
                             (spawn_agent, "trp_damane"),
                             (assign, ":new_agent", reg0),
 
@@ -3932,13 +3932,13 @@ common_wot_spawn_warders = (
                         (else_try),
                             (agent_set_slot, ":agent", slot_agent_has_warders_spawned, 2),
                         (try_end),
-             
+
                     (try_end),
                     # Different Troops that spawn 'warders' end
-             
+
              (try_end),
              # For agent end
-             
+
          ])
 
 ## Dismount spawned warders in sieges
@@ -3971,7 +3971,7 @@ common_wot_dismount_spawned_warders_in_sieges = (
 common_wot_recharge_channeling_stamina_trigger = (
     0.1, 0, 0,[
             (gt, "$g_one_second_timer", 2),
-            
+
             (store_mod, ":half_second_check", "$g_one_tenth_second_timer", 5),
             (try_begin),
             (eq, ":half_second_check", 0),
@@ -3992,7 +3992,7 @@ common_wot_recharge_channeling_stamina_trigger = (
                      # Player channeling stamina maximum
                      (store_skill_level, ":channeling_affinity", skl_channeling, "$g_tgs_player_troop"),
                      (store_attribute_level, ":intelligence", "$g_tgs_player_troop", ca_intelligence),
-                     (store_proficiency_level,":channeling_proficiency","$g_tgs_player_troop",wpt_firearm), 
+                     (store_proficiency_level,":channeling_proficiency","$g_tgs_player_troop",wpt_firearm),
 
                      (store_mul, ":stamina_1", ":channeling_affinity", 4000),
                      (store_mul, ":stamina_2", ":intelligence", 700),
@@ -4006,7 +4006,7 @@ common_wot_recharge_channeling_stamina_trigger = (
                      (store_add, ":recharge_rate_2", ":recharge_rate_1", ":channeling_proficiency"),
                      (val_div, ":recharge_rate_2", 2), # for now...
                      (troop_set_slot, "$g_tgs_player_troop", slot_troop_channeling_stamina_recharge_rate_battle, ":recharge_rate_2"),
-             
+
                      # campaign map re-charge rate (per hour)
                      #(store_mul, ":recharge_rate_campaign", ":recharge_rate_2", 10),
                      #(troop_set_slot, "trp_player", slot_troop_channeling_stamina_recharge_rate_campaign, ":recharge_rate_campaign"),
@@ -4027,7 +4027,7 @@ common_wot_recharge_channeling_stamina_trigger = (
                 (else_try),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_player_knows_channeling, 0),
                 (try_end),
-            
+
                 ## mat: DEBUG
                 (troop_get_slot, ":current", "$g_tgs_player_troop", slot_troop_current_channeling_stamina),
                 (troop_get_slot, ":max", "$g_tgs_player_troop", slot_troop_max_channeling_stamina),
@@ -4048,7 +4048,7 @@ common_wot_recharge_channeling_stamina_trigger = (
                 ## mat: DEBUG End
 
             (try_end),
-        
+
         ],
          [
             (troop_get_slot, ":current", "$g_tgs_player_troop", slot_troop_current_channeling_stamina),
@@ -4090,7 +4090,7 @@ common_wot_recharge_channeling_stamina_trigger_multi = (
             (assign, ":channeling_stamina_recharge_rate", 250),
             (store_div, ":recharge_rate_modifier", ":player_gold", 10),
             (store_add, ":channeling_stamina_recharge_rate", ":recharge_rate_modifier"),
-             
+
             (try_begin),
             (player_get_slot, ":current_channeling_stamina", ":player", slot_player_current_channeling_stamina),
             (lt, ":current_channeling_stamina", ":maximum_channeling_stamina"),
@@ -4120,7 +4120,7 @@ common_wot_weave_toggle_short_range_multi = (
 
                 (try_begin),
                 (key_clicked, key_numpad_7),  # start the remainder of the code when 'Numpad_7' is clicked
-                    
+
                     (player_set_slot, ":player", slot_player_current_weave_toggle_mode, 1),
 
 #                    (display_message, "@Toggle Short Range Weaves..."),
@@ -4141,7 +4141,7 @@ common_wot_weave_toggle_long_range_multi = (
 
                 (try_begin),
                 (key_clicked, key_numpad_8),  # start the remainder of the code when 'Numpad_8' is clicked
-                    
+
                     (player_set_slot, ":player", slot_player_current_weave_toggle_mode, 2),
 
 #                    (display_message, "@Toggle Long Range Weaves..."),
@@ -4162,7 +4162,7 @@ common_wot_weave_toggle_support_multi = (
 
                 (try_begin),
                 (key_clicked, key_numpad_9),  # start the remainder of the code when 'Numpad_9' is clicked
-                    
+
                     (player_set_slot, ":player", slot_player_current_weave_toggle_mode, 3),
 
 #                    (display_message, "@Toggle Support Weaves..."),
@@ -4183,7 +4183,7 @@ common_wot_weave_toggle_advanced_multi = (
 
                 (try_begin),
                 (key_clicked, key_numpad_5),  # start the remainder of the code when 'Numpad_5' is clicked
-                    
+
                     (player_set_slot, ":player", slot_player_current_weave_toggle_mode, 4),
 
 #                    (display_message, "@Toggle Advanced Weaves..."),
@@ -4204,7 +4204,7 @@ common_wot_weave_toggle_all_multi = (
 
                 (try_begin),
                 (key_clicked, key_numpad_6),  # start the remainder of the code when 'Numpad_6' is clicked
-                    
+
                     (player_set_slot, ":player", slot_player_current_weave_toggle_mode, 0),
 
 #                    (display_message, "@Toggle All Weaves..."),
@@ -4246,87 +4246,87 @@ common_wot_cycle_through_known_weaves = (
                 (is_between, ":x_val", 350, 381),
                 (is_between, ":y_val", 400, 441),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, AIR_BLAST_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_freeze_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_freeze_known, 1),
                 (is_between, ":x_val", 390, 421),
                 (is_between, ":y_val", 400, 441),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, FREEZE_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_heal_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_heal_known, 1),
                 (is_between, ":x_val", 430, 461),
                 (is_between, ":y_val", 400, 441),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, HEAL_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_fireball_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_fireball_known, 1),
                 (is_between, ":x_val", 470, 501),
                 (is_between, ":y_val", 400, 441),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, FIREBALL_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_unravel_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_unravel_known, 1),
                 (is_between, ":x_val", 510, 541),
                 (is_between, ":y_val", 400, 441),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, UNRAVEL_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_defensive_blast_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_defensive_blast_known, 1),
                 (is_between, ":x_val", 550, 581),
                 (is_between, ":y_val", 400, 441),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, DEFENSIVE_BLAST_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_earth_blast_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_earth_blast_known, 1),
                 (is_between, ":x_val", 590, 621),
                 (is_between, ":y_val", 400, 441),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, EARTH_BLAST_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_bind_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_bind_known, 1),
                 (is_between, ":x_val", 350, 381),
                 (is_between, ":y_val", 350, 391),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, BIND_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_chain_lightning_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_chain_lightning_known, 1),
                 (is_between, ":x_val", 390, 421),
                 (is_between, ":y_val", 350, 391),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, CHAIN_LIGHTNING_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_fire_curtain_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_fire_curtain_known, 1),
                 (is_between, ":x_val", 430, 461),
                 (is_between, ":y_val", 350, 391),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, FIRE_CURTAIN_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_shield_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_shield_known, 1),
                 (is_between, ":x_val", 470, 501),
                 (is_between, ":y_val", 350, 391),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, SHIELD_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_seeker_known, 1),
                 (is_between, ":x_val", 510, 541),
                 (is_between, ":y_val", 350, 391),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, SEEKER_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_compulsion_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_compulsion_known, 1),
                 (is_between, ":x_val", 550, 581),
                 (is_between, ":y_val", 350, 391),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, COMPULSION_WEAVE),
-            
+
                 (else_try),
-                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_balefire_known, 1),            
+                (troop_slot_eq, "$g_tgs_player_troop", slot_troop_balefire_known, 1),
                 (is_between, ":x_val", 590, 621),
                 (is_between, ":y_val", 350, 391),
                     (troop_set_slot, "$g_tgs_player_troop", slot_troop_active_weave, BALEFIRE_WEAVE),
-            
+
                 (try_end),
-            
+
             (try_end),
 
         ])
@@ -4355,7 +4355,7 @@ common_wot_cycle_through_known_weaves_multi = (0, 0, 0, [(neq, multiplayer_is_se
                         (else_try),
                             (val_add, ":active_channeling_weave", 1),
                         (try_end),
-        
+
                     (else_try),
                     (eq, ":weave_toggle_mode", 1),
                         # cycle though all known short range weaves
@@ -4425,12 +4425,12 @@ common_wot_cycle_through_known_weaves_multi = (0, 0, 0, [(neq, multiplayer_is_se
                         (else_try),
                              (assign, ":active_channeling_weave", 12),
                         (try_end),
-            
+
                     (try_end),
 
                     (player_set_slot, ":player", slot_player_current_weave, ":active_channeling_weave"),
 
-                    
+
                     # display a message saying what spell is active
                     (try_begin),
                     (eq, ":active_channeling_weave", 1),
@@ -4475,7 +4475,7 @@ common_wot_cycle_through_known_weaves_multi = (0, 0, 0, [(neq, multiplayer_is_se
                     (eq, ":active_channeling_weave", 14),
                         (display_message, "str_weave_14"),
                     (try_end),
-                    
+
                 (try_end),
 #            (try_end),
 
@@ -4587,11 +4587,11 @@ common_wot_airborne_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 1)],
                 (agent_get_slot, ":rise", ":agent", slot_agent_airborne_y_movement),
                 (agent_get_slot, ":power_factor", ":agent", slot_agent_airborne_power_factor),
                 (agent_get_slot, ":push_modifier", ":agent", slot_agent_airborne_push_modifier),
-        
+
                 (store_mul, ":run_mod_1", ":run", ":push_modifier"),
                 (store_mul, ":rise_mod_1", ":rise", ":push_modifier"),
 
-                # push_modifier_max = 25 for Air Blast        
+                # push_modifier_max = 25 for Air Blast
                 (store_div, ":run_mod_2", ":run_mod_1", 25),
                 (store_div, ":rise_mod_2", ":rise_mod_1", 25),
 
@@ -4618,7 +4618,7 @@ common_wot_airborne_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 1)],
                     (val_sub, ":power_factor", 1),
                     (agent_set_slot, ":agent", slot_agent_airborne_power_factor, ":power_factor"),
                 (try_end),
-        
+
                 # implement knockdown if conditions are met
                 (agent_get_slot, ":knockdown", ":agent", slot_agent_airborne_knockdown),
                 (agent_get_slot, ":start_knockdown", ":agent", slot_agent_airborne_start_knockdown),
@@ -4645,13 +4645,13 @@ common_wot_airborne_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 1)],
                 (lt, ":power_factor", 0),
                     (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
                 (try_end),
-        
+
                 (agent_set_position, ":agent", pos63),
             (else_try),
                 (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
             (try_end),
         (try_end),
-        
+
         ])
 
 ## Bound trigger ## (Bound for 10 seconds and do 1 damage for each second bound)
@@ -4660,7 +4660,7 @@ common_wot_bound_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 1)],
         (try_for_agents, ":agent"),
             (agent_slot_eq, ":agent", slot_agent_is_bound, 1),
             (agent_is_alive, ":agent"),
-        
+
                 (try_begin),
                 (agent_slot_eq, ":agent", slot_agent_is_airborne, 1), # stop movement of agents that have been pushed by air blast / similar weave
                     (agent_set_slot, ":agent", slot_agent_is_airborne, 0),
@@ -4683,22 +4683,22 @@ common_wot_bound_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 1)],
                 (agent_get_slot, ":damage_over_time", ":agent", slot_agent_bound_damage_over_time),
                 (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
                 (val_mod, ":one_second_check", 100),
-        
+
                 (try_begin),
                 (eq, ":one_second_check", 0),  ## true once every second
                 (gt, ":damage_over_time", 0),
                     (store_agent_hit_points,":target_health",":agent",1),
                     (agent_get_slot, ":chosen", ":agent", slot_agent_bound_by),
-                 
+
                     (try_begin),
                     (gt,":target_health",":damage_over_time"),
-                 
+
                         (try_begin), # add to channeling multiplier if agent is player
                         (neg|agent_is_non_player, ":chosen"),
                             (val_add, "$g_channeling_proficiency_modifier", 2),
                         (try_end),
 #                        (add_xp_to_troop,1,":chosen"),
-                 
+
                         (try_begin), # check burn duration
                         (gt, ":bound_duration", 0),
                             (val_sub, ":bound_duration", 1),
@@ -4712,20 +4712,20 @@ common_wot_bound_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 1)],
                         (val_sub,":target_health",":damage_over_time"),
                         (agent_set_hit_points,":agent",":target_health",1),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
+
                     (else_try),
                         (agent_set_hit_points,":agent",0,0),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
+
                         (try_begin),
                         (neg|agent_is_non_player, ":chosen"),
                             (val_add, "$g_channeling_proficiency_modifier", 20),
                         (try_end),
-                 
+
                         (add_xp_to_troop,25,":chosen"),
                         (agent_set_slot, ":agent", slot_agent_is_bound, 0),
                     (try_end),
-        
+
                 (else_try),
                 (eq, ":one_second_check", 0),
                     (try_begin), # check burn duration
@@ -4738,9 +4738,9 @@ common_wot_bound_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 1)],
                         (agent_force_rethink, ":agent"),
                     (try_end),
                 (try_end),
-        
+
         (try_end),
-        
+
         ])
 
 ## Bound trigger ## (multiplayer, do damage for 10 seconds) (should only run on server side)
@@ -4749,7 +4749,7 @@ common_wot_bound_trigger_multi = (
                     [
                       (multiplayer_is_server), # set to run on server only
                       (assign, ":bound_check", 0),
-                      
+
                       (try_for_agents, ":agent"),
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
@@ -4768,8 +4768,8 @@ common_wot_bound_trigger_multi = (
             (neg|agent_is_routed, ":agent"),
             (agent_get_slot, ":bound", ":agent", slot_agent_is_bound),
             (eq, ":bound", 1),
-        
-                
+
+
                 (agent_get_look_position, pos60, ":agent"),
 
                 (particle_system_burst, "psys_bound_aura", pos60, 25),
@@ -4781,16 +4781,16 @@ common_wot_bound_trigger_multi = (
                 (eq, ":one_second_check", 0),  ## true once every second
                     (store_agent_hit_points,":target_health",":agent",1),
                     (agent_get_slot, ":chosen", ":agent", slot_agent_bound_by),
-                 
+
                     (try_begin),
                     (gt,":target_health",2),
-                 
+
                         (try_begin), # add to channeling multiplier if agent is player
                         (neg|agent_is_non_player, ":chosen"),
                             (val_add, "$g_channeling_proficiency_modifier", 2),
                         (try_end),
 #                        (add_xp_to_troop,1,":chosen"),
-                 
+
                         (try_begin), # check burn duration
                         (gt, ":bound_duration", 0),
                              (val_sub, ":bound_duration", 1),
@@ -4802,22 +4802,22 @@ common_wot_bound_trigger_multi = (
                         (val_sub,":target_health",2),
                         (agent_set_hit_points,":agent",":target_health",1),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
+
                     (else_try),
                         (agent_set_hit_points,":agent",0,0),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
+
                         (try_begin),
                         (neg|agent_is_non_player, ":chosen"),
                             (val_add, "$g_channeling_proficiency_modifier", 20),
                         (try_end),
-                 
+
                         (add_xp_to_troop,25,":chosen"),
                         (agent_set_slot, ":agent", slot_agent_is_bound, 0),
                     (try_end),
-                
+
         (try_end),
-        
+
         ])
 
  ## Aes Sedai bonded to Ashaman and Damane linked to Suldam, follow their bond holder ##
@@ -4827,7 +4827,7 @@ common_wot_warder_follow_bond_holder = (0, 0, 0.05,[(eq, "$g_initialize_complete
             (agent_is_alive, ":agent"),
             (agent_get_slot, ":warder", ":agent", slot_agent_is_warder_for_agent),
             (gt, ":warder", 1), # means agent bonded to ashaman or suldam (therefore they should follow)
-        
+
                 (agent_get_slot, ":bond_holder", ":agent", slot_agent_warder_bond_holder),
                 (try_begin),
                 (agent_is_alive, ":bond_holder"),
@@ -4857,9 +4857,9 @@ common_wot_warder_follow_bond_holder = (0, 0, 0.05,[(eq, "$g_initialize_complete
                         (agent_force_rethink, ":agent"),
                     (try_end),
                 (try_end),
-                
+
         (try_end),
-        
+
         ])
 
 ## Leader warders will determine the movement of other warders bonded to the same Aes Sedai. The Aes Sedai will also follow unless she is made damane to a Suldam/Der'Suldam.
@@ -4878,10 +4878,10 @@ common_wot_leader_warder_determines_movement_of_group = (0, 0, 0.05,[(eq, "$g_in
                     (assign, ":current_warder_leader_suitable", 0),
                     (agent_set_slot, ":agent", slot_agent_warder_is_leader, 0),
                 (try_end),
-        
+
                 (agent_get_slot, ":bond_holder", ":agent", slot_agent_warder_bond_holder),
                 (agent_is_alive, ":bond_holder"),
-        
+
                 # bugfix
                 (assign, ":warder_1", -1),
                 (assign, ":warder_2", -1),
@@ -4895,7 +4895,7 @@ common_wot_leader_warder_determines_movement_of_group = (0, 0, 0.05,[(eq, "$g_in
 
                 (try_begin),
                 (eq, ":current_warder_leader_suitable", 1),
-        
+
                     (agent_get_look_position, pos53, ":agent"),
 
                     (position_get_y, ":y_lead_warder", pos53),
@@ -4991,11 +4991,11 @@ common_wot_leader_warder_determines_movement_of_group = (0, 0, 0.05,[(eq, "$g_in
                     (eq, ":found_new_leader", 0),
                         (agent_set_slot, ":bond_holder", slot_agent_warders_incapacitated, 1),
                     (try_end),
-                    
+
                 (try_end),
-                
+
         (try_end),
-        
+
         ])
 
 ## Incapacitated Warders trigger (Aes Sedai with incapacitated Warders will check to see if one of them becomes a valid leader again ##
@@ -5005,7 +5005,7 @@ common_wot_incapacitated_warders_trigger = (0, 0, 0.05,[(eq, "$g_initialize_comp
             (agent_is_alive, ":agent"),
             (agent_get_slot, ":has_incapacitated_warders", ":agent", slot_agent_warders_incapacitated),
             (gt, ":has_incapacitated_warders", 0),
-        
+
                 (agent_get_slot, ":warder_1", ":agent", slot_agent_aes_sedai_warder_1),
                 (agent_get_slot, ":warder_2", ":agent", slot_agent_aes_sedai_warder_2),
                 (agent_get_slot, ":warder_3", ":agent", slot_agent_aes_sedai_warder_3),
@@ -5049,13 +5049,13 @@ common_wot_incapacitated_warders_trigger = (0, 0, 0.05,[(eq, "$g_initialize_comp
                     (agent_set_slot, ":agent", slot_agent_warders_incapacitated, 0),
                     (assign, ":found_new_leader", 1),
                 (try_end),
-        
+
                 ## action if all warders are dead
                 (assign, ":warder_1_hp", 0),
                 (assign, ":warder_2_hp", 0),
                 (assign, ":warder_3_hp", 0),
                 (assign, ":warder_4_hp", 0),
-        
+
                 (try_begin),
                 (neq, ":warder_1", -1),
                     (store_agent_hit_points, ":warder_1_hp", ":warder_1", 0),
@@ -5075,7 +5075,7 @@ common_wot_incapacitated_warders_trigger = (0, 0, 0.05,[(eq, "$g_initialize_comp
                 (neq, ":warder_4", -1),
                     (store_agent_hit_points, ":warder_4_hp", ":warder_4", 0),
                 (try_end),
-        
+
                 (try_begin),
                 (eq, ":warder_1_hp", 0),
                 (eq, ":warder_2_hp", 0),
@@ -5085,9 +5085,9 @@ common_wot_incapacitated_warders_trigger = (0, 0, 0.05,[(eq, "$g_initialize_comp
                     (agent_force_rethink, ":agent"),
                 (try_end),
                 ## end action if all warders are dead
-                
+
         (try_end),
-        
+
         ])
 
 ## Non-linked Sul'dam trigger ## for non-multiplayer
@@ -5095,7 +5095,7 @@ common_wot_non_linked_suldam_trigger = (0, 0, 3,[(eq, "$g_initialize_complete", 
        [
         (try_for_agents, ":agent"),
             (agent_is_alive, ":agent"),
-                      
+
             (assign, ":agent_suldam", 0),
             (try_begin),
             (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
@@ -5105,7 +5105,7 @@ common_wot_non_linked_suldam_trigger = (0, 0, 3,[(eq, "$g_initialize_complete", 
                 (assign, ":agent_suldam", 2),
             (try_end),
             (gt, ":agent_suldam", 0), # only continue if agent is suldam or der sul'dam
-        
+
             (agent_slot_eq, ":agent", slot_agent_has_warders_spawned, 2), # '2' means either they didn't get a damane, or their damane died
 
             (assign, ":suldam_failed_leash_attempt", 0),
@@ -5121,7 +5121,7 @@ common_wot_non_linked_suldam_trigger = (0, 0, 3,[(eq, "$g_initialize_complete", 
                     (agent_get_team, ":suldam_team", ":agent"),
                     (agent_get_team, ":target_team", ":target"),
                     (teams_are_enemies, ":suldam_team", ":target_team"), # don't try to leash allies
-                    
+
                     (agent_get_position, pos1, ":agent"),
                     (agent_get_position, pos2, ":target"),
                     (get_distance_between_positions, ":dist", pos1, pos2),
@@ -5188,10 +5188,10 @@ common_wot_non_linked_suldam_trigger = (0, 0, 3,[(eq, "$g_initialize_complete", 
                             (try_end),
                         (try_end),
                     (try_end),
-                        
+
                 (try_end),
         (try_end),
-        
+
         ])
 
 ## Non-linked Sul'dam trigger ## for multiplayer (should only run on server)
@@ -5200,11 +5200,11 @@ common_wot_non_linked_suldam_trigger_multi = (
                     [
                       (multiplayer_is_server),
                       (assign, ":not_linked_check", 0),
-                      
+
                       (try_for_agents, ":agent"),
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
-                      
+
                           (assign, ":agent_suldam", 0),
                           (try_begin),
                           (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
@@ -5215,9 +5215,9 @@ common_wot_non_linked_suldam_trigger_multi = (
                           (try_end),
                           (gt, ":agent_suldam", 0), # only continue if agent is suldam or der sul'dam
 
-                          #(agent_get_slot, ":linked", ":agent", slot_agent_has_warders_spawned), 
+                          #(agent_get_slot, ":linked", ":agent", slot_agent_has_warders_spawned),
                           #(eq, ":linked", 2),
-                      
+
                           (val_add, ":not_linked_check", 1), # proceed with trigger if sul'dam is not linked
                       (try_end),
 
@@ -5228,7 +5228,7 @@ common_wot_non_linked_suldam_trigger_multi = (
         (try_for_agents, ":agent"),
             (agent_is_alive, ":agent"),
             (neg|agent_is_wounded, ":agent"),
-                      
+
             (assign, ":agent_suldam", 0),
             (try_begin),
             (agent_has_item_equipped, ":agent", "itm_suldam_dagger"),
@@ -5239,21 +5239,21 @@ common_wot_non_linked_suldam_trigger_multi = (
             (try_end),
             (gt, ":agent_suldam", 0), # only continue if agent is suldam or der sul'dam
 
-            #(agent_get_slot, ":linked", ":agent", slot_agent_has_warders_spawned), 
+            #(agent_get_slot, ":linked", ":agent", slot_agent_has_warders_spawned),
             #(eq, ":linked", 2), # proceed with trigger if sul'dam is not linked
 
             (assign, ":suldam_failed_leash_attempt", 0),
 
                 (try_for_agents, ":target"),
                     (eq, ":suldam_failed_leash_attempt", 0),
-        
+
                     (agent_get_slot, ":target_is_channeler", ":target", slot_agent_is_channeler),
                     (eq, ":target_is_channeler", 1), # only try to leash channeler
-        
+
                     (agent_get_troop_id, ":target_troop", ":target"),
                     (troop_get_type, ":target_is_female", ":target_troop"),
                     (eq, ":target_is_female", 1), # only try to leash female channelers
-        
+
                     #(agent_get_slot, ":already_linked", ":target", slot_agent_is_warder_for_agent),
                     #(eq, ":already_linked", 0), # don't try to leash a warder (it will make who follows who difficult)
 
@@ -5263,7 +5263,7 @@ common_wot_non_linked_suldam_trigger_multi = (
                     (agent_get_team, ":suldam_team", ":agent"),
                     (agent_get_team, ":target_team", ":target"),
                     (teams_are_enemies, ":suldam_team", ":target_team"), # don't try to leash allies
-                    
+
                     (agent_get_position, pos1, ":agent"),
                     (agent_get_position, pos2, ":target"),
                     (get_distance_between_positions, ":dist", pos1, pos2),
@@ -5281,7 +5281,7 @@ common_wot_non_linked_suldam_trigger_multi = (
                     #(store_add, ":leash_opportunity_2", ":gold_buff", 10),
                     (store_add, ":leash_opportunity_3", ":gold_buff", 16),
                     #(store_add, ":leash_opportunity_4", ":gold_buff", 16),
-                    
+
 
                     (try_begin),
                     (eq, ":agent_suldam", 1), # agent is suldam
@@ -5313,10 +5313,10 @@ common_wot_non_linked_suldam_trigger_multi = (
                             (try_end),
                         (try_end),
                     (try_end),
-                        
+
                 (try_end),
         (try_end),
-        
+
         ])
 
 ## Sul'dam with dead Damane trigger ##
@@ -5332,7 +5332,7 @@ common_suldam_with_dead_damane_trigger = (0, 0, 3,[(eq, "$g_initialize_complete"
                 (agent_set_slot, ":damane_leash_holder", slot_agent_has_warders_spawned, 2), # start looking for female channelers like any sul'dam who didn't get a damane from spawn code.
                 (agent_set_slot, ":agent", slot_agent_is_warder_for_agent, 0),
         (try_end),
-        
+
         ])
 
 ## Sul'dam with dead Damane trigger ## (multiplayer) (code should only run on server side)
@@ -5345,7 +5345,7 @@ common_suldam_with_dead_damane_trigger_multi = (
                       (try_for_agents, ":agent"),
                           (agent_get_troop_id, ":agent_troop", ":agent"),
                           (eq, ":agent_troop", "trp_damane_multi"),
-                      
+
                           (assign, ":dead_or_wounded", 0),
                           (try_begin),
                           (neg|agent_is_alive, ":agent"),
@@ -5366,7 +5366,7 @@ common_suldam_with_dead_damane_trigger_multi = (
         (try_for_agents, ":agent"),
             (agent_get_troop_id, ":agent_troop", ":agent"),
             (eq, ":agent_troop", "trp_damane_multi"),
-                      
+
             (assign, ":dead_or_wounded", 0),
             (try_begin),
             (neg|agent_is_alive, ":agent"),
@@ -5382,7 +5382,7 @@ common_suldam_with_dead_damane_trigger_multi = (
 
             (agent_set_slot, ":damane_leash_holder", slot_agent_has_warders_spawned, 2), # start looking for female channelers like any sul'dam who didn't get a damane from spawn code.
         (try_end),
-        
+
         ])
 
 ## Nearby Myrddraal trigger ##
@@ -5398,7 +5398,7 @@ common_wot_nearby_myrddraal_trigger = (0, 0, 0.25, [(eq, "$g_initialize_complete
         # end
             (agent_get_team, ":agent_team", ":agent"),
             (agent_get_position, pos1, ":agent"),
-        
+
             (assign, ":number_myrddraal_nearby", 0),
             (try_for_agents, ":agent_2"),
                 (agent_has_item_equipped, ":agent_2", "itm_myrddraal_hood_helmet"), # agent is myrddraal
@@ -5410,12 +5410,12 @@ common_wot_nearby_myrddraal_trigger = (0, 0, 0.25, [(eq, "$g_initialize_complete
                 (lt, ":dist", 1000),
                     (val_add, ":number_myrddraal_nearby", 1),
             (try_end),
-        
+
             (try_begin),
             (gt, ":number_myrddraal_nearby", 0),
                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 10),
             (try_end),
-        
+
             (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, ":number_myrddraal_nearby"),
         (try_end),
         ])
@@ -5435,7 +5435,7 @@ common_wot_nearby_myrddraal_trigger_multi = (
             (troop_get_slot, ":darkfriend_buff_check", ":agent_troop", slot_troop_darkfriend_buff),
             (eq, ":darkfriend_buff_check", 0), # only proceed with code if agent doesn't have the buff
         # end
-        
+
             (agent_get_team, ":agent_team", ":agent"),
             (agent_get_position, pos1, ":agent"),
             (assign, ":number_myrddraal_nearby", 0),
@@ -5449,23 +5449,23 @@ common_wot_nearby_myrddraal_trigger_multi = (
 
                 (agent_get_position, pos2, ":agent_2"),
                 (get_distance_between_positions, ":dist", pos1, pos2),
-        
+
                 (try_begin),
                 (lt, ":dist", 1000),
                     (val_add, ":number_myrddraal_nearby", 1),
                 (try_end),
 
             (try_end),
-        
+
             (try_begin),
             (gt, ":number_myrddraal_nearby", 0),
                 (agent_set_slot, ":agent", slot_agent_myrddraal_fear_counter, 10),
             (try_end),
 
             (agent_set_slot, ":agent", slot_agent_myrddraal_fear_magnitude, ":number_myrddraal_nearby"),
-                
+
         (try_end),
-        
+
         ])
 
 ## Myrddraal Fear trigger ##
@@ -5501,7 +5501,7 @@ common_wot_myrddraal_fear_trigger_multi = (
                     [
                       (multiplayer_is_server), # only for server
                       (assign, ":fear_check", 0),
-                      
+
                       (try_for_agents, ":agent"),
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
@@ -5519,25 +5519,25 @@ common_wot_myrddraal_fear_trigger_multi = (
             (neg|agent_is_wounded, ":agent"),
             (agent_get_slot, ":has_fear", ":agent", slot_agent_myrddraal_fear_counter),
             (gt, ":has_fear", 0),
-        
+
                 (agent_get_slot, ":fear_magnitude", ":agent", slot_agent_myrddraal_fear_magnitude),
                 (store_add, ":fear_magnitude_new", ":fear_magnitude", 1),
 
                 (try_for_range, ":unused", 1, ":fear_magnitude_new"),
                     (store_random_in_range, ":random", 1, 100),
-        
+
                     (try_begin),
                     (lt, ":random", 15),
                         (store_agent_hit_points,":target_health",":agent",1),
-        
+
                         (try_begin),
                         (gt,":target_health",1),
                             (val_sub,":target_health",1),
                             (agent_set_hit_points,":agent",":target_health",1),
                         (try_end), # no (else_try) that will kill agent for now (can't die from fear, just become a very easy target)
-        
+
                     (try_end),
-                        
+
                 (try_end),
 
                 (val_sub, ":has_fear", 1),
@@ -5545,9 +5545,9 @@ common_wot_myrddraal_fear_trigger_multi = (
 
                 (agent_get_look_position, pos1, ":agent"),
                 (particle_system_burst, "psys_fear_aura", pos1, 5),
-                
+
         (try_end),
-        
+
         ])
 
 ## Draghkar Hunt trigger ## for non-multiplayer
@@ -5565,7 +5565,7 @@ common_wot_draghkar_hunt_trigger = (0, 0, 1, [(eq, "$g_initialize_complete", 1)]
             (else_try),
                 (agent_get_team, ":agent_team", ":agent"),
                 (agent_get_position, pos1, ":agent"),
-        
+
                 (assign, ":number_enemies_nearby", 0),
                 (try_for_agents, ":agent_2"),
                     (eq, ":number_enemies_nearby", 0),
@@ -5585,7 +5585,7 @@ common_wot_draghkar_hunt_trigger = (0, 0, 1, [(eq, "$g_initialize_complete", 1)]
                         (val_add, ":number_enemies_nearby", 1),
                         (assign, ":target", ":agent_2"),
                 (try_end),
-        
+
                 (try_begin),
                 (gt, ":number_enemies_nearby", 0),
                     (store_random_in_range, ":random", 1, 100),
@@ -5600,7 +5600,7 @@ common_wot_draghkar_hunt_trigger = (0, 0, 1, [(eq, "$g_initialize_complete", 1)]
                 (try_end),
 
             (try_end),
-                
+
         (try_end),
         ])
 
@@ -5637,7 +5637,7 @@ common_wot_draghkar_hunt_trigger_multi = (
 
                     (agent_get_position, pos2, ":agent_2"),
                     (get_distance_between_positions, ":dist", pos1, pos2),
-        
+
                     (try_begin),
                     (lt, ":dist", 250),
                         (val_add, ":number_enemies_nearby", 1),
@@ -5645,10 +5645,10 @@ common_wot_draghkar_hunt_trigger_multi = (
                     (try_end),
 
                 (try_end),
-        
+
                 (try_begin),
                 (gt, ":number_enemies_nearby", 0),
-        
+
                     (assign, ":gold_buff", 0),
                     (try_begin),
                     (neg|agent_is_non_player, ":agent"),
@@ -5658,7 +5658,7 @@ common_wot_draghkar_hunt_trigger_multi = (
                     (try_end),
 
                     (store_add, ":kiss_opportunity", ":gold_buff", 18),
-                    
+
                     (store_random_in_range, ":random", 1, 100),
 
                     (try_begin),
@@ -5678,9 +5678,9 @@ common_wot_draghkar_hunt_trigger_multi = (
                 (try_end),
 
             (try_end),
-                
+
         (try_end),
-        
+
         ])
 
 ## Draghkar Kiss of Death trigger ##
@@ -5711,7 +5711,7 @@ common_wot_draghkar_kiss_of_death_trigger_multi = (
                     [
                       (multiplayer_is_server), # for server only
                       (assign, ":kiss_check", 0),
-                      
+
                       (try_for_agents, ":agent"),
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
@@ -5734,7 +5734,7 @@ common_wot_draghkar_kiss_of_death_trigger_multi = (
                 (particle_system_burst, "psys_fear_aura", pos1, 5),
 
                 (store_agent_hit_points,":target_health",":agent",1),
-        
+
                 (try_begin),
                 (gt,":target_health",1),
                     (val_sub,":target_health",1),
@@ -5744,9 +5744,9 @@ common_wot_draghkar_kiss_of_death_trigger_multi = (
                     (agent_set_hit_points, ":agent", 0, 0),
                     (agent_deliver_damage_to_agent, ":draghkar",":agent"),
                 (try_end),
-                
+
         (try_end),
-        
+
         ])
 
 ## Shielded trigger ##
@@ -5766,7 +5766,7 @@ common_wot_shielded_trigger_multi = (
                     [
                       (multiplayer_is_server), # for server only
                       (assign, ":shield_check", 0),
-                      
+
                       (try_for_agents, ":agent"),
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
@@ -5784,12 +5784,12 @@ common_wot_shielded_trigger_multi = (
             (neg|agent_is_wounded, ":agent"),
             (agent_get_slot, ":shielded", ":agent", slot_agent_is_shielded),
             (eq, ":shielded", 1),
-        
+
                 (agent_get_look_position, pos59, ":agent"),
                 (particle_system_burst, "psys_shield_aura", pos59, 10),
-                
+
         (try_end),
-        
+
         ])
 
 ## Compulsion trigger ##
@@ -5809,7 +5809,7 @@ common_wot_compulsion_trigger_multi = (
                     [
                       (multiplayer_is_server), # for server only
                       (assign, ":compulsion_check", 0),
-                      
+
                       (try_for_agents, ":agent"),
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
@@ -5827,7 +5827,7 @@ common_wot_compulsion_trigger_multi = (
             (neg|agent_is_wounded, ":agent"),
             (agent_get_slot, ":compelled", ":agent", slot_agent_under_compulsion),
             (eq, ":compelled", 1),
-        
+
                 (agent_get_look_position, pos58, ":agent"),
                 (particle_system_burst, "psys_compulsion_aura", pos58, 10),
                 # new for multiplayer
@@ -5842,7 +5842,7 @@ common_wot_compulsion_trigger_multi = (
                 (try_end),
                 # end
         (try_end),
-        
+
         ])
 
 ## Balefire trigger ## (Version 1: single player mode - throws corpses to coordinates (100,100,ground level))
@@ -5851,7 +5851,7 @@ common_wot_balefire_trigger_1 = (0, 0, 0.001,[(eq, "$g_initialize_complete", 1)]
         (try_for_agents, ":agent"),
             (agent_slot_eq, ":agent", slot_agent_hit_by_balefire, 1),
             (agent_is_alive, ":agent"),
-        
+
                 (agent_get_look_position, pos57, ":agent"),
                 (particle_system_burst, "psys_compulsion_aura", pos58, 10),  # new one for balefire
 
@@ -5864,7 +5864,7 @@ common_wot_balefire_trigger_1 = (0, 0, 0.001,[(eq, "$g_initialize_complete", 1)]
                     (val_add, "$g_channeling_proficiency_modifier", 150),
                 (try_end),
                 (add_xp_to_troop,75,":chosen"),
-        
+
                 (position_set_x, pos57, 100), # was 0
                 (position_set_y, pos57, 100), # was 0
                 (position_set_z_to_ground_level, pos57),
@@ -5876,10 +5876,10 @@ common_wot_balefire_trigger_1 = (0, 0, 0.001,[(eq, "$g_initialize_complete", 1)]
                 (agent_get_kill_count, ":wounded_count", ":agent", 1),
                 (this_or_next|gt, ":kill_count", 0),
                 (gt, ":wounded_count", 0),
-        
+
                     (agent_get_team, ":agent_team", ":agent"),
-        
-                    (assign, ":resurrection_count", 0),        
+
+                    (assign, ":resurrection_count", 0),
                     (try_for_agents, ":agent_2"),
                         (eq, ":resurrection_count", 0),
                         (agent_is_non_player, ":agent_2"),
@@ -5907,7 +5907,7 @@ common_wot_balefire_trigger_2 = (
     0, 0, 0.001,
                     [
                       (assign, ":balefire_check", 0),
-                      
+
                       (try_for_agents, ":agent"),
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
@@ -5925,7 +5925,7 @@ common_wot_balefire_trigger_2 = (
             (neg|agent_is_wounded, ":agent"),
             (agent_get_slot, ":balefired", ":agent", slot_agent_hit_by_balefire),
             (eq, ":balefired", 1),
-        
+
                 (agent_get_look_position, pos57, ":agent"),
                 (particle_system_burst, "psys_compulsion_aura", pos58, 10),  # new one for balefire
 
@@ -5938,7 +5938,7 @@ common_wot_balefire_trigger_2 = (
                     (val_add, "$g_channeling_proficiency_modifier", 150),
                 (try_end),
                 (add_xp_to_troop,75,":chosen"),
-        
+
                 (position_set_x, pos57, 100), # changed from 0 because that was causing crashing in "Oasis"
                 (position_set_y, pos57, 100), # changed from 0 because that was causing crashing in "Oasis"
                 (position_set_z_to_ground_level, pos57),
@@ -5961,7 +5961,7 @@ common_wot_balefire_trigger_2 = (
 
                 (assign, ":kill_wounded", ":kills"),
                 (val_or, ":kill_wounded", ":wounded"),
-        
+
                 (agent_get_team, ":agent_team", ":agent"),
                 (assign, ":resurrection_count", 0),
 
@@ -6006,7 +6006,7 @@ common_wot_balefire_trigger_2 = (
 
                 (remove_agent, ":agent"), # not sure what this does
         (try_end),
-        
+
         ])
 
 ## Balefire trigger ## (Version 3: multiplayer mode - throws corpses to coordinaes (100,100,ground level)) (code should only run on server side)
@@ -6015,7 +6015,7 @@ common_wot_balefire_trigger_multi = (
                     [
                       (multiplayer_is_server), # for server only
                       (assign, ":balefire_check", 0),
-                      
+
                       (try_for_agents, ":agent"),
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
@@ -6033,7 +6033,7 @@ common_wot_balefire_trigger_multi = (
             (neg|agent_is_wounded, ":agent"),
             (agent_get_slot, ":balefired", ":agent", slot_agent_hit_by_balefire),
             (eq, ":balefired", 1),
-        
+
                 (agent_get_look_position, pos57, ":agent"),
                 (particle_system_burst, "psys_compulsion_aura", pos58, 10),  # new one for balefire
 
@@ -6046,7 +6046,7 @@ common_wot_balefire_trigger_multi = (
                     (val_add, "$g_channeling_proficiency_modifier", 150),
                 (try_end),
                 (add_xp_to_troop,75,":chosen"),
-        
+
                 (position_set_x, pos57, 100), # changed from 0 because that was causing crashing in "Oasis"
                 (position_set_y, pos57, 100), # changed from 0 because that was causing crashing in "Oasis"
                 (position_set_z_to_ground_level, pos57),
@@ -6077,7 +6077,7 @@ common_wot_balefire_trigger_multi = (
 
                 (assign, ":kill_wounded", ":kills"),
                 (val_or, ":kill_wounded", ":wounded"),
-        
+
                 (agent_get_team, ":agent_team", ":agent"),
                 (assign, ":resurrection_count", 0),
 
@@ -6107,10 +6107,10 @@ common_wot_balefire_trigger_multi = (
 
 #                (remove_agent, ":agent"), # not sure what this does
         (try_end),
-        
+
         ])
 
-## Burn over time trigger 1## 
+## Burn over time trigger 1##
 common_wot_burn_over_time_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 1)],
        [
         (try_for_agents, ":agent"),
@@ -6127,20 +6127,20 @@ common_wot_burn_over_time_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 
                 (eq, ":one_second_check", 0),  ## true once every second
                     (store_agent_hit_points,":target_health",":agent",1),
                     (agent_get_slot, ":chosen", ":agent", slot_agent_fire_starter),
-                 
+
                     (try_begin),
                     (gt,":target_health",1),
                         (val_sub,":target_health",1),
                         (agent_set_hit_points,":agent",":target_health",1),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
+
                         (try_begin), # add to channeling multiplier if agent is player
                         (neg|agent_is_non_player, ":chosen"),
                             (val_add, "$g_channeling_proficiency_modifier", 2),
                         (try_end),
 #                        (add_xp_to_troop,1,":chosen"),
                         (agent_get_slot, ":burn_duration", ":agent", slot_agent_fire_duration),
-                 
+
                         (try_begin), # check burn duration
                         (gt, ":burn_duration", 0),
                              (val_sub, ":burn_duration", 1),
@@ -6148,16 +6148,16 @@ common_wot_burn_over_time_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 
                         (else_try),
                              (agent_set_slot, ":agent", slot_agent_on_fire, 0),
                         (try_end),
-                 
+
                     (else_try),
                         (agent_set_hit_points,":agent",0,0),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
+
                         (try_begin),
                         (neg|agent_is_non_player, ":chosen"),
                             (val_add, "$g_channeling_proficiency_modifier", 20),
                         (try_end),
-                 
+
                         (add_xp_to_troop,25,":chosen"),
                         (val_sub, ":z_temp", 400),
                         (position_set_z, pos62, ":z_temp"),
@@ -6174,7 +6174,7 @@ common_wot_burn_over_time_trigger_multi = (
                     [
                       (multiplayer_is_server), # for server only
                       (assign, ":fire_check", 0),
-                      
+
                       (try_for_agents, ":agent"),
                           (agent_is_alive, ":agent"),
                           (neg|agent_is_wounded, ":agent"),
@@ -6203,15 +6203,15 @@ common_wot_burn_over_time_trigger_multi = (
                 (eq, ":one_second_check", 0),  ## true once every second
                     (store_agent_hit_points,":target_health",":agent",1),
                     (agent_get_slot, ":chosen", ":agent", slot_agent_fire_starter),
-                 
+
                     (try_begin),
                     (gt,":target_health",1),
                         (val_sub,":target_health",1),
                         (agent_set_hit_points,":agent",":target_health",1),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
+
                         (agent_get_slot, ":burn_duration", ":agent", slot_agent_fire_duration),
-                 
+
                         (try_begin), # check burn duration
                         (gt, ":burn_duration", 0),
                              (val_sub, ":burn_duration", 1),
@@ -6219,11 +6219,11 @@ common_wot_burn_over_time_trigger_multi = (
                         (else_try),
                              (agent_set_slot, ":agent", slot_agent_on_fire, 0),
                         (try_end),
-                 
+
                     (else_try),
                         (agent_set_hit_points,":agent",0,0),
                         (agent_deliver_damage_to_agent,":chosen",":agent"),
-                 
+
                         (try_begin),
                         (neg|agent_is_non_player, ":chosen"),
                             (agent_get_player_id, ":player_id", ":chosen"),
@@ -6231,7 +6231,7 @@ common_wot_burn_over_time_trigger_multi = (
                             (val_add, ":gold", 300),
                             (player_set_gold, ":player_id", ":gold", 15000),
                         (try_end),
-                 
+
                         (add_xp_to_troop,25,":chosen"),
                         (val_sub, ":z_temp", 400),
                         (position_set_z, pos62, ":z_temp"),
@@ -6243,7 +6243,7 @@ common_wot_burn_over_time_trigger_multi = (
 
        ])
 
-## Pass Electrical Charge trigger 1## 
+## Pass Electrical Charge trigger 1##
 common_wot_electrical_charge_trigger = (0, 0, 0.1,[(eq, "$g_initialize_complete", 1)],
        [
         (try_for_agents, ":agent"),
@@ -6292,7 +6292,7 @@ common_wot_electrical_charge_trigger = (0, 0, 0.1,[(eq, "$g_initialize_complete"
                         (gt, ":shock_duration", 1), # duration from the original agent, check to see if charge can be passed on
                         (agent_slot_eq, ":agent_2", slot_agent_has_been_shocked, 0),
                         (agent_is_alive, ":agent_2"),
-        
+
                         #partial friendly fire protection
                         (agent_get_team, ":chosen_team", ":chosen"),
                         (agent_get_team, ":agent_team_ff", ":agent_2"),
@@ -6339,7 +6339,7 @@ common_wot_electrical_charge_trigger = (0, 0, 0.1,[(eq, "$g_initialize_complete"
                                 (try_end),
                             (try_end),
                     (try_end),
-        
+
                 (else_try),
                 (is_between, ":shock_duration", -15, 1), # -16 is where 'cool-down' ends
                     (val_sub, ":shock_duration", 1),
@@ -6348,11 +6348,11 @@ common_wot_electrical_charge_trigger = (0, 0, 0.1,[(eq, "$g_initialize_complete"
                 (lt, ":shock_duration", -15),
                     (agent_set_slot, ":agent", slot_agent_has_been_shocked, 0),
                 (try_end),
-        
+
         (try_end),
        ])
 
-## Freeze over time trigger 1## 
+## Freeze over time trigger 1##
 common_wot_freeze_over_time_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete", 1)],
        [
         (try_for_agents, ":agent"),
@@ -6363,7 +6363,7 @@ common_wot_freeze_over_time_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete"
                 (val_add, ":z_temp", 1000),
                 (position_set_z, pos62, ":z_temp"),
                 (particle_system_burst, "psys_freeze_over_time", pos62, 1),
-        
+
                 (assign, ":one_second_check", "$g_one_hundredth_second_timer"),
                 (val_mod, ":one_second_check", 100),
                 (try_begin),
@@ -6382,7 +6382,7 @@ common_wot_freeze_over_time_trigger = (0, 0, 0.01,[(eq, "$g_initialize_complete"
                 (try_end),
 
                 (assign, ":two_second_check", "$g_one_hundredth_second_timer"),
-                (val_mod, ":two_second_check", 200), # was 300      
+                (val_mod, ":two_second_check", 200), # was 300
                 (try_begin),
                 (eq, ":two_second_check", 0),
                     (store_agent_hit_points,":target_health",":agent",1),
@@ -6634,7 +6634,7 @@ common_wot_seeker_trigger_1_multi = (
         (multiplayer_is_server),
         ],
 	[
-            
+
 	(try_begin),
 	(eq, "$g_seeker_slot_1", 1),
 	(agent_is_alive, "$g_seeker_slot_1_target"),
@@ -6652,13 +6652,13 @@ common_wot_seeker_trigger_1_multi = (
 
 	    (val_abs, ":diff_x"),
 	    (val_abs, ":diff_y"),
-        
+
             #(store_random_in_range, ":increment", 25, 35),
             #(store_random_in_range, ":neg_increment", -35, -20),
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -6705,7 +6705,7 @@ common_wot_seeker_trigger_1_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos31 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_1", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -6721,7 +6721,7 @@ common_wot_seeker_trigger_2_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_2", 1),
 	(agent_is_alive, "$g_seeker_slot_2_target"),
@@ -6745,7 +6745,7 @@ common_wot_seeker_trigger_2_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -6792,7 +6792,7 @@ common_wot_seeker_trigger_2_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos32 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_2", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -6808,7 +6808,7 @@ common_wot_seeker_trigger_3_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_3", 1),
 	(agent_is_alive, "$g_seeker_slot_3_target"),
@@ -6832,7 +6832,7 @@ common_wot_seeker_trigger_3_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -6879,7 +6879,7 @@ common_wot_seeker_trigger_3_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos33 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_3", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -6895,7 +6895,7 @@ common_wot_seeker_trigger_4_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_4", 1),
 	(agent_is_alive, "$g_seeker_slot_4_target"),
@@ -6919,7 +6919,7 @@ common_wot_seeker_trigger_4_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -6966,7 +6966,7 @@ common_wot_seeker_trigger_4_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos34 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_4", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -6982,7 +6982,7 @@ common_wot_seeker_trigger_5_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_5", 1),
 	(agent_is_alive, "$g_seeker_slot_5_target"),
@@ -7006,7 +7006,7 @@ common_wot_seeker_trigger_5_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7053,7 +7053,7 @@ common_wot_seeker_trigger_5_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos35 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_5", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7069,7 +7069,7 @@ common_wot_seeker_trigger_6_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_6", 1),
 	(agent_is_alive, "$g_seeker_slot_6_target"),
@@ -7093,7 +7093,7 @@ common_wot_seeker_trigger_6_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7140,7 +7140,7 @@ common_wot_seeker_trigger_6_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos36 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_6", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7156,7 +7156,7 @@ common_wot_seeker_trigger_7_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_7", 1),
 	(agent_is_alive, "$g_seeker_slot_7_target"),
@@ -7180,7 +7180,7 @@ common_wot_seeker_trigger_7_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7227,7 +7227,7 @@ common_wot_seeker_trigger_7_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos37 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_7", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7243,7 +7243,7 @@ common_wot_seeker_trigger_8_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_8", 1),
 	(agent_is_alive, "$g_seeker_slot_8_target"),
@@ -7267,7 +7267,7 @@ common_wot_seeker_trigger_8_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7330,7 +7330,7 @@ common_wot_seeker_trigger_9_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_9", 1),
 	(agent_is_alive, "$g_seeker_slot_9_target"),
@@ -7354,7 +7354,7 @@ common_wot_seeker_trigger_9_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7401,7 +7401,7 @@ common_wot_seeker_trigger_9_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos39 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_9", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7417,7 +7417,7 @@ common_wot_seeker_trigger_10_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_10", 1),
 	(agent_is_alive, "$g_seeker_slot_10_target"),
@@ -7441,7 +7441,7 @@ common_wot_seeker_trigger_10_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7488,7 +7488,7 @@ common_wot_seeker_trigger_10_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos40 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_10", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7504,7 +7504,7 @@ common_wot_seeker_trigger_11_multi = (
         (multiplayer_is_server),
         ],
 	[
-            
+
 	(try_begin),
 	(eq, "$g_seeker_slot_11", 1),
 	(agent_is_alive, "$g_seeker_slot_11_target"),
@@ -7528,7 +7528,7 @@ common_wot_seeker_trigger_11_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7575,7 +7575,7 @@ common_wot_seeker_trigger_11_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos41 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_11", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7591,7 +7591,7 @@ common_wot_seeker_trigger_12_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_12", 1),
 	(agent_is_alive, "$g_seeker_slot_12_target"),
@@ -7615,7 +7615,7 @@ common_wot_seeker_trigger_12_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7662,7 +7662,7 @@ common_wot_seeker_trigger_12_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos42 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_12", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7678,7 +7678,7 @@ common_wot_seeker_trigger_13_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_13", 1),
 	(agent_is_alive, "$g_seeker_slot_13_target"),
@@ -7702,7 +7702,7 @@ common_wot_seeker_trigger_13_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7749,7 +7749,7 @@ common_wot_seeker_trigger_13_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos43 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_13", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7765,7 +7765,7 @@ common_wot_seeker_trigger_14_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_14", 1),
 	(agent_is_alive, "$g_seeker_slot_14_target"),
@@ -7789,7 +7789,7 @@ common_wot_seeker_trigger_14_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7836,7 +7836,7 @@ common_wot_seeker_trigger_14_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos44 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_14", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7852,7 +7852,7 @@ common_wot_seeker_trigger_15_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_15", 1),
 	(agent_is_alive, "$g_seeker_slot_15_target"),
@@ -7876,7 +7876,7 @@ common_wot_seeker_trigger_15_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -7923,7 +7923,7 @@ common_wot_seeker_trigger_15_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos45 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_15", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -7939,7 +7939,7 @@ common_wot_seeker_trigger_16_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_16", 1),
 	(agent_is_alive, "$g_seeker_slot_16_target"),
@@ -7963,7 +7963,7 @@ common_wot_seeker_trigger_16_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -8010,7 +8010,7 @@ common_wot_seeker_trigger_16_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos46 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_16", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -8026,7 +8026,7 @@ common_wot_seeker_trigger_17_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_17", 1),
 	(agent_is_alive, "$g_seeker_slot_17_target"),
@@ -8050,7 +8050,7 @@ common_wot_seeker_trigger_17_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -8097,7 +8097,7 @@ common_wot_seeker_trigger_17_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos47 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_17", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -8113,7 +8113,7 @@ common_wot_seeker_trigger_18_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_18", 1),
 	(agent_is_alive, "$g_seeker_slot_18_target"),
@@ -8137,7 +8137,7 @@ common_wot_seeker_trigger_18_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -8200,7 +8200,7 @@ common_wot_seeker_trigger_19_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_19", 1),
 	(agent_is_alive, "$g_seeker_slot_19_target"),
@@ -8224,7 +8224,7 @@ common_wot_seeker_trigger_19_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -8271,7 +8271,7 @@ common_wot_seeker_trigger_19_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos49 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_19", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -8288,7 +8288,7 @@ common_wot_seeker_trigger_20_multi = (
         (multiplayer_is_server),
         ],
 	[
-        
+
         (try_begin),
 	(eq, "$g_seeker_slot_20", 1),
 	(agent_is_alive, "$g_seeker_slot_20_target"),
@@ -8312,7 +8312,7 @@ common_wot_seeker_trigger_20_multi = (
             (store_random_in_range, ":increment", 3, 5),
             (store_random_in_range, ":neg_increment", -5, -3),
             (store_mul, ":blast_range", ":increment", 2),
-        
+
 	    (try_begin),
 	    (gt, ":diff_x", ":blast_range"),
 		(try_begin),
@@ -8359,7 +8359,7 @@ common_wot_seeker_trigger_20_multi = (
 	    (else_try),
 		(particle_system_burst, "psys_seeker_blast", pos50 ,1),
 	    (try_end),
-        
+
 	(else_try),
 	    (assign, "$g_seeker_slot_20", 0),
 	    (val_sub, "$g_number_seekers_active", 1),
@@ -8475,7 +8475,7 @@ tournament_triggers = [
 ##        (agent_set_hit_points, ":agent_no", 100),
 ##      (try_end),
 ##    ]),
-  
+
 ##      (1, 4, ti_once, [(eq, "$g_mt_mode", abm_fight),
 ##                       (this_or_next|main_hero_fallen),
 ##                       (num_active_teams_le,1)],
@@ -8520,7 +8520,7 @@ tournament_triggers = [
 ##           (set_jump_entry, 50),
 ##           (jump_to_scene, ":arena_scene"),
 ##           ]),
-  
+
   (0, 0, ti_once, [],
    [
      (eq, "$g_mt_mode", abm_tournament),
@@ -8544,7 +8544,7 @@ tournament_triggers = [
        ]),
 
   (ti_battle_window_opened, 0, 0, [], [(eq, "$g_mt_mode", abm_training),(start_presentation, "prsnt_arena_training")]),
-  
+
   (0, 0, ti_once, [], [(eq, "$g_mt_mode", abm_training),
                        (assign, "$g_arena_training_max_opponents", 40),
                        (assign, "$g_arena_training_num_agents_spawned", 0),
@@ -8722,9 +8722,9 @@ mission_templates = [
      (29,mtef_visitor_source,af_override_horse,0,1,[]),
      (30,mtef_visitor_source,af_override_horse,0,1,[]),
      (31,mtef_visitor_source,af_override_horse,0,1,[]),
-     ],     
+     ],
      [
-      (1, 0, ti_once, [], 
+      (1, 0, ti_once, [],
       [
         (store_current_scene, ":cur_scene"),
         (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
@@ -8738,20 +8738,20 @@ mission_templates = [
           (call_script, "script_music_set_situation_with_culture", mtf_sit_town),
         (try_end),
       ]),
-	  		  	        
-      (ti_before_mission_start, 0, 0, [], 
+
+      (ti_before_mission_start, 0, 0, [],
       [
         (call_script, "script_change_banners_and_chest"),
         (call_script, "script_initialize_tavern_variables"),
 	  ]),
 
-      (ti_inventory_key_pressed, 0, 0, 
+      (ti_inventory_key_pressed, 0, 0,
       [
         (set_trigger_result,1)
       ], []),
-      
+
       #tavern - belligerent drunk leaving/fading out
-      (1, 0, 0, 
+      (1, 0, 0,
       [
         (gt, "$g_belligerent_drunk_leaving", 0),
         (entry_point_get_position, pos0, 0),
@@ -8763,39 +8763,39 @@ mission_templates = [
         (agent_fade_out, "$g_belligerent_drunk_leaving"),
         (assign, "$g_belligerent_drunk_leaving", 0),
       ]),
-      
-      (ti_tab_pressed, 0, 0, 
+
+      (ti_tab_pressed, 0, 0,
       [
         (try_begin),
           (eq, "$g_main_attacker_agent", 0),
           (set_trigger_result, 1),
-        (try_end),  
+        (try_end),
       ], []),
 
 	  #tavern brawl triggers - drunk
-      (2, 0, 0, 
+      (2, 0, 0,
       [
 	    (neg|conversation_screen_is_active),
 
 		(eq, "$talk_context", tc_tavern_talk),
-		
-		(neg|troop_slot_eq, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),		
-		(troop_slot_eq, "trp_belligerent_drunk", slot_troop_cur_center, "$g_encountered_party"),		
-		(eq, "$drunks_dont_pick_fights", 0),		
-	  ], 
-	  [	  
+
+		(neg|troop_slot_eq, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),
+		(troop_slot_eq, "trp_belligerent_drunk", slot_troop_cur_center, "$g_encountered_party"),
+		(eq, "$drunks_dont_pick_fights", 0),
+	  ],
+	  [
 	    (try_begin),
 	      (eq, "$g_start_belligerent_drunk_fight", 0),
 	      (assign, "$g_start_belligerent_drunk_fight", 1),
-	      
+
 	      (try_for_agents, ":cur_agent"),
 	        (agent_get_troop_id, ":cur_agent_troop", ":cur_agent"),
 	        (eq, ":cur_agent_troop", "trp_belligerent_drunk"),
 	        (assign, "$g_belligerent_drunk", ":cur_agent"),
 	      (try_end),
 	    (else_try),
-	      (eq, "$g_start_belligerent_drunk_fight", 1),	 
-	           
+	      (eq, "$g_start_belligerent_drunk_fight", 1),
+
 	      (agent_is_active, "$g_belligerent_drunk"),
 	      (agent_is_alive, "$g_belligerent_drunk"),
 	      (get_player_agent_no, ":player_agent"),
@@ -8814,30 +8814,30 @@ mission_templates = [
 	      (store_random_in_range, ":random_value", 0, 200),
 	      (store_add, ":400_plus_random_200", 400, ":random_value"),
 	      (le, ":dist", ":400_plus_random_200"),
-	      
+
  		  (call_script, "script_activate_tavern_attackers"),
   		  (start_mission_conversation, "trp_belligerent_drunk"),
   		  (assign, "$g_start_belligerent_drunk_fight", 2),
-	    (try_end),  
+	    (try_end),
 	  ]),
-	  	  
+
 	  #tavern brawl triggers - assassin
       (2, 0, 0, [
 	    (neg|conversation_screen_is_active),
 		(eq, "$talk_context", tc_tavern_talk),
-		(troop_slot_eq, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),		
-	  ], 
+		(troop_slot_eq, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),
+	  ],
 	  [
 	    (try_begin),
 	      (eq, "$g_start_hired_assassin_fight", 0),
 	      (assign, "$g_start_hired_assassin_fight", 1),
-	      
+
 	      (try_for_agents, ":cur_agent"),
 	        (agent_get_troop_id, ":cur_agent_troop", ":cur_agent"),
 	        (eq, ":cur_agent_troop", "trp_hired_assassin"),
 	        (assign, "$g_hired_assassin", ":cur_agent"),
-	      (try_end),	      
-	    (else_try),  
+	      (try_end),
+	    (else_try),
 	      (eq, "$g_start_hired_assassin_fight", 1),
 
 	      (agent_is_active, "$g_hired_assassin"),
@@ -8861,58 +8861,58 @@ mission_templates = [
 
 		  (call_script, "script_activate_tavern_attackers"),
 		  (assign, "$g_start_hired_assassin_fight", 2),
-		(try_end),  
+		(try_end),
 	  ]),
-	  	  
+
 	  #Aftermath talks
-      (3, 0, ti_once, 
+      (3, 0, ti_once,
       [
 	    (neg|conversation_screen_is_active),
 		(eq, "$talk_context", tc_tavern_talk),
 		(gt, "$g_main_attacker_agent", 0),
-				
+
 		(this_or_next|neg|agent_is_alive, "$g_main_attacker_agent"),
 		(agent_is_wounded, "$g_main_attacker_agent"),
       ],
       [
         (mission_enable_talk),
-      
+
 		(try_for_agents, ":agent"),
 		  (agent_is_alive, ":agent"),
 		  (agent_get_position, pos4, ":agent"),
 		  (agent_set_scripted_destination, ":agent", pos4),
 		(try_end),
-		
+
 		(party_get_slot, ":tavernkeeper", "$g_encountered_party", slot_town_tavernkeeper),
-		(start_mission_conversation, ":tavernkeeper"),	 
+		(start_mission_conversation, ":tavernkeeper"),
 	  ]),
 
-	  
+
 	  #Aftermath talks
-      (3, 0, ti_once, 
+      (3, 0, ti_once,
       [
 	    (neg|conversation_screen_is_active),
 		(eq, "$talk_context", tc_tavern_talk),
 		(gt, "$g_main_attacker_agent", 0),
-		(main_hero_fallen),		
+		(main_hero_fallen),
       ],
       [
 	  (jump_to_menu, "mnu_lost_tavern_duel"),
 	  (finish_mission,0)
-	  
-	  ]),	  
-	  
-	  
+
+	  ]),
+
+
 	  #No shooting in the tavern
-      (1, 0, 0, 
+      (1, 0, 0,
       [
 	    (neg|conversation_screen_is_active),
 		(eq, "$talk_context", tc_tavern_talk),
 		(gt, "$g_main_attacker_agent", 0),
-		
+
 		(get_player_agent_no, ":player_agent"),
 		(agent_is_alive, ":player_agent"),
-		
+
 		(agent_get_wielded_item, ":wielded_item", ":player_agent", 0),
 		(is_between, ":wielded_item", "itm_darts", "itm_torch"),
 		(neq, ":wielded_item", "itm_javelin_melee"),
@@ -8921,28 +8921,28 @@ mission_templates = [
 		(neq, ":wielded_item", "itm_light_throwing_axes_melee"),
 		(neq, ":wielded_item", "itm_throwing_axes_melee"),
 		(neq, ":wielded_item", "itm_heavy_throwing_axes_melee"),
-      ], 
+      ],
       [
 		(party_get_slot, ":tavernkeeper", "$g_encountered_party", slot_town_tavernkeeper),
-		(start_mission_conversation, ":tavernkeeper"),	 
+		(start_mission_conversation, ":tavernkeeper"),
 	  ]),
-	  	  	  
+
 	  #Check for weapon in hand of attacker, also, everyone gets out of the way
-      (1, 0, 0, 
+      (1, 0, 0,
       [
-		(gt, "$g_main_attacker_agent", 0),	
+		(gt, "$g_main_attacker_agent", 0),
       ],
       [
         (agent_get_wielded_item, ":wielded_item", "$g_main_attacker_agent", 0),
-        (val_max, "$g_attacker_drawn_weapon", ":wielded_item"),               
-        
+        (val_max, "$g_attacker_drawn_weapon", ":wielded_item"),
+
         (call_script, "script_neutral_behavior_in_fight"),
-      ]),	  			
+      ]),
     ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers,
   ),
 
 # This template is used in party encounters and such.
-# 
+#
   (
     "conversation_encounter",0,-1,
     "Conversation_encounter",
@@ -8958,7 +8958,7 @@ mission_templates = [
      ],
     [],
   ),
-  
+
 #----------------------------------------------------------------
 #mission templates before this point are hardwired into the game.
 #-----------------------------------------------------------------
@@ -8973,7 +8973,7 @@ mission_templates = [
      (4,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
      (5,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
      (6,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
-     (7,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),     
+     (7,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
      (8,mtef_visitor_source,af_override_horse,0,1,[]),
      (9,mtef_visitor_source,af_override_horse,0,1,[]),(10,mtef_visitor_source,af_override_horse,0,1,[]),(11,mtef_visitor_source,af_override_horse,0,1,[]),(12,mtef_visitor_source,af_override_horse,0,1,[]),(13,mtef_visitor_source,0,0,1,[]),(14,mtef_scene_source,0,0,1,[]),(15,mtef_scene_source,0,0,1,[]),
      (16,mtef_visitor_source,af_override_horse,0,1,[]),(17,mtef_visitor_source,af_override_horse,0,1,[]),(18,mtef_visitor_source,af_override_horse,0,1,[]),(19,mtef_visitor_source,af_override_horse,0,1,[]),(20,mtef_visitor_source,af_override_horse,0,1,[]),(21,mtef_visitor_source,af_override_horse,0,1,[]),(22,mtef_visitor_source,af_override_horse,0,1,[]),
@@ -9011,25 +9011,25 @@ mission_templates = [
         (try_begin),
           (this_or_next|eq, "$talk_context", tc_escape),
           (eq, "$talk_context", tc_prison_break),
-          (agent_get_troop_id, ":troop_no", ":agent_no"),		  
+          (agent_get_troop_id, ":troop_no", ":agent_no"),
           (troop_slot_eq, ":troop_no", slot_troop_will_join_prison_break, 1),
           (agent_set_team, ":agent_no", 0),
           (agent_ai_set_aggressiveness, ":agent_no", 5),
           (troop_set_slot, ":troop_no", slot_troop_will_join_prison_break, 0),
           (try_begin),
             (troop_slot_eq, ":troop_no", slot_troop_mission_participation, mp_prison_break_stand_back),
-            (agent_get_position, pos1, ":agent_no"),            
+            (agent_get_position, pos1, ":agent_no"),
             (agent_set_scripted_destination, ":agent_no", pos1),
           (try_end),
-        (try_end),         
+        (try_end),
       ]),
 
       (ti_before_mission_start, 0, 0, [],
       [
         (assign, "$g_main_attacker_agent", 0),
 	  ]),
-		 
-      (1, 0, ti_once, 
+
+      (1, 0, ti_once,
       [],
       [
         (try_begin),
@@ -9046,12 +9046,12 @@ mission_templates = [
         (try_end),
       ]),
 
-      (ti_before_mission_start, 0, 0, 
-      [], 
+      (ti_before_mission_start, 0, 0,
+      [],
       [
         (call_script, "script_change_banners_and_chest")
       ]),
-        
+
       (ti_inventory_key_pressed, 0, 0,
       [
         (try_begin),
@@ -9063,9 +9063,9 @@ mission_templates = [
         (else_try),
           (display_message, "str_cant_use_inventory_now"),
         (try_end),
-      ], 
+      ],
       []),
-       
+
       (ti_tab_pressed, 0, 0,
       [
         (try_begin),
@@ -9080,7 +9080,7 @@ mission_templates = [
         (else_try),
           (display_message, "str_cannot_leave_now"),
         (try_end),
-      ], 
+      ],
       []),
 
       (ti_on_leave_area, 0, 0,
@@ -9088,20 +9088,20 @@ mission_templates = [
         (try_begin),
           (eq, "$g_defending_against_siege", 0),
           (assign,"$g_leave_town",1),
-        (try_end),			
-      ], 
+        (try_end),
+      ],
       [
         (try_begin),
           (eq, "$talk_context", tc_escape),
           (call_script, "script_deduct_casualties_from_garrison"),
           (jump_to_menu,"mnu_sneak_into_town_caught_dispersed_guards"),
         (try_end),
-        
-        (mission_enable_talk),
-      ]),            
 
-     (0, 0, ti_once, 
-     [], 
+        (mission_enable_talk),
+      ]),
+
+     (0, 0, ti_once,
+     [],
      [
        (party_slot_eq, "$current_town", slot_party_type, spt_town),
        (call_script, "script_town_init_doors", 0),
@@ -9111,96 +9111,96 @@ mission_templates = [
        (try_end),
      ]),
 
-	(3, 0, 0, 
+	(3, 0, 0,
 	[
 	  (call_script, "script_tick_town_walkers")
-	], 
+	],
 	[]),
-	
-    (2, 0, 0, 
+
+    (2, 0, 0,
     [
       (call_script, "script_center_ambiance_sounds")
-    ], 
+    ],
     []),
-		
-	#JAILBREAK TRIGGERS 
+
+	#JAILBREAK TRIGGERS
 	#Civilians get out of the way
     (1, 0, 0,
 	[
 	  (this_or_next|eq, "$talk_context", tc_prison_break),
-      (eq, "$talk_context", tc_escape),		
+      (eq, "$talk_context", tc_escape),
 	],
 	[
 	  #(agent_get_team, ":prisoner_agent", 0),
 	  (call_script, "script_neutral_behavior_in_fight"),
-	  (mission_disable_talk),	  	  
+	  (mission_disable_talk),
 	]),
 
 	#The game begins with the town alerted
-    (1, 0, ti_once, 
+    (1, 0, ti_once,
       [
         #If I set this to 1, 0, ti_once, then the prisoner spawns twice
         (eq, "$talk_context", tc_escape),
-	  ],	  
+	  ],
 	  [
 		(get_player_agent_no, ":player_agent"),
 	    (assign, reg6, ":player_agent"),
-		(call_script, "script_activate_town_guard"),		
-		
+		(call_script, "script_activate_town_guard"),
+
 		(get_player_agent_no, ":player_agent"),
 		(agent_get_position, pos4, ":player_agent"),
-		
-		(try_for_range, ":prisoner", active_npcs_begin, kingdom_ladies_end),		
+
+		(try_for_range, ":prisoner", active_npcs_begin, kingdom_ladies_end),
 		  (troop_slot_ge, ":prisoner", slot_troop_mission_participation, mp_prison_break_fight),
 
 		  (str_store_troop_name, s4, ":prisoner"),
 		  (display_message, "str_s4_joins_prison_break"),
-			
+
 		  (store_current_scene, ":cur_scene"), #this might be a better option?
 		  (modify_visitors_at_site, ":cur_scene"),
-			            
-          #<entry_no>,<troop_id>,<number_of_troops>, <team_no>, <group_no>), 
-          #team no and group no are used in multiplayer mode only. default team in entry is used in single player mode            
+
+          #<entry_no>,<troop_id>,<number_of_troops>, <team_no>, <group_no>),
+          #team no and group no are used in multiplayer mode only. default team in entry is used in single player mode
           (store_current_scene, ":cur_scene"),
-          (modify_visitors_at_site, ":cur_scene"),                      
+          (modify_visitors_at_site, ":cur_scene"),
           (add_visitors_to_current_scene, 24, ":prisoner", 1, 0, 0),
-          (troop_set_slot, ":prisoner", slot_troop_will_join_prison_break, 1),					          
+          (troop_set_slot, ":prisoner", slot_troop_will_join_prison_break, 1),
         (try_end),
 	  ]),
-	
-   (3, 0, 0, 
-   [     
+
+   (3, 0, 0,
+   [
      (main_hero_fallen, 0),
-   ],	  
+   ],
    [
      (try_begin),
        (this_or_next|eq, "$talk_context", tc_prison_break),
        (eq, "$talk_context", tc_escape),
-       
+
        (call_script, "script_deduct_casualties_from_garrison"),
-	   (jump_to_menu,"mnu_captivity_start_castle_defeat"), 
-	 
+	   (jump_to_menu,"mnu_captivity_start_castle_defeat"),
+
 	   (assign, ":end_cond", kingdom_ladies_end),
        (try_for_range, ":prisoner", active_npcs_begin, ":end_cond"),
-  	     (troop_set_slot, ":prisoner", slot_troop_mission_participation, 0), #new	  
-  	   (try_end),  
-	 
+  	     (troop_set_slot, ":prisoner", slot_troop_mission_participation, 0), #new
+  	   (try_end),
+
 	   (mission_enable_talk),
 	   (finish_mission, 0),
-	 (else_try),  
+	 (else_try),
 	   (set_trigger_result,1),
-	 (try_end),	 	 
+	 (try_end),
    ]),
-		
-   (3, 0, 0, 
+
+   (3, 0, 0,
    [
      (eq, "$talk_context", tc_escape),
 	 (neg|main_hero_fallen,0),
      (store_mission_timer_a, ":time"),
      (ge, ":time", 10),
-		
+
      (all_enemies_defeated), #1 is default enemy team for in-town battles
-   ],	  
+   ],
    [
      (call_script, "script_deduct_casualties_from_garrison"),
 	 (try_for_agents, ":agent"),
@@ -9209,26 +9209,26 @@ mission_templates = [
        (try_begin),
          (agent_is_alive, ":agent"),
          (troop_set_slot, ":troop", slot_troop_mission_participation, mp_prison_break_escaped),
-       (else_try),	
+       (else_try),
          (troop_set_slot, ":troop", slot_troop_mission_participation, mp_prison_break_caught),
        (try_end),
      (try_end),
      (jump_to_menu,"mnu_sneak_into_town_caught_ran_away"),
-     
+
      (mission_enable_talk),
      (finish_mission,0)
    ]),
-   
+
    (ti_on_agent_killed_or_wounded, 0, 0, [],
    [
      (store_trigger_param_1, ":dead_agent_no"),
      (store_trigger_param_2, ":killer_agent_no"),
      #(store_trigger_param_3, ":is_wounded"),
-        
+
      (agent_get_troop_id, ":dead_agent_troop_no", ":dead_agent_no"),
      (agent_get_troop_id, ":killer_agent_troop_no", ":killer_agent_no"),
-                
-     (try_begin), 
+
+     (try_begin),
      #### modified for TGS
        (this_or_next|eq, ":dead_agent_troop_no", "trp_legion_prison_guard"),
        (this_or_next|eq, ":dead_agent_troop_no", "trp_red_hand_prison_guard"),
@@ -9258,26 +9258,26 @@ mission_templates = [
        (this_or_next|eq, ":dead_agent_troop_no", "trp_madmen_prison_guard"),
        (eq, ":dead_agent_troop_no", "trp_toman_head_prison_guard"),
      #### end modified for TGS
-          
+
        (eq, ":killer_agent_troop_no", "trp_player"),
-          
+
        (display_message, "@You got keys of dungeon."),
      (try_end),
    ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -9292,11 +9292,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -9309,16 +9309,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -9369,7 +9369,7 @@ mission_templates = [
       common_wot_seeker_trigger_47,
       common_wot_seeker_trigger_48,
       common_wot_seeker_trigger_49,
-      common_wot_seeker_trigger_50,      
+      common_wot_seeker_trigger_50,
       # end
 
       # firewall triggers
@@ -9384,18 +9384,18 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
 ##################################################
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 #      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
-      
+
   ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,),
 
   (
@@ -9409,7 +9409,7 @@ mission_templates = [
      (5,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (6,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (7,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     
+
      (8,mtef_visitor_source,af_override_horse,0,1,[]),
      (9,mtef_visitor_source,af_override_horse,0,1,[]),(10,mtef_visitor_source,af_override_horse,0,1,[]),(11,mtef_visitor_source,af_override_horse,0,1,[]),(12,mtef_visitor_source,af_override_horse,0,1,[]),(13,mtef_visitor_source,0,0,1,[]),(14,mtef_visitor_source,0,0,1,[]),(15,mtef_visitor_source,0,0,1,[]),
      (16,mtef_visitor_source,af_override_horse,0,1,[]),(17,mtef_visitor_source,af_override_horse,0,1,[]),(18,mtef_visitor_source,af_override_horse,0,1,[]),(19,mtef_visitor_source,af_override_horse,0,1,[]),(20,mtef_visitor_source,af_override_horse,0,1,[]),(21,mtef_visitor_source,af_override_horse,0,1,[]),(22,mtef_visitor_source,af_override_horse,0,1,[]),(23,mtef_visitor_source,af_override_horse,0,1,[]),
@@ -9471,19 +9471,19 @@ mission_templates = [
         (try_end),
         ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -9498,11 +9498,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -9515,16 +9515,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -9590,19 +9590,19 @@ mission_templates = [
       common_wot_firewall_trigger_8,
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
-      # end      
- 
+      # end
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
 ##################################################
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 #      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-##################################################  
-      
+##################################################
+
     ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
   ),
 
@@ -9617,7 +9617,7 @@ mission_templates = [
      (5,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (6,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (7,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     
+
      (8,mtef_scene_source,af_override_horse,0,1,[]),
      (9,mtef_visitor_source,af_override_horse,0,1,[]),(10,mtef_visitor_source,af_override_horse,0,1,[]),(11,mtef_visitor_source,af_override_horse,aif_start_alarmed,1,[]),(12,mtef_visitor_source,af_override_horse,0,1,[]),(13,mtef_scene_source,0,0,1,[]),(14,mtef_scene_source,0,0,1,[]),(15,mtef_scene_source,0,0,1,[]),
      (16,mtef_visitor_source,af_override_horse,0,1,[]),(17,mtef_visitor_source,af_override_horse,0,1,[]),(18,mtef_visitor_source,af_override_horse,0,1,[]),(19,mtef_visitor_source,af_override_horse,0,1,[]),(20,mtef_visitor_source,af_override_horse,0,1,[]),(21,mtef_visitor_source,af_override_horse,0,1,[]),(22,mtef_visitor_source,af_override_horse,0,1,[]),(23,mtef_visitor_source,af_override_horse,0,1,[]),
@@ -9638,7 +9638,7 @@ mission_templates = [
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       common_inventory_not_available,
-      
+
       (ti_tab_pressed, 0, 0,
        [
          (display_message, "str_cannot_leave_now"),
@@ -9676,19 +9676,19 @@ mission_templates = [
          (finish_mission),
          ]),
 
-            #################################################################  
+            #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -9703,11 +9703,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -9720,16 +9720,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -9782,7 +9782,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -9795,22 +9795,22 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
 ##################################################
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 #      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
-      
+
       ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
     ),
 
-  
+
   (
     "village_training", mtf_arena_fight, -1,
     "village_training",
@@ -9823,16 +9823,16 @@ mission_templates = [
          (assign, "$g_train_peasants_against_bandits_training_succeeded", 0),
          (call_script, "script_change_banners_and_chest"),
          ]),
-      
+
       common_arena_fight_tab_press,
-      
+
       (ti_question_answered, 0, 0, [],
        [
          (store_trigger_param_1,":answer"),
          (eq,":answer",0),
          (finish_mission),
          ]),
-      
+
       common_inventory_not_available,
 
       (1, 4, ti_once,
@@ -9847,20 +9847,20 @@ mission_templates = [
          (try_end),
          (finish_mission),
          ]),
-      
-      #################################################################  
+
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -9875,11 +9875,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -9892,16 +9892,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -9954,7 +9954,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -9967,11 +9967,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -9980,14 +9980,14 @@ mission_templates = [
 ##################################################
       ],
     ),
-    
+
   (
     "visit_town_castle",0,-1,
     "You enter the halls of the lord.",
     [(0,mtef_scene_source|mtef_team_0,af_override_horse|af_override_weapons|af_override_head,0,1,[]),
      (1,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (2,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     (3,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]), 
+     (3,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (4,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]), #for doors
      (5,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
      (6,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
@@ -10023,33 +10023,33 @@ mission_templates = [
         (store_trigger_param_1, ":agent_no"),
         (call_script, "script_init_town_agent", ":agent_no"),
       ]),
-      
+
       (ti_before_mission_start, 0, 0, [],
       [
         (call_script, "script_change_banners_and_chest"),
       ]),
-       
-      (ti_inventory_key_pressed, 0, 0, 
+
+      (ti_inventory_key_pressed, 0, 0,
       [
         (set_trigger_result,1)
       ], []),
-	  
+
 	  #adjust for prison break
       (ti_tab_pressed, 0, 0,
 	  [
 	    (neq, "$talk_context", tc_prison_break),
 	    (set_trigger_result,1)
 	  ], []),
-	  
+
       (ti_on_leave_area, 0, 0,
       [
  	    (eq, "$talk_context", tc_prison_break),
- 	  ], 
+ 	  ],
 	  [
 	    (display_message, "str_leaving_area_during_prison_break"),
 	    (set_jump_mission, "mt_sneak_caught_fight"),
 	  ]),
-	 	  
+
       (0, 0, ti_once, [], [
         #(set_fog_distance, 150, 0xFF736252)
         (try_begin),
@@ -10065,20 +10065,20 @@ mission_templates = [
           (call_script, "script_music_set_situation_with_culture", 0), #prison
         (try_end),
         ]),
-            
-      #################################################################  
+
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -10093,11 +10093,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -10110,16 +10110,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -10172,7 +10172,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -10185,11 +10185,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -10199,7 +10199,7 @@ mission_templates = [
     ],
   ),
 
-		  
+
   (
     "back_alley_kill_local_merchant",mtf_battle_mode,-1,
     "You enter the back alley",
@@ -10219,7 +10219,7 @@ mission_templates = [
 
       (0, 0, ti_once, [
           (store_mission_timer_a,":cur_time"),
-          (ge,":cur_time",1), 
+          (ge,":cur_time",1),
           (assign, ":merchant_hp", 0),
           (assign, ":player_hp", 0),
           (assign, ":merchant_hp", 0),
@@ -10245,7 +10245,7 @@ mission_templates = [
           (gt, ":player_hp", 50),
           (start_mission_conversation, "trp_local_merchant"),
           ], []),
-      
+
       (1, 4, ti_once, [(assign, ":not_alive", 0),
                        (try_begin),
                          (call_script, "script_cf_troop_agent_is_alive", "trp_local_merchant"),
@@ -10265,19 +10265,19 @@ mission_templates = [
            (finish_mission),
            ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -10292,11 +10292,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -10309,16 +10309,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -10371,7 +10371,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -10384,17 +10384,17 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
 ##################################################
 ##### troop_ratio_bar
 ##################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 #      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-##################################################      
+##################################################
     ],
   ),
 
@@ -10436,20 +10436,20 @@ mission_templates = [
            (try_end),
            (finish_mission),
            ]),
-            
-      #################################################################  
+
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -10464,11 +10464,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -10481,16 +10481,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -10543,7 +10543,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -10556,11 +10556,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -10586,16 +10586,16 @@ mission_templates = [
          (call_script, "script_agent_reassign_team", ":agent_no"),
 
          (assign, ":initial_courage_score", 5000),
-                  
+
          (agent_get_troop_id, ":troop_id", ":agent_no"),
          (store_character_level, ":troop_level", ":troop_id"),
          (val_mul, ":troop_level", 35),
          (val_add, ":initial_courage_score", ":troop_level"), #average : 20 * 35 = 700
-         
+
          (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
-         (val_add, ":initial_courage_score", ":randomized_addition_courage"), 
-                   
-         (agent_get_party_id, ":agent_party", ":agent_no"),         
+         (val_add, ":initial_courage_score", ":randomized_addition_courage"),
+
+         (agent_get_party_id, ":agent_party", ":agent_no"),
 ########### Added this for TGS ###########
          (try_begin),
          (lt, ":agent_party", 0),
@@ -10603,19 +10603,19 @@ mission_templates = [
          (try_end),
 ########### End Added this for TGS ####################################
          (party_get_morale, ":cur_morale", ":agent_party"),
-         
+
          (store_sub, ":morale_effect_on_courage", ":cur_morale", 70),
          (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
-         (val_add, ":initial_courage_score", ":morale_effect_on_courage"), 
-         
+         (val_add, ":initial_courage_score", ":morale_effect_on_courage"),
+
          #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
          #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
          #min starting : 3600, max starting  : 9600, average starting : 7200
-         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
+         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
          ]),
 
       common_battle_init_banner,
-		 
+
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
         (store_trigger_param_1, ":dead_agent_no"),
@@ -10631,11 +10631,11 @@ mission_templates = [
 ##          (assign, reg0, ":dead_agent_no"),
 ##          (assign, reg1, ":killer_agent_no"),
 ##          (assign, reg2, ":is_wounded"),
-##          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
+##          (agent_get_team, reg3, ":dead_agent_no"),
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
           (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
           (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
         (try_end),
 
         (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
@@ -10664,13 +10664,13 @@ mission_templates = [
 
          (party_clear, "p_routed_enemies"),
 
-         (assign, "$g_latest_order_1", 1), 
-         (assign, "$g_latest_order_2", 1), 
-         (assign, "$g_latest_order_3", 1), 
-         (assign, "$g_latest_order_4", 1), 
+         (assign, "$g_latest_order_1", 1),
+         (assign, "$g_latest_order_2", 1),
+         (assign, "$g_latest_order_3", 1),
+         (assign, "$g_latest_order_4", 1),
          ]),
 
-      
+
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
                            (assign,"$defender_reinforcement_stage",0),
                            (assign,"$attacker_reinforcement_stage",0),
@@ -10683,12 +10683,12 @@ mission_templates = [
       common_battle_check_friendly_kills,
 
       (1, 0, 5, [
-                              
+
       #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
       #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
       (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
       (assign, ":total_enemy_soldiers", reg0),
-      
+
       #decrease number of agents already in battle area to find all number of reinforcement enemies
       (assign, ":enemy_soldiers_in_battle_area", 0),
       (try_for_agents,":cur_agent"),
@@ -10706,23 +10706,23 @@ mission_templates = [
         (lt, ":total_enemy_reinforcements", 15),
         (ge, "$defender_reinforcement_stage", 2),
         (eq, "$defender_reinforcement_limit_increased", 0),
-        (val_add, "$g_defender_reinforcement_limit", 1),                    
+        (val_add, "$g_defender_reinforcement_limit", 1),
         (assign, "$defender_reinforcement_limit_increased", 1),
-      (try_end),    
+      (try_end),
       #new (25.11.09) ends
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
       (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
                  (store_mission_timer_a,":mission_time"),
                  (ge,":mission_time",10),
                  (store_normalized_team_count,":num_defenders", 0),
                  (lt,":num_defenders",6)],
            [(add_reinforcements_to_entry,0,7),(assign, "$defender_reinforcement_limit_increased", 0),(val_add,"$defender_reinforcement_stage",1)]),
-      
+
       (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
                  (store_mission_timer_a,":mission_time"),
                  (ge,":mission_time",10),
@@ -10741,7 +10741,7 @@ mission_templates = [
 			  (assign, ":num_allies", 0),
 			  #(store_friend_count, ":num_allies"),
 			  #(store_ally_count,":num_allies"),
-			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),			
+			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),
 			  (try_for_agents, ":agent"),
                  (agent_is_ally, ":agent"),
                  (agent_is_alive, ":agent"),
@@ -10777,13 +10777,13 @@ mission_templates = [
 
       #AI Triggers
       (0, 0, ti_once, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
-          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2), 
+          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2),
           ],
        [(call_script, "script_select_battle_tactic"),
         (call_script, "script_battle_tactic_init"),
         #(call_script, "script_battle_calculate_initial_powers"), #deciding run away method changed and that line is erased
         ]),
-      
+
       (3, 0, 0, [
           (call_script, "script_apply_effect_of_other_people_on_courage_scores"),
               ], []), #calculating and applying effect of people on others courage scores
@@ -10791,34 +10791,34 @@ mission_templates = [
       (3, 0, 0, [
           (try_for_agents, ":agent_no"),
             (agent_is_human, ":agent_no"),
-            (agent_is_alive, ":agent_no"),          
+            (agent_is_alive, ":agent_no"),
             (store_mission_timer_a,":mission_time"),
-            (ge,":mission_time",3),          
+            (ge,":mission_time",3),
             (call_script, "script_decide_run_away_or_not", ":agent_no", ":mission_time"),
-          (try_end),          
+          (try_end),
               ], []), #controlling courage score and if needed deciding to run away for each agent
 
       (5, 0, 0, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
           (store_mission_timer_a,":mission_time"),
 
           (ge,":mission_time",3),
-          
+
           (call_script, "script_battle_tactic_apply"),
           ], []), #applying battle tactic
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -10833,11 +10833,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -10850,16 +10850,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       common_wot_balefire_trigger_1,
       #common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -10912,7 +10912,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -10925,7 +10925,7 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -10933,7 +10933,7 @@ mission_templates = [
 
 
       common_battle_order_panel,
-      
+
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
@@ -11012,7 +11012,7 @@ mission_templates = [
 				  (set_show_messages, 1),
 			  (try_end),
 			(else_try),
-            ##PBOD - Battle Continuation			
+            ##PBOD - Battle Continuation
               (str_store_string, s5, "str_retreat"),
               (call_script, "script_simulate_retreat", 10, 20, 1),
               (assign, "$g_battle_result", -1),
@@ -11021,20 +11021,20 @@ mission_templates = [
               (finish_mission, 0),
 			(try_end),]),
 
-      common_battle_inventory,      
-      #################################################################  
+      common_battle_inventory,
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -11049,11 +11049,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -11066,16 +11066,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -11128,7 +11128,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -11141,13 +11141,13 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
       common_battle_order_panel,
-      
+
 ##################################################
 ##### troop_ratio_bar
 ##################################################
@@ -11157,7 +11157,7 @@ mission_templates = [
 ##### troop_ratio_bar
 ##################################################
       common_battle_order_panel_tick,
-      
+
     ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
   ),
 
@@ -11257,7 +11257,7 @@ mission_templates = [
 				  (set_show_messages, 1),
 			  (try_end),
 			(else_try),
-            ##PBOD - Battle Continuation	
+            ##PBOD - Battle Continuation
               (str_store_string, s5, "str_retreat"),
               (call_script, "script_simulate_retreat", 10, 20, 1),
               (assign, "$g_battle_result", -1),
@@ -11267,19 +11267,19 @@ mission_templates = [
 			(try_end)]),
 
       common_battle_inventory,
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -11294,11 +11294,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -11311,16 +11311,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -11373,7 +11373,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -11386,11 +11386,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
       common_battle_order_panel,
 ##################################################
 ##### troop_ratio_bar
@@ -11500,7 +11500,7 @@ mission_templates = [
 ##       [(store_trigger_param_1,":answer"),(eq,":answer",0),(finish_mission,0),]),
 ##
 ##      (0, 0, ti_once, [], [(assign,"$battle_won",0),(assign,"$enemy_reinforcement_stage",0),(assign,"$friend_reinforcement_stage",0),(assign,"$ally_reinforcement_stage",0)]),
-##      
+##
 ##      (1, 0, 5, [(lt,"$enemy_reinforcement_stage",2),(store_mission_timer_a,reg(1)),(ge,reg(1),10),(store_enemy_count,reg(2)),(lt,reg(2),3)],
 ##       [(add_reinforcements_to_entry,6,3),(val_add,"$enemy_reinforcement_stage",1)]),
 ##      (1, 0, 5, [(lt,"$friend_reinforcement_stage",2),(store_mission_timer_a,reg(1)),(ge,reg(1),10),(store_friend_count,reg(2)),(lt,reg(2),2)],
@@ -11603,11 +11603,11 @@ mission_templates = [
         (call_script, "script_count_mission_casualties_from_agents"),
         (finish_mission,0),
         ]),
-        
+
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
                            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
                            ]),
-      
+
       #AI Tiggers
       (0, 0, ti_once, [
           (assign, "$defender_team", 0),
@@ -11646,7 +11646,7 @@ mission_templates = [
 				  (set_show_messages, 1),
 			  (try_end),
 			(else_try),
-            ##PBOD - Battle Continuation	
+            ##PBOD - Battle Continuation
               (str_store_string, s5, "str_retreat"),
               (call_script, "script_simulate_retreat", 5, 20, 0),
               (assign, "$g_battle_result", -1),
@@ -11655,20 +11655,20 @@ mission_templates = [
               (finish_mission,0),
 			(try_end)
               ]),
-      
-      #################################################################  
+
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -11683,11 +11683,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -11700,16 +11700,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -11762,7 +11762,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -11775,11 +11775,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
       common_battle_order_panel,
 ##################################################
 ##### troop_ratio_bar
@@ -11824,11 +11824,11 @@ mission_templates = [
         (call_script, "script_count_mission_casualties_from_agents"),
         (finish_mission,0),
         ]),
-        
+
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
                            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
                            ]),
-      
+
       #AI Tiggers
       (0, 0, ti_once, [
           (assign, "$defender_team", 0),
@@ -11877,19 +11877,19 @@ mission_templates = [
 			(try_end)
               ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -11904,11 +11904,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -11921,16 +11921,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -11983,7 +11983,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -11996,7 +11996,7 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -12012,7 +12012,7 @@ mission_templates = [
 ##################################################
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + custom_camera_triggers, 
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + custom_camera_triggers,
   ),
 
   (
@@ -12030,7 +12030,7 @@ mission_templates = [
          (store_trigger_param_1, ":agent_no"),
          (call_script, "script_agent_reassign_team", ":agent_no"),
          ]),
-      
+
       (ti_before_mission_start, 0, 0, [],
        [
          (team_set_relation, 0, 2, 1),
@@ -12057,11 +12057,11 @@ mission_templates = [
           (assign, reg0, ":dead_agent_no"),
           (assign, reg1, ":killer_agent_no"),
           (assign, reg2, ":is_wounded"),
-          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
+          (agent_get_team, reg3, ":dead_agent_no"),
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
           (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
           (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
         (try_end),
        ]),
 
@@ -12073,11 +12073,11 @@ mission_templates = [
         (call_script, "script_simulate_retreat", 5, 20, 0),
         (call_script, "script_count_mission_casualties_from_agents"),
         (finish_mission,0),]),
-        
+
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
                            (call_script, "script_combat_music_set_situation_with_culture"),
                            ]),
-      
+
       common_music_situation_update,
       common_battle_check_friendly_kills,
 
@@ -12134,19 +12134,19 @@ mission_templates = [
 			(try_end)]),
 
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -12161,11 +12161,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -12178,16 +12178,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -12240,7 +12240,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -12253,7 +12253,7 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -12310,7 +12310,7 @@ mission_templates = [
          (team_give_order, "$attacker_team", grc_everyone, mordr_spread_out),
          (set_show_messages, 1),
          ], []),
-      
+
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
         (store_trigger_param_1, ":dead_agent_no"),
@@ -12326,11 +12326,11 @@ mission_templates = [
           (assign, reg0, ":dead_agent_no"),
           (assign, reg1, ":killer_agent_no"),
           (assign, reg2, ":is_wounded"),
-          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
+          (agent_get_team, reg3, ":dead_agent_no"),
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
           (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
           (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
         (try_end),
        ]),
 
@@ -12344,19 +12344,19 @@ mission_templates = [
       common_battle_victory_display,
       common_siege_refill_ammo,
       common_siege_check_defeat_condition,
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -12371,11 +12371,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -12388,16 +12388,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -12450,7 +12450,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -12463,11 +12463,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
       common_battle_order_panel,
 ##################################################
 ##### troop_ratio_bar
@@ -12523,19 +12523,19 @@ mission_templates = [
       common_battle_victory_display,
       common_siege_refill_ammo,
       common_siege_check_defeat_condition,
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -12550,11 +12550,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -12567,16 +12567,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -12629,7 +12629,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -12642,11 +12642,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
       common_battle_order_panel,
 ##################################################
 ##### troop_ratio_bar
@@ -12674,11 +12674,11 @@ mission_templates = [
           (assign, reg0, ":dead_agent_no"),
           (assign, reg1, ":killer_agent_no"),
           (assign, reg2, ":is_wounded"),
-          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
+          (agent_get_team, reg3, ":dead_agent_no"),
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
           (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
           (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
         (try_end),
        ]),
 
@@ -12732,7 +12732,7 @@ mission_templates = [
 ##       []),
     ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + custom_camera_triggers,
   ),
-  
+
 
   (
     "castle_visit",0,-1,
@@ -12740,7 +12740,7 @@ mission_templates = [
     [(0,mtef_scene_source|mtef_team_0,af_override_horse|af_override_weapons|af_override_head,0,1,pilgrim_disguise),
      (1,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
      (2,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
-     (3,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise), 
+     (3,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
      (4,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise), #for doors
      (5,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
      (6,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
@@ -12762,7 +12762,7 @@ mission_templates = [
      (45,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
      (46,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
      ],
-    [    
+    [
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
@@ -12772,7 +12772,7 @@ mission_templates = [
           (neq, ":player_agent", ":agent_no"),
           (agent_set_team, ":agent_no", 7),
         (try_end),
-        
+
         (try_begin),
           (this_or_next|eq, "$talk_context", tc_escape),
           (eq, "$talk_context", tc_prison_break),
@@ -12785,22 +12785,22 @@ mission_templates = [
 
           (try_begin),
             (troop_slot_eq, ":troop_no", slot_troop_mission_participation, mp_prison_break_stand_back),
-            (agent_get_position, pos1, ":agent_no"),                        
+            (agent_get_position, pos1, ":agent_no"),
             (agent_set_scripted_destination, ":agent_no", pos1),
           (try_end),
         (try_end),
       ]),
-      
+
       (ti_on_agent_killed_or_wounded, 0, 0, [],
       [
         (store_trigger_param_1, ":dead_agent_no"),
         (store_trigger_param_2, ":killer_agent_no"),
         #(store_trigger_param_3, ":is_wounded"),
-        
+
         (agent_get_troop_id, ":dead_agent_troop_no", ":dead_agent_no"),
         (agent_get_troop_id, ":killer_agent_troop_no", ":killer_agent_no"),
-                
-        (try_begin), 
+
+        (try_begin),
          #### modified for TGS
            (this_or_next|eq, ":dead_agent_troop_no", "trp_legion_prison_guard"),
            (this_or_next|eq, ":dead_agent_troop_no", "trp_red_hand_prison_guard"),
@@ -12830,14 +12830,14 @@ mission_templates = [
            (this_or_next|eq, ":dead_agent_troop_no", "trp_madmen_prison_guard"),
            (eq, ":dead_agent_troop_no", "trp_toman_head_prison_guard"),
      #### end modified for TGS
-          
+
           (eq, ":killer_agent_troop_no", "trp_player"),
-          
+
           (display_message, "@You got keys of dungeon."),
         (try_end),
-      ]),     
+      ]),
 
-      #JAILBREAK TRIGGERS 
+      #JAILBREAK TRIGGERS
       #Civilians get out of the way
       (1, 0, 0,
       [
@@ -12849,7 +12849,7 @@ mission_templates = [
         (call_script, "script_neutral_behavior_in_fight"),
         (mission_disable_talk),
       ]),
-      
+
       #The game begins with the town alerted
       (1, 0, ti_once,
       [
@@ -12859,26 +12859,26 @@ mission_templates = [
       [
         (get_player_agent_no, ":player_agent"),
         (assign, reg6, ":player_agent"),
-        (call_script, "script_activate_town_guard"),		
-        
+        (call_script, "script_activate_town_guard"),
+
         (get_player_agent_no, ":player_agent"),
         (agent_get_position, pos4, ":player_agent"),
-        
+
         (try_for_range, ":prisoner", active_npcs_begin, kingdom_ladies_end),
           (troop_slot_ge, ":prisoner", slot_troop_mission_participation, 1),
-          
+
           (str_store_troop_name, s4, ":prisoner"),
           (display_message, "str_s4_joins_prison_break"),
-          
+
           (store_current_scene, ":cur_scene"), #this might be a better option?
           (modify_visitors_at_site, ":cur_scene"),
-          #<entry_no>,<troop_id>,<number_of_troops>, <team_no>, <group_no>), 
+          #<entry_no>,<troop_id>,<number_of_troops>, <team_no>, <group_no>),
           #team no and group no are used in multiplayer mode only. default team in entry is used in single player mode
           (store_current_scene, ":cur_scene"),
           (modify_visitors_at_site, ":cur_scene"),
           (assign, ":nearest_entry_no", 24),
           (add_visitors_to_current_scene, ":nearest_entry_no", ":prisoner", 1, 0, 0),
-          (troop_set_slot, ":prisoner", slot_troop_will_join_prison_break, 1),          
+          (troop_set_slot, ":prisoner", slot_troop_will_join_prison_break, 1),
         (try_end),
 	  ]),
 
@@ -12896,47 +12896,47 @@ mission_templates = [
         (else_try),
           (display_message, "str_cannot_leave_now"),
         (try_end),
-      ], 
+      ],
       []),
-            
-      (ti_before_mission_start, 0, 0, [], 
+
+      (ti_before_mission_start, 0, 0, [],
       [
         (call_script, "script_change_banners_and_chest"),
         (call_script, "script_remove_siege_objects"),
       ]),
-      
-      (3, 0, 0, 
-      [     
+
+      (3, 0, 0,
+      [
         (main_hero_fallen, 0),
-      ],	  
+      ],
       [
         (try_begin),
           (this_or_next|eq, "$talk_context", tc_prison_break),
           (eq, "$talk_context", tc_escape),
-       
+
           (call_script, "script_deduct_casualties_from_garrison"),
-	      (jump_to_menu,"mnu_captivity_start_castle_defeat"), 
-	 
+	      (jump_to_menu,"mnu_captivity_start_castle_defeat"),
+
 	      (assign, ":end_cond", kingdom_ladies_end),
           (try_for_range, ":prisoner", active_npcs_begin, ":end_cond"),
-  	        (troop_set_slot, ":prisoner", slot_troop_mission_participation, 0), #new	  
-  	      (try_end),  
-	 
+  	        (troop_set_slot, ":prisoner", slot_troop_mission_participation, 0), #new
+  	      (try_end),
+
 	      (mission_enable_talk),
 	      (finish_mission, 0),
-	    (else_try),  
+	    (else_try),
 	      (mission_enable_talk),
 	      (finish_mission, 0),
 	      (set_trigger_result, 1),
-        (try_end),	 	 
+        (try_end),
       ]),
-      
-      (3, 0, 0, 
+
+      (3, 0, 0,
       [
         (eq, "$talk_context", tc_escape),
         (neg|main_hero_fallen,0),
         (store_mission_timer_a, ":time"),
-        (ge, ":time", 10),      
+        (ge, ":time", 10),
         (all_enemies_defeated), #1 is default enemy team for in-town battles
       ],
       [
@@ -12956,19 +12956,19 @@ mission_templates = [
         (finish_mission, 0),
       ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -12983,11 +12983,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -13000,16 +13000,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -13062,7 +13062,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -13075,11 +13075,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
       common_battle_order_panel,
 ##################################################
 ##### troop_ratio_bar
@@ -13089,7 +13089,7 @@ mission_templates = [
 ##################################################
 ##### troop_ratio_bar
 ##################################################
-      
+
 
 ## TGS: mat: Added for additional walkers in castles
 
@@ -13268,7 +13268,7 @@ mission_templates = [
        (try_end),
        (val_add, "$trainer_help_message", 1),
           ]),
-      
+
     ],
   ),
 
@@ -13284,9 +13284,9 @@ mission_templates = [
     ],
     [
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
-      
+
       common_arena_fight_tab_press,
-      
+
       (ti_question_answered, 0, 0, [],
        [
          (store_trigger_param_1, ":answer"),
@@ -13348,9 +13348,9 @@ mission_templates = [
        [
          (assign, "$g_last_destroyed_gourds", 0),
          (call_script, "script_change_banners_and_chest")]),
-      
+
       common_arena_fight_tab_press,
-      
+
       (ti_question_answered, 0, 0, [],
        [
          (store_trigger_param_1,":answer"),
@@ -13359,7 +13359,7 @@ mission_templates = [
          (jump_to_menu, "mnu_training_ground_training_result"),
          (finish_mission),
          ]),
-      
+
       common_inventory_not_available,
 
       (0, 0, ti_once,
@@ -13486,7 +13486,7 @@ mission_templates = [
          (store_mission_timer_a, ":cur_seconds"),
          (this_or_next|main_hero_fallen),
          (this_or_next|eq, ":ammo", 0),
-         (gt, ":cur_seconds", 116), 
+         (gt, ":cur_seconds", 116),
          ],
        [
          (store_mul, "$g_training_ground_training_success_ratio", "$scene_num_total_gourds_destroyed", 10),
@@ -13605,7 +13605,7 @@ mission_templates = [
      (62,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      (63,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      (64,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
-     
+
      # (0,mtef_visitor_source|mtef_team_0,af_override_all,aif_start_alarmed,1,pilgrim_disguise),
      # (25,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      # (26,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
@@ -13616,82 +13616,82 @@ mission_templates = [
      # (31,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      # (32,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
     ],
-    [    
-      (ti_before_mission_start, 0, 0, [], 
+    [
+      (ti_before_mission_start, 0, 0, [],
       [
         (call_script, "script_change_banners_and_chest"),
       ]),
-      
+
       (ti_after_mission_start, 0, 0, [],
        [
         (assign, ":num_guards", 5),
-        
+
         (try_begin),
-          (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),                          
+          (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
           (store_current_hours, ":cur_time"),
-          (store_add, ":fire_finish_time", ":last_nearby_fire_time", 4),                          
+          (store_add, ":fire_finish_time", ":last_nearby_fire_time", 4),
           (is_between, ":cur_time", ":fire_finish_time", ":last_nearby_fire_time"),
           (assign, ":num_guards", 2),
-        (else_try),  
+        (else_try),
           (this_or_next|eq, "$talk_context", tc_escape),
           (eq, "$talk_context", tc_prison_break),
 
           (assign, ":num_guards", 4),
         (try_end),
-        
+
         (try_begin),
           (this_or_next|eq, "$talk_context", tc_escape),
           (eq, "$talk_context", tc_prison_break),
-          (entry_point_get_position, pos0, 7), 
-        (else_try),          
+          (entry_point_get_position, pos0, 7),
+        (else_try),
           (party_slot_eq, "$current_town", slot_party_type, spt_town),
-          (entry_point_get_position, pos0, 0), 
-        (else_try),  
-          (entry_point_get_position, pos0, 1), 
+          (entry_point_get_position, pos0, 0),
+        (else_try),
+          (entry_point_get_position, pos0, 1),
         (try_end),
-                        
+
         (assign, ":last_nearest_entry_distance", -1),
         (assign, ":last_nearest_entry_point", -1),
         (try_for_range, ":guard_no", 0, ":num_guards"),
           (assign, ":smallest_dist", 100000),
           (try_for_range, ":guard_entry_point", 2, 64),
             (neq, ":last_nearest_entry_point", ":guard_entry_point"),
-            (entry_point_get_position, pos1, ":guard_entry_point"), 
+            (entry_point_get_position, pos1, ":guard_entry_point"),
             (get_distance_between_positions, ":dist", pos0, pos1),
             (lt, ":dist", ":smallest_dist"),
             (gt, ":dist", ":last_nearest_entry_distance"),
             (assign, ":smallest_dist", ":dist"),
             (assign, ":nearest_entry_point", ":guard_entry_point"),
-          (try_end),  
-          
+          (try_end),
+
           (store_faction_of_party, ":town_faction","$current_town"),
           (try_begin),
             (this_or_next|eq, ":guard_no", 0),
             (eq, ":guard_no", 2),
             (faction_get_slot, ":troop_of_guard", ":town_faction", slot_faction_tier_2_troop),
-          (else_try),  
+          (else_try),
             (faction_get_slot, ":troop_of_guard", ":town_faction", slot_faction_tier_2_troop),
           (try_end),
-          
+
           (assign, ":last_nearest_entry_point", ":nearest_entry_point"),
           (assign, ":last_nearest_entry_distance", ":smallest_dist"),
-                    
-          (add_visitors_to_current_scene, ":nearest_entry_point", ":troop_of_guard", 1, 0),                      
+
+          (add_visitors_to_current_scene, ":nearest_entry_point", ":troop_of_guard", 1, 0),
         (try_end),
       ]),
-      
+
       (ti_tab_pressed, 0, 0, [],
        [(question_box,"str_do_you_wish_to_surrender")]),
-       
+
       (ti_question_answered, 0, 0, [],
        [(store_trigger_param_1,":answer"),(eq,":answer",0),(jump_to_menu,"mnu_captivity_start_castle_defeat"),(finish_mission,0),]),
-      
+
       (1, 0, ti_once, [],
        [
          (play_sound,"snd_sneak_town_halt"),
          (call_script, "script_music_set_situation_with_culture", mtf_sit_fight),
          ]),
-         
+
       (0, 3, 0,
        [
           (main_hero_fallen,0),
@@ -13700,32 +13700,32 @@ mission_templates = [
          (jump_to_menu,"mnu_captivity_start_castle_defeat"),
          (finish_mission,0),
        ]),
-       
-      (1, 0, 0, [], 
+
+      (1, 0, 0, [],
        [
 	    (get_player_agent_no, ":player_agent"),
 	    (agent_get_position, pos0, ":player_agent"),
-	    	    
+
         (try_for_agents, ":agent_no"),
           (neq, ":agent_no", ":player_agent"),
           (agent_is_alive, ":agent_no"),
           (agent_get_team, ":agent_team", ":agent_no"),
           (eq, ":agent_team", 1),
-          
+
           (agent_get_position, pos1, ":agent_no"),
-        
+
           (get_distance_between_positions, ":dist", pos0, pos1),
-         
+
           (try_begin),
             (le, ":dist", 800),
             (agent_clear_scripted_mode, ":agent_no"),
-          (else_try),  
+          (else_try),
             (agent_set_scripted_destination, ":agent_no", pos0, 0),
           (try_end),
-        (try_end),                  	      
-       ]), 
+        (try_end),
+       ]),
 
-	   (5, 1, ti_once, 
+	   (5, 1, ti_once,
 	   [
 	     (num_active_teams_le,1),
 	     (neg|main_hero_fallen),
@@ -13738,25 +13738,25 @@ mission_templates = [
          (jump_to_menu,"mnu_sneak_into_town_caught_dispersed_guards"),
          (finish_mission,1),
        ]),
-       
+
 	   (ti_on_leave_area, 0, ti_once, [],
        [(assign,"$auto_menu",-1),(jump_to_menu,"mnu_sneak_into_town_caught_ran_away"),(finish_mission,0)]),
 
       (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena")], []),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -13771,11 +13771,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -13788,16 +13788,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -13850,7 +13850,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -13863,11 +13863,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
       common_battle_order_panel,
 ##################################################
 ##### troop_ratio_bar
@@ -13876,8 +13876,8 @@ mission_templates = [
 #      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
-      
+##################################################
+
     ],
   ),
 
@@ -13897,19 +13897,19 @@ mission_templates = [
       (ti_tab_pressed, 0, 0, [],
        [(finish_mission,0)]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -13924,11 +13924,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -13941,16 +13941,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -14003,7 +14003,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -14016,7 +14016,7 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -14147,8 +14147,8 @@ mission_templates = [
          (call_script, "script_music_set_situation_with_culture", mtf_sit_arena),
          ]),
 
-		 
-	#NOTE -- THIS IS A VESTIGIAL SCRIPT. FOR LORD DUELS, USE THE NEXT SCRIPT DOWN 	 
+
+	#NOTE -- THIS IS A VESTIGIAL SCRIPT. FOR LORD DUELS, USE THE NEXT SCRIPT DOWN
       (1, 4, ti_once, [
 	  (this_or_next|main_hero_fallen),
 		(num_active_teams_le,1)],
@@ -14171,7 +14171,7 @@ mission_templates = [
 			 (check_quest_active, "qst_duel_courtship_rival"),
 			 (quest_slot_eq, "qst_duel_courtship_rival", slot_quest_target_troop, "$g_duel_troop"),
              (call_script, "script_succeed_quest", "qst_duel_courtship_rival"),
-		   (else_try),	 
+		   (else_try),
              (main_hero_fallen),
 			 (check_quest_active, "qst_duel_avenge_insult"),
 			 (quest_slot_eq, "qst_duel_avenge_insult", slot_quest_target_troop, "$g_duel_troop"),
@@ -14180,7 +14180,7 @@ mission_templates = [
 			 (check_quest_active, "qst_duel_avenge_insult"),
 			 (quest_slot_eq, "qst_duel_avenge_insult", slot_quest_target_troop, "$g_duel_troop"),
              (call_script, "script_succeed_quest", "qst_duel_avenge_insult"),
-		   (else_try),	 
+		   (else_try),
              (main_hero_fallen),
 			 (check_quest_active, "qst_denounce_lord"),
 			 (quest_slot_eq, "qst_denounce_lord", slot_quest_target_troop, "$g_duel_troop"),
@@ -14201,7 +14201,7 @@ mission_templates = [
   (
     "duel_with_lord",mtf_arena_fight|mtf_commit_casualties,-1,
     "You enter a melee fight in the arena.",
-    [    
+    [
 	  (0, mtef_visitor_source|mtef_team_0,af_override_all,aif_start_alarmed,1,[itm_sword_medieval_a,itm_arena_tunic_blue]),
 	  (16, mtef_visitor_source|mtef_team_1,af_override_all,aif_start_alarmed,1,[itm_sword_medieval_a,itm_arena_tunic_blue]),
     ],
@@ -14238,7 +14238,7 @@ mission_templates = [
 			 (check_quest_active, "qst_duel_courtship_rival"),
 			 (quest_slot_eq, "qst_duel_courtship_rival", slot_quest_target_troop, "$g_duel_troop"),
              (call_script, "script_succeed_quest", "qst_duel_courtship_rival"),
-		   (else_try),	 
+		   (else_try),
              (main_hero_fallen),
 			 (check_quest_active, "qst_duel_avenge_insult"),
 			 (quest_slot_eq, "qst_duel_avenge_insult", slot_quest_target_troop, "$g_duel_troop"),
@@ -14247,7 +14247,7 @@ mission_templates = [
 			 (check_quest_active, "qst_duel_avenge_insult"),
 			 (quest_slot_eq, "qst_duel_avenge_insult", slot_quest_target_troop, "$g_duel_troop"),
              (call_script, "script_succeed_quest", "qst_duel_avenge_insult"),
-		   (else_try),	 
+		   (else_try),
              (main_hero_fallen),
 			 (check_quest_active, "qst_denounce_lord"),
 			 (quest_slot_eq, "qst_denounce_lord", slot_quest_target_troop, "$g_duel_troop"),
@@ -14263,11 +14263,11 @@ mission_templates = [
            (finish_mission),
            ]),
     ],
-  ),  
-  
-  
-  
-  
+  ),
+
+
+
+
 ##   (
 ##    "tutorial",0,-1,
 ##    "You enter the training ground.",
@@ -14294,14 +14294,14 @@ mission_templates = [
 ##        (troop_remove_item, "trp_player", "itm_tutorial_short_bow"),
 ##        (troop_remove_item, "trp_player", "itm_tutorial_crossbow"),
 ##        (troop_remove_item, "trp_player", "itm_tutorial_throwing_daggers"),
-##        
+##
 ##        (check_quest_active, "qst_destroy_dummies"),
 ##        (cancel_quest,"qst_destroy_dummies"),
 ##        ]),
 ###      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial")], []),
 ##      (ti_inventory_key_pressed, 0, 0, [(set_trigger_result,1)], []),
 ##
-##        
+##
 ##      (0, 0, ti_once, [],
 ##       [
 ##        (assign, "$tutorial_enter_melee", 0),
@@ -14315,7 +14315,7 @@ mission_templates = [
 ##        (assign, "$tutorial_ranged_chest", 0),
 ##        (assign, "$tutorial_award_taken", 0),
 ##
-##           
+##
 ##        (entry_point_get_position,2,2),#Trainer
 ##        (entry_point_get_position,16,16),#Horse
 ##        (set_spawn_position, 16),
@@ -14343,7 +14343,7 @@ mission_templates = [
 ##        (troop_add_item, "trp_tutorial_chest_2", "itm_tutorial_throwing_daggers"),
 ##        ]
 ##       ),
-##     
+##
 ##      (1, 0, ti_once, [(store_character_level, ":player_level", "trp_player"),
 ##                       (le, ":player_level", 1),
 ##                       (get_player_agent_no, ":player_agent"),
@@ -14438,7 +14438,7 @@ mission_templates = [
 ##       [(tutorial_box,"str_tutorial_item_equipped", "str_tutorial")]),
 ##
 ##
-##      
+##
 ##
 ###      (2, 0, ti_once, [(get_player_agent_no, ":player_agent"),
 ###                       (agent_get_position, pos1, ":player_agent"),
@@ -14448,7 +14448,7 @@ mission_templates = [
 ###                       (eq, "$tutorial_group_of_weapons", 0),],
 ###       [(tutorial_box,"str_tutorial_group_of_weapons", "str_tutorial"), (val_add,"$tutorial_group_of_weapons", 1)]),
 ##
-##      
+##
 ##
 ##      (1, 5, ti_once, [(eq,"$tutorial_camp_stage",0),
 ##                       (neg|conversation_screen_is_active),
@@ -14469,8 +14469,8 @@ mission_templates = [
 ##                       (neg|conversation_screen_is_active),
 ##                       (tutorial_box,"str_tutorial_camp4","str_tutorial"),],
 ##          [(val_add,"$tutorial_camp_stage",2)]),
-##      
-##     
+##
+##
 ##      (1, 3, ti_once, [(eq,"$tutorial_camp_stage",5),
 ##                       (neg|conversation_screen_is_active),
 ##                       (eq,"$tutorial_quest_taken",1),
@@ -14482,7 +14482,7 @@ mission_templates = [
 ##                       (ge,"$tutorial_num_total_dummies_destroyed",10),
 ##                       (tutorial_box,"str_tutorial_camp7","str_tutorial"),],
 ##          [(val_add,"$tutorial_camp_stage",1), (assign,"$tutorial_quest_succeeded",1),]),
-##      
+##
 ##      (1, 3, ti_once, [(eq,"$tutorial_camp_stage",7),
 ##                       (neg|conversation_screen_is_active),
 ##                       (eq,"$tutorial_quest_award_taken",1),
@@ -14494,7 +14494,7 @@ mission_templates = [
 ##                         (val_add, "$tutorial_last_proficiency_sum", ":cur_attribute_point"),
 ##                       (try_end),],
 ##       [(val_add,"$tutorial_camp_stage",1),]),
-##      
+##
 ##      (1, 3, ti_once, [(eq,"$tutorial_camp_stage",8),
 ##                       (neg|conversation_screen_is_active),
 ##                       (assign, ":new_proficiency_sum", 0),
@@ -15368,7 +15368,7 @@ mission_templates = [
            (try_end),
          (try_end),
          ], []),
-      
+
       (0, 0, 0,
        [
          (store_mission_timer_a, ":cur_time"),
@@ -15631,7 +15631,7 @@ mission_templates = [
            (try_end),
          (try_end),
          ], []),
-      
+
       (0, 0, 0,
        [
          (get_player_agent_no, ":player_agent"),
@@ -15759,7 +15759,7 @@ mission_templates = [
            (try_end),
          (try_end),
          ], []),
-      
+
       (0, 0, 0,
        [
          (get_player_agent_no, ":player_agent"),
@@ -16419,7 +16419,7 @@ mission_templates = [
 ##         (try_end),
          ], []),
 
-      
+
     ],
   ),
 
@@ -16665,7 +16665,7 @@ mission_templates = [
       	               (tutorial_message_set_size, 17, 17),
 	                   (tutorial_message_set_position, 500, 650),
                        (tutorial_message_set_center_justify, 0),
-		               
+
                        (assign, "$tutorial_2_state", 0),
                        (assign, "$tutorial_2_msg_1_displayed", 0),
                        (assign, "$tutorial_2_msg_2_displayed", 0),
@@ -17177,7 +17177,7 @@ mission_templates = [
     "tutorial_3_2",mtf_arena_fight,-1,
     "You enter the training ground.",
     [
-        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_tutorial_staff,itm_leather_jerkin,itm_leather_boots]), 
+        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_tutorial_staff,itm_leather_jerkin,itm_leather_boots]),
         (4,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
         (6,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
@@ -17286,7 +17286,7 @@ mission_templates = [
                      (assign, "$tutorial_3_msg_3_displayed", 1),
                      (tutorial_message, "str_tutorial_3_2_msg_3"),
                      (play_sound, "snd_tutorial_1"),
-                   (try_end),                 
+                   (try_end),
                    (scene_prop_get_instance, ":barrier_object", "spr_barrier_4m", 1),
                    (prop_instance_get_position, pos1, ":barrier_object"),
                    (get_player_agent_no, ":player_agent"),
@@ -17323,7 +17323,7 @@ mission_templates = [
                  (try_end),
                  ], []),
 
-      
+
     ],
   ),
 
@@ -17605,7 +17605,7 @@ mission_templates = [
                        ], []),
 
       (0, 0, 0, [(call_script, "script_cf_turn_windmill_fans", 0)], []),
-      
+
       (0, 0, 0, [(try_begin),
                    (eq, "$tutorial_5_state", 0),
                    (try_begin),
@@ -17798,26 +17798,26 @@ mission_templates = [
          ]),
 
       common_battle_init_banner,
-      
+
       (0, 0, ti_once, [],
         [
           (assign, "$g_battle_result", 0),
           (call_script, "script_combat_music_set_situation_with_culture"),
          ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       #common_wot_initialize_channeling_weave_variables_1,
       common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -17832,11 +17832,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -17849,16 +17849,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       common_wot_balefire_trigger_1,
       #common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -17911,7 +17911,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -17924,7 +17924,7 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -17936,7 +17936,7 @@ mission_templates = [
 #      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
+##################################################
 
       common_music_situation_update,
       custom_battle_check_victory_condition,
@@ -18025,19 +18025,19 @@ mission_templates = [
       common_inventory_not_available,
       common_custom_siege_init,
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       #common_wot_initialize_channeling_weave_variables_1,
       common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -18052,11 +18052,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -18069,16 +18069,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       common_wot_balefire_trigger_1,
       #common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -18131,7 +18131,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -18144,7 +18144,7 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -18156,8 +18156,8 @@ mission_templates = [
 #      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
-      
+##################################################
+
       common_music_situation_update,
       custom_battle_check_victory_condition,
       common_battle_victory_display,
@@ -18214,7 +18214,7 @@ mission_templates = [
 ##      custom_battle_check_victory_condition,
 ##      common_battle_victory_display,
 ##      custom_battle_check_defeat_condition,
-##      
+##
 ##      (0, 0, ti_once,
 ##       [
 ##         (assign, "$defender_team", 0),
@@ -18310,8 +18310,8 @@ mission_templates = [
       (63,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
     [
-      #multiplayer_server_check_belfry_movement,      
-     
+      #multiplayer_server_check_belfry_movement,
+
       multiplayer_server_check_polls,
 
       (ti_on_agent_spawn, 0, 0, [],
@@ -18330,21 +18330,21 @@ mission_templates = [
        [
          (assign, "$g_multiplayer_game_type", multiplayer_game_type_deathmatch),
          (call_script, "script_multiplayer_server_before_mission_start_common"),
-         
+
          (multiplayer_make_everyone_enemy),
 
          (call_script, "script_multiplayer_init_mission_variables"),
          (call_script, "script_multiplayer_remove_destroy_mod_targets"),
-         (call_script, "script_multiplayer_remove_headquarters_flags"), # close this line and open map in deathmatch mod and use all ladders firstly 
-         ]),                                                            # to be able to edit maps without damaging any headquarters flags ext. 
+         (call_script, "script_multiplayer_remove_headquarters_flags"), # close this line and open map in deathmatch mod and use all ladders firstly
+         ]),                                                            # to be able to edit maps without damaging any headquarters flags ext.
 
-      (ti_after_mission_start, 0, 0, [], 
+      (ti_after_mission_start, 0, 0, [],
        [
          (set_spawn_effector_scene_prop_kind, 0, -1), #during this mission, agents of "team 0" will try to spawn around scene props with kind equal to -1(no effector for this mod)
          (set_spawn_effector_scene_prop_kind, 1, -1), #during this mission, agents of "team 1" will try to spawn around scene props with kind equal to -1(no effector for this mod)
 
          (call_script, "script_initialize_all_scene_prop_slots"),
-         
+
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
 
          (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
@@ -18391,11 +18391,11 @@ mission_templates = [
 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
-         (store_trigger_param_1, ":dead_agent_no"), 
+         (store_trigger_param_1, ":dead_agent_no"),
          (store_trigger_param_2, ":killer_agent_no"),
          (call_script, "script_multiplayer_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
          ]),
-      
+
       (1, 0, 0, [],
        [
          (multiplayer_is_server),
@@ -18426,7 +18426,7 @@ mission_templates = [
                (agent_get_time_elapsed_since_removed, ":elapsed_time", ":player_agent"),
                (gt, ":elapsed_time", "$g_multiplayer_respawn_period"),
                (assign, ":spawn_new", 1),
-             (try_end),             
+             (try_end),
            (try_end),
            (eq, ":spawn_new", 1),
            (call_script, "script_multiplayer_buy_agent_equipment", ":player_no"),
@@ -18438,8 +18438,8 @@ mission_templates = [
            (else_try),
              (assign, ":is_horseman", 0),
            (try_end),
-         
-           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 0, ":is_horseman"), 
+
+           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 0, ":is_horseman"),
            (player_spawn_new_agent, ":player_no", reg0),
          (try_end),
          ]),
@@ -18461,7 +18461,7 @@ mission_templates = [
            (else_try),
              (agent_get_time_elapsed_since_removed, ":elapsed_time", ":cur_agent"),
              (le, ":elapsed_time", "$g_multiplayer_respawn_period"),
-             (assign, ":will_be_counted", 1), 
+             (assign, ":will_be_counted", 1),
            (try_end),
            (eq, ":will_be_counted", 1),
            (agent_get_team, ":cur_team", ":cur_agent"),
@@ -18518,7 +18518,7 @@ mission_templates = [
              (assign, ":end_cond", 0),
              (assign, ":selected_troop", ":troop_no"),
            (try_end),
-         
+
            (troop_get_inventory_slot, ":has_item", ":selected_troop", ek_horse),
            (try_begin),
              (ge, ":has_item", 0),
@@ -18527,7 +18527,7 @@ mission_templates = [
              (assign, ":is_horseman", 0),
            (try_end),
 
-           (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 0, ":is_horseman"), 
+           (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 0, ":is_horseman"),
            (store_current_scene, ":cur_scene"),
            (modify_visitors_at_site, ":cur_scene"),
            (add_visitors_to_current_scene, reg0, ":selected_troop", 1, ":selected_team", -1),
@@ -18553,7 +18553,7 @@ mission_templates = [
            (call_script, "script_game_set_multiplayer_mission_end"),
          (try_end),
          ]),
-        
+
       (ti_tab_pressed, 0, 0, [],
        [
          (try_begin),
@@ -18574,8 +18574,8 @@ mission_templates = [
          ]),
 
       multiplayer_once_at_the_first_frame,
-      
-      #################################################################  
+
+      #################################################################
       ###### TGS triggers
       #################################################################
 
@@ -18640,7 +18640,7 @@ mission_templates = [
         common_wot_seeker_trigger_18_multi,
         common_wot_seeker_trigger_19_multi,
         common_wot_seeker_trigger_20_multi,
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -18651,8 +18651,8 @@ mission_templates = [
       (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
-      
+##################################################
+
       (ti_escape_pressed, 0, 0, [],
        [
          (neg|is_presentation_active, "prsnt_multiplayer_escape_menu"),
@@ -18749,7 +18749,7 @@ mission_templates = [
          (store_trigger_param_1, ":agent_no"),
          (call_script, "script_multiplayer_server_on_agent_spawn_common", ":agent_no"),
          ]),
-      
+
       (ti_server_player_joined, 0, 0, [],
        [
          (store_trigger_param_1, ":player_no"),
@@ -18766,13 +18766,13 @@ mission_templates = [
          (call_script, "script_multiplayer_remove_headquarters_flags"),
          ]),
 
-      (ti_after_mission_start, 0, 0, [], 
+      (ti_after_mission_start, 0, 0, [],
        [
          (set_spawn_effector_scene_prop_kind, 0, -1), #during this mission, agents of "team 0" will try to spawn around scene props with kind equal to -1(no effector for this mod)
          (set_spawn_effector_scene_prop_kind, 1, -1), #during this mission, agents of "team 1" will try to spawn around scene props with kind equal to -1(no effector for this mod)
 
          (call_script, "script_initialize_all_scene_prop_slots"),
-         
+
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
 
          (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
@@ -18804,15 +18804,15 @@ mission_templates = [
          #GLORIOUS_MOTHER_FACTION achievement end
 
          (call_script, "script_multiplayer_event_mission_end"),
-         
+
          (assign, "$g_multiplayer_stats_chart_opened_manually", 0),
          (start_presentation, "prsnt_multiplayer_stats_chart"),
          ]),
 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
-         (store_trigger_param_1, ":dead_agent_no"), 
-         (store_trigger_param_2, ":killer_agent_no"), 
+         (store_trigger_param_1, ":dead_agent_no"),
+         (store_trigger_param_2, ":killer_agent_no"),
          (call_script, "script_multiplayer_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
          #adding 1 score points to killer agent's team. (special for "headquarters" and "team deathmatch" mod)
          (try_begin),
@@ -18859,7 +18859,7 @@ mission_templates = [
                (agent_get_time_elapsed_since_removed, ":elapsed_time", ":player_agent"),
                (gt, ":elapsed_time", "$g_multiplayer_respawn_period"),
                (assign, ":spawn_new", 1),
-             (try_end),             
+             (try_end),
            (try_end),
            (eq, ":spawn_new", 1),
            (call_script, "script_multiplayer_buy_agent_equipment", ":player_no"),
@@ -18872,7 +18872,7 @@ mission_templates = [
              (assign, ":is_horseman", 0),
            (try_end),
 
-           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 1, ":is_horseman"), 
+           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 1, ":is_horseman"),
            (player_spawn_new_agent, ":player_no", reg0),
          (try_end),
          ]),
@@ -18894,7 +18894,7 @@ mission_templates = [
            (else_try),
              (agent_get_time_elapsed_since_removed, ":elapsed_time", ":cur_agent"),
              (le, ":elapsed_time", "$g_multiplayer_respawn_period"),
-             (assign, ":will_be_counted", 1), 
+             (assign, ":will_be_counted", 1),
            (try_end),
            (eq, ":will_be_counted", 1),
            (agent_get_team, ":cur_team", ":cur_agent"),
@@ -18911,7 +18911,7 @@ mission_templates = [
          (val_max, "$g_multiplayer_num_bots_required_team_1", 0),
          (val_max, "$g_multiplayer_num_bots_required_team_2", 0),
          ]),
-      
+
       multiplayer_server_spawn_bots,
       multiplayer_server_manage_bots,
 
@@ -18923,7 +18923,7 @@ mission_templates = [
          ]),
 
       multiplayer_server_check_end_map,
-        
+
       (ti_tab_pressed, 0, 0, [],
        [
          (try_begin),
@@ -18946,7 +18946,7 @@ mission_templates = [
       multiplayer_once_at_the_first_frame,
       multiplayer_battle_window_opened,
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
@@ -19012,7 +19012,7 @@ mission_templates = [
         common_wot_seeker_trigger_19_multi,
         common_wot_seeker_trigger_20_multi,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -19023,7 +19023,7 @@ mission_templates = [
       (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
+##################################################
 
       (ti_escape_pressed, 0, 0, [],
        [
@@ -19034,7 +19034,7 @@ mission_templates = [
          ]),
       ],
   ),
-  
+
   (
     "multiplayer_hq", mtf_battle_mode,-1, #headquarters mode
     "You lead your men to battle.",
@@ -19121,7 +19121,7 @@ mission_templates = [
          (store_trigger_param_1, ":agent_no"),
          (call_script, "script_multiplayer_server_on_agent_spawn_common", ":agent_no"),
          ]),
-      
+
       (ti_server_player_joined, 0, 0, [],
        [
          (store_trigger_param_1, ":player_no"),
@@ -19134,14 +19134,14 @@ mission_templates = [
          (call_script, "script_multiplayer_server_before_mission_start_common"),
 
          (store_mul, ":initial_hq_score", "$g_multiplayer_game_max_points", 10000),
-         
+
          (assign, "$g_score_team_1", ":initial_hq_score"),
          (assign, "$g_score_team_2", ":initial_hq_score"),
 
          (try_for_range, ":cur_flag_slot", multi_data_flag_owner_begin, multi_data_flag_owner_end),
            (troop_set_slot, "trp_multiplayer_data", ":cur_flag_slot", -1),
          (try_end),
-           
+
          (try_begin),
            (multiplayer_is_server),
            (try_for_range, ":cur_flag_slot", multi_data_flag_pull_code_begin, multi_data_flag_pull_code_end),
@@ -19162,45 +19162,45 @@ mission_templates = [
       (ti_after_mission_start, 0, 0, [],
        [
          (call_script, "script_determine_team_flags", 0),
-         (call_script, "script_determine_team_flags", 1),         
+         (call_script, "script_determine_team_flags", 1),
          (set_spawn_effector_scene_prop_kind, 0, "$team_1_flag_scene_prop"), #during this mission, agents of "team 0" will try to spawn around scene props with kind equal to $team_1_flag_scene_prop
          (set_spawn_effector_scene_prop_kind, 1, "$team_2_flag_scene_prop"), #during this mission, agents of "team 1" will try to spawn around scene props with kind equal to $team_2_flag_scene_prop
-         
+
          (try_begin),
            (multiplayer_is_server),
 
            (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
-         
+
            (assign, "$g_number_of_flags", 0),
-         
+
            #place base flags
            (entry_point_get_position, pos1, multi_base_point_team_1),
            (entry_point_get_position, pos3, multi_base_point_team_1),
 
            (set_spawn_position, pos3),
-           (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),           
+           (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),
            (set_spawn_position, pos3),
-           (spawn_scene_prop, "$team_1_flag_scene_prop", 0),           
+           (spawn_scene_prop, "$team_1_flag_scene_prop", 0),
            (set_spawn_position, pos3),
-           (spawn_scene_prop, "$team_2_flag_scene_prop", 0),                    
+           (spawn_scene_prop, "$team_2_flag_scene_prop", 0),
            (set_spawn_position, pos3),
-           (spawn_scene_prop, "spr_headquarters_flag_gray_code_only", 0),           
-         
+           (spawn_scene_prop, "spr_headquarters_flag_gray_code_only", 0),
+
            (store_add, ":cur_flag_slot", multi_data_flag_owner_begin, "$g_number_of_flags"),
            (troop_set_slot, "trp_multiplayer_data", ":cur_flag_slot", 1),
            (val_add, "$g_number_of_flags", 1),
 
            (entry_point_get_position, pos2, multi_base_point_team_2),
            (entry_point_get_position, pos3, multi_base_point_team_2),
-         
+
            (set_spawn_position, pos3),
-           (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),                    
+           (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),
            (set_spawn_position, pos3),
-           (spawn_scene_prop, "$team_1_flag_scene_prop", 0),                    
+           (spawn_scene_prop, "$team_1_flag_scene_prop", 0),
            (set_spawn_position, pos3),
-           (spawn_scene_prop, "$team_2_flag_scene_prop", 0),                    
+           (spawn_scene_prop, "$team_2_flag_scene_prop", 0),
            (set_spawn_position, pos3),
-           (spawn_scene_prop, "spr_headquarters_flag_gray_code_only", 0),                    
+           (spawn_scene_prop, "spr_headquarters_flag_gray_code_only", 0),
            (store_add, ":cur_flag_slot", multi_data_flag_owner_begin, "$g_number_of_flags"),
            (troop_set_slot, "trp_multiplayer_data", ":cur_flag_slot", 2),
            (val_add, "$g_number_of_flags", 1),
@@ -19225,13 +19225,13 @@ mission_templates = [
              (try_for_range, ":instance_no", 0, ":num_instances_of_headquarters_flag"),
                (scene_prop_get_instance, ":flag_id", ":headquarters_flag_no", ":instance_no"),
                (prop_instance_get_position, pos0, ":flag_id"),
-        
+
                (set_spawn_position, pos0),
-               (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),               
-         
+               (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),
+
                #place other flags
                (try_for_range, ":headquarters_flag_no_will_be_added", "spr_headquarters_flag_red", ":end_cond"),
-                 (set_spawn_position, pos0),             
+                 (set_spawn_position, pos0),
                  (try_begin),
                    (eq, ":headquarters_flag_no_will_be_added", "spr_headquarters_flag_red"),
                    (spawn_scene_prop, "$team_1_flag_scene_prop"),
@@ -19241,7 +19241,7 @@ mission_templates = [
                  (else_try),
                    (eq, ":headquarters_flag_no_will_be_added", "spr_headquarters_flag_gray"),
                    (spawn_scene_prop, "spr_headquarters_flag_gray_code_only"),
-                 (try_end),                         
+                 (try_end),
                (try_end),
 
                #assign who owns this flag values
@@ -19256,7 +19256,7 @@ mission_templates = [
                  (eq, ":headquarters_flag_no", "spr_headquarters_flag_gray"),
                  (troop_set_slot, "trp_multiplayer_data", ":cur_flag_slot", 0),
                (try_end),
-               (val_add, "$g_number_of_flags", 1),         
+               (val_add, "$g_number_of_flags", 1),
              (try_end),
            (try_end),
 
@@ -19266,7 +19266,7 @@ mission_templates = [
            (try_for_range, ":place_no", 0, "$g_number_of_flags"),
              (store_add, ":cur_flag_slot", multi_data_flag_owner_begin, ":place_no"),
              (troop_get_slot, ":current_owner", "trp_multiplayer_data", ":cur_flag_slot"),
-         
+
              (try_begin),
                (eq, ":place_no", 0),
                (entry_point_get_position, pos0, multi_base_point_team_1),
@@ -19283,30 +19283,30 @@ mission_templates = [
                (store_add, ":flag_start_blue", ":flag_start_red", ":num_initial_red_flags"),
                (scene_prop_get_num_instances, ":num_initial_blue_flags", "spr_headquarters_flag_blue"),
                (store_add, ":flag_start_gray", ":flag_start_blue", ":num_initial_blue_flags"),
-               (scene_prop_get_num_instances, ":num_initial_gray_flags", "spr_headquarters_flag_gray"),         
+               (scene_prop_get_num_instances, ":num_initial_gray_flags", "spr_headquarters_flag_gray"),
                (try_begin),
                  (ge, ":place_no", ":flag_start_red"),
-                 (gt, ":num_initial_red_flags", 0),         
+                 (gt, ":num_initial_red_flags", 0),
                  (store_sub, ":flag_no", ":place_no", ":flag_start_red"),
                  (scene_prop_get_instance, ":flag_id", "spr_headquarters_flag_red", ":flag_no"),
                (else_try),
                  (ge, ":place_no", ":flag_start_blue"),
-                 (gt, ":num_initial_blue_flags", 0),         
+                 (gt, ":num_initial_blue_flags", 0),
                  (store_sub, ":flag_no", ":place_no", ":flag_start_blue"),
                  (scene_prop_get_instance, ":flag_id", "spr_headquarters_flag_blue", ":flag_no"),
                (else_try),
                  (ge, ":place_no", ":flag_start_gray"),
-                 (gt, ":num_initial_gray_flags", 0),         
+                 (gt, ":num_initial_gray_flags", 0),
                  (store_sub, ":flag_no", ":place_no", ":flag_start_gray"),
                  (scene_prop_get_instance, ":flag_id", "spr_headquarters_flag_gray", ":flag_no"),
-               (try_end),             
+               (try_end),
                (prop_instance_get_position, pos0, ":flag_id"),
              (try_end),
 
              (scene_prop_get_instance, ":pole_id", "spr_headquarters_pole_code_only", ":place_no"),
              (prop_instance_set_position, ":pole_id", pos0),
-         
-             (position_move_z, pos0, multi_headquarters_pole_height),           
+
+             (position_move_z, pos0, multi_headquarters_pole_height),
              (try_begin),
                (eq, ":current_owner", 0),
                (scene_prop_get_instance, ":flag_id", "$team_1_flag_scene_prop", ":place_no"),
@@ -19352,7 +19352,7 @@ mission_templates = [
            (assign, "$g_number_of_flags", 2),
            (val_add, "$g_number_of_flags", ":num_instances_of_red_headquarters_flag"),
            (val_add, "$g_number_of_flags", ":num_instances_of_blue_headquarters_flag"),
-           (val_add, "$g_number_of_flags", ":num_instances_of_gray_headquarters_flag"),         
+           (val_add, "$g_number_of_flags", ":num_instances_of_gray_headquarters_flag"),
          (try_end),
 
          #remove initially placed flags
@@ -19375,9 +19375,9 @@ mission_templates = [
          (try_end),
 
          (call_script, "script_initialize_all_scene_prop_slots"),
-         
+
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
-       ]),         
+       ]),
 
       (ti_on_multiplayer_mission_end, 0, 0, [],
        [
@@ -19413,12 +19413,12 @@ mission_templates = [
 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
-         (store_trigger_param_1, ":dead_agent_no"), 
+         (store_trigger_param_1, ":dead_agent_no"),
          (store_trigger_param_2, ":killer_agent_no"),
          (call_script, "script_multiplayer_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
 
          #adding 1 score points to killer agent's team. (special for "headquarters" and "team deathmatch" mod)
-         (try_begin), 
+         (try_begin),
            (multiplayer_is_server),
            (ge, ":killer_agent_no", 0),
            (agent_is_human, ":dead_agent_no"),
@@ -19435,7 +19435,7 @@ mission_templates = [
              (val_add, "$g_score_team_1", -10000), #if someone died from "team 1" then "team 1" loses 1 score point
            (try_end),
            (val_sub, ":team_score", 1),
-           
+
            (get_max_players, ":num_players"),
 
            #for only server itself-----------------------------------------------------------------------------------------------
@@ -19443,7 +19443,7 @@ mission_templates = [
            #for only server itself-----------------------------------------------------------------------------------------------
            (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
              (player_is_active, ":player_no"),
-             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, ":dead_agent_team", ":team_score"),             
+             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, ":dead_agent_team", ":team_score"),
            (try_end),
          (try_end),
          ]),
@@ -19451,7 +19451,7 @@ mission_templates = [
       (1, 0, 0, [],
       [
         (multiplayer_is_server),
-        #trigger for (a) counting seconds of flags being owned by their owners & (b) to calculate seconds past after that flag's pull message has shown          
+        #trigger for (a) counting seconds of flags being owned by their owners & (b) to calculate seconds past after that flag's pull message has shown
         (try_for_range, ":flag_no", 0, "$g_number_of_flags"),
           #part a: counting seconds of flags being owned by their owners
           (store_add, ":cur_flag_owned_seconds_counts_slot", multi_data_flag_owned_seconds_begin, ":flag_no"),
@@ -19468,9 +19468,9 @@ mission_templates = [
             (val_add, ":cur_flag_pull_code", 1),
             (troop_set_slot, "trp_multiplayer_data", ":cur_flag_pull_code_slot", ":cur_flag_pull_code"),
           (try_end),
-        (try_end),        
-      ]),               
-      
+        (try_end),
+      ]),
+
       (0, 0, 0, [], #if this trigger takes lots of time in the future and make server machine runs headqurters mod
                     #very slow with lots of players make period of this trigger 1 seconds, but best is 0. Currently
                     #we are testing this mod with few players and no speed program occured.
@@ -19482,11 +19482,11 @@ mission_templates = [
           (troop_get_slot, ":current_owner_code", "trp_multiplayer_data", ":cur_flag_owner_counts_slot"),
           (store_div, ":old_team_1_agent_count", ":current_owner_code", 100),
           (store_mod, ":old_team_2_agent_count", ":current_owner_code", 100),
-        
+
           (assign, ":number_of_agents_around_flag_team_1", 0),
           (assign, ":number_of_agents_around_flag_team_2", 0),
 
-          (scene_prop_get_instance, ":pole_id", "spr_headquarters_pole_code_only", ":flag_no"), 
+          (scene_prop_get_instance, ":pole_id", "spr_headquarters_pole_code_only", ":flag_no"),
           (prop_instance_get_position, pos0, ":pole_id"), #pos0 holds pole position.
 
           (get_max_players, ":num_players"),
@@ -19522,7 +19522,7 @@ mission_templates = [
             (store_mod, ":cur_flag_pull_message_seconds_past", ":cur_flag_pull_code", 100),
             (store_div, ":cur_flag_puller_team_last", ":cur_flag_pull_code", 100),
 
-            (try_begin),        
+            (try_begin),
               (assign, ":continue", 0),
               (try_begin),
                 (neq, ":cur_flag_owner", 1),
@@ -19539,7 +19539,7 @@ mission_templates = [
                 (assign, ":puller_team", 2),
                 (assign, ":continue", 1),
               (try_end),
- 
+
               (eq, ":continue", 1),
 
               (store_mul, ":puller_team_multiplied_by_100", ":puller_team", 100),
@@ -19551,8 +19551,8 @@ mission_templates = [
               (store_mul, ":flag_code", ":puller_team", 100),
               (val_add, ":flag_code", ":flag_no"),
               #for only server itself-----------------------------------------------------------------------------------------------
-              (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_is_pulling, ":flag_code"), 
-              #for only server itself-----------------------------------------------------------------------------------------------     
+              (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_is_pulling, ":flag_code"),
+              #for only server itself-----------------------------------------------------------------------------------------------
               (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                 (player_is_active, ":player_no"),
                 (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_flag_is_pulling, ":flag_code"),
@@ -19561,7 +19561,7 @@ mission_templates = [
 
             (try_begin),
               (store_mul, ":current_owner_code", ":number_of_agents_around_flag_team_1", 100),
-              (val_add, ":current_owner_code", ":number_of_agents_around_flag_team_2"),        
+              (val_add, ":current_owner_code", ":number_of_agents_around_flag_team_2"),
               (troop_set_slot, "trp_multiplayer_data", ":cur_flag_owner_counts_slot", ":current_owner_code"),
 
               #for only server itself-----------------------------------------------------------------------------------------------
@@ -19579,8 +19579,8 @@ mission_templates = [
         (try_for_range, ":flag_no", 0, "$g_number_of_flags"),
           (assign, ":new_flag_owner", -1),
 
-          (scene_prop_get_instance, ":pole_id", "spr_headquarters_pole_code_only", ":flag_no"), 
-          (prop_instance_get_position, pos0, ":pole_id"), #pos0 holds pole position.            
+          (scene_prop_get_instance, ":pole_id", "spr_headquarters_pole_code_only", ":flag_no"),
+          (prop_instance_get_position, pos0, ":pole_id"), #pos0 holds pole position.
 
           (store_add, ":cur_flag_owner_slot", multi_data_flag_owner_begin, ":flag_no"),
           (troop_get_slot, ":cur_flag_owner", "trp_multiplayer_data", ":cur_flag_owner_slot"),
@@ -19594,9 +19594,9 @@ mission_templates = [
               (scene_prop_get_instance, ":flag_id", "$team_2_flag_scene_prop", ":flag_no"),
               (scene_prop_get_visibility, ":flag_visibility", ":flag_id"),
               (assign, ":cur_shown_flag", 2),
-              (eq, ":flag_visibility", 0),                    
+              (eq, ":flag_visibility", 0),
               (scene_prop_get_instance, ":flag_id", "spr_headquarters_flag_gray_code_only", ":flag_no"),
-              (scene_prop_get_visibility, ":flag_visibility", ":flag_id"),        
+              (scene_prop_get_visibility, ":flag_visibility", ":flag_id"),
               (assign, ":cur_shown_flag", 0),
             (try_end),
 
@@ -19604,7 +19604,7 @@ mission_templates = [
             (prop_instance_get_position, pos1, ":flag_id"), #pos1 holds gray/red/blue (current shown) flag position.
 
             (try_begin),
-              (get_sq_distance_between_positions, ":squared_dist", pos0, pos1),        
+              (get_sq_distance_between_positions, ":squared_dist", pos0, pos1),
               (lt, ":squared_dist", multi_headquarters_distance_sq_to_change_flag), #if distance is less than 2 meters
 
               (store_add, ":cur_flag_players_around_slot", multi_data_flag_players_around_begin, ":flag_no"),
@@ -19630,8 +19630,8 @@ mission_templates = [
                 (assign, ":new_shown_flag", 0),
               (try_end),
             (else_try),
-              (neq, ":cur_flag_owner", ":cur_shown_flag"),      
-              (get_sq_distance_between_positions, ":squared_dist", pos0, pos1),        
+              (neq, ":cur_flag_owner", ":cur_shown_flag"),
+              (get_sq_distance_between_positions, ":squared_dist", pos0, pos1),
               (ge, ":squared_dist", multi_headquarters_distance_sq_to_set_flag), #if distance is more equal than 9 meters
 
               (store_add, ":cur_flag_players_around_slot", multi_data_flag_players_around_begin, ":flag_no"),
@@ -19647,10 +19647,10 @@ mission_templates = [
                 (eq, ":cur_shown_flag", 2),
                 (assign, ":new_flag_owner", 2),
                 (assign, ":new_shown_flag", 2),
-              (try_end),        
+              (try_end),
             (try_end),
           (try_end),
-        
+
           (try_begin),
             (ge, ":new_flag_owner", 0),
             (this_or_next|neq, ":new_flag_owner", ":cur_flag_owner"),
@@ -19669,35 +19669,35 @@ mission_templates = [
               (store_mul, ":flag_code", ":neutralizer_team", 100),
               (val_add, ":flag_code", ":flag_no"),
               #for only server itself-----------------------------------------------------------------------------------------------
-              (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_neutralized, ":flag_code"), 
-              #for only server itself-----------------------------------------------------------------------------------------------     
-              (get_max_players, ":num_players"),        
+              (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_neutralized, ":flag_code"),
+              #for only server itself-----------------------------------------------------------------------------------------------
+              (get_max_players, ":num_players"),
               (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                 (player_is_active, ":player_no"),
                 (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_flag_neutralized, ":flag_code"),
-              (try_end),              
+              (try_end),
             (try_end),
-        
+
             (try_begin),
               (neq, ":cur_flag_owner", ":new_flag_owner"),
               (neq, ":new_flag_owner", 0),
               (store_mul, ":flag_code", ":new_flag_owner", 100),
               (val_add, ":flag_code", ":flag_no"),
               #for only server itself-----------------------------------------------------------------------------------------------
-              (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_captured, ":flag_code"), 
-              #for only server itself-----------------------------------------------------------------------------------------------     
-              (get_max_players, ":num_players"),        
+              (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_captured, ":flag_code"),
+              #for only server itself-----------------------------------------------------------------------------------------------
+              (get_max_players, ":num_players"),
               (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                 (player_is_active, ":player_no"),
                 (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_flag_captured, ":flag_code"),
-              (try_end),              
+              (try_end),
             (try_end),
 
             #for only server itself-----------------------------------------------------------------------------------------------
             (call_script, "script_set_num_agents_around_flag", ":flag_no", ":cur_flag_players_around"),
             #for only server itself-----------------------------------------------------------------------------------------------
             (assign, ":number_of_total_players", 0),
-            (get_max_players, ":num_players"),        
+            (get_max_players, ":num_players"),
             (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
               (player_is_active, ":player_no"),
               (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_num_agents_around_flag, ":flag_no", ":cur_flag_players_around"),
@@ -19711,7 +19711,7 @@ mission_templates = [
             #for only server itself-----------------------------------------------------------------------------------------------
             (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
               (player_is_active, ":player_no"),
-              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_change_flag_owner, ":flag_no", ":owner_code"),          
+              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_change_flag_owner, ":flag_no", ":owner_code"),
             (try_end),
 
             (try_begin),
@@ -19725,7 +19725,7 @@ mission_templates = [
               (try_end),
 
               (store_add, ":cur_flag_owned_seconds_counts_slot", multi_data_flag_owned_seconds_begin, ":flag_no"),
-              (troop_get_slot, ":current_flag_owned_seconds", "trp_multiplayer_data", ":cur_flag_owned_seconds_counts_slot"),              
+              (troop_get_slot, ":current_flag_owned_seconds", "trp_multiplayer_data", ":cur_flag_owned_seconds_counts_slot"),
               (troop_set_slot, "trp_multiplayer_data", ":cur_flag_owned_seconds_counts_slot", 0),
 
               (val_min, ":current_flag_owned_seconds", 360), #360 seconds is max time for hq, this will limit money awarding by (180 x total_number_of_players)
@@ -19753,8 +19753,8 @@ mission_templates = [
               (else_try),
                 (assign, ":score_award_per_player", 0),
               (try_end),
-              
-              (store_mul, ":total_money_award", ":current_flag_owned_seconds", ":number_of_total_players"), #total money will be shared after a flag capturing is (0.50 * seconds * number_of_players)         
+
+              (store_mul, ":total_money_award", ":current_flag_owned_seconds", ":number_of_total_players"), #total money will be shared after a flag capturing is (0.50 * seconds * number_of_players)
               (val_mul, ":total_money_award", ":flag_value"),                                               #example: if 15 players is playing and 120 seconds past before flag captured, award is 900 golds.
               (val_div, ":total_money_award", 2),
 
@@ -19762,7 +19762,7 @@ mission_templates = [
                 (gt, ":number_of_players_around_flag", 0), #if there are still any living agents around flag.
                 (store_div, ":money_award_per_player", ":total_money_award", ":number_of_players_around_flag"),
               (try_end),
-        
+
               (get_max_players, ":num_players"),
                 (try_for_range, ":player_no", 0, ":num_players"),
                 (player_is_active, ":player_no"),
@@ -19771,18 +19771,18 @@ mission_templates = [
                 (agent_get_team, ":cur_agent_team", ":cur_agent"),
                 (val_add, ":cur_agent_team", 1),
                 (eq, ":cur_agent_team", ":new_flag_owner"),
-                (agent_get_position, pos1, ":cur_agent"), 
-                (prop_instance_get_position, pos0, ":pole_id"), 
+                (agent_get_position, pos1, ":cur_agent"),
+                (prop_instance_get_position, pos0, ":pole_id"),
                 (get_sq_distance_between_positions, ":squared_dist", pos0, pos1),
                 (get_sq_distance_between_position_heights, ":squared_height_dist", pos0, pos1),
                 (val_add, ":squared_dist", ":squared_height_dist"),
-                (lt, ":squared_dist", multi_headquarters_max_distance_sq_to_raise_flags),                
-                (player_get_score, ":player_score", ":player_no"), #give score to player which helped flag to be owned by new_flag_owner team 
+                (lt, ":squared_dist", multi_headquarters_max_distance_sq_to_raise_flags),
+                (player_get_score, ":player_score", ":player_no"), #give score to player which helped flag to be owned by new_flag_owner team
                 (val_add, ":player_score", ":score_award_per_player"),
-                (player_set_score, ":player_no", ":player_score"),                
-                (player_get_gold, ":player_gold", ":player_no"), #give money to player which helped flag to be owned by new_flag_owner team 
+                (player_set_score, ":player_no", ":player_score"),
+                (player_get_gold, ":player_gold", ":player_no"), #give money to player which helped flag to be owned by new_flag_owner team
                 (val_add, ":player_gold", ":money_award_per_player"),
-                (player_set_gold, ":player_no", ":player_gold", multi_max_gold_that_can_be_stored),              
+                (player_set_gold, ":player_no", ":player_gold", multi_max_gold_that_can_be_stored),
               (try_end),
             (try_end),
           (try_end),
@@ -19796,16 +19796,16 @@ mission_templates = [
         (assign, ":number_of_team_1_flags", 0),
         (assign, ":number_of_team_2_flags", 0),
 
-        (assign, ":owned_flag_value", 0),        
+        (assign, ":owned_flag_value", 0),
         (assign, ":not_owned_flag_value", 0),
-        
+
         (try_for_range, ":flag_no", 0, "$g_number_of_flags"),
           (store_add, ":cur_flag_owner_slot", multi_data_flag_owner_begin, ":flag_no"),
           (troop_get_slot, ":cur_flag_owner", "trp_multiplayer_data", ":cur_flag_owner_slot"),
 
           (scene_prop_get_instance, ":flag_of_team_1", "$team_1_flag_scene_prop", ":flag_no"),
           (scene_prop_get_instance, ":flag_of_team_2", "$team_2_flag_scene_prop", ":flag_no"),
-        
+
           (try_begin),
             (this_or_next|eq, "$g_base_flag_team_1", ":flag_of_team_1"),
             (eq, "$g_base_flag_team_2", ":flag_of_team_2"),
@@ -19813,7 +19813,7 @@ mission_templates = [
           (else_try),
             (assign, ":flag_value", 1),
           (try_end),
-        
+
           (try_begin),
             (eq, ":cur_flag_owner", 1),
             (val_add, ":number_of_team_1_flags", ":flag_value"),
@@ -19826,7 +19826,7 @@ mission_templates = [
             (val_add, ":not_owned_flag_value", ":flag_value"),
           (try_end),
         (try_end),
-        
+
         (store_add, ":all_flag_value", ":owned_flag_value", ":not_owned_flag_value"),
         (store_sub, ":cur_flag_difference", ":number_of_team_1_flags", ":number_of_team_2_flags"),
         (store_mul, ":cur_flag_difference_mul_2", ":cur_flag_difference", 2),
@@ -19846,7 +19846,7 @@ mission_templates = [
           (store_mul, ":score_addition_winner", ":difference", 125),
           (val_add, ":score_addition_winner", 500),
           (store_div, ":score_addition_loser", 250000, ":score_addition_winner"),
-          
+
           (try_begin), #if number of owned flag values < all flag values give only a percentage of score to teams
             (lt, ":owned_flag_value", ":all_flag_value"),
             (val_mul, ":score_addition_loser", ":owned_flag_value"),
@@ -19855,12 +19855,12 @@ mission_templates = [
             (val_div, ":score_addition_winner", ":all_flag_value"),
           (try_end),
 
-          (call_script, "script_find_number_of_agents_constant"),        
+          (call_script, "script_find_number_of_agents_constant"),
           (val_mul, ":score_addition_winner", reg0),
           (val_div, ":score_addition_winner", 100),
           (val_mul, ":score_addition_loser", reg0),
           (val_div, ":score_addition_loser", 100),
-          
+
           (val_mul, ":score_addition_winner", "$g_multiplayer_point_gained_from_flags"),
           (val_div, ":score_addition_winner", 100),
           (val_mul, ":score_addition_loser", "$g_multiplayer_point_gained_from_flags"),
@@ -19881,7 +19881,7 @@ mission_templates = [
           (store_mul, ":score_addition_winner", ":difference", 125),
           (val_add, ":score_addition_winner", 500),
           (store_div, ":score_addition_loser", 250000, ":score_addition_winner"),
-          
+
           (try_begin), #if number of owned flag values < all flag values give only a percentage of score to teams
             (lt, ":owned_flag_value", ":all_flag_value"),
             (val_mul, ":score_addition_loser", ":owned_flag_value"),
@@ -19895,7 +19895,7 @@ mission_templates = [
           (val_div, ":score_addition_winner", 100),
           (val_mul, ":score_addition_loser", reg0),
           (val_div, ":score_addition_loser", 100),
-        
+
           (val_mul, ":score_addition_winner", "$g_multiplayer_point_gained_from_flags"),
           (val_div, ":score_addition_winner", 100),
           (val_mul, ":score_addition_loser", "$g_multiplayer_point_gained_from_flags"),
@@ -19972,11 +19972,11 @@ mission_templates = [
                (agent_get_time_elapsed_since_removed, ":elapsed_time", ":player_agent"),
                (gt, ":elapsed_time", "$g_multiplayer_respawn_period"),
                (assign, ":spawn_new", 1),
-             (try_end),             
+             (try_end),
            (try_end),
            (eq, ":spawn_new", 1),
            (call_script, "script_multiplayer_buy_agent_equipment", ":player_no"),
-         
+
            (troop_get_inventory_slot, ":has_item", ":player_troop", ek_horse),
            (try_begin),
              (ge, ":has_item", 0),
@@ -19985,7 +19985,7 @@ mission_templates = [
              (assign, ":is_horseman", 0),
            (try_end),
 
-           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 0, ":is_horseman"), 
+           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 0, ":is_horseman"),
            (player_spawn_new_agent, ":player_no", reg0),
          (try_end),
          ]),
@@ -20036,7 +20036,7 @@ mission_templates = [
          ]),
 
       multiplayer_server_check_end_map,
-        
+
       (ti_tab_pressed, 0, 0, [],
        [
          (try_begin),
@@ -20052,14 +20052,14 @@ mission_templates = [
           (try_end),
 ##################################################
 ##### troop_ratio_bar
-##################################################         
+##################################################
          (try_end),
          ]),
 
       multiplayer_once_at_the_first_frame,
       multiplayer_battle_window_opened,
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
@@ -20124,7 +20124,7 @@ mission_templates = [
         common_wot_seeker_trigger_18_multi,
         common_wot_seeker_trigger_19_multi,
         common_wot_seeker_trigger_20_multi,
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -20135,7 +20135,7 @@ mission_templates = [
       (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
+##################################################
 
       (ti_escape_pressed, 0, 0, [],
        [
@@ -20222,7 +20222,7 @@ mission_templates = [
       (61,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
       (62,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
       (63,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
-      
+
       (64,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
       (65,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
@@ -20236,7 +20236,7 @@ mission_templates = [
          (store_trigger_param_1, ":agent_no"),
          (call_script, "script_multiplayer_server_on_agent_spawn_common", ":agent_no"),
          ]),
-      
+
       (ti_server_player_joined, 0, 0, [],
        [
          (store_trigger_param_1, ":player_no"),
@@ -20257,13 +20257,13 @@ mission_templates = [
            (entry_point_get_position, pos1, 32),
            (entry_point_set_position, 65, pos1),
          (try_end),
-         
+
          (assign, "$g_multiplayer_game_type", multiplayer_game_type_capture_the_flag),
          (call_script, "script_multiplayer_server_before_mission_start_common"),
 
          (assign, "$flag_1_at_ground_timer", 0),
          (assign, "$flag_2_at_ground_timer", 0),
-         
+
          (call_script, "script_multiplayer_init_mission_variables"),
          (call_script, "script_multiplayer_remove_destroy_mod_targets"),
          (call_script, "script_multiplayer_remove_headquarters_flags"),
@@ -20275,7 +20275,7 @@ mission_templates = [
          (call_script, "script_determine_team_flags", 1),
          (set_spawn_effector_scene_prop_kind, 0, -1), #during this mission, agents of "team 0" will try to spawn around scene props with kind equal to -1(no effector for this mod)
          (set_spawn_effector_scene_prop_kind, 1, -1), #during this mission, agents of "team 1" will try to spawn around scene props with kind equal to -1(no effector for this mod)
-       
+
          (try_begin),
            (multiplayer_is_server),
 
@@ -20284,16 +20284,16 @@ mission_templates = [
            (entry_point_get_position, pos0, multi_base_point_team_1),
            (set_spawn_position, pos0),
            (spawn_scene_prop, "$team_1_flag_scene_prop", 0),
-         
+
            (entry_point_get_position, pos0, multi_base_point_team_2),
            (set_spawn_position, pos0),
            (spawn_scene_prop, "$team_2_flag_scene_prop", 0),
          (try_end),
 
          (call_script, "script_initialize_all_scene_prop_slots"),
-         
+
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
-         ]),         
+         ]),
 
       (ti_on_multiplayer_mission_end, 0, 0, [],
        [
@@ -20304,8 +20304,8 @@ mission_templates = [
 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
-         (store_trigger_param_1, ":dead_agent_no"), 
-         (store_trigger_param_2, ":killer_agent_no"), 
+         (store_trigger_param_1, ":dead_agent_no"),
+         (store_trigger_param_2, ":killer_agent_no"),
 
          (call_script, "script_multiplayer_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
 
@@ -20315,7 +20315,7 @@ mission_templates = [
            (try_begin),
              (try_begin),
                (multiplayer_is_server),
-  
+
                (ge, ":attached_scene_prop", 0), #moved from above after auto-set position
 
                (multiplayer_get_my_player, ":my_player_no"),
@@ -20346,26 +20346,26 @@ mission_templates = [
                (get_max_players, ":num_players"),
                #for only server itself-----------------------------------------------------------------------------------------------
                (call_script, "script_set_team_flag_situation", ":dead_agent_rival_team", 2),
-               #for only server itself-----------------------------------------------------------------------------------------------         
+               #for only server itself-----------------------------------------------------------------------------------------------
                (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                  (player_is_active, ":player_no"),
                  (neq, ":my_player_no", ":player_no"),
                  (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_flag_situation, ":dead_agent_rival_team", 2), #flag at ground
                (try_end),
              (try_end),
-           (try_end),         
+           (try_end),
          (try_end),
          ]),
 
       (1, 0, 0, [], #returning flag if it is not touched by anyone in 60 seconds
        [
          (multiplayer_is_server),
-         (try_for_range, ":team_no", 0, 2),           
+         (try_for_range, ":team_no", 0, 2),
            (try_begin),
              (team_slot_eq, ":team_no", slot_team_flag_situation, 2),
 
              (assign, ":flag_team_no", -1),
-         
+
              (try_begin),
                (eq, ":team_no", 0),
                (val_add, "$flag_1_at_ground_timer", 1),
@@ -20373,7 +20373,7 @@ mission_templates = [
                (assign, ":flag_team_no", 0),
              (else_try),
                (val_add, "$flag_2_at_ground_timer", 1),
-               (ge, "$flag_2_at_ground_timer", multi_max_seconds_flag_can_stay_in_ground), 
+               (ge, "$flag_2_at_ground_timer", multi_max_seconds_flag_can_stay_in_ground),
                (assign, ":flag_team_no", 1),
              (try_end),
 
@@ -20387,14 +20387,14 @@ mission_templates = [
                  (eq, ":flag_team_no", 1),
                  (assign, "$flag_2_at_ground_timer", 0),
                (try_end),
-         
+
                #cur agent returned his own flag to its default position!
                (team_set_slot, ":flag_team_no", slot_team_flag_situation, 0), #0-flag at base
 
                #return team flag to its starting position.
                #for only server itself-----------------------------------------------------------------------------------------------
                (call_script, "script_set_team_flag_situation", ":flag_team_no", 0),
-               #for only server itself-----------------------------------------------------------------------------------------------         
+               #for only server itself-----------------------------------------------------------------------------------------------
                (multiplayer_get_my_player, ":my_player_no"),
                (get_max_players, ":num_players"),
                (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
@@ -20433,8 +20433,8 @@ mission_templates = [
                (val_sub, ":minus_flag_team_no", 1),
 
                #for only server itself
-               (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_returned_home, ":minus_flag_team_no"), 
- 
+               (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_returned_home, ":minus_flag_team_no"),
+
                #no need to send also server here
                (try_for_range, ":player_no", 0, ":num_players"),
                  (player_is_active, ":player_no"),
@@ -20447,12 +20447,12 @@ mission_templates = [
                (eq, ":team_no", 0),
                (assign, "$flag_1_at_ground_timer", 0),
              (else_try),
-               (assign, "$flag_2_at_ground_timer", 0),         
+               (assign, "$flag_2_at_ground_timer", 0),
              (try_end),
            (try_end),
-         (try_end),           
+         (try_end),
          ]),
-         
+
       (1, 0, 0, [],
        [
          (multiplayer_is_server),
@@ -20483,7 +20483,7 @@ mission_templates = [
                (agent_get_time_elapsed_since_removed, ":elapsed_time", ":player_agent"),
                (gt, ":elapsed_time", "$g_multiplayer_respawn_period"),
                (assign, ":spawn_new", 1),
-             (try_end),             
+             (try_end),
            (try_end),
            (eq, ":spawn_new", 1),
            (call_script, "script_multiplayer_buy_agent_equipment", ":player_no"),
@@ -20496,7 +20496,7 @@ mission_templates = [
              (assign, ":is_horseman", 0),
            (try_end),
 
-           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 0, ":is_horseman"), 
+           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 0, ":is_horseman"),
            (player_spawn_new_agent, ":player_no", reg0),
          (try_end),
          ]),
@@ -20549,7 +20549,7 @@ mission_templates = [
          (prop_instance_get_position, pos2, ":flag_blue_id"), #hold position of flag of team 2 (blue flag) at pos2
 
          (multiplayer_get_my_player, ":my_player_no"),
-         (get_max_players, ":num_players"),                               
+         (get_max_players, ":num_players"),
 
          (try_for_agents, ":cur_agent"),
            (agent_is_human, ":cur_agent"), #horses cannot take flag
@@ -20558,7 +20558,7 @@ mission_templates = [
            (agent_get_horse, ":cur_agent_horse", ":cur_agent"),
            (eq, ":cur_agent_horse", -1), #horseman cannot take flag
            (agent_get_attached_scene_prop, ":attached_scene_prop", ":cur_agent"),
-         
+
            (agent_get_team, ":cur_agent_team", ":cur_agent"),
            (try_begin),
              (eq, ":cur_agent_team", 0),
@@ -20568,10 +20568,10 @@ mission_templates = [
            (try_end),
 
            (try_begin),
-             (eq, ":cur_agent_team", 0), 
+             (eq, ":cur_agent_team", 0),
              (assign, ":our_flag_id", ":flag_red_id"),
              (assign, ":our_base_entry_id", multi_base_point_team_1),
-           (else_try), 
+           (else_try),
              (assign, ":our_flag_id", ":flag_blue_id"),
              (assign, ":our_base_entry_id", multi_base_point_team_2),
            (try_end),
@@ -20580,7 +20580,7 @@ mission_templates = [
            (prop_instance_get_position, pos4, ":our_flag_id"),
            (get_distance_between_positions, ":dist", pos3, pos4),
            (team_get_slot, ":cur_agent_flag_situation", ":cur_agent_team", slot_team_flag_situation),
-         
+
            (try_begin), #control if agent can return his own flag to default position
              (eq, ":cur_agent_flag_situation", 2), #if our flag is at ground
              (lt, ":dist", 100), #if this agent is near to his team's own flag
@@ -20591,7 +20591,7 @@ mission_templates = [
              #return team flag to its starting position.
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_set_team_flag_situation", ":cur_agent_team", 0),
-             #for only server itself-----------------------------------------------------------------------------------------------         
+             #for only server itself-----------------------------------------------------------------------------------------------
              (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                (player_is_active, ":player_no"),
                (neq, ":my_player_no", ":player_no"),
@@ -20619,30 +20619,30 @@ mission_templates = [
              #(tutorial_message, "str_s1_returned_flag", 0xFFFFFFFF, 5),
 
              #for only server itself
-             (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_returned_home, ":cur_agent"), 
+             (call_script, "script_show_multiplayer_message", multiplayer_message_type_flag_returned_home, ":cur_agent"),
 
              #no need to send also server here
              (try_for_range, ":player_no", 0, ":num_players"),
                (player_is_active, ":player_no"),
                (neq, ":my_player_no", ":player_no"),
                (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_flag_returned_home, ":cur_agent"),
-             (try_end),         
+             (try_end),
            (try_end),
-                   
+
            (try_begin), #control if agent carries flag and made score
              (neq, ":attached_scene_prop", -1), #if not agent is carrying anything
-         
+
              (try_begin),
-               (eq, ":cur_agent_team", 0), 
+               (eq, ":cur_agent_team", 0),
                (assign, ":rival_flag_id", ":flag_blue_id"),
                (assign, ":rival_base_entry_id", multi_base_point_team_2),
-             (else_try), 
+             (else_try),
                (assign, ":rival_flag_id", ":flag_red_id"),
                (assign, ":rival_base_entry_id", multi_base_point_team_1),
              (try_end),
-             
+
              (eq, ":attached_scene_prop", ":rival_flag_id"), #if agent is carrying rival flag
-             (eq, ":cur_agent_flag_situation", 0), #if our flag is at home position         
+             (eq, ":cur_agent_flag_situation", 0), #if our flag is at home position
              (lt, ":dist", 100), #if this agent (carrying rival flag) is near to his team's own
 
              #cur_agent's team is scored!#
@@ -20658,7 +20658,7 @@ mission_templates = [
                (val_add, ":cur_agent_player_score", "$g_multiplayer_point_gained_from_capturing_flag"),
                (player_set_score, ":cur_agent_player_id", ":cur_agent_player_score"),
              (try_end),
-         
+
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_team_set_score", ":cur_agent_team", ":cur_agent_team_score"),
              #for only server itself-----------------------------------------------------------------------------------------------
@@ -20668,7 +20668,7 @@ mission_templates = [
                (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, ":cur_agent_team", ":cur_agent_team_score"),
              (try_end),
 
-             (agent_set_attached_scene_prop, ":cur_agent", -1),             
+             (agent_set_attached_scene_prop, ":cur_agent", -1),
              (team_set_slot, ":cur_agent_rival_team", slot_team_flag_situation, 0), #0-flag at base
 
              #for only server itself-----------------------------------------------------------------------------------------------
@@ -20683,7 +20683,7 @@ mission_templates = [
 
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_set_team_flag_situation", ":cur_agent_rival_team", 0),
-             #for only server itself-----------------------------------------------------------------------------------------------         
+             #for only server itself-----------------------------------------------------------------------------------------------
              (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                (player_is_active, ":player_no"),
                (neq, ":my_player_no", ":player_no"),
@@ -20708,15 +20708,15 @@ mission_templates = [
              #  (try_end),
              #(else_try),
              #  (assign, ":text_font_color", 0xFFFFFFFF),
-             #(try_end),    
+             #(try_end),
              #(tutorial_message_set_position, 500, 500),
              #(tutorial_message_set_size, 30, 30),
              #(tutorial_message_set_center_justify, 1),
              #(tutorial_message, "str_s1_captured_flag", ":text_font_color", 5),
 
              #for only server itself
-             (call_script, "script_show_multiplayer_message", multiplayer_message_type_capture_the_flag_score, ":cur_agent"), 
-             
+             (call_script, "script_show_multiplayer_message", multiplayer_message_type_capture_the_flag_score, ":cur_agent"),
+
              #no need to send to also server here
              (try_for_range, ":player_no", 0, ":num_players"),
                (player_is_active, ":player_no"),
@@ -20724,7 +20724,7 @@ mission_templates = [
                (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_capture_the_flag_score, ":cur_agent"),
              (try_end),
            (try_end),
-         
+
            (eq, ":attached_scene_prop", -1), #agents carrying other scene prop cannot take flag.
            (agent_get_position, pos3, ":cur_agent"),
            (agent_get_team, ":cur_agent_team", ":cur_agent"),
@@ -20740,7 +20740,7 @@ mission_templates = [
            (try_begin),  #control if agent stole enemy flag
              (le, ":dist", 100),
              (neg|team_slot_eq, ":cur_agent_rival_team", slot_team_flag_situation, 1), #if flag is not already stolen.
-             
+
              (agent_set_attached_scene_prop, ":cur_agent", ":rival_flag_id"),
              (agent_set_attached_scene_prop_x, ":cur_agent", 20),
              (agent_set_attached_scene_prop_z, ":cur_agent", 50),
@@ -20755,7 +20755,7 @@ mission_templates = [
 
              #cur_agent stole rival team's flag!
              (team_set_slot, ":cur_agent_rival_team", slot_team_flag_situation, 1), #1-stolen flag
-                      
+
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_set_attached_scene_prop", ":cur_agent", ":rival_flag_id"),
              (agent_set_horse_speed_factor, ":cur_agent", 75),
@@ -20765,7 +20765,7 @@ mission_templates = [
                (neq, ":my_player_no", ":player_no"),
                (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_attached_scene_prop, ":cur_agent", ":rival_flag_id"),
              (try_end),
-         
+
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_set_team_flag_situation", ":cur_agent_rival_team", 1),
              #for only server itself-----------------------------------------------------------------------------------------------
@@ -20780,19 +20780,19 @@ mission_templates = [
              #(tutorial_message_set_position, 500, 500),
              #(tutorial_message_set_size, 30, 30),
              #(tutorial_message_set_center_justify, 1),
-             #(tutorial_message, "str_s1_taken_flag", 0xFFFFFFFF, 5), 
+             #(tutorial_message, "str_s1_taken_flag", 0xFFFFFFFF, 5),
 
              #for only server itself
-             (call_script, "script_show_multiplayer_message", multiplayer_message_type_capture_the_flag_stole, ":cur_agent"), 
+             (call_script, "script_show_multiplayer_message", multiplayer_message_type_capture_the_flag_stole, ":cur_agent"),
 
              #no need to send also server here
              (try_for_range, ":player_no", 0, ":num_players"),
                (player_is_active, ":player_no"),
                (neq, ":my_player_no", ":player_no"),
                (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_capture_the_flag_stole, ":cur_agent"),
-             (try_end),         
+             (try_end),
            (try_end),
-         (try_end),         
+         (try_end),
          ]),
 
       (20, 0, 0, [],
@@ -20803,7 +20803,7 @@ mission_templates = [
          ]),
 
       multiplayer_server_check_end_map,
-        
+
       (ti_tab_pressed, 0, 0, [],
        [
          (try_begin),
@@ -20819,7 +20819,7 @@ mission_templates = [
           (try_end),
 ##################################################
 ##### troop_ratio_bar
-##################################################         
+##################################################
          (try_end),
          ]),
 
@@ -20830,7 +20830,7 @@ mission_templates = [
         (start_presentation, "prsnt_multiplayer_flag_projection_display"),
         ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
@@ -20895,7 +20895,7 @@ mission_templates = [
         common_wot_seeker_trigger_18_multi,
         common_wot_seeker_trigger_19_multi,
         common_wot_seeker_trigger_20_multi,
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -20906,7 +20906,7 @@ mission_templates = [
       (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
+##################################################
 
       (ti_escape_pressed, 0, 0, [],
        [
@@ -20995,12 +20995,12 @@ mission_templates = [
       (63,mtef_visitor_source,0,aif_start_alarmed,1,[]),
      ],
     [
-      multiplayer_server_check_belfry_movement,      
+      multiplayer_server_check_belfry_movement,
 
       common_battle_init_banner,
 
       multiplayer_server_check_polls,
-      
+
       (ti_server_player_joined, 0, 0, [],
        [
          (store_trigger_param_1, ":player_no"),
@@ -21046,7 +21046,7 @@ mission_templates = [
          (else_try),
            (assign, "$g_my_spawn_count", 0),
          (try_end),
-      
+
          (assign, "$g_waiting_for_confirmation_to_terminate", 0),
          (assign, "$g_round_ended", 0),
          (try_begin),
@@ -21063,26 +21063,26 @@ mission_templates = [
          (call_script, "script_multiplayer_remove_headquarters_flags"),
          ]),
 
-      (ti_after_mission_start, 0, 0, [], 
+      (ti_after_mission_start, 0, 0, [],
        [
          (call_script, "script_determine_team_flags", 0),
          (set_spawn_effector_scene_prop_kind, 0, -1), #during this mission, agents of "team 0" will try to spawn around scene props with kind equal to -1(no effector for this mod)
          (set_spawn_effector_scene_prop_kind, 1, -1), #during this mission, agents of "team 1" will try to spawn around scene props with kind equal to -1(no effector for this mod)
-         
+
          (call_script, "script_initialize_all_scene_prop_slots"),
-         
+
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
 
          (assign, "$g_number_of_flags", 0),
          (try_begin),
            (multiplayer_is_server),
            (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
-         
+
            #place base flags
            (entry_point_get_position, pos1, multi_siege_flag_point),
            (set_spawn_position, pos1),
-           (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),         
-           (position_move_z, pos1, multi_headquarters_pole_height),         
+           (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),
+           (position_move_z, pos1, multi_headquarters_pole_height),
            (set_spawn_position, pos1),
            (spawn_scene_prop, "$team_1_flag_scene_prop", 0),
            (store_add, ":cur_flag_slot", multi_data_flag_owner_begin, "$g_number_of_flags"),
@@ -21092,13 +21092,13 @@ mission_templates = [
 
          (try_begin),
            (multiplayer_is_server),
-         
+
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_a"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_a", ":belfry_no"),
              (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),
            (try_end),
-         
+
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_b"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_b", ":belfry_no"),
@@ -21107,14 +21107,14 @@ mission_templates = [
 
            (call_script, "script_move_belfries_to_their_first_entry_point", "spr_belfry_a"),
            (call_script, "script_move_belfries_to_their_first_entry_point", "spr_belfry_b"),
-         
+
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_a"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_a", ":belfry_no"),
              (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, 0),
              (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_next_entry_point_id, 0),
            (try_end),
-         
+
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_b"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_b", ":belfry_no"),
@@ -21165,17 +21165,17 @@ mission_templates = [
              (call_script, "script_multiplayer_initialize_belfry_wheel_rotations"),
              (call_script, "script_initialize_objects_clients"),
              #end of lines
-           (try_end),  
-         (try_end),         
+           (try_end),
+         (try_end),
 
-         (try_begin), 
+         (try_begin),
            (multiplayer_get_my_player, ":my_player_no"),
            (ge, ":my_player_no", 0),
            (player_get_agent_id, ":my_agent_id", ":my_player_no"),
            (eq, ":my_agent_id", ":agent_no"),
 
            (val_add, "$g_my_spawn_count", 1),
-         
+
            (try_begin),
              (ge, "$g_my_spawn_count", "$g_multiplayer_number_of_respawn_count"),
              (gt, "$g_multiplayer_number_of_respawn_count", 0),
@@ -21201,8 +21201,8 @@ mission_templates = [
            (player_get_agent_id, ":my_agent_id", ":my_player_no"),
            (ge, ":my_agent_id", 0),
            (agent_get_team, "$my_team_at_start_of_round", ":my_agent_id"),
-         (try_end),         
-         
+         (try_end),
+
          (try_begin),
            (multiplayer_is_server),
            (agent_is_human, ":dead_agent_no"),
@@ -21218,7 +21218,7 @@ mission_templates = [
          (assign, "$g_multiplayer_stats_chart_opened_manually", 0),
          (start_presentation, "prsnt_multiplayer_stats_chart"),
          ]),
-      
+
       (0, 0, 0, [], #if this trigger takes lots of time in the future and make server machine runs siege mod
                     #very slow with lots of players make period of this trigger 1 seconds, but best is 0. Currently
                     #we are testing this mod with few players and no speed problem occured.
@@ -21231,17 +21231,17 @@ mission_templates = [
           (troop_get_slot, ":current_owner_code", "trp_multiplayer_data", ":cur_flag_owner_counts_slot"),
           (store_div, ":old_team_1_agent_count", ":current_owner_code", 100),
           (store_mod, ":old_team_2_agent_count", ":current_owner_code", 100),
-        
+
           (assign, ":number_of_agents_around_flag_team_1", 0),
           (assign, ":number_of_agents_around_flag_team_2", 0),
 
-          (scene_prop_get_instance, ":pole_id", "spr_headquarters_pole_code_only", ":flag_no"), 
+          (scene_prop_get_instance, ":pole_id", "spr_headquarters_pole_code_only", ":flag_no"),
           (prop_instance_get_position, pos0, ":pole_id"), #pos0 holds pole position.
 
           (get_max_players, ":num_players"),
             (try_for_range, ":player_no", 0, ":num_players"),
             (player_is_active, ":player_no"),
-            (player_get_agent_id, ":cur_agent", ":player_no"),            
+            (player_get_agent_id, ":cur_agent", ":player_no"),
             (ge, ":cur_agent", 0),
             (agent_is_alive, ":cur_agent"),
             (agent_get_team, ":cur_agent_team", ":cur_agent"),
@@ -21268,7 +21268,7 @@ mission_templates = [
             (store_mod, ":cur_flag_pull_message_seconds_past", ":cur_flag_pull_code", 100),
             (store_div, ":cur_flag_puller_team_last", ":cur_flag_pull_code", 100),
 
-            (try_begin),        
+            (try_begin),
               (eq, ":old_team_2_agent_count", 0),
               (gt, ":number_of_agents_around_flag_team_2", 0),
               (eq, ":number_of_agents_around_flag_team_1", 0),
@@ -21286,7 +21286,7 @@ mission_templates = [
 
             (try_begin),
               (store_mul, ":current_owner_code", ":number_of_agents_around_flag_team_1", 100),
-              (val_add, ":current_owner_code", ":number_of_agents_around_flag_team_2"),        
+              (val_add, ":current_owner_code", ":number_of_agents_around_flag_team_2"),
               (troop_set_slot, "trp_multiplayer_data", ":cur_flag_owner_counts_slot", ":current_owner_code"),
               (get_max_players, ":num_players"),
               #for only server itself-----------------------------------------------------------------------------------------------
@@ -21303,9 +21303,9 @@ mission_templates = [
         (try_for_range, ":flag_no", 0, "$g_number_of_flags"),
           (eq, "$g_round_ended", 0), #if round still continues and any team did not sucseed yet
           (eq, "$g_flag_is_not_ready", 0), #if round still continues and any team did not sucseed yet
-        
-          (scene_prop_get_instance, ":pole_id", "spr_headquarters_pole_code_only", ":flag_no"), 
-          (prop_instance_get_position, pos0, ":pole_id"), #pos0 holds pole position.            
+
+          (scene_prop_get_instance, ":pole_id", "spr_headquarters_pole_code_only", ":flag_no"),
+          (prop_instance_get_position, pos0, ":pole_id"), #pos0 holds pole position.
 
           (try_begin),
             (scene_prop_get_instance, ":flag_id", "$team_1_flag_scene_prop", ":flag_no"),
@@ -21313,17 +21313,17 @@ mission_templates = [
             #flag_id holds shown flag after this point
             (prop_instance_get_position, pos1, ":flag_id"), #pos1 holds gray/red/blue (current shown) flag position.
             (try_begin),
-              (get_sq_distance_between_positions, ":squared_dist", pos0, pos1),        
+              (get_sq_distance_between_positions, ":squared_dist", pos0, pos1),
               (lt, ":squared_dist", multi_headquarters_distance_sq_to_change_flag), #if distance is less than 2 meters
-              
+
               (prop_instance_is_animating, ":is_animating", ":flag_id"),
               (eq, ":is_animating", 1),
 
               #end of round, attackers win
               (assign, "$g_winner_team", 1),
-              (prop_instance_stop_animating, ":flag_id"),        
-        
-              (get_max_players, ":num_players"), 
+              (prop_instance_stop_animating, ":flag_id"),
+
+              (get_max_players, ":num_players"),
               #for only server itself-----------------------------------------------------------------------------------------------
               (call_script, "script_draw_this_round", "$g_winner_team"),
               #for only server itself-----------------------------------------------------------------------------------------------
@@ -21333,7 +21333,7 @@ mission_templates = [
               (try_end),
 
               (assign, "$g_flag_is_not_ready", 1),
-            (try_end),        
+            (try_end),
           (try_end),
         (try_end),
         ]),
@@ -21343,11 +21343,11 @@ mission_templates = [
          #(multiplayer_is_server),
          (assign, ":human_agents_spawned_at_team_1", "$g_multiplayer_num_bots_team_1"),
          (assign, ":human_agents_spawned_at_team_2", "$g_multiplayer_num_bots_team_2"),
-         
+
          (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 0, ":num_players"),
            (player_is_active, ":player_no"),
-           (player_get_team_no, ":player_team", ":player_no"), 
+           (player_get_team_no, ":player_team", ":player_no"),
            (try_begin),
              (eq, ":player_team", 0),
              (val_add, ":human_agents_spawned_at_team_1", 1),
@@ -21364,7 +21364,7 @@ mission_templates = [
            (store_mission_timer_a, ":seconds_past_since_round_started"),
            (val_sub, ":seconds_past_since_round_started", "$g_round_start_time"),
            (le, ":seconds_past_since_round_started", 2),
-                  
+
            (store_mission_timer_a, "$g_round_start_time"),
          (try_end),
        ]),
@@ -21383,12 +21383,12 @@ mission_templates = [
 
          (try_begin),
            (eq, ":team_2_agent_count_around_flag", 0),
-         
+
            (store_mission_timer_a, "$g_round_finish_time"),
            (assign, "$g_round_ended", 1),
 
            (assign, "$g_flag_is_not_ready", 1),
-        
+
            (assign, "$g_winner_team", 0),
 
            (get_max_players, ":num_players"),
@@ -21400,12 +21400,12 @@ mission_templates = [
              (multiplayer_send_int_to_player, ":player_no", multiplayer_event_draw_this_round, "$g_winner_team"),
            (try_end),
          (try_end),
-         ]),          
+         ]),
 
       (1, 0, 0, [],
       [
         (multiplayer_is_server),
-        #trigger for calculating seconds past after that flag's pull message has shown          
+        #trigger for calculating seconds past after that flag's pull message has shown
         (try_for_range, ":flag_no", 0, "$g_number_of_flags"),
           (store_add, ":cur_flag_pull_code_slot", multi_data_flag_pull_code_begin, ":flag_no"),
           (troop_get_slot, ":cur_flag_pull_code", "trp_multiplayer_data", ":cur_flag_pull_code_slot"),
@@ -21416,12 +21416,12 @@ mission_templates = [
             (val_add, ":cur_flag_pull_code", 1),
             (troop_set_slot, "trp_multiplayer_data", ":cur_flag_pull_code_slot", ":cur_flag_pull_code"),
           (try_end),
-        (try_end),        
-      ]),               
+        (try_end),
+      ]),
 
       (10, 0, 0, [(multiplayer_is_server)],
        [
-         #auto team balance control during the round         
+         #auto team balance control during the round
          (assign, ":number_of_players_at_team_1", 0),
          (assign, ":number_of_players_at_team_2", 0),
          (get_max_players, ":num_players"),
@@ -21434,7 +21434,7 @@ mission_templates = [
            (else_try),
              (eq, ":player_team", 1),
              (val_add, ":number_of_players_at_team_2", 1),
-           (try_end),         
+           (try_end),
          (try_end),
          #end of counting active players per team.
          (store_sub, ":difference_of_number_of_players", ":number_of_players_at_team_1", ":number_of_players_at_team_2"),
@@ -21447,30 +21447,30 @@ mission_templates = [
            (else_try),
              (ge, ":difference_of_number_of_players", "$g_multiplayer_auto_team_balance_limit"),
              (store_div, ":number_of_players_will_be_moved", ":difference_of_number_of_players", 2),
-           (try_end),          
-         (try_end),         
+           (try_end),
+         (try_end),
          #number of players will be moved calculated. (it is 0 if no need to make team balance)
          (try_begin),
            (gt, ":number_of_players_will_be_moved", 0),
            (try_begin),
              (eq, "$g_team_balance_next_round", 0),
-         
+
              (assign, "$g_team_balance_next_round", 1),
 
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_show_multiplayer_message", multiplayer_message_type_auto_team_balance_next, 0), #0 is useless here
-             #for only server itself-----------------------------------------------------------------------------------------------     
-             (get_max_players, ":num_players"),                               
+             #for only server itself-----------------------------------------------------------------------------------------------
+             (get_max_players, ":num_players"),
              (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                (player_is_active, ":player_no"),
                (multiplayer_send_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_auto_team_balance_next),
              (try_end),
-             
+
              (call_script, "script_warn_player_about_auto_team_balance"),
            (try_end),
-         (try_end),           
+         (try_end),
          #team balance check part finished
-         ]),          
+         ]),
 
       (1, 0, 3, [(multiplayer_is_server),
                  (eq, "$g_round_ended", 1),
@@ -21478,7 +21478,7 @@ mission_templates = [
                  (val_sub, ":seconds_past_till_round_ended", "$g_round_finish_time"),
                  (ge, ":seconds_past_till_round_ended", "$g_multiplayer_respawn_period")],
        [
-         #auto team balance control at the end of round         
+         #auto team balance control at the end of round
          (assign, ":number_of_players_at_team_1", 0),
          (assign, ":number_of_players_at_team_2", 0),
          (get_max_players, ":num_players"),
@@ -21491,7 +21491,7 @@ mission_templates = [
            (else_try),
              (eq, ":player_team", 1),
              (val_add, ":number_of_players_at_team_2", 1),
-           (try_end),         
+           (try_end),
          (try_end),
          #end of counting active players per team.
          (store_sub, ":difference_of_number_of_players", ":number_of_players_at_team_1", ":number_of_players_at_team_2"),
@@ -21508,16 +21508,16 @@ mission_templates = [
              (store_div, ":number_of_players_will_be_moved", ":difference_of_number_of_players", 2),
              (assign, ":team_with_more_players", 0),
              (assign, ":team_with_less_players", 1),
-           (try_end),          
-         (try_end),         
+           (try_end),
+         (try_end),
          #number of players will be moved calculated. (it is 0 if no need to make team balance)
          (try_begin),
            (gt, ":number_of_players_will_be_moved", 0),
            (try_begin),
-             (try_for_range, ":unused", 0, ":number_of_players_will_be_moved"), 
+             (try_for_range, ":unused", 0, ":number_of_players_will_be_moved"),
                (assign, ":max_player_join_time", 0),
                (assign, ":latest_joined_player_no", -1),
-               (get_max_players, ":num_players"),                               
+               (get_max_players, ":num_players"),
                (try_for_range, ":player_no", 0, ":num_players"),
                  (player_is_active, ":player_no"),
                  (player_get_team_no, ":player_team", ":player_no"),
@@ -21533,7 +21533,7 @@ mission_templates = [
                  (ge, ":latest_joined_player_no", 0),
                  (try_begin),
                    #if player is living add +1 to his kill count because he will get -1 because of team change while living.
-                   (player_get_agent_id, ":latest_joined_agent_id", ":latest_joined_player_no"), 
+                   (player_get_agent_id, ":latest_joined_agent_id", ":latest_joined_player_no"),
                    (ge, ":latest_joined_agent_id", 0),
                    (agent_is_alive, ":latest_joined_agent_id"),
 
@@ -21552,7 +21552,7 @@ mission_templates = [
                    (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                      (player_is_active, ":player_no"),
                      (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_set_player_score_kill_death, ":latest_joined_player_no", ":player_score", ":player_kill_count", ":player_death_count"),
-                   (try_end),         
+                   (try_end),
 
                    (player_get_value_of_original_items, ":old_items_value", ":latest_joined_player_no"),
                    (player_get_gold, ":player_gold", ":latest_joined_player_no"),
@@ -21566,18 +21566,18 @@ mission_templates = [
                (try_end),
              (try_end),
              #tutorial message (after team balance)
-             
+
              #(tutorial_message_set_position, 500, 500),
              #(tutorial_message_set_size, 30, 30),
              #(tutorial_message_set_center_justify, 1),
              #(tutorial_message, "str_auto_team_balance_done", 0xFFFFFFFF, 5),
-             
+
              #for only server itself
-             (call_script, "script_show_multiplayer_message", multiplayer_message_type_auto_team_balance_done, 0), 
+             (call_script, "script_show_multiplayer_message", multiplayer_message_type_auto_team_balance_done, 0),
 
              #no need to send also server here
              (multiplayer_get_my_player, ":my_player_no"),
-             (get_max_players, ":num_players"),                               
+             (get_max_players, ":num_players"),
              (try_for_range, ":player_no", 0, ":num_players"),
                (player_is_active, ":player_no"),
                (neq, ":my_player_no", ":player_no"),
@@ -21585,7 +21585,7 @@ mission_templates = [
              (try_end),
              (assign, "$g_team_balance_next_round", 0),
            (try_end),
-         (try_end),           
+         (try_end),
          #team balance check part finished
          (assign, "$g_team_balance_next_round", 0),
 
@@ -21593,7 +21593,7 @@ mission_templates = [
          (try_for_range, ":player_no", 0, ":num_players"),
            (player_is_active, ":player_no"),
            (player_set_slot, ":player_no", slot_player_spawned_this_round, 0),
-           (player_set_slot, ":player_no", slot_player_spawned_at_siege_round, 0),           
+           (player_set_slot, ":player_no", slot_player_spawned_at_siege_round, 0),
            (player_get_agent_id, ":player_agent", ":player_no"),
            (ge, ":player_agent", 0),
            (agent_is_alive, ":player_agent"),
@@ -21611,11 +21611,11 @@ mission_templates = [
            (player_is_active, ":player_no"),
            (player_get_gold, ":player_gold", ":player_no"),
            (player_get_team_no, ":player_team", ":player_no"),
-         
+
            (try_begin),
              (this_or_next|eq, ":player_team", 0),
              (eq, ":player_team", 1),
-             (val_add, ":player_gold", ":per_round_gold_addition"), 
+             (val_add, ":player_gold", ":per_round_gold_addition"),
            (try_end),
 
            #(below lines added new at 25.11.09 after Armagan decided new money system)
@@ -21637,7 +21637,7 @@ mission_templates = [
 
          #clear scene and end round
          (multiplayer_clear_scene),
-         
+
          #assigning everbody's spawn counts to 0
          (assign, "$g_my_spawn_count", 0),
          (get_max_players, ":num_players"),
@@ -21655,7 +21655,7 @@ mission_templates = [
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
          (call_script, "script_move_belfries_to_their_first_entry_point", "spr_belfry_a"),
          (call_script, "script_move_belfries_to_their_first_entry_point", "spr_belfry_b"),
-         
+
          (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_a"),
          (try_for_range, ":belfry_no", 0, ":num_belfries"),
            (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_a", ":belfry_no"),
@@ -21691,9 +21691,9 @@ mission_templates = [
            (prop_instance_stop_animating, ":flag_id"),
            (prop_instance_set_position, ":flag_id", pos1),
          (try_end),
-         
+
          (assign, "$g_round_ended", 0),
-         
+
          (store_mission_timer_a, "$g_round_start_time"),
          (call_script, "script_initialize_all_scene_prop_slots"),
 
@@ -21702,11 +21702,11 @@ mission_templates = [
          (try_for_range, ":player_no", 0, ":num_players"),
            (player_is_active, ":player_no"),
            (multiplayer_send_int_to_player, ":player_no", multiplayer_event_set_round_start_time, -9999),
-         (try_end),         
+         (try_end),
 
          (assign, "$g_flag_is_not_ready", 0),
        ]),
-           
+
       (1, 0, 0, [],
        [
          (multiplayer_is_server),
@@ -21721,8 +21721,8 @@ mission_templates = [
            (player_get_troop_id, ":player_troop", ":player_no"), #if troop is not selected do not spawn his agent
            (ge, ":player_troop", 0),
            (player_get_agent_id, ":player_agent", ":player_no"), #new added for siege mod
-         
-           (assign, ":spawn_new", 0), 
+
+           (assign, ":spawn_new", 0),
            (assign, ":num_active_players_in_team_0", 0),
            (assign, ":num_active_players_in_team_1", 0),
            (try_begin),
@@ -21744,19 +21744,19 @@ mission_templates = [
              (try_end),
              (store_mission_timer_a, ":round_time"),
              (val_sub, ":round_time", "$g_round_start_time"),
-                  
+
              (eq, "$g_round_ended", 0),
-         
+
              (try_begin), #addition for siege mod to allow players spawn more than once (begin)
-               (lt, ":player_agent", 0), 
+               (lt, ":player_agent", 0),
 
                (try_begin), #new added begin, to avoid siege-crack (rejoining of defenders when they die)
-                 (eq, ":player_team", 0), 
+                 (eq, ":player_team", 0),
                  (player_get_slot, ":player_last_team_select_time", ":player_no", slot_player_last_team_select_time),
                  (store_mission_timer_a, ":current_time"),
                  (store_sub, ":elapsed_time", ":current_time", ":player_last_team_select_time"),
-                 
-                 (assign, ":player_team_respawn_period", "$g_multiplayer_respawn_period"), 
+
+                 (assign, ":player_team_respawn_period", "$g_multiplayer_respawn_period"),
                  (val_add, ":player_team_respawn_period", multiplayer_siege_mod_defender_team_extra_respawn_time), #new added for siege mod
                  (lt, ":elapsed_time", ":player_team_respawn_period"),
 
@@ -21765,22 +21765,22 @@ mission_templates = [
                  (gt, ":num_active_players", 2),
                  (store_mul, ":multipication_of_num_active_players_in_teams", ":num_active_players_in_team_0", ":num_active_players_in_team_1"),
                  (neq, ":multipication_of_num_active_players_in_teams", 0),
-         
+
                  (assign, ":spawn_new", 0),
-               (else_try), #new added end         
+               (else_try), #new added end
                  (assign, ":spawn_new", 1),
                (try_end),
-             (else_try), 
-               (agent_get_time_elapsed_since_removed, ":elapsed_time", ":player_agent"), 
-               (assign, ":player_team_respawn_period", "$g_multiplayer_respawn_period"), 
-               (try_begin), 
-                 (eq, ":player_team", 0), 
-                 (val_add, ":player_team_respawn_period", multiplayer_siege_mod_defender_team_extra_respawn_time), 
-               (try_end), 
-               (this_or_next|gt, ":elapsed_time", ":player_team_respawn_period"), 
-               (player_slot_eq, ":player_no", slot_player_spawned_at_siege_round, 0), 
+             (else_try),
+               (agent_get_time_elapsed_since_removed, ":elapsed_time", ":player_agent"),
+               (assign, ":player_team_respawn_period", "$g_multiplayer_respawn_period"),
+               (try_begin),
+                 (eq, ":player_team", 0),
+                 (val_add, ":player_team_respawn_period", multiplayer_siege_mod_defender_team_extra_respawn_time),
+               (try_end),
+               (this_or_next|gt, ":elapsed_time", ":player_team_respawn_period"),
+               (player_slot_eq, ":player_no", slot_player_spawned_at_siege_round, 0),
                (assign, ":spawn_new", 1),
-             (try_end), 
+             (try_end),
            (try_end), #addition for siege mod to allow players spawn more than once (end)
 
            (player_get_slot, ":spawn_count", ":player_no", slot_player_spawn_count),
@@ -21794,7 +21794,7 @@ mission_templates = [
                (assign, ":spawn_new", 0),
              (else_try),
                (eq, ":spawn_new", 1),
-               (eq, ":player_team", 1),      
+               (eq, ":player_team", 1),
                (ge, ":spawn_count", 999),
                (assign, ":spawn_new", 0),
              (try_end),
@@ -21827,22 +21827,22 @@ mission_templates = [
 
            (try_begin),
              (lt, ":round_time", 20), #at start of game spawn at base entry point (only enemies)
-             (try_begin),         
+             (try_begin),
                (eq, ":player_team", 0), #defenders in siege mod at start of round
                (call_script, "script_multiplayer_find_spawn_point", ":player_team", 1, ":player_is_horseman"),
-               (assign, ":entry_no", reg0),             
+               (assign, ":entry_no", reg0),
              (else_try),
                (eq, ":player_team", 1), #attackers in siege mod at start of round
                (assign, ":entry_no", multi_initial_spawn_point_team_2), #change later
              (try_end),
            (else_try),
              (call_script, "script_multiplayer_find_spawn_point", ":player_team", 0, ":player_is_horseman"),
-             (assign, ":entry_no", reg0),             
+             (assign, ":entry_no", reg0),
            (try_end),
-         
+
            (player_spawn_new_agent, ":player_no", ":entry_no"),
            (player_set_slot, ":player_no", slot_player_spawned_this_round, 1),
-           (player_set_slot, ":player_no", slot_player_spawned_at_siege_round, 1),         
+           (player_set_slot, ":player_no", slot_player_spawned_at_siege_round, 1),
          (try_end),
          ]),
 
@@ -21863,7 +21863,7 @@ mission_templates = [
            (else_try),
              (agent_get_time_elapsed_since_removed, ":elapsed_time", ":cur_agent"),
              (le, ":elapsed_time", "$g_multiplayer_respawn_period"),
-             (assign, ":will_be_counted", 1), 
+             (assign, ":will_be_counted", 1),
            (try_end),
            (eq, ":will_be_counted", 1),
            (agent_get_team, ":cur_team", ":cur_agent"),
@@ -21881,11 +21881,11 @@ mission_templates = [
          (val_max, "$g_multiplayer_num_bots_required_team_2", 0),
          ]),
 
-      multiplayer_server_spawn_bots, 
-      multiplayer_server_manage_bots, 
+      multiplayer_server_spawn_bots,
+      multiplayer_server_manage_bots,
 
       multiplayer_server_check_end_map,
-        
+
       (ti_tab_pressed, 0, 0, [],
        [
          (try_begin),
@@ -21901,7 +21901,7 @@ mission_templates = [
           (try_end),
 ##################################################
 ##### troop_ratio_bar
-##################################################         
+##################################################
          (try_end),
          ]),
 
@@ -21912,7 +21912,7 @@ mission_templates = [
         (start_presentation, "prsnt_multiplayer_team_score_display"),
         ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
@@ -21977,7 +21977,7 @@ mission_templates = [
         common_wot_seeker_trigger_18_multi,
         common_wot_seeker_trigger_19_multi,
         common_wot_seeker_trigger_20_multi,
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -21988,7 +21988,7 @@ mission_templates = [
       (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
+##################################################
 
       (ti_escape_pressed, 0, 0, [],
        [
@@ -22080,7 +22080,7 @@ mission_templates = [
       common_battle_init_banner,
 
       multiplayer_server_check_polls,
-      
+
       (ti_server_player_joined, 0, 0, [],
        [
          (store_trigger_param_1, ":player_no"),
@@ -22091,7 +22091,7 @@ mission_templates = [
        [
          (assign, "$g_multiplayer_game_type", multiplayer_game_type_battle),
          (call_script, "script_multiplayer_server_before_mission_start_common"),
-         
+
          (assign, "$g_waiting_for_confirmation_to_terminate", 0),
          (assign, "$g_round_ended", 0),
          (assign, "$g_battle_death_mode_started", 0),
@@ -22109,7 +22109,7 @@ mission_templates = [
          (call_script, "script_multiplayer_remove_headquarters_flags"),
          ]),
 
-      (ti_after_mission_start, 0, 0, [], 
+      (ti_after_mission_start, 0, 0, [],
        [
          (call_script, "script_determine_team_flags", 0),
          (call_script, "script_determine_team_flags", 1),
@@ -22120,16 +22120,16 @@ mission_templates = [
            (multiplayer_is_server),
 
            (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
-         
+
            (entry_point_get_position, pos0, multi_death_mode_point),
            (position_set_z_to_ground_level, pos0),
            (position_move_z, pos0, -2000),
 
-           (position_move_x, pos0, 100), 
+           (position_move_x, pos0, 100),
            (set_spawn_position, pos0),
            (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),
 
-           (position_move_x, pos0, -200), 
+           (position_move_x, pos0, -200),
            (set_spawn_position, pos0),
            (spawn_scene_prop, "spr_headquarters_pole_code_only", 0),
 
@@ -22138,19 +22138,19 @@ mission_templates = [
            (spawn_scene_prop, "$team_1_flag_scene_prop", 0),
            (position_move_z, pos0, multi_headquarters_flag_initial_height),
            (prop_instance_set_position, reg0, pos0),
-         
+
            (scene_prop_get_instance, ":pole_2_id", "spr_headquarters_pole_code_only", 1),
            (prop_instance_get_position, pos0, ":pole_2_id"),
            (spawn_scene_prop, "$team_2_flag_scene_prop", 0),
            (position_move_z, pos0, multi_headquarters_flag_initial_height),
            (prop_instance_set_position, reg0, pos0),
 
-           (assign, "$g_multiplayer_num_bots_required_team_1", "$g_multiplayer_num_bots_team_1"), 
-           (assign, "$g_multiplayer_num_bots_required_team_2", "$g_multiplayer_num_bots_team_2"), 
+           (assign, "$g_multiplayer_num_bots_required_team_1", "$g_multiplayer_num_bots_team_1"),
+           (assign, "$g_multiplayer_num_bots_required_team_2", "$g_multiplayer_num_bots_team_2"),
          (try_end),
 
          (call_script, "script_initialize_all_scene_prop_slots"),
-         
+
          (call_script, "script_multiplayer_initialize_belfry_wheel_rotations"),
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
          ]),
@@ -22159,7 +22159,7 @@ mission_templates = [
        [
          (store_trigger_param_1, ":agent_no"),
          (call_script, "script_multiplayer_server_on_agent_spawn_common", ":agent_no"),
-         
+
          (try_begin), #if my initial team still not initialized, find and assign its value.
            (lt, "$my_team_at_start_of_round", 0),
            (multiplayer_get_my_player, ":my_player_no"),
@@ -22167,11 +22167,11 @@ mission_templates = [
            (player_get_agent_id, ":my_agent_id", ":my_player_no"),
            (eq, ":my_agent_id", ":agent_no"),
            (ge, ":my_agent_id", 0),
-           (agent_get_team, "$my_team_at_start_of_round", ":my_agent_id"),		   
-         (try_end),         
-         
+           (agent_get_team, "$my_team_at_start_of_round", ":my_agent_id"),
+         (try_end),
+
          (call_script, "script_calculate_new_death_waiting_time_at_death_mod"),
- 
+
          (try_begin),
            (neg|multiplayer_is_server),
            (try_begin),
@@ -22189,8 +22189,8 @@ mission_templates = [
                (eq, "$g_team_balance_next_round", 1),
                (assign, "$g_team_balance_next_round", 0),
              (try_end),
-           (try_end),  
-         (try_end),         
+           (try_end),
+         (try_end),
          ]),
 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
@@ -22207,16 +22207,16 @@ mission_templates = [
            (player_get_agent_id, ":my_agent_id", ":my_player_no"),
            (ge, ":my_agent_id", 0),
            (agent_get_team, "$my_team_at_start_of_round", ":my_agent_id"),
-         (try_end),         
-         
+         (try_end),
+
          (try_begin), #count players and if round ended understand this.
            (agent_is_human, ":dead_agent_no"),
            (assign, ":team1_living_players", 0),
            (assign, ":team2_living_players", 0),
            (try_for_agents, ":cur_agent"),
-             (agent_is_human, ":cur_agent"),         
+             (agent_is_human, ":cur_agent"),
              (try_begin),
-               (agent_is_alive, ":cur_agent"),  
+               (agent_is_alive, ":cur_agent"),
                (agent_get_team, ":cur_agent_team", ":cur_agent"),
                (try_begin),
                  (eq, ":cur_agent_team", 0),
@@ -22226,12 +22226,12 @@ mission_templates = [
                  (val_add, ":team2_living_players", 1),
                (try_end),
              (try_end),
-           (try_end),                    
-           (try_begin),         
+           (try_end),
+           (try_begin),
              (eq, "$g_round_ended", 0),
              (try_begin),
                (this_or_next|eq, ":team1_living_players", 0),
-               (eq, ":team2_living_players", 0),                
+               (eq, ":team2_living_players", 0),
                (assign, "$g_winner_team", -1),
                (assign, reg0, "$g_multiplayer_respawn_period"),
                (try_begin),
@@ -22255,8 +22255,8 @@ mission_templates = [
                    (assign, "$g_winner_team", 0),
                  (try_end),
 
-                 (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, "$g_winner_team"), #0 is winner team  
-                 (call_script, "script_check_achievement_last_man_standing", "$g_winner_team"),       
+                 (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, "$g_winner_team"), #0 is winner team
+                 (call_script, "script_check_achievement_last_man_standing", "$g_winner_team"),
                (try_end),
                (store_mission_timer_a, "$g_round_finish_time"),
                (assign, "$g_round_ended", 1),
@@ -22281,11 +22281,11 @@ mission_templates = [
            (position_get_x, ":x_coor", pos0),
            (position_get_y, ":y_coor", pos0),
            (position_get_z, ":z_coor", pos0),
-         
+
            (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_x, ":x_coor"),
            (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_y, ":y_coor"),
            (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_z, ":z_coor"),
-         (try_end),    
+         (try_end),
          ]),
 
       (ti_on_multiplayer_mission_end, 0, 0, [],
@@ -22294,8 +22294,8 @@ mission_templates = [
          (assign, "$g_multiplayer_stats_chart_opened_manually", 0),
          (start_presentation, "prsnt_multiplayer_stats_chart"),
          ]),
-      
-      (1, 0, 0, [(multiplayer_is_server), 
+
+      (1, 0, 0, [(multiplayer_is_server),
                  (eq, "$g_round_ended", 0),
                  (store_mission_timer_a, ":current_time"),
                  (store_sub, ":seconds_past_in_round", ":current_time", "$g_round_start_time"),
@@ -22304,7 +22304,7 @@ mission_templates = [
                  (assign, ":overtime_needed", 0), #checking for if overtime is needed. Overtime happens when lower heighted flag is going up
                  (try_begin),
                    (eq, "$g_battle_death_mode_started", 2), #if death mod is currently open
-                    
+
                    (scene_prop_get_instance, ":pole_1_id", "spr_headquarters_pole_code_only", 0),
                    (scene_prop_get_instance, ":pole_2_id", "spr_headquarters_pole_code_only", 1),
                    (scene_prop_get_instance, ":flag_1_id", "$team_1_flag_scene_prop", 0),
@@ -22330,7 +22330,7 @@ mission_templates = [
                      (ge, ":flag_2_animation_target_z", ":flag_1_cur_z"),
                      (assign, ":overtime_needed", 1),
                    (try_end),
-                   
+
                    (try_begin),
                      (le, ":height_of_flag_2", ":height_of_flag_1_plus"),
                      (prop_instance_is_animating, ":is_animating", ":flag_2_id"),
@@ -22345,10 +22345,10 @@ mission_templates = [
                  (eq, ":overtime_needed", 0),
                  ],
        [ #round time is up
-         (store_mission_timer_a, "$g_round_finish_time"),                          
+         (store_mission_timer_a, "$g_round_finish_time"),
          (assign, "$g_round_ended", 1),
          (assign, "$g_winner_team", -1),
-         
+
          (try_begin), #checking for winning by death mod
            (eq, "$g_battle_death_mode_started", 2), #if death mod is currently open
 
@@ -22367,31 +22367,31 @@ mission_templates = [
 
            (try_begin),
              (ge, ":height_of_flag_1", ":height_of_flag_2"), #if flag_1 is higher than flag_2
-             (store_sub, ":difference_of_heights", ":height_of_flag_1", ":height_of_flag_2"), 
-             (ge, ":difference_of_heights", min_allowed_flag_height_difference_to_make_score), #if difference between flag heights is greater than 
+             (store_sub, ":difference_of_heights", ":height_of_flag_1", ":height_of_flag_2"),
+             (ge, ":difference_of_heights", min_allowed_flag_height_difference_to_make_score), #if difference between flag heights is greater than
              (assign, "$g_winner_team", 0),                                                    #"min_allowed_flag_height_difference_to_make_score" const value
            (else_try), #if flag_2 is higher than flag_1
              (store_sub, ":difference_of_heights", ":height_of_flag_2", ":height_of_flag_1"),
-             (ge, ":difference_of_heights", min_allowed_flag_height_difference_to_make_score), #if difference between flag heights is greater than 
+             (ge, ":difference_of_heights", min_allowed_flag_height_difference_to_make_score), #if difference between flag heights is greater than
              (assign, "$g_winner_team", 1),                                                    #"min_allowed_flag_height_difference_to_make_score" const value
            (try_end),
          (try_end),
-    
+
          (multiplayer_get_my_player, ":my_player_no"), #send all players draw information of round.
          #for only server itself-----------------------------------------------------------------------------------------------
          (call_script, "script_draw_this_round", "$g_winner_team"),
          #for only server itself-----------------------------------------------------------------------------------------------
-         (get_max_players, ":num_players"), 
+         (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
            (player_is_active, ":player_no"),
            (neq, ":player_no", ":my_player_no"),
            (multiplayer_send_int_to_player, ":player_no", multiplayer_event_draw_this_round, "$g_winner_team"),
          (try_end),
-        ]),          
+        ]),
 
       (10, 0, 0, [(multiplayer_is_server)],
        [
-         #auto team balance control during the round         
+         #auto team balance control during the round
          (assign, ":number_of_players_at_team_1", 0),
          (assign, ":number_of_players_at_team_2", 0),
          (get_max_players, ":num_players"),
@@ -22404,7 +22404,7 @@ mission_templates = [
            (else_try),
              (eq, ":player_team", 1),
              (val_add, ":number_of_players_at_team_2", 1),
-           (try_end),         
+           (try_end),
          (try_end),
          #end of counting active players per team.
          (store_sub, ":difference_of_number_of_players", ":number_of_players_at_team_1", ":number_of_players_at_team_2"),
@@ -22417,28 +22417,28 @@ mission_templates = [
            (else_try),
              (ge, ":difference_of_number_of_players", "$g_multiplayer_auto_team_balance_limit"),
              (store_div, ":number_of_players_will_be_moved", ":difference_of_number_of_players", 2),
-           (try_end),          
-         (try_end),         
+           (try_end),
+         (try_end),
          #number of players will be moved calculated. (it is 0 if no need to make team balance)
          (try_begin),
            (gt, ":number_of_players_will_be_moved", 0),
            (try_begin),
              (eq, "$g_team_balance_next_round", 0),
-         
+
              (assign, "$g_team_balance_next_round", 1),
 
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_show_multiplayer_message", multiplayer_message_type_auto_team_balance_next, 0), #0 is useless here
-             #for only server itself-----------------------------------------------------------------------------------------------     
-             (get_max_players, ":num_players"),                               
+             #for only server itself-----------------------------------------------------------------------------------------------
+             (get_max_players, ":num_players"),
              (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                (player_is_active, ":player_no"),
                (multiplayer_send_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_auto_team_balance_next),
              (try_end),
-             
+
              (call_script, "script_warn_player_about_auto_team_balance"),
            (try_end),
-         (try_end),           
+         (try_end),
          #team balance check part finished
          ]),
 
@@ -22489,17 +22489,17 @@ mission_templates = [
 
          (entry_point_get_position, pos0, "$g_random_entry_point"),
          (position_set_z_to_ground_level, pos0),
-         
-         (position_move_x, pos0, 100), 
+
+         (position_move_x, pos0, 100),
          (prop_instance_set_position, ":pole_1_id", pos0),
 
-         (position_move_x, pos0, -200), 
+         (position_move_x, pos0, -200),
          (prop_instance_set_position, ":pole_2_id", pos0),
 
          (prop_instance_get_position, pos0, ":pole_1_id"),
          (position_move_z, pos0, multi_headquarters_flag_initial_height),
          (prop_instance_set_position, ":flag_1_id", pos0),
-         
+
          (prop_instance_get_position, pos0, ":pole_2_id"),
          (position_move_z, pos0, multi_headquarters_flag_initial_height),
          (prop_instance_set_position, ":flag_2_id", pos0),
@@ -22508,14 +22508,14 @@ mission_templates = [
          ]),
 
       (3, 0, 0, [(multiplayer_is_server),  #this trigger is to reduce "$g_battle_waiting_seconds" at between last 66th and last 24th seconds 1 per 3 seconds, total 14 seconds.
-                 (eq, "$g_round_ended", 0),                 
+                 (eq, "$g_round_ended", 0),
                  (eq, "$g_battle_death_mode_started", 1),
-                 
+
                  (store_mission_timer_a, ":seconds_past_till_death_mode_part_1_started"),
                  (val_sub, ":seconds_past_till_death_mode_part_1_started", "$g_death_mode_part_1_start_time"),
                  (store_add, ":g_battle_waiting_seconds_plus_reduced_waiting_seconds", "$g_battle_waiting_seconds", "$g_reduced_waiting_seconds"),
                  (val_sub, ":g_battle_waiting_seconds_plus_reduced_waiting_seconds", 20), #in last 20 seconds to master of field below code effects
-                 (ge, ":seconds_past_till_death_mode_part_1_started", ":g_battle_waiting_seconds_plus_reduced_waiting_seconds"),], #death mod start if anybody did not dies in "$g_battle_waiting_seconds" seconds            
+                 (ge, ":seconds_past_till_death_mode_part_1_started", ":g_battle_waiting_seconds_plus_reduced_waiting_seconds"),], #death mod start if anybody did not dies in "$g_battle_waiting_seconds" seconds
         [
                  (assign, ":there_are_fighting_agents", 0),
 
@@ -22530,7 +22530,7 @@ mission_templates = [
                      (agent_get_team, ":agent_no_2_team", ":agent_no_2"),
 
                      (neq, ":agent_no_1_team", ":agent_no_2_team"),
-                 
+
                      (agent_get_position, pos1, ":agent_no_1"),
                      (agent_get_position, pos2, ":agent_no_2"),
 
@@ -22539,7 +22539,7 @@ mission_templates = [
                      (le, ":sq_dist_in_meters", multi_max_sq_dist_between_agents_to_longer_mof_time),
 
                      (assign, ":there_are_fighting_agents", 1),
-                   (try_end),   
+                   (try_end),
                  (try_end),
 
                  (try_begin),
@@ -22550,9 +22550,9 @@ mission_templates = [
         ]),
 
       (3, 0, 0, [(multiplayer_is_server),  #this trigger is to reduce "$g_battle_waiting_seconds" at between last 66th and last 24th seconds 1 per 3 seconds, total 14 seconds.
-                 (eq, "$g_round_ended", 0),                 
+                 (eq, "$g_round_ended", 0),
                  (eq, "$g_battle_death_mode_started", 1),
-                 
+
                  (store_mission_timer_a, ":current_time"),
                  (store_sub, ":seconds_past_in_round", ":current_time", "$g_round_start_time"),
                  (store_sub, ":g_multiplayer_round_max_seconds_sub_60", "$g_multiplayer_round_max_seconds", 66),
@@ -22567,8 +22567,8 @@ mission_templates = [
          (val_add, "$g_reduced_waiting_seconds", 1),
          ]),
 
-      (0, 0, 0, [(multiplayer_is_server),  
-                 (eq, "$g_round_ended", 0),                 
+      (0, 0, 0, [(multiplayer_is_server),
+                 (eq, "$g_round_ended", 0),
                  (eq, "$g_battle_death_mode_started", 2)],
        [
          (set_fixed_point_multiplier, 100),
@@ -22604,7 +22604,7 @@ mission_templates = [
 
            (agent_get_horse, ":agent_horse", ":agent_id"),
            (eq, ":agent_horse", -1), #horseman cannot move flag
-         
+
            (try_begin),
              (eq, ":agent_team", 0),
              (try_begin),
@@ -22614,7 +22614,7 @@ mission_templates = [
                  (this_or_next|eq, ":there_are_agents_from_only_team_1_around_their_flag", 0),
                  (eq, ":there_are_agents_from_only_team_1_around_their_flag", 1),
                  (assign, ":there_are_agents_from_only_team_1_around_their_flag", 1), #there are agents from only our team
-               (else_try),                 
+               (else_try),
                  (assign, ":there_are_agents_from_only_team_1_around_their_flag", -2), #there are agents from both teams
                (try_end),
              (try_end),
@@ -22638,7 +22638,7 @@ mission_templates = [
                  (this_or_next|eq, ":there_are_agents_from_only_team_2_around_their_flag", 0),
                  (eq, ":there_are_agents_from_only_team_2_around_their_flag", 1),
                  (assign, ":there_are_agents_from_only_team_2_around_their_flag", 1), #there are agents from only our team
-               (else_try),                 
+               (else_try),
                  (assign, ":there_are_agents_from_only_team_2_around_their_flag", -2), #there are agents from both teams
                (try_end),
              (try_end),
@@ -22658,10 +22658,10 @@ mission_templates = [
 
          #controlling battle win by death mode conditions
          (try_begin),
-           (ge, ":dist_1", multi_headquarters_flag_height_to_win),           
+           (ge, ":dist_1", multi_headquarters_flag_height_to_win),
            (assign, "$g_winner_team", 0),
 
-           (get_max_players, ":num_players"), 
+           (get_max_players, ":num_players"),
            #for only server itself-----------------------------------------------------------------------------------------------
            (call_script, "script_draw_this_round", "$g_winner_team"),
            #for only server itself-----------------------------------------------------------------------------------------------
@@ -22676,7 +22676,7 @@ mission_templates = [
            #for only server itself-----------------------------------------------------------------------------------------------
            (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
              (player_is_active, ":player_no"),
-             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, 0, ":team_1_score"),             
+             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, 0, ":team_1_score"),
            (try_end),
 
            (store_mission_timer_a, "$g_round_finish_time"),
@@ -22685,7 +22685,7 @@ mission_templates = [
            (ge, ":dist_2", multi_headquarters_flag_height_to_win),
            (assign, "$g_winner_team", 1),
 
-           (get_max_players, ":num_players"), 
+           (get_max_players, ":num_players"),
            #for only server itself-----------------------------------------------------------------------------------------------
            (call_script, "script_draw_this_round", "$g_winner_team"),
            #for only server itself-----------------------------------------------------------------------------------------------
@@ -22700,11 +22700,11 @@ mission_templates = [
            #for only server itself-----------------------------------------------------------------------------------------------
            (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
              (player_is_active, ":player_no"),
-             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, 1, ":team_2_score"),             
+             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, 1, ":team_2_score"),
            (try_end),
 
-           (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, 0), #0 is winner team		
-           (call_script, "script_check_achievement_last_man_standing", "$g_winner_team"),     
+           (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, 0), #0 is winner team
+           (call_script, "script_check_achievement_last_man_standing", "$g_winner_team"),
 
            (store_mission_timer_a, "$g_round_finish_time"),
            (assign, "$g_round_ended", 1),
@@ -22713,8 +22713,8 @@ mission_templates = [
          (try_begin),
            (eq, "$g_round_ended", 0),
 
-           (position_get_z, ":flag_1_cur_z", pos3),       
-           (prop_instance_is_animating, ":is_animating", ":flag_1_id"),         
+           (position_get_z, ":flag_1_cur_z", pos3),
+           (prop_instance_is_animating, ":is_animating", ":flag_1_id"),
            (try_begin), #if flag_1 is going down or up and there are agents from both teams
              (eq, ":there_are_agents_from_only_team_1_around_their_flag", -2), #if there are agents from both teams
              (eq, ":is_animating", 1),
@@ -22725,7 +22725,7 @@ mission_templates = [
              (prop_instance_get_animation_target_position, pos9, ":flag_1_id"),
              (position_get_z, ":flag_1_animation_target_z", pos9),
              (this_or_next|eq, ":is_animating", 0), #if flag_1 is stopping
-             (gt, ":flag_1_animation_target_z", ":flag_1_cur_z"), #if flag_1 is going up         
+             (gt, ":flag_1_animation_target_z", ":flag_1_cur_z"), #if flag_1 is going up
              (get_distance_between_positions, ":time_1", pos3, pos7),
              (gt, ":time_1", 0),
              (val_mul, ":time_1", 16),
@@ -22744,8 +22744,8 @@ mission_templates = [
              (prop_instance_animate_to_position, ":flag_1_id", pos5, ":time_1"), #move flag_1 up
            (try_end),
 
-           (position_get_z, ":flag_2_cur_z", pos4),       
-           (prop_instance_is_animating, ":is_animating", ":flag_2_id"),         
+           (position_get_z, ":flag_2_cur_z", pos4),
+           (prop_instance_is_animating, ":is_animating", ":flag_2_id"),
            (try_begin), #if flag is going down or up and there are agents from both teams
              (eq, ":there_are_agents_from_only_team_2_around_their_flag", -2), #if there are agents from both teams
              (eq, ":is_animating", 1),
@@ -22756,7 +22756,7 @@ mission_templates = [
              (prop_instance_get_animation_target_position, pos9, ":flag_2_id"),
              (position_get_z, ":flag_2_animation_target_z", pos9),
              (this_or_next|eq, ":is_animating", 0), #if flag_2 is stopping
-             (gt, ":flag_2_animation_target_z", ":flag_2_cur_z"), #if flag_2 is going up         
+             (gt, ":flag_2_animation_target_z", ":flag_2_cur_z"), #if flag_2 is going up
              (get_distance_between_positions, ":time_2", pos4, pos8),
              (gt, ":time_2", 0),
              (val_mul, ":time_2", 16),
@@ -22776,14 +22776,14 @@ mission_templates = [
            (try_end),
          (try_end),
          ]),
-                
+
       (1, 0, 3, [(multiplayer_is_server),
                  (eq, "$g_round_ended", 1),
                  (store_mission_timer_a, ":seconds_past_till_round_ended"),
                  (val_sub, ":seconds_past_till_round_ended", "$g_round_finish_time"),
                  (ge, ":seconds_past_till_round_ended", "$g_multiplayer_respawn_period")],
        [
-         #auto team balance control at the end of round         
+         #auto team balance control at the end of round
          (assign, ":number_of_players_at_team_1", 0),
          (assign, ":number_of_players_at_team_2", 0),
          (get_max_players, ":num_players"),
@@ -22796,7 +22796,7 @@ mission_templates = [
            (else_try),
              (eq, ":player_team", 1),
              (val_add, ":number_of_players_at_team_2", 1),
-           (try_end),         
+           (try_end),
          (try_end),
          #end of counting active players per team.
          (store_sub, ":difference_of_number_of_players", ":number_of_players_at_team_1", ":number_of_players_at_team_2"),
@@ -22814,17 +22814,17 @@ mission_templates = [
              (assign, ":team_with_more_players", 0),
              (assign, ":team_with_less_players", 1),
            (try_end),
-         (try_end),         
+         (try_end),
          #number of players will be moved calculated. (it is 0 if no need to make team balance)
          (try_begin),
            (gt, ":number_of_players_will_be_moved", 0),
            (try_begin),
              #(eq, "$g_team_balance_next_round", 1), #control if at pre round players are warned about team change.
 
-             (try_for_range, ":unused", 0, ":number_of_players_will_be_moved"), 
+             (try_for_range, ":unused", 0, ":number_of_players_will_be_moved"),
                (assign, ":max_player_join_time", 0),
                (assign, ":latest_joined_player_no", -1),
-               (get_max_players, ":num_players"),                               
+               (get_max_players, ":num_players"),
                (try_for_range, ":player_no", 0, ":num_players"),
                  (player_is_active, ":player_no"),
                  (player_get_team_no, ":player_team", ":player_no"),
@@ -22840,7 +22840,7 @@ mission_templates = [
                  (ge, ":latest_joined_player_no", 0),
                  (try_begin),
                    #if player is living add +1 to his kill count because he will get -1 because of team change while living.
-                   (player_get_agent_id, ":latest_joined_agent_id", ":latest_joined_player_no"), 
+                   (player_get_agent_id, ":latest_joined_agent_id", ":latest_joined_player_no"),
                    (ge, ":latest_joined_agent_id", 0),
                    (agent_is_alive, ":latest_joined_agent_id"),
 
@@ -22859,7 +22859,7 @@ mission_templates = [
                    (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                      (player_is_active, ":player_no"),
                      (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_set_player_score_kill_death, ":latest_joined_player_no", ":player_score", ":player_kill_count", ":player_death_count"),
-                   (try_end),         
+                   (try_end),
 
                    (player_get_value_of_original_items, ":old_items_value", ":latest_joined_player_no"),
                    (player_get_gold, ":player_gold", ":latest_joined_player_no"),
@@ -22873,18 +22873,18 @@ mission_templates = [
                (try_end),
              (try_end),
              #tutorial message (after team balance)
-             
+
              #(tutorial_message_set_position, 500, 500),
              #(tutorial_message_set_size, 30, 30),
              #(tutorial_message_set_center_justify, 1),
              #(tutorial_message, "str_auto_team_balance_done", 0xFFFFFFFF, 5),
 
              #for only server itself
-             (call_script, "script_show_multiplayer_message", multiplayer_message_type_auto_team_balance_done, 0), 
+             (call_script, "script_show_multiplayer_message", multiplayer_message_type_auto_team_balance_done, 0),
 
              #no need to send also server here
              (multiplayer_get_my_player, ":my_player_no"),
-             (get_max_players, ":num_players"),                               
+             (get_max_players, ":num_players"),
              (try_for_range, ":player_no", 0, ":num_players"),
                (player_is_active, ":player_no"),
                (neq, ":my_player_no", ":player_no"),
@@ -22892,13 +22892,13 @@ mission_templates = [
              (try_end),
              (assign, "$g_team_balance_next_round", 0),
            (try_end),
-         (try_end),           
+         (try_end),
          #team balance check part finished
          (assign, "$g_team_balance_next_round", 0),
 
          (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 0, ":num_players"),
-           (player_is_active, ":player_no"),           
+           (player_is_active, ":player_no"),
            (player_get_agent_id, ":player_agent", ":player_no"),
            (ge, ":player_agent", 0),
            (agent_is_alive, ":player_agent"),
@@ -22913,7 +22913,7 @@ mission_templates = [
          (val_div, ":per_round_gold_addition", 100),
          (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 0, ":num_players"),
-           (player_is_active, ":player_no"),		   
+           (player_is_active, ":player_no"),
 		   (player_slot_eq, ":player_no", slot_player_spawned_this_round, 1),
 
            (player_get_gold, ":player_gold", ":player_no"),
@@ -22922,7 +22922,7 @@ mission_templates = [
            (try_begin),
              (this_or_next|eq, ":player_team", 0),
              (eq, ":player_team", 1),
-             (val_add, ":player_gold", ":per_round_gold_addition"), 
+             (val_add, ":player_gold", ":per_round_gold_addition"),
            (try_end),
 
            #(below lines added new at 25.11.09 after Armagan decided new money system)
@@ -22935,7 +22935,7 @@ mission_templates = [
              (val_add, ":player_gold", ":additional_gold"),
            (try_end),
            #new money system addition end
-         
+
            (player_set_gold, ":player_no", ":player_gold", multi_max_gold_that_can_be_stored),
          (try_end),
 
@@ -22959,15 +22959,15 @@ mission_templates = [
 
          (assign, "$g_battle_death_mode_started", 0),
          (assign, "$g_reduced_waiting_seconds", 0),
-         
+
          #initialize moveable object positions
          (call_script, "script_multiplayer_close_gate_if_it_is_open"),
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
-                  
-         (assign, "$g_round_ended", 0), 
 
-         (assign, "$g_multiplayer_num_bots_required_team_1", "$g_multiplayer_num_bots_team_1"), 
-         (assign, "$g_multiplayer_num_bots_required_team_2", "$g_multiplayer_num_bots_team_2"), 
+         (assign, "$g_round_ended", 0),
+
+         (assign, "$g_multiplayer_num_bots_required_team_1", "$g_multiplayer_num_bots_team_1"),
+         (assign, "$g_multiplayer_num_bots_required_team_2", "$g_multiplayer_num_bots_team_2"),
 
          (store_mission_timer_a, "$g_round_start_time"),
          (call_script, "script_initialize_all_scene_prop_slots"),
@@ -22977,7 +22977,7 @@ mission_templates = [
          (try_for_range, ":player_no", 0, ":num_players"),
            (player_is_active, ":player_no"),
            (multiplayer_send_int_to_player, ":player_no", multiplayer_event_set_round_start_time, -9999), #this will also initialize moveable object slots.
-         (try_end),         
+         (try_end),
        ]),
 
       (0, 0, 0, [], #if there is nobody in any teams do not reduce round time.
@@ -22985,11 +22985,11 @@ mission_templates = [
          #(multiplayer_is_server),
          (assign, ":human_agents_spawned_at_team_1", "$g_multiplayer_num_bots_team_1"),
          (assign, ":human_agents_spawned_at_team_2", "$g_multiplayer_num_bots_team_2"),
-         
+
          (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 0, ":num_players"),
            (player_is_active, ":player_no"),
-           (player_get_team_no, ":player_team", ":player_no"), 
+           (player_get_team_no, ":player_team", ":player_no"),
            (try_begin),
              (eq, ":player_team", 0),
              (val_add, ":human_agents_spawned_at_team_1", 1),
@@ -23006,11 +23006,11 @@ mission_templates = [
            (store_mission_timer_a, ":seconds_past_since_round_started"),
            (val_sub, ":seconds_past_since_round_started", "$g_round_start_time"),
            (le, ":seconds_past_since_round_started", 2),
-                  
+
            (store_mission_timer_a, "$g_round_start_time"),
          (try_end),
-       ]),    
-           
+       ]),
+
       (1, 0, 0, [],
        [
          (multiplayer_is_server),
@@ -23027,7 +23027,7 @@ mission_templates = [
              (player_get_troop_id, ":player_troop", ":player_no"), #if troop is not selected do not spawn his agent
              (ge, ":player_troop", 0),
 
-             (assign, ":spawn_new", 0), 
+             (assign, ":spawn_new", 0),
              (assign, ":num_active_players_in_team_0", 0),
              (assign, ":num_active_players_in_team_1", 0),
              (try_begin),
@@ -23054,7 +23054,7 @@ mission_templates = [
                (this_or_next|lt, ":round_time", multiplayer_new_agents_finish_spawning_time),
                (this_or_next|le, ":num_active_players", 2),
                (eq, ":multipication_of_num_active_players_in_teams", 0),
-         
+
                (eq, "$g_round_ended", 0),
                (assign, ":spawn_new", 1),
              (try_end),
@@ -23103,11 +23103,11 @@ mission_templates = [
          (try_end),
          ]),
 
-      multiplayer_server_spawn_bots, 
-      multiplayer_server_manage_bots, 
+      multiplayer_server_spawn_bots,
+      multiplayer_server_manage_bots,
 
       multiplayer_server_check_end_map,
-        
+
       (ti_tab_pressed, 0, 0, [],
        [
          (try_begin),
@@ -23123,7 +23123,7 @@ mission_templates = [
           (try_end),
 ##################################################
 ##### troop_ratio_bar
-##################################################         
+##################################################
          (try_end),
          ]),
 
@@ -23138,7 +23138,7 @@ mission_templates = [
         (try_end),
         ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
@@ -23203,7 +23203,7 @@ mission_templates = [
         common_wot_seeker_trigger_18_multi,
         common_wot_seeker_trigger_19_multi,
         common_wot_seeker_trigger_20_multi,
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -23214,7 +23214,7 @@ mission_templates = [
       (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
+##################################################
 
       (ti_escape_pressed, 0, 0, [],
        [
@@ -23307,7 +23307,7 @@ mission_templates = [
       common_battle_init_banner,
 
       multiplayer_server_check_polls,
-      
+
       (ti_server_player_joined, 0, 0, [],
        [
          (store_trigger_param_1, ":player_no"),
@@ -23330,10 +23330,10 @@ mission_templates = [
          (assign, "$my_team_at_start_of_round", -1),
 
          (call_script, "script_multiplayer_init_mission_variables"),
-         (call_script, "script_multiplayer_remove_headquarters_flags"),         
+         (call_script, "script_multiplayer_remove_headquarters_flags"),
          ]),
 
-      (ti_after_mission_start, 0, 0, [], 
+      (ti_after_mission_start, 0, 0, [],
        [
          (call_script, "script_determine_team_flags", 0),
          (call_script, "script_determine_team_flags", 1),
@@ -23341,7 +23341,7 @@ mission_templates = [
          (set_spawn_effector_scene_prop_kind, 1, -1), #during this mission, agents of "team 1" will try to spawn around scene props with kind equal to -1(no effector for this mod)
 
          (call_script, "script_initialize_all_scene_prop_slots"),
-         
+
          (call_script, "script_multiplayer_initialize_belfry_wheel_rotations"),
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
 
@@ -23368,7 +23368,7 @@ mission_templates = [
            (ge, ":num_catapults", 1),
            (scene_prop_get_instance, ":catapult_scene_prop_id", "spr_catapult_destructible", 0),
            (scene_prop_get_team, "$g_defender_team", ":catapult_scene_prop_id"),
-         (else_try),         
+         (else_try),
            (scene_prop_get_num_instances, ":num_trebuchets", "spr_trebuchet_destructible"),
            (ge, ":num_trebuchets", 1),
            (scene_prop_get_instance, ":trebuchet_scene_prop_id", "spr_trebuchet_destructible", 0),
@@ -23378,8 +23378,8 @@ mission_templates = [
          (assign, "$g_number_of_targets_destroyed", 0),
 
          (try_begin),
-           (assign, "$g_multiplayer_num_bots_required_team_1", "$g_multiplayer_num_bots_team_1"), 
-           (assign, "$g_multiplayer_num_bots_required_team_2", "$g_multiplayer_num_bots_team_2"), 
+           (assign, "$g_multiplayer_num_bots_required_team_1", "$g_multiplayer_num_bots_team_1"),
+           (assign, "$g_multiplayer_num_bots_required_team_2", "$g_multiplayer_num_bots_team_2"),
          (try_end),
 
          (start_presentation, "prsnt_multiplayer_destructible_targets_display"),
@@ -23391,7 +23391,7 @@ mission_templates = [
        [
          (store_trigger_param_1, ":agent_no"),
          (call_script, "script_multiplayer_server_on_agent_spawn_common", ":agent_no"),
-         
+
          (try_begin), #if my initial team still not initialized, find and assign its value.
            (lt, "$my_team_at_start_of_round", 0),
            (multiplayer_get_my_player, ":my_player_no"),
@@ -23400,8 +23400,8 @@ mission_templates = [
            (eq, ":my_agent_id", ":agent_no"),
            (ge, ":my_agent_id", 0),
            (agent_get_team, "$my_team_at_start_of_round", ":my_agent_id"),
-         (try_end),         
-          
+         (try_end),
+
          (try_begin),
            (neg|multiplayer_is_server),
            (try_begin),
@@ -23415,14 +23415,14 @@ mission_templates = [
              (call_script, "script_multiplayer_initialize_belfry_wheel_rotations"),
              (call_script, "script_initialize_objects_clients"),
              #end of lines
-        
+
              (start_presentation, "prsnt_multiplayer_destructible_targets_display"),
              (try_begin),
                (eq, "$g_team_balance_next_round", 1),
                (assign, "$g_team_balance_next_round", 0),
              (try_end),
-           (try_end),  
-         (try_end),         
+           (try_end),
+         (try_end),
          ]),
 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
@@ -23439,16 +23439,16 @@ mission_templates = [
            (player_get_agent_id, ":my_agent_id", ":my_player_no"),
            (ge, ":my_agent_id", 0),
            (agent_get_team, "$my_team_at_start_of_round", ":my_agent_id"),
-         (try_end),         
-         
+         (try_end),
+
          (try_begin), #count players and if round ended understand this.
            (agent_is_human, ":dead_agent_no"),
            (assign, ":team1_living_players", 0),
            (assign, ":team2_living_players", 0),
            (try_for_agents, ":cur_agent"),
-             (agent_is_human, ":cur_agent"),         
+             (agent_is_human, ":cur_agent"),
              (try_begin),
-               (agent_is_alive, ":cur_agent"),  
+               (agent_is_alive, ":cur_agent"),
                (agent_get_team, ":cur_agent_team", ":cur_agent"),
                (try_begin),
                  (eq, ":cur_agent_team", 0),
@@ -23458,12 +23458,12 @@ mission_templates = [
                  (val_add, ":team2_living_players", 1),
                (try_end),
              (try_end),
-           (try_end),                    
-           (try_begin),         
+           (try_end),
+           (try_begin),
              (eq, "$g_round_ended", 0),
              (try_begin),
                (this_or_next|eq, ":team1_living_players", 0),
-               (eq, ":team2_living_players", 0),                
+               (eq, ":team2_living_players", 0),
                (assign, "$g_winner_team", -1),
                (assign, reg0, "$g_multiplayer_respawn_period"),
                (try_begin),
@@ -23485,7 +23485,7 @@ mission_templates = [
                    (call_script, "script_show_multiplayer_message", multiplayer_message_type_defenders_saved_n_targets, ":num_targets_saved"), #1 or -1 is winner team
                  (else_try),
                    (call_script, "script_show_multiplayer_message", multiplayer_message_type_attackers_won_the_round, 0), #1 or -1 is winner team
-                 (try_end),        
+                 (try_end),
                (else_try),
                  (try_begin),
                    (neq, ":team1_living_players", 0),
@@ -23493,7 +23493,7 @@ mission_templates = [
                  (try_end),
 
                  (try_begin),
-                   (eq, "$g_winner_team", -1),         
+                   (eq, "$g_winner_team", -1),
                  (else_try),
                    (eq, "$g_defender_team", 0), #if defender team killed all attackers
                    (try_begin),
@@ -23504,7 +23504,7 @@ mission_templates = [
                    (call_script, "script_show_multiplayer_message", multiplayer_message_type_defenders_saved_n_targets, ":num_targets_saved"), #0 or -1 is winner team
                  (else_try),
                    (call_script, "script_show_multiplayer_message", multiplayer_message_type_attackers_won_the_round, 0), #0 or -1 is winner team
-                 (try_end),         
+                 (try_end),
                (try_end),
                (store_mission_timer_a, "$g_round_finish_time"),
                (assign, "$g_round_ended", 1),
@@ -23530,11 +23530,11 @@ mission_templates = [
                  (try_end),
                (try_end), #destroy score end
 
-         
+
                (try_begin),
                  (neq, "$g_defender_team", "$g_winner_team"),
                  (neq, "$g_winner_team", -1),
-                 (assign, "$g_number_of_targets_destroyed", 2),              
+                 (assign, "$g_number_of_targets_destroyed", 2),
                (try_end),
              (try_end),
            (try_end),
@@ -23557,11 +23557,11 @@ mission_templates = [
            (position_get_x, ":x_coor", pos0),
            (position_get_y, ":y_coor", pos0),
            (position_get_z, ":z_coor", pos0),
-         
+
            (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_x, ":x_coor"),
            (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_y, ":y_coor"),
            (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_z, ":z_coor"),
-         (try_end),    
+         (try_end),
          ]),
 
       (ti_on_multiplayer_mission_end, 0, 0, [],
@@ -23571,44 +23571,44 @@ mission_templates = [
          (start_presentation, "prsnt_multiplayer_stats_chart"),
          ]),
 
-      
-      (1, 0, 0, [(multiplayer_is_server), 
+
+      (1, 0, 0, [(multiplayer_is_server),
                  (eq, "$g_round_ended", 0),
                  (eq, "$g_number_of_targets_destroyed", 2),
                  ],
        [
          (store_mission_timer_a, "$g_round_finish_time"),
-         (assign, "$g_round_ended", 1),         
+         (assign, "$g_round_ended", 1),
 
          (multiplayer_get_my_player, ":my_player_no"), #send all players draw information of round.
          #for only server itself-----------------------------------------------------------------------------------------------
          (call_script, "script_draw_this_round", -9),
          #for only server itself-----------------------------------------------------------------------------------------------
-         (get_max_players, ":num_players"), 
+         (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
            (player_is_active, ":player_no"),
            (neq, ":player_no", ":my_player_no"),
            (multiplayer_send_int_to_player, ":player_no", multiplayer_event_draw_this_round, -9),
          (try_end),
          ]),
-      
-      (1, 0, 0, [(multiplayer_is_server), 
+
+      (1, 0, 0, [(multiplayer_is_server),
                  (eq, "$g_round_ended", 0),
                  (store_mission_timer_a, ":current_time"),
                  (store_sub, ":seconds_past_in_round", ":current_time", "$g_round_start_time"),
                  (ge, ":seconds_past_in_round", "$g_multiplayer_round_max_seconds"),
                  ],
        [ #round time is up
-         (store_mission_timer_a, "$g_round_finish_time"),                          
+         (store_mission_timer_a, "$g_round_finish_time"),
          (assign, "$g_round_ended", 1),
          (assign, "$g_winner_team", -9),
-         
+
          (multiplayer_get_my_player, ":my_player_no"), #send all players draw information of round.
 
          (store_sub, ":num_targets_saved", 2, "$g_number_of_targets_destroyed"),
          #for only server itself-----------------------------------------------------------------------------------------------
-         (call_script, "script_show_multiplayer_message", multiplayer_message_type_defenders_saved_n_targets, ":num_targets_saved"), 
-         #for only server itself-----------------------------------------------------------------------------------------------     
+         (call_script, "script_show_multiplayer_message", multiplayer_message_type_defenders_saved_n_targets, ":num_targets_saved"),
+         #for only server itself-----------------------------------------------------------------------------------------------
          (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
            (player_is_active, ":player_no"),
@@ -23618,17 +23618,17 @@ mission_templates = [
          #for only server itself-----------------------------------------------------------------------------------------------
          (call_script, "script_draw_this_round", "$g_winner_team"),
          #for only server itself-----------------------------------------------------------------------------------------------
-         (get_max_players, ":num_players"), 
+         (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
            (player_is_active, ":player_no"),
            (neq, ":player_no", ":my_player_no"),
            (multiplayer_send_int_to_player, ":player_no", multiplayer_event_draw_this_round, "$g_winner_team"),
          (try_end),
-                         
+
          (try_begin), #destroy score (condition : time is up)
            (multiplayer_is_server),
-           (assign, "$g_winner_team", "$g_defender_team"),         
-         
+           (assign, "$g_winner_team", "$g_defender_team"),
+
            (team_get_score, ":team_score", "$g_winner_team"),
            (store_sub, ":num_targets_remained", 2, "$g_number_of_targets_destroyed"),
            (val_add, ":team_score", ":num_targets_remained"),
@@ -23640,12 +23640,12 @@ mission_templates = [
              (player_is_active, ":player_no"),
              (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, "$g_winner_team", ":team_score"),
            (try_end),
-         (try_end), #destroy score end        
-        ]),          
+         (try_end), #destroy score end
+        ]),
 
       (10, 0, 0, [(multiplayer_is_server)],
        [
-         #auto team balance control during the round         
+         #auto team balance control during the round
          (assign, ":number_of_players_at_team_1", 0),
          (assign, ":number_of_players_at_team_2", 0),
          (get_max_players, ":num_players"),
@@ -23658,7 +23658,7 @@ mission_templates = [
            (else_try),
              (eq, ":player_team", 1),
              (val_add, ":number_of_players_at_team_2", 1),
-           (try_end),         
+           (try_end),
          (try_end),
          #end of counting active players per team.
          (store_sub, ":difference_of_number_of_players", ":number_of_players_at_team_1", ":number_of_players_at_team_2"),
@@ -23671,33 +23671,33 @@ mission_templates = [
            (else_try),
              (ge, ":difference_of_number_of_players", "$g_multiplayer_auto_team_balance_limit"),
              (store_div, ":number_of_players_will_be_moved", ":difference_of_number_of_players", 2),
-           (try_end),          
-         (try_end),         
+           (try_end),
+         (try_end),
          #number of players will be moved calculated. (it is 0 if no need to make team balance)
          (try_begin),
            (gt, ":number_of_players_will_be_moved", 0),
            (try_begin),
              (eq, "$g_team_balance_next_round", 0),
-         
+
              (assign, "$g_team_balance_next_round", 1),
 
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_show_multiplayer_message", multiplayer_message_type_auto_team_balance_next, 0), #0 is useless here
-             #for only server itself-----------------------------------------------------------------------------------------------     
-             (get_max_players, ":num_players"),                               
+             #for only server itself-----------------------------------------------------------------------------------------------
+             (get_max_players, ":num_players"),
              (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                (player_is_active, ":player_no"),
                (multiplayer_send_int_to_player, ":player_no", multiplayer_event_show_multiplayer_message, multiplayer_message_type_auto_team_balance_next),
              (try_end),
-             
+
              (call_script, "script_warn_player_about_auto_team_balance"),
            (try_end),
-         (try_end),           
+         (try_end),
          #team balance check part finished
          ]),
 
-      (0, 0, 0, [(multiplayer_is_server),  
-                 (eq, "$g_round_ended", 0),                 
+      (0, 0, 0, [(multiplayer_is_server),
+                 (eq, "$g_round_ended", 0),
                  (eq, "$g_battle_death_mode_started", 2)],
        [
          (set_fixed_point_multiplier, 100),
@@ -23733,7 +23733,7 @@ mission_templates = [
 
            (agent_get_horse, ":agent_horse", ":agent_id"),
            (eq, ":agent_horse", -1), #horseman cannot move flag
-         
+
            (try_begin),
              (eq, ":agent_team", 0),
              (try_begin),
@@ -23786,10 +23786,10 @@ mission_templates = [
 
          #controlling battle win by death mode conditions
          (try_begin),
-           (ge, ":dist_1", multi_headquarters_flag_height_to_win),           
+           (ge, ":dist_1", multi_headquarters_flag_height_to_win),
            (assign, "$g_winner_team", 0),
 
-           (get_max_players, ":num_players"), 
+           (get_max_players, ":num_players"),
            #for only server itself-----------------------------------------------------------------------------------------------
            (call_script, "script_draw_this_round", "$g_winner_team"),
            #for only server itself-----------------------------------------------------------------------------------------------
@@ -23804,7 +23804,7 @@ mission_templates = [
            #for only server itself-----------------------------------------------------------------------------------------------
            (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
              (player_is_active, ":player_no"),
-             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, 0, ":team_1_score"),             
+             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, 0, ":team_1_score"),
            (try_end),
 
            (store_mission_timer_a, "$g_round_finish_time"),
@@ -23813,7 +23813,7 @@ mission_templates = [
            (ge, ":dist_2", multi_headquarters_flag_height_to_win),
            (assign, "$g_winner_team", 1),
 
-           (get_max_players, ":num_players"), 
+           (get_max_players, ":num_players"),
            #for only server itself-----------------------------------------------------------------------------------------------
            (call_script, "script_draw_this_round", "$g_winner_team"),
            #for only server itself-----------------------------------------------------------------------------------------------
@@ -23828,11 +23828,11 @@ mission_templates = [
            #for only server itself-----------------------------------------------------------------------------------------------
            (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
              (player_is_active, ":player_no"),
-             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, 1, ":team_2_score"),             
+             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_score, 1, ":team_2_score"),
            (try_end),
-	
-           (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, 0), #0 is winner team     
-           (call_script, "script_check_achievement_last_man_standing", "$g_winner_team"),    
+
+           (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, 0), #0 is winner team
+           (call_script, "script_check_achievement_last_man_standing", "$g_winner_team"),
 
            (store_mission_timer_a, "$g_round_finish_time"),
            (assign, "$g_round_ended", 1),
@@ -23841,8 +23841,8 @@ mission_templates = [
          (try_begin),
            (eq, "$g_round_ended", 0),
 
-           (position_get_z, ":flag_1_cur_z", pos3),       
-           (prop_instance_is_animating, ":is_animating", ":flag_1_id"),         
+           (position_get_z, ":flag_1_cur_z", pos3),
+           (prop_instance_is_animating, ":is_animating", ":flag_1_id"),
            (try_begin), #if flag_1 is going down or up and there are agents from both teams
              (eq, ":there_are_agents_from_only_team_1_around_their_flag", -2), #if there are agents from both teams
              (eq, ":is_animating", 1),
@@ -23853,7 +23853,7 @@ mission_templates = [
              (prop_instance_get_animation_target_position, pos9, ":flag_1_id"),
              (position_get_z, ":flag_1_animation_target_z", pos9),
              (this_or_next|eq, ":is_animating", 0), #if flag_1 is stopping
-             (gt, ":flag_1_animation_target_z", ":flag_1_cur_z"), #if flag_1 is going up         
+             (gt, ":flag_1_animation_target_z", ":flag_1_cur_z"), #if flag_1 is going up
              (get_distance_between_positions, ":time_1", pos3, pos7),
              (gt, ":time_1", 0),
              (val_mul, ":time_1", 16),
@@ -23872,8 +23872,8 @@ mission_templates = [
              (prop_instance_animate_to_position, ":flag_1_id", pos5, ":time_1"), #move flag_1 up
            (try_end),
 
-           (position_get_z, ":flag_2_cur_z", pos4),       
-           (prop_instance_is_animating, ":is_animating", ":flag_2_id"),         
+           (position_get_z, ":flag_2_cur_z", pos4),
+           (prop_instance_is_animating, ":is_animating", ":flag_2_id"),
            (try_begin), #if flag is going down or up and there are agents from both teams
              (eq, ":there_are_agents_from_only_team_2_around_their_flag", -2), #if there are agents from both teams
              (eq, ":is_animating", 1),
@@ -23884,7 +23884,7 @@ mission_templates = [
              (prop_instance_get_animation_target_position, pos9, ":flag_2_id"),
              (position_get_z, ":flag_2_animation_target_z", pos9),
              (this_or_next|eq, ":is_animating", 0), #if flag_2 is stopping
-             (gt, ":flag_2_animation_target_z", ":flag_2_cur_z"), #if flag_2 is going up         
+             (gt, ":flag_2_animation_target_z", ":flag_2_cur_z"), #if flag_2 is going up
              (get_distance_between_positions, ":time_2", pos4, pos8),
              (gt, ":time_2", 0),
              (val_mul, ":time_2", 16),
@@ -23904,14 +23904,14 @@ mission_templates = [
            (try_end),
          (try_end),
          ]),
-                
+
       (1, 0, 3, [(multiplayer_is_server),
                  (eq, "$g_round_ended", 1),
                  (store_mission_timer_a, ":seconds_past_till_round_ended"),
                  (val_sub, ":seconds_past_till_round_ended", "$g_round_finish_time"),
                  (ge, ":seconds_past_till_round_ended", "$g_multiplayer_respawn_period")],
        [
-         #auto team balance control at the end of round         
+         #auto team balance control at the end of round
          (assign, ":number_of_players_at_team_1", 0),
          (assign, ":number_of_players_at_team_2", 0),
          (get_max_players, ":num_players"),
@@ -23924,7 +23924,7 @@ mission_templates = [
            (else_try),
              (eq, ":player_team", 1),
              (val_add, ":number_of_players_at_team_2", 1),
-           (try_end),         
+           (try_end),
          (try_end),
          #end of counting active players per team.
          (store_sub, ":difference_of_number_of_players", ":number_of_players_at_team_1", ":number_of_players_at_team_2"),
@@ -23941,18 +23941,18 @@ mission_templates = [
              (store_div, ":number_of_players_will_be_moved", ":difference_of_number_of_players", 2),
              (assign, ":team_with_more_players", 0),
              (assign, ":team_with_less_players", 1),
-           (try_end),          
-         (try_end),         
+           (try_end),
+         (try_end),
          #number of players will be moved calculated. (it is 0 if no need to make team balance)
          (try_begin),
            (gt, ":number_of_players_will_be_moved", 0),
            (try_begin),
              #(eq, "$g_team_balance_next_round", 1), #control if at pre round players are warned about team change.
 
-             (try_for_range, ":unused", 0, ":number_of_players_will_be_moved"), 
+             (try_for_range, ":unused", 0, ":number_of_players_will_be_moved"),
                (assign, ":max_player_join_time", 0),
                (assign, ":latest_joined_player_no", -1),
-               (get_max_players, ":num_players"),                               
+               (get_max_players, ":num_players"),
                (try_for_range, ":player_no", 0, ":num_players"),
                  (player_is_active, ":player_no"),
                  (player_get_team_no, ":player_team", ":player_no"),
@@ -23968,7 +23968,7 @@ mission_templates = [
                  (ge, ":latest_joined_player_no", 0),
                  (try_begin),
                    #if player is living add +1 to his kill count because he will get -1 because of team change while living.
-                   (player_get_agent_id, ":latest_joined_agent_id", ":latest_joined_player_no"), 
+                   (player_get_agent_id, ":latest_joined_agent_id", ":latest_joined_player_no"),
                    (ge, ":latest_joined_agent_id", 0),
                    (agent_is_alive, ":latest_joined_agent_id"),
 
@@ -23987,7 +23987,7 @@ mission_templates = [
                    (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
                      (player_is_active, ":player_no"),
                      (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_set_player_score_kill_death, ":latest_joined_player_no", ":player_score", ":player_kill_count", ":player_death_count"),
-                   (try_end),         
+                   (try_end),
 
                    (player_get_value_of_original_items, ":old_items_value", ":latest_joined_player_no"),
                    (player_get_gold, ":player_gold", ":latest_joined_player_no"),
@@ -24001,18 +24001,18 @@ mission_templates = [
                (try_end),
              (try_end),
              #tutorial message (after team balance)
-             
+
              #(tutorial_message_set_position, 500, 500),
              #(tutorial_message_set_size, 30, 30),
              #(tutorial_message_set_center_justify, 1),
              #(tutorial_message, "str_auto_team_balance_done", 0xFFFFFFFF, 5),
 
              #for only server itself
-             (call_script, "script_show_multiplayer_message", multiplayer_message_type_auto_team_balance_done, 0), 
+             (call_script, "script_show_multiplayer_message", multiplayer_message_type_auto_team_balance_done, 0),
 
              #no need to send also server here
              (multiplayer_get_my_player, ":my_player_no"),
-             (get_max_players, ":num_players"),                               
+             (get_max_players, ":num_players"),
              (try_for_range, ":player_no", 0, ":num_players"),
                (player_is_active, ":player_no"),
                (neq, ":my_player_no", ":player_no"),
@@ -24020,13 +24020,13 @@ mission_templates = [
              (try_end),
              (assign, "$g_team_balance_next_round", 0),
            (try_end),
-         (try_end),           
+         (try_end),
          #team balance check part finished
          (assign, "$g_team_balance_next_round", 0),
 
          (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 0, ":num_players"),
-           (player_is_active, ":player_no"),           
+           (player_is_active, ":player_no"),
            (player_get_agent_id, ":player_agent", ":player_no"),
            (ge, ":player_agent", 0),
            (agent_is_alive, ":player_agent"),
@@ -24039,7 +24039,7 @@ mission_templates = [
          (assign, ":per_round_gold_addition", multi_battle_round_team_money_add),
          (val_mul, ":per_round_gold_addition", "$g_multiplayer_round_earnings_multiplier"),
          (val_div, ":per_round_gold_addition", 100),
-         
+
          (store_sub, ":num_targets_remained", 2, "$g_number_of_targets_destroyed"),
          (store_mul, ":defender_money_add", ":num_targets_remained", multi_destroy_save_or_destroy_target_money_add),
          (store_mul, ":attacker_money_add", "$g_number_of_targets_destroyed", multi_destroy_save_or_destroy_target_money_add),
@@ -24056,15 +24056,15 @@ mission_templates = [
            (player_is_active, ":player_no"),
 		   (player_slot_eq, ":player_no", slot_player_spawned_this_round, 1),
            (player_get_gold, ":player_gold", ":player_no"),
-           (player_get_team_no, ":player_team", ":player_no"),           
-           (val_add, ":player_gold", ":per_round_gold_addition"), #standard           
-           (try_begin), 
+           (player_get_team_no, ":player_team", ":player_no"),
+           (val_add, ":player_gold", ":per_round_gold_addition"), #standard
+           (try_begin),
              (eq, ":player_team", "$g_defender_team"),
              (val_add, ":player_gold", ":defender_money_add"),
-           (else_try), 
+           (else_try),
              (val_add, ":player_gold", ":attacker_money_add"),
            (try_end),
-         
+
            #(below lines added new at 25.11.09 after Armagan decided new money system)
            (try_begin),
              (player_get_slot, ":old_items_value", ":player_no", slot_player_last_rounds_used_item_earnings),
@@ -24089,23 +24089,23 @@ mission_templates = [
 
          #clear scene and end round
          (multiplayer_clear_scene),
-         
-         (get_max_players, ":num_players"),                               
+
+         (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
            (player_is_active, ":player_no"),
            (player_set_slot, ":player_no", slot_player_damage_given_to_target_1, 0),
            (player_set_slot, ":player_no", slot_player_damage_given_to_target_2, 0),
          (try_end),
-         
+
          #initialize moveable object positions
          (call_script, "script_multiplayer_initialize_belfry_wheel_rotations"),
          (call_script, "script_multiplayer_close_gate_if_it_is_open"),
          (call_script, "script_multiplayer_move_moveable_objects_initial_positions"),
-                  
+
          (assign, "$g_round_ended", 0),
 
-         (assign, "$g_multiplayer_num_bots_required_team_1", "$g_multiplayer_num_bots_team_1"), 
-         (assign, "$g_multiplayer_num_bots_required_team_2", "$g_multiplayer_num_bots_team_2"), 
+         (assign, "$g_multiplayer_num_bots_required_team_1", "$g_multiplayer_num_bots_team_1"),
+         (assign, "$g_multiplayer_num_bots_required_team_2", "$g_multiplayer_num_bots_team_2"),
 
          (start_presentation, "prsnt_multiplayer_destructible_targets_display"),
 
@@ -24120,7 +24120,7 @@ mission_templates = [
          (try_for_range, ":player_no", 0, ":num_players"),
            (player_is_active, ":player_no"),
            (multiplayer_send_int_to_player, ":player_no", multiplayer_event_set_round_start_time, -9999), #this will also initialize moveable object slots.
-         (try_end),         
+         (try_end),
        ]),
 
       (0, 0, 0, [], #if there is nobody in any teams do not reduce round time.
@@ -24128,11 +24128,11 @@ mission_templates = [
          #(multiplayer_is_server),
          (assign, ":human_agents_spawned_at_team_1", "$g_multiplayer_num_bots_team_1"),
          (assign, ":human_agents_spawned_at_team_2", "$g_multiplayer_num_bots_team_2"),
-         
+
          (get_max_players, ":num_players"),
          (try_for_range, ":player_no", 0, ":num_players"),
            (player_is_active, ":player_no"),
-           (player_get_team_no, ":player_team", ":player_no"), 
+           (player_get_team_no, ":player_team", ":player_no"),
            (try_begin),
              (eq, ":player_team", 0),
              (val_add, ":human_agents_spawned_at_team_1", 1),
@@ -24149,11 +24149,11 @@ mission_templates = [
            (store_mission_timer_a, ":seconds_past_since_round_started"),
            (val_sub, ":seconds_past_since_round_started", "$g_round_start_time"),
            (le, ":seconds_past_since_round_started", 2),
-                  
+
            (store_mission_timer_a, "$g_round_start_time"),
          (try_end),
-       ]),    
-           
+       ]),
+
       (1, 0, 0, [],
        [
          (multiplayer_is_server),
@@ -24170,7 +24170,7 @@ mission_templates = [
              (player_get_troop_id, ":player_troop", ":player_no"), #if troop is not selected do not spawn his agent
              (ge, ":player_troop", 0),
 
-             (assign, ":spawn_new", 0), 
+             (assign, ":spawn_new", 0),
              (assign, ":num_active_players_in_team_0", 0),
              (assign, ":num_active_players_in_team_1", 0),
              (try_begin),
@@ -24197,7 +24197,7 @@ mission_templates = [
                (this_or_next|lt, ":round_time", multiplayer_new_agents_finish_spawning_time),
                (this_or_next|le, ":num_active_players", 2),
                (eq, ":multipication_of_num_active_players_in_teams", 0),
-         
+
                (eq, "$g_round_ended", 0),
                (assign, ":spawn_new", 1),
              (try_end),
@@ -24245,11 +24245,11 @@ mission_templates = [
          (try_end),
          ]),
 
-      multiplayer_server_spawn_bots, 
-      multiplayer_server_manage_bots, 
-      
+      multiplayer_server_spawn_bots,
+      multiplayer_server_manage_bots,
+
       multiplayer_server_check_end_map,
-        
+
       (ti_tab_pressed, 0, 0, [],
        [
          (try_begin),
@@ -24265,7 +24265,7 @@ mission_templates = [
           (try_end),
 ##################################################
 ##### troop_ratio_bar
-##################################################         
+##################################################
          (try_end),
          ]),
 
@@ -24276,7 +24276,7 @@ mission_templates = [
         (start_presentation, "prsnt_multiplayer_team_score_display"),
         ]),
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
@@ -24341,7 +24341,7 @@ mission_templates = [
         common_wot_seeker_trigger_18_multi,
         common_wot_seeker_trigger_19_multi,
         common_wot_seeker_trigger_20_multi,
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -24352,7 +24352,7 @@ mission_templates = [
       (1, 1, ti_once, [(neq, multiplayer_is_server)], [(start_presentation,"prsnt_troop_ratio_bar_multiplayer_2")]),
 ##################################################
 ##### troop_ratio_bar
-##################################################      
+##################################################
 
       (ti_escape_pressed, 0, 0, [],
        [
@@ -24363,7 +24363,7 @@ mission_templates = [
          ]),
       ],
   ),
-  
+
   (
 	"bandit_lair",mtf_battle_mode|mtf_synch_inventory,charge,
     "Ambushing a bandit lair",
@@ -24382,15 +24382,15 @@ mission_templates = [
     ],
     [
       common_battle_init_banner,
-    
+
       common_inventory_not_available,
-      
+
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
-        
+
         (assign, "$relative_of_merchant_is_found", 0),
-              
+
         (try_begin),
           (agent_is_human, ":agent_no"),
           (agent_is_alive, ":agent_no"),
@@ -24399,21 +24399,21 @@ mission_templates = [
 
           (agent_get_position, pos4, ":agent_no"),
           (agent_set_scripted_destination, ":agent_no", pos4, 1),
-        (try_end),  
-        
+        (try_end),
+
         (try_begin),
           (agent_get_troop_id, ":troop_no", ":agent_no"),
           (is_between, ":troop_no", "trp_relative_of_merchant", "trp_relative_of_merchants_end"),
           (agent_set_team, ":agent_no", 7),
-          (team_set_relation, 0, 7, 0),          
-        (try_end),                
+          (team_set_relation, 0, 7, 0),
+        (try_end),
         ]),
-        
-	   (0, 0, 0, 
-	   [	     
+
+	   (0, 0, 0,
+	   [
          (party_get_template_id, ":template", "$g_encountered_party"),
          (eq, ":template", "pt_looter_lair"),
-         (check_quest_active, "qst_save_relative_of_merchant"),	   
+         (check_quest_active, "qst_save_relative_of_merchant"),
          (eq, "$relative_of_merchant_is_found", 0),
 	   ],
 	   [
@@ -24422,7 +24422,7 @@ mission_templates = [
 
         (try_for_agents, ":agent_no"),
           (agent_get_troop_id, ":troop_no", ":agent_no"),
-          (is_between, ":troop_no", "trp_relative_of_merchant", "trp_relative_of_merchants_end"),    
+          (is_between, ":troop_no", "trp_relative_of_merchant", "trp_relative_of_merchants_end"),
           (agent_set_scripted_destination, ":agent_no", pos0),
           (agent_get_position, pos1, ":agent_no"),
           (get_distance_between_positions, ":dist", pos0, pos1),
@@ -24431,104 +24431,104 @@ mission_templates = [
           (start_mission_conversation, "trp_relative_of_merchant"),
         (try_end),
 	   ]),
-        
+
       (ti_tab_pressed, 0, 0,
        [
         (display_message, "str_cannot_leave_now"),
        ], []),
-     
+
       (1, 0, ti_once, [],
        [
         (assign, "$defender_reinforcement_stage", 0),
         (assign, "$bandits_spawned_extra", 0),
 	   ]),
-	   
+
 	   (1, 0, 0, [],
 	   [
         (try_for_agents, ":bandit_id"),
-          (agent_is_alive, ":bandit_id"),          
+          (agent_is_alive, ":bandit_id"),
           (agent_get_team, ":agent_team_1", ":bandit_id"),
           (eq, ":agent_team_1", 1),
           (agent_is_in_special_mode, ":bandit_id"),
           (agent_is_human, ":bandit_id"),
-          
+
           (agent_get_position, pos0, ":bandit_id"),
           (try_for_agents, ":player_team_agent_id"),
             (agent_is_alive, ":player_team_agent_id"),
             (agent_get_team, ":agent_team_2", ":player_team_agent_id"),
             (eq, ":agent_team_2", 0),
             (agent_is_human, ":player_team_agent_id"),
-                      
+
             (store_agent_hit_points, ":bandit_hit_points", ":bandit_id"),
-            
+
             (assign, ":continue", 0),
             (try_begin),
               (lt, ":bandit_hit_points", 100),
-                            
+
               (try_for_agents, ":bandit_2_id"),
-                (agent_is_alive, ":bandit_2_id"),  
+                (agent_is_alive, ":bandit_2_id"),
                 (agent_get_team, ":bandit_2_team", ":bandit_2_id"),
                 (eq, ":bandit_2_team", 1),
                 (neq, ":bandit_id", ":bandit_2_id"),
                 (agent_is_in_special_mode, ":bandit_2_id"),
                 (agent_is_human, ":bandit_2_id"),
-                
+
                 (agent_get_position, pos1, ":bandit_id"),
-                (agent_get_position, pos2, ":bandit_2_id"),                        
+                (agent_get_position, pos2, ":bandit_2_id"),
                 (get_distance_between_positions, ":distance", pos1, pos2),
                 (le, ":distance", 1000),
 
-                (agent_clear_scripted_mode, ":bandit_2_id"),  
-              (try_end),                             
-              
+                (agent_clear_scripted_mode, ":bandit_2_id"),
+              (try_end),
+
               (assign, ":continue", 1),
-            (else_try),  
+            (else_try),
               (agent_get_position, pos1, ":bandit_id"),
-              (agent_get_position, pos2, ":player_team_agent_id"),                        
-              (get_distance_between_positions, ":distance", pos1, pos2),                                                                        
+              (agent_get_position, pos2, ":player_team_agent_id"),
+              (get_distance_between_positions, ":distance", pos1, pos2),
               (le, ":distance", 4000),
-              
+
               (try_for_agents, ":bandit_2_id"),
-                (agent_is_alive, ":bandit_2_id"),  
+                (agent_is_alive, ":bandit_2_id"),
                 (agent_get_team, ":bandit_2_team", ":bandit_2_id"),
                 (eq, ":bandit_2_team", 1),
                 (neq, ":bandit_id", ":bandit_2_id"),
                 (agent_is_in_special_mode, ":bandit_2_id"),
                 (agent_is_human, ":bandit_2_id"),
-                
+
                 (agent_get_position, pos1, ":bandit_id"),
-                (agent_get_position, pos2, ":bandit_2_id"),                        
+                (agent_get_position, pos2, ":bandit_2_id"),
                 (get_distance_between_positions, ":distance", pos1, pos2),
                 (le, ":distance", 1000),
-                
-                (agent_clear_scripted_mode, ":bandit_2_id"),  
-              (try_end),                
+
+                (agent_clear_scripted_mode, ":bandit_2_id"),
+              (try_end),
 
               (assign, ":continue", 1),
-            (try_end),  
-            
+            (try_end),
+
             (eq, ":continue", 1),
-            
-            (agent_clear_scripted_mode, ":bandit_id"),            
+
+            (agent_clear_scripted_mode, ":bandit_id"),
           (try_end),
         (try_end),
 	   ]),
-	   
-	   (30, 0, 0, 
+
+	   (30, 0, 0,
 	   [
 	     (le, "$defender_reinforcement_stage", 1),
 	   ],
-	   [          
-          (store_character_level, ":player_level", "trp_player"),                   
+	   [
+          (store_character_level, ":player_level", "trp_player"),
           (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 5, ":player_level"),
           (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 3),
 
           (lt, "$bandits_spawned_extra", ":number_of_bandits_will_be_spawned_at_each_period"),
-          (val_add, "$bandits_spawned_extra", 1),                   
+          (val_add, "$bandits_spawned_extra", 1),
 
           (party_get_template_id, ":template", "$g_encountered_party"),
           (store_random_in_range, ":random_value", 0, 2),
-          
+
           (try_begin),
             (eq, ":template", "pt_sea_raider_lair"),
             (eq, ":random_value", 0),
@@ -24559,11 +24559,11 @@ mission_templates = [
             (assign, ":bandit_troop", "trp_looter"),
           (try_end),
 
-          (store_current_scene, ":cur_scene"), 
+          (store_current_scene, ":cur_scene"),
           (modify_visitors_at_site, ":cur_scene"),
           (store_random_in_range, ":random_entry_point", 2, 11),
           (add_visitors_to_current_scene, ":random_entry_point", ":bandit_troop", 1),
-       ]),	   	   
+       ]),
 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
@@ -24578,19 +24578,19 @@ mission_templates = [
           (str_store_troop_name, s6, ":dead_agent_troop_id"),
           (try_begin),
             (neg|agent_is_ally, ":dead_agent_no"),
-            (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties            
+            (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
             (try_begin),
               (eq, ":is_wounded", 1),
-              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
-            (try_end),  
-          (try_end),  
-          
-          (party_add_members, "p_temp_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties            
-          
+              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
+            (try_end),
+          (try_end),
+
+          (party_add_members, "p_temp_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+
           (eq, ":is_wounded", 1),
-          (party_wound_members, "p_temp_casualties", ":dead_agent_troop_id", 1), 
+          (party_wound_members, "p_temp_casualties", ":dead_agent_troop_id", 1),
         (try_end),
-        
+
         (assign, ":number_of_enemies", 0),
         (try_for_agents, ":cur_agent"),
           (agent_is_non_player, ":cur_agent"),
@@ -24599,23 +24599,23 @@ mission_templates = [
           (neg|agent_is_ally, ":cur_agent"),
           (val_add, ":number_of_enemies", 1),
         (try_end),
-        
+
         (try_begin),
           (le, ":number_of_enemies", 2),
           (le, "$defender_reinforcement_stage", 1),
           (val_add, "$defender_reinforcement_stage", 1),
 
-          (store_character_level, ":player_level", "trp_player"),                   
+          (store_character_level, ":player_level", "trp_player"),
           (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 5, ":player_level"),
           (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 3),
           (try_begin),
             (ge, "$defender_reinforcement_stage", 2),
             (val_sub, ":number_of_bandits_will_be_spawned_at_each_period", "$bandits_spawned_extra"),
           (try_end),
-          
-          (party_get_template_id, ":template", "$g_encountered_party"),          
+
+          (party_get_template_id, ":template", "$g_encountered_party"),
           (store_random_in_range, ":random_value", 0, 2),
-          
+
           (try_begin),
             (eq, ":template", "pt_sea_raider_lair"),
             (eq, ":random_value", 0),
@@ -24645,10 +24645,10 @@ mission_templates = [
             (neq, ":random_value", 0),
             (assign, ":bandit_troop", "trp_looter"),
           (try_end),
-                                                                       
-          (store_current_scene, ":cur_scene"), 
+
+          (store_current_scene, ":cur_scene"),
           (modify_visitors_at_site, ":cur_scene"),
-          (try_for_range, ":unused", 0, ":number_of_bandits_will_be_spawned_at_each_period"),            
+          (try_for_range, ":unused", 0, ":number_of_bandits_will_be_spawned_at_each_period"),
             (store_random_in_range, ":random_entry_point", 2, 11),
             (add_visitors_to_current_scene, ":random_entry_point", ":bandit_troop", 1),
           (try_end),
@@ -24664,10 +24664,10 @@ mission_templates = [
          (set_party_battle_mode),
         ]),
 
-      (2, 0, ti_once, 
+      (2, 0, ti_once,
        [
          (neg|main_hero_fallen),
-         (num_active_teams_le, 1),         
+         (num_active_teams_le, 1),
        ],
        [
          (party_get_template_id, ":template", "$g_encountered_party"),
@@ -24675,26 +24675,26 @@ mission_templates = [
            (eq, ":template", "pt_looter_lair"),
            (check_quest_active, "qst_save_relative_of_merchant"),
 
-## edited for TGS         
+## edited for TGS
 
            #(store_faction_of_party, ":starting_town_faction", "$g_starting_town"),
-           
+
            #(try_begin),
            #  (eq, ":starting_town_faction", "fac_kingdom_1"),
            #  (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-           #(else_try),  
+           #(else_try),
            #  (eq, ":starting_town_faction", "fac_kingdom_2"),
            #  (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-           #(else_try),                   
+           #(else_try),
            #  (eq, ":starting_town_faction", "fac_kingdom_3"),
            #  (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-           #(else_try),  
+           #(else_try),
            #  (eq, ":starting_town_faction", "fac_kingdom_4"),
            #  (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-           #(else_try),  
+           #(else_try),
            #  (eq, ":starting_town_faction", "fac_kingdom_5"),
            #  (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-           #(else_try),  
+           #(else_try),
            #  (eq, ":starting_town_faction", "fac_kingdom_6"),
            #  (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
            #(try_end),
@@ -24702,25 +24702,25 @@ mission_templates = [
             (try_begin),
             (eq, "$g_starting_town", "p_town_6"),
               (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-            (else_try),  
+            (else_try),
             (eq, "$g_starting_town", "p_town_8"),
               (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-            (else_try),                   
+            (else_try),
             (eq, "$g_starting_town", "p_town_10"),
               (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-            (else_try),  
+            (else_try),
             (eq, "$g_starting_town", "p_town_1"),
               (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-            (else_try),  
+            (else_try),
             (eq, "$g_starting_town", "p_town_5"),
               (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-            (else_try),  
+            (else_try),
             (eq, "$g_starting_town", "p_town_19"),
               (assign, ":troop_of_merchant", "trp_relative_of_merchant"),
-            (try_end),         
+            (try_end),
 
-## End edited for TGS         
-           
+## End edited for TGS
+
            (get_player_agent_no, ":player_agent"),
            (agent_get_position, pos0, ":player_agent"),
            (assign, ":minimum_distance", 100000),
@@ -24731,25 +24731,25 @@ mission_templates = [
              (ge, ":dist", 1000),
              (assign, ":nearest_entry_point", ":entry_no"),
              (assign, ":minimum_distance", ":dist"),
-           (try_end),                     
-                          
-           (add_visitors_to_current_scene, ":nearest_entry_point", ":troop_of_merchant", 1, 0),                      
+           (try_end),
+
+           (add_visitors_to_current_scene, ":nearest_entry_point", ":troop_of_merchant", 1, 0),
          (try_end),
        ]),
 
-       #################################################################  
+       #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -24763,11 +24763,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -24780,16 +24780,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -24842,7 +24842,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -24855,7 +24855,7 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -24874,15 +24874,15 @@ mission_templates = [
        (1, 4, ti_once,
        [
          (assign, ":continue", 0),
-       
+
          (party_get_template_id, ":template", "$g_encountered_party"),
-         (try_begin),       
+         (try_begin),
            (eq, ":template", "pt_looter_lair"),
            (check_quest_active, "qst_save_relative_of_merchant"),
-           
+
            (this_or_next|main_hero_fallen),
            (eq, "$relative_of_merchant_is_found", 1),
-           
+
            (assign, ":continue", 1),
          (else_try),
            (this_or_next|neq|eq, ":template", "pt_looter_lair"),
@@ -24890,13 +24890,13 @@ mission_templates = [
 
            (store_mission_timer_a,":cur_time"),
            (ge, ":cur_time", 5),
-           
+
            (this_or_next|main_hero_fallen),
            (num_active_teams_le, 1),
-           
+
            (assign, ":continue", 1),
-         (try_end),  
-         
+         (try_end),
+
          (eq, ":continue", 1),
        ],
        [
@@ -24905,44 +24905,44 @@ mission_templates = [
          (else_try),
            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 2),
          (try_end),
-         
+
          (finish_mission),
          ]),
       ]),
-        
+
   (
 	"alley_fight", mtf_battle_mode,charge,
     "Alley fight",
-    [    
+    [
       (0,mtef_team_0|mtef_use_exact_number,af_override_horse,aif_start_alarmed,7,[]),
       (1,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,20,[]),
       (2,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,20,[]),
       (3,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,20,[]),
-    ],    
+    ],
     [
       common_battle_init_banner,
-    
+
       common_inventory_not_available,
-      
+
       (ti_on_agent_spawn, 0, 0, [],
-      [              
+      [
         (store_trigger_param_1, ":agent_no"),
         (get_player_agent_no, ":player_agent"),
         (neq, ":agent_no", ":player_agent"),
         (assign, "$g_main_attacker_agent", ":agent_no"),
         (agent_ai_set_aggressiveness, ":agent_no", 199),
-        
+
         (try_begin),
           (agent_get_troop_id, ":troop_no", ":agent_no"),
           (is_between, ":troop_no", "trp_swadian_merchant", "trp_startup_merchants_end"),
-          (agent_set_team, ":agent_no", 7),          
-          (team_set_relation, 0, 7, 0), 
-        (try_end),                
+          (agent_set_team, ":agent_no", 7),
+          (team_set_relation, 0, 7, 0),
+        (try_end),
       ]),
-              
-	   (0, 0, 0, 
+
+	   (0, 0, 0,
 	   [
-	     (eq, "$talked_with_merchant", 0), 
+	     (eq, "$talked_with_merchant", 0),
 	   ],
 	   [
         (get_player_agent_no, ":player_agent"),
@@ -24954,15 +24954,15 @@ mission_templates = [
           (agent_set_scripted_destination, ":agent_no", pos0),
           (agent_get_position, pos1, ":agent_no"),
           (get_distance_between_positions, ":dist", pos0, pos1),
-          (le, ":dist", 200),     
-          (assign, "$talk_context", tc_back_alley),     
+          (le, ":dist", 200),
+          (assign, "$talk_context", tc_back_alley),
           (start_mission_conversation, ":troop_no"),
         (try_end),
 	   ]),
-     
-      (1, 0, 0, [], 
-      [      
-        (get_player_agent_no, ":player_agent"),       
+
+      (1, 0, 0, [],
+      [
+        (get_player_agent_no, ":player_agent"),
         (ge, "$g_main_attacker_agent", 0),
         (ge, ":player_agent", 0),
         (agent_is_active, "$g_main_attacker_agent"),
@@ -24974,7 +24974,7 @@ mission_templates = [
         (agent_set_scripted_destination, "$g_main_attacker_agent", pos0),
       ]),
 
-      (ti_tab_pressed, 0, 0, [], 
+      (ti_tab_pressed, 0, 0, [],
       [
         (display_message, "str_cannot_leave_now"),
       ]),
@@ -24985,7 +24985,7 @@ mission_templates = [
          (set_party_battle_mode),
         ]),
 
-      (0, 0, ti_once, 
+      (0, 0, ti_once,
        [
          (neg|main_hero_fallen),
          (num_active_teams_le, 1),
@@ -24993,112 +24993,112 @@ mission_templates = [
        [
          # edited for TGS
          #(store_faction_of_party, ":starting_town_faction", "$g_starting_town"),
-           
+
          #(try_begin),
          #  (eq, ":starting_town_faction", "fac_kingdom_1"),
          #  (assign, ":troop_of_merchant", "trp_swadian_merchant"),
-         #(else_try),  
+         #(else_try),
          #  (eq, ":starting_town_faction", "fac_kingdom_2"),
          #  (assign, ":troop_of_merchant", "trp_vaegir_merchant"),
-         #(else_try),                   
+         #(else_try),
          #  (eq, ":starting_town_faction", "fac_kingdom_3"),
          #  (assign, ":troop_of_merchant", "trp_khergit_merchant"),
-         #(else_try),  
+         #(else_try),
          #  (eq, ":starting_town_faction", "fac_kingdom_4"),
          #  (assign, ":troop_of_merchant", "trp_nord_merchant"),
-         #(else_try),  
+         #(else_try),
          #  (eq, ":starting_town_faction", "fac_kingdom_5"),
          #  (assign, ":troop_of_merchant", "trp_rhodok_merchant"),
-         #(else_try),  
+         #(else_try),
          #  (eq, ":starting_town_faction", "fac_kingdom_6"),
          #  (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
          #(try_end),
-           
+
          (try_begin),
          (eq, "$g_starting_town", "p_town_6"),
            (assign, ":troop_of_merchant", "trp_swadian_merchant"),
-         (else_try),  
+         (else_try),
          (eq, "$g_starting_town", "p_town_8"),
            (assign, ":troop_of_merchant", "trp_vaegir_merchant"),
-         (else_try),                   
+         (else_try),
          (eq, "$g_starting_town", "p_town_10"),
            (assign, ":troop_of_merchant", "trp_khergit_merchant"),
-         (else_try),  
+         (else_try),
          (eq, "$g_starting_town", "p_town_1"),
            (assign, ":troop_of_merchant", "trp_nord_merchant"),
-         (else_try),  
+         (else_try),
          (eq, "$g_starting_town", "p_town_5"),
            (assign, ":troop_of_merchant", "trp_rhodok_merchant"),
-         (else_try),  
+         (else_try),
          (eq, "$g_starting_town", "p_town_19"),
            (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
          (try_end),
          # end edited for TGS
-                                     
-         (add_visitors_to_current_scene, 3, ":troop_of_merchant", 1, 0),                      
+
+         (add_visitors_to_current_scene, 3, ":troop_of_merchant", 1, 0),
        ]),
-       
+
       (1, 0, ti_once,
-       [        
-         (eq, "$talked_with_merchant", 1),         
+       [
+         (eq, "$talked_with_merchant", 1),
        ],
-       [         
+       [
          (try_begin),
            (main_hero_fallen),
            (assign, "$g_killed_first_bandit", 0),
-         (else_try),  
+         (else_try),
            (assign, "$g_killed_first_bandit", 1),
          (try_end),
 
          (finish_mission),
          (assign, "$g_main_attacker_agent", 0),
-         (assign, "$talked_with_merchant", 1),  
-         
-         (assign, "$current_startup_quest_phase", 1),                  
-                  
+         (assign, "$talked_with_merchant", 1),
+
+         (assign, "$current_startup_quest_phase", 1),
+
          (change_screen_return),
          (set_trigger_result, 1),
-         
+
          (get_player_agent_no, ":player_agent"),
          (store_agent_hit_points, ":hit_points", ":player_agent"),
-         
+
          (try_begin),
            (lt, ":hit_points", 90),
            (agent_set_hit_points, ":player_agent", 90),
-         (try_end),  
+         (try_end),
        ]),
 
       (1, 3, ti_once,
-       [        
-         (main_hero_fallen),         
+       [
+         (main_hero_fallen),
        ],
-       [         
+       [
          (try_begin),
            (main_hero_fallen),
            (assign, "$g_killed_first_bandit", 0),
-         (else_try),  
+         (else_try),
            (assign, "$g_killed_first_bandit", 1),
          (try_end),
 
          (finish_mission),
          (assign, "$g_main_attacker_agent", 0),
-         (assign, "$talked_with_merchant", 1),  
-         
-         (assign, "$current_startup_quest_phase", 1),                  
-                  
+         (assign, "$talked_with_merchant", 1),
+
+         (assign, "$current_startup_quest_phase", 1),
+
          (change_screen_return),
-         (set_trigger_result, 1),    
-         
+         (set_trigger_result, 1),
+
          (get_player_agent_no, ":player_agent"),
          (store_agent_hit_points, ":hit_points", ":player_agent"),
-         
+
          (try_begin),
            (lt, ":hit_points", 90),
            (agent_set_hit_points, ":player_agent", 90),
-         (try_end),                
+         (try_end),
        ]),
      ]),
-     
+
   (
     "meeting_merchant",0,-1,
     "Meeting with the merchant",
@@ -25116,18 +25116,18 @@ mission_templates = [
     ],
     [
       (ti_on_agent_spawn, 0, 0, [],
-      [              
+      [
         (store_trigger_param_1, ":agent_no"),
 
         (try_begin),
           (agent_get_troop_id, ":troop_no", ":agent_no"),
           (is_between, ":troop_no", "trp_swadian_merchant", "trp_startup_merchants_end"),
-          (agent_set_team, ":agent_no", 7),          
-          (team_set_relation, 0, 7, 0), 
-        (try_end),                
+          (agent_set_team, ":agent_no", 7),
+          (team_set_relation, 0, 7, 0),
+        (try_end),
       ]),
 
-      (1, 0, ti_once, [], 
+      (1, 0, ti_once, [],
       [
         (assign, "$dialog_with_merchant_ended", 0),
         (store_current_scene, ":cur_scene"),
@@ -25142,34 +25142,34 @@ mission_templates = [
           (call_script, "script_music_set_situation_with_culture", mtf_sit_town),
         (try_end),
       ]),
-      
-      (1, 0, 0, 
-      [        
+
+      (1, 0, 0,
+      [
         (assign, ":continue", 0),
         (try_begin),
           (ge, "$dialog_with_merchant_ended", 6),
           (assign, ":continue", 1),
         (else_try),
           (ge, "$dialog_with_merchant_ended", 1),
-		  (neg|conversation_screen_is_active),          
+		  (neg|conversation_screen_is_active),
 
           (try_begin),
             (eq, "$dialog_with_merchant_ended", 1),
             (check_quest_active, "qst_collect_men"),
             (tutorial_box, "str_start_up_first_quest", "@Tutorial"),
-          (try_end),  
+          (try_end),
 
           (val_add, "$dialog_with_merchant_ended", 1),
           (assign, ":continue", 0),
-        (try_end),  
-        
+        (try_end),
+
         (try_begin),
-          (conversation_screen_is_active), 
+          (conversation_screen_is_active),
           (tutorial_message, -1),
           (assign, ":continue", 0),
         (try_end),
-        
-        (eq, ":continue", 1),                        
+
+        (eq, ":continue", 1),
       ],
       [
         (tutorial_message_set_size, 17, 17),
@@ -25178,21 +25178,21 @@ mission_templates = [
         (tutorial_message_set_background, 1),
         (tutorial_message, "str_press_tab_to_exit_from_town"),
       ]),
-      	  	
-      (ti_before_mission_start, 0, 0, [], 
-      [      
+
+      (ti_before_mission_start, 0, 0, [],
+      [
         #(call_script, "script_change_banners_and_chest"),
 	  ]),
 
-      (ti_inventory_key_pressed, 0, 0, 
+      (ti_inventory_key_pressed, 0, 0,
       [
-        (set_trigger_result, 1),        
-      ], []),           
-            
-      (ti_tab_pressed, 0, 0, 
-      [ 
-        (try_begin),          
-          (gt, "$dialog_with_merchant_ended", 0),          
+        (set_trigger_result, 1),
+      ], []),
+
+      (ti_tab_pressed, 0, 0,
+      [
+        (try_begin),
+          (gt, "$dialog_with_merchant_ended", 0),
 
           (assign, ":max_dist", 0),
           (party_get_position, pos1, "$current_town"),
@@ -25202,30 +25202,30 @@ mission_templates = [
             (ge, ":dist", ":max_dist"),
             (assign, ":max_dist", ":dist"),
             (copy_position, pos2, pos0),
-          (try_end),  
-    
-          (party_set_position, "p_main_party", pos2),          
-                            
+          (try_end),
+
+          (party_set_position, "p_main_party", pos2),
+
           (finish_mission),
-          
+
           (assign, "$current_startup_quest_phase", 2),
-          
+
           (tutorial_message, -1),
-          
+
           (tutorial_message_set_background, 0),
-          
+
           (change_screen_map),
-          
+
           (try_begin),
             (check_quest_finished, "qst_save_town_from_bandits"),
             (assign, "$g_do_one_more_meeting_with_merchant", 1),
-          (else_try),  
-            #will do this at first spawning in the map          
+          (else_try),
+            #will do this at first spawning in the map
             (set_spawn_radius, 50),
             (try_for_range, ":unused", 0, 20),
               (spawn_around_party, "p_main_party", "pt_looters"),
-            (try_end),          
-          (try_end),  
+            (try_end),
+          (try_end),
 
           (set_trigger_result, 1),
         (else_try),
@@ -25245,7 +25245,7 @@ mission_templates = [
       (4,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
       (5,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
       (6,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
-      (7,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),          
+      (7,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
       (8,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
       (9,mtef_visitor_source,af_override_horse,0,1,[]),
       (10,mtef_visitor_source,af_override_horse,0,1,[]),
@@ -25268,8 +25268,8 @@ mission_templates = [
 	  (27,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]), #guard
 	  (28,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]), #guard
 	  (29,mtef_visitor_source,af_override_horse,0,1,[]),
-	  (30,mtef_visitor_source,af_override_horse,0,1,[]), 
-	  (31,mtef_visitor_source,af_override_horse,0,1,[]), 
+	  (30,mtef_visitor_source,af_override_horse,0,1,[]),
+	  (31,mtef_visitor_source,af_override_horse,0,1,[]),
       (32,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]), #town walker point
 	  (33,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]), #town walker point
 	  (34,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]), #town walker point
@@ -25289,59 +25289,59 @@ mission_templates = [
     ],
     [
       common_battle_init_banner,
-    
+
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
-        
+
         (agent_set_team, ":agent_no", 0),
       ]),
 
       (ti_before_mission_start, 0, 0, [],
       [
-        (mission_disable_talk),        
-      
+        (mission_disable_talk),
+
         (assign, "$g_main_attacker_agent", 0),
         (set_party_battle_mode),
-        
+
         (assign, "$number_of_bandits_killed_by_player", 0),
         (assign, "$number_of_civilian_loses", 0),
-        
+
         (set_fixed_point_multiplier, 100),
 	  ]),
-		 
-      (1, 0, ti_once, 
+
+      (1, 0, ti_once,
       [
         (call_script, "script_init_town_walker_agents"),
-      ], 
+      ],
       []),
-      
+
       (ti_on_agent_killed_or_wounded, 0, 0, [],
       [
         (store_trigger_param_1, ":dead_agent_no"),
         (store_trigger_param_2, ":killer_agent_no"),
         #(store_trigger_param_3, ":is_wounded"),
-        
+
         (try_begin),
           (agent_get_team, ":dead_agent_team_no", ":dead_agent_no"),
           (eq, ":dead_agent_team_no", 1),
 
           (get_player_agent_no, ":player_agent"),
           (eq, ":player_agent", ":killer_agent_no"),
-                
+
           (val_add, "$number_of_bandits_killed_by_player", 1),
         (else_try),
           (eq, ":dead_agent_team_no", 0),
-          
+
           (val_add, "$number_of_civilian_loses", 1),
-        (try_end),  
+        (try_end),
       ]),
-            
-      (1, 0, 0, 
+
+      (1, 0, 0,
       [
         (lt, "$merchant_sign_count", 8),
   	    (val_add, "$merchant_sign_count", 1),
-  	    
+
   	    (try_begin),
   	      (eq, "$merchant_sign_count", 2),
           (get_player_agent_no, ":player_agent"),
@@ -25349,13 +25349,13 @@ mission_templates = [
   	        (agent_get_troop_id, ":agent_troop_id", ":agent_no"),
   	        (ge, ":agent_troop_id", "trp_swadian_merchant"),
   	        (lt, ":agent_troop_id", "trp_startup_merchants_end"),
-  	        
+
   	        (assign, "$g_city_merchant_troop_id", ":agent_troop_id"),
   	        (assign, "$g_city_merchant_agent_id", ":agent_no"),
-  	        
+
   	        (agent_get_position, pos0, ":player_agent"),
   	        (agent_get_position, pos1, ":agent_no"),
-  	                    
+
   	        (assign, ":max_dif", -1000),
             (try_for_range, ":target_entry_point", 0, 64),
               #(neg|entry_point_is_auto_generated, ":target_entry_point"),
@@ -25368,13 +25368,13 @@ mission_templates = [
               (copy_position, pos2, pos6),
               (assign, ":max_dif", ":dif"),
             (try_end),
-  	      	    
+
     	    (agent_set_scripted_destination, ":agent_no", pos2, 0),
             (agent_set_speed_limit, ":agent_no", 10),
           (try_end),
         (else_try),
   	      (eq, "$merchant_sign_count", 5),
-  	                 
+
           (get_player_agent_no, ":player_agent"),
 	      (agent_get_position, pos0, ":player_agent"),
 
@@ -25382,98 +25382,98 @@ mission_templates = [
           (agent_set_speed_limit, "$g_city_merchant_agent_id", 10),
         (else_try),
   	      (eq, "$merchant_sign_count", 7),
-  	      
+
   	      (agent_clear_scripted_mode, "$g_city_merchant_agent_id"),
-  	                 
+
   	      (assign, "$talk_context", tc_town_talk),
-  	      (start_mission_conversation, "$g_city_merchant_troop_id"),  	        	      
-  	    (try_end),  	      
-  	  ], 
+  	      (start_mission_conversation, "$g_city_merchant_troop_id"),
+  	    (try_end),
+  	  ],
 	  []),
-	  
+
 	  (1, 0, 0, [],
-	  [	  
+	  [
 	    (ge, "$merchant_sign_count", 8),
-	   
+
 	    (get_player_agent_no, ":player_agent"),
-	    	    
+
         (try_for_agents, ":agent_no"),
           (neq, ":agent_no", ":player_agent"),
           (agent_is_alive, ":agent_no"),
           (agent_get_team, ":agent_team", ":agent_no"),
           (eq, ":agent_team", 0),
-          
+
           (agent_get_position, pos0, ":agent_no"),
-        
-          (assign, ":minimum_distance", 10000),  
+
+          (assign, ":minimum_distance", 10000),
           (try_for_agents, ":bandit_no"),
             (agent_is_alive, ":bandit_no"),
             (agent_get_team, ":bandit_team", ":bandit_no"),
             (eq, ":bandit_team", 1),
-            
+
             (agent_get_position, pos1, ":bandit_no"),
-  
+
             (get_distance_between_positions, ":dist", pos0, pos1),
             (le, ":dist", ":minimum_distance"),
             (assign, ":minimum_distance", ":dist"),
             (copy_position, pos2, pos1),
           (try_end),
-         
+
           (assign, reg1, ":dist"),
           (try_begin),
             (le, ":minimum_distance", 500),
             (agent_clear_scripted_mode, ":agent_no"),
-          (else_try),  
+          (else_try),
             (lt, ":minimum_distance", 10000),
             (agent_set_scripted_destination, ":agent_no", pos2, 0),
           (try_end),
-        (try_end),                  	      
+        (try_end),
       ]),
 
-      (3, 0, 0, 
+      (3, 0, 0,
       [
         (lt, "$merchant_sign_count", 8),
   	    (call_script, "script_tick_town_walkers")
-  	  ], 
-	  []),	  	  
-	
-      (2, 0, 0, 
+  	  ],
+	  []),
+
+      (2, 0, 0,
       [
         (call_script, "script_center_ambiance_sounds")
-      ], 
+      ],
       []),
-    
-      (ti_before_mission_start, 0, 0, 
-      [], 
+
+      (ti_before_mission_start, 0, 0,
+      [],
       [
         (call_script, "script_change_banners_and_chest")
       ]),
-        
+
       (1, 4, ti_once,
-       [                  
+       [
          (this_or_next|main_hero_fallen),
          (num_active_teams_le, 1),
-         
+
          (ge, "$merchant_sign_count", 8),
        ],
-       [         
+       [
          (try_begin),
            (main_hero_fallen),
            (assign, "$g_killed_first_bandit", 0),
-         (else_try),  
+         (else_try),
            (assign, "$g_killed_first_bandit", 1),
          (try_end),
-         
+
          (assign, "$current_startup_quest_phase", 4),
 
-         (mission_enable_talk),        
+         (mission_enable_talk),
 
-         (finish_mission),         
-         
-         (unlock_achievement, ACHIEVEMENT_GET_UP_STAND_UP),        
-                  
+         (finish_mission),
+
+         (unlock_achievement, ACHIEVEMENT_GET_UP_STAND_UP),
+
          (change_screen_return),
-         (set_trigger_result, 1),         
+         (set_trigger_result, 1),
        ]),
 
       (ti_inventory_key_pressed, 0, 0,
@@ -25488,13 +25488,13 @@ mission_templates = [
           (display_message, "str_cant_use_inventory_now"),
         (try_end),
       ], []),
-       
+
       (ti_tab_pressed, 0, 0,
       [
         (display_message, "str_cannot_leave_now"),
       ], []),
   ]),
-    
+
     (
     "multiplayer_duel",mtf_battle_mode,-1, #duel mode
     "You lead your men to battle.",
@@ -25579,7 +25579,7 @@ mission_templates = [
          (store_trigger_param_1, ":agent_no"),
          (call_script, "script_multiplayer_server_on_agent_spawn_common", ":agent_no"),
          ]),
-      
+
       (ti_server_player_joined, 0, 0, [],
        [
          (store_trigger_param_1, ":player_no"),
@@ -25597,10 +25597,10 @@ mission_templates = [
          (mission_set_duel_mode, 1),
          (call_script, "script_multiplayer_init_mission_variables"),
          (call_script, "script_multiplayer_remove_destroy_mod_targets"),
-         (call_script, "script_multiplayer_remove_headquarters_flags"), # close this line and open map in deathmatch mod and use all ladders firstly 
-         ]),                                                            # to be able to edit maps without damaging any headquarters flags ext. 
+         (call_script, "script_multiplayer_remove_headquarters_flags"), # close this line and open map in deathmatch mod and use all ladders firstly
+         ]),                                                            # to be able to edit maps without damaging any headquarters flags ext.
 
-      (ti_after_mission_start, 0, 0, [], 
+      (ti_after_mission_start, 0, 0, [],
        [
          (set_spawn_effector_scene_prop_kind, 0, -1), #during this mission, agents of "team 0" will try to spawn around scene props with kind equal to -1(no effector for this mod)
          (set_spawn_effector_scene_prop_kind, 1, -1), #during this mission, agents of "team 1" will try to spawn around scene props with kind equal to -1(no effector for this mod)
@@ -25618,8 +25618,8 @@ mission_templates = [
 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
-         (store_trigger_param_1, ":dead_agent_no"), 
-         (store_trigger_param_2, ":killer_agent_no"), 
+         (store_trigger_param_1, ":dead_agent_no"),
+         (store_trigger_param_2, ":killer_agent_no"),
 
          (call_script, "script_multiplayer_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
 
@@ -25651,7 +25651,7 @@ mission_templates = [
            (try_end),
          (try_end),
          ]),
-      
+
       (1, 0, 0, [],
        [
          (multiplayer_is_server),
@@ -25682,7 +25682,7 @@ mission_templates = [
                (agent_get_time_elapsed_since_removed, ":elapsed_time", ":player_agent"),
                (gt, ":elapsed_time", "$g_multiplayer_respawn_period"),
                (assign, ":spawn_new", 1),
-             (try_end),             
+             (try_end),
            (try_end),
            (eq, ":spawn_new", 1),
            (call_script, "script_multiplayer_buy_agent_equipment", ":player_no"),
@@ -25694,8 +25694,8 @@ mission_templates = [
            (else_try),
              (assign, ":is_horseman", 0),
            (try_end),
-         
-           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 0, ":is_horseman"), 
+
+           (call_script, "script_multiplayer_find_spawn_point", ":player_team", 0, ":is_horseman"),
            (player_spawn_new_agent, ":player_no", reg0),
          (try_end),
          ]),
@@ -25717,7 +25717,7 @@ mission_templates = [
            (else_try),
              (agent_get_time_elapsed_since_removed, ":elapsed_time", ":cur_agent"),
              (le, ":elapsed_time", "$g_multiplayer_respawn_period"),
-             (assign, ":will_be_counted", 1), 
+             (assign, ":will_be_counted", 1),
            (try_end),
            (eq, ":will_be_counted", 1),
            (agent_get_team, ":cur_team", ":cur_agent"),
@@ -25774,7 +25774,7 @@ mission_templates = [
              (assign, ":end_cond", 0),
              (assign, ":selected_troop", ":troop_no"),
            (try_end),
-         
+
            (troop_get_inventory_slot, ":has_item", ":selected_troop", ek_horse),
            (try_begin),
              (ge, ":has_item", 0),
@@ -25783,7 +25783,7 @@ mission_templates = [
              (assign, ":is_horseman", 0),
            (try_end),
 
-           (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 0, ":is_horseman"), 
+           (call_script, "script_multiplayer_find_spawn_point", ":selected_team", 0, ":is_horseman"),
            (store_current_scene, ":cur_scene"),
            (modify_visitors_at_site, ":cur_scene"),
            (add_visitors_to_current_scene, reg0, ":selected_troop", 1, ":selected_team", -1),
@@ -25809,7 +25809,7 @@ mission_templates = [
            (call_script, "script_game_set_multiplayer_mission_end"),
          (try_end),
          ]),
-        
+
       (ti_tab_pressed, 0, 0, [],
        [
          (try_begin),
@@ -25820,7 +25820,7 @@ mission_templates = [
          ]),
 
       multiplayer_once_at_the_first_frame,
-      
+
       (ti_escape_pressed, 0, 0, [],
        [
          (neg|is_presentation_active, "prsnt_multiplayer_escape_menu"),
@@ -25864,7 +25864,7 @@ mission_templates = [
 				(43,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
                 (44,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
 			],
-    	
+
 			[
                 (ti_before_mission_start, 0, 0,  # set ways to night
                    [],
@@ -25885,7 +25885,7 @@ mission_templates = [
                          (store_random_in_range, "$g_ways_machin_shin_stage_2_counter", 40, 80), # player hears a slight wind noise
                          (store_random_in_range, "$g_ways_machin_shin_stage_3_counter", 35, 70), # player hears louder wind with quiet whispers
                          (store_random_in_range, "$g_ways_machin_shin_stage_4_counter", 20, 40), # player hears loud wind, louder whispers, starts losing 1 health per second
-                         
+
                          (store_random_in_range, ":random", 1, 100),
                          (try_begin),
                          (lt, ":random", 65),
@@ -25903,7 +25903,7 @@ mission_templates = [
                          (stop_all_sounds, 2),
                     ]
                  ),
-                
+
                (0, 0, 3, # create dark fog in the ways
                    [],
                     [
@@ -25955,7 +25955,7 @@ mission_templates = [
                             (assign, "$g_ways_death_message_displayed", 1),
                         (try_end),
                     ]
-                ),                
+                ),
 
                (0, 0, 1, # Machin Shin trigger
                    [],
@@ -25971,7 +25971,7 @@ mission_templates = [
                                 (val_sub, "$g_ways_machin_shin_stage_1_counter", 1),
                                 (stop_all_sounds, 2),
                             (try_end),
-                        
+
                         (else_try),
                         (eq, "$g_ways_machin_shin_stage", 2),
                             (try_begin),
@@ -25987,7 +25987,7 @@ mission_templates = [
                                     (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_2"),
                                 (try_end),
                             (try_end),
-                        
+
                         (else_try),
                         (eq, "$g_ways_machin_shin_stage", 3),
                             (try_begin),
@@ -26003,7 +26003,7 @@ mission_templates = [
                                     (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_3"),
                                 (try_end),
                             (try_end),
-                        
+
                         (else_try),
                         (eq, "$g_ways_machin_shin_stage", 4),
                             (try_begin),
@@ -26019,7 +26019,7 @@ mission_templates = [
                                     (agent_play_sound, "$g_ways_player_agent", "snd_ways_wind_4"),
                                 (try_end),
                             (try_end),
-                        
+
                             (store_agent_hit_points, ":player_health", "$g_ways_player_agent", 1),
                             (try_begin),
                             (ge, ":player_health", 1),
@@ -26030,7 +26030,7 @@ mission_templates = [
                                 (agent_set_hit_points, "$g_ways_player_agent", 0, 0),
                                 (agent_deliver_damage_to_agent, "$g_ways_player_agent", "$g_ways_player_agent", 1),
                             (try_end),
-                        
+
                         (else_try),
                         (eq, "$g_ways_machin_shin_stage", 5),
                             (val_sub, "$g_ways_machin_shin_stage_4_counter", 1),
@@ -26053,8 +26053,8 @@ mission_templates = [
 
                         (try_end),
                     ]
-                ),   
-			
+                ),
+
 				(ti_tab_pressed, 0, 0,			# Exit with tab. Needed when building. ;)
 					[(eq, 0, 1)], # removed for now
 					[
@@ -26066,19 +26066,19 @@ mission_templates = [
 						(change_screen_return,0),
 					]
 				),
-			
+
 				(ti_on_agent_spawn, 0, 0, 		# Teleport at spawn. May be needed, maybe not. Try commenting it out and see if the entry points work as they should or not. Could be nice to have for update of script. Or just to move agent around.
 					[
 						(eq, slot_troop_occupation, slto_kingdom_hero), #player should have this troop slot, no?
 					],
-					
+
 					[
 						(entry_point_get_position, pos2, "$g_ways_point"),
 						(get_player_agent_no, ":player_agent"),
 						(agent_set_position, ":player_agent", pos2),
 					]
 				),
-				
+
 				(1, 4, ti_once, [(main_hero_fallen)], 		# Player dies
 					[
 						(assign, "$pin_player_fallen", 1),
@@ -26114,21 +26114,21 @@ mission_templates = [
                             (store_add, ":enemy_team", ":player_team", 1),
     						(store_random_in_range, ":entry_location", 41, 45),
                             (entry_point_get_position, pos1, ":entry_location"),
-                        
+
                             (set_spawn_position, pos1),
                             (spawn_agent, "trp_myrddraal"),
                             (agent_set_team, reg0, ":enemy_team"),
-                        
+
                             (try_for_range, ":unused", 1, 3),
                                 (spawn_agent, "trp_trolloc_berserker"),
                                 (agent_set_team, reg0, ":enemy_team"),
                             (try_end),
-                        
+
                             (try_for_range, ":unused", 1, 5),
                                 (spawn_agent, "trp_trolloc_grunt"),
                                 (agent_set_team, reg0, ":enemy_team"),
                             (try_end),
-                        
+
                             (try_for_agents, ":agent"),
                                 (neg|agent_is_human, ":agent"), # horse
                                 (agent_set_hit_points, ":agent", 0, 0),
@@ -26138,20 +26138,20 @@ mission_templates = [
 					]
 				),
 
-                
-      #################################################################  
+
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -26166,11 +26166,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       #common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -26183,16 +26183,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       #common_wot_balefire_trigger_1,
       common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -26245,7 +26245,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-                
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -26258,11 +26258,11 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
-      
+
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
@@ -26273,9 +26273,9 @@ mission_templates = [
 ####################################################################################
 
 			],
-		), 
+		),
 	### Ways mission_template END
-  
+
 
     ### Sea Battles
 
@@ -26298,16 +26298,16 @@ mission_templates = [
          (call_script, "script_agent_reassign_team", ":agent_no"),
 
          (assign, ":initial_courage_score", 5000),
-                  
+
          (agent_get_troop_id, ":troop_id", ":agent_no"),
          (store_character_level, ":troop_level", ":troop_id"),
          (val_mul, ":troop_level", 35),
          (val_add, ":initial_courage_score", ":troop_level"), #average : 20 * 35 = 700
-         
+
          (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
-         (val_add, ":initial_courage_score", ":randomized_addition_courage"), 
-                   
-         (agent_get_party_id, ":agent_party", ":agent_no"),         
+         (val_add, ":initial_courage_score", ":randomized_addition_courage"),
+
+         (agent_get_party_id, ":agent_party", ":agent_no"),
 ########### Added this for TGS ###########
          (try_begin),
          (lt, ":agent_party", 0),
@@ -26315,19 +26315,19 @@ mission_templates = [
          (try_end),
 ########### End Added this for TGS ####################################
          (party_get_morale, ":cur_morale", ":agent_party"),
-         
+
          (store_sub, ":morale_effect_on_courage", ":cur_morale", 70),
          (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
-         (val_add, ":initial_courage_score", ":morale_effect_on_courage"), 
-         
+         (val_add, ":initial_courage_score", ":morale_effect_on_courage"),
+
          #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
          #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
          #min starting : 3600, max starting  : 9600, average starting : 7200
-         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
+         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
          ]),
 
       common_battle_init_banner,
-		 
+
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
         (store_trigger_param_1, ":dead_agent_no"),
@@ -26343,11 +26343,11 @@ mission_templates = [
 ##          (assign, reg0, ":dead_agent_no"),
 ##          (assign, reg1, ":killer_agent_no"),
 ##          (assign, reg2, ":is_wounded"),
-##          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
+##          (agent_get_team, reg3, ":dead_agent_no"),
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
           (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
           (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
         (try_end),
 
         (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
@@ -26376,13 +26376,13 @@ mission_templates = [
 
          (party_clear, "p_routed_enemies"),
 
-         (assign, "$g_latest_order_1", 1), 
-         (assign, "$g_latest_order_2", 1), 
-         (assign, "$g_latest_order_3", 1), 
-         (assign, "$g_latest_order_4", 1), 
+         (assign, "$g_latest_order_1", 1),
+         (assign, "$g_latest_order_2", 1),
+         (assign, "$g_latest_order_3", 1),
+         (assign, "$g_latest_order_4", 1),
          ]),
 
-      
+
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
                            (assign,"$defender_reinforcement_stage",0),
                            (assign,"$attacker_reinforcement_stage",0),
@@ -26395,12 +26395,12 @@ mission_templates = [
       common_battle_check_friendly_kills,
 
       (1, 0, 5, [
-                              
+
       #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
       #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
       (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
       (assign, ":total_enemy_soldiers", reg0),
-      
+
       #decrease number of agents already in battle area to find all number of reinforcement enemies
       (assign, ":enemy_soldiers_in_battle_area", 0),
       (try_for_agents,":cur_agent"),
@@ -26418,23 +26418,23 @@ mission_templates = [
         (lt, ":total_enemy_reinforcements", 15),
         (ge, "$defender_reinforcement_stage", 2),
         (eq, "$defender_reinforcement_limit_increased", 0),
-        (val_add, "$g_defender_reinforcement_limit", 1),                    
+        (val_add, "$g_defender_reinforcement_limit", 1),
         (assign, "$defender_reinforcement_limit_increased", 1),
-      (try_end),    
+      (try_end),
       #new (25.11.09) ends
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
       (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
                  (store_mission_timer_a,":mission_time"),
                  (ge,":mission_time",10),
                  (store_normalized_team_count,":num_defenders", 0),
                  (lt,":num_defenders",6)],
            [(add_reinforcements_to_entry,0,7),(assign, "$defender_reinforcement_limit_increased", 0),(val_add,"$defender_reinforcement_stage",1)]),
-      
+
       (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
                  (store_mission_timer_a,":mission_time"),
                  (ge,":mission_time",10),
@@ -26453,7 +26453,7 @@ mission_templates = [
 			  (assign, ":num_allies", 0),
 			  #(store_friend_count, ":num_allies"),
 			  #(store_ally_count,":num_allies"),
-			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),			
+			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),
 			  (try_for_agents, ":agent"),
                  (agent_is_ally, ":agent"),
                  (agent_is_alive, ":agent"),
@@ -26489,13 +26489,13 @@ mission_templates = [
 
       #AI Triggers
       (0, 0, ti_once, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
-          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2), 
+          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2),
           ],
        [(call_script, "script_select_battle_tactic"),
         (call_script, "script_battle_tactic_init"),
         #(call_script, "script_battle_calculate_initial_powers"), #deciding run away method changed and that line is erased
         ]),
-      
+
       (3, 0, 0, [
           (call_script, "script_apply_effect_of_other_people_on_courage_scores"),
               ], []), #calculating and applying effect of people on others courage scores
@@ -26503,34 +26503,34 @@ mission_templates = [
       (3, 0, 0, [
           (try_for_agents, ":agent_no"),
             (agent_is_human, ":agent_no"),
-            (agent_is_alive, ":agent_no"),          
+            (agent_is_alive, ":agent_no"),
             (store_mission_timer_a,":mission_time"),
-            (ge,":mission_time",3),          
+            (ge,":mission_time",3),
             (call_script, "script_decide_run_away_or_not", ":agent_no", ":mission_time"),
-          (try_end),          
+          (try_end),
               ], []), #controlling courage score and if needed deciding to run away for each agent
 
       (5, 0, 0, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
           (store_mission_timer_a,":mission_time"),
 
           (ge,":mission_time",3),
-          
+
           (call_script, "script_battle_tactic_apply"),
           ], []), #applying battle tactic
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -26545,11 +26545,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -26562,16 +26562,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       common_wot_balefire_trigger_1,
       #common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -26624,7 +26624,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -26637,7 +26637,7 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -26645,7 +26645,7 @@ mission_templates = [
 
 
       common_battle_order_panel,
-      
+
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
@@ -26683,16 +26683,16 @@ mission_templates = [
          (call_script, "script_agent_reassign_team", ":agent_no"),
 
          (assign, ":initial_courage_score", 5000),
-                  
+
          (agent_get_troop_id, ":troop_id", ":agent_no"),
          (store_character_level, ":troop_level", ":troop_id"),
          (val_mul, ":troop_level", 35),
          (val_add, ":initial_courage_score", ":troop_level"), #average : 20 * 35 = 700
-         
+
          (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
-         (val_add, ":initial_courage_score", ":randomized_addition_courage"), 
-                   
-         (agent_get_party_id, ":agent_party", ":agent_no"),         
+         (val_add, ":initial_courage_score", ":randomized_addition_courage"),
+
+         (agent_get_party_id, ":agent_party", ":agent_no"),
 ########### Added this for TGS ###########
          (try_begin),
          (lt, ":agent_party", 0),
@@ -26700,19 +26700,19 @@ mission_templates = [
          (try_end),
 ########### End Added this for TGS ####################################
          (party_get_morale, ":cur_morale", ":agent_party"),
-         
+
          (store_sub, ":morale_effect_on_courage", ":cur_morale", 70),
          (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
-         (val_add, ":initial_courage_score", ":morale_effect_on_courage"), 
-         
+         (val_add, ":initial_courage_score", ":morale_effect_on_courage"),
+
          #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
          #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
          #min starting : 3600, max starting  : 9600, average starting : 7200
-         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
+         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
          ]),
 
       common_battle_init_banner,
-		 
+
       (ti_on_agent_killed_or_wounded, 0, 0, [],
        [
         (store_trigger_param_1, ":dead_agent_no"),
@@ -26728,11 +26728,11 @@ mission_templates = [
 ##          (assign, reg0, ":dead_agent_no"),
 ##          (assign, reg1, ":killer_agent_no"),
 ##          (assign, reg2, ":is_wounded"),
-##          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
+##          (agent_get_team, reg3, ":dead_agent_no"),
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
           (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
           (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
         (try_end),
 
         (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
@@ -26761,13 +26761,13 @@ mission_templates = [
 
          (party_clear, "p_routed_enemies"),
 
-         (assign, "$g_latest_order_1", 1), 
-         (assign, "$g_latest_order_2", 1), 
-         (assign, "$g_latest_order_3", 1), 
-         (assign, "$g_latest_order_4", 1), 
+         (assign, "$g_latest_order_1", 1),
+         (assign, "$g_latest_order_2", 1),
+         (assign, "$g_latest_order_3", 1),
+         (assign, "$g_latest_order_4", 1),
          ]),
 
-      
+
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
                            (assign,"$defender_reinforcement_stage",0),
                            (assign,"$attacker_reinforcement_stage",0),
@@ -26780,12 +26780,12 @@ mission_templates = [
       common_battle_check_friendly_kills,
 
       (1, 0, 5, [
-                              
+
       #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
       #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
       (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
       (assign, ":total_enemy_soldiers", reg0),
-      
+
       #decrease number of agents already in battle area to find all number of reinforcement enemies
       (assign, ":enemy_soldiers_in_battle_area", 0),
       (try_for_agents,":cur_agent"),
@@ -26803,23 +26803,23 @@ mission_templates = [
         (lt, ":total_enemy_reinforcements", 15),
         (ge, "$defender_reinforcement_stage", 2),
         (eq, "$defender_reinforcement_limit_increased", 0),
-        (val_add, "$g_defender_reinforcement_limit", 1),                    
+        (val_add, "$g_defender_reinforcement_limit", 1),
         (assign, "$defender_reinforcement_limit_increased", 1),
-      (try_end),    
+      (try_end),
       #new (25.11.09) ends
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
       (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
                  (store_mission_timer_a,":mission_time"),
                  (ge,":mission_time",10),
                  (store_normalized_team_count,":num_defenders", 0),
                  (lt,":num_defenders",6)],
            [(add_reinforcements_to_entry,0,7),(assign, "$defender_reinforcement_limit_increased", 0),(val_add,"$defender_reinforcement_stage",1)]),
-      
+
       (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
                  (store_mission_timer_a,":mission_time"),
                  (ge,":mission_time",10),
@@ -26838,7 +26838,7 @@ mission_templates = [
 			  (assign, ":num_allies", 0),
 			  #(store_friend_count, ":num_allies"),
 			  #(store_ally_count,":num_allies"),
-			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),			
+			  #(store_normalized_team_count, ":num_allies", "$fplayer_team_no"),
 			  (try_for_agents, ":agent"),
                  (agent_is_ally, ":agent"),
                  (agent_is_alive, ":agent"),
@@ -26874,13 +26874,13 @@ mission_templates = [
 
       #AI Triggers
       (0, 0, ti_once, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
-          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2), 
+          (store_mission_timer_a,":mission_time"),(ge,":mission_time",2),
           ],
        [(call_script, "script_select_battle_tactic"),
         (call_script, "script_battle_tactic_init"),
         #(call_script, "script_battle_calculate_initial_powers"), #deciding run away method changed and that line is erased
         ]),
-      
+
       (3, 0, 0, [
           (call_script, "script_apply_effect_of_other_people_on_courage_scores"),
               ], []), #calculating and applying effect of people on others courage scores
@@ -26888,34 +26888,34 @@ mission_templates = [
       (3, 0, 0, [
           (try_for_agents, ":agent_no"),
             (agent_is_human, ":agent_no"),
-            (agent_is_alive, ":agent_no"),          
+            (agent_is_alive, ":agent_no"),
             (store_mission_timer_a,":mission_time"),
-            (ge,":mission_time",3),          
+            (ge,":mission_time",3),
             (call_script, "script_decide_run_away_or_not", ":agent_no", ":mission_time"),
-          (try_end),          
+          (try_end),
               ], []), #controlling courage score and if needed deciding to run away for each agent
 
       (5, 0, 0, [(neg|party_slot_eq, "p_main_party", slot_party_pref_formations, 1), ## PBOD - Formations AI NOT active
           (store_mission_timer_a,":mission_time"),
 
           (ge,":mission_time",3),
-          
+
           (call_script, "script_battle_tactic_apply"),
           ], []), #applying battle tactic
 
-      #################################################################  
+      #################################################################
       ###### TGS triggers
       #################################################################
 
       common_wot_pre_initialization_variable_assignment,
       common_wot_initialize_general_player_channeling_variables,
       common_wot_initialize_timers,
-      
+
       # pick one initialize weave_trigger (2 for custom battle)
       common_wot_initialize_channeling_weave_variables_1,
       #common_wot_initialize_channeling_weave_variables_2,
       # end
-      
+
       common_wot_timer_trigger_one_second,
       common_wot_timer_trigger_one_tenth_second,
       common_wot_timer_trigger_one_hundredth_second,
@@ -26930,11 +26930,11 @@ mission_templates = [
       common_wot_inventory_click_to_refill_channeling_ammo,
       common_wot_reset_troop_ratio_bar,
       common_wot_reset_troop_ratio_bar_additional,
-      
+
       # only use airborne if you are not in an enclosed area (caused crashing sometimes)
       common_wot_airborne_trigger,
       # end
-      
+
       common_wot_bound_trigger,
       common_wot_warder_follow_bond_holder,
       common_wot_leader_warder_determines_movement_of_group,
@@ -26947,16 +26947,16 @@ mission_templates = [
       common_wot_draghkar_kiss_of_death_trigger,
       common_wot_shielded_trigger,
       common_wot_compulsion_trigger,
-      
+
       # pick one balefire trigger (2 for custom battle)
       common_wot_balefire_trigger_1,
       #common_wot_balefire_trigger_2,
       # end
-      
+
       common_wot_burn_over_time_trigger,
       common_wot_electrical_charge_trigger,
       common_wot_freeze_over_time_trigger,
-      
+
       # keep all seeker triggers active
       common_wot_seeker_trigger_1,
       common_wot_seeker_trigger_2,
@@ -27009,7 +27009,7 @@ mission_templates = [
       common_wot_seeker_trigger_49,
       common_wot_seeker_trigger_50,
       # end
-      
+
       # firewall triggers
       common_wot_firewall_trigger_1,
       common_wot_firewall_trigger_2,
@@ -27022,7 +27022,7 @@ mission_templates = [
       common_wot_firewall_trigger_9,
       common_wot_firewall_trigger_10,
       # end
- 
+
       #########################################################################
       ###### end TGS triggers
       #########################################################################
@@ -27030,7 +27030,7 @@ mission_templates = [
 
 
       common_battle_order_panel,
-      
+
 ####################################################################################
 ##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
 ####################################################################################
@@ -27046,11 +27046,305 @@ mission_templates = [
 
     ### Border Tower Battles End
 
-  
+
+## Timeline Event Templates Begin ##
+
+# start not alarmed
+  (
+    "timeline_event_not_alarmed",0,-1,
+    "timeline event not alarmed",
+    [
+        (0,mtef_scene_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+        (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,2,[]),
+        (2,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,4,[]),
+    ],
+    [
+      (1, 0, ti_once, [], [
+          (store_current_scene, ":cur_scene"),
+          (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
+#          (call_script, "script_init_town_walker_agents"),
+          (call_script, "script_music_set_situation_with_culture", mtf_sit_travel),
+        ]),
+#      (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
+      (ti_inventory_key_pressed, 0, 0, [(set_trigger_result,1)], []),
+#      (ti_tab_pressed, 0, 0, [(try_begin),
+#                                (check_quest_active, "qst_hunt_down_fugitive"),
+#                                (neg|check_quest_succeeded, "qst_hunt_down_fugitive"),
+#                                (neg|check_quest_failed, "qst_hunt_down_fugitive"),
+#                                (quest_slot_eq, "qst_hunt_down_fugitive", slot_quest_current_state, 1),
+#                                (try_begin),
+#                                  (call_script, "script_cf_troop_agent_is_alive", "trp_fugitive"),
+#                                  (call_script, "script_fail_quest", "qst_hunt_down_fugitive"),
+#                                (else_try),
+#                                  (call_script, "script_succeed_quest", "qst_hunt_down_fugitive"),
+#                                (try_end),
+#                              (try_end),
+#                              (set_trigger_result,1)], []),
+      (ti_on_leave_area, 0, 0, [
+          (try_begin),
+            (assign,"$g_leave_town",1),
+          (try_end),
+          ], []),
+#      (3, 0, 0, [(call_script, "script_tick_town_walkers")], []),
+      (2, 0, 0, [(call_script, "script_center_ambiance_sounds")], []),
+
+#      (1, 0, ti_once, [(check_quest_active, "qst_hunt_down_fugitive"),
+#                       (neg|check_quest_succeeded, "qst_hunt_down_fugitive"),
+#                       (neg|check_quest_failed, "qst_hunt_down_fugitive"),
+#                       (quest_slot_eq, "qst_hunt_down_fugitive", slot_quest_current_state, 1),
+#                       (assign, ":not_alive", 0),
+#                       (try_begin),
+#                         (call_script, "script_cf_troop_agent_is_alive", "trp_fugitive"),
+#                       (else_try),
+#                         (assign, ":not_alive", 1),
+#                       (try_end),
+#                       (this_or_next|main_hero_fallen),
+#                       (eq, ":not_alive", 1),
+#                       ],
+#       [(try_begin),
+#          (main_hero_fallen),
+#          (jump_to_menu, "mnu_village_hunt_down_fugitive_defeated"),
+#          (call_script, "script_fail_quest", "qst_hunt_down_fugitive"),
+#          (finish_mission, 4),
+#        (else_try),
+#          (call_script, "script_change_player_relation_with_center", "$current_town", -2),
+#          (call_script, "script_succeed_quest", "qst_hunt_down_fugitive"),
+#        (try_end),
+#        ]),
+
+      (1, 0, ti_once, [(eq, 1, 2),],
+       [
+
+            (store_current_scene, ":cur_scene"),
+
+            (try_begin),
+            (eq, ":cur_scene", "scn_al_thor_farm"),
+
+                # spawn tam and rand
+                (scene_prop_get_instance, ":instance", "spr_TGS_timeline_waypoint_1", 0),
+                (prop_instance_get_position, pos1, ":instance"),
+                (set_spawn_position, pos1),
+                (spawn_agent, "trp_tam_al_thor_book_1"), # reg0 = agent_id
+                (agent_set_team, reg0, 0),
+                (agent_set_is_alarmed, reg0, 1),
+
+                (scene_prop_get_instance, ":instance", "spr_TGS_timeline_waypoint_2", 0),
+                (prop_instance_get_position, pos1, ":instance"),
+                (set_spawn_position, pos1),
+                (spawn_agent, "trp_rand_al_thor_book_1"), # reg0 = agent_id
+                (agent_set_team, reg0, 0),
+                (agent_set_is_alarmed, reg0, 1),
+
+                # spawn trolloc group 1
+                (scene_prop_get_instance, ":instance", "spr_TGS_timeline_waypoint_6", 0),
+                (prop_instance_get_position, pos1, ":instance"),
+                (try_for_range, ":unused", 1, 4),
+                    (position_move_x, pos1, 50, 0),
+                    (set_spawn_position, pos1),
+                    (spawn_agent, "trp_trolloc_grunt"), # reg0 = agent_id
+                    (agent_set_team, reg0, 1),
+                    (agent_set_is_alarmed, reg0, 1),
+                (try_end),
+                (try_for_range, ":unused", 1, 2),
+                    (position_move_x, pos1, 50, 0),
+                    (set_spawn_position, pos1),
+                    (spawn_agent, "trp_trolloc_hewer"), # reg0 = agent_id
+                    (agent_set_team, reg0, 1),
+                    (agent_set_is_alarmed, reg0, 1),
+                (try_end),
+
+            (try_end),
+
+        ]),
+
+
+#      (ti_on_agent_killed_or_wounded, 0, 0, [],
+#       [
+#        (store_trigger_param_1, ":dead_agent_no"),
+#        (store_trigger_param_2, ":killer_agent_no"),
+#        (store_trigger_param_3, ":is_wounded"),
+
+#        (try_begin),
+#          (ge, ":dead_agent_no", 0),
+#          (neg|agent_is_ally, ":dead_agent_no"),
+#          (agent_is_human, ":dead_agent_no"),
+#          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+##          (str_store_troop_name, s6, ":dead_agent_troop_id"),
+##          (assign, reg0, ":dead_agent_no"),
+##          (assign, reg1, ":killer_agent_no"),
+##          (assign, reg2, ":is_wounded"),
+##          (agent_get_team, reg3, ":dead_agent_no"),
+#          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
+#          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+#          (eq, ":is_wounded", 1),
+#          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
+#        (try_end),
+
+#        (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
+#       ]),
+
+      common_battle_tab_press,
+
+#      (ti_question_answered, 0, 0, [],
+#       [(store_trigger_param_1,":answer"),
+#        (eq,":answer",0),
+#        (assign, "$pin_player_fallen", 0),
+#        (try_begin),
+#          (store_mission_timer_a, ":elapsed_time"),
+#          (gt, ":elapsed_time", 20),
+#          (str_store_string, s5, "str_retreat"),
+#          (call_script, "script_simulate_retreat", 10, 20, 1),
+#        (try_end),
+#        (call_script, "script_count_mission_casualties_from_agents"),
+#        (finish_mission,0),]),
+
+
+
+
+      #################################################################
+      ###### TGS triggers
+      #################################################################
+
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
+
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
+
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      #common_wot_check_for_channelers_in_the_scene,
+      common_wot_initialize_channeling_slots_on_agent_spawn_1,
+      common_wot_spawn_warders,
+      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
+
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      #common_wot_airborne_trigger,
+      # end
+
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+
+      # pick one balefire trigger (2 for custom battle)
+      #common_wot_balefire_trigger_1,
+      common_wot_balefire_trigger_2,
+      # end
+
+      common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
+
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+
+
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
+      # end
+
+      #########################################################################
+      ###### end TGS triggers
+      #########################################################################
+
+##################################################
+##### troop_ratio_bar
+##################################################
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+##################################################
+
+    ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
+  ),
+
+
+## Timeline Event Templates End ##
+
+
+
 
 #######################################
 ## End added for TGS
-#######################################  
+#######################################
 
 
 ]

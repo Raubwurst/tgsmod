@@ -19,8 +19,8 @@ from ID_map_icons import *
 #  9) Ai-target party
 # 10) Initial coordinates.
 # 11) List of stacks. Each stack record is a triple that contains the following fields:
-#   11.1) Troop-id. 
-#   11.2) Number of troops in this stack. 
+#   11.1) Troop-id.
+#   11.2) Number of troops in this stack.
 #   11.3) Member flags. Use pmf_is_prisoner to note that this member is a prisoner.
 # 12) Party direction in degrees [optional]
 ####################################################################################################################
@@ -65,13 +65,13 @@ parties = [
   #TODO: remove this and move all to collective ally
   ("collective_ally","{!}collective_ally",pf_disabled, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(1,1),[]),
   ("collective_friends","{!}collective_ally",pf_disabled, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(1,1),[]),
-   
+
   ("total_enemy_casualties","{!}_",  pf_disabled, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(1,1),[]), #ganimet hesaplari icin #new:
-  ("routed_enemies","{!}routed_enemies",pf_disabled, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(1,1),[]), #new:  
+  ("routed_enemies","{!}routed_enemies",pf_disabled, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(1,1),[]), #new:
 
 #  ("village_reinforcements","village_reinforcements",pf_is_static|pf_disabled, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(1,1),[]),
 
-###############################################################  
+###############################################################
   ("zendar","Zendar",pf_disabled|icon_town|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(18,60),[]),
 
 # Edited for TGS
@@ -101,33 +101,33 @@ parties = [
   ("town_20","Shayol Ghul", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(91.34, 160.15),[], 270),#Durquba
   ("town_21","Rhuidean", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(176.05, -2.68),[], 330),#Ahmerrad
   ("town_22","Illian", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(18.85, -156.00),[], 225),#Bariyye
-  
+
   ##TGS New Towns
   ("town_23","The Black Tower",  icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(49.96, -82.01),[], 170),#
-  
+
   ("town_24","Red Hand Encampment",     icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(65.71, -71.64),[], 120),#Tihr
-  
+
   ("town_25","Cold Rocks Hold",   icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(200.17, 33.59),[], 80),#Veluca
-  
+
   ("town_26","Seandar",     icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-270.95, -49.07),[], 290),#Suno
   ("town_27","Shon Kifar",  icon_town_steppe|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-208.71, -234.55),[], 90),#Jelkala
   ("town_28","Rampore",   icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-222.96, -303.24),[], 155),#Praven
-  
+
   ("town_29","Moridin's Fortress",   icon_town_snow|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-7.20, 153.23),[], 240),#Uxkhal
 
   ("town_30","Paranfur", icon_town_steppe|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(255.05, 27.10),[], 175),#Reyvadin
   ("town_31","Kyutamar",   icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(203.50, -35.54),[], 90),#Khudan
   ("town_32","Sen'Lomar",   icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(267.04, -225.36),[], 310),#Tulga
-  
+
   ("town_33","Tremalking",   icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-208.29, -168.37),[], 150),#Curaw
   ("town_34","Quaim", icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-76.99, -187.93),[], 25),#Wercheg
   ("town_35","Somera", icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-181.76, -37.76),[], 60),#Rivacheg
-  
+
   ("town_36","Wendale",  icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(11.08, -269.48),[], 135),#Halmar
   ("town_37","Kaldeske",  icon_town_steppe|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-34.67, -297.17),[], 45),#Yalen
   ("town_38","Ebene",  icon_town_steppe|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(91.67, -279.98),[], 0),#Dhirim
 
-#   Aztaq_Castle       
+#   Aztaq_Castle
 #  Malabadi_Castle
   ("castle_1","Culmarah",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(79.79, -127.56),[],50),#Culmarr
   ("castle_2","Bellon",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-67.74, -126.03),[],75),#Malayurg
@@ -184,44 +184,44 @@ parties = [
   ("castle_49","Legion Army Encampment",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(53.84, -91.07),[],50),#Culmarr
 
   ("castle_50","Red Hand Stronghold",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(80.63, -62.41),[],75),#Malayurg
-  
+
   ("castle_51","Farsiden",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-93.27, -101.11),[],100),#Bulugha
-  
+
   ("castle_52","King's Crossing",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-79.01, -127.89),[],180),#Radoghir
-  
+
   ("castle_53","Whitecloak Encampment",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-47.35, -134.54),[],90),#Tehlrog
-  
+
   ("castle_54","Hot Springs Hold",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(218.40, 72.31),[],55),#Tilbaut
-  
+
   ("castle_55","Ancarid",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-224.96, 33.95),[],45),#Sungetche
   ("castle_56","Tuel",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-270.90, -105.23),[],30),#Jeirbe
   ("castle_57","Semalaren",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-177.82, -294.59),[],100),#Jamiche
-  
+
   ("castle_58","Bhan'sheen Stronghold",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-213.78, 173.48),[],110),#Alburq
   ("castle_59","Dha'vol Stronghold",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(181.97, 180.12),[],75),#Curin
-  
+
   ("castle_60","Sh'bo Stronghold",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(219.57, -38.46),[],95),#Chalbek
   ("castle_61","Ayyad Stronghold",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(250.73, -96.40),[],115),#Kelredan
   ("castle_62","Sh'bo Retreat",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(246.14, -148.58),[],90),#Maras
-  
+
   ("castle_63","Cindaking",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(122.55, -167.69),[],235),#Ergellon
   ("castle_64","Jafar",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-192.06, -99.41),[],45),#Almerra
   ("castle_65","Dashar",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-168.08, 63.29),[],15),#Distar
-  
+
   ("castle_66","Bazh'rak",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-72.69, -278.41),[],300),#Ismirala
   ("castle_67","Marensef",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-32.65, -270.21),[],280),#Yruma
   ("castle_68","Falkreit",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(80.10, -302.49),[],260),#Derchios
-  
+
   ("castle_69","Amdean",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-130.90, -25.79),[],260),#Ibdeles
-  
+
   # for Arafel
   ("castle_70","Jorem",icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(44.45, 70.77),[],325),#Ismirala
- 
 
-#     Rinimad      
+
+#     Rinimad
 #              Rietal Derchios Gerdus
-# Tuavus   Pamir   vezona 
-  
+# Tuavus   Pamir   vezona
+
   ("village_1", "Yaragar",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(96.78, -124.79),[], 100),#Yaragar
   ("village_2", "So Eban",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-21.24, -124.07),[], 110),#Burglen
   ("village_3", "Azgad",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-119.52, -21.80),[], 120),#Azgad
@@ -254,7 +254,7 @@ parties = [
   ("village_28","Rushdigh",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(22.40, -140.85),[], 170),#Tash_Kulun
   ("village_29","Marella",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-5.27, -119.51),[], 170),#Buillin
   ("village_30","Ruvar",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-14.99, 40.06),[], 170),#Ruvar
-  
+
   ("village_31","Soremaine",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(4.07, -132.23),[], 100),#Ambean
   ("village_32","Sidon",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-43.82, -90.93),[], 110),#Tosdhar
   ("village_33","Coramen",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-23.81, -141.73),[], 120),#Ruluns
@@ -346,57 +346,57 @@ parties = [
 ## TGS New Villages
   ("village_111", "Legion Training Ground",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(46.98, -91.36),[], 100),#Yaragar
   ("village_112", "Legion Supply Camp",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(47.00, -74.39),[], 110),#Burglen
-  
+
   ("village_113", "Red Hand Training Ground",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(89.16, -65.35),[], 120),#Azgad
   ("village_114", "Red Hand Supply Camp",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(69.14, -77.65),[], 130),#Nomar
-  
+
   ("village_115", "Watch Hill",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-56.10, -59.42),[], 170),#Kulum
   ("village_116", "Devon Ride",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-58.60, -65.61),[], 100),#Emirin
-  
+
   ("village_117", "Shoal's Landing",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(132.56, -151.09),[], 110),#Amere
-  
+
   ("village_118", "Larone",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-94.52, -109.76),[], 120),#Haen
-  
+
   ("village_119", "Duraban",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-81.98, -130.69),[], 130),#Buvran
-  
+
   ("village_120", "Whitecloak Supply Camp",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-50.54, -137.89),[], 170),#Mechin
-  
+
   ("village_121","Smoke Springs Hold",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(211.70, 44.97),[], 100),#Dusturil
   ("village_122","Black Cliffs Hold",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(236.89, 65.83),[], 110),#Emer
-  
+
   ("village_123","Alqam",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-254.99, -22.62),[], 120),#Nemeja
   ("village_124","Jeranem",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-251.30, 15.45),[], 130),#Sumbuja
   ("village_125","Dalenshar",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-244.88, -60.82),[], 170),#Ryibelet
   ("village_126","Jianmin",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-270.24, -140.44),[], 170),#Shapeshte
   ("village_127","Marendalar",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-229.91, -213.09),[], 35),#Mazen
   ("village_128","Pujili",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-252.00, -278.84),[], 170),#Ulburban
-  
+
   ("village_129","Dhai'mon Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-221.16, 160.18),[], 170),#Hanun
   ("village_130","Ko'bal Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(32.32, 138.48),[], 170),#Uslum
   ("village_131","Ghob'hlin Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(60.79, 180.29),[], 100),#Bazeck
   ("village_132","Al'ghol Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(142.78, 161.37),[], 110),#Shulus
-  
+
   ("village_133","Sharain",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(262.24, 46.55),[], 120),#Ilvia
   ("village_134","Mosantile",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(270.00, 16.42),[], 130),#Ruldi
   ("village_135","Warunzef",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(244.07, -13.04),[], 170),#Dashbigha
   ("village_136","Cempur",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(251.84, -52.05),[], 170),#Pagundur
   ("village_137","Nelaphne",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(235.13, -85.02),[], 170),#Glunmar
   ("village_138","Pyradine",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(260.72, -184.56),[], 170),#Tash_Kulun
-  
+
   ("village_139","Cindaking Landing",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(122.24, -163.03),[], 170),#Buillin
   ("village_140","Quaim Landing",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-73.95, -179.48),[], 170),#Ruvar
   ("village_141","Tremal'nor",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-209.86, -154.32),[], 100),#Ambean
   ("village_142","Jafar Landing",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-186.71, -92.20),[], 110),#Tosdhar
   ("village_143","Tremal'sur",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-183.91, -166.17),[], 120),#Ruluns
   ("village_144","Dashar Landing",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-144.66, 71.27),[], 130),#Ehlerdah
-  
+
   ("village_145","Kahzym",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-73.57, -295.90),[], 170),#Fearichen
   ("village_146","Valrek",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-12.70, -283.24),[], 170),#Jayek
   ("village_147","Boshande",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(99.92, -299.42),[], 170),#Ada_Kulun
   ("village_148","Jareknell",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(28.69, -299.93),[], 170),#Ibiran
   ("village_149","Gruntal",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(51.81, -276.52),[], 170),#Reveran
   ("village_150","Emardel",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(61.27, -298.74),[], 170),#Saren
-  
+
   ("village_151","Zalmar",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-139.27, -34.45),[], 100),#Dugan
 
 # end edited for TGS
@@ -424,8 +424,8 @@ parties = [
   # Ogier Stedding Waygates
 
 # end added for TGS
-  
-# end  
+
+# end
   ("salt_mine","Salt_Mine",icon_village_a|pf_disabled|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(10,10),[]),
   ("four_ways_inn","Four_Ways_Inn",icon_village_a|pf_disabled|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-10,10),[]),
   ("test_scene","test_scene",icon_village_a|pf_disabled|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(10,-10),[]),
@@ -496,9 +496,13 @@ parties = [
   ("border_tower_7","Border Tower",   icon_border_tower|pf_hide_defenders|pf_is_static|pf_always_visible|pf_label_medium, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(90.45, 85.57),[], 184),
   ("border_tower_8","Border Tower",   icon_border_tower|pf_hide_defenders|pf_is_static|pf_always_visible|pf_label_medium, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(105.71, 105.35),[], 330),
   ("border_tower_9","Border Tower",   icon_border_tower|pf_hide_defenders|pf_is_static|pf_always_visible|pf_label_medium, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(129.46, 94.47),[], 147),
+
+# Timeline Event Locations
+  ("al_thor_farm","Al'Thor Farm",   icon_training_ground|pf_hide_defenders|pf_is_static|pf_always_visible|pf_label_medium, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-59.17, -62.54),[], 25),
+
 # end added for TGS
 
- # add extra towns before this point 
+ # add extra towns before this point
   ("spawn_points_end"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
   ("reserved_1"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
   ("reserved_2"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),

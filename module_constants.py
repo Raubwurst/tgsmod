@@ -2383,7 +2383,10 @@ villages_end   = "p_karindi_gate"
 
 # Added for TGS
 border_towers_begin = "p_border_tower_1"
-border_towers_end   = "p_spawn_points_end"
+border_towers_end    = "p_al_thor_farm"
+
+timeline_event_locations_begin  = "p_al_thor_farm"
+timeline_event_locations_end    = "p_spawn_points_end"
 # End added for TGS
 
 walled_centers_begin = towns_begin
@@ -3070,6 +3073,10 @@ waygates_end = "p_salt_mine"
 ### spt_border_tower for border tower parties BEGIN
 spt_border_tower					= 402
 ### spt_border_tower for border tower parties END
+
+### spt_timeline_event_location for timeline event parties Begin
+spt_timeline_event_location         = 403
+### spt_timeline_event_location for timeline event parties End
 
 ### end added for TGS
 #################################################################

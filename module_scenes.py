@@ -1781,9 +1781,11 @@ scenes = [
   ("multi_blank_steppe_huge",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000002004d91d000d2348000069f90000001200003be9",
     [],[],"outer_terrain_steppe"),
 
-  # other towns
+  # other scenes
   ("multi_taien",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000005004d69d00060984000069f90000001200003be9",
     [],[],"outer_terrain_desert"),
+  ("multi_al_thor_farm",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000003004d69d0003a0e7000069f90000001200003be9",
+    [],[],"outer_terrain_plain"),
 
 ## blank scenes end
 
@@ -1905,6 +1907,11 @@ scenes = [
 ## Added for TGS (Border Tower Battles)
   ("shienaran_border_tower_1",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000002065509400048120000045eb000066ee0000046e",
     [],[],"outer_terrain_snow"),
+## End added for TGS
+
+## Added for TGS (Timeline Events)
+  ("al_thor_farm",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000003004d69d0003a0e7000069f90000001200003be9",
+    [],[],"outer_terrain_plain"),
 ## End added for TGS
 
 ]

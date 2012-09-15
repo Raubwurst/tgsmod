@@ -21038,6 +21038,61 @@ They give you directions to the nearest town and you take your leave.",
 
 ## Border Tower Menu End
 
+
+## Non-Tower/Castle/Village Timeline Event Locations Menu Begin
+
+  ("timeline_event_location_menu",0,
+   "You arrive at {s1}...",
+   "none",
+   [],
+    [
+        # Al'Thor Farm
+		("al_thor_farm_normal_visit",[(eq, "$g_encountered_party", "p_al_thor_farm"), (neg|check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),],"Take a look around...",
+			[
+                #(set_jump_mission, "mt_border_tower_battle"),
+                #(jump_to_scene, "scn_al_thor_farm"),
+			]
+		),
+
+		("al_thor_farm_event_visit_night",[(eq, "$g_encountered_party", "p_al_thor_farm"), (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"), (is_currently_night),],"You hear some suspicious noises in the forest. Investigate further...",
+			[
+                # set visitors
+                (modify_visitors_at_site,"scn_al_thor_farm"),
+                (reset_visitors),
+
+                (set_visitor, 1, "trp_tam_al_thor_book_1"),
+                (set_visitor, 1, "trp_rand_al_thor_book_1"),
+
+                (set_visitors, 2, "trp_trolloc_grunt", 3),
+                (set_visitor, 2, "trp_trolloc_hewer", 1),
+
+                # set mission and scene
+                (set_jump_mission, "mt_timeline_event_not_alarmed"),
+                (jump_to_scene, "scn_al_thor_farm"),
+                (change_screen_mission),
+			]
+		),
+
+		("al_thor_farm_event_visit_day",[(eq, "$g_encountered_party", "p_al_thor_farm"), (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"), (neg|is_currently_night),],"Nothing seems to be happening. Wait until nightfall...",
+			[
+                (change_screen_map)
+			]
+		),
+
+        # generic leave
+		("timeline_event_location_leave",[],"Leave...",
+			[
+				(change_screen_map)
+			]
+		),
+
+      ]
+  ),
+
+## Non-Tower/Castle/Village Timeline Event Locations Menu Ends
+
+
+
 ## end added for TGS
 
  ]

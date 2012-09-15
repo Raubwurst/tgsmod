@@ -2687,6 +2687,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ("multi_blank_steppe_huge", "Blank Steppe Huge"),
 # others
 ("multi_taien", "Taien"),
+("multi_al_thor_farm", "the Al'Thor Farm"),
 # end
 #("multi_town_6_walls", "Town 6 Walls"),
 #("multi_town_7_walls", "Town 7 Walls"),
@@ -4919,12 +4920,20 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ("companion_weave_10", "Compulsion"),
 ("companion_weave_11", "Balefire"),
 
+# TGS Timeline Strings Begin
+
+# book 1
+("trolloc_raid_on_al_thor_farm", "You feel the Pattern pulling you towards the Al'Thor farm in the Two Rivers..."),
+
+# TGS Timeline Strings End
+
+
 
 ######################
 # TGS End
 ######################
 
-## Presentations
+## Presentations - Dunde's Character Creation Begins
  ("cancel", "Cancel"),
  ("continue", "Continue"),
  ("close", "Close"),
