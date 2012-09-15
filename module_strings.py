@@ -5169,8 +5169,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  with a little bit of subtlety.:As a {reg11?girl:boy} growing out of childhood,\
  you were sent to live in the court of one of the nobles of the land.\
  There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
- But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn about the adult world of conflict\
- and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords."}), # hack
+ But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn\
+ about the adult world of conflictand competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords.}"), # hack
  ("story_childhood_page","{reg11?As a child you served as a lady-in-waiting.\
  You were introdced to the tightly-knit circle of women at court, ladies who all did proper ladylike things,\
  the wives and mistresses of noble men as well as maidens who had yet to find a husband.\
@@ -5182,7 +5182,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  you were sent to live in the court of one of the nobles of the land.\
  There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
  But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn about the adult world of conflict\
- and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords."}),
+ and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords.}"),
  ("story_childhood_novice","{reg11?When you were quite young, it was\
  discovered that you could channel. Your parents decided that it would\
  be best if you received proper training with the Aes Sedai in Tar Valon. You vividly remember the\
