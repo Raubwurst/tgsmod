@@ -4969,7 +4969,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("story", "{s20}^ "),
 
   ## Background stories
-  ("affiliation_start","Neutral"), # hack
+# ("affiliation_start","Neutral"), # hack
   ("affiliation_neutral","Neutral"),
   ("affiliation_light","Friend of the Light"),
   ("affiliation_dark","Friend of the Dark"),
@@ -5005,17 +5005,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("nationality_murandy","Murandy"),
   ("nationality_altara","Altara"),
 
-  ("father_start","Lord"), # hack
-  ("father_lord","Lord"),
-  ("father_warder","Warder"),
-  ("father_soldier","Soldier"),
-  ("father_adventurer","Adventurer"),
-  ("father_merchant","Merchant"),
-  ("father_farmer","Farmer"),
-  ("father_thief","Thief"),
-  ("father_skilled_tradesman","Skilled Tradesman"),
-
-  ("mother_start","Lady"), # hack
+# ("mother_start","Lady"), # hack
   ("mother_lady","Lady"),
   ("mother_aes_sedai","Aes Sedai"),
   ("mother_house_wife","Housewife"),
@@ -5025,7 +5015,17 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("mother_tavern_wench","Tavern Wench"),
   ("mother_seamstress","Seamstress"),
 
-  ("childhood_start","{reg11?Lady-in-waiting:Page}"), # hack
+# ("father_start","Lord"), # hack
+  ("father_lord","Lord"),
+  ("father_warder","Warder"),
+  ("father_soldier","Soldier"),
+  ("father_adventurer","Adventurer"),
+  ("father_merchant","Merchant"),
+  ("father_farmer","Farmer"),
+  ("father_thief","Thief"),
+  ("father_skilled_tradesman","Skilled Tradesman"),
+
+# ("childhood_start","{reg11?Lady-in-waiting:Page}"), # hack
   ("childhood_page","{reg11?Lady-in-waiting:Page}"),
   ("childhood_novice","{reg11?Novice of the White Tower:Warder-in-training}"),
   ("childhood_wilder","{reg12?Wilder:Student}"),
@@ -5034,7 +5034,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("childhood_apprentice","Craftman's Apprentice"),
   ("childhood_wisdom_assistant","{reg11?Village Wisdom's Assistant:Village Elder's Assistant}"),
 
-  ("adolescent_start","Minor Noble"), # hack
+# ("adolescent_start","Minor Noble"), # hack
   ("adolescent_minor_noble","Minor Noble"),
   ("adolescent_gleeman","Gleeman"),
   ("adolescent_warder","{reg11?Accepted of the White Tower:Unbonded Warder}"),
@@ -5045,7 +5045,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("adolescent_merchant_guard","Merchant's Guard"),
   ("adolescent_hunter_of_the_horn","Hunter of the Horn"),
 
-  ("achievement_start","Noble Title"), # hack
+# ("achievement_start","Noble Title"), # hack
   ("achievement_noble_title","Noble Title"),
   ("achievement_captured_a_false_dragon","Captured a False Dragon"),
   ("achievement_mastered_the_flame_and_void","Mastered the Flame and Void"),
@@ -5059,13 +5059,13 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 
   ("story_all", "{s20}{s1} "),
 
-  ("story_affiliation_start","You are a free and fair {reg11?woman:man}"), # hack
+# ("story_affiliation_start","You are a free and fair {reg11?woman:man}"), # hack
   ("story_affiliation_neutral","You are a free and fair {reg11?woman:man}"),
   ("story_affiliation_light","You are a Friend of the Light"),
   ("story_affiliation_dark","You are a Friend of the Dark"),
   ("story_affiliation_national","You are a staunch nationalist"),
 
-  ("story_nationality_start","from the islands of the Atha'an Miere."), # hack
+# ("story_nationality_start","from the islands of the Atha'an Miere."), # hack
   ("story_nationality_sea_folk","from the islands of the Atha'an Miere."),
   ("story_nationality_seanchan","from the sprawling Seanchan Empire."),
 
@@ -5095,39 +5095,10 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("story_nationality_murandy","from the city of Lugard in Murandy."),
   ("story_nationality_altara","from the patriarchal Altara."),
 
-  ("story_father_start","You came into the world a {reg11?daughter:son} of a powerful noble.\
- You were afforded a good education and were trained from childhood for the rigors of aristocracy and\
- life at court. It seemed the world was yours from the very start."), # hack
-  ("story_father_lord","You came into the world a {reg11?daughter:son} of a powerful noble.\
- You were afforded a good education and were trained from childhood for the rigors of aristocracy and\
- life at court. It seemed the world was yours from the very start."),
-  ("story_father_warder","You were born the {reg11?daughter:son} of a warder of the White Tower.\
- It was interesting, being raised by such a dangerous man, but you received an excellent education\
- and learned how to defend yourself. Your time in Tar Valon also kept you aware of the world around you."),
-  ("story_father_soldier","As a child, your family scrabbled out a meagre living from your father's wages\
- as a guardsman to the local lord. It was not an easy existence, and you were too poor to get much of an\
- education. You learned mainly how to defend yourself on the streets, with or without a weapon in hand."),
-  ("story_father_adventurer","You were the {reg11?daughter:son} of a man who enjoyed being on the move,\
- and did whatever it took to not settle down. You might not have received a formal education, but\
- you were taught to fend for yourself from a young age."),
-  ("story_father_merchant","You were a child of a successful merchant. Traveling the road of the Southlands\
- was how your father lived. He took great pride in anticipating what goods would be needed where. You became\
- familiar with the towns and villages, and learned much of the laws governing trade as well."),
-  ("story_father_farmer","As the {reg11?daughter:son} of a farmer, you had very little 'formal' education.\
- Instead, you spent much of your time in the fields and around livestock. It may have been boring at times\
- but you learned how to do a good day's work. Your father taught you how to raise a good crop and then\
- barder with the merchants come market time."),
- ("story_father_thief","As the {reg11?daughter:son} of a thief, you had very little 'formal' education.\
- You didn't really learn how to earn a living, but rather how to take what you needed. Quick hands and\
- silent feet were the traits passed on to you. That and a general distaste for the town watch."),
- ("story_father_skilled_tradesman","As the {reg11?daughter:son} of a tradesman, you were taught how to use tools.\
- Your father put in long days in the workshop and was recognized far and near for his 'wonders'. While watching\
- him work, you gained an understanding of mechanics, woodworking, and metal crafting."),
-
-  ("story_mother_start","Your mother made sure you were raised right;\
- you were kept from the harmful influence of the common folk.\
- You were taught the basics of the Game of Houses and also of courtly love. You saw portions of the lives of commoners,\
- but only through the curtains of a coach or when it was festival time."), # hack
+#  ("story_mother_start","Your mother made sure you were raised right;\
+# you were kept from the harmful influence of the common folk.\
+# You were taught the basics of the Game of Houses and also of courtly love. You saw portions of the lives of commoners,\
+# but only through the curtains of a coach or when it was festival time."), # hack
   ("story_mother_lady","Your mother made sure you were raised right;\
  you were kept from the harmful influence of the common folk.\
  You were taught the basics of the Game of Houses and also of courtly love. You saw portions of the lives of commoners,\
@@ -5159,18 +5130,47 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  that many people would have considered scraps. She taught you how to bargain and also the\
  benefit of good honest labor."),
 
- ("story_childhood_start","{reg11?As a child you served as a lady-in-waiting.\
- You were introdced to the tightly-knit circle of women at court, ladies who all did proper ladylike things,\
- the wives and mistresses of noble men as well as maidens who had yet to find a husband.\
- However, even here you found politics at work as the ladies schemed for prominence and fought each other\
- bitterly to catch the eye of whatever unmarried man was in fashion at court.\
- You soon learned ways of turning these situations and goings-on to your advantage. With it came the\
- realisation that you yourself could wield great influence in the world, if only you applied yourself\
- with a little bit of subtlety.:As a {reg11?girl:boy} growing out of childhood,\
- you were sent to live in the court of one of the nobles of the land.\
- There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
- But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn\
- about the adult world of conflictand competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords.}"), # hack
+# ("story_father_start","You came into the world a {reg11?daughter:son} of a powerful noble.\
+# You were afforded a good education and were trained from childhood for the rigors of aristocracy and\
+# life at court. It seemed the world was yours from the very start."), # hack
+  ("story_father_lord","You came into the world a {reg11?daughter:son} of a powerful noble.\
+ You were afforded a good education and were trained from childhood for the rigors of aristocracy and\
+ life at court. It seemed the world was yours from the very start."),
+  ("story_father_warder","You were born the {reg11?daughter:son} of a warder of the White Tower.\
+ It was interesting, being raised by such a dangerous man, but you received an excellent education\
+ and learned how to defend yourself. Your time in Tar Valon also kept you aware of the world around you."),
+  ("story_father_soldier","As a child, your family scrabbled out a meagre living from your father's wages\
+ as a guardsman to the local lord. It was not an easy existence, and you were too poor to get much of an\
+ education. You learned mainly how to defend yourself on the streets, with or without a weapon in hand."),
+  ("story_father_adventurer","You were the {reg11?daughter:son} of a man who enjoyed being on the move,\
+ and did whatever it took to not settle down. You might not have received a formal education, but\
+ you were taught to fend for yourself from a young age."),
+  ("story_father_merchant","You were a child of a successful merchant. Traveling the road of the Southlands\
+ was how your father lived. He took great pride in anticipating what goods would be needed where. You became\
+ familiar with the towns and villages, and learned much of the laws governing trade as well."),
+  ("story_father_farmer","As the {reg11?daughter:son} of a farmer, you had very little 'formal' education.\
+ Instead, you spent much of your time in the fields and around livestock. It may have been boring at times\
+ but you learned how to do a good day's work. Your father taught you how to raise a good crop and then\
+ barder with the merchants come market time."),
+ ("story_father_thief","As the {reg11?daughter:son} of a thief, you had very little 'formal' education.\
+ You didn't really learn how to earn a living, but rather how to take what you needed. Quick hands and\
+ silent feet were the traits passed on to you. That and a general distaste for the town watch."),
+ ("story_father_skilled_tradesman","As the {reg11?daughter:son} of a tradesman, you were taught how to use tools.\
+ Your father put in long days in the workshop and was recognized far and near for his 'wonders'. While watching\
+ him work, you gained an understanding of mechanics, woodworking, and metal crafting."),
+
+# ("story_childhood_start","{reg11?As a child you served as a lady-in-waiting.\
+# You were introdced to the tightly-knit circle of women at court, ladies who all did proper ladylike things,\
+# the wives and mistresses of noble men as well as maidens who had yet to find a husband.\
+# However, even here you found politics at work as the ladies schemed for prominence and fought each other\
+# bitterly to catch the eye of whatever unmarried man was in fashion at court.\
+# You soon learned ways of turning these situations and goings-on to your advantage. With it came the\
+# realisation that you yourself could wield great influence in the world, if only you applied yourself\
+# with a little bit of subtlety.:As a {reg11?girl:boy} growing out of childhood,\
+# you were sent to live in the court of one of the nobles of the land.\
+# There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
+# But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn\
+# about the adult world of conflictand competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords.}"), # hack
  ("story_childhood_page","{reg11?As a child you served as a lady-in-waiting.\
  You were introdced to the tightly-knit circle of women at court, ladies who all did proper ladylike things,\
  the wives and mistresses of noble men as well as maidens who had yet to find a husband.\
@@ -5215,11 +5215,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  be that year. You knew that if you worked hard in your training, you too would grow to be a respected\
  member of your community.:PLACEHOLDER FOR VILLAGE ELDER'S ASSISTANT STORY."),
 
- ("story_adolescent_start","An unexpected death in the family placed the\
- burden of leadership upon your shoulders. You were named the {reg11?lady:lord} of your\
- house, and immediately started representing your subjects in the courts of the land.\
- The burden of this added responsibility helped shape you into a {reg11?woman:man}\
- who was greatly respected by your peers."), # hack
+# ("story_adolescent_start","An unexpected death in the family placed the\
+# burden of leadership upon your shoulders. You were named the {reg11?lady:lord} of your\
+# house, and immediately started representing your subjects in the courts of the land.\
+# The burden of this added responsibility helped shape you into a {reg11?woman:man}\
+# who was greatly respected by your peers."), # hack
  ("story_adolescent_minor_noble","An unexpected death in the family placed the\
  burden of leadership upon your shoulders. You were named the {reg11?lady:lord} of your\
  house, and immediately started representing your subjects in the courts of the land.\
@@ -5269,9 +5269,9 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  to have been seen in a village in southern Shienar. After a few months of travel and then a few months more of searching,\
  you decided that the lead was a fake. But you weren't discouraged. The Hunt was the grandest adventure of all time."),
 
- ("story_achievement_start","^It was not expected, but you were named the heir of a noble house.\
- Many thought this was a poor choice, since you were not of noble birth, but you soon taught them respect.\
- From a young age, you strengthened the position of your house and gained respect in the eyes of your superiors."), # hack
+# ("story_achievement_start","^It was not expected, but you were named the heir of a noble house.\
+# Many thought this was a poor choice, since you were not of noble birth, but you soon taught them respect.\
+# From a young age, you strengthened the position of your house and gained respect in the eyes of your superiors."), # hack
  ("story_achievement_noble_title","^It was not expected, but you were named the heir of a noble house.\
  Many thought this was a poor choice, since you were not of noble birth, but you soon taught them respect.\
  From a young age, you strengthened the position of your house and gained respect in the eyes of your superiors."),
@@ -5325,7 +5325,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  Guards searched for weeks, but eventually gave up. A month later, it was proclaimed that the crown had been found,\
  but you and your friends knew that a replacement had been made. The pleasure of seeing the powers of Illian\
  confounded was worth more that your weight in gold."),
- ("achievement_traveled_to_shayol_ghul","{reg13?FOUNDED SYSTEM OF BELIEFS PLACEHOLDER:BROKERED PEACE AGREEMENT}"),
+ ("achievement_traveled_to_shayol_ghul","{reg13?FOUNDED SYSTEM OF BELIEFS PLACEHOLDER:BROKERED PEACE AGREEMENT PLACEHOLDER}"),
 
 # Dunde's Character Creation End
 
