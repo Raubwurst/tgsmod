@@ -43,35 +43,35 @@ game_menus = [
   ##diplomacy end  (tweaked for TGS)
   "none",
 ##
-#    [],
-#    [
-#     ("continue",[],"Continue...",
-#       [(jump_to_menu, "mnu_start_game_1"),
-#        ]
-#       ),
-#      ("go_back",[],"Go back",
-#       [
-#         (change_screen_quit),
-#       ]),
-#    ]
-# ),
-## TODO: Comment out above and uncomment below to enable new character creation (do not use just yet)
-     [(try_begin),
-        (neq, "$creation_canceled", 999),
-        (call_script, "script_randomize_background", 0),
-        (start_presentation, "prsnt_player_background"),
-     (try_end),],
+    [],
     [
-		("start",[],"Create Character",
-		[
-		(start_presentation, "prsnt_player_background"),
-		]),
-		("quit",[],"Cancel",
-		[
-		(change_screen_quit),
-		]),
+     ("continue",[],"Continue...",
+       [(jump_to_menu, "mnu_start_game_1"),
+        ]
+       ),
+      ("go_back",[],"Go back",
+       [
+         (change_screen_quit),
+       ]),
     ]
-  ),
+ ),
+## TODO: Comment out above and uncomment below to enable new character creation (do not use just yet)
+#     [(try_begin),
+#        (neq, "$creation_canceled", 999),
+#        (call_script, "script_randomize_background", 0),
+#        (start_presentation, "prsnt_player_background"),
+#     (try_end),],
+#    [
+#		("start",[],"Create Character",
+#		[
+#		(start_presentation, "prsnt_player_background"),
+#		]),
+#		("quit",[],"Cancel",
+#		[
+#		(change_screen_quit),
+#		]),
+#    ]
+#  ),
 
 # altered for TGS
   ("start_phase_2",mnf_disable_all_keys,

@@ -5025,24 +5025,22 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("mother_tavern_wench","Tavern Wench"),
   ("mother_seamstress","Seamstress"),
 
-  ("childhood_start","Page"), # hack
-  ("childhood_page","Page"),
-  ("childhood_lady_in_waiting","Lady-in-waiting"),
-  ("childhood_novice","Novice of the White Tower"),
-  ("childhood_wilder","Wilder"),
+  ("childhood_start","{reg11?Lady-in-waiting:Page}"), # hack
+  ("childhood_page","{reg11?Lady-in-waiting:Page}"),
+  ("childhood_novice","{reg11?Novice of the White Tower:Warder-in-training}"),
+  ("childhood_wilder","{reg12?Wilder:Student}"),
   ("childhood_hunter","Hunter"),
   ("childhood_farmer","Farmer"),
   ("childhood_apprentice","Craftman's Apprentice"),
-  ("childhood_wisdom_assistant","Village Wisdom's Assistant"),
+  ("childhood_wisdom_assistant","{reg11?Village Wisdom's Assistant:Village Elder's Assistant}"),
 
   ("adolescent_start","Minor Noble"), # hack
   ("adolescent_minor_noble","Minor Noble"),
   ("adolescent_gleeman","Gleeman"),
-  ("adolescent_warder","Warder"),
-  ("adolescent_accepted","Accepted of the White Tower"),
-  ("adolescent_wilder","Active Wilder"),
+  ("adolescent_warder","{reg11?Accepted of the White Tower:Unbonded Warder}"),
+  ("adolescent_wilder","{reg12?Active Wilder:Scholar}"),
   ("adolescent_merchant","Merchant"),
-  ("adolescent_wisdom","Wisdom"),
+  ("adolescent_wisdom","{reg11?Wisdom:Counciller}"),
   ("adolescent_smuggler","Smuggler"),
   ("adolescent_merchant_guard","Merchant's Guard"),
   ("adolescent_hunter_of_the_horn","Hunter of the Horn"),
@@ -5054,10 +5052,10 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("achievement_survived_journey_across_aiel_waste","Survived a Journey Across the Aiel Waste"),
   ("achievement_learned_to_speak_to_wolves","Learned to Speak with Wolves"),
   ("achievement_saved_lord_at_tarwins_gap","Saved a Lord at Tarwin's Gap"),
-  ("achievement_rediscovered_lost_weaves","Rediscovered a Lost Weave"),
+  ("achievement_rediscovered_lost_weaves","{reg12?Rediscovered a Lost Weave:Rediscovered Lost Knowledge}"),
   ("achievement_became_wealthy_merchant","Became a Wealthy Merchant"),
   ("achievement_stole_laurel_crown","Stole the Laurel Crown"),
-  ("achievement_traveled_to_shayol_ghul","Traveled to Shayol Ghul"),
+  ("achievement_traveled_to_shayol_ghul","{reg13?Defined a Belief System:Brokered a Peace Agreement}"),
 
   ("story_all", "{s20}{s1} "),
 
@@ -5067,35 +5065,35 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("story_affiliation_dark","You are a Friend of the Dark"),
   ("story_affiliation_national","You are a staunch nationalist"),
 
-  ("story_nationality_start"," from the islands of the Atha'an Miere."), # hack
-  ("story_nationality_sea_folk"," from the islands of the Atha'an Miere."),
-  ("story_nationality_seanchan"," from the sprawling Seanchan Empire."),
+  ("story_nationality_start","from the islands of the Atha'an Miere."), # hack
+  ("story_nationality_sea_folk","from the islands of the Atha'an Miere."),
+  ("story_nationality_seanchan","from the sprawling Seanchan Empire."),
 
-  ("story_nationality_aiel"," from deep within the Aiel desert."),
-  ("story_nationality_shara"," from the lands some call Shara."),
+  ("story_nationality_aiel","from deep within the Aiel desert."),
+  ("story_nationality_shara","from the lands some call Shara."),
 
-  ("story_nationality_blight"," from the twisted lands of The Blight."),
-  ("story_nationality_shienar"," from the front-line of Shienar."),
-  ("story_nationality_arafel"," from the honored lands of Arafel."),
-  ("story_nationality_kandor"," from the mercantile Kandor."),
-  ("story_nationality_saldea"," from the land of your brothers, Saldea."),
+  ("story_nationality_blight","from the twisted lands of The Blight."),
+  ("story_nationality_shienar","from the front-line of Shienar."),
+  ("story_nationality_arafel","from the honored lands of Arafel."),
+  ("story_nationality_kandor","from the mercantile Kandor."),
+  ("story_nationality_saldea","from the land of your brothers, Saldea."),
 
-  ("story_nationality_tar_valon"," from the majestic lands of Tar Valon."),
-  ("story_nationality_cairhien"," from the land of the silver-tongue, Cairhien."),
-  ("story_nationality_tear"," from the impenetrable Tear."),
-  ("story_nationality_mayene"," from the small but proud land of Mayene."),
-  ("story_nationality_far_madding"," from the eternally-peaceful Far Madding."),
-  ("story_nationality_illian"," from the home of the Hunt, Illian."),
-  ("story_nationality_andor"," from the proud nation of Andor."),
+  ("story_nationality_tar_valon","from the majestic lands of Tar Valon."),
+  ("story_nationality_cairhien","from the land of the silver-tongue, Cairhien."),
+  ("story_nationality_tear","from the impenetrable Tear."),
+  ("story_nationality_mayene","from the small but proud land of Mayene."),
+  ("story_nationality_far_madding","from the eternally-peaceful Far Madding."),
+  ("story_nationality_illian","from the home of the Hunt, Illian."),
+  ("story_nationality_andor","from the proud nation of Andor."),
 
-  ("story_nationality_arad_doman"," from silk-smooth Arad Doman."),
-  ("story_nationality_two_rivers"," from the well-grounded Two Rivers."),
-  ("story_nationality_toman_head"," from ever-watchful Toman Head."),
-  ("story_nationality_tarabon"," from the Tree of Man, Tarabon."),
-  ("story_nationality_ghealdan"," from small but proud Ghealdan."),
-  ("story_nationality_amadicia"," from the Whitecloak protectorate, Amadicia."),
-  ("story_nationality_murandy"," from the city of Lugard in Murandy."),
-  ("story_nationality_altara"," from the patriarchal Altara."),
+  ("story_nationality_arad_doman","from silk-smooth Arad Doman."),
+  ("story_nationality_two_rivers","from the well-grounded Two Rivers."),
+  ("story_nationality_toman_head","from ever-watchful Toman Head."),
+  ("story_nationality_tarabon","from the Tree of Man, Tarabon."),
+  ("story_nationality_ghealdan","from small but proud Ghealdan."),
+  ("story_nationality_amadicia","from the Whitecloak protectorate, Amadicia."),
+  ("story_nationality_murandy","from the city of Lugard in Murandy."),
+  ("story_nationality_altara","from the patriarchal Altara."),
 
   ("story_father_start","You came into the world a {reg11?daughter:son} of a powerful noble.\
  You were afforded a good education and were trained from childhood for the rigors of aristocracy and\
@@ -5161,36 +5159,42 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  that many people would have considered scraps. She taught you how to bargain and also the\
  benefit of good honest labor."),
 
- ("story_childhood_start","As a {reg11?girl:boy} growing out of childhood,\
- you were sent to live in the court of one of the nobles of the land.\
- There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
- But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn about the adult world of conflict\
- and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords."), # hack
- ("story_childhood_page","As a {reg11?girl:boy} growing out of childhood,\
- you were sent to live in the court of one of the nobles of the land.\
- There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
- But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn about the adult world of conflict\
- and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords."),
- ("story_childhood_lady_in_waiting","As a child you served as a lady-in-waiting.\
+ ("story_childhood_start","{reg11?As a child you served as a lady-in-waiting.\
  You were introdced to the tightly-knit circle of women at court, ladies who all did proper ladylike things,\
  the wives and mistresses of noble men as well as maidens who had yet to find a husband.\
  However, even here you found politics at work as the ladies schemed for prominence and fought each other\
  bitterly to catch the eye of whatever unmarried man was in fashion at court.\
  You soon learned ways of turning these situations and goings-on to your advantage. With it came the\
  realisation that you yourself could wield great influence in the world, if only you applied yourself\
- with a little bit of subtlety."),
- ("story_childhood_novice","When you were quite young, it was\
+ with a little bit of subtlety.:As a {reg11?girl:boy} growing out of childhood,\
+ you were sent to live in the court of one of the nobles of the land.\
+ There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
+ But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn about the adult world of conflict\
+ and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords."}), # hack
+ ("story_childhood_page","{reg11?As a child you served as a lady-in-waiting.\
+ You were introdced to the tightly-knit circle of women at court, ladies who all did proper ladylike things,\
+ the wives and mistresses of noble men as well as maidens who had yet to find a husband.\
+ However, even here you found politics at work as the ladies schemed for prominence and fought each other\
+ bitterly to catch the eye of whatever unmarried man was in fashion at court.\
+ You soon learned ways of turning these situations and goings-on to your advantage. With it came the\
+ realisation that you yourself could wield great influence in the world, if only you applied yourself\
+ with a little bit of subtlety.:As a {reg11?girl:boy} growing out of childhood,\
+ you were sent to live in the court of one of the nobles of the land.\
+ There, your first lessons were in humility, as you waited upon the lords and ladies of the household.\
+ But from their chess games, their gossip, even the poetry of great deeds and courtly love, you quickly began to learn about the adult world of conflict\
+ and competition. You also learned from the rough games of the other children, who battered at each other with sticks in imitation of their elders' swords."}),
+ ("story_childhood_novice","{reg11?When you were quite young, it was\
  discovered that you could channel. Your parents decided that it would\
  be best if you received proper training with the Aes Sedai in Tar Valon. You vividly remember the\
- day when you left your former life behind and started down the long road of training and discovery."),
- ("story_childhood_wilder","One day, when you were around fourteen years old,\
+ day when you left your former life behind and started down the long road of training and discovery.:PLACEHOLDER FOR WARDER-IN-TRAINING STORY}"),
+ ("story_childhood_wilder","{reg12?One day, when you were around fourteen years old,\
  you fell through the ice in the village pond. When you came to the surface, to your horror\
  your head hit ice instead of air. You frantically looked for the hole, but the freezing cold\
  started to disorient you. As you ran out of air, you began to panic. Just before you reached you\
  passed out, the ice suddenly broke above you. You surfaced and called for help. The next week was\
  spent recovering. But a lingering sickness set in that finally broke after several intense days.\
  In the months to come, you slowly realized that you had channeled. But, you kept this secret for fear\
- of what your friends and family would think."),
+ of what your friends and family would think.:PLACEHOLDER FOR STUDENT STORY."),
  ("story_childhood_hunter","You spent your childhood in the forests.\
  Admittedly, much of it was just spent adventuring, but you were also expected by your family to bring\
  home something for dinner. You spent many hours tracking and stalking prey, and of course, when the time\
@@ -5204,12 +5208,12 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  you apprenticed with a local craftsman to learn a trade. After years of hard work and study under your\
  new master, he promoted you to journeyman and employed you as a fully paid craftsman for as long as\
  you wished to stay."),
- ("story_childhood_wisdom_assistant","When you were young, the Village Wisdom\
+ ("story_childhood_wisdom_assistant","{reg11?When you were young, the Village Wisdom\
  took you as her apprentice. Your quick memory helped you learn the many herbs used to make remedies.\
  But as you grew into your teens, you learned that the Wisdom's duties went far beyond tending the sick.\
  A Wisdom was also expected to provide other answers such as when to plant crops, or how the weather would\
  be that year. You knew that if you worked hard in your training, you too would grow to be a respected\
- member of your community."),
+ member of your community.:PLACEHOLDER FOR VILLAGE ELDER'S ASSISTANT STORY."),
 
  ("story_adolescent_start","An unexpected death in the family placed the\
  burden of leadership upon your shoulders. You were named the {reg11?lady:lord} of your\
@@ -5225,22 +5229,17 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  make the decision to become a gleeman much simpler. Though you did spend a lot of time on the road,\
  when you made it into town, it was guaranteed that you were the center of attention. A tale or two\
  and then some music or juggling earned you a meal and some silver besides."),
- ("story_adolescent_warder","Battle was in your blood, but you also felt a\
+ ("story_adolescent_warder","{reg11?ACCEPTED STORY PLACEHOLDER.:Battle was in your blood, but you also felt a\
  strong desire to serve a greater purpose. You saw the evil growing in the world and were drawn\
  towards the White Tower, seeing the Aes Sedai as a bastion against the Shadow. You talked to one of\
  the warders and were surprised to learn that if you could keep up, you would be allowed to train with them.\
  The next four years were spent transforming your body into a weapon. During this time you also became aquainted\
- one of the accepted. A year later, when she was raised to full Aes Sedai, you chose to become her warder."),
- ("story_adolescent_accepted","Life as a novice was not easy by any means,\
- but when you became an Accepted, you learned what training really meant. Still, you\
- were allowed some freedoms and were also able to choose more of the topics you studied. You became\
- proficient with many of the weaves taught by the Sisters and also expanded your limits with the One Power.\
- In the front of your mind was the thought that you could do this. One day, you would become an Aes Sedai."),
- ("story_adolescent_wilder","You knew you could channel, but you did everything\
+ one of the accepted. Unfortunately, the Pattern took her life before she could bond you.}"),
+ ("story_adolescent_wilder","{reg12?You knew you could channel, but you did everything\
  in your power to keep that secret. There were many groups in the land who would kill you out of\
  hand for what you could do. However, when you were alone, or when no one would notice, you used your\
  new abilities in ways to help others. Gradually, your skills grew and you became quite adept at weaving\
- the flows..."),
+ the flows...:SCHOLAR STORY PLACEHOLDER}"),
  ("story_adolescent_merchant","You had always been ambitious, and when you\
  told your parents you wanted to be a successful merchant, they weren't surprised.\
  The first items you sold were two chairs and a table that you made yourself. You used the profit\
@@ -5248,10 +5247,10 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  operation grew from a pack on your back to several mules and a wagon. Later, you hired several guards\
  and drivers to help out. You were always quick to catch wind of the profitable sales, and rewarded your\
  partners as well."),
- ("story_adolescent_wisdom","You were too young in the eyes of some, but\
+ ("story_adolescent_wisdom","{reg11?You were too young in the eyes of some, but\
  never the less, when the old wisdom died, she named you as her replacement. The villagers didn't\
  doubt your knowledge of herbs and remedies, but you could tell they were just a little hesitant.\
- You were detemined to prove yourself, and over the years became a respected healer."),
+ You were detemined to prove yourself, and over the years became a respected healer.:COUNCILLER STORY PLACEHOLDER.}"),
  ("story_adolescent_smuggler","Working hard was never something you enjoyed\
  while growing up. Or maybe it was just the burden of playing by the rules. But, you were interested\
  in money, and had a knack for finding out who needed what and what they were willing to pay. Sure you\
@@ -5309,11 +5308,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  were rushing to your aid, but you weren't taking any chances. You gave the marshall your horse, and turned to\
  meet the charging trollocs. The heavy lancers and trollocs clashed just paces in front of you. Seconds more\
  and you would have surely died. After the battle, you were honored for your brave sacrifice."),
- ("story_achievement_rediscovered_lost_weaves","^Early on, you were marked as being a promising channeler.\
+ ("story_achievement_rediscovered_lost_weaves","{reg12?^Early on, you were marked as being a promising channeler.\
  You were diligent in your studies, and never balked at working harder than everyone else. Even so,\
  when you discovered a weave that allowed you to lift yourself, even your teachers were doubtful. Unfortunately,\
  using the weave caused intense headaches for several hours, so you were advised to avoid it's use. You agreed\
- but determined in your mind to continue researching those things which were thought to be impossible."),
+ but determined in your mind to continue researching those things which were thought to be impossible.:^REDISCOVERED LOST KNOWLEDGE STORY PLACEHOLDER.}"),
  ("story_achievement_became_wealthy_merchant","^Due to your ability to predict trade patterns and your superior\
  management of logistics, you became one of the wealthiest merchants in Andor. Not many people knew it,\
  but you were one of the ten wealthiest people in the land. You knew that gold had a voice of it's own, and\
@@ -5326,11 +5325,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  Guards searched for weeks, but eventually gave up. A month later, it was proclaimed that the crown had been found,\
  but you and your friends knew that a replacement had been made. The pleasure of seeing the powers of Illian\
  confounded was worth more that your weight in gold."),
- ("achievement_traveled_to_shayol_ghul","^For reasons that are best kept quiet, you once traveled to\
- the dark slopes of Shayol Ghul. There you had a most interesting experience. Secrets were revealed to you of\
- how the Great Lord was planning to destroy the Light. The Myrddraal there were shown your face and told to be sure\
- their trollocs did not hurt you. Except as punishment for betrayal of course. When you left the lands of the Blight,\
- something about you had changed..."),
+ ("achievement_traveled_to_shayol_ghul","{reg13?FOUNDED SYSTEM OF BELIEFS PLACEHOLDER:BROKERED PEACE AGREEMENT}"),
 
 # Dunde's Character Creation End
 
