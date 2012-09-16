@@ -10,10 +10,6 @@ fi
 
 echo "export_dir = \"$target/\"" > ./module_info.py
 
-# Client only
-#echo "moving module folder to build..."
-#mv ~/.wine/drive_c/Program\ Files\ \(x86\)/Mount\&Blade\ Warband/Modules/The\ Gathering\ Storm/ .
-
 echo "copying resources..."
 
 copydirs=( Data languages Music Resource SceneObj Sounds Textures )
@@ -62,14 +58,10 @@ if [ -f ./module_info.py.bak ] ; then
 	echo "moving old module_info back"
 	mv ./module_info.py.bak ./module_info.py 
 fi
-# Client only
-#mv "$target" "~/.wine/drive_c/Program\ Files\ \(x86\)/Mount\&Blade\ Warband/Modules/"
 rm *.pyc
 echo ''
 echo '______________________________'
 echo ''
 echo 'Script processing has ended.'
-# Client only
-#read -sn 1 -p 'Press any key to exit. . .'
 echo ''
 exit
