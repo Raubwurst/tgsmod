@@ -21621,19 +21621,19 @@ presentations = [
       (create_text_overlay, "$g_presentation_obj_25", "str_long_string", tf_left_align),
       (create_text_overlay, "$g_presentation_obj_26", "str_long_string", tf_left_align),
       (create_text_overlay, "$g_presentation_obj_27", "str_long_string", tf_left_align),
-	  (create_text_overlay, "$g_presentation_obj_28", "str_long_string", tf_left_align),
+      (create_text_overlay, "$g_presentation_obj_28", "str_long_string", tf_left_align),
       (create_text_overlay, "$g_presentation_obj_29", "str_long_string", tf_left_align),			
       (create_text_overlay, "$g_presentation_obj_60", "str_background_label_1", tf_center_justify),
       (create_text_overlay, "$g_presentation_obj_61", "str_background_label_2", tf_left_align),
       (create_slider_overlay, "$g_presentation_obj_31",    0, 100), # Gender        : Male/Female
       (create_slider_overlay, "$g_presentation_obj_32",    0, 100), # Channelling	: Born with the Spark/Able to Learn
-      (create_slider_overlay, "$g_presentation_obj_33",  100, 400), # Affiliation	: Far East, Far West, North, South-East, South-West
-      (create_slider_overlay, "$g_presentation_obj_34",  100,2400), # Nationality	: ...
-      (create_slider_overlay, "$g_presentation_obj_35",  100, 800), # Mother		: ...
-      (create_slider_overlay, "$g_presentation_obj_36",  100, 800), # Father		: ...
-      (create_slider_overlay, "$g_presentation_obj_37",  100, 700), # Childhood		: ...
-      (create_slider_overlay, "$g_presentation_obj_38",  100, 900), # Adolescence	: ...
-      (create_slider_overlay, "$g_presentation_obj_39",  100,1000), # Achievement	: ...
+      (create_slider_overlay, "$g_presentation_obj_33",  0, 300), # Affiliation	: Far East, Far West, North, South-East, South-West (-100)
+      (create_slider_overlay, "$g_presentation_obj_34",  0,2300), # Nationality	: ...
+      (create_slider_overlay, "$g_presentation_obj_35",  0, 700), # Mother		: ...
+      (create_slider_overlay, "$g_presentation_obj_36",  0, 700), # Father		: ...
+      (create_slider_overlay, "$g_presentation_obj_37",  0, 600), # Childhood		: ...
+      (create_slider_overlay, "$g_presentation_obj_38",  0, 800), # Adolescence	: ...
+      (create_slider_overlay, "$g_presentation_obj_39",  0,900), # Achievement	: ... ( end -100)
       (create_game_button_overlay, "$g_presentation_obj_51", "str_cancel", tf_center_justify),        
       (create_game_button_overlay, "$g_presentation_obj_52", "str_continue", tf_center_justify),
       (create_game_button_overlay, "$g_presentation_obj_53", "str_random", tf_center_justify),        
@@ -21691,7 +21691,7 @@ presentations = [
       (overlay_set_val, "$g_presentation_obj_35", reg15),
       (overlay_set_val, "$g_presentation_obj_36", reg16),
       (overlay_set_val, "$g_presentation_obj_37", reg17),
-	  (overlay_set_val, "$g_presentation_obj_38", reg18),
+      (overlay_set_val, "$g_presentation_obj_38", reg18),
       (overlay_set_val, "$g_presentation_obj_39", reg19),			
       (call_script, "script_update_strings"), ]),
     (ti_on_presentation_event_state_change,
