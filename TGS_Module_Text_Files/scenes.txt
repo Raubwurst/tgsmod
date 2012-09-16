@@ -1,5 +1,5 @@
 scenesfile version 1
- 817
+ 819
 scn_random_scene random_scene 1792 none none 0.000000 0.000000 240.000000 240.000000 -0.500000 0x300028000003e8fa0000034e00004b34000059be 
   0 
   0 
@@ -3096,6 +3096,10 @@ scn_multi_taien multi_taien 256 none none 0.000000 0.000000 100.000000 100.00000
   0 
   0 
  outer_terrain_desert 
+scn_multi_al_thor_farm multi_al_thor_farm 256 none none 0.000000 0.000000 100.000000 100.000000 -100.000000 0x000000003004d69d0003a0e7000069f90000001200003be9 
+  0 
+  0 
+ outer_terrain_plain 
 scn_multiplayer_maps_end multiplayer_maps_end 256 none none 0.000000 0.000000 100.000000 100.000000 -100.000000 0x00000001300389800003a4ea000058340000637a0000399b 
   0 
   0 
@@ -3268,3 +3272,7 @@ scn_shienaran_border_tower_1 shienaran_border_tower_1 256 none none 0.000000 0.0
   0 
   0 
  outer_terrain_snow 
+scn_al_thor_farm al_thor_farm 256 none none 0.000000 0.000000 100.000000 100.000000 -100.000000 0x000000003004d69d0003a0e7000069f90000001200003be9 
+  0 
+  0 
+ outer_terrain_plain 

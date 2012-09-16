@@ -6841,6 +6841,12 @@ troops = [
 
 ## TGS Timeline Event Troop Instances Begin ##
 
+# Event Quest Giver
+  ["timeline_event_quest_giver","The Pattern","Pattern",tf_guarantee_armor,no_scene,reserved,fac_commoners,
+   [itm_cleaver,itm_knife,itm_pitch_fork,itm_sickle,itm_club,itm_stones,itm_leather_cap,itm_felt_hat,itm_felt_hat,itm_linen_tunic,itm_coarse_tunic,itm_nomad_boots,itm_wrapping_boots],
+   def_attrib|level(4),wp(60),knows_common,man_face_middle_1, man_face_old_2],
+
+# Al' Thor Farm Event
     ["tam_al_thor_book_1","Tam al'Thor","Tam",tf_hero|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_3,
    [itm_two_rivers_long_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_large_heron_mark_blade, itm_ragged_outfit, itm_leather_gloves, itm_leather_boots],
    knight_attrib_4,wp_archery(320)|wp_two_handed(300)|wp(250),knight_skills_4|knows_trainer_4, 0x0000000ebf04614436d39596a4924aed00000000001dab1a0000000000000000],
@@ -6849,6 +6855,9 @@ troops = [
    [itm_two_rivers_long_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_red_arm_club, itm_ragged_outfit, itm_leather_gloves, itm_leather_boots],
    knight_attrib_3,wp_archery(300)|wp_one_handed(150)|wp(100),knight_skills_3|knows_trainer_3, 0x000000000b042004492371a51c71b8e400000000001dc6e40000000000000000],
 
+  ["narg","Narg","Narg",tf_trolloc|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_24,
+   [itm_military_cleaver_b,itm_trolloc_wolf_helmet, itm_trolloc_normal_armor, itm_black_mail_gauntlets, itm_black_leather_boots],
+    def_attrib_wot_super_infantry_3 ,wp_one_handed(145)|wp(110),knows_wot_super_infantry_3,man_face_young_1, man_face_old_2],
 
 
 

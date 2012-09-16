@@ -21046,41 +21046,183 @@ They give you directions to the nearest town and you take your leave.",
    "none",
    [],
     [
-        # Al'Thor Farm
-		("al_thor_farm_normal_visit",[(eq, "$g_encountered_party", "p_al_thor_farm"), (neg|check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),],"Take a look around...",
+
+# Al'Thor Farm Event
+		("al_thor_farm_normal_visit",[
+                                        (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                        (neg|check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                    ],"Nobody's home. Leave...",
 			[
                 #(set_jump_mission, "mt_border_tower_battle"),
                 #(jump_to_scene, "scn_al_thor_farm"),
+                (change_screen_map),
 			]
 		),
 
-		("al_thor_farm_event_visit_night",[(eq, "$g_encountered_party", "p_al_thor_farm"), (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"), (is_currently_night),],"You hear some suspicious noises in the forest. Investigate further...",
-			[
-                # set visitors
-                (modify_visitors_at_site,"scn_al_thor_farm"),
-                (reset_visitors),
-
-                (set_visitor, 1, "trp_tam_al_thor_book_1"),
-                (set_visitor, 1, "trp_rand_al_thor_book_1"),
-
-                (set_visitors, 2, "trp_trolloc_grunt", 3),
-                (set_visitor, 2, "trp_trolloc_hewer", 1),
-
-                # set mission and scene
-                (set_jump_mission, "mt_timeline_event_not_alarmed"),
-                (jump_to_scene, "scn_al_thor_farm"),
-                (change_screen_mission),
-			]
-		),
-
-		("al_thor_farm_event_visit_day",[(eq, "$g_encountered_party", "p_al_thor_farm"), (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"), (neg|is_currently_night),],"Nothing seems to be happening. Wait until nightfall...",
+		("al_thor_farm_event_visit_day",[
+                                            (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                            (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                            (neg|is_currently_night),
+                                        ],"Nothing seems to be happening. Wait until nightfall...",
 			[
                 (change_screen_map)
 			]
 		),
 
-        # generic leave
-		("timeline_event_location_leave",[],"Leave...",
+		("al_thor_farm_event_visit_night_protagonist",[
+                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                                    (is_currently_night),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, -1),
+                                                ],"You hear some suspicious noises in the forest. Investigate further...",
+			[
+
+                # set team
+                (troop_set_slot, "trp_player", slot_troop_timeline_aid_protagonists, 1), # Help Rand and Tam
+
+                # set visitors
+                (modify_visitors_at_site,"scn_al_thor_farm"),
+                (reset_visitors),
+
+                (set_visitor, 1, "trp_tam_al_thor_book_1"),
+                (set_visitor, 2, "trp_rand_al_thor_book_1"),
+
+                (set_visitors, 6, "trp_trolloc_grunt", 2),
+                (set_visitor, 7, "trp_narg", 1),
+                (set_visitors, 8, "trp_trolloc_grunt", 2),
+                (set_visitor, 8, "trp_trolloc_hewer"),
+
+                # set mission and scene
+                (set_jump_mission, "mt_timeline_event_1"),
+                (jump_to_scene, "scn_al_thor_farm", 0),
+                (change_screen_mission),
+			]
+		),
+
+		("al_thor_farm_event_visit_night_antagonist",[
+                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                                    (is_currently_night),
+                                                ],"It looks like the Great Lord's plan has begun...get al'Thor!",
+			[
+
+                # set team
+                (troop_set_slot, "trp_player", slot_troop_timeline_aid_protagonists, 0), # Help the Shadowspawn
+
+                # set visitors
+                (modify_visitors_at_site,"scn_al_thor_farm"),
+                (reset_visitors),
+
+                (set_visitor, 1, "trp_tam_al_thor_book_1"),
+                (set_visitor, 2, "trp_rand_al_thor_book_1"),
+
+                (set_visitors, 6, "trp_trolloc_grunt", 2),
+                (set_visitor, 7, "trp_narg", 1),
+                #(set_visitors, 8, "trp_trolloc_grunt", 2),
+                #(set_visitor, 8, "trp_trolloc_hewer"),
+
+                # set mission and scene
+                (set_jump_mission, "mt_timeline_event_1"),
+                (jump_to_scene, "scn_al_thor_farm", 0),
+                (change_screen_mission),
+			]
+		),
+
+		("al_thor_farm_event_results_0",[
+                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                                    (is_currently_night),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 0),
+                                                ],"After fighting for a while, you lose heart and retreat...",
+			[
+
+                (fail_quest, "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
+                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
+                # Reward - None
+                (change_screen_map),
+			]
+		),
+
+		("al_thor_farm_event_results_1_protagonist",[
+                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                                    (is_currently_night),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 1),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                                                ],"You have saved Master al'Thor and his son Rand! The Light be praised!",
+			[
+
+                (succeed_quest, "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
+                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
+                # Reward Protagonist Full
+                (change_screen_map),
+			]
+		),
+
+		("al_thor_farm_event_results_2_protagonist",[
+                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                                    (is_currently_night),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 2),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                                                ],"You were knocked out, but it seems your intervention allowed Rand and Tam to escape...",
+			[
+
+                (succeed_quest, "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
+                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
+                # Reward Protagonist Half
+                (change_screen_map),
+			]
+		),
+
+		("al_thor_farm_event_results_1_antagonist",[
+                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                                    (is_currently_night),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 1),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 0),
+                                                ],"You had them! Then the bloody Myrddraal called you back before you could secure them!",
+			[
+
+                (succeed_quest, "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
+                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
+                # Reward Antagonist Full
+                (change_screen_map),
+			]
+		),
+
+		("al_thor_farm_event_results_2_antagonist",[
+                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                                    (is_currently_night),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 2),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 0),
+                                                ],"You were knocked out, but the Dark One noticed your good effort...",
+			[
+
+                (succeed_quest, "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
+                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
+                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
+                # Reward Antagonist Half
+                (change_screen_map),
+			]
+		),
+
+# Emonds Field Event
+
+
+
+# generic leave
+		("timeline_event_location_leave",[(troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, -1),],"Leave...",
 			[
 				(change_screen_map)
 			]

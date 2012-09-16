@@ -1692,6 +1692,8 @@ slot_troop_has_toman_head_training      = 3228  ## (0 = false, 1 = true)
 ## Timeline slot - stored within trp_player
 slot_troop_timeline_current_state       = 3300      # tells which event is active
 slot_troop_timeline_duration_countdown  = 3301      # tells how many game hours remain before the event will 'expire'
+slot_troop_timeline_aid_protagonists    = 3302      # (0 = false, 1 = true)
+slot_troop_timeline_event_successful    = 3303      # (0 = retreated, 1 = killed all enemies, 2 = were knocked out)
 
 
 #######################

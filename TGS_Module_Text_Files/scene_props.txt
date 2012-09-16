@@ -1,5 +1,5 @@
 scene_propsfile version 1
- 1860
+ 1870
 spr_invalid_object 0 0 question_mark 0 0
 
 
@@ -3712,6 +3712,36 @@ spr_TGS_waypoint_9 16384 0 barrier_capsule 0 0
 
 
 spr_TGS_waypoint_10 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_1 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_2 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_3 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_4 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_5 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_6 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_7 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_8 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_9 16384 0 barrier_capsule 0 0
+
+
+spr_TGS_timeline_waypoint_10 16384 0 barrier_capsule 0 0
 
 
 spr_a_acantilado-05 0 0 acantilado-05 co_acantilado-05 0

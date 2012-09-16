@@ -2494,6 +2494,10 @@ common_battle_tab_press = (
     (try_begin),
       (eq, "$g_battle_won", 1),
       (call_script, "script_count_mission_casualties_from_agents"),
+      ## TGS
+      (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 1),
+      (call_script, "script_tgs_timeline_event_location_name"),
+      ## TGS
       (finish_mission,0),
 	#PBOD - Battle Continuation
 	(else_try),
@@ -2504,6 +2508,10 @@ common_battle_tab_press = (
       (call_script, "script_simulate_retreat", 5, 20, 0),
       (call_script, "script_count_mission_casualties_from_agents"),
       (set_mission_result, -1),
+      ## TGS
+      (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 2),
+      (call_script, "script_tgs_timeline_event_location_name"),
+      ## TGS
       (finish_mission,0),
 	#PBOD - Battle Continuation END
     (else_try),
@@ -3364,6 +3372,24 @@ common_wot_server_update_client_seeker_global_variables_multi = (
         (try_end),
      ])
 
+## Initialize: Timeline Event change side for antagonists
+common_wot_initialize_timeline_event_change_side_for_antagonists = (
+    0, 0, ti_once, [(troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 0)],
+        [
+            (try_for_agents, ":agent"),
+                (neg|agent_is_non_player, ":agent"),
+                    (assign, ":player_agent", ":agent"),
+            (try_end),
+
+            (agent_get_team, ":player_team", ":player_agent"),
+            (val_add, ":player_team", 1),
+
+            (try_for_agents, ":agent"),
+                (agent_get_party_id, ":party_id", ":agent"),
+                (eq, ":party_id", "p_main_party"),
+                    (agent_set_team, ":agent", ":player_team"),
+            (try_end),
+        ])
 
 ## Timer triggers
 common_wot_timer_trigger_one_second = (
@@ -27046,160 +27072,125 @@ mission_templates = [
 
     ### Border Tower Battles End
 
+##################################################################################################################################################################
+############################################################### Timeline Event Templates Begin ###################################################################
 
-## Timeline Event Templates Begin ##
-
-# start not alarmed
+# Protagonist Version
+# Player Only
   (
-    "timeline_event_not_alarmed",0,-1,
-    "timeline event not alarmed",
+    "timeline_event_1",0,-1,
+    "timeline event 1",
     [
-        (0,mtef_scene_source|mtef_team_0,0,aif_start_alarmed,1,[]),
-        (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,2,[]),
-        (2,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,4,[]),
+
+## Starting Event 'Alarmed' ##
+        (0,mtef_team_0|mtef_use_exact_number,0,aif_start_alarmed,1,[]),    # player alone
+        # NPC entry points
+        # Antagonist side
+        (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (2,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (3,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (4,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (5,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        # Protagonist side
+        (6,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (7,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (8,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (9,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (10,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+
+## Starting Event 'Not Alarmed' ##
+
     ],
     [
-      (1, 0, ti_once, [], [
-          (store_current_scene, ":cur_scene"),
-          (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
-#          (call_script, "script_init_town_walker_agents"),
-          (call_script, "script_music_set_situation_with_culture", mtf_sit_travel),
-        ]),
-#      (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
-      (ti_inventory_key_pressed, 0, 0, [(set_trigger_result,1)], []),
-#      (ti_tab_pressed, 0, 0, [(try_begin),
-#                                (check_quest_active, "qst_hunt_down_fugitive"),
-#                                (neg|check_quest_succeeded, "qst_hunt_down_fugitive"),
-#                                (neg|check_quest_failed, "qst_hunt_down_fugitive"),
-#                                (quest_slot_eq, "qst_hunt_down_fugitive", slot_quest_current_state, 1),
-#                                (try_begin),
-#                                  (call_script, "script_cf_troop_agent_is_alive", "trp_fugitive"),
-#                                  (call_script, "script_fail_quest", "qst_hunt_down_fugitive"),
-#                                (else_try),
-#                                  (call_script, "script_succeed_quest", "qst_hunt_down_fugitive"),
-#                                (try_end),
-#                              (try_end),
-#                              (set_trigger_result,1)], []),
-      (ti_on_leave_area, 0, 0, [
-          (try_begin),
-            (assign,"$g_leave_town",1),
-          (try_end),
-          ], []),
-#      (3, 0, 0, [(call_script, "script_tick_town_walkers")], []),
-      (2, 0, 0, [(call_script, "script_center_ambiance_sounds")], []),
-
-#      (1, 0, ti_once, [(check_quest_active, "qst_hunt_down_fugitive"),
-#                       (neg|check_quest_succeeded, "qst_hunt_down_fugitive"),
-#                       (neg|check_quest_failed, "qst_hunt_down_fugitive"),
-#                       (quest_slot_eq, "qst_hunt_down_fugitive", slot_quest_current_state, 1),
-#                       (assign, ":not_alive", 0),
-#                       (try_begin),
-#                         (call_script, "script_cf_troop_agent_is_alive", "trp_fugitive"),
-#                       (else_try),
-#                         (assign, ":not_alive", 1),
-#                       (try_end),
-#                       (this_or_next|main_hero_fallen),
-#                       (eq, ":not_alive", 1),
-#                       ],
-#       [(try_begin),
-#          (main_hero_fallen),
-#          (jump_to_menu, "mnu_village_hunt_down_fugitive_defeated"),
-#          (call_script, "script_fail_quest", "qst_hunt_down_fugitive"),
-#          (finish_mission, 4),
-#        (else_try),
-#          (call_script, "script_change_player_relation_with_center", "$current_town", -2),
-#          (call_script, "script_succeed_quest", "qst_hunt_down_fugitive"),
-#        (try_end),
-#        ]),
-
-      (1, 0, ti_once, [(eq, 1, 2),],
-       [
-
-            (store_current_scene, ":cur_scene"),
-
-            (try_begin),
-            (eq, ":cur_scene", "scn_al_thor_farm"),
-
-                # spawn tam and rand
-                (scene_prop_get_instance, ":instance", "spr_TGS_timeline_waypoint_1", 0),
-                (prop_instance_get_position, pos1, ":instance"),
-                (set_spawn_position, pos1),
-                (spawn_agent, "trp_tam_al_thor_book_1"), # reg0 = agent_id
-                (agent_set_team, reg0, 0),
-                (agent_set_is_alarmed, reg0, 1),
-
-                (scene_prop_get_instance, ":instance", "spr_TGS_timeline_waypoint_2", 0),
-                (prop_instance_get_position, pos1, ":instance"),
-                (set_spawn_position, pos1),
-                (spawn_agent, "trp_rand_al_thor_book_1"), # reg0 = agent_id
-                (agent_set_team, reg0, 0),
-                (agent_set_is_alarmed, reg0, 1),
-
-                # spawn trolloc group 1
-                (scene_prop_get_instance, ":instance", "spr_TGS_timeline_waypoint_6", 0),
-                (prop_instance_get_position, pos1, ":instance"),
-                (try_for_range, ":unused", 1, 4),
-                    (position_move_x, pos1, 50, 0),
-                    (set_spawn_position, pos1),
-                    (spawn_agent, "trp_trolloc_grunt"), # reg0 = agent_id
-                    (agent_set_team, reg0, 1),
-                    (agent_set_is_alarmed, reg0, 1),
-                (try_end),
-                (try_for_range, ":unused", 1, 2),
-                    (position_move_x, pos1, 50, 0),
-                    (set_spawn_position, pos1),
-                    (spawn_agent, "trp_trolloc_hewer"), # reg0 = agent_id
-                    (agent_set_team, reg0, 1),
-                    (agent_set_is_alarmed, reg0, 1),
-                (try_end),
-
-            (try_end),
-
-        ]),
-
-
-#      (ti_on_agent_killed_or_wounded, 0, 0, [],
-#       [
-#        (store_trigger_param_1, ":dead_agent_no"),
-#        (store_trigger_param_2, ":killer_agent_no"),
-#        (store_trigger_param_3, ":is_wounded"),
-
-#        (try_begin),
-#          (ge, ":dead_agent_no", 0),
-#          (neg|agent_is_ally, ":dead_agent_no"),
-#          (agent_is_human, ":dead_agent_no"),
-#          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-##          (str_store_troop_name, s6, ":dead_agent_troop_id"),
-##          (assign, reg0, ":dead_agent_no"),
-##          (assign, reg1, ":killer_agent_no"),
-##          (assign, reg2, ":is_wounded"),
-##          (agent_get_team, reg3, ":dead_agent_no"),
-#          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
-#          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-#          (eq, ":is_wounded", 1),
-#          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-#        (try_end),
-
-#        (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
-#       ]),
 
       common_battle_tab_press,
 
-#      (ti_question_answered, 0, 0, [],
-#       [(store_trigger_param_1,":answer"),
-#        (eq,":answer",0),
-#        (assign, "$pin_player_fallen", 0),
-#        (try_begin),
-#          (store_mission_timer_a, ":elapsed_time"),
-#          (gt, ":elapsed_time", 20),
-#          (str_store_string, s5, "str_retreat"),
-#          (call_script, "script_simulate_retreat", 10, 20, 1),
-#        (try_end),
-#        (call_script, "script_count_mission_casualties_from_agents"),
-#        (finish_mission,0),]),
+      (ti_question_answered, 0, 0, [],
+       [(store_trigger_param_1,":answer"),
+        (eq,":answer",0),
+        (assign, "$pin_player_fallen", 0),
+        (str_store_string, s5, "str_retreat"),
+        (call_script, "script_simulate_retreat", 10, 20, 1),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        ## TGS
+        (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 0),
+        (call_script, "script_tgs_timeline_event_location_name"),
+        ## TGS
+        (finish_mission,0),]),
 
+      common_music_situation_update,
 
+      (1, 60, ti_once,
+       [
+         (store_mission_timer_a,reg(1)),
+         (ge,reg(1),10),
+         (all_enemies_defeated, 5),
+         (neg|main_hero_fallen, 0),
+         (set_mission_result,1),
+         (display_message,"str_msg_battle_won"),
+         (assign,"$g_battle_won",1),
+         (assign, "$g_battle_result", 1),
+         (try_begin),
+           (eq, "$g_village_raid_evil", 0),
+           (call_script, "script_play_victorious_sound"),
+         (else_try),
+           (play_track, "track_victorious_evil", 1),
+         (try_end),
+         ],
+       [
+         (call_script, "script_count_mission_casualties_from_agents"),
+         ## TGS
+         (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 1),
+         (call_script, "script_tgs_timeline_event_location_name"),
+         ## TGS
+         (finish_mission, 1),
+         ]),
 
+      common_battle_victory_display,
+
+      (1, 4, 0, [(main_hero_fallen)], #PBOD was ti_once
+          [
+		    (assign, "$pin_player_fallen", 1),
+		  ##PBOD - Battle Continuation
+			(try_begin),
+			  (party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
+			  (assign, ":num_allies", 0),
+			  (try_for_agents, ":agent"),
+                 (agent_is_ally, ":agent"),
+                 (agent_is_alive, ":agent"),
+                 (val_add, ":num_allies", 1),
+              (try_end),
+			  (gt, ":num_allies", 0),
+			  (try_begin),
+				  (neq, "$cam_free", 1),
+				  (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
+				  (assign, "$cam_free", 1),
+				  (assign, "$cam_mode", 2),
+				  (call_script, "script_cust_cam_cycle_forwards"), #So, on Follow, it doesn't begin with the player's dead body
+				  (mission_cam_set_mode, 1),
+				  (party_slot_eq, "p_main_party", slot_party_pref_bc_charge_ko, 1), #PBOD "Charge on KO" Active
+				  (set_show_messages, 0),
+				  (team_give_order, "$fplayer_team_no", grc_everyone, mordr_charge),
+				  (set_show_messages, 1),
+			  (try_end),
+			(else_try),
+            ##PBOD - Battle Continuation
+              (str_store_string, s5, "str_retreat"),
+              (call_script, "script_simulate_retreat", 10, 20, 1),
+              (assign, "$g_battle_result", -1),
+              (set_mission_result,-1),
+              (call_script, "script_count_mission_casualties_from_agents"),
+              ## TGS
+              (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 2),
+              (call_script, "script_tgs_timeline_event_location_name"),
+              ## TGS
+              (finish_mission,0),
+			(try_end)]),
+
+      common_battle_inventory,
+
+      #TGS
+      common_wot_initialize_timeline_event_change_side_for_antagonists,
 
       #################################################################
       ###### TGS triggers
@@ -27326,14 +27317,533 @@ mission_templates = [
       ###### end TGS triggers
       #########################################################################
 
-##################################################
-##### troop_ratio_bar
-##################################################
+      common_battle_order_panel,
+
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
       (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
 #      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
-##################################################
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      common_battle_order_panel_tick,
 
-    ] + common_pbod_triggers + bodyguard_triggers + caba_order_triggers + custom_camera_triggers,
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
+  ),
+
+
+# Player Plus 5
+  (
+    "timeline_event_5",0,-1,
+    "timeline event 5",
+    [
+
+## Starting Event 'Alarmed' ##
+        (0,mtef_team_0|mtef_use_exact_number,0,aif_start_alarmed,6,[]),    # player plus 5
+        # NPC entry points
+        # Antagonist side
+        (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (2,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (3,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (4,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (5,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        # Protagonist side
+        (6,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (7,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (8,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (9,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (10,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+
+## Starting Event 'Not Alarmed' ##
+
+    ],
+    [
+
+      common_battle_tab_press,
+
+      (ti_question_answered, 0, 0, [],
+       [(store_trigger_param_1,":answer"),
+        (eq,":answer",0),
+        (assign, "$pin_player_fallen", 0),
+        (str_store_string, s5, "str_retreat"),
+        (call_script, "script_simulate_retreat", 10, 20, 1),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        ## TGS
+        (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 0),
+        (call_script, "script_tgs_timeline_event_location_name"),
+        ## TGS
+        (finish_mission,0),]),
+
+      common_music_situation_update,
+
+      (1, 60, ti_once,
+       [
+         (store_mission_timer_a,reg(1)),
+         (ge,reg(1),10),
+         (all_enemies_defeated, 5),
+         (neg|main_hero_fallen, 0),
+         (set_mission_result,1),
+         (display_message,"str_msg_battle_won"),
+         (assign,"$g_battle_won",1),
+         (assign, "$g_battle_result", 1),
+         (try_begin),
+           (eq, "$g_village_raid_evil", 0),
+           (call_script, "script_play_victorious_sound"),
+         (else_try),
+           (play_track, "track_victorious_evil", 1),
+         (try_end),
+         ],
+       [
+         (call_script, "script_count_mission_casualties_from_agents"),
+         ## TGS
+         (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 1),
+         (call_script, "script_tgs_timeline_event_location_name"),
+         ## TGS
+         (finish_mission, 1),
+         ]),
+
+      common_battle_victory_display,
+
+      (1, 4, 0, [(main_hero_fallen)], #PBOD was ti_once
+          [
+		    (assign, "$pin_player_fallen", 1),
+		  ##PBOD - Battle Continuation
+			(try_begin),
+			  (party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
+			  (assign, ":num_allies", 0),
+			  (try_for_agents, ":agent"),
+                 (agent_is_ally, ":agent"),
+                 (agent_is_alive, ":agent"),
+                 (val_add, ":num_allies", 1),
+              (try_end),
+			  (gt, ":num_allies", 0),
+			  (try_begin),
+				  (neq, "$cam_free", 1),
+				  (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
+				  (assign, "$cam_free", 1),
+				  (assign, "$cam_mode", 2),
+				  (call_script, "script_cust_cam_cycle_forwards"), #So, on Follow, it doesn't begin with the player's dead body
+				  (mission_cam_set_mode, 1),
+				  (party_slot_eq, "p_main_party", slot_party_pref_bc_charge_ko, 1), #PBOD "Charge on KO" Active
+				  (set_show_messages, 0),
+				  (team_give_order, "$fplayer_team_no", grc_everyone, mordr_charge),
+				  (set_show_messages, 1),
+			  (try_end),
+			(else_try),
+            ##PBOD - Battle Continuation
+              (str_store_string, s5, "str_retreat"),
+              (call_script, "script_simulate_retreat", 10, 20, 1),
+              (assign, "$g_battle_result", -1),
+              (set_mission_result,-1),
+              (call_script, "script_count_mission_casualties_from_agents"),
+              ## TGS
+              (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 2),
+              (call_script, "script_tgs_timeline_event_location_name"),
+              ## TGS
+              (finish_mission,0),
+			(try_end)]),
+
+      common_battle_inventory,
+
+      #TGS
+      common_wot_initialize_timeline_event_change_side_for_antagonists,
+
+      #################################################################
+      ###### TGS triggers
+      #################################################################
+
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
+
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
+
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      #common_wot_check_for_channelers_in_the_scene,
+      common_wot_initialize_channeling_slots_on_agent_spawn_1,
+      common_wot_spawn_warders,
+      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
+
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      #common_wot_airborne_trigger,
+      # end
+
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+
+      # pick one balefire trigger (2 for custom battle)
+      #common_wot_balefire_trigger_1,
+      common_wot_balefire_trigger_2,
+      # end
+
+      common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
+
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+
+
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
+      # end
+
+      #########################################################################
+      ###### end TGS triggers
+      #########################################################################
+
+      common_battle_order_panel,
+
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      common_battle_order_panel_tick,
+
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
+  ),
+
+
+# Player Plus 20
+  (
+    "timeline_event_20",0,-1,
+    "timeline event 20",
+    [
+
+## Starting Event 'Alarmed' ##
+        (0,mtef_team_0|mtef_use_exact_number,0,aif_start_alarmed,21,[]),    # player plus 20
+        # NPC entry points
+        # Antagonist side
+        (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (2,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (3,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (4,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (5,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        # Protagonist side
+        (6,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (7,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (8,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (9,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (10,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+
+## Starting Event 'Not Alarmed' ##
+
+    ],
+    [
+
+      common_battle_tab_press,
+
+      (ti_question_answered, 0, 0, [],
+       [(store_trigger_param_1,":answer"),
+        (eq,":answer",0),
+        (assign, "$pin_player_fallen", 0),
+        (str_store_string, s5, "str_retreat"),
+        (call_script, "script_simulate_retreat", 10, 20, 1),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        ## TGS
+        (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 0),
+        (call_script, "script_tgs_timeline_event_location_name"),
+        ## TGS
+        (finish_mission,0),]),
+
+      common_music_situation_update,
+
+      (1, 60, ti_once,
+       [
+         (store_mission_timer_a,reg(1)),
+         (ge,reg(1),10),
+         (all_enemies_defeated, 5),
+         (neg|main_hero_fallen, 0),
+         (set_mission_result,1),
+         (display_message,"str_msg_battle_won"),
+         (assign,"$g_battle_won",1),
+         (assign, "$g_battle_result", 1),
+         (try_begin),
+           (eq, "$g_village_raid_evil", 0),
+           (call_script, "script_play_victorious_sound"),
+         (else_try),
+           (play_track, "track_victorious_evil", 1),
+         (try_end),
+         ],
+       [
+         (call_script, "script_count_mission_casualties_from_agents"),
+         ## TGS
+         (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 1),
+         (call_script, "script_tgs_timeline_event_location_name"),
+         ## TGS
+         (finish_mission, 1),
+         ]),
+
+      common_battle_victory_display,
+
+      (1, 4, 0, [(main_hero_fallen)], #PBOD was ti_once
+          [
+		    (assign, "$pin_player_fallen", 1),
+		  ##PBOD - Battle Continuation
+			(try_begin),
+			  (party_slot_eq, "p_main_party", slot_party_pref_bc_continue, 1), #PBOD Battle Continuation Active
+			  (assign, ":num_allies", 0),
+			  (try_for_agents, ":agent"),
+                 (agent_is_ally, ":agent"),
+                 (agent_is_alive, ":agent"),
+                 (val_add, ":num_allies", 1),
+              (try_end),
+			  (gt, ":num_allies", 0),
+			  (try_begin),
+				  (neq, "$cam_free", 1),
+				  (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
+				  (assign, "$cam_free", 1),
+				  (assign, "$cam_mode", 2),
+				  (call_script, "script_cust_cam_cycle_forwards"), #So, on Follow, it doesn't begin with the player's dead body
+				  (mission_cam_set_mode, 1),
+				  (party_slot_eq, "p_main_party", slot_party_pref_bc_charge_ko, 1), #PBOD "Charge on KO" Active
+				  (set_show_messages, 0),
+				  (team_give_order, "$fplayer_team_no", grc_everyone, mordr_charge),
+				  (set_show_messages, 1),
+			  (try_end),
+			(else_try),
+            ##PBOD - Battle Continuation
+              (str_store_string, s5, "str_retreat"),
+              (call_script, "script_simulate_retreat", 10, 20, 1),
+              (assign, "$g_battle_result", -1),
+              (set_mission_result,-1),
+              (call_script, "script_count_mission_casualties_from_agents"),
+              ## TGS
+              (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 2),
+              (call_script, "script_tgs_timeline_event_location_name"),
+              ## TGS
+              (finish_mission,0),
+			(try_end)]),
+
+      common_battle_inventory,
+
+      #TGS
+      common_wot_initialize_timeline_event_change_side_for_antagonists,
+
+      #################################################################
+      ###### TGS triggers
+      #################################################################
+
+      common_wot_pre_initialization_variable_assignment,
+      common_wot_initialize_general_player_channeling_variables,
+      common_wot_initialize_timers,
+
+      # pick one initialize weave_trigger (2 for custom battle)
+      common_wot_initialize_channeling_weave_variables_1,
+      #common_wot_initialize_channeling_weave_variables_2,
+      # end
+
+      common_wot_timer_trigger_one_second,
+      common_wot_timer_trigger_one_tenth_second,
+      common_wot_timer_trigger_one_hundredth_second,
+      common_wot_timer_trigger_one_thousandth,
+      #common_wot_check_for_channelers_in_the_scene,
+      common_wot_initialize_channeling_slots_on_agent_spawn_1,
+      common_wot_spawn_warders,
+      #common_wot_dismount_spawned_warders_in_sieges,
+      common_wot_recharge_channeling_stamina_trigger,
+      common_wot_re_add_one_power_item_to_inventory,
+      common_wot_cycle_through_known_weaves,
+      common_wot_inventory_click_to_refill_channeling_ammo,
+      common_wot_reset_troop_ratio_bar,
+      common_wot_reset_troop_ratio_bar_additional,
+
+      # only use airborne if you are not in an enclosed area (caused crashing sometimes)
+      #common_wot_airborne_trigger,
+      # end
+
+      common_wot_bound_trigger,
+      common_wot_warder_follow_bond_holder,
+      common_wot_leader_warder_determines_movement_of_group,
+      common_wot_incapacitated_warders_trigger,
+      common_wot_non_linked_suldam_trigger,
+      common_suldam_with_dead_damane_trigger,
+      common_wot_nearby_myrddraal_trigger,
+      common_wot_myrddraal_fear_trigger,
+      common_wot_draghkar_hunt_trigger,
+      common_wot_draghkar_kiss_of_death_trigger,
+      common_wot_shielded_trigger,
+      common_wot_compulsion_trigger,
+
+      # pick one balefire trigger (2 for custom battle)
+      #common_wot_balefire_trigger_1,
+      common_wot_balefire_trigger_2,
+      # end
+
+      common_wot_burn_over_time_trigger,
+      common_wot_electrical_charge_trigger,
+      common_wot_freeze_over_time_trigger,
+
+      # keep all seeker triggers active
+      common_wot_seeker_trigger_1,
+      common_wot_seeker_trigger_2,
+      common_wot_seeker_trigger_3,
+      common_wot_seeker_trigger_4,
+      common_wot_seeker_trigger_5,
+      common_wot_seeker_trigger_6,
+      common_wot_seeker_trigger_7,
+      common_wot_seeker_trigger_8,
+      common_wot_seeker_trigger_9,
+      common_wot_seeker_trigger_10,
+      common_wot_seeker_trigger_11,
+      common_wot_seeker_trigger_12,
+      common_wot_seeker_trigger_13,
+      common_wot_seeker_trigger_14,
+      common_wot_seeker_trigger_15,
+      common_wot_seeker_trigger_16,
+      common_wot_seeker_trigger_17,
+      common_wot_seeker_trigger_18,
+      common_wot_seeker_trigger_19,
+      common_wot_seeker_trigger_20,
+      common_wot_seeker_trigger_21,
+      common_wot_seeker_trigger_22,
+      common_wot_seeker_trigger_23,
+      common_wot_seeker_trigger_24,
+      common_wot_seeker_trigger_25,
+      common_wot_seeker_trigger_26,
+      common_wot_seeker_trigger_27,
+      common_wot_seeker_trigger_28,
+      common_wot_seeker_trigger_29,
+      common_wot_seeker_trigger_30,
+      common_wot_seeker_trigger_31,
+      common_wot_seeker_trigger_32,
+      common_wot_seeker_trigger_33,
+      common_wot_seeker_trigger_34,
+      common_wot_seeker_trigger_35,
+      common_wot_seeker_trigger_36,
+      common_wot_seeker_trigger_37,
+      common_wot_seeker_trigger_38,
+      common_wot_seeker_trigger_39,
+      common_wot_seeker_trigger_40,
+      common_wot_seeker_trigger_41,
+      common_wot_seeker_trigger_42,
+      common_wot_seeker_trigger_43,
+      common_wot_seeker_trigger_44,
+      common_wot_seeker_trigger_45,
+      common_wot_seeker_trigger_46,
+      common_wot_seeker_trigger_47,
+      common_wot_seeker_trigger_48,
+      common_wot_seeker_trigger_49,
+      common_wot_seeker_trigger_50,
+      # end
+
+
+      # firewall triggers
+      common_wot_firewall_trigger_1,
+      common_wot_firewall_trigger_2,
+      common_wot_firewall_trigger_3,
+      common_wot_firewall_trigger_4,
+      common_wot_firewall_trigger_5,
+      common_wot_firewall_trigger_6,
+      common_wot_firewall_trigger_7,
+      common_wot_firewall_trigger_8,
+      common_wot_firewall_trigger_9,
+      common_wot_firewall_trigger_10,
+      # end
+
+      #########################################################################
+      ###### end TGS triggers
+      #########################################################################
+
+      common_battle_order_panel,
+
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      (0, 0, ti_once, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+#      (5, 0, 0, [(gt, "$g_one_tenth_second_timer", 5)], [(start_presentation,"prsnt_troop_ratio_bar")]),
+####################################################################################
+##### troop_ratio_bar (modified to allow channeling stamina variables to initialize)
+####################################################################################
+      common_battle_order_panel_tick,
+
+    ] + common_pbod_triggers + prebattle_orders_triggers + prebattle_deployment_triggers + caba_order_triggers + field_ai_triggers + custom_camera_triggers,
   ),
 
 
