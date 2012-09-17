@@ -1695,6 +1695,11 @@ slot_troop_timeline_duration_countdown  = 3301      # tells how many game hours 
 slot_troop_timeline_aid_protagonists    = 3302      # (0 = false, 1 = true)
 slot_troop_timeline_event_successful    = 3303      # (0 = retreated, 1 = killed all enemies, 2 = were knocked out)
 
+## Affiliation slot
+slot_troop_tgs_affiliation              = 3401      # (0 = Light, 1 = Darkfriend, 2 = Neutral, 3 = other)
+
+## Nationality slot
+slot_troop_tgs_nationality              = 3452      # (1-28, at the moment - maps directly to faction numbers. )
 
 #######################
 ## end added for TGS ##
