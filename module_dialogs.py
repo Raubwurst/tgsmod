@@ -2274,7 +2274,7 @@ Overall, {s30}.", "pretender_progress_2",[]],
 #                                    (eq, ":primary_weave", 11),
 #                                        (str_store_string, s5, "str_companion_weave_11"),
 #                                    (try_end),
-                                    
+
 #                                    (try_begin),
 #                                    (eq, ":secondary_weave", 1),
 #                                        (str_store_string, s6, "str_companion_weave_1"),
@@ -2309,14 +2309,14 @@ Overall, {s30}.", "pretender_progress_2",[]],
 #                                    (eq, ":secondary_weave", 11),
 #                                        (str_store_string, s6, "str_companion_weave_11"),
 #                                    (try_end),
-                                    
+
 #                                    (try_begin),
 #                                    (eq, ":primary_weave", 0),
 #                                        (str_store_string, s7, "@I am currently using all of my known weaves."),
 #                                    (else_try),
 #                                        (str_store_string, s7, "@I am currently using the {s5} weave primarily, and also the {s6} weave to a lesser extent."),
 #                                    (try_end),
-                                        
+
 #                                        ], "That sounds like a good idea. {s7} How should I adjust my strategy?", "member_channeling_setup_2",[]],
 # 2nd tier replies
 #[anyone|plyr,"member_channeling_setup_2", [], "Let's talk about the weave you should use most of the time.", "member_channeling_setup_primary_weave",[]],
@@ -2481,7 +2481,7 @@ Overall, {s30}.", "pretender_progress_2",[]],
 
 
 # end added for TGS NPC companion channeler setup
-  
+
 
 [anyone|plyr,"member_talk", [], "Never mind.", "close_window",[]],
 
@@ -2819,7 +2819,7 @@ Overall, {s30}.", "pretender_progress_2",[]],
     (try_end),
 
     ## End edited for TGS
-    
+
     (str_store_troop_name, s9, ":troop_of_merchant"),
 ],
 "I've been looking for you. Tell me where you keep your prisoners, and I'll let you go.", "looter_leader_2",
@@ -2858,7 +2858,7 @@ Overall, {s30}.", "pretender_progress_2",[]],
 
     (try_begin),
     (gt, ":possible_villages", 0),
-    
+
 (store_random_in_range, ":random_village", 0, ":possible_villages"),
 (val_add, ":random_village", 1),
 
@@ -2891,24 +2891,24 @@ Overall, {s30}.", "pretender_progress_2",[]],
 (call_script, "script_end_quest", "qst_learn_where_merchant_brother_is"),
 
  # edited for TGS
-    
-    #(store_faction_of_party, ":starting_town_faction", "$g_starting_town"),    
+
+    #(store_faction_of_party, ":starting_town_faction", "$g_starting_town"),
     #(try_begin),
     #  (eq, ":starting_town_faction", "fac_kingdom_1"),
     #  (assign, ":troop_of_merchant", "trp_swadian_merchant"),
-    #(else_try),  
+    #(else_try),
     #  (eq, ":starting_town_faction", "fac_kingdom_2"),
     #  (assign, ":troop_of_merchant", "trp_vaegir_merchant"),
-    #(else_try),                   
+    #(else_try),
     #  (eq, ":starting_town_faction", "fac_kingdom_3"),
     #  (assign, ":troop_of_merchant", "trp_khergit_merchant"),
-    #(else_try),  
+    #(else_try),
     #  (eq, ":starting_town_faction", "fac_kingdom_4"),
     #  (assign, ":troop_of_merchant", "trp_nord_merchant"),
-    #(else_try),  
+    #(else_try),
     #  (eq, ":starting_town_faction", "fac_kingdom_5"),
     #  (assign, ":troop_of_merchant", "trp_rhodok_merchant"),
-    #(else_try),  
+    #(else_try),
     #  (eq, ":starting_town_faction", "fac_kingdom_6"),
     #  (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
     #(try_end),
@@ -2933,7 +2933,7 @@ Overall, {s30}.", "pretender_progress_2",[]],
 		(assign, ":troop_of_merchant", "trp_sarranid_merchant"),
 	(try_end),
     # end edited for TGS
-    
+
 (str_store_troop_name, s10, ":troop_of_merchant"),
 
 (str_store_string, s2, "str_find_the_lair_near_s9_and_free_the_brother_of_the_prominent_s10_merchant"),
@@ -4680,7 +4680,7 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
     ## Added for TGS
     (faction_set_slot, "fac_player_faction", slot_faction_culture, ":faction_no"),
     ## End added for TGS
-    
+
 (try_begin),
 (this_or_next|le, "$g_player_culture", 0),
 (neg|is_between, "$g_player_culture", npc_kingdoms_begin, npc_kingdoms_end),
@@ -7258,14 +7258,14 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 [
  (store_party_size_wo_prisoners, ":garrison_size", "p_main_party"),
  (le, ":garrison_size", 0),
-## TGS: mat: Altered 
+## TGS: mat: Altered
  #(party_add_members, "p_main_party", "trp_swadian_militia", 1),				#zerilius included otherwise gives errors
  (party_add_members, "p_main_party", "trp_legion_footman", 1),				#zerilius included otherwise gives errors
 ## TGS: mat: End
 ],
 "You didn't choose any soldiers. Seems like you changed your mind.", "dplmc_constable_pretalk",
 [
-## TGS: mat: Altered 
+## TGS: mat: Altered
 #(party_remove_members, "p_main_party", "trp_swadian_militia", 1),
 (party_remove_members, "p_main_party", "trp_legion_footman", 1),
 ## TGS: mat: End
@@ -36941,7 +36941,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                       (party_get_slot, ":num_volunteers", "$current_town", slot_center_volunteer_troop_amount),
                                       (party_get_slot, ":outlanders", "$current_town", slot_center_outlander_volunteers_available),
                                       (party_get_slot, ":bribe_takers", "$current_town", slot_center_bribe_volunteers_available),
-                                      
+
                                       (assign, ":continue", 0),
                                       (try_begin),
                                       (gt, ":num_volunteers", 0),
@@ -36974,7 +36974,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                       (party_get_slot, ":num_channelers", "$current_town", slot_center_channelers_available),
                                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
                                       (gt, ":free_capacity", 0),
-                                      
+
                                       (assign, ":continue", 0),
                                       (try_begin),
                                       (gt, ":num_channelers", 0),
@@ -37002,13 +37002,13 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                               (this_or_next|eq, ":player_kingdom_culture", "fac_culture_24"),
                               (eq, ":local_lord_faction", "fac_kingdom_24"), # Shadowspawn
-                              
+
                                       (party_get_slot, ":num_trollocs", "$current_town", slot_center_trollocs_available),
                                       (gt, ":num_trollocs", 0),
-                              
+
                                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
                                       (gt, ":free_capacity", 0),
-                              
+
                                       (party_get_num_prisoners, ":num_prisoners", "p_main_party"),
                                       (ge, ":num_prisoners", 2), # get one trolloc for every two prisoners
                                       ],
@@ -37024,7 +37024,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                   (jump_to_menu, "mnu_town"),
                               (try_end),
                               ]],
-  
+
 #  [anyone|plyr,"mayor_talk", [], "[Leave]", "close_window",[]],
 
 ########## end edited for TGS
@@ -37289,7 +37289,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                            (eq, ":num_volunteers", 0),
                                            ],
    "I don't think anyone would be interested, {sir/madam}.", "start",[]],
-  
+
   [anyone ,"mayor_recruit_decision_wot_local_volunteers_next", [(party_get_slot, ":num_volunteers", "$current_town", slot_center_volunteer_troop_amount),
                                            (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
                                            (val_min, ":num_volunteers", ":free_capacity"),
@@ -37414,7 +37414,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
     "We have many new citizens in the area.  Would you like me to talk with them and see if anyone is interested in joining your party?", "mayor_recruit_start_outlanders_next_answer",[]],
 
    # player response
-   
+
    ## Removed for splitting the factions
 #   [anyone|plyr,"mayor_recruit_start_outlanders_next_answer", [(store_faction_of_party, ":local_lord_faction", "$current_town"),
 #                                                                       (assign, ":response_needed", 0),
@@ -37425,7 +37425,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_faction_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_faction_culture", "fac_culture_1"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_1"),
@@ -37467,7 +37467,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s2, "str_shadowspawn_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s2} recruits.", "mayor_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 1)]],
@@ -37481,7 +37481,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_faction_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_faction_culture", "fac_culture_1"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_1"),
@@ -37503,7 +37503,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s3, "str_arafel_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s3} recruits.", "mayor_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 2)]],
@@ -37517,7 +37517,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_faction_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_faction_culture", "fac_culture_1"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_1"),
@@ -37539,7 +37539,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s4, "str_kandor_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s4} recruits.", "mayor_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 3)]],
@@ -37553,7 +37553,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_faction_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_faction_culture", "fac_culture_2"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_2"),
@@ -37570,7 +37570,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s5, "str_saldaea_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s5} recruits.", "mayor_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 4)]],
@@ -37584,7 +37584,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_faction_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_faction_culture", "fac_culture_2"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_2"),
@@ -37596,7 +37596,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s6, "str_tarabon_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s6} recruits.", "mayor_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 5)]],
@@ -37610,7 +37610,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_faction_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_faction_culture", "fac_culture_2"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_2"),
@@ -37622,7 +37622,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s7, "str_amadicia_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s7} recruits.", "mayor_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 6)]],
@@ -37636,14 +37636,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_faction_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_faction_culture", "fac_culture_3"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_3"),
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s8, "str_whitecloak_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s8} recruits.", "mayor_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 7)]],
@@ -37670,7 +37670,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                               (assign, reg5, ":num_volunteers"),
                                                               (store_add, reg7, ":num_volunteers", -1),
                                                               (store_add, reg6, ":num_volunteers", -1),
-                                                      
+
                                                       ## Removed for splitting the factions
 #                                                              (try_begin),
 #                                                              (eq, "$g_outlander_troop_type_desired", 1),
@@ -37711,7 +37711,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                    (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                        (faction_get_slot, ":player_faction_culture", "fac_player_faction", slot_faction_culture),
 #                                                                    (try_end),
-                                                                    
+
                                                                     ## Removed for splitting the factions
 #                                                                    (try_begin),
 #                                                                    (eq, "$g_outlander_troop_type_desired", 1),
@@ -37831,14 +37831,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                            (assign, ":volunteer_troop", "trp_whitecloak_recruit"),
 #                                                                        (try_end),
 #                                                                    (try_end),
-                                                                         
+
                                                                     (assign, ":volunteer_amount", "$temp"),
                                                                     (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
                                                                     (val_min, ":volunteer_amount", ":free_capacity"),
                                                                     (store_troop_gold, ":gold", "trp_player"),
                                                                     (store_div, ":gold_capacity", ":gold", 10), # 10 crowns per man
                                                                     (val_min, ":volunteer_amount", ":gold_capacity"),
-                                                                    
+
                                                                     ## Altered for splitting the factions
                                                                     #(party_add_members, "p_main_party", ":volunteer_troop", ":volunteer_amount"),
                                                                     (try_for_range, ":unused", 0, ":volunteer_amount"),
@@ -37849,7 +37849,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                                         (party_add_members, "p_main_party", ":volunteer_troop", 1),
                                                                     (try_end),
                                                                     ## End altered for splitting the factions
-                                                                    
+
                                                                     (store_mul, ":cost", ":volunteer_amount", 10), # 10 crowns per man
                                                                     (troop_remove_gold, "trp_player", ":cost"),
                                                                     ]],
@@ -37860,7 +37860,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 ######### End Village Recruiting (Edited for TGS) #####################
 
 ######### Added Channeler Recruiting (TGS) ############################
-   
+
    [anyone ,"mayor_channeler_test", [],
    "Ok, talk is fine. Just be sure you don't cause any trouble.", "mayor_channeler_test_next",[]],
 
@@ -37901,8 +37901,8 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                       (store_troop_gold, ":gold", "trp_player"),
                                                       (store_div, ":gold_capacity", ":gold", 20), # 20 denar per man
                                                       (val_min, ":volunteer_amount", ":gold_capacity"),
-                                                      #(party_add_members, "p_main_party", ":volunteer_troop", ":volunteer_amount"),                                                     
-                                                     
+                                                      #(party_add_members, "p_main_party", ":volunteer_troop", ":volunteer_amount"),
+
                                                 (try_for_range, ":unused", 0, ":volunteer_amount"),
 
                                                       (try_begin),
@@ -37986,7 +37986,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                       (eq, ":local_lord_faction", "fac_kingdom_27"),
                                                           (assign, ":volunteer_troop", "trp_madmen_air_shifter"),
                                                      ## End
-                                                     
+
                                                       ## Added for splitting the factions
                                                       (else_try),
                                                           (store_random_in_range, ":random", 1, 100),
@@ -38007,10 +38007,10 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                           (try_end),
                                                       ## End
                                                       (try_end),
-                                                     
+
                                                      (party_add_members, "p_main_party", ":volunteer_troop", 1),
                                                 (try_end),
-                                                      
+
 
                                                       (store_mul, ":cost", ":volunteer_amount", 20), # 20 crowns per man
                                                       (troop_remove_gold, "trp_player", ":cost"),
@@ -38024,7 +38024,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 ######### End Channeler Recruiting (TGS ) #############################
 
 ######### Added Trolloc Recruiting (TGS) ############################
-   
+
    [anyone ,"mayor_recruit_trollocs", [],
    "I think the main thing that matters to trollocs is fighting. Well, that and food.", "mayor_recruit_trollocs_next",[]],
 
@@ -38059,14 +38059,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -38075,7 +38075,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -38091,14 +38091,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -38107,7 +38107,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -38123,14 +38123,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -38139,7 +38139,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -38155,14 +38155,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -38171,7 +38171,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -38187,14 +38187,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -38203,7 +38203,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -38213,7 +38213,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    [anyone|plyr,"mayor_recruit_trollocs_decision_2", [],
    "On second thought, I changed my mind.", "start",[]],
 
-######### End Trolloc Recruiting (TGS ) #############################   
+######### End Trolloc Recruiting (TGS ) #############################
 
 
 ###################################################################3
@@ -39598,12 +39598,12 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 ########## modified for TGS
   [anyone|plyr,"village_elder_talk", [(call_script, "script_cf_village_recruit_volunteers_cond"),
-                                      
+
                                       (store_troop_gold, ":gold", "trp_player"),
                                       (party_get_slot, ":num_volunteers", "$current_town", slot_center_volunteer_troop_amount),
                                       (party_get_slot, ":outlanders", "$current_town", slot_center_outlander_volunteers_available),
                                       (party_get_slot, ":bribe_takers", "$current_town", slot_center_bribe_volunteers_available),
-                                      
+
                                       (assign, ":continue", 0),
                                       (try_begin),
                                       (gt, ":num_volunteers", 0),
@@ -39638,7 +39638,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                       (party_get_slot, ":num_channelers", "$current_town", slot_center_channelers_available),
                                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
                                       (gt, ":free_capacity", 0),
-                                      
+
                                       (assign, ":continue", 0),
                                       (try_begin),
                                       (gt, ":num_channelers", 0),
@@ -39669,10 +39669,10 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                           (party_get_slot, ":num_trollocs", "$current_town", slot_center_trollocs_available),
                                           (gt, ":num_trollocs", 0),
-                              
+
                                           (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
                                           (gt, ":free_capacity", 0),
-                              
+
                                           (party_get_num_prisoners, ":num_prisoners", "p_main_party"),
                                           (ge, ":num_prisoners", 2), # get one trolloc for every two prisoners
                                       ],
@@ -39983,10 +39983,10 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
     "We have many new citizens in the area.  Would you like me to talk with them and see if anyone is interested in joining your party?", "village_elder_recruit_start_outlanders_next_answer",[]],
 
    # player response
-   
+
    ## Removed for spitting the factions
 #   [anyone|plyr,"village_elder_recruit_start_outlanders_next_answer", [(store_faction_of_party, ":local_lord_faction", "$current_town"),
-                                                                       
+
 #                                                                       (assign, ":response_needed", 0),
 
 #                                                                       (assign, ":player_kingdom_culture", -10),
@@ -39995,7 +39995,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_kingdom_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_kingdom_culture", "fac_culture_1"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_1"),
@@ -40037,7 +40037,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s2, "str_shadowspawn_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s2} recruits.", "village_elder_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 1)]],
@@ -40051,7 +40051,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_kingdom_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_kingdom_culture", "fac_culture_1"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_1"),
@@ -40073,7 +40073,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s3, "str_arafel_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s3} recruits.", "village_elder_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 2)]],
@@ -40087,7 +40087,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_kingdom_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_kingdom_culture", "fac_culture_1"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_1"),
@@ -40109,7 +40109,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s4, "str_kandor_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s4} recruits.", "village_elder_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 3)]],
@@ -40123,7 +40123,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_kingdom_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_kingdom_culture", "fac_culture_2"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_2"),
@@ -40140,7 +40140,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s5, "str_saldaea_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s5} recruits.", "village_elder_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 4)]],
@@ -40154,7 +40154,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_kingdom_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_kingdom_culture", "fac_culture_2"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_2"),
@@ -40166,7 +40166,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s6, "str_tarabon_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s6} recruits.", "village_elder_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 5)]],
@@ -40180,7 +40180,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_kingdom_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_kingdom_culture", "fac_culture_2"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_2"),
@@ -40192,7 +40192,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s7, "str_amadicia_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s7} recruits.", "village_elder_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 6)]],
@@ -40206,14 +40206,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                       (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                           (faction_get_slot, ":player_kingdom_culture", "fac_player_faction", slot_faction_culture),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (try_begin),
 #                                                                       (this_or_next|eq, ":player_kingdom_culture", "fac_culture_3"),
 #                                                                       (eq, ":local_lord_faction", "fac_kingdom_3"),
 #                                                                           (assign, ":response_needed", 1),
 #                                                                           (str_store_string, s8, "str_whitecloak_recruit"),
 #                                                                       (try_end),
-                                                                       
+
 #                                                                       (eq, ":response_needed", 1),
 #                                                                       ],
 #   "Perhaps some {s8} recruits.", "village_elder_recruit_start_outlanders_final",[(assign, "$g_outlander_troop_type_desired", 7)]],
@@ -40238,7 +40238,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                               (assign, reg5, ":num_volunteers"),
                                                               (store_add, reg7, ":num_volunteers", -1),
                                                               (store_add, reg6, ":num_volunteers", -1),
-                                                              
+
                                                               ## Removed for splitting the factions
 
 #                                                              (try_begin),
@@ -40280,8 +40280,8 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                    (eq, ":local_lord_faction", "fac_player_faction"),
 #                                                                        (faction_get_slot, ":player_kingdom_culture", "fac_player_faction", slot_faction_culture),
 #                                                                    (try_end),
-                                                                    
-                                                                    ## Removed for splitting the factions                                                                    
+
+                                                                    ## Removed for splitting the factions
 #                                                                    (try_begin),
 #                                                                    (eq, "$g_outlander_troop_type_desired", 1),
 #                                                                        (try_begin),
@@ -40400,14 +40400,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #                                                                            (assign, ":volunteer_troop", "trp_whitecloak_recruit"),
 #                                                                        (try_end),
 #                                                                    (try_end),
-                                                                         
+
                                                                     (assign, ":volunteer_amount", "$temp"),
                                                                     (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
                                                                     (val_min, ":volunteer_amount", ":free_capacity"),
                                                                     (store_troop_gold, ":gold", "trp_player"),
                                                                     (store_div, ":gold_capacity", ":gold", 10), # 10 crowns per man
                                                                     (val_min, ":volunteer_amount", ":gold_capacity"),
-                                                                    
+
                                                                     ## Altered for splitting the factions
                                                                     #(party_add_members, "p_main_party", ":volunteer_troop", ":volunteer_amount"),
                                                                     (try_for_range, ":unused", 0, ":volunteer_amount"),
@@ -40418,7 +40418,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                                         (party_add_members, "p_main_party", ":volunteer_troop", 1),
                                                                     (try_end),
                                                                     ## End altered for splitting the factions
-                                                                    
+
                                                                     (store_mul, ":cost", ":volunteer_amount", 10), # 10 crowns per man
                                                                     (troop_remove_gold, "trp_player", ":cost"),
                                                                     ]],
@@ -40429,7 +40429,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 ######### End Village Recruiting (Edited for TGS) #####################
 
 ######### Added Channeler Recruiting (TGS) ############################
-   
+
    [anyone ,"village_elder_channeler_test", [],
    "Ok, talk is fine. Just be sure you don't cause any trouble.", "village_elder_channeler_test_next",[]],
 
@@ -40470,8 +40470,8 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                       (store_troop_gold, ":gold", "trp_player"),
                                                       (store_div, ":gold_capacity", ":gold", 20), # 20 denar per man
                                                       (val_min, ":volunteer_amount", ":gold_capacity"),
-                                                      #(party_add_members, "p_main_party", ":volunteer_troop", ":volunteer_amount"),                                                     
-                                                     
+                                                      #(party_add_members, "p_main_party", ":volunteer_troop", ":volunteer_amount"),
+
                                                 (try_for_range, ":unused", 0, ":volunteer_amount"),
 
                                                       (try_begin),
@@ -40555,7 +40555,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                       (eq, ":local_lord_faction", "fac_kingdom_27"),
                                                           (assign, ":volunteer_troop", "trp_madmen_air_shifter"),
                                                      ## End
-                                                     
+
                                                       ## Added for splitting the factions
                                                       (else_try),
                                                           (store_random_in_range, ":random", 1, 100),
@@ -40576,10 +40576,10 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                           (try_end),
                                                       ## End
                                                       (try_end),
-                                                     
+
                                                      (party_add_members, "p_main_party", ":volunteer_troop", 1),
                                                 (try_end),
-                                                      
+
 
                                                       (store_mul, ":cost", ":volunteer_amount", 20), # 20 crowns per man
                                                       (troop_remove_gold, "trp_player", ":cost"),
@@ -40593,7 +40593,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 ######### End Channeler Recruiting (TGS ) #############################
 
 ######### Added Trolloc Recruiting (TGS) ############################
-   
+
    [anyone ,"village_elder_recruit_trollocs", [],
    "I think the main thing that matters to trollocs is fighting. Well, that and food.", "village_elder_recruit_trollocs_next",[]],
 
@@ -40628,14 +40628,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -40644,7 +40644,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -40660,14 +40660,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -40676,7 +40676,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -40692,14 +40692,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -40708,7 +40708,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -40724,14 +40724,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -40740,7 +40740,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -40756,14 +40756,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
                                    (party_get_num_prisoner_stacks, ":num_prisoner_stacks", "p_main_party"),
                                    (val_add, ":num_prisoner_stacks", 1),
-                                   
+
                                    (try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
                                        (try_begin),
                                        (gt, ":prisoner_cost", 0),
                                            (party_prisoner_stack_get_size, ":current_stack_size", "p_main_party", ":stack_no"),
                                            (party_prisoner_stack_get_troop_id, ":current_prisoner_troop", "p_main_party", ":stack_no"),
                                            (store_sub, ":quick_check", ":prisoner_cost", ":current_stack_size"),
-                                   
+
                                            (try_begin),
                                            (gt, ":quick_check", 0),
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":current_stack_size"),
@@ -40772,7 +40772,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                                (party_remove_prisoners, "p_main_party", ":current_prisoner_troop", ":prisoner_cost"),
                                                (assign, ":prisoner_cost", 0),
                                            (try_end),
-                                           
+
                                        (try_end),
                                    (try_end),
 
@@ -42378,7 +42378,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
     ## added for TGS
     [anyone,"start", [(eq,"$talk_context", tc_party_encounter),(store_encountered_party, reg(5)),(party_get_template_id,reg(7),reg(5)),(eq,reg(7),"pt_trollocs")],
     "Die Humans!!", "battle_reason_stated",[(play_sound,"snd_encounter_trollocs")]],
-    ## end added for TGS    
+    ## end added for TGS
 
 ######################################
 # GENERIC MEMBER CHAT
@@ -43485,4 +43485,15 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr,"free", [[in_meta_mission]], " Good-bye.", "close_window",[]],
   [anyone|plyr,"free", [[neg|in_meta_mission]], " [Leave]", "close_window",[]],
 #  [anyone,"free", [], "NO MATCHING SENTENCE!", "close_window",[]],
+
+
+## TGS Timeline Event dialogs
+
+  [anyone,"start", [(eq, "$g_talk_troop", "trp_narg")], "Others go away. Narg stay. Narg smart.", "narg_speaks",[]],
+  [anyone|plyr,"narg_speaks", [], "Light have mercy! It speaks!", "narg_response",[]],
+  [anyone,"narg_response", [], "Narg no hurt. Put down weapon.", "narg_speaks_2",[]],
+  [anyone|plyr,"narg_speaks_2", [], "Blood and Bloody Ashes! I'm out of here!", "close_window",[]],
+
+## TGS Timeline Event dialogs end
+
 ]

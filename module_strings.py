@@ -4924,6 +4924,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 
 # book 1
 ("trolloc_raid_on_al_thor_farm", "You feel the Pattern pulling you towards the Al'Thor farm in the Two Rivers..."),
+("trolloc_raid_on_al_thor_farm_enter", "You arrive at the al'Thor farm..."),
+("trolloc_raid_on_al_thor_farm_leave", "You decide to leave the al'Thor farm..."),
 
 # TGS Timeline Strings End
 

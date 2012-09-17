@@ -21042,7 +21042,7 @@ They give you directions to the nearest town and you take your leave.",
 ## Non-Tower/Castle/Village Timeline Event Locations Menu Begin
 
   ("timeline_event_location_menu",0,
-   "You arrive at {s1}...",
+   "{s1}",
    "none",
    [],
     [
@@ -21103,6 +21103,7 @@ They give you directions to the nearest town and you take your leave.",
                                                     (eq, "$g_encountered_party", "p_al_thor_farm"),
                                                     (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
                                                     (is_currently_night),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, -1),
                                                 ],"It looks like the Great Lord's plan has begun...get al'Thor!",
 			[
 
@@ -21136,10 +21137,7 @@ They give you directions to the nearest town and you take your leave.",
                                                 ],"After fighting for a while, you lose heart and retreat...",
 			[
 
-                (fail_quest, "qst_trolloc_raid_on_al_thor_farm"),
-                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
                 # Reward - None
                 (change_screen_map),
 			]
@@ -21154,10 +21152,7 @@ They give you directions to the nearest town and you take your leave.",
                                                 ],"You have saved Master al'Thor and his son Rand! The Light be praised!",
 			[
 
-                (succeed_quest, "qst_trolloc_raid_on_al_thor_farm"),
-                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
                 # Reward Protagonist Full
                 (change_screen_map),
 			]
@@ -21172,10 +21167,7 @@ They give you directions to the nearest town and you take your leave.",
                                                 ],"You were knocked out, but it seems your intervention allowed Rand and Tam to escape...",
 			[
 
-                (succeed_quest, "qst_trolloc_raid_on_al_thor_farm"),
-                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
                 # Reward Protagonist Half
                 (change_screen_map),
 			]
@@ -21187,13 +21179,10 @@ They give you directions to the nearest town and you take your leave.",
                                                     (is_currently_night),
                                                     (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 1),
                                                     (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 0),
-                                                ],"You had them! Then the bloody Myrddraal called you back before you could secure them!",
+                                                ],"You had them! Then the bloody Myrddraal called you back and they escaped!",
 			[
 
-                (succeed_quest, "qst_trolloc_raid_on_al_thor_farm"),
-                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
                 # Reward Antagonist Full
                 (change_screen_map),
 			]
@@ -21205,13 +21194,10 @@ They give you directions to the nearest town and you take your leave.",
                                                     (is_currently_night),
                                                     (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 2),
                                                     (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 0),
-                                                ],"You were knocked out, but the Dark One noticed your good effort...",
+                                                ],"You were knocked out, but the Dark One noticed your good efforts...",
 			[
 
-                (succeed_quest, "qst_trolloc_raid_on_al_thor_farm"),
-                (call_script, "script_end_quest", "qst_trolloc_raid_on_al_thor_farm"),
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, -1),
                 # Reward Antagonist Half
                 (change_screen_map),
 			]
