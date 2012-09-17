@@ -4974,7 +4974,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("affiliation_dark","Friend of the Dark"),
   ("affiliation_national","Staunch Nationalist"),
 
-  ("nationality_start","Atha'an Miere Islands"), # hack
   ("nationality_sea_folk","Atha'an Miere Islands"),
   ("nationality_seanchan","Seanchan Empire"),
 
