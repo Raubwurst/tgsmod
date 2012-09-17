@@ -50,7 +50,10 @@ triggers = [
       (troop_set_slot, "trp_player", slot_troop_compulsion_known, 0),
       (troop_set_slot, "trp_player", slot_troop_balefire_known, 0),
 
-      (troop_set_slot, "trp_player", slot_troop_player_knows_channeling, 0),
+      (try_begin),
+      (neg|troop_slot_eq, "trp_player", slot_troop_player_knows_channeling, 1),
+        (troop_set_slot, "trp_player", slot_troop_player_knows_channeling, 0),
+      (try_end),
       #### End
     ]),
 
@@ -1689,6 +1692,7 @@ triggers = [
 
 ################################################
 ################################################
+
 
 ## TGS Triggers begin ##
 

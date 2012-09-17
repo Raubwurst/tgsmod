@@ -21154,6 +21154,10 @@ They give you directions to the nearest town and you take your leave.",
 
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
                 # Reward Protagonist Full
+                (troop_add_gold, "trp_player", 100),
+                (add_xp_to_troop, 100, "trp_player"),
+                (party_add_xp, "p_main_party", 200),
+                (troop_add_item, "trp_player", "itm_black_mail_gauntlets"),
                 (change_screen_map),
 			]
 		),
@@ -21169,6 +21173,9 @@ They give you directions to the nearest town and you take your leave.",
 
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
                 # Reward Protagonist Half
+                (troop_add_gold, "trp_player", 50),
+                (add_xp_to_troop, 50, "trp_player"),
+                (party_add_xp, "p_main_party", 100),
                 (change_screen_map),
 			]
 		),
@@ -21184,6 +21191,10 @@ They give you directions to the nearest town and you take your leave.",
 
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
                 # Reward Antagonist Full
+                (troop_add_gold, "trp_player", 100),
+                (add_xp_to_troop, 100, "trp_player"),
+                (party_add_xp, "p_main_party", 200),
+                (troop_add_item, "trp_player", "itm_red_arm_club"),
                 (change_screen_map),
 			]
 		),
@@ -21199,6 +21210,9 @@ They give you directions to the nearest town and you take your leave.",
 
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
                 # Reward Antagonist Half
+                (troop_add_gold, "trp_player", 50),
+                (add_xp_to_troop, 50, "trp_player"),
+                (party_add_xp, "p_main_party", 100),
                 (change_screen_map),
 			]
 		),

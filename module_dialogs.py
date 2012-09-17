@@ -42766,6 +42766,17 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   #[
   #]],
 
+
+## TGS Timeline Event dialogs
+
+  [anyone,"start", [(eq, "$g_talk_troop", "trp_narg")], "Others go away. Narg stay. Narg smart.", "narg_speaks",[]],
+  [anyone|plyr,"narg_speaks", [], "Light have mercy! It speaks!", "narg_response",[]],
+  [anyone,"narg_response", [], "Narg no hurt. Put down weapon.", "narg_speaks_2",[]],
+  [anyone|plyr,"narg_speaks_2", [], "Blood and Bloody Ashes! I'm out of here!", "close_window",[]],
+
+## TGS Timeline Event dialogs end
+
+
   [anyone,"start", [], "Surrender or die. Make your choice", "battle_reason_stated",[]],
   [anyone|plyr,"battle_reason_stated", [], "I am not afraid of you. I will fight.", "close_window",[[encounter_attack]]],
 
@@ -43486,14 +43497,5 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr,"free", [[neg|in_meta_mission]], " [Leave]", "close_window",[]],
 #  [anyone,"free", [], "NO MATCHING SENTENCE!", "close_window",[]],
 
-
-## TGS Timeline Event dialogs
-
-  [anyone,"start", [(eq, "$g_talk_troop", "trp_narg")], "Others go away. Narg stay. Narg smart.", "narg_speaks",[]],
-  [anyone|plyr,"narg_speaks", [], "Light have mercy! It speaks!", "narg_response",[]],
-  [anyone,"narg_response", [], "Narg no hurt. Put down weapon.", "narg_speaks_2",[]],
-  [anyone|plyr,"narg_speaks_2", [], "Blood and Bloody Ashes! I'm out of here!", "close_window",[]],
-
-## TGS Timeline Event dialogs end
 
 ]
