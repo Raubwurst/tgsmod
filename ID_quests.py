@@ -89,7 +89,8 @@ qst_learn_where_merchant_brother_is = 87
 qst_save_relative_of_merchant = 88
 qst_save_town_from_bandits = 89
 qst_trolloc_raid_on_al_thor_farm = 90
-qst_quests_end = 91
+qst_trolloc_raid_on_emonds_field = 91
+qst_quests_end = 92
 qsttag_deliver_message = 504403158265495552
 qsttag_deliver_message_to_enemy_lord = 504403158265495553
 qsttag_raise_troops = 504403158265495554
@@ -181,6 +182,7 @@ qsttag_learn_where_merchant_brother_is = 504403158265495639
 qsttag_save_relative_of_merchant = 504403158265495640
 qsttag_save_town_from_bandits = 504403158265495641
 qsttag_trolloc_raid_on_al_thor_farm = 504403158265495642
-qsttag_quests_end = 504403158265495643
+qsttag_trolloc_raid_on_emonds_field = 504403158265495643
+qsttag_quests_end = 504403158265495644
 
 

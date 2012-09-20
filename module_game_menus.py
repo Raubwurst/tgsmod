@@ -21038,8 +21038,9 @@ They give you directions to the nearest town and you take your leave.",
 
 ## Border Tower Menu End
 
-
-## Non-Tower/Castle/Village Timeline Event Locations Menu Begin
+##########################################
+##  Timeline Event Locations Menu Begin ##
+##########################################
 
   ("timeline_event_location_menu",0,
    "{s1}",
@@ -21047,6 +21048,7 @@ They give you directions to the nearest town and you take your leave.",
    [],
     [
 
+####################
 # Al'Thor Farm Event
 		("al_thor_farm_normal_visit",[
                                         (eq, "$g_encountered_party", "p_al_thor_farm"),
@@ -21073,7 +21075,7 @@ They give you directions to the nearest town and you take your leave.",
                                                     (eq, "$g_encountered_party", "p_al_thor_farm"),
                                                     (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
                                                     (is_currently_night),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, -1),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, NOT_STARTED),
                                                 ],"You hear some suspicious noises in the forest. Investigate further...",
 			[
 
@@ -21093,7 +21095,7 @@ They give you directions to the nearest town and you take your leave.",
                 (set_visitor, 8, "trp_trolloc_hewer"),
 
                 # set mission and scene
-                (set_jump_mission, "mt_timeline_event_1"),
+                (set_jump_mission, "mt_timeline_event_0"),
                 (jump_to_scene, "scn_al_thor_farm", 0),
                 (change_screen_mission),
 			]
@@ -21103,7 +21105,7 @@ They give you directions to the nearest town and you take your leave.",
                                                     (eq, "$g_encountered_party", "p_al_thor_farm"),
                                                     (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
                                                     (is_currently_night),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, -1),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, NOT_STARTED),
                                                 ],"It looks like the Great Lord's plan has begun...get al'Thor!",
 			[
 
@@ -21123,104 +21125,339 @@ They give you directions to the nearest town and you take your leave.",
                 #(set_visitor, 8, "trp_trolloc_hewer"),
 
                 # set mission and scene
-                (set_jump_mission, "mt_timeline_event_1"),
+                (set_jump_mission, "mt_timeline_event_0"),
                 (jump_to_scene, "scn_al_thor_farm", 0),
                 (change_screen_mission),
 			]
 		),
 
-		("al_thor_farm_event_results_0",[
-                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
-                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
-                                                    (is_currently_night),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 0),
-                                                ],"After fighting for a while, you lose heart and retreat...",
+		("al_thor_farm_event_results",[
+                                            (eq, "$g_encountered_party", "p_al_thor_farm"),
+                                            (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+                                            (neg|troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, NOT_STARTED),
+                                            (is_currently_night),
+                                            (try_begin),
+                                            (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, RETREAT),
+                                                (str_store_string, s2, "str_trolloc_raid_on_al_thor_farm_retreat"),
+                                            (else_try),
+                                            (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL),
+                                                (try_begin),
+                                                (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                                                    (str_store_string, s2, "str_trolloc_raid_on_al_thor_farm_successful_protagonist"),
+                                                (else_try),
+                                                    (str_store_string, s2, "str_trolloc_raid_on_al_thor_farm_successful_antagonist"),
+                                                (try_end),
+                                            (else_try),
+                                            (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL_KO),
+                                                (try_begin),
+                                                (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                                                    (str_store_string, s2, "str_trolloc_raid_on_al_thor_farm_successful_ko_protagonist"),
+                                                (else_try),
+                                                    (str_store_string, s2, "str_trolloc_raid_on_al_thor_farm_successful_ko_antagonist"),
+                                                (try_end),
+                                            (try_end),
+                                        ],"{s2}",
 			[
 
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                # Reward - None
+
+                (try_begin),
+                (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL),
+                    (try_begin),
+                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                        # Reward Protagonist Full
+                        (troop_add_gold, "trp_player", 100),
+                        (add_xp_to_troop, 100, "trp_player"),
+                        (party_add_xp, "p_main_party", 200),
+                        (troop_add_item, "trp_player", "itm_black_mail_gauntlets"),
+                    (else_try),
+                        # Reward Antagonist Full
+                        (troop_add_gold, "trp_player", 100),
+                        (add_xp_to_troop, 100, "trp_player"),
+                        (party_add_xp, "p_main_party", 200),
+                        (troop_add_item, "trp_player", "itm_red_arm_club"),
+                    (try_end),
+                (else_try),
+                (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL_KO),
+                    (try_begin),
+                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                        # Reward Protagonist Half
+                        (troop_add_gold, "trp_player", 50),
+                        (add_xp_to_troop, 50, "trp_player"),
+                        (party_add_xp, "p_main_party", 100),
+                    (else_try),
+                        # Reward Antagonist Half
+                        (troop_add_gold, "trp_player", 50),
+                        (add_xp_to_troop, 50, "trp_player"),
+                        (party_add_xp, "p_main_party", 100),
+                    (try_end),
+                (try_end),
+
                 (change_screen_map),
 			]
 		),
 
-		("al_thor_farm_event_results_1_protagonist",[
-                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
-                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
+
+################################
+# Emonds Field Raid Event Book 1
+
+		("emonds_field_raid_event_book_1_visit_day",[
+                                            (eq, "$g_encountered_party", "p_village_99"),
+                                            (troop_slot_eq, "trp_player", slot_troop_timeline_current_state, BOOK_1_TROLLOC_RAID_ON_EMONDS_FIELD),
+                                            (check_quest_active, "qst_trolloc_raid_on_emonds_field"),
+                                            (neg|is_currently_night),
+                                        ],"Something seems wrong. I better wait around until night...",
+			[
+                (change_screen_map)
+			]
+		),
+
+		("emonds_field_raid_event_book_1_night_protagonist",[
+                                                    (eq, "$g_encountered_party", "p_village_99"),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_current_state, BOOK_1_TROLLOC_RAID_ON_EMONDS_FIELD),
                                                     (is_currently_night),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 1),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
-                                                ],"You have saved Master al'Thor and his son Rand! The Light be praised!",
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, NOT_STARTED),
+                                                ],"Trollocs! You men, follow me...",
+			[
+
+                # set team
+                (troop_set_slot, "trp_player", slot_troop_timeline_aid_protagonists, 1), # Help Emonds Field
+
+                # set visitors
+                (modify_visitors_at_site,"scn_emonds_field_raid_book_1"),
+                (reset_visitors),
+
+                (set_visitor, 1, "trp_lan_unarmored"),
+                (set_visitor, 1, "trp_moiraine_common_garb"),
+                (set_visitors, 1, "trp_two_rivers_farmer", 4),
+                (set_visitors, 1, "trp_rivers_townsman", 3),
+                (set_visitors, 1, "trp_rivers_townswoman", 3),
+                (set_visitors, 1, "trp_farmer", 4),
+                (set_visitors, 1, "trp_peasant_woman", 4),
+
+                (set_visitor, 2, "trp_master_luhan_book_1"),
+                (set_visitors, 2, "trp_two_rivers_farmer", 4),
+                (set_visitors, 2, "trp_rivers_townsman", 3),
+                (set_visitors, 2, "trp_rivers_townswoman", 3),
+                (set_visitors, 2, "trp_farmer", 4),
+                (set_visitors, 2, "trp_peasant_woman", 4),
+
+                (set_visitor, 3, "trp_bran_al_vere_book_1"),
+                (set_visitors, 3, "trp_two_rivers_farmer", 4),
+                (set_visitors, 3, "trp_rivers_townsman", 3),
+                (set_visitors, 3, "trp_rivers_townswoman", 3),
+                (set_visitors, 3, "trp_farmer", 4),
+                (set_visitors, 3, "trp_peasant_woman", 4),
+
+                (set_visitor, 4, "trp_abell_cauthon_book_1"),
+                (set_visitors, 4, "trp_two_rivers_farmer", 4),
+                (set_visitors, 4, "trp_rivers_townsman", 3),
+                (set_visitors, 4, "trp_rivers_townswoman", 3),
+                (set_visitors, 4, "trp_farmer", 4),
+                (set_visitors, 4, "trp_peasant_woman", 4),
+
+                (set_visitor, 5, "trp_nynaeve_book_1"),
+                (set_visitors, 5, "trp_two_rivers_farmer", 4),
+                (set_visitors, 5, "trp_rivers_townsman", 3),
+                (set_visitors, 5, "trp_rivers_townswoman", 3),
+                (set_visitors, 5, "trp_farmer", 4),
+                (set_visitors, 5, "trp_peasant_woman", 4),
+
+                (set_visitor, 6, "trp_myrddraal"),
+                (set_visitors, 6, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 6, "trp_trolloc_grunt", 2),
+                (set_visitors, 6, "trp_trolloc_archer", 1),
+                (set_visitors, 6, "trp_trolloc_hewer", 2),
+
+                (set_visitor, 7, "trp_trolloc_clan_chief"),
+                (set_visitors, 7, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 7, "trp_trolloc_grunt", 2),
+                (set_visitors, 7, "trp_trolloc_archer", 1),
+                (set_visitors, 7, "trp_trolloc_hewer", 2),
+
+                (set_visitor, 8, "trp_trolloc_berserker"),
+                (set_visitors, 8, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 8, "trp_trolloc_grunt", 2),
+                (set_visitors, 8, "trp_trolloc_archer", 1),
+                (set_visitors, 8, "trp_trolloc_hewer", 2),
+
+                (set_visitor, 9, "trp_trolloc_clan_chief"),
+                (set_visitors, 9, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 9, "trp_trolloc_grunt", 2),
+                (set_visitors, 9, "trp_trolloc_archer", 1),
+                (set_visitors, 9, "trp_trolloc_hewer", 2),
+
+                (set_visitor, 10, "trp_trolloc_berserker"),
+                (set_visitors, 10, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 10, "trp_trolloc_grunt", 2),
+                (set_visitors, 10, "trp_trolloc_archer", 1),
+                (set_visitors, 10, "trp_trolloc_hewer", 2),
+
+                # set mission and scene
+                (set_jump_mission, "mt_timeline_event_5"),
+                (jump_to_scene, "scn_emonds_field_raid_book_1", 0),
+                (change_screen_mission),
+			]
+		),
+
+		("emonds_field_raid_event_book_1_night_antagonist",[
+                                                    (eq, "$g_encountered_party", "p_village_99"),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_current_state, BOOK_1_TROLLOC_RAID_ON_EMONDS_FIELD),
+                                                    (is_currently_night),
+                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, NOT_STARTED),
+                                                ],"Alright men, burn it to the ground!",
+			[
+
+                # set team
+                (troop_set_slot, "trp_player", slot_troop_timeline_aid_protagonists, 0), # Help the Shadowspawn
+
+                # set visitors
+                (modify_visitors_at_site,"scn_emonds_field_raid_book_1"),
+                (reset_visitors),
+
+                (set_visitor, 1, "trp_lan_unarmored"),
+                (set_visitor, 1, "trp_moiraine_common_garb"),
+                (set_visitors, 1, "trp_two_rivers_farmer", 4),
+                (set_visitors, 1, "trp_rivers_townsman", 3),
+                (set_visitors, 1, "trp_rivers_townswoman", 3),
+                (set_visitors, 1, "trp_farmer", 4),
+                (set_visitors, 1, "trp_peasant_woman", 4),
+
+                (set_visitor, 2, "trp_master_luhan_book_1"),
+                (set_visitors, 2, "trp_two_rivers_farmer", 4),
+                (set_visitors, 2, "trp_rivers_townsman", 3),
+                (set_visitors, 2, "trp_rivers_townswoman", 3),
+                (set_visitors, 2, "trp_farmer", 4),
+                (set_visitors, 2, "trp_peasant_woman", 4),
+
+                (set_visitor, 3, "trp_bran_al_vere_book_1"),
+                (set_visitors, 3, "trp_two_rivers_farmer", 4),
+                (set_visitors, 3, "trp_rivers_townsman", 3),
+                (set_visitors, 3, "trp_rivers_townswoman", 3),
+                (set_visitors, 3, "trp_farmer", 4),
+                (set_visitors, 3, "trp_peasant_woman", 4),
+
+                (set_visitor, 4, "trp_abell_cauthon_book_1"),
+                (set_visitors, 4, "trp_two_rivers_farmer", 4),
+                (set_visitors, 4, "trp_rivers_townsman", 3),
+                (set_visitors, 4, "trp_rivers_townswoman", 3),
+                (set_visitors, 4, "trp_farmer", 4),
+                (set_visitors, 4, "trp_peasant_woman", 4),
+
+                (set_visitor, 5, "trp_nynaeve_book_1"),
+                (set_visitors, 5, "trp_two_rivers_farmer", 4),
+                (set_visitors, 5, "trp_rivers_townsman", 3),
+                (set_visitors, 5, "trp_rivers_townswoman", 3),
+                (set_visitors, 5, "trp_farmer", 4),
+                (set_visitors, 5, "trp_peasant_woman", 4),
+
+                (set_visitor, 6, "trp_myrddraal"),
+                (set_visitors, 6, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 6, "trp_trolloc_grunt", 2),
+                (set_visitors, 6, "trp_trolloc_archer", 1),
+                (set_visitors, 6, "trp_trolloc_hewer", 2),
+
+                (set_visitor, 7, "trp_trolloc_clan_chief"),
+                (set_visitors, 7, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 7, "trp_trolloc_grunt", 2),
+                (set_visitors, 7, "trp_trolloc_archer", 1),
+                (set_visitors, 7, "trp_trolloc_hewer", 2),
+
+                (set_visitor, 8, "trp_trolloc_berserker"),
+                (set_visitors, 8, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 8, "trp_trolloc_grunt", 2),
+                (set_visitors, 8, "trp_trolloc_archer", 1),
+                (set_visitors, 8, "trp_trolloc_hewer", 2),
+
+                (set_visitor, 9, "trp_trolloc_clan_chief"),
+                (set_visitors, 9, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 9, "trp_trolloc_grunt", 2),
+                (set_visitors, 9, "trp_trolloc_archer", 1),
+                (set_visitors, 9, "trp_trolloc_hewer", 2),
+
+                (set_visitor, 10, "trp_trolloc_berserker"),
+                (set_visitors, 10, "trp_shadowspawn_recruit_creature", 2),
+                (set_visitors, 10, "trp_trolloc_grunt", 2),
+                (set_visitors, 10, "trp_trolloc_archer", 1),
+                (set_visitors, 10, "trp_trolloc_hewer", 2),
+
+                # set mission and scene
+                (set_jump_mission, "mt_timeline_event_5"),
+                (jump_to_scene, "scn_emonds_field_raid_book_1", 0),
+                (change_screen_mission),
+			]
+		),
+
+		("emonds_field_raid_event_book_1_results",[
+                                            (eq, "$g_encountered_party", "p_village_99"),
+                                            (troop_slot_eq, "trp_player", slot_troop_timeline_current_state, BOOK_1_TROLLOC_RAID_ON_EMONDS_FIELD),
+                                            (neg|troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, NOT_STARTED),
+                                            (is_currently_night),
+                                            (try_begin),
+                                            (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, RETREAT),
+                                                (str_store_string, s2, "str_trolloc_raid_on_emonds_field_retreat"),
+                                            (else_try),
+                                            (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL),
+                                                (try_begin),
+                                                (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                                                    (str_store_string, s2, "str_trolloc_raid_on_emonds_field_successful_protagonist"),
+                                                (else_try),
+                                                    (str_store_string, s2, "str_trolloc_raid_on_emonds_field_successful_antagonist"),
+                                                (try_end),
+                                            (else_try),
+                                            (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL_KO),
+                                                (try_begin),
+                                                (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                                                    (str_store_string, s2, "str_trolloc_raid_on_emonds_field_successful_ko_protagonist"),
+                                                (else_try),
+                                                    (str_store_string, s2, "str_trolloc_raid_on_emonds_field_successful_ko_antagonist"),
+                                                (try_end),
+                                            (try_end),
+                                        ],"{s2}",
 			[
 
                 (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                # Reward Protagonist Full
-                (troop_add_gold, "trp_player", 100),
-                (add_xp_to_troop, 100, "trp_player"),
-                (party_add_xp, "p_main_party", 200),
-                (troop_add_item, "trp_player", "itm_black_mail_gauntlets"),
+
+                (try_begin),
+                (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL),
+                    (try_begin),
+                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                        # Reward Protagonist Full
+                        (troop_add_gold, "trp_player", 500),
+                        (add_xp_to_troop, 400, "trp_player"),
+                        (party_add_xp, "p_main_party", 1000),
+                        (troop_add_item, "trp_player", "itm_two_handed_axe"),
+                        (troop_add_item, "trp_player", "itm_wool"),
+                    (else_try),
+                        # Reward Antagonist Full
+                        (troop_add_gold, "trp_player", 500),
+                        (add_xp_to_troop, 400, "trp_player"),
+                        (party_add_xp, "p_main_party", 1000),
+                        (troop_add_item, "trp_player", "itm_wool"),
+                        (troop_add_item, "trp_player", "itm_wool"),
+                    (try_end),
+                (else_try),
+                (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL_KO),
+                    (try_begin),
+                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
+                        # Reward Protagonist Half
+                        (troop_add_gold, "trp_player", 250),
+                        (add_xp_to_troop, 200, "trp_player"),
+                        (party_add_xp, "p_main_party", 500),
+                    (else_try),
+                        # Reward Antagonist Half
+                        (troop_add_gold, "trp_player", 250),
+                        (add_xp_to_troop, 200, "trp_player"),
+                        (party_add_xp, "p_main_party", 500),
+                    (try_end),
+                (try_end),
+
                 (change_screen_map),
 			]
 		),
 
-		("al_thor_farm_event_results_2_protagonist",[
-                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
-                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
-                                                    (is_currently_night),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 2),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
-                                                ],"You were knocked out, but it seems your intervention allowed Rand and Tam to escape...",
-			[
 
-                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                # Reward Protagonist Half
-                (troop_add_gold, "trp_player", 50),
-                (add_xp_to_troop, 50, "trp_player"),
-                (party_add_xp, "p_main_party", 100),
-                (change_screen_map),
-			]
-		),
-
-		("al_thor_farm_event_results_1_antagonist",[
-                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
-                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
-                                                    (is_currently_night),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 1),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 0),
-                                                ],"You had them! Then the bloody Myrddraal called you back and they escaped!",
-			[
-
-                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                # Reward Antagonist Full
-                (troop_add_gold, "trp_player", 100),
-                (add_xp_to_troop, 100, "trp_player"),
-                (party_add_xp, "p_main_party", 200),
-                (troop_add_item, "trp_player", "itm_red_arm_club"),
-                (change_screen_map),
-			]
-		),
-
-		("al_thor_farm_event_results_2_antagonist",[
-                                                    (eq, "$g_encountered_party", "p_al_thor_farm"),
-                                                    (check_quest_active, "qst_trolloc_raid_on_al_thor_farm"),
-                                                    (is_currently_night),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, 2),
-                                                    (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 0),
-                                                ],"You were knocked out, but the Dark One noticed your good efforts...",
-			[
-
-                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-                # Reward Antagonist Half
-                (troop_add_gold, "trp_player", 50),
-                (add_xp_to_troop, 50, "trp_player"),
-                (party_add_xp, "p_main_party", 100),
-                (change_screen_map),
-			]
-		),
-
-# Emonds Field Event
-
-
-
+###############
 # generic leave
 		("timeline_event_location_leave",[(troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, -1),],"Leave...",
 			[
@@ -21231,8 +21468,9 @@ They give you directions to the nearest town and you take your leave.",
       ]
   ),
 
-## Non-Tower/Castle/Village Timeline Event Locations Menu Ends
-
+########################################
+## Timeline Event Locations Menu Ends ##
+########################################
 
 
 ## end added for TGS

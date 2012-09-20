@@ -817,3 +817,4 @@ scn_sea_b = 815
 scn_sea_land = 816
 scn_shienaran_border_tower_1 = 817
 scn_al_thor_farm = 818
+scn_emonds_field_raid_book_1 = 819

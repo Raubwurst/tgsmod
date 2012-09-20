@@ -959,4 +959,5 @@ itm_toman_head_shield_weak = 957
 itm_toman_head_shield_normal = 958
 itm_mats_hat = 959
 itm_ashandarei = 960
-itm_items_end = 961
+itm_lan_light_armor = 961
+itm_items_end = 962

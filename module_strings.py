@@ -4923,9 +4923,26 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 # TGS Timeline Strings Begin
 
 # book 1
-("trolloc_raid_on_al_thor_farm", "You feel the Pattern pulling you towards the Al'Thor farm in the Two Rivers..."),
+("trolloc_raid_on_al_thor_farm", "You feel the Pattern pulling you towards the al'Thor farm in the Two Rivers..."),
 ("trolloc_raid_on_al_thor_farm_enter", "You arrive at the al'Thor farm..."),
 ("trolloc_raid_on_al_thor_farm_leave", "You decide to leave the al'Thor farm..."),
+("trolloc_raid_on_al_thor_farm_complete", "Rand and Tam al'Thor narrowly escape death in a trolloc raid on their farmstead..."),
+("trolloc_raid_on_al_thor_farm_retreat", "After fighting for a while, you lose heart and retreat..."),
+("trolloc_raid_on_al_thor_farm_successful_protagonist", "You have saved Master al'Thor and his son Rand! The Light be praised!"),
+("trolloc_raid_on_al_thor_farm_successful_ko_protagonist", "You were knocked out, but it seems your intervention allowed Rand and Tam to escape..."),
+("trolloc_raid_on_al_thor_farm_successful_antagonist", "You had them, but the bloody Myrddraal called you back and they escaped!"),
+("trolloc_raid_on_al_thor_farm_successful_ko_antagonist", "You were knocked out, but the Dark One noticed your good efforts..."),
+
+("trolloc_raid_on_emonds_field", "You feel the Pattern pulling you towards the village of Emonds Field in the Two Rivers..."),
+("trolloc_raid_on_emonds_field_enter", "You arrive at Emonds Field..."),
+("trolloc_raid_on_emonds_field_leave", "You decide to leave Emonds Field..."),
+("trolloc_raid_on_emonds_field_complete", "A Trolloc Fist attacks the village of Emonds Field in the remote Two Rivers. Only the intervention of an Aes Sedai and her Warder save the village from complete disaster..."),
+("trolloc_raid_on_emonds_field_retreat", "After fighting for a while, you lose heart and retreat..."),
+("trolloc_raid_on_emonds_field_successful_protagonist", "The village has been saved! Praise the Light!"),
+("trolloc_raid_on_emonds_field_successful_ko_protagonist", "The village was saved, but you were injured."),
+("trolloc_raid_on_emonds_field_successful_antagonist", "The village burns and chaos rules!"),
+("trolloc_raid_on_emonds_field_successful_ko_antagonist", "A great raid, but not without cost."),
+
 
 # TGS Timeline Strings End
 

@@ -1912,6 +1912,8 @@ scenes = [
 ## Added for TGS (Timeline Events)
   ("al_thor_farm",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000003004d69d0003a0e7000069f90000001200003be9",
     [],[],"outer_terrain_plain"),
+  ("emonds_field_raid_book_1",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000001300389800003a4ea000058340000637a0000399b",
+    [],[],"outer_terrain_plain"),
 ## End added for TGS
 
 ]

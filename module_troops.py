@@ -1846,7 +1846,7 @@ troops = [
 #    itm_shirt,itm_coarse_tunic,itm_leather_apron,itm_wrapping_boots],
 #   def_attrib|level(3),wp(65),knows_common,man_face_young_1, man_face_old_2],
 
-  ["shadowspawn_recruit_creature","Shadowspawn Recruit (Creature)","Shadowspawn Recruits (Creature)",tf_trolloc|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_24,
+  ["shadowspawn_recruit_creature","Trolloc Recruit","Trolloc Recruits",tf_trolloc|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_24,
    [itm_hatchet,itm_stones,itm_trolloc_hawk_helmet, itm_trolloc_weak_armor, itm_black_mail_gauntlets, itm_black_leather_boots],
    def_attrib|level(3),wp(65),knows_common,man_face_young_1, man_face_old_2],
 
@@ -6846,7 +6846,7 @@ troops = [
    [itm_cleaver,itm_knife,itm_pitch_fork,itm_sickle,itm_club,itm_stones,itm_leather_cap,itm_felt_hat,itm_felt_hat,itm_linen_tunic,itm_coarse_tunic,itm_nomad_boots,itm_wrapping_boots],
    def_attrib|level(4),wp(60),knows_common,man_face_middle_1, man_face_old_2],
 
-# Al' Thor Farm Event
+# Al' Thor Farm Event - Book 1
     ["tam_al_thor_book_1","Tam al'Thor","Tam",tf_hero|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_3,
    [itm_two_rivers_long_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_large_heron_mark_blade, itm_ragged_outfit, itm_leather_gloves, itm_leather_boots],
    knight_attrib_4,wp_archery(320)|wp_two_handed(300)|wp(250),knight_skills_4|knows_trainer_4, 0x0000000ebf04614436d39596a4924aed00000000001dab1a0000000000000000],
@@ -6858,6 +6858,34 @@ troops = [
   ["narg","Narg","Narg",tf_trolloc|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_24,
    [itm_military_cleaver_b,itm_trolloc_wolf_helmet, itm_trolloc_normal_armor, itm_black_mail_gauntlets, itm_black_leather_boots],
     def_attrib_wot_super_infantry_3 ,wp_one_handed(145)|wp(110),knows_wot_super_infantry_3,man_face_young_1, man_face_old_2],
+
+# Emonds Field Event - Book 1
+    ["lan_unarmored", "al'Lan Mandragoran",  "Lan",  tf_hero, 0,reserved,  fac_kingdom_21,
+   [itm_leather_boots, itm_leather_gloves, itm_lan_light_armor, itm_seanchan_large_sword],
+   knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_4, 0x0000000da704414724d38e371c6dc8e500000000001e58eb0000000000000000],
+
+    ["moiraine_common_garb", "Moiraine", "Moiraine", tf_hero|tf_female, 0, reserved,  fac_kingdom_21,
+   [itm_lady_dress_blue, itm_veteran_aes_sedai_blue_shoes, itm_power_player, itm_power_ammo],
+   knight_attrib_3,wp_firearm(250)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_8|knows_fire_8|knows_earth_8|knows_spirit_9|knows_water_8|knows_air_8, 0x000000017f04200443156d12dea536e200000000001dc11a0000000000000000],
+
+    ["bran_al_vere_book_1", "Brandelwyn al'Vere", "Bran", tf_hero, 0, reserved,  fac_kingdom_3,
+   [itm_leather_vest, itm_leather_boots, itm_leather_gloves, itm_segmented_helmet, itm_maul],
+   knight_attrib_3,wp_two_handed(220)|wp(200),knight_skills_3|knows_trainer_4, 0x0000000efc0411524b1c7236e3d24b2400000000001f49230000000000000000],
+
+    ["nynaeve_book_1", "Nynaeve", "Nynaeve", tf_hero|tf_female, 0, reserved,  fac_kingdom_21,
+   [itm_leather_boots, itm_woolen_dress, itm_club],
+   knight_attrib_3,wp_firearm(310)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_9|knows_fire_9|knows_earth_8|knows_spirit_10|knows_water_10|knows_air_10, andor_woman_face_young],
+
+    ["master_luhan_book_1", "Master Luhan", "Luhan", tf_hero, 0, reserved,  fac_kingdom_3,
+   [itm_leather_apron, itm_leather_boots, itm_leather_gloves, itm_sledgehammer],
+   knight_attrib_3,wp_two_handed(250)|wp(200),knight_skills_3|knows_trainer_4, andor_man_face_middle],
+
+    ["abell_cauthon_book_1", "Abell Cauthon", "Abell", tf_hero, 0, reserved,  fac_kingdom_3,
+    [itm_ragged_outfit, itm_leather_boots, itm_leather_gloves, itm_two_rivers_long_bow, itm_bodkin_arrows, itm_bodkin_arrows, itm_quarter_staff],
+    knight_attrib_4,wp_archery(320)|wp_polearm(300)|wp(250),knight_skills_4|knows_trainer_4, andor_man_face_old],
+
+
+
 
 
 

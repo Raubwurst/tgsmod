@@ -27078,25 +27078,40 @@ mission_templates = [
 # Protagonist Version
 # Player Only
   (
-    "timeline_event_1",0,-1,
-    "timeline event 1",
+    "timeline_event_0",0,-1,
+    "timeline event 0",
     [
 
 ## Starting Event 'Alarmed' ##
         (0,mtef_team_0|mtef_use_exact_number,0,aif_start_alarmed,1,[]),    # player alone
-        # NPC entry points
+        # NPC entry points - (no horse, start alarmed)
         # Antagonist side
-        (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (2,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (3,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (4,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (5,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (1,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (2,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (3,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (4,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (5,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
         # Protagonist side
-        (6,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (7,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (8,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (9,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (10,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (6,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (7,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (8,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (9,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (10,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+
+        # NPC entry points - (allow horse, start alarmed)
+        # Antagonist side
+        (11,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (12,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (13,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (14,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (15,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        # Protagonist side
+        (16,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (17,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (18,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (19,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (20,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+
 
 ## Starting Event 'Not Alarmed' ##
 
@@ -27119,6 +27134,14 @@ mission_templates = [
         (finish_mission,0),]),
 
       common_music_situation_update,
+
+      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+                           #(assign,"$defender_reinforcement_stage",0),
+                           #(assign,"$attacker_reinforcement_stage",0),
+                           #(call_script, "script_place_player_banner_near_inventory"),
+                           (call_script, "script_combat_music_set_situation_with_culture"),
+                           #(assign, "$g_defender_reinforcement_limit", 2),
+                           ]),
 
       (1, 60, ti_once,
        [
@@ -27341,19 +27364,33 @@ mission_templates = [
 
 ## Starting Event 'Alarmed' ##
         (0,mtef_team_0|mtef_use_exact_number,0,aif_start_alarmed,6,[]),    # player plus 5
-        # NPC entry points
+        # NPC entry points - (no horse, start alarmed)
         # Antagonist side
-        (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (2,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (3,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (4,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (5,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (1,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (2,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (3,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (4,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (5,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
         # Protagonist side
-        (6,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (7,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (8,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (9,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (10,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (6,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (7,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (8,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (9,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (10,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+
+        # NPC entry points - (allow horse, start alarmed)
+        # Antagonist side
+        (11,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (12,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (13,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (14,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (15,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        # Protagonist side
+        (16,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (17,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (18,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (19,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (20,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
 
 ## Starting Event 'Not Alarmed' ##
 
@@ -27376,6 +27413,14 @@ mission_templates = [
         (finish_mission,0),]),
 
       common_music_situation_update,
+
+      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+                           #(assign,"$defender_reinforcement_stage",0),
+                           #(assign,"$attacker_reinforcement_stage",0),
+                           #(call_script, "script_place_player_banner_near_inventory"),
+                           (call_script, "script_combat_music_set_situation_with_culture"),
+                           #(assign, "$g_defender_reinforcement_limit", 2),
+                           ]),
 
       (1, 60, ti_once,
        [
@@ -27445,6 +27490,31 @@ mission_templates = [
 			(try_end)]),
 
       common_battle_inventory,
+
+      (1, 0, ti_once, [],
+       [
+            (try_for_agents, ":agent"),
+                (agent_get_troop_id, ":agent_troop", ":agent"),
+                (try_begin),
+                (eq, ":agent_troop", "trp_moiraine_common_garb"),
+                    (assign, ":moiraine", ":agent"),
+                (else_try),
+                (eq, ":agent_troop", "trp_lan_unarmored"),
+                    (assign, ":lan", ":agent"),
+                (try_end),
+            (try_end),
+
+            (agent_set_slot, ":moiraine", slot_agent_has_warders_spawned, 1),
+            (agent_set_slot, ":lan", slot_agent_is_warder_for_agent, 1),
+            (agent_set_slot, ":lan", slot_agent_warder_bond_holder, ":moiraine"),
+            (agent_set_slot, ":moiraine", slot_agent_aes_sedai_warder_1, ":lan"),
+            (agent_set_slot, ":moiraine", slot_agent_aes_sedai_warder_2, -1),
+            (agent_set_slot, ":moiraine", slot_agent_aes_sedai_warder_3, -1),
+            (agent_set_slot, ":moiraine", slot_agent_aes_sedai_warder_4, -1),
+            (agent_set_slot, ":lan", slot_agent_warder_is_leader, 1),
+            (agent_set_slot, ":moiraine", slot_agent_warders_incapacitated, 0),
+
+         ]),
 
       #TGS
       common_wot_initialize_timeline_event_change_side_for_antagonists,
@@ -27598,19 +27668,33 @@ mission_templates = [
 
 ## Starting Event 'Alarmed' ##
         (0,mtef_team_0|mtef_use_exact_number,0,aif_start_alarmed,21,[]),    # player plus 20
-        # NPC entry points
+        # NPC entry points - (no horse, start alarmed)
         # Antagonist side
-        (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (2,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (3,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (4,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
-        (5,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (1,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (2,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (3,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (4,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
+        (5,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,50,[]),
         # Protagonist side
-        (6,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (7,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (8,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (9,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
-        (10,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (6,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (7,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (8,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (9,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+        (10,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,50,[]),
+
+        # NPC entry points - (allow horse, start alarmed)
+        # Antagonist side
+        (11,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (12,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (13,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (14,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        (15,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,50,[]),
+        # Protagonist side
+        (16,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (17,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (18,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (19,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
+        (20,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,50,[]),
 
 ## Starting Event 'Not Alarmed' ##
 
@@ -27633,6 +27717,14 @@ mission_templates = [
         (finish_mission,0),]),
 
       common_music_situation_update,
+
+      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+                           #(assign,"$defender_reinforcement_stage",0),
+                           #(assign,"$attacker_reinforcement_stage",0),
+                           #(call_script, "script_place_player_banner_near_inventory"),
+                           (call_script, "script_combat_music_set_situation_with_culture"),
+                           #(assign, "$g_defender_reinforcement_limit", 2),
+                           ]),
 
       (1, 60, ti_once,
        [

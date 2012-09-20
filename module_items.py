@@ -1245,7 +1245,7 @@ items = [
 ##diplomacy end
 
 
-##################################### 
+#####################################
 ###insert new items for TGS
 #####################################
  #weight(2.25)
@@ -1256,22 +1256,22 @@ items = [
 #Magic items for test  (itcf_thrust_onehanded|itcf_thrust_onehanded_lance_horseback)
 #####################################
  #["power_player","One Power", [("dagger_b",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
- 
+
  ["power_player","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_unique|itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(120) | thrust_damage(1 ,  pierce)|max_ammo(255)|weapon_length(65),imodbits_none,
   [(ti_on_weapon_attack, [
 
-#            (assign,":distance",99999),   
+#            (assign,":distance",99999),
 #            (try_for_agents,":agent"),
 #                (agent_is_alive,":agent"),
 #                (neg|agent_is_wounded,":agent"), ## add this to not re-count wounded people
 #                (agent_is_human,":agent"),
-#                (agent_get_look_position, pos2, ":agent"), 
+#                (agent_get_look_position, pos2, ":agent"),
 #                (get_distance_between_positions,":dist",pos1,pos2),
 #                (lt,":dist",":distance"),
 #                (assign,":chosen",":agent"), # 'chosen' is the shooter
 #                (assign,":distance",":dist"),
 #            (try_end),
-            
+
             (store_trigger_param_1, ":chosen"),
 
 ## Run the channeling code only if the channeling agent is not shielded
@@ -1301,19 +1301,19 @@ items = [
 ############################################################
 ############################################################
 #itcf_thrust_onehanded|itcf_thrust_onehanded_lance_horseback
- 
+
  ["power_npc_companion_ranged","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_unique|itp_type_pistol|itp_primary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(140) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65)|difficulty(0),imodbits_missile,
   [(ti_on_weapon_attack, [
 
 #            (get_player_agent_no,":player_agent"),
 
             (assign,":distance",99999),
-                     
+
             (try_for_agents,":agent"),
                 (agent_is_alive,":agent"),
                 (neg|agent_is_wounded,":agent"), ## add this to not re-count wounded people
                 (agent_is_human,":agent"),
-                (agent_get_look_position, pos2, ":agent"), 
+                (agent_get_look_position, pos2, ":agent"),
                 (get_distance_between_positions,":dist",pos1,pos2),
                 (lt,":dist",":distance"),
                 (assign,":chosen",":agent"), # 'chosen' is the shooter
@@ -1337,7 +1337,7 @@ items = [
                     (agent_get_troop_id, ":chosen_troop_id", ":chosen"),
                     (troop_get_slot, ":chosen_primary_weave", ":chosen_troop_id", slot_troop_npc_companion_primary_weave),
                     (troop_get_slot, ":chosen_secondary_weave", ":chosen_troop_id", slot_troop_npc_companion_secondary_weave),
-            
+
                     (try_begin),
                     (gt, ":chosen_primary_weave", 0),
                     (gt, ":chosen_secondary_weave", 0),
@@ -1365,7 +1365,7 @@ items = [
                         (store_random_in_range, ":active_weave", 1, ":known_weaves"),
                     (try_end),
 
-                # End npc companion weave selection code            
+                # End npc companion weave selection code
 
 
 ################################## Weave 2
@@ -1395,7 +1395,7 @@ items = [
                                 (position_move_z,pos1,":random"),
                             (try_end),
                             #end added for gravity effect and flight randomness
-            
+
                             (copy_position,pos2,pos1),
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
@@ -1420,7 +1420,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -1433,7 +1433,7 @@ items = [
                                 (assign,reg5,1000),  #was 1000
                             (try_end),
                         (try_end),
-                                
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid freezing shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -1454,10 +1454,10 @@ items = [
                             (try_end),
                             (eq, ":deliver_damage", 1),
                             #end partial friendly fire protection
-            
+
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
-                         
+
                             (try_begin),
                             (lt,":dist",250),  # freeze (slowed movement) if blast within 250 of agent
                                 (agent_set_speed_limit, ":agent", 0),
@@ -1468,9 +1468,9 @@ items = [
                                 (try_end),
                                 (add_xp_to_troop,40,":chosen"),
                             (try_end),
-                    
+
                         (try_end),
-                            
+
                         #Freeze weave end
 
 
@@ -1544,8 +1544,8 @@ items = [
                                 (add_xp_to_troop,40,":chosen"),
                             (try_end),
                         (try_end),
-                        
-                    # End Heal Nearest Ally Weave            
+
+                    # End Heal Nearest Ally Weave
 
 
 ################################## Weave 4
@@ -1575,7 +1575,7 @@ items = [
                                 (position_move_z,pos1,":random"),
                             (try_end),
                             #end added for gravity effect and flight randomness
-            
+
                             (copy_position,pos2,pos1),
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
@@ -1600,7 +1600,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -1616,7 +1616,7 @@ items = [
                                 (assign,reg5,1000),  #was 1000
                             (try_end),
                         (try_end),
-                                
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid killing shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -1637,10 +1637,10 @@ items = [
                             (try_end),
                             (eq, ":deliver_damage", 1),
                             #end partial friendly fire protection
-            
+
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
-                         
+
                             # do 25 damage if fireball within 50 of agent
                             (try_begin),
                                 (lt,":dist",50),  #was 300
@@ -1764,7 +1764,7 @@ items = [
                             (try_end),
 
                         (try_end),
-                
+
                         #Fireball weave end
 
 
@@ -1776,43 +1776,43 @@ items = [
                         (assign, ":chosen_active_effect", 0),
                         (assign, ":chosen_horse_on_fire", 0),
                         (assign, ":teammate_active_effect", 5),
-                
+
 
                         (agent_get_slot, ":chosen_seeker", ":chosen", slot_agent_has_active_seeker),
                         (try_begin),
                         (eq, ":chosen_seeker", 1),
                             (assign, ":chosen_active_effect", 1),
-                
+
                         (else_try), # chosen doesn't have a seeker
                             (agent_get_slot, ":chosen_fire", ":chosen", slot_agent_on_fire),
                             (try_begin),
                             (eq, ":chosen_fire", 1),
                                 (assign, ":chosen_active_effect", 3),
-                
+
                             (else_try), # chosen not on fire
                                 (agent_get_slot, ":chosen_bound", ":chosen", slot_agent_is_bound),
                                 (try_begin),
                                 (eq, ":chosen_bound", 1),
                                     (assign, ":chosen_active_effect", 4),
-                
+
                                 (else_try), # chosen not bound
                                     (agent_get_horse, ":chosen_horse", ":chosen"),
                                     (try_begin),
                                     (ge, ":chosen_horse", 0),
                                         (agent_get_slot, ":chosen_horse_fire", ":chosen_horse", slot_agent_on_fire),
                                     (try_end),
-                
+
                                     (try_begin),
                                     (eq, ":chosen_horse_fire", 1),
                                         (assign, ":chosen_horse_on_fire", 1),
 
                                     (else_try), # chosen horse not on fire
-                                        
+
                                         (try_for_agents,":agent"),
                                             (agent_is_alive,":agent"), ## don't help dead
                                             (neg|agent_is_wounded,":agent"), ## don't help wounded
 #                                            (agent_is_human,":agent"), ## don't help horses
-                
+
                                             # determine if agents under compulsion used to be teammates
                                             (agent_get_slot, ":compulsion_present", ":agent", slot_agent_under_compulsion),
                                             (assign, ":agent_ally", 0),
@@ -1833,10 +1833,10 @@ items = [
                                             (neg|teams_are_enemies, ":chosen_team", ":agent_team"), # always been teammate
                                                 (assign, ":agent_ally", 1),
                                             (try_end),
-                                                
+
                                             (gt, ":agent_ally", 0), ## don't help enemies
                                             (neq, ":chosen", ":agent"), ## this code will not look at 'chosen'
-                
+
                                             (try_begin),
                                             (neq, ":teammate_active_effect", 1),
                                                 (agent_get_slot, ":teammate_seeker", ":agent", slot_agent_has_active_seeker),
@@ -1863,23 +1863,23 @@ items = [
                                                             (agent_get_slot, ":teammate_bound", ":agent", slot_agent_is_bound),
                                                             (try_begin),
                                                             (eq, ":teammate_bound", 1),
-                                                            (eq, ":agent_ally", 1), 
+                                                            (eq, ":agent_ally", 1),
                                                                 (assign, ":teammate_active_effect", 4),
                                                             (try_end),
                                                         (try_end),
                                                     (try_end),
                                                 (try_end),
                                             (try_end),
-                
+
                                         (try_end),
 
                                         (assign, ":distance", 99999),
-                                
+
                                         (try_for_agents,":agent"),
                                             (agent_is_alive,":agent"), ## don't help dead
                                             (neg|agent_is_wounded,":agent"), ## don't help wounded
 #                                            (agent_is_human,":agent"), ## don't help horses
-                
+
                                             # determine if agents under compulsion used to be teammates
                                             (agent_get_slot, ":compulsion_present", ":agent", slot_agent_under_compulsion),
                                             (assign, ":agent_ally", 0),
@@ -1900,7 +1900,7 @@ items = [
                                             (neg|teams_are_enemies, ":chosen_team", ":agent_team"), # always been teammate
                                                 (assign, ":agent_ally", 1),
                                             (try_end),
-                                                
+
                                             (gt, ":agent_ally", 0), ## don't help enemies
                                             (neq, ":chosen", ":agent"), ## this code will not look at 'chosen'
 
@@ -1949,7 +1949,7 @@ items = [
                                         # End of loops for finding closest affected ally
                                     (try_end),
                                     # End of loops for finding horse on fire
-                
+
                                 (try_end),
                             (try_end),
                         (try_end),
@@ -1960,19 +1960,19 @@ items = [
                             (try_begin),
                             (eq, ":chosen_active_effect", 1),
                                 (agent_get_slot, ":seeker_shooter", ":chosen", slot_agent_seeker_shooter),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":seeker_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 25),
                                         (agent_set_slot, ":chosen", slot_agent_has_active_seeker, 0),
                                         (val_sub, "$g_number_seekers_active", 1),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target", ":chosen"),
                                             (assign, "$g_seeker_slot_1", 0),
@@ -2054,7 +2054,7 @@ items = [
                                             (assign, "$g_seeker_slot_20", 0),
                                             (copy_position, pos1, pos50),
                                         (try_end),
-                
+
                                         (particle_system_burst, "psys_unravel_aura", pos1, 50),
                                         (play_sound, "snd_unravel"),
                                         (try_begin), # add to channeling multiplier if agent is player
@@ -2067,7 +2067,7 @@ items = [
                                     (gt, ":random", 50),
                                         (agent_set_slot, ":chosen", slot_agent_has_active_seeker, 0),
                                         (val_sub, "$g_number_seekers_active", 1),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target", ":chosen"),
                                             (assign, "$g_seeker_slot_1", 0),
@@ -2161,12 +2161,12 @@ items = [
                             (else_try),
                             (eq, ":chosen_active_effect", 3),
                                 (agent_get_slot, ":fire_shooter", ":chosen", slot_agent_fire_starter),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":fire_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -2194,12 +2194,12 @@ items = [
                             (else_try),
                             (eq, ":chosen_active_effect", 4),
                                 (agent_get_slot, ":bind_shooter", ":chosen", slot_agent_bound_by),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":bind_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -2236,7 +2236,7 @@ items = [
                             (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                             (agent_get_position, pos2, ":chosen_horse"),
-                
+
                             (try_begin),
                             (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                 (store_random_in_range, ":random", 1, 100),
@@ -2267,21 +2267,21 @@ items = [
                             (try_begin),
                             (eq, ":teammate_active_effect", 1),
                                 (agent_get_slot, ":seeker_shooter", ":nearest_affected_ally", slot_agent_seeker_shooter),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":seeker_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 25),
                                         (agent_set_slot, ":nearest_affected_ally", slot_agent_has_active_seeker, 0),
                                         (val_sub, "$g_number_seekers_active", 1),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target", ":nearest_affected_ally"),
                                             (assign, "$g_seeker_slot_1", 0),
@@ -2363,7 +2363,7 @@ items = [
                                             (assign, "$g_seeker_slot_20", 0),
                                             (copy_position, pos1, pos50),
                                         (try_end),
-                
+
                                         (particle_system_burst, "psys_unravel_aura", pos1, 50),
                                         (play_sound, "snd_unravel"),
                                         (try_begin), # add to channeling multiplier if agent is player
@@ -2376,7 +2376,7 @@ items = [
                                     (gt, ":random", 50),
                                         (agent_set_slot, ":nearest_affected_ally", slot_agent_has_active_seeker, 0),
                                         (val_sub, "$g_number_seekers_active", 1),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target", ":nearest_affected_ally"),
                                             (assign, "$g_seeker_slot_1", 0),
@@ -2458,7 +2458,7 @@ items = [
                                             (assign, "$g_seeker_slot_20", 0),
                                             (copy_position, pos1, pos50),
                                         (try_end),
-                
+
                                         (particle_system_burst, "psys_unravel_aura", pos1, 50),
                                         (play_sound, "snd_unravel"),
                                         (try_begin), # add to channeling multiplier if agent is player
@@ -2470,14 +2470,14 @@ items = [
                             (else_try),
                             (eq, ":teammate_active_effect", 2),
                                 (agent_get_slot, ":compulsion_shooter", ":nearest_affected_ally", slot_agent_compelled_by),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":compulsion_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -2509,14 +2509,14 @@ items = [
                             (else_try),
                             (eq, ":teammate_active_effect", 3),
                                 (agent_get_slot, ":fire_shooter", ":nearest_affected_ally", slot_agent_fire_starter),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":fire_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -2544,14 +2544,14 @@ items = [
                             (else_try),
                             (eq, ":teammate_active_effect", 4),
                                 (agent_get_slot, ":bind_shooter", ":nearest_affected_ally", slot_agent_bound_by),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":bind_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -2581,7 +2581,7 @@ items = [
                         (neg|agent_is_non_player, ":chosen"),
                             (display_message, "@No active weaves to unravel..."),
                         (try_end),
-                        
+
                     # End Unravel Weave
 
 
@@ -2612,7 +2612,7 @@ items = [
                                 (position_move_z,pos1,":random"),
                             (try_end),
                             #end added for gravity effect and flight randomness
-            
+
                             (copy_position,pos2,pos1),
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
@@ -2637,7 +2637,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -2650,7 +2650,7 @@ items = [
                                 (assign,reg5,1000),  #was 1000
                             (try_end),
                         (try_end),
-                    
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid affecting shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -2671,11 +2671,11 @@ items = [
                             (try_end),
                             (eq, ":deliver_damage", 1),
                             #end partial friendly fire protection
-            
+
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
                             (store_agent_hit_points,":target_health",":agent",1),
-                    
+
                             (try_begin),
                             (lt,":dist",750),
 
@@ -2794,7 +2794,7 @@ items = [
                                 (try_end),
                             (try_end),
                         (try_end),
-                                                
+
                         #End Ranged Earth Blast
 
 
@@ -2827,7 +2827,7 @@ items = [
                         (ge, ":number_of_enemies", 1),
                             (agent_get_slot, ":target_is_channeler", ":target", slot_agent_is_channeler),
                             (agent_get_slot, ":target_is_shielded", ":target", slot_agent_is_shielded),
-                    
+
                             (try_begin),
                             (eq, ":target_is_channeler", 1),  # harder to bind channelers
                             (eq, ":target_is_shielded", 0),  # unless they are shielded
@@ -2835,7 +2835,7 @@ items = [
                                 (troop_get_xp, ":target_xp", ":target_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                    
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":target_xp"),
                                     (store_random_in_range, ":random", 1, 100),
@@ -2874,7 +2874,7 @@ items = [
                                         (try_end),
                                         (add_xp_to_troop,60,":chosen"),
                                 (try_end),
-                    
+
                             (else_try),
                                 (agent_get_look_position, pos3, ":target"),
                                 (position_get_x, ":target_x", pos3),
@@ -2935,7 +2935,7 @@ items = [
                                 (position_move_z,pos1,":random"),
                             (try_end),
                             #end added for gravity effect and flight randomness
-            
+
                             (copy_position,pos2,pos1),
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
@@ -2960,7 +2960,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -3000,7 +3000,7 @@ items = [
                                 (try_end),
                                 (eq, ":deliver_damage", 1),
                                 #end partial friendly fire protection
-            
+
                                 (agent_get_position,pos2,":agent"),
                                 (get_distance_between_positions,":dist",pos3,pos2),
                                 (lt,":dist",":distance"),
@@ -3099,7 +3099,7 @@ items = [
                                         (add_xp_to_troop,30,":chosen"),
                                     (try_end),
                                 (try_end),
-                    
+
 
                                 # set victim slots
                                 (agent_set_slot, ":agent_closest_to_blast", slot_agent_has_been_shocked, 1),
@@ -3140,7 +3140,7 @@ items = [
                                 (position_get_x, ":x_start", pos3),
                                 (position_get_y, ":y_start", pos3),
                                 (position_get_z, ":z_start", pos3),
-                    
+
                                 (try_begin),
                                 (gt, ":counter", 1),
                                     (val_add, ":z_start", 1250),
@@ -3167,11 +3167,11 @@ items = [
 
                                     (particle_system_burst, "psys_electricity_blast", pos3, 10),
                                 (try_end),
-                    
+
                                 (particle_system_burst, "psys_electricity_sparks", pos2, 25),
 
                                 (copy_position, pos3, pos2),
-                    
+
                             (try_end),
 
                         # reset victim slots
@@ -3216,7 +3216,7 @@ items = [
                         (neq, ":victim_8", 0),
                             (agent_set_slot, ":victim_8", slot_agent_has_been_shocked, 0),
                         (try_end),
-                    
+
                         #Chain Lightening end
 
 
@@ -3253,7 +3253,7 @@ items = [
                             (troop_get_xp, ":target_xp", ":target_id"),
                             (agent_get_troop_id, ":chosen_id", ":chosen"),
                             (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                    
+
                             (try_begin),
                             (gt, ":chosen_xp", ":target_xp"),
                                 (store_random_in_range, ":random", 1, 100),
@@ -3274,7 +3274,7 @@ items = [
                                     # set slot
                                     (agent_set_slot, ":target", slot_agent_is_shielded, 1),
                                     (agent_set_slot, ":target", slot_agent_shielded_by, ":chosen"),
-                    
+
                                     (try_begin), # add to channeling multiplier if agent is player
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 120),
@@ -3319,7 +3319,7 @@ items = [
                         (ge, ":number_of_enemies", 1),
                         (le, "$g_number_seekers_active", 20),
                             (assign, ":slot_found", 0),
-                    
+
                             (try_begin),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_1", 0),
@@ -3348,96 +3348,96 @@ items = [
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_3", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos33, pos1),  
-                                (assign, "$g_seeker_slot_3_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_3", 1), 
+                                (copy_position, pos33, pos1),
+                                (assign, "$g_seeker_slot_3_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_3", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_4", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos34, pos1),  
-                                (assign, "$g_seeker_slot_4_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_4", 1), 
+                                (copy_position, pos34, pos1),
+                                (assign, "$g_seeker_slot_4_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_4", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_5", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos35, pos1),  
-                                (assign, "$g_seeker_slot_5_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_5", 1), 
+                                (copy_position, pos35, pos1),
+                                (assign, "$g_seeker_slot_5_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_5", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_6", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos36, pos1),  
-                                (assign, "$g_seeker_slot_6_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_6", 1), 
+                                (copy_position, pos36, pos1),
+                                (assign, "$g_seeker_slot_6_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_6", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_7", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos37, pos1),  
-                                (assign, "$g_seeker_slot_7_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_7", 1), 
+                                (copy_position, pos37, pos1),
+                                (assign, "$g_seeker_slot_7_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_7", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_8", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos38, pos1),  
-                                (assign, "$g_seeker_slot_8_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_8", 1), 
+                                (copy_position, pos38, pos1),
+                                (assign, "$g_seeker_slot_8_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_8", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_9", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos39, pos1),  
-                                (assign, "$g_seeker_slot_9_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_9", 1), 
+                                (copy_position, pos39, pos1),
+                                (assign, "$g_seeker_slot_9_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_9", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_10", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos40, pos1),  
-                                (assign, "$g_seeker_slot_10_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_10", 1), 
+                                (copy_position, pos40, pos1),
+                                (assign, "$g_seeker_slot_10_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_10", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
@@ -3468,96 +3468,96 @@ items = [
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_13", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos43, pos1),  
-                                (assign, "$g_seeker_slot_13_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_13", 1), 
+                                (copy_position, pos43, pos1),
+                                (assign, "$g_seeker_slot_13_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_13", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_14", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos44, pos1),  
-                                (assign, "$g_seeker_slot_14_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_14", 1), 
+                                (copy_position, pos44, pos1),
+                                (assign, "$g_seeker_slot_14_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_14", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_15", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos45, pos1),  
-                                (assign, "$g_seeker_slot_15_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_15", 1), 
+                                (copy_position, pos45, pos1),
+                                (assign, "$g_seeker_slot_15_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_15", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_16", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos46, pos1),  
-                                (assign, "$g_seeker_slot_16_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_16", 1), 
+                                (copy_position, pos46, pos1),
+                                (assign, "$g_seeker_slot_16_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_16", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_17", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos47, pos1),  
-                                (assign, "$g_seeker_slot_17_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_17", 1), 
+                                (copy_position, pos47, pos1),
+                                (assign, "$g_seeker_slot_17_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_17", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_18", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos48, pos1),  
-                                (assign, "$g_seeker_slot_18_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_18", 1), 
+                                (copy_position, pos48, pos1),
+                                (assign, "$g_seeker_slot_18_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_18", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_19", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos49, pos1),  
-                                (assign, "$g_seeker_slot_19_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_19", 1), 
+                                (copy_position, pos49, pos1),
+                                (assign, "$g_seeker_slot_19_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_19", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_20", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos50, pos1),  
-                                (assign, "$g_seeker_slot_20_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_20", 1), 
+                                (copy_position, pos50, pos1),
+                                (assign, "$g_seeker_slot_20_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_20", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (try_end),
@@ -3565,9 +3565,9 @@ items = [
                         (ge, ":number_of_enemies", 1),
                         (eq, "$g_number_seekers_active", 20),
                         (neg|agent_is_non_player, ":chosen"),
-                            (display_message, "@Too many active seekers!!"), 
+                            (display_message, "@Too many active seekers!!"),
                         (try_end),
-                        
+
                     # End Seeker Weave
 
 
@@ -3609,7 +3609,7 @@ items = [
 
                             (agent_get_team, ":chosen_team", ":chosen"),
                             (agent_get_team, ":target_team", ":target"),
-                    
+
                             (try_begin),
                             (eq, ":channeler", 1), # target is channeler
                                 (try_begin),
@@ -3617,7 +3617,7 @@ items = [
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 60),
                                         (agent_set_team, ":target", ":chosen_team"),
-                
+
                                         # set slot
                                         (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                         (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
@@ -3633,7 +3633,7 @@ items = [
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 85),
                                         (agent_set_team, ":target", ":chosen_team"),
-                
+
                                         # set slot
                                         (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                         (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
@@ -3652,7 +3652,7 @@ items = [
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 10),
                                         (agent_set_team, ":target", ":chosen_team"),
-                
+
                                         # set slot
                                         (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                         (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
@@ -3668,7 +3668,7 @@ items = [
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 35),
                                         (agent_set_team, ":target", ":chosen_team"),
-                
+
                                         # set slot
                                         (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                         (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
@@ -3714,7 +3714,7 @@ items = [
                                 (position_move_z,pos1,":random"),
                             (try_end),
                             #end added for gravity effect and flight randomness
-            
+
                             (copy_position,pos2,pos1),
                             (position_set_z_to_ground_level, pos2),
                             (get_distance_between_positions,":dist",pos1,pos2),
@@ -3741,7 +3741,7 @@ items = [
                                     (position_move_z, pos4, 20),
                                 (try_end),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -3755,7 +3755,7 @@ items = [
                                 (assign,reg5,1000),  #was 1000
                             (try_end),
                         (try_end),
-                                
+
                         #Balefire weave end
 
 
@@ -3820,14 +3820,14 @@ items = [
                         (try_end),
                         (add_xp_to_troop,15,":chosen"),
                 (try_end),
-                
+
             # End of Shield Breaker code
-                
+
             (try_end),
 
                          ],),
     ]],
- 
+
 
 ################################################################################
 ############### Multiplayer One Power Item #####################################
@@ -3884,7 +3884,7 @@ items = [
             (eq, ":active_channeling_weave", 14),
                 (assign, ":stamina_cost", 8100),
             (try_end),
-            
+
             (player_get_slot, ":current_channeling_stamina", ":player", slot_player_current_channeling_stamina),
             (store_sub, ":stamina_check", ":current_channeling_stamina", ":stamina_cost"),
             (try_begin),
@@ -3898,7 +3898,7 @@ items = [
 
 
                          ],),
-    ]], 
+    ]],
 
 #################################################################
 ######## The backup of the 2nd try at Multiplayer ###############
@@ -3914,12 +3914,12 @@ items = [
             # end
 
             (assign,":distance",99999),
-                         
+
             (try_for_agents,":agent"),
                 (agent_is_alive,":agent"),
                 (neg|agent_is_wounded,":agent"), ## add this to not re-count wounded people
                 (agent_is_human,":agent"),
-                (agent_get_look_position, pos2, ":agent"), 
+                (agent_get_look_position, pos2, ":agent"),
                 (get_distance_between_positions,":dist",pos1,pos2),
                 (lt,":dist",":distance"),
                 (assign,":chosen",":agent"), # 'chosen' is the shooter
@@ -3935,7 +3935,7 @@ items = [
             (try_begin),
             (eq, ":agent_is_shielded", 0),
 
-                
+
 ################################## Weave 1
                 (try_begin),
                 # new method for multiplayer
@@ -3960,7 +3960,7 @@ items = [
                         (copy_position, pos3, pos1),
                         (position_move_y, pos3, 350),
                         (position_set_z_to_ground_level,pos3),
-                        
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid killing shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -4006,7 +4006,7 @@ items = [
                                     #(agent_set_slot, ":agent", slot_agent_airborne_power_factor, 2),
                                     (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":agent", slot_agent_airborne_power_factor, 2),
                                 (try_end),
-                                
+
                                 (try_begin),
                                     (gt,":target_health",5),
                                     (val_sub,":target_health",5),
@@ -4016,12 +4016,12 @@ items = [
                                     (agent_set_hit_points,":agent",0,0),
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
                                 (try_end),
-                            
+
                         (try_end),
                         (particle_system_burst, "psys_massive_pistol_smoke", pos1, 25),
                         #(play_sound,"snd_air_blast"),
                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_air_blast"),
-            
+
                     (try_end),
 
                 # air blast weave end
@@ -4060,7 +4060,7 @@ items = [
                             (get_distance_between_positions,":dist",pos1,pos2),
 
                             (position_get_z, ":z_ground", pos2),
-                            (store_add, ":z_ground_low", ":z_ground", 20), 
+                            (store_add, ":z_ground_low", ":z_ground", 20),
                             (store_add, ":z_ground_high", ":z_ground", 200),
 
                             (try_for_agents, ":agent"),
@@ -4079,7 +4079,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -4093,7 +4093,7 @@ items = [
                                 (assign,reg5,2000),  #was 1000
                             (try_end),
                         (try_end),
-                                
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid freezing shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -4102,7 +4102,7 @@ items = [
                             (neg|agent_is_wounded,":agent"), ## add this to not freeze wounded people
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
-                         
+
                             (try_begin),
                             (lt,":dist",250),  # freeze (slowed movement) if blast within 250 of agent
                                 (agent_set_speed_limit, ":agent", 0),
@@ -4122,11 +4122,11 @@ items = [
                                     (agent_deliver_damage_to_agent,":chosen",":agent"),
                                 (try_end),
                             (try_end),
-                    
+
                         (try_end),
-            
+
                     (try_end),
-                            
+
                     #Freeze weave end
 
 
@@ -4185,7 +4185,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                        
+
                     # End Heal Nearest Ally Weave
 
 
@@ -4241,7 +4241,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -4258,7 +4258,7 @@ items = [
                                 (assign,reg5,2000),  #was 1000
                             (try_end),
                         (try_end),
-                                
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid killing shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -4267,7 +4267,7 @@ items = [
                             (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
-                         
+
                             # do 25 damage if fireball within 50 of agent
                             (try_begin),
                                 (lt,":dist",50),  #was 300
@@ -4349,7 +4349,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                
+
                     #Fireball weave end
 
 
@@ -4377,43 +4377,43 @@ items = [
                         (assign, ":chosen_active_effect", 0),
                         (assign, ":chosen_horse_on_fire", 0),
                         (assign, ":teammate_active_effect", 5),
-                
+
 
                         (agent_get_slot, ":chosen_seeker", ":chosen", slot_agent_has_active_seeker),
                         (try_begin),
                         (eq, ":chosen_seeker", 1),
                             (assign, ":chosen_active_effect", 1),
-                
+
                         (else_try), # chosen doesn't have a seeker
                             (agent_get_slot, ":chosen_fire", ":chosen", slot_agent_on_fire),
                             (try_begin),
                             (eq, ":chosen_fire", 1),
                                 (assign, ":chosen_active_effect", 3),
-                
+
                             (else_try), # chosen not on fire
                                 (agent_get_slot, ":chosen_bound", ":chosen", slot_agent_is_bound),
                                 (try_begin),
                                 (eq, ":chosen_bound", 1),
                                     (assign, ":chosen_active_effect", 4),
-                
+
                                 (else_try), # chosen not bound
                                     (agent_get_horse, ":chosen_horse", ":chosen"),
                                     (try_begin),
                                     (ge, ":chosen_horse", 0),
                                         (agent_get_slot, ":chosen_horse_fire", ":chosen_horse", slot_agent_on_fire),
                                     (try_end),
-                
+
                                     (try_begin),
                                     (eq, ":chosen_horse_fire", 1),
                                         (assign, ":chosen_horse_on_fire", 1),
 
                                     (else_try), # chosen horse not on fire
-                                        
+
                                         (try_for_agents,":agent"),
                                             (agent_is_alive,":agent"), ## don't help dead
                                             (neg|agent_is_wounded,":agent"), ## don't help wounded
 #                                            (agent_is_human,":agent"), ## don't help horses
-                
+
                                             # determine if agents under compulsion used to be teammates
                                             (agent_get_slot, ":compulsion_present", ":agent", slot_agent_under_compulsion),
                                             (assign, ":agent_ally", 0),
@@ -4432,10 +4432,10 @@ items = [
                                             (agent_is_ally, ":agent"), # always been teammate
                                                 (assign, ":agent_ally", 1),
                                             (try_end),
-                                                
+
                                             (gt, ":agent_ally", 0), ## don't help enemies
                                             (neq, ":chosen", ":agent"), ## this code will not look at 'chosen'
-                
+
                                             (try_begin),
                                             (neq, ":teammate_active_effect", 1),
                                                 (agent_get_slot, ":teammate_seeker", ":agent", slot_agent_has_active_seeker),
@@ -4469,16 +4469,16 @@ items = [
                                                     (try_end),
                                                 (try_end),
                                             (try_end),
-                
+
                                         (try_end),
 
                                         (assign, ":distance", 99999),
-                                
+
                                         (try_for_agents,":agent"),
                                             (agent_is_alive,":agent"), ## don't help dead
                                             (neg|agent_is_wounded,":agent"), ## don't help wounded
 #                                            (agent_is_human,":agent"), ## don't help horses
-                
+
                                             # determine if agents under compulsion used to be teammates
                                             (agent_get_slot, ":compulsion_present", ":agent", slot_agent_under_compulsion),
                                             (assign, ":agent_ally", 0),
@@ -4497,7 +4497,7 @@ items = [
                                             (agent_is_ally, ":agent"), # always been teammate
                                                 (assign, ":agent_ally", 1),
                                             (try_end),
-                                                
+
                                             (gt, ":agent_ally", 0), ## don't help enemies
                                             (neq, ":chosen", ":agent"), ## this code will not look at 'chosen'
 
@@ -4546,7 +4546,7 @@ items = [
                                         # End of loops for finding closest affected ally
                                     (try_end),
                                     # End of loops for finding horse on fire
-                
+
                                 (try_end),
                             (try_end),
                         (try_end),
@@ -4556,13 +4556,13 @@ items = [
                         (gt, ":chosen_active_effect", 0), # chosen unraveling weave on self
                             (try_begin),
                             (eq, ":chosen_active_effect", 1),
-                
+
                                 (try_begin),
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 50),
                                         #(agent_set_slot, ":chosen", slot_agent_has_active_seeker, 0),
                                         (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":chosen", slot_agent_has_active_seeker, 0),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target_multi", ":chosen"),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_seeker_info_to_server, 1, -1, 0, 0),
@@ -4624,7 +4624,7 @@ items = [
                                         (eq, "$g_seeker_slot_20_target_multi", ":chosen"),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_seeker_info_to_server, 20, -1, 0, 0),
                                         (try_end),
-                
+
                                         #(particle_system_burst, "psys_unravel_aura", pos1, 50), # handle this on the server side
                                         #(play_sound, "snd_unravel"),
                                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
@@ -4634,10 +4634,10 @@ items = [
                                         (player_set_gold, ":player", ":gold", 15000),
                                         # end
                                 (try_end),
-                                    
+
                             (else_try),
                             (eq, ":chosen_active_effect", 3),
-                
+
                                 (try_begin),
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 25),
@@ -4654,7 +4654,7 @@ items = [
                                 (try_end),
                             (else_try),
                             (eq, ":chosen_active_effect", 4),
-                
+
                                 (try_begin),
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 25),
@@ -4675,7 +4675,7 @@ items = [
                         (eq, ":chosen_horse_on_fire", 1),
 
                             (agent_get_position, pos2, ":chosen_horse"),
-                
+
                             (try_begin),
                                 (store_random_in_range, ":random", 1, 100),
                                 (gt, ":random", 25),
@@ -4701,7 +4701,7 @@ items = [
                                     (gt, ":random", 50),
                                         #(agent_set_slot, ":nearest_affected_ally", slot_agent_has_active_seeker, 0),
                                         (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":nearest_affected_ally", slot_agent_has_active_seeker, 0),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target_multi", ":nearest_affected_ally"),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_seeker_info_to_server, 1, -1, 0, 0),
@@ -4763,7 +4763,7 @@ items = [
                                         (eq, "$g_seeker_slot_20_target_multi", ":nearest_affected_ally"),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_seeker_info_to_server, 20, -1, 0, 0),
                                         (try_end),
-                
+
                                         #(particle_system_burst, "psys_unravel_aura", pos1, 50), # handle this on the server side
                                         #(play_sound, "snd_unravel"),
                                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_unravel"),
@@ -4778,7 +4778,7 @@ items = [
                             (eq, ":teammate_active_effect", 2),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 50),
@@ -4799,7 +4799,7 @@ items = [
                             (eq, ":teammate_active_effect", 3),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 25),
@@ -4818,7 +4818,7 @@ items = [
                             (eq, ":teammate_active_effect", 4),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 25),
@@ -4840,7 +4840,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                        
+
                     # End Unravel Weave
 
 
@@ -4874,7 +4874,7 @@ items = [
                             (agent_get_look_position, pos2, ":agent"),
                             (get_distance_between_positions,":dist",pos1,pos2),
                             (store_agent_hit_points,":target_health",":agent",1),
-                    
+
                             (try_begin),
                             (lt,":dist",750),
 
@@ -4944,7 +4944,7 @@ items = [
                         (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_explosion"),
 
                     (try_end),
-                        
+
                     # End Defensive Blast Weave
 
 
@@ -5000,7 +5000,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -5014,7 +5014,7 @@ items = [
                                 (assign,reg5,2000),  #was 1000
                             (try_end),
                         (try_end),
-                    
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid affecting shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -5024,7 +5024,7 @@ items = [
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
                             (store_agent_hit_points,":target_health",":agent",1),
-                    
+
                             (try_begin),
                             (lt,":dist",750),
 
@@ -5112,7 +5112,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                                                
+
                     #End Ranged Earth Blast
 
 
@@ -5160,11 +5160,11 @@ items = [
                         (ge, ":number_of_enemies", 1),
                             (agent_get_slot, ":target_is_channeler", ":target", slot_agent_is_channeler),
                             (agent_get_slot, ":target_is_shielded", ":target", slot_agent_is_shielded),
-                    
+
                             (try_begin),
                             (eq, ":target_is_channeler", 1),  # harder to bind channelers
                             (eq, ":target_is_shielded", 0),  # unless they are shielded
-                    
+
                                 (try_begin),
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 50),
@@ -5183,7 +5183,7 @@ items = [
                                         #(agent_set_slot, ":target", slot_agent_bound_duration, 10),
                                         (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_bound_duration, 10),
                                 (try_end),
-                    
+
                             (else_try),
                                 (agent_get_look_position, pos3, ":target"),
                                 (position_get_x, ":target_x", pos3),
@@ -5272,7 +5272,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -5357,7 +5357,7 @@ items = [
                                         (agent_deliver_damage_to_agent,":chosen",":agent_closest_to_blast"),
                                     (try_end),
                                 (try_end),
-                    
+
 
                                 # set victim slots
                                 #(agent_set_slot, ":agent_closest_to_blast", slot_agent_has_been_shocked, 1),
@@ -5399,7 +5399,7 @@ items = [
                                 (position_get_x, ":x_start", pos3),
                                 (position_get_y, ":y_start", pos3),
                                 (position_get_z, ":z_start", pos3),
-                    
+
                                 (try_begin),
                                 (gt, ":counter", 1),
                                     (val_add, ":z_start", 1250),
@@ -5426,11 +5426,11 @@ items = [
 
                                     (particle_system_burst, "psys_electricity_blast", pos3, 10),
                                 (try_end),
-                    
+
                                 (particle_system_burst, "psys_electricity_sparks", pos2, 25),
 
                                 (copy_position, pos3, pos2),
-                    
+
                             (try_end),
 
                         # reset victim slots
@@ -5485,7 +5485,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                    
+
                     #Chain Lightening end
 
 
@@ -5509,9 +5509,9 @@ items = [
                         (val_sub, ":current_channeling_stamina", ":stamina_cost"),
                         (player_set_slot, ":player", slot_player_current_channeling_stamina, ":current_channeling_stamina"),
                         # end
-                    
+
                          (agent_get_position,pos1,":chosen"),
-                    
+
                          (position_move_y,pos1,1000),  # how far out the flame wall is  (was 500)
                          #(play_sound,"snd_fire_curtain"),
                          (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_fire_curtain"),
@@ -5529,7 +5529,7 @@ items = [
                                 (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
                                 (agent_get_position,pos2,":agent"),
                                 (get_distance_between_positions,":dist",pos1,pos2),
-                    
+
                                 # instant kill if fire curtain within 50 of agent
                                 (try_begin),
                                 (lt,":dist",50),  #was 300
@@ -5628,7 +5628,7 @@ items = [
                                         #(particle_system_burst, "psys_torch_fire", pos2, 100),
                                     (try_end),
                                 (try_end),
-                    
+
                             (try_end),
                             (val_mul,":mul",-1),
                         (try_end),
@@ -5682,7 +5682,7 @@ items = [
 
                         (try_begin),
                         (ge, ":number_of_enemies", 1),
-                    
+
                             (try_begin),
                                 (store_random_in_range, ":random", 1, 100),
                                 (gt, ":random", 60),
@@ -5937,11 +5937,11 @@ items = [
                         (else_try),
                         (ge, ":number_of_enemies", 1),
                         (eq, "$g_number_seekers_active_multi", 20),
-                            (display_message, "@Too many active seekers!!"), 
+                            (display_message, "@Too many active seekers!!"),
                         (try_end),
 
                     (try_end),
-                        
+
                     # End Seeker Weave
 
 
@@ -5994,10 +5994,10 @@ items = [
 
                             (agent_get_team, ":chosen_team", ":chosen"),
                             (agent_get_team, ":target_team", ":target"),
-            
+
                             (try_begin),
                             (agent_is_non_player), # run this for bots
-                    
+
                                 (try_begin),
                                 (eq, ":channeler", 1), # target is channeler
                                     (try_begin),
@@ -6005,7 +6005,7 @@ items = [
                                         (gt, ":random", 60),
                                             (agent_set_team, ":target", ":chosen_team"),
                                             (agent_clear_scripted_mode, ":target"),
-                    
+
                                             # set slot
                                             #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
@@ -6013,7 +6013,7 @@ items = [
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
                                             #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
-    
+
                                             #(play_sound, "snd_compulsion"),
                                             (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
                                             # new for multiplayer
@@ -6028,7 +6028,7 @@ items = [
                                         (gt, ":random", 30),
                                             (agent_set_team, ":target", ":chosen_team"),
                                             (agent_clear_scripted_mode, ":target"),
-                    
+
                                             # set slot
                                             #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
@@ -6036,7 +6036,7 @@ items = [
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
                                             #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
-    
+
                                             #(play_sound, "snd_compulsion"),
                                             (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
                                             # new for multiplayer
@@ -6046,9 +6046,9 @@ items = [
                                             # end
                                     (try_end),
                                 (try_end),
-            
+
                             (else_try), # agent is human
-            
+
                                 (try_begin),
                                 (eq, ":channeler", 1), # target is channeler
                                     (try_begin),
@@ -6057,7 +6057,7 @@ items = [
                                             # Remove the following two lines for humans
                                             #(agent_set_team, ":target", ":chosen_team"),
                                             #(agent_clear_scripted_mode, ":target"),
-                    
+
                                             # set slot
                                             #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
@@ -6065,7 +6065,7 @@ items = [
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
                                             #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
-    
+
                                             #(play_sound, "snd_compulsion"),
                                             (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
                                             # new for multiplayer
@@ -6081,7 +6081,7 @@ items = [
                                             # Remove the following two lines for humans
                                             #(agent_set_team, ":target", ":chosen_team"),
                                             #(agent_clear_scripted_mode, ":target"),
-                    
+
                                             # set slot
                                             #(agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_under_compulsion, 1),
@@ -6089,7 +6089,7 @@ items = [
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_by, ":chosen"),
                                             #(agent_set_slot, ":target", slot_agent_compelled_start_team, ":target_team"),
                                             (multiplayer_send_4_int_to_server, multiplayer_event_send_agent_slot_info_to_server, 1, ":target", slot_agent_compelled_start_team, ":target_team"),
-    
+
                                             #(play_sound, "snd_compulsion"),
                                             (multiplayer_send_int_to_server, multiplayer_event_sound_made_by_player, "snd_compulsion"),
                                             # new for multiplayer
@@ -6099,9 +6099,9 @@ items = [
                                             # end
                                     (try_end),
                                 (try_end),
-            
+
                             (try_end),
-            
+
                         (try_end),
 
                     (try_end),
@@ -6164,7 +6164,7 @@ items = [
                                     (position_move_z, pos4, 20),
                                 (try_end),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -6181,11 +6181,11 @@ items = [
                         (try_end),
 
                     (try_end),
-                                
+
                     #Balefire weave end
 
 
-                    
+
 ### Be sure to leave this (try_end), at the end of the active weave code
                 (try_end),
 
@@ -6218,9 +6218,9 @@ items = [
 #                (eq, ":counter", 0),
                     (display_message, "@You are shielded..."),
 #                (try_end),
-                
+
             # End of Shield Breaker code
-                
+
             (try_end),
 
 
@@ -6242,7 +6242,7 @@ items = [
     ]],
 
 
-################################################################################ 
+################################################################################
 #### Backup (Original) version of the multiplayer One Power Item ###############
 
  ["power_player_multiplayer_backup_original","One Power", [("cuindiar_disc",0),("practice_arrows_2",ixmesh_flying_ammo)],itp_unique|itp_type_pistol|itp_primary|itp_secondary|itp_bonus_against_shield , itcf_shoot_crossbow, 5 , weight(4)|spd_rtng(250) | shoot_speed(150) | thrust_damage(1 ,  pierce)|max_ammo(5000)|weapon_length(65),imodbits_missile,
@@ -6255,12 +6255,12 @@ items = [
             # end
 
             (assign,":distance",99999),
-                         
+
             (try_for_agents,":agent"),
                 (agent_is_alive,":agent"),
                 (neg|agent_is_wounded,":agent"), ## add this to not re-count wounded people
                 (agent_is_human,":agent"),
-                (agent_get_look_position, pos2, ":agent"), 
+                (agent_get_look_position, pos2, ":agent"),
                 (get_distance_between_positions,":dist",pos1,pos2),
                 (lt,":dist",":distance"),
                 (assign,":chosen",":agent"), # 'chosen' is the shooter
@@ -6276,7 +6276,7 @@ items = [
             (try_begin),
             (eq, ":agent_is_shielded", 0),
 
-                
+
 ################################## Weave 1
                 (try_begin),
                 # new method for multiplayer
@@ -6301,7 +6301,7 @@ items = [
                         (copy_position, pos3, pos1),
                         (position_move_y, pos3, 350),
                         (position_set_z_to_ground_level,pos3),
-                        
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid killing shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -6340,7 +6340,7 @@ items = [
                                 (is_between, ":dist_from_chosen", 450, 750),
                                     (agent_set_slot, ":agent", slot_agent_airborne_power_factor, 2),
                                 (try_end),
-                                
+
                                 (try_begin),
                                     (gt,":target_health",5),
                                     (val_sub,":target_health",5),
@@ -6360,11 +6360,11 @@ items = [
                                     (try_end),
                                     (add_xp_to_troop,6,":chosen"),
                                 (try_end),
-                            
+
                         (try_end),
                         (particle_system_burst, "psys_massive_pistol_smoke", pos1, 25),
                         (play_sound,"snd_air_blast"),
-            
+
                     (try_end),
 
                 # air blast weave end
@@ -6403,7 +6403,7 @@ items = [
                             (get_distance_between_positions,":dist",pos1,pos2),
 
                             (position_get_z, ":z_ground", pos2),
-                            (store_add, ":z_ground_low", ":z_ground", 20), 
+                            (store_add, ":z_ground_low", ":z_ground", 20),
                             (store_add, ":z_ground_high", ":z_ground", 200),
 
                             (try_for_agents, ":agent"),
@@ -6422,7 +6422,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -6435,7 +6435,7 @@ items = [
                                 (assign,reg5,2000),  #was 1000
                             (try_end),
                         (try_end),
-                                
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid freezing shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -6444,7 +6444,7 @@ items = [
                             (neg|agent_is_wounded,":agent"), ## add this to not freeze wounded people
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
-                         
+
                             (try_begin),
                             (lt,":dist",250),  # freeze (slowed movement) if blast within 250 of agent
                                 (agent_set_speed_limit, ":agent", 0),
@@ -6455,11 +6455,11 @@ items = [
                                 (try_end),
                                 (add_xp_to_troop,40,":chosen"),
                             (try_end),
-                    
+
                         (try_end),
-            
+
                     (try_end),
-                            
+
                     #Freeze weave end
 
 
@@ -6549,7 +6549,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                        
+
                     # End Heal Nearest Ally Weave
 
 
@@ -6605,7 +6605,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -6621,7 +6621,7 @@ items = [
                                 (assign,reg5,2000),  #was 1000
                             (try_end),
                         (try_end),
-                                
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid killing shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -6630,7 +6630,7 @@ items = [
                             (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
-                         
+
                             # do 25 damage if fireball within 50 of agent
                             (try_begin),
                                 (lt,":dist",50),  #was 300
@@ -6756,7 +6756,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                
+
                     #Fireball weave end
 
 
@@ -6784,43 +6784,43 @@ items = [
                         (assign, ":chosen_active_effect", 0),
                         (assign, ":chosen_horse_on_fire", 0),
                         (assign, ":teammate_active_effect", 5),
-                
+
 
                         (agent_get_slot, ":chosen_seeker", ":chosen", slot_agent_has_active_seeker),
                         (try_begin),
                         (eq, ":chosen_seeker", 1),
                             (assign, ":chosen_active_effect", 1),
-                
+
                         (else_try), # chosen doesn't have a seeker
                             (agent_get_slot, ":chosen_fire", ":chosen", slot_agent_on_fire),
                             (try_begin),
                             (eq, ":chosen_fire", 1),
                                 (assign, ":chosen_active_effect", 3),
-                
+
                             (else_try), # chosen not on fire
                                 (agent_get_slot, ":chosen_bound", ":chosen", slot_agent_is_bound),
                                 (try_begin),
                                 (eq, ":chosen_bound", 1),
                                     (assign, ":chosen_active_effect", 4),
-                
+
                                 (else_try), # chosen not bound
                                     (agent_get_horse, ":chosen_horse", ":chosen"),
                                     (try_begin),
                                     (ge, ":chosen_horse", 0),
                                         (agent_get_slot, ":chosen_horse_fire", ":chosen_horse", slot_agent_on_fire),
                                     (try_end),
-                
+
                                     (try_begin),
                                     (eq, ":chosen_horse_fire", 1),
                                         (assign, ":chosen_horse_on_fire", 1),
 
                                     (else_try), # chosen horse not on fire
-                                        
+
                                         (try_for_agents,":agent"),
                                             (agent_is_alive,":agent"), ## don't help dead
                                             (neg|agent_is_wounded,":agent"), ## don't help wounded
 #                                            (agent_is_human,":agent"), ## don't help horses
-                
+
                                             # determine if agents under compulsion used to be teammates
                                             (agent_get_slot, ":compulsion_present", ":agent", slot_agent_under_compulsion),
                                             (assign, ":agent_ally", 0),
@@ -6839,10 +6839,10 @@ items = [
                                             (agent_is_ally, ":agent"), # always been teammate
                                                 (assign, ":agent_ally", 1),
                                             (try_end),
-                                                
+
                                             (gt, ":agent_ally", 0), ## don't help enemies
                                             (neq, ":chosen", ":agent"), ## this code will not look at 'chosen'
-                
+
                                             (try_begin),
                                             (neq, ":teammate_active_effect", 1),
                                                 (agent_get_slot, ":teammate_seeker", ":agent", slot_agent_has_active_seeker),
@@ -6876,16 +6876,16 @@ items = [
                                                     (try_end),
                                                 (try_end),
                                             (try_end),
-                
+
                                         (try_end),
 
                                         (assign, ":distance", 99999),
-                                
+
                                         (try_for_agents,":agent"),
                                             (agent_is_alive,":agent"), ## don't help dead
                                             (neg|agent_is_wounded,":agent"), ## don't help wounded
 #                                            (agent_is_human,":agent"), ## don't help horses
-                
+
                                             # determine if agents under compulsion used to be teammates
                                             (agent_get_slot, ":compulsion_present", ":agent", slot_agent_under_compulsion),
                                             (assign, ":agent_ally", 0),
@@ -6904,7 +6904,7 @@ items = [
                                             (agent_is_ally, ":agent"), # always been teammate
                                                 (assign, ":agent_ally", 1),
                                             (try_end),
-                                                
+
                                             (gt, ":agent_ally", 0), ## don't help enemies
                                             (neq, ":chosen", ":agent"), ## this code will not look at 'chosen'
 
@@ -6953,7 +6953,7 @@ items = [
                                         # End of loops for finding closest affected ally
                                     (try_end),
                                     # End of loops for finding horse on fire
-                
+
                                 (try_end),
                             (try_end),
                         (try_end),
@@ -6964,19 +6964,19 @@ items = [
                             (try_begin),
                             (eq, ":chosen_active_effect", 1),
                                 (agent_get_slot, ":seeker_shooter", ":chosen", slot_agent_seeker_shooter),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":seeker_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 25),
                                         (agent_set_slot, ":chosen", slot_agent_has_active_seeker, 0),
                                         (val_sub, "$g_number_seekers_active", 1),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target", ":chosen"),
                                             (assign, "$g_seeker_slot_1", 0),
@@ -7058,7 +7058,7 @@ items = [
                                             (assign, "$g_seeker_slot_20", 0),
                                             (copy_position, pos1, pos50),
                                         (try_end),
-                
+
                                         (particle_system_burst, "psys_unravel_aura", pos1, 50),
                                         (play_sound, "snd_unravel"),
                                         (try_begin), # add to channeling multiplier if agent is player
@@ -7071,7 +7071,7 @@ items = [
                                     (gt, ":random", 50),
                                         (agent_set_slot, ":chosen", slot_agent_has_active_seeker, 0),
                                         (val_sub, "$g_number_seekers_active", 1),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target", ":chosen"),
                                             (assign, "$g_seeker_slot_1", 0),
@@ -7165,12 +7165,12 @@ items = [
                             (else_try),
                             (eq, ":chosen_active_effect", 3),
                                 (agent_get_slot, ":fire_shooter", ":chosen", slot_agent_fire_starter),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":fire_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -7198,12 +7198,12 @@ items = [
                             (else_try),
                             (eq, ":chosen_active_effect", 4),
                                 (agent_get_slot, ":bind_shooter", ":chosen", slot_agent_bound_by),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":bind_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -7240,7 +7240,7 @@ items = [
                             (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                             (agent_get_position, pos2, ":chosen_horse"),
-                
+
                             (try_begin),
                             (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                 (store_random_in_range, ":random", 1, 100),
@@ -7271,21 +7271,21 @@ items = [
                             (try_begin),
                             (eq, ":teammate_active_effect", 1),
                                 (agent_get_slot, ":seeker_shooter", ":nearest_affected_ally", slot_agent_seeker_shooter),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":seeker_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
                                     (gt, ":random", 25),
                                         (agent_set_slot, ":nearest_affected_ally", slot_agent_has_active_seeker, 0),
                                         (val_sub, "$g_number_seekers_active", 1),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target", ":nearest_affected_ally"),
                                             (assign, "$g_seeker_slot_1", 0),
@@ -7367,7 +7367,7 @@ items = [
                                             (assign, "$g_seeker_slot_20", 0),
                                             (copy_position, pos1, pos50),
                                         (try_end),
-                
+
                                         (particle_system_burst, "psys_unravel_aura", pos1, 50),
                                         (play_sound, "snd_unravel"),
                                         (try_begin), # add to channeling multiplier if agent is player
@@ -7380,7 +7380,7 @@ items = [
                                     (gt, ":random", 50),
                                         (agent_set_slot, ":nearest_affected_ally", slot_agent_has_active_seeker, 0),
                                         (val_sub, "$g_number_seekers_active", 1),
-                
+
                                         (try_begin),
                                         (eq, "$g_seeker_slot_1_target", ":nearest_affected_ally"),
                                             (assign, "$g_seeker_slot_1", 0),
@@ -7462,7 +7462,7 @@ items = [
                                             (assign, "$g_seeker_slot_20", 0),
                                             (copy_position, pos1, pos50),
                                         (try_end),
-                
+
                                         (particle_system_burst, "psys_unravel_aura", pos1, 50),
                                         (play_sound, "snd_unravel"),
                                         (try_begin), # add to channeling multiplier if agent is player
@@ -7474,14 +7474,14 @@ items = [
                             (else_try),
                             (eq, ":teammate_active_effect", 2),
                                 (agent_get_slot, ":compulsion_shooter", ":nearest_affected_ally", slot_agent_compelled_by),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":compulsion_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -7513,14 +7513,14 @@ items = [
                             (else_try),
                             (eq, ":teammate_active_effect", 3),
                                 (agent_get_slot, ":fire_shooter", ":nearest_affected_ally", slot_agent_fire_starter),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":fire_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -7548,14 +7548,14 @@ items = [
                             (else_try),
                             (eq, ":teammate_active_effect", 4),
                                 (agent_get_slot, ":bind_shooter", ":nearest_affected_ally", slot_agent_bound_by),
-                
+
                                 (agent_get_troop_id, ":shooter_id", ":bind_shooter"),
                                 (troop_get_xp, ":shooter_xp", ":shooter_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
 
                                 (agent_get_position, pos2, ":nearest_affected_ally"),
-                
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":shooter_xp"), # chosen more experienced than shooter
                                     (store_random_in_range, ":random", 1, 100),
@@ -7587,7 +7587,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                        
+
                     # End Unravel Weave
 
 
@@ -7621,7 +7621,7 @@ items = [
                             (agent_get_look_position, pos2, ":agent"),
                             (get_distance_between_positions,":dist",pos1,pos2),
                             (store_agent_hit_points,":target_health",":agent",1),
-                    
+
                             (try_begin),
                             (lt,":dist",750),
 
@@ -7703,7 +7703,7 @@ items = [
                         (play_sound, "snd_explosion"),
 
                     (try_end),
-                        
+
                     # End Defensive Blast Weave
 
 
@@ -7759,7 +7759,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -7772,7 +7772,7 @@ items = [
                                 (assign,reg5,2000),  #was 1000
                             (try_end),
                         (try_end),
-                    
+
                         (try_for_agents,":agent"),
                             (neq,":chosen",":agent"), ## added this to avoid affecting shooter
                             (neq, ":chosen_horse", ":agent"),
@@ -7782,7 +7782,7 @@ items = [
                             (agent_get_position,pos2,":agent"),
                             (get_distance_between_positions,":dist",pos3,pos2),
                             (store_agent_hit_points,":target_health",":agent",1),
-                    
+
                             (try_begin),
                             (lt,":dist",750),
 
@@ -7903,7 +7903,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                                                
+
                     #End Ranged Earth Blast
 
 
@@ -7951,7 +7951,7 @@ items = [
                         (ge, ":number_of_enemies", 1),
                             (agent_get_slot, ":target_is_channeler", ":target", slot_agent_is_channeler),
                             (agent_get_slot, ":target_is_shielded", ":target", slot_agent_is_shielded),
-                    
+
                             (try_begin),
                             (eq, ":target_is_channeler", 1),  # harder to bind channelers
                             (eq, ":target_is_shielded", 0),  # unless they are shielded
@@ -7959,7 +7959,7 @@ items = [
                                 (troop_get_xp, ":target_xp", ":target_id"),
                                 (agent_get_troop_id, ":chosen_id", ":chosen"),
                                 (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                    
+
                                 (try_begin),
                                 (gt, ":chosen_xp", ":target_xp"),
                                     (store_random_in_range, ":random", 1, 100),
@@ -7998,7 +7998,7 @@ items = [
                                         (try_end),
                                         (add_xp_to_troop,60,":chosen"),
                                 (try_end),
-                    
+
                             (else_try),
                                 (agent_get_look_position, pos3, ":target"),
                                 (position_get_x, ":target_x", pos3),
@@ -8086,7 +8086,7 @@ items = [
                                 (assign, ":dist", 5),
                                 (assign, ":near_enemy", 1),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -8210,7 +8210,7 @@ items = [
                                         (add_xp_to_troop,30,":chosen"),
                                     (try_end),
                                 (try_end),
-                    
+
 
                                 # set victim slots
                                 (agent_set_slot, ":agent_closest_to_blast", slot_agent_has_been_shocked, 1),
@@ -8251,7 +8251,7 @@ items = [
                                 (position_get_x, ":x_start", pos3),
                                 (position_get_y, ":y_start", pos3),
                                 (position_get_z, ":z_start", pos3),
-                    
+
                                 (try_begin),
                                 (gt, ":counter", 1),
                                     (val_add, ":z_start", 1250),
@@ -8278,11 +8278,11 @@ items = [
 
                                     (particle_system_burst, "psys_electricity_blast", pos3, 10),
                                 (try_end),
-                    
+
                                 (particle_system_burst, "psys_electricity_sparks", pos2, 25),
 
                                 (copy_position, pos3, pos2),
-                    
+
                             (try_end),
 
                         # reset victim slots
@@ -8329,7 +8329,7 @@ items = [
                         (try_end),
 
                     (try_end),
-                    
+
                     #Chain Lightening end
 
 
@@ -8353,9 +8353,9 @@ items = [
                         (val_sub, ":current_channeling_stamina", ":stamina_cost"),
                         (player_set_slot, ":player", slot_player_current_channeling_stamina, ":current_channeling_stamina"),
                         # end
-                    
+
                          (agent_get_position,pos1,":chosen"),
-                    
+
                          (position_move_y,pos1,1000),  # how far out the flame wall is  (was 500)
                          (play_sound,"snd_fire_curtain"),
                          (assign,":mul",1),
@@ -8372,7 +8372,7 @@ items = [
                                 (neg|agent_is_wounded,":agent"), ## add this to not re-kill wounded people
                                 (agent_get_position,pos2,":agent"),
                                 (get_distance_between_positions,":dist",pos1,pos2),
-                    
+
                                 # instant kill if fire curtain within 50 of agent
                                 (try_begin),
                                 (lt,":dist",50),  #was 300
@@ -8504,7 +8504,7 @@ items = [
                                         #(particle_system_burst, "psys_torch_fire", pos2, 100),
                                     (try_end),
                                 (try_end),
-                    
+
                             (try_end),
                             (val_mul,":mul",-1),
                         (try_end),
@@ -8562,7 +8562,7 @@ items = [
                             (troop_get_xp, ":target_xp", ":target_id"),
                             (agent_get_troop_id, ":chosen_id", ":chosen"),
                             (troop_get_xp, ":chosen_xp", ":chosen_id"),
-                    
+
                             (try_begin),
                             (gt, ":chosen_xp", ":target_xp"),
                                 (store_random_in_range, ":random", 1, 100),
@@ -8583,7 +8583,7 @@ items = [
                                     # set slot
                                     (agent_set_slot, ":target", slot_agent_is_shielded, 1),
                                     (agent_set_slot, ":target", slot_agent_shielded_by, ":chosen"),
-                    
+
                                     (try_begin), # add to channeling multiplier if agent is player
                                     (neg|agent_is_non_player, ":chosen"),
                                         (val_add, "$g_channeling_proficiency_modifier", 120),
@@ -8645,7 +8645,7 @@ items = [
                         (ge, ":number_of_enemies", 1),
                         (le, "$g_number_seekers_active", 20),
                             (assign, ":slot_found", 0),
-                    
+
                             (try_begin),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_1", 0),
@@ -8674,96 +8674,96 @@ items = [
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_3", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos33, pos1),  
-                                (assign, "$g_seeker_slot_3_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_3", 1), 
+                                (copy_position, pos33, pos1),
+                                (assign, "$g_seeker_slot_3_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_3", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_4", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos34, pos1),  
-                                (assign, "$g_seeker_slot_4_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_4", 1), 
+                                (copy_position, pos34, pos1),
+                                (assign, "$g_seeker_slot_4_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_4", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_5", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos35, pos1),  
-                                (assign, "$g_seeker_slot_5_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_5", 1), 
+                                (copy_position, pos35, pos1),
+                                (assign, "$g_seeker_slot_5_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_5", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_6", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos36, pos1),  
-                                (assign, "$g_seeker_slot_6_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_6", 1), 
+                                (copy_position, pos36, pos1),
+                                (assign, "$g_seeker_slot_6_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_6", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_7", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos37, pos1),  
-                                (assign, "$g_seeker_slot_7_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_7", 1), 
+                                (copy_position, pos37, pos1),
+                                (assign, "$g_seeker_slot_7_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_7", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_8", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos38, pos1),  
-                                (assign, "$g_seeker_slot_8_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_8", 1), 
+                                (copy_position, pos38, pos1),
+                                (assign, "$g_seeker_slot_8_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_8", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_9", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos39, pos1),  
-                                (assign, "$g_seeker_slot_9_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_9", 1), 
+                                (copy_position, pos39, pos1),
+                                (assign, "$g_seeker_slot_9_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_9", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_10", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos40, pos1),  
-                                (assign, "$g_seeker_slot_10_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_10", 1), 
+                                (copy_position, pos40, pos1),
+                                (assign, "$g_seeker_slot_10_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_10", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
@@ -8794,96 +8794,96 @@ items = [
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_13", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos43, pos1),  
-                                (assign, "$g_seeker_slot_13_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_13", 1), 
+                                (copy_position, pos43, pos1),
+                                (assign, "$g_seeker_slot_13_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_13", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_14", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos44, pos1),  
-                                (assign, "$g_seeker_slot_14_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_14", 1), 
+                                (copy_position, pos44, pos1),
+                                (assign, "$g_seeker_slot_14_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_14", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_15", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos45, pos1),  
-                                (assign, "$g_seeker_slot_15_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_15", 1), 
+                                (copy_position, pos45, pos1),
+                                (assign, "$g_seeker_slot_15_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_15", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_16", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos46, pos1),  
-                                (assign, "$g_seeker_slot_16_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_16", 1), 
+                                (copy_position, pos46, pos1),
+                                (assign, "$g_seeker_slot_16_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_16", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_17", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos47, pos1),  
-                                (assign, "$g_seeker_slot_17_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_17", 1), 
+                                (copy_position, pos47, pos1),
+                                (assign, "$g_seeker_slot_17_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_17", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_18", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos48, pos1),  
-                                (assign, "$g_seeker_slot_18_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_18", 1), 
+                                (copy_position, pos48, pos1),
+                                (assign, "$g_seeker_slot_18_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_18", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_19", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos49, pos1),  
-                                (assign, "$g_seeker_slot_19_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_19", 1), 
+                                (copy_position, pos49, pos1),
+                                (assign, "$g_seeker_slot_19_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_19", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (else_try),
                             (eq, ":slot_found", 0),
                             (eq, "$g_seeker_slot_20", 0),
                                 (agent_get_look_position, pos1, ":chosen"),
-                                (copy_position, pos50, pos1),  
-                                (assign, "$g_seeker_slot_20_target", ":target"), 
-                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"), 
-                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1), 
-                                (val_add, "$g_number_seekers_active", 1), 
-                                (assign, "$g_seeker_slot_20", 1), 
+                                (copy_position, pos50, pos1),
+                                (assign, "$g_seeker_slot_20_target", ":target"),
+                                (agent_set_slot, ":target", slot_agent_seeker_shooter, ":chosen"),
+                                (agent_set_slot, ":target", slot_agent_has_active_seeker, 1),
+                                (val_add, "$g_number_seekers_active", 1),
+                                (assign, "$g_seeker_slot_20", 1),
                                 (assign, ":slot_found", 1),
                                 (play_sound, "snd_seeker"),
                             (try_end),
@@ -8891,11 +8891,11 @@ items = [
                         (ge, ":number_of_enemies", 1),
                         (eq, "$g_number_seekers_active", 20),
                         (neg|agent_is_non_player, ":chosen"),
-                            (display_message, "@Too many active seekers!!"), 
+                            (display_message, "@Too many active seekers!!"),
                         (try_end),
 
                     (try_end),
-                        
+
                     # End Seeker Weave
 
 
@@ -8952,7 +8952,7 @@ items = [
 
                             (agent_get_team, ":chosen_team", ":chosen"),
                             (agent_get_team, ":target_team", ":target"),
-                    
+
                             (try_begin),
                             (eq, ":channeler", 1), # target is channeler
                                 (try_begin),
@@ -8961,7 +8961,7 @@ items = [
                                     (gt, ":random", 60),
                                         (agent_set_team, ":target", ":chosen_team"),
                                         (agent_clear_scripted_mode, ":target"),
-                
+
                                         # set slot
                                         (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                         (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
@@ -8978,7 +8978,7 @@ items = [
                                     (gt, ":random", 85),
                                         (agent_set_team, ":target", ":chosen_team"),
                                         (agent_clear_scripted_mode, ":target"),
-                
+
                                         # set slot
                                         (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                         (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
@@ -8998,7 +8998,7 @@ items = [
                                     (gt, ":random", 10),
                                         (agent_set_team, ":target", ":chosen_team"),
                                         (agent_clear_scripted_mode, ":target"),
-                
+
                                         # set slot
                                         (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                         (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
@@ -9015,7 +9015,7 @@ items = [
                                     (gt, ":random", 35),
                                         (agent_set_team, ":target", ":chosen_team"),
                                         (agent_clear_scripted_mode, ":target"),
-                
+
                                         # set slot
                                         (agent_set_slot, ":target", slot_agent_under_compulsion, 1),
                                         (agent_set_slot, ":target", slot_agent_compelled_by, ":chosen"),
@@ -9089,7 +9089,7 @@ items = [
                                     (position_move_z, pos4, 20),
                                 (try_end),
                             (try_end),
-                    
+
                             (try_begin),
                             (lt,":dist",10),
                                 (val_add, ":times_near_ground", 1),
@@ -9105,11 +9105,11 @@ items = [
                         (try_end),
 
                     (try_end),
-                                
+
                     #Balefire weave end
 
 
-                    
+
 ### Be sure to leave this (try_end), at the end of the active weave code
                 (try_end),
 
@@ -9167,9 +9167,9 @@ items = [
 #                (eq, ":counter", 0),
 #                    (display_message, "@You are shielded..."),
 #                (try_end),
-                
+
             # End of Shield Breaker code
-                
+
             (try_end),
 
 
@@ -9190,20 +9190,20 @@ items = [
 
                          ],),
     ]],
- 
+
 
 
 #end magic items
 
- 
+
 
 # other special items
-["suldam_dagger",         "Sul'dam Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
+["suldam_dagger",         "Sul'dam Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn,
 37 , weight(0.75)|difficulty(1)|spd_rtng(109) | weapon_length(47)|swing_damage(22 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high ],
-["der_suldam_dagger",         "Der Sul'dam Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
+["der_suldam_dagger",         "Der Sul'dam Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn,
 37 , weight(0.75)|difficulty(1)|spd_rtng(109) | weapon_length(47)|swing_damage(22 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high ],
 
- ["channeler_dagger",         "Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
+ ["channeler_dagger",         "Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn,
 37 , weight(0.75)|difficulty(0)|spd_rtng(109) | weapon_length(47)|swing_damage(22 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high ],
 ["sword_secondary", "Sword", [("sword_medieval_a",0),("sword_medieval_a_scabbard", ixmesh_carry)], itp_unique|itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
  163 , weight(1.5)|difficulty(0)|spd_rtng(99) | weapon_length(95)|swing_damage(27 , cut) | thrust_damage(22 ,  pierce),imodbits_sword_high ],
@@ -9244,11 +9244,11 @@ items = [
  3828 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
 
 ["early_transitional_white_wot", "Heavy Mail and Plate", [("early_transitional_white",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
- 3828 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(16)|difficulty(8) ,imodbits_armor ],  
+ 3828 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
 
 ["splinted_greaves_spurs_wot", "Splinted Greaves with Spurs", [("splinted_greaves_spurs",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature|itp_civilian,0,
  960 , weight(2.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(7) ,imodbits_plate ],
- 
+
  ["splinted_greaves_nospurs_wot", "Splinted Greaves", [("splinted_greaves_nospurs",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature|itp_civilian,0,
  960 , weight(2.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(7) ,imodbits_plate ],
 
@@ -9256,7 +9256,7 @@ items = [
  1200 , weight(3.0)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(32)|difficulty(8) ,imodbits_plate ],
 
 ["steel_greaves_wot", "Cased Greaves", [("steel_greaves",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature|itp_civilian,0,
- 1100 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(33)|difficulty(9) ,imodbits_plate ],  
+ 1100 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(33)|difficulty(9) ,imodbits_plate ],
 
 ["oniontop_bascinet_wot", "Onion-top Bascinet", [("onion-top_bascinet",0)], itp_merchandise|itp_type_head_armor   |itp_civilian,0, 650 , weight(2.25)|abundance(100)|head_armor(46)|body_armor(0)|leg_armor(0)|difficulty(8) ,imodbits_plate ],
 
@@ -9268,7 +9268,7 @@ items = [
 
 ["sugarloaf_wot", "Sugarloaf Greathelm", [("sugarloaf",0)], itp_merchandise| itp_type_head_armor|itp_covers_head|itp_civilian,0, 1200 , weight(3.25)|abundance(100)|head_armor(53)|body_armor(0)|leg_armor(0)|difficulty(9) ,imodbits_plate ],
 
-["kettle_hat_wot", "Kettle Hat", [("prato_chapel-de-fer",0)], itp_merchandise| itp_type_head_armor|itp_civilian,0, 
+["kettle_hat_wot", "Kettle Hat", [("prato_chapel-de-fer",0)], itp_merchandise| itp_type_head_armor|itp_civilian,0,
 240 , weight(1.75)|abundance(100)|head_armor(35)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
 
 ["wisby_gauntlets_black_wot","Splinted Leather Gauntlets", [("wisby_gauntlets_black_L",0)], itp_merchandise|itp_type_hand_armor|itp_civilian,0, 860, weight(0.75)|abundance(100)|body_armor(6)|difficulty(0),imodbits_armor],
@@ -9299,7 +9299,7 @@ items = [
 ["epee_courte_chevalier02_wot", "epee courte chevalier02", [("epee_courte_chevalier02",0),("epee_courte_chevalier02_fourreau", ixmesh_carry)], itp_type_one_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
  480 , weight(1.5)|difficulty(0)|spd_rtng(99) | weapon_length(100)|swing_damage(29 , cut) | thrust_damage(28 ,  pierce),imodbits_sword_high ],
 
-["armure_samurai01_wot", "armure samurai01", [("armure_samurai01",0)], itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+["armure_samurai01_wot", "armure samurai01", [("armure_samurai01",0)], itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 2900 , weight(24)|abundance(100)|head_armor(0)|body_armor(48)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
 
 
@@ -9307,20 +9307,20 @@ items = [
 # TGS Specific Items
 
 # Legion of the Dragon
- ["legion_recruit_tunic", "Dark Blue Tunic", [("legion_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["legion_recruit_tunic", "Dark Blue Tunic", [("legion_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(10)|abundance(100)|head_armor(0)|body_armor(10)|leg_armor(5)|difficulty(4) ,imodbits_armor ],
- ["ashaman_soldier_coat", "Ashaman Soldier Coat", [("ashaman_soldier_coat",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["ashaman_soldier_coat", "Ashaman Soldier Coat", [("ashaman_soldier_coat",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 750 , weight(10)|abundance(100)|head_armor(0)|body_armor(12)|leg_armor(6)|difficulty(4) ,imodbits_armor ],
- ["ashaman_dedicated_coat", "Ashaman Dedicated Coat", [("ashaman_dedicated_coat",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["ashaman_dedicated_coat", "Ashaman Dedicated Coat", [("ashaman_dedicated_coat",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 1000 , weight(15)|abundance(100)|head_armor(0)|body_armor(14)|leg_armor(7)|difficulty(6) ,imodbits_armor ],
- ["ashaman_coat", "Ashaman Coat", [("ashaman_coat",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["ashaman_coat", "Ashaman Coat", [("ashaman_coat",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 1500 , weight(15)|abundance(100)|head_armor(0)|body_armor(16)|leg_armor(8)|difficulty(6) ,imodbits_armor ],
 ["black_leather_boots", "Black Leather Boots", [("black_leather_boots_a",0)], itp_merchandise| itp_type_foot_armor  |itp_civilian | itp_attach_armature,0,
  200 , weight(1.25)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ],
 
- ["legion_army_tunic", "Legion Army Tunic", [("legion_army_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["legion_army_tunic", "Legion Army Tunic", [("legion_army_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["legion_army_armor", "Legion Army Armor", [("legion_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["legion_army_armor", "Legion Army Armor", [("legion_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 1000 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["legion_plate", "Legion Plate", [("legion_plate",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  2000 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
@@ -9333,9 +9333,9 @@ items = [
  ["andoran_helmet", "Andoran Helmet", [("milanese_sallet",0)], itp_merchandise| itp_type_head_armor   ,0,
   800 , weight(2)|abundance(100)|head_armor(40)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
 
- ["red_hand_tunic", "Red Hand Tunic", [("red_hand_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["red_hand_tunic", "Red Hand Tunic", [("red_hand_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["red_arm_tunic", "Red Arm Tunic", [("red_arm_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["red_arm_tunic", "Red Arm Tunic", [("red_arm_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 600 , weight(10)|abundance(100)|head_armor(0)|body_armor(25)|leg_armor(12)|difficulty(4) ,imodbits_armor ],
  ["red_hand_plate", "Red Hand Plate", [("red_hand_plate",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
@@ -9355,25 +9355,25 @@ items = [
  960 , weight(2.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(7) ,imodbits_plate ],
  ["red_hand_greaves", "Red Hand Greaves", [("red_hand_greaves",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature|itp_civilian,0,
  960 , weight(2.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(7) ,imodbits_plate ],
- ["red_hand_fast_crossbow", "Red Hand Fast Crossbow", [("crossbow_c",0)], itp_type_crossbow |itp_merchandise|itp_primary|itp_two_handed|itp_cant_reload_on_horseback ,itcf_shoot_crossbow|itcf_carry_crossbow_back, 
+ ["red_hand_fast_crossbow", "Red Hand Fast Crossbow", [("crossbow_c",0)], itp_type_crossbow |itp_merchandise|itp_primary|itp_two_handed|itp_cant_reload_on_horseback ,itcf_shoot_crossbow|itcf_carry_crossbow_back,
 3000 , weight(3.5)|difficulty(9)|spd_rtng(115) | shoot_speed(68) | thrust_damage(58 ,pierce)|max_ammo(1),imodbits_crossbow ],
-  ["red_arm_club",  "Red Arm Club", [("Faradon_IronClub",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise| itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip, 
+  ["red_arm_club",  "Red Arm Club", [("Faradon_IronClub",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise| itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip,
 400 , weight(3.5)|difficulty(0)|spd_rtng(98) | weapon_length(75)|swing_damage(28 , blunt) | thrust_damage(0 ,  pierce),imodbits_pick ],
- ["red_arm_hammer",  "Red Arm Hammer", [("Faradon_warhammer",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise| itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip, 
+ ["red_arm_hammer",  "Red Arm Hammer", [("Faradon_warhammer",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise| itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip,
 350 , weight(3.5)|difficulty(0)|spd_rtng(98) | weapon_length(75)|swing_damage(28 , blunt) | thrust_damage(0 ,  pierce),imodbits_pick ],
 
  ["two_rivers_armor", "Two River's Armor", [("two_rivers_armor",0)], itp_merchandise| itp_type_body_armor|itp_covers_legs|itp_civilian,0,
  750 , weight(5)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(8)|difficulty(0) ,imodbits_cloth ],
- ["two_rivers_long_bow", "Long Bow", [("long_bow",0),("long_bow_carry",ixmesh_carry)], itp_type_bow |itp_merchandise|itp_primary|itp_two_handed ,itcf_shoot_bow|itcf_carry_bow_back, 
+ ["two_rivers_long_bow", "Long Bow", [("long_bow",0),("long_bow_carry",ixmesh_carry)], itp_type_bow |itp_merchandise|itp_primary|itp_two_handed ,itcf_shoot_bow|itcf_carry_bow_back,
 2000 , weight(1.75)|difficulty(3)|spd_rtng(105) | shoot_speed(70) | thrust_damage(28 ,  pierce),imodbits_bow ],
  ["halberd","Halberd", [("talak_halberd",0)], itp_type_polearm|itp_offset_lance|itp_merchandise| itp_primary|itp_penalty_with_shield|itp_wooden_parry, itc_staff|itcf_carry_spear,
  350 , weight(2.5)|difficulty(10)|spd_rtng(89) | weapon_length(155)|swing_damage(36 , cut) | thrust_damage(25 ,  pierce),imodbits_polearm ],
 
 
 # Southlander Coalition
- ["mayene_recruit_tunic", "Mayene Recruit Tunic", [("mayene_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["mayene_recruit_tunic", "Mayene Recruit Tunic", [("mayene_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["mayene_army_armor", "Mayene Army Armor", [("mayene_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["mayene_army_armor", "Mayene Army Armor", [("mayene_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["mayene_plate", "Mayene Plate", [("mayene_plate",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
@@ -9392,9 +9392,9 @@ items = [
  ["mayene_sword", "Mayene_sword", [("talak_katzbalger",0),("talak_scab_katzbalger", ixmesh_carry)], itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
  480 , weight(1.5)|difficulty(0)|spd_rtng(99) | weapon_length(100)|swing_damage(29 , cut) | thrust_damage(28 ,  pierce),imodbits_sword_high ],
 
- ["cairhien_recruit_tunic", "Cairhien Recruit Tunic", [("cairhien_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["cairhien_recruit_tunic", "Cairhien Recruit Tunic", [("cairhien_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["cairhien_army_armor", "Cairhien Army Armor", [("cairhien_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["cairhien_army_armor", "Cairhien Army Armor", [("cairhien_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["cairhien_plate", "Cairhien Plate", [("cairhien_plate",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1200 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
@@ -9407,9 +9407,9 @@ items = [
  ["cairhien_helmet", "Cairhien Helmet", [("open_sallet",0)], itp_merchandise| itp_type_head_armor   ,0,
   500 , weight(2)|abundance(100)|head_armor(35)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
 
- ["illian_recruit_tunic", "Illian Recruit Tunic", [("illian_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["illian_recruit_tunic", "Illian Recruit Tunic", [("illian_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["illian_army_armor", "Illian Army Armor", [("illian_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["illian_army_armor", "Illian Army Armor", [("illian_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["illian_companion_surcoat", "Illian Companion Surcoat", [("illian_companion_surcoat",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,
  1200 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
@@ -9431,9 +9431,9 @@ items = [
  ["heron_mark_blade", "Heron Mark Blade", [("heron_mark_blade",0),("heron_mark_blade_scabbard", ixmesh_carry)], itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
  1500 , weight(1.5)|difficulty(9)|spd_rtng(99) | weapon_length(100)|swing_damage(35 , cut) | thrust_damage(28 ,  pierce),imodbits_sword_high ],
 
-  ["murandy_recruit_tunic", "Murandy Recruit Tunic", [("murandy_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["murandy_recruit_tunic", "Murandy Recruit Tunic", [("murandy_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["murandy_leather_armor", "Murandy Leather Armor", [("murandy_leather_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["murandy_leather_armor", "Murandy Leather Armor", [("murandy_leather_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["murandy_elite_armor", "Murandy Elite Armor", [("murandy_elite_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
@@ -9444,9 +9444,9 @@ items = [
  ["murandy_shield_strong", "Murandy Shield", [("murandy_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  1000 , weight(3.5)|hit_points(500)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
 
- ["altara_recruit_armor", "Altara Recruit Armor", [("altara_recruit_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["altara_recruit_armor", "Altara Recruit Armor", [("altara_recruit_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["altara_army_armor", "Altara Army Armor", [("altara_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["altara_army_armor", "Altara Army Armor", [("altara_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 600 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["altara_royal_guard_armor", "Altara Royal Guard Armor", [("altara_royal_guard_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1200 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
@@ -9465,9 +9465,9 @@ items = [
  ["altara_royal_guard_halberd", "Altara Royal Guard Halberd", [("altara_royal_guard_halberd",0)], itp_type_polearm|itp_offset_lance|itp_merchandise| itp_primary|itp_penalty_with_shield|itp_wooden_parry, itc_staff|itcf_carry_spear,
  800 , weight(2.5)|difficulty(10)|spd_rtng(89) | weapon_length(155)|swing_damage(36 , cut) | thrust_damage(25 ,  pierce),imodbits_polearm ],
 
-  ["arad_doman_recruit_tunic", "Arad Doman Recruit Tunic", [("arad_doman_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["arad_doman_recruit_tunic", "Arad Doman Recruit Tunic", [("arad_doman_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["arad_doman_army_armor", "Arad Doman Army Armor", [("arad_doman_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["arad_doman_army_armor", "Arad Doman Army Armor", [("arad_doman_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["arad_doman_elite_armor", "Arad Doman Elite Armor", [("arad_doman_elite_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1200 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
@@ -9480,11 +9480,11 @@ items = [
 
 
 # Southlander Alliance
-  ["tear_recruit_tunic", "Tear Recruit Tunic", [("tear_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["tear_recruit_tunic", "Tear Recruit Tunic", [("tear_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["tear_plate", "Tear Plate", [("tear_plate",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["tear_plate", "Tear Plate", [("tear_plate",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  800 , weight(15)|abundance(100)|head_armor(0)|body_armor(35)|leg_armor(15)|difficulty(6) ,imodbits_armor ],
- ["tear_gilded_plate", "Tear Gilded Plate", [("tear_gilded_plate",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian |itp_civilian ,0, 
+ ["tear_gilded_plate", "Tear Gilded Plate", [("tear_gilded_plate",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian |itp_civilian ,0,
  1200 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["tear_defender_armor", "Tear Defender Armor", [("tear_defender_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
@@ -9507,11 +9507,11 @@ items = [
  ["flamberge", "Flamberge", [("flamberge",0)], itp_type_two_handed_wpn|itp_merchandise| itp_two_handed|itp_primary, itc_greatsword|itcf_carry_sword_back,
  650 , weight(3)|difficulty(9)|spd_rtng(94) | weapon_length(145)|swing_damage(35 , cut) | thrust_damage(29 ,  pierce),imodbits_sword_high ],
 
- ["andor_recruit_tunic", "Andor Recruit Tunic", [("andor_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["andor_recruit_tunic", "Andor Recruit Tunic", [("andor_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["andor_army_armor", "Andor Army Armor", [("andor_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["andor_army_armor", "Andor Army Armor", [("andor_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
- ["andor_plate", "Andor Plate", [("andor_plate",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0, 
+ ["andor_plate", "Andor Plate", [("andor_plate",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0,
  1200 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["andor_queens_guard_armor", "Andor Queens Guard Armor", [("andor_queens_guard_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
@@ -9522,9 +9522,9 @@ items = [
  ["andor_shield_strong", "Andor Shield", [("andor_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  1200 , weight(3.5)|hit_points(500)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
 
- ["ghealdan_recruit_tunic", "Ghealdan Recruit Tunic", [("ghealdan_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["ghealdan_recruit_tunic", "Ghealdan Recruit Tunic", [("ghealdan_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["ghealdan_army_armor", "Ghealdan Army Armor", [("ghealdan_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["ghealdan_army_armor", "Ghealdan Army Armor", [("ghealdan_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 600 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["ghealdan_plate", "Ghealdan Plate", [("ghealdan_plate",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
@@ -9535,18 +9535,18 @@ items = [
  ["ghealdan_shield_strong", "Ghealdan Shield", [("ghealdan_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  1000 , weight(3.5)|hit_points(600)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
 
-  ["far_madding_recruit_tunic", "Far Madding Recruit Tunic", [("far_madding_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["far_madding_recruit_tunic", "Far Madding Recruit Tunic", [("far_madding_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["far_madding_armor", "Far Madding Armor", [("far_madding_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["far_madding_armor", "Far Madding Armor", [("far_madding_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
 ["far_madding_shield_weak", "Far Madding Shield", [("far_madding_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  277 , weight(3.5)|hit_points(100)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
  ["far_madding_shield_normal", "Far Madding Shield", [("far_madding_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  600 , weight(3.5)|hit_points(300)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
 
-  ["tarabon_recruit_tunic", "Tarabon Recruit Tunic", [("tarabon_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["tarabon_recruit_tunic", "Tarabon Recruit Tunic", [("tarabon_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["tarabon_army_armor", "Tarabon Army Armor", [("tarabon_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["tarabon_army_armor", "Tarabon Army Armor", [("tarabon_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 600 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["tarabon_elite_armor", "Tarabon Elite Armor", [("tarabon_elite_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1200 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
@@ -9557,9 +9557,9 @@ items = [
  ["tarabon_shield_strong", "Tarabon Shield", [("tarabon_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  1000 , weight(3.5)|hit_points(500)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
 
- ["amadicia_recruit_tunic", "Amadicia Recruit Tunic", [("amadicia_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["amadicia_recruit_tunic", "Amadicia Recruit Tunic", [("amadicia_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["amadicia_army_armor", "Amadicia Army Armor", [("amadicia_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["amadicia_army_armor", "Amadicia Army Armor", [("amadicia_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 600 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["amadicia_elite_armor", "Amadicia Elite Armor", [("amadicia_elite_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1200 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
@@ -9570,11 +9570,11 @@ items = [
  ["amadicia_shield_strong", "Amadicia Shield", [("amadicia_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  1000 , weight(3.5)|hit_points(500)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
 
- ["whitecloak_recruit_tunic", "Whitecloak Recruit Tunic", [("whitecloak_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["whitecloak_recruit_tunic", "Whitecloak Recruit Tunic", [("whitecloak_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
-  ["whitecloak_questioner_tabbard", "Whitecloak Questioner Tabbard", [("whitecloak_questioner_tabbard",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["whitecloak_questioner_tabbard", "Whitecloak Questioner Tabbard", [("whitecloak_questioner_tabbard",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 800 , weight(24)|abundance(100)|head_armor(0)|body_armor(35)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
- ["whitecloak_tabbard", "Whitecloak Tabbard", [("whitecloak_tabbard",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["whitecloak_tabbard", "Whitecloak Tabbard", [("whitecloak_tabbard",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 1000 , weight(24)|abundance(100)|head_armor(0)|body_armor(48)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
 ["whitecloak_shield_weak", "Whitecloak Shield", [("whitecloak_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  277 , weight(3.5)|hit_points(100)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
@@ -9587,9 +9587,9 @@ items = [
 
 
 # Borderlands
- ["shienar_recruit_tunic", "Shienar Recruit Tunic", [("shienar_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["shienar_recruit_tunic", "Shienar Recruit Tunic", [("shienar_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["shienar_leather_armor", "Shienar Leather Armor", [("shienar_leather_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["shienar_leather_armor", "Shienar Leather Armor", [("shienar_leather_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["shienar_captain_armor", "Shienar Captain Armor", [("milanese_plate",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  4000 , weight(27)|abundance(100)|head_armor(0)|body_armor(65)|leg_armor(30)|difficulty(10) ,imodbits_armor ],
@@ -9604,11 +9604,11 @@ items = [
  ["heavy_charger","Heavy Charger", [("heavy_charger",0)], itp_merchandise|itp_type_horse, 0,
   4000,abundance(35)|hit_points(200)|body_armor(63)|difficulty(5)|horse_speed(41)|horse_maneuver(46)|horse_charge(35)|horse_scale(112),imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_4]],
 
- ["arafel_recruit_tunic", "Arafel Recruit Tunic", [("arafel_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["arafel_recruit_tunic", "Arafel Recruit Tunic", [("arafel_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["arafel_army_armor", "Arafel Army Armor", [("arafel_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["arafel_army_armor", "Arafel Army Armor", [("arafel_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
- ["arafel_tabbard", "Arafel Tabbard", [("arafel_tabbard",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["arafel_tabbard", "Arafel Tabbard", [("arafel_tabbard",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  1200 , weight(15)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["arafel_mail_and_plate", "Arafel Mail and Plate", [("arafel_mail_and_plate",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  3000 , weight(27)|abundance(100)|head_armor(0)|body_armor(55)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
@@ -9619,11 +9619,11 @@ items = [
  ["arafel_shield_strong", "Arafel Shield", [("arafel_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  1000 , weight(3.5)|hit_points(500)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
 
- ["kandor_recruit_tunic", "Kandor Recruit Tunic", [("kandor_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["kandor_recruit_tunic", "Kandor Recruit Tunic", [("kandor_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["kandor_leather_armor", "Kandor Leather Armor", [("kandor_leather_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["kandor_leather_armor", "Kandor Leather Armor", [("kandor_leather_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  500 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
- ["kandor_army_armor", "Kandor Army Armor", [("kandor_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["kandor_army_armor", "Kandor Army Armor", [("kandor_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(14)|difficulty(6) ,imodbits_armor ],
  ["kandor_surcoat", "Kandor Surcoat", [("kandor_surcoat",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,
  1000 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
@@ -9637,14 +9637,14 @@ items = [
  600 , weight(3.5)|hit_points(400)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
  ["kandor_shield_strong", "Kandor Shield", [("kandor_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  1000 , weight(3.5)|hit_points(600)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
- ["kandor_long_mace", "Kandor Long Mace", [("talak_long_mace",0)], itp_crush_through|itp_type_two_handed_wpn|itp_merchandise|itp_can_knock_down|itp_primary|itp_two_handed|itp_wooden_parry|itp_wooden_attack|itp_unbalanced, itc_nodachi|itcf_carry_spear, 
+ ["kandor_long_mace", "Kandor Long Mace", [("talak_long_mace",0)], itp_crush_through|itp_type_two_handed_wpn|itp_merchandise|itp_can_knock_down|itp_primary|itp_two_handed|itp_wooden_parry|itp_wooden_attack|itp_unbalanced, itc_nodachi|itcf_carry_spear,
 450 , weight(4.5)|difficulty(13)|spd_rtng(95) | weapon_length(85)|swing_damage(38 , pierce) | thrust_damage(0 ,  pierce),imodbits_mace ],
 
- ["saldaea_recruit_tunic", "Saldaea Recruit Tunic", [("saldaea_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["saldaea_recruit_tunic", "Saldaea Recruit Tunic", [("saldaea_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["saldaea_warrior_outfit", "Saldaea Warrior Outfit", [("saldaea_warrior_outfit",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["saldaea_warrior_outfit", "Saldaea Warrior Outfit", [("saldaea_warrior_outfit",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
- ["saldaea_army_armor", "Saldaea Army Armor", [("saldaea_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["saldaea_army_armor", "Saldaea Army Armor", [("saldaea_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  1000 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(14)|difficulty(6) ,imodbits_armor ],
   ["heavy_lamellar_armor_wot", "Heavy Lamellar Armor", [("heavy_lamellar_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,
  1400 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
@@ -9740,14 +9740,14 @@ items = [
 # ["wig_man_white_short", "Wig Man White Short", [("wig_man_white_short",0)], itp_merchandise| itp_type_head_armor |itp_civilian  ,0, 6 , weight(0.75)|abundance(100)|head_armor(2)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ],
 # ["wig_man_white_long", "Wig Man White Long", [("wig_man_white_long",0)], itp_merchandise| itp_type_head_armor |itp_civilian  ,0, 6 , weight(0.75)|abundance(100)|head_armor(2)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ],
 
-["white_tower_patrol_tunic", "White Tower Patrol Tunic", [("white_tower_patrol_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+["white_tower_patrol_tunic", "White Tower Patrol Tunic", [("white_tower_patrol_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["white_tower_guard_armor", "White Tower Guard Armor", [("white_tower_guard_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["white_tower_guard_armor", "White Tower Guard Armor", [("white_tower_guard_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
- ["white_tower_captain_armor", "White Tower Captain Armor", [("white_tower_captain",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["white_tower_captain_armor", "White Tower Captain Armor", [("white_tower_captain",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 600 , weight(20)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
- 
- ["street_patrol_club",  "Street Patrol Club", [("Faradon_LargeClub",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise| itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip, 
+
+ ["street_patrol_club",  "Street Patrol Club", [("Faradon_LargeClub",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise| itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip,
 200 , weight(3.5)|difficulty(0)|spd_rtng(98) | weapon_length(75)|swing_damage(28 , blunt) | thrust_damage(0 ,  pierce),imodbits_pick ],
 ["steel_buckler2", "Steel Buckler", [("steel_buckler2",0)], itp_merchandise|itp_type_shield, itcf_carry_round_shield,
  697 , weight(4)|hit_points(750)|body_armor(17)|spd_rtng(61)|shield_width(35),imodbits_shield ],
@@ -9761,11 +9761,11 @@ items = [
  ["wise_one_dress_with_shawl", "Wise One Dress with Shawl", [("wise_one_dress_with_shawl",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0,
    600 , weight(3)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(15)|difficulty(0) ,imodbits_cloth],
 
- ["cadinsor_grey", "Grey Cadin'sor", [("cadinsor_grey",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["cadinsor_grey", "Grey Cadin'sor", [("cadinsor_grey",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  300 , weight(5)|abundance(100)|head_armor(0)|body_armor(25)|leg_armor(15)|difficulty(4) ,imodbits_armor ],
- ["cadinsor_green", "Green Cadin'sor", [("cadinsor_green",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["cadinsor_green", "Green Cadin'sor", [("cadinsor_green",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(6)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
- ["cadinsor", "Cadin'sor", [("cadinsor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["cadinsor", "Cadin'sor", [("cadinsor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  1200 , weight(7)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(20)|difficulty(6) ,imodbits_armor ],
  ["shoufa_grey", "Grey Shoufa", [("shoufa_grey",0)], itp_merchandise| itp_type_head_armor   ,0,
   200 , weight(1)|abundance(100)|head_armor(20)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
@@ -9803,11 +9803,11 @@ items = [
  ["suldam_boots", "Sul'dam Boots", [("suldam_boots",0)], itp_merchandise| itp_type_foot_armor  |itp_civilian | itp_attach_armature,0,
  174 , weight(1.25)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth ],
 
- ["seanchan_low_armor", "Seanchan Low Armor", [("armure_samurai02",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["seanchan_low_armor", "Seanchan Low Armor", [("armure_samurai02",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  300 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["seanchan_middle_armor", "Seanchan Middle Armor", [("armure_samurai01",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["seanchan_middle_armor", "Seanchan Middle Armor", [("armure_samurai01",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
- ["seanchan_high_armor", "Seanchan High Armor", [("samurai_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["seanchan_high_armor", "Seanchan High Armor", [("samurai_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  1000 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(14)|difficulty(6) ,imodbits_armor ],
  ["deathwatch_guard_armor", "Deathwatch Armor", [("deathwatch_guard_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
@@ -9856,23 +9856,23 @@ items = [
  ["draghkar_helmet", "Draghkar Helmet", [("draghkar_helmet",0)], itp_unique|itp_type_head_armor|itp_covers_head   ,0,
   1200 , weight(2)|abundance(100)|head_armor(20)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
 
- ["trolloc_weak_armor", "Trolloc Weak Armor", [("trolloc_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["trolloc_weak_armor", "Trolloc Weak Armor", [("trolloc_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  300 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["trolloc_normal_armor", "Trolloc Normal Armor", [("trolloc_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["trolloc_normal_armor", "Trolloc Normal Armor", [("trolloc_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  500 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
- ["trolloc_strong_armor", "Trolloc Strong Armor", [("trolloc_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["trolloc_strong_armor", "Trolloc Strong Armor", [("trolloc_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  900 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(14)|difficulty(7) ,imodbits_armor ],
- ["myrddraal_armor", "Myrddraal Armor", [("myrddraal_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["myrddraal_armor", "Myrddraal Armor", [("myrddraal_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  1500 , weight(15)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
- ["darkfriend_tunic", "Darkfriend Tunic", [("darkfriend_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["darkfriend_tunic", "Darkfriend Tunic", [("darkfriend_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["darkfriend_armor", "Darkfriend Armor", [("darkfriend_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["darkfriend_armor", "Darkfriend Armor", [("darkfriend_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  400 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
- ["darkfriend_plate", "Darkfriend Plate", [("darkfriend_plate",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["darkfriend_plate", "Darkfriend Plate", [("darkfriend_plate",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  800 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(14)|difficulty(7) ,imodbits_armor ],
- ["draghkar_tunic", "Draghkar Tunic", [("draghkar_tunic",0)], itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["draghkar_tunic", "Draghkar Tunic", [("draghkar_tunic",0)], itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  400 , weight(15)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["dreadlord_coat", "Dreadlord Coat", [("dreadlord_coat",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["dreadlord_coat", "Dreadlord Coat", [("dreadlord_coat",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  800 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
  ["aes_sedai_black_ajah_dress", "Black Ajah Dress", [("aes_sedai_black_ajah_dress",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0,
   500 , weight(3)|abundance(100)|head_armor(0)|body_armor(10)|leg_armor(10)|difficulty(0) ,imodbits_cloth],
@@ -9885,11 +9885,11 @@ items = [
  ["draghkar_gloves","Draghkar Gloves", [("draghkar_gloves_L",0), ("draghkar_gloves_Lx",0)], itp_unique|itp_type_hand_armor,0,
   200, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
 
- ["trolloc_mace", "Trolloc Mace", [("mace_morningstar_new",0)], itp_crush_through|itp_type_two_handed_wpn|itp_merchandise|itp_can_knock_down|itp_primary|itp_two_handed|itp_wooden_parry|itp_wooden_attack|itp_unbalanced, itc_nodachi|itcf_carry_spear, 
+ ["trolloc_mace", "Trolloc Mace", [("mace_morningstar_new",0)], itp_crush_through|itp_type_two_handed_wpn|itp_merchandise|itp_can_knock_down|itp_primary|itp_two_handed|itp_wooden_parry|itp_wooden_attack|itp_unbalanced, itc_nodachi|itcf_carry_spear,
 650 , weight(9)|difficulty(14)|spd_rtng(79) | weapon_length(75)|swing_damage(40 , blunt) | thrust_damage(0 ,  pierce),imodbits_mace ],
   ["myrddraal_blade", "Myrddraal Blade", [("myrddraal_blade",0),("myrddraal_blade_scabbard", ixmesh_carry)], itp_type_two_handed_wpn| itp_two_handed|itp_primary, itc_greatsword|itcf_carry_sword_back|itcf_show_holster_when_drawn,
  1900 , weight(3)|difficulty(11)|spd_rtng(94) | weapon_length(130)|swing_damage(40 , cut) | thrust_damage(31 ,  pierce),imodbits_sword_high ],
- ["draghkar_dagger", "Draghkar Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
+ ["draghkar_dagger", "Draghkar Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn,
 200 , weight(0.75)|difficulty(1)|spd_rtng(109) | weapon_length(47)|swing_damage(12 , cut) | thrust_damage(9 ,  pierce),imodbits_sword_high ],
 
 
@@ -9906,7 +9906,7 @@ items = [
 
  ## Other Items ##
 
- ["padan_fain_dagger", "Padan Fain's Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn, 
+ ["padan_fain_dagger", "Padan Fain's Dagger", [("dagger_b",0),("dagger_b_scabbard",ixmesh_carry),("dagger_b",imodbits_good),("dagger_b_scabbard",ixmesh_carry|imodbits_good)], itp_unique|itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left|itcf_show_holster_when_drawn,
 5000 , weight(0.75)|difficulty(1)|spd_rtng(109) | weapon_length(47)|swing_damage(22 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high ],
 
  ["lord_warhorse_1","Lordly War Horse", [("kher_warhorse1",0)], itp_merchandise|itp_type_horse, 0,
@@ -9926,55 +9926,55 @@ items = [
  ["lord_warhorse_8","Lordly War Horse", [("sarranid_heavy_horse2",0)], itp_merchandise|itp_type_horse, 0,
   3000,abundance(3)|hit_points(150)|body_armor(50)|difficulty(4)|horse_speed(45)|horse_maneuver(43)|horse_charge(30)|horse_scale(112),imodbits_horse_basic|imodbit_champion, [], []],
 
-  ["whitecloak_inquisitor_tabbard", "Whitecloak High Inquisitor Tabbard", [("whitecloak_inquisitor_tabbard",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["whitecloak_inquisitor_tabbard", "Whitecloak High Inquisitor Tabbard", [("whitecloak_inquisitor_tabbard",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 2900 , weight(24)|abundance(100)|head_armor(0)|body_armor(48)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
 
 
 ## Shara Items
 
- ["shara_recruit_scout_armor", "Shara Recruit Armor", [("shara_recruit_scout_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["shara_recruit_scout_armor", "Shara Recruit Armor", [("shara_recruit_scout_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["shara_bowman_armor", "Shara Bowman Armor", [("shara_bowman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["shara_bowman_armor", "Shara Bowman Armor", [("shara_bowman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- 
- ["shara_armsman_armor", "Shara Armsman Armor", [("shara_armsman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+
+ ["shara_armsman_armor", "Shara Armsman Armor", [("shara_armsman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
- ["shara_crossbowman_armor", "Shara Crossbowman Armor", [("shara_crossbowman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["shara_crossbowman_armor", "Shara Crossbowman Armor", [("shara_crossbowman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
- ["shara_marksman_armor", "Shara Marksman Armor", [("shara_marksman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["shara_marksman_armor", "Shara Marksman Armor", [("shara_marksman_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
  600 , weight(15)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(6) ,imodbits_armor ],
 
- ["shara_town_guard_armor", "Shara Town Guard Armor", [("shara_town_guard_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0, 
+ ["shara_town_guard_armor", "Shara Town Guard Armor", [("shara_town_guard_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0,
  1200 , weight(15)|abundance(100)|head_armor(0)|body_armor(35)|leg_armor(15)|difficulty(6) ,imodbits_armor ],
- 
- ["shara_mid_cavalry_armor", "Shara Cavalry Armor", [("shara_mid_cavalry_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0, 
+
+ ["shara_mid_cavalry_armor", "Shara Cavalry Armor", [("shara_mid_cavalry_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0,
  1200 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
- ["shara_border_guard_armor", "Shara Border Guard Armor", [("shara_border_guard_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0, 
+ ["shara_border_guard_armor", "Shara Border Guard Armor", [("shara_border_guard_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian ,0,
  1200 , weight(15)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
- 
+
  ["shara_elite_armor", "Shara Elite Armor", [("shara_elite_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
  ["shara_shbo_guardsman_armor", "Shara Sh'bo Guardsman Armor", [("shara_shbo_guardsman_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(18)|difficulty(8) ,imodbits_armor ],
 
- ["ayyad_villager_tunic", "Ayyad Villager Tunic", [("ayyad_villager_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["ayyad_villager_tunic", "Ayyad Villager Tunic", [("ayyad_villager_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 750 , weight(10)|abundance(100)|head_armor(0)|body_armor(12)|leg_armor(6)|difficulty(4) ,imodbits_armor ],
- ["ayyad_village_leader_tunic", "Ayyad Village Leader Tunic", [("ayyad_village_leader_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["ayyad_village_leader_tunic", "Ayyad Village Leader Tunic", [("ayyad_village_leader_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 1000 , weight(15)|abundance(100)|head_armor(0)|body_armor(14)|leg_armor(7)|difficulty(6) ,imodbits_armor ],
- ["ayyad_counsel_member_tunic", "Ayyad Counsel Member Tunic", [("ayyad_counsel_member_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["ayyad_counsel_member_tunic", "Ayyad Counsel Member Tunic", [("ayyad_counsel_member_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 1500 , weight(15)|abundance(100)|head_armor(0)|body_armor(16)|leg_armor(8)|difficulty(6) ,imodbits_armor ],
 
  ["black_turban", "Black Turban", [("tuareg_open_black",0)], itp_merchandise| itp_type_head_armor   ,0,
   200 , weight(1)|abundance(100)|head_armor(20)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
- 
+
  ["black_turban_helmet", "Black Turban with Cap", [("black_sar_helmet1",0)], itp_merchandise| itp_type_head_armor   ,0,
   500 , weight(1)|abundance(100)|head_armor(30)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
  ["black_turban_helmet2", "Black Turban with Cap", [("tuareg_helmet_black",0)], itp_merchandise| itp_type_head_armor   ,0,
   500 , weight(1)|abundance(100)|head_armor(30)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
- 
+
  ["helmet2_brass", "Brass Chain Helmet", [("sar_helmet2_brass",0)], itp_merchandise| itp_type_head_armor   ,0,
   700 , weight(1)|abundance(100)|head_armor(35)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
- 
+
  ["helmet5_brass", "Brass Veil Helmet", [("sar_helmet5",0)], itp_merchandise| itp_type_head_armor   ,0,
   800 , weight(1)|abundance(100)|head_armor(40)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
 
@@ -9996,40 +9996,40 @@ items = [
  ["camel","Camel", [("camel",0)], itp_merchandise|itp_type_horse, 0,
  1000,abundance(45)|hit_points(150)|body_armor(25)|difficulty(4)|horse_speed(42)|horse_maneuver(42)|horse_charge(18)|horse_scale(100),imodbits_horse_basic],
 
- 
+
 ## Sea Folk Items
 
- ["sea_folk_tunic", "Sea Folk Tunic", [("sea_folk_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["sea_folk_tunic", "Sea Folk Tunic", [("sea_folk_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
-# ["sea_folk_armor", "Sea Folk Armor", [("sea_folk_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+# ["sea_folk_armor", "Sea Folk Armor", [("sea_folk_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 #600 , weight(15)|abundance(100)|head_armor(0)|body_armor(28)|leg_armor(15)|difficulty(6) ,imodbits_armor ],
- ["sea_folk_padded_armor", "Sea Folk Padded Armor", [("sea_folk_armor_b",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
-800 , weight(15)|abundance(100)|head_armor(0)|body_armor(38)|leg_armor(20)|difficulty(6) ,imodbits_armor ], 
+ ["sea_folk_padded_armor", "Sea Folk Padded Armor", [("sea_folk_armor_b",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
+800 , weight(15)|abundance(100)|head_armor(0)|body_armor(38)|leg_armor(20)|difficulty(6) ,imodbits_armor ],
  ["sea_folk_elite_armor", "Sea Folk Elite Armor", [("sea_folk_armor_elite",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1200 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(23)|difficulty(8) ,imodbits_armor ],
 
  ["sea_folk_elite_helmet", "Sea Folk Helmet", [("sea_folk_elite_helmet",0)], itp_merchandise| itp_type_head_armor   ,0,
   800 , weight(2)|abundance(100)|head_armor(40)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate ],
 
- ["sea_folk_female_tunic", "Sea Folk Tunic", [("sea_folk_female_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["sea_folk_female_tunic", "Sea Folk Tunic", [("sea_folk_female_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
- ["sea_folk_female_tunic_2", "Sea Folk Tunic", [("sea_folk_female_tunic_2",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["sea_folk_female_tunic_2", "Sea Folk Tunic", [("sea_folk_female_tunic_2",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 600 , weight(15)|abundance(100)|head_armor(0)|body_armor(28)|leg_armor(15)|difficulty(6) ,imodbits_armor ],
- ["sea_folk_female_armor", "Sea Folk Padded Armor", [("sea_folk_female_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
-800 , weight(15)|abundance(100)|head_armor(0)|body_armor(38)|leg_armor(20)|difficulty(6) ,imodbits_armor ],  
+ ["sea_folk_female_armor", "Sea Folk Padded Armor", [("sea_folk_female_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
+800 , weight(15)|abundance(100)|head_armor(0)|body_armor(38)|leg_armor(20)|difficulty(6) ,imodbits_armor ],
 
 ["wooden_round_shield", "Wooden Round Shield", [("shield_round_g",0)], itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  80 , weight(2.5)|hit_points(310)|body_armor(8)|spd_rtng(96)|shield_width(40),imodbits_shield ],
 
 
 ## Madmen Items
- 
-  ["madmen_paint_1", "Madmen Warpaint", [("mad_men_1",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+
+  ["madmen_paint_1", "Madmen Warpaint", [("mad_men_1",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
-  ["madmen_paint_2", "Madmen Warpaint", [("mad_men_2",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["madmen_paint_2", "Madmen Warpaint", [("mad_men_2",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
-  ["madmen_paint_3", "Madmen Warpaint", [("mad_men_3",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["madmen_paint_3", "Madmen Warpaint", [("mad_men_3",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
-  ["madmen_paint_4", "Madmen Warpaint", [("mad_men_4",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+  ["madmen_paint_4", "Madmen Warpaint", [("mad_men_4",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(8)|difficulty(4) ,imodbits_armor ],
 
   ["madmen_rawhide_coat", "Clansman Coat", [("coat_of_plates_b",0)], itp_merchandise| itp_type_body_armor |itp_civilian |itp_covers_legs ,0,
@@ -10037,10 +10037,10 @@ items = [
 
 
 ## Toman Head Items
- 
-  ["toman_head_recruit_tunic", "Toman Head Recruit Tunic", [("toman_head_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+
+  ["toman_head_recruit_tunic", "Toman Head Recruit Tunic", [("toman_head_recruit_tunic",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 200 , weight(10)|abundance(100)|head_armor(0)|body_armor(20)|leg_armor(10)|difficulty(4) ,imodbits_armor ],
- ["toman_head_army_armor", "Toman Head Army Armor", [("toman_head_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0, 
+ ["toman_head_army_armor", "Toman Head Army Armor", [("toman_head_army_armor",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 500 , weight(15)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(17)|difficulty(6) ,imodbits_armor ],
  ["toman_head_mail_and_plate", "Toman Head Mail and Plate", [("toman_head_mail_and_plate",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0,
  1500 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(20)|difficulty(8) ,imodbits_armor ],
@@ -10048,15 +10048,15 @@ items = [
  200 , weight(3.5)|hit_points(100)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
  ["toman_head_shield_normal", "Toman Head Shield", [("toman_head_shield",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
  600 , weight(3.5)|hit_points(300)|body_armor(2)|spd_rtng(80)|shield_width(50),imodbits_shield ],
- 
+
 
 
 #Mat Cauthon's Items
 
 ["mats_hat", "Mat Cauthon's Hat", [("mats_hat",0)],itp_unique|itp_type_head_armor|itp_doesnt_cover_hair|itp_civilian,0,9, weight(1)|head_armor(10)|body_armor(0)|leg_armor(0)|difficulty(0),imodbits_cloth],
 # Feel free to edit values such as weight and armor value etc etc
-# Currently Buggy Model 
- 
+# Currently Buggy Model
+
 ["ashandarei",         "Ashandarei", [("ashandarei_ravens",0)], itp_unique|itp_type_polearm|itp_offset_lance| itp_primary|itp_two_handed|itp_wooden_parry, itc_ashandarei|itcf_carry_spear,
  0 , weight(3.5)|difficulty(5)|spd_rtng(100) | weapon_length(150)|swing_damage(55 , cut) | thrust_damage(30 ,  pierce),imodbits_polearm ],
 # Again, feel free to edit values such as length, difficulty, damage etc etc
@@ -10064,11 +10064,15 @@ items = [
 # And if you don't want the ravens, just take "_ravens" out of the mesh name entry.
 ######################
 
- 
+# Lan's Items
+["lan_light_armor", "Light Armor", [("lamellar_leather",0)], itp_unique| itp_type_body_armor  |itp_covers_legs ,0,
+ 195 , weight(3)|abundance(100)|head_armor(30)|body_armor(50)|leg_armor(30)|difficulty(5) ,imodbits_cloth ],
+
+
 # end TGS Specific Items
 
 
-###end TGS changes 
+###end TGS changes
 
 ["items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
 

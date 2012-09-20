@@ -42769,10 +42769,27 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 ## TGS Timeline Event dialogs
 
+# Narg
   [anyone,"start", [(eq, "$g_talk_troop", "trp_narg")], "Others go away. Narg stay. Narg smart.", "narg_speaks",[]],
   [anyone|plyr,"narg_speaks", [], "Light have mercy! It speaks!", "narg_response",[]],
   [anyone,"narg_response", [], "Narg no hurt. Put down weapon.", "narg_speaks_2",[]],
   [anyone|plyr,"narg_speaks_2", [], "Blood and Bloody Ashes! I'm out of here!", "close_window",[]],
+
+# Book 1 Rand, Tam,
+  [anyone,"start", [
+                        (this_or_next|eq, "$g_talk_troop", "trp_lan_unarmored"),
+                        (this_or_next|eq, "$g_talk_troop", "trp_moiraine_common_garb"),
+                        (this_or_next|eq, "$g_talk_troop", "trp_bran_al_vere_book_1"),
+                        (this_or_next|eq, "$g_talk_troop", "trp_nynaeve_book_1"),
+                        (this_or_next|eq, "$g_talk_troop", "trp_master_luhan_book_1"),
+                        (this_or_next|eq, "$g_talk_troop", "trp_abell_cauthon_book_1"),
+                        (this_or_next|eq, "$g_talk_troop", "trp_tam_al_thor_book_1"),
+                        (eq, "$g_talk_troop", "trp_rand_al_thor_book_1"),
+
+                    ], "The Light be praised! Thank you for your aid!", "tgs_generic_speaks",[]],
+  [anyone|plyr,"tgs_generic_speaks", [], "I'm glad to have been of service.", "close_window",[]],
+
+
 
 ## TGS Timeline Event dialogs end
 

@@ -417,6 +417,10 @@ quests = [
   "str_trolloc_raid_on_al_thor_farm"
   ),
 
+ ("trolloc_raid_on_emonds_field", "Winternight", 0,
+  "str_trolloc_raid_on_emonds_field"
+  ),
+
 ##### TGS Quests End #####
 
  ("quests_end", "Quests End", 0, "{!}."),
