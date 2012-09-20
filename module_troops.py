@@ -3367,7 +3367,7 @@ troops = [
   ["fighter_woman","Cha Faile Swordswoman","Cha Faile Swordswomen",tf_female|tf_guarantee_all_wo_ranged,0,0,fac_commoners,
    [itm_sword_medieval_b,itm_fur_covered_shield,itm_nordic_shield,itm_leather_jerkin,itm_leather_vest, itm_leather_boots, itm_leather_gloves],
    def_attrib|level(16),wp(100),knows_common|knows_riding_3|knows_athletics_2|knows_ironflesh_1,refugee_face1,refugee_face2],
-  ["sword_sister","Hunter for the Horn","Hunters for the Horn",tf_female|tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_shield|tf_guarantee_horse,0,0,fac_commoners,
+  ["sword_sister","Hunter of the Horn","Hunters of the Horn",tf_female|tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_shield|tf_guarantee_horse,0,0,fac_commoners,
    [itm_sword_medieval_b,itm_sword_khergit_3,itm_plate_covered_round_shield,itm_tab_shield_small_round_c,itm_plate_armor,itm_coat_of_plates,itm_mail_chausses,itm_iron_greaves,itm_guard_helmet,itm_helmet_with_neckguard,itm_courser,itm_leather_gloves],
    def_attrib|level(20),wp_one_handed(150)|wp(140),knows_common|knows_riding_5|knows_athletics_3|knows_ironflesh_2|knows_shield_2,refugee_face1,refugee_face2],
   # end modified for TGS
@@ -3924,9 +3924,9 @@ troops = [
                itm_book_engineering, itm_book_weapon_mastery, itm_book_fire, itm_book_earth, itm_book_channeling],def_attrib|level(5),wp(20),knows_common,merchant_face_1, merchant_face_2],
 
 # Tavern minstrel.
-  ["tavern_minstrel_1","Wandering Gleeman-in-training","Gleeman-in-training",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_leather_jacket, itm_hide_boots, itm_lute],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2], #lute
+  ["tavern_minstrel_1","Wandering Gleeman's Apprentice","Gleeman's Apprentice",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_leather_jacket, itm_hide_boots, itm_lute],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2], #lute
   ["tavern_minstrel_2","Wandering Bard","Bard",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_tunic_with_green_cape, itm_hide_boots, itm_lyre],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2],  #early harp/lyre
-  ["tavern_minstrel_3","Wandering Gleeman-in-training","Gleeman",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_nomad_robe, itm_hide_boots, itm_lute],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2], #lute/oud or rebab
+  ["tavern_minstrel_3","Wandering Gleeman","Gleeman",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_nomad_robe, itm_hide_boots, itm_lute],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2], #lute/oud or rebab
   ["tavern_minstrel_4","Wandering Storyteller","Storyteller",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_fur_coat, itm_hide_boots, itm_lyre],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2], #No instrument or lyre
   ["tavern_minstrel_5","Wandering Court Bard","Court Bard",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_short_tunic, itm_hide_boots, itm_lute],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2], #Lute or Byzantine/Occitan lyra
 
@@ -3939,37 +3939,37 @@ troops = [
   # Female Village Wisdom
   ["npc1","Seinen","Seinen",tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_player, itm_power_ammo, itm_quarter_staff, itm_woolen_dress, itm_woolen_hose],
    str_8|agi_7|int_12|cha_7|level(4),wp_polearm(65)|wp_firearm(35)|wp(27),
-   knows_power_strike_1|knows_athletics_2|knows_wound_treatment_2|knows_surgery_3|knows_first_aid_2|knows_leadership_2|knows_power_draw_2|knows_fire_2|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_2, #skills 2/3 player at that level
+   knows_power_strike_1|knows_athletics_2|knows_wound_treatment_2|knows_surgery_3|knows_first_aid_2|knows_leadership_2|knows_power_draw_2|knows_fire_2|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_2|knows_channeling_2, #skills 2/3 player at that level
    0x0000000d25002001696289574da93b2200000000001ca3480000000000000000],
 
   # Male Rogue Channeler
   ["npc2","Darlaan","Darlaan", tf_hero|tf_unmoveable_in_party_window, 0,reserved, fac_commoners,[itm_power_player, itm_power_ammo, itm_one_handed_war_axe_b, itm_kandor_shield_weak, itm_leather_jerkin, itm_leather_boots, itm_saddle_horse],
    str_8|agi_7|int_13|cha_6|level(5),wp_firearm(47)|wp_one_handed(75)|wp(40),knows_warrior_npc|
-   knows_wound_treatment_1|knows_first_aid_1|knows_leadership_1|knows_shield_2|knows_power_draw_2|knows_fire_3|knows_earth_2|knows_spirit_3|knows_water_4|knows_air_2,
+   knows_wound_treatment_1|knows_first_aid_1|knows_leadership_1|knows_shield_2|knows_power_draw_2|knows_fire_3|knows_earth_2|knows_spirit_3|knows_water_4|knows_air_2|knows_channeling_4,
    0x00000004b21002d1389b3352d8b22b1a00000000001dd6cb0000000000000000],
 
   # Female Black Ajah
   ["npc3","Cetaleen","Cetaleen",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_power_player, itm_power_ammo, itm_dagger, itm_aes_sedai_grey_dress, itm_aes_sedai_grey_shoes, itm_lady_dress_blue, itm_woolen_hose, itm_courser],
    str_5|agi_7|int_14|cha_11|level(2),wp_firearm(65)|wp(30),
-   knows_wound_treatment_2|knows_trade_1|knows_first_aid_3|knows_surgery_2|knows_riding_3|knows_persuasion_3|knows_leadership_3|knows_power_draw_2|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_4|knows_air_3,
+   knows_wound_treatment_2|knows_trade_1|knows_first_aid_3|knows_surgery_2|knows_riding_3|knows_persuasion_3|knows_leadership_3|knows_power_draw_2|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_4|knows_air_3|knows_channeling_4,
    0x00000005b904300438e148bb5d8522d300000000001dc4530000000000000000],
 
   # Male Asha'man
   ["npc4","Jayn","Jayn",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_player, itm_power_ammo, itm_sword_medieval_a, itm_cairhien_shield_weak, itm_ashaman_soldier_coat, itm_black_leather_boots],
    str_10|agi_9|int_13|cha_10|level(8),wp_one_handed(95)|wp_firearm(63)|wp(50),knows_warrior_npc|
-   knows_weapon_master_2|knows_power_strike_2|knows_riding_2|knows_athletics_2|knows_power_throw_2|knows_first_aid_1|knows_surgery_1|knows_tactics_2|knows_leadership_2|knows_persuasion_1|knows_power_draw_2|knows_fire_5|knows_earth_3|knows_spirit_3|knows_water_4|knows_air_2,
+   knows_weapon_master_2|knows_power_strike_2|knows_riding_2|knows_athletics_2|knows_power_throw_2|knows_first_aid_1|knows_surgery_1|knows_tactics_2|knows_leadership_2|knows_persuasion_1|knows_power_draw_2|knows_fire_5|knows_earth_3|knows_spirit_3|knows_water_4|knows_air_2|knows_channeling_5,
    0x00000004130041534955d1b35c8ce6d200000000001ce3230000000000000000],
 
   # Female Liberated Damane
   ["npc5","Zonnein","Zonnein",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_player, itm_power_ammo, itm_dagger, itm_peasant_dress,itm_woolen_hose],
    str_9|agi_9|int_12|cha_7|level(5),wp_firearm(72)|wp(35),
-   knows_riding_1|knows_power_strike_1|knows_athletics_2|knows_wound_treatment_1|knows_surgery_1|knows_first_aid_1|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_4|knows_air_2,
+   knows_riding_1|knows_power_strike_1|knows_athletics_2|knows_wound_treatment_1|knows_surgery_1|knows_first_aid_1|knows_power_draw_3|knows_fire_4|knows_earth_2|knows_spirit_4|knows_water_4|knows_air_2|knows_channeling_4,
    0x000000058b001003396bb2b6e26dbb6500000000001f56e40000000000000000],
 
   # Female Windfinder
   ["npc6","Eldriva","Eldriva",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_power_player, itm_power_ammo, itm_scimitar, itm_archers_vest, itm_peasant_dress],
    str_8|agi_12|int_10|cha_5|level(4),wp_one_handed(80)|wp_firearm(49),
-   knows_weapon_master_1|knows_power_strike_1|knows_athletics_3|knows_trainer_1|knows_leadership_1|knows_spotting_1|knows_trade_3|knows_power_draw_2|knows_fire_4|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_3,
+   knows_weapon_master_1|knows_power_strike_1|knows_athletics_3|knows_trainer_1|knows_leadership_1|knows_spotting_1|knows_trade_3|knows_power_draw_2|knows_fire_4|knows_earth_1|knows_spirit_3|knows_water_4|knows_air_3|knows_channeling_3,
   0x0000000222104003430b75a9265358de00000000001cdb230000000000000000],
 
 ########### Non-Channelers ############
@@ -4028,7 +4028,7 @@ troops = [
    knows_wound_treatment_1|knows_engineer_2|knows_trade_4|knows_tracking_1|knows_spotting_1|knows_pathfinding_1|knows_power_strike_1|knows_ironflesh_2|knows_inventory_management_2,
    0x00000008880c758736fa95349e59b93100000000001ddaa10000000000000000],
 
-  # Male Hunter for the Horn
+  # Male Hunter of the Horn
   ["npc16","Hammaeus","Hammaeus",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_sword_khergit_1, itm_nomad_bow, itm_arrows, itm_nomad_armor, itm_nomad_boots, itm_steppe_horse],
    str_7|agi_11|int_8|cha_7|level(5),wp_archery(100)|wp_one_handed(90)|wp(80),knows_tracker_npc|
    knows_horse_archery_3|knows_riding_3|knows_wound_treatment_2|knows_trade_1|knows_inventory_management_1|knows_athletics_2|knows_power_strike_1,

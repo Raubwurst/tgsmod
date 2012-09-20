@@ -1171,7 +1171,7 @@ and you sit a throne in your own splendourous palace as one of the most powerful
 ("npc8_personalitymatch_speech_b", "For one who was going to be a craftman's apprentice, I must say I admire his spirit. Perhaps I should talk to him further about certain matters..."), # mat
 ("npc9_personalitymatch_speech_b", "And for one of his state, he is most willing to talk with the likes of me, a farmer's son. I have enjoyed chatting about the village mill, and also pondering how our current methods of tilling the soil could be advanced. It almost makes me want to spend a few days on the farm. Either way, we could surely use more men like {s11} in the company!"), # mat
 ("npc10_personalitymatch_speech_b", "Afterwards, we got to talking a little about seafaring. Did you know the Sea Folk refer to ships as male? After hearing {s11}'s explanation, I do see the logic behind that. We did a little talking about the difference between river craft and ships for the open waters. It sure fills me with an awful yearning to get a deck under me feet once again."), # mat
-("npc11_personalitymatch_speech_b", "Just the other night, we had a lengthy discussion about the mill in his village. It's quite interesting how they are using the power of the nearby stream to turn the mill-stone. I have a few ideas of how to improve this setup, and would greatly enjoy the chance to do so. Perhaps in a few months we could take a few weeks leave."), # mat
+("npc11_personalitymatch_speech_b", "Just the other night, we had a lengthy discussion about the mill in his village. It's quite interesting how they are using the power of the nearby stream to turn the mill-stone. I have a few ideas of how to improve this notion, and would greatly enjoy the chance to do so. Perhaps in a few months we could take a few weeks leave."), # mat
 ("npc12_personalitymatch_speech_b", "I think I might write a song about him. Something about the man of the storm. Or maybe the fire... no, that would be too much like Mosk and Merk. Oh, sorry to get carried away like that. I guess I'm just very glad to have met {s11}!"), # mat
 ("npc13_personalitymatch_speech_b", "I don't care where he comes from, or what's hidden in his past, any man who will stand up and face the enemy's charge is fine by me. It wouldn't be a bad idea to find a few more solid men like {s11} the next time we are recruiting!"), # mat
 ("npc14_personalitymatch_speech_b", "I also have seen her skill with healing. This is a gift that gains her much honor. She is also impartial with who she will help after the battle. Even defeated enemies know she will treat them with kindness."), # mat
@@ -5041,7 +5041,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("father_skilled_tradesman","Skilled Tradesman"),
 
   ("childhood_page","{reg11?Lady-in-waiting:Page}"),
-  ("childhood_novice","{reg11?Novice of the White Tower:Warder-in-training}"),
+  ("childhood_novice","{reg11?Novice of the White Tower:Apprentice Warder}"),
   ("childhood_wilder","{reg12?Wilder:Student}"),
   ("childhood_hunter","Hunter"),
   ("childhood_farmer","Farmer"),
@@ -5177,7 +5177,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  ("story_childhood_novice","{reg11?When you were quite young, it was\
  discovered that you could channel. Your parents decided that it would\
  be best if you received proper training with the Aes Sedai in Tar Valon. You vividly remember the\
- day when you left your former life behind and started down the long road of training and discovery.:PLACEHOLDER FOR WARDER-IN-TRAINING STORY}"),
+ day when you left your former life behind and started down the long road of training and discovery.:PLACEHOLDER FOR APPRENTICE WARDER STORY}"),
  ("story_childhood_wilder","{reg12?One day, when you were around fourteen years old,\
  you fell through the ice in the village pond. When you came to the surface, to your horror\
  your head hit ice instead of air. You frantically looked for the hole, but the freezing cold\
