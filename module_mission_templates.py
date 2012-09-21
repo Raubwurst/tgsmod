@@ -3376,10 +3376,7 @@ common_wot_server_update_client_seeker_global_variables_multi = (
 common_wot_initialize_timeline_event_change_side_for_antagonists = (
     0, 0, ti_once, [(troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 0)],
         [
-            (try_for_agents, ":agent"),
-                (neg|agent_is_non_player, ":agent"),
-                    (assign, ":player_agent", ":agent"),
-            (try_end),
+            (get_player_agent_no, ":player_agent"),
 
             (agent_get_team, ":player_team", ":player_agent"),
             (val_add, ":player_team", 1),
@@ -27118,6 +27115,65 @@ mission_templates = [
     ],
     [
 
+      (ti_on_agent_spawn, 0, 0, [],
+       [
+         (store_trigger_param_1, ":agent_no"),
+         (call_script, "script_agent_reassign_team", ":agent_no"),
+
+         (assign, ":initial_courage_score", 5000),
+
+         (agent_get_troop_id, ":troop_id", ":agent_no"),
+         (store_character_level, ":troop_level", ":troop_id"),
+         (val_mul, ":troop_level", 35),
+         (val_add, ":initial_courage_score", ":troop_level"), #average : 20 * 35 = 700
+
+         (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
+         (val_add, ":initial_courage_score", ":randomized_addition_courage"),
+
+         (agent_get_party_id, ":agent_party", ":agent_no"),
+########### Added this for TGS ###########
+         (try_begin),
+         (lt, ":agent_party", 0),
+             (agent_get_slot, ":agent_party", ":agent_no", slot_agent_spawn_party),
+         (try_end),
+########### End Added this for TGS ####################################
+         (party_get_morale, ":cur_morale", ":agent_party"),
+
+         (store_sub, ":morale_effect_on_courage", ":cur_morale", 70),
+         (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
+         (val_add, ":initial_courage_score", ":morale_effect_on_courage"),
+
+         #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
+         #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
+         #min starting : 3600, max starting  : 9600, average starting : 7200
+         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
+         ]),
+
+      (ti_on_agent_killed_or_wounded, 0, 0, [],
+       [
+        (store_trigger_param_1, ":dead_agent_no"),
+        #(store_trigger_param_2, ":killer_agent_no"),
+        (store_trigger_param_3, ":is_wounded"),
+
+        (try_begin),
+          (ge, ":dead_agent_no", 0),
+          (neg|agent_is_ally, ":dead_agent_no"),
+          (agent_is_human, ":dead_agent_no"),
+          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+##          (str_store_troop_name, s6, ":dead_agent_troop_id"),
+##          (assign, reg0, ":dead_agent_no"),
+##          (assign, reg1, ":killer_agent_no"),
+##          (assign, reg2, ":is_wounded"),
+##          (agent_get_team, reg3, ":dead_agent_no"),
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
+          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+          (eq, ":is_wounded", 1),
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
+        (try_end),
+
+        #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
+       ]),
+
       common_battle_tab_press,
 
       (ti_question_answered, 0, 0, [],
@@ -27397,6 +27453,65 @@ mission_templates = [
     ],
     [
 
+      (ti_on_agent_spawn, 0, 0, [],
+       [
+         (store_trigger_param_1, ":agent_no"),
+         (call_script, "script_agent_reassign_team", ":agent_no"),
+
+         (assign, ":initial_courage_score", 5000),
+
+         (agent_get_troop_id, ":troop_id", ":agent_no"),
+         (store_character_level, ":troop_level", ":troop_id"),
+         (val_mul, ":troop_level", 35),
+         (val_add, ":initial_courage_score", ":troop_level"), #average : 20 * 35 = 700
+
+         (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
+         (val_add, ":initial_courage_score", ":randomized_addition_courage"),
+
+         (agent_get_party_id, ":agent_party", ":agent_no"),
+########### Added this for TGS ###########
+         (try_begin),
+         (lt, ":agent_party", 0),
+             (agent_get_slot, ":agent_party", ":agent_no", slot_agent_spawn_party),
+         (try_end),
+########### End Added this for TGS ####################################
+         (party_get_morale, ":cur_morale", ":agent_party"),
+
+         (store_sub, ":morale_effect_on_courage", ":cur_morale", 70),
+         (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
+         (val_add, ":initial_courage_score", ":morale_effect_on_courage"),
+
+         #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
+         #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
+         #min starting : 3600, max starting  : 9600, average starting : 7200
+         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
+         ]),
+
+      (ti_on_agent_killed_or_wounded, 0, 0, [],
+       [
+        (store_trigger_param_1, ":dead_agent_no"),
+        #(store_trigger_param_2, ":killer_agent_no"),
+        (store_trigger_param_3, ":is_wounded"),
+
+        (try_begin),
+          (ge, ":dead_agent_no", 0),
+          (neg|agent_is_ally, ":dead_agent_no"),
+          (agent_is_human, ":dead_agent_no"),
+          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+##          (str_store_troop_name, s6, ":dead_agent_troop_id"),
+##          (assign, reg0, ":dead_agent_no"),
+##          (assign, reg1, ":killer_agent_no"),
+##          (assign, reg2, ":is_wounded"),
+##          (agent_get_team, reg3, ":dead_agent_no"),
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
+          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+          (eq, ":is_wounded", 1),
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
+        (try_end),
+
+        #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
+       ]),
+
       common_battle_tab_press,
 
       (ti_question_answered, 0, 0, [],
@@ -27504,6 +27619,7 @@ mission_templates = [
                 (try_end),
             (try_end),
 
+            # set lan as moiraine's warder for certain events
             (agent_set_slot, ":moiraine", slot_agent_has_warders_spawned, 1),
             (agent_set_slot, ":lan", slot_agent_is_warder_for_agent, 1),
             (agent_set_slot, ":lan", slot_agent_warder_bond_holder, ":moiraine"),
@@ -27701,6 +27817,65 @@ mission_templates = [
     ],
     [
 
+      (ti_on_agent_spawn, 0, 0, [],
+       [
+         (store_trigger_param_1, ":agent_no"),
+         (call_script, "script_agent_reassign_team", ":agent_no"),
+
+         (assign, ":initial_courage_score", 5000),
+
+         (agent_get_troop_id, ":troop_id", ":agent_no"),
+         (store_character_level, ":troop_level", ":troop_id"),
+         (val_mul, ":troop_level", 35),
+         (val_add, ":initial_courage_score", ":troop_level"), #average : 20 * 35 = 700
+
+         (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
+         (val_add, ":initial_courage_score", ":randomized_addition_courage"),
+
+         (agent_get_party_id, ":agent_party", ":agent_no"),
+########### Added this for TGS ###########
+         (try_begin),
+         (lt, ":agent_party", 0),
+             (agent_get_slot, ":agent_party", ":agent_no", slot_agent_spawn_party),
+         (try_end),
+########### End Added this for TGS ####################################
+         (party_get_morale, ":cur_morale", ":agent_party"),
+
+         (store_sub, ":morale_effect_on_courage", ":cur_morale", 70),
+         (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
+         (val_add, ":initial_courage_score", ":morale_effect_on_courage"),
+
+         #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
+         #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
+         #min starting : 3600, max starting  : 9600, average starting : 7200
+         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
+         ]),
+
+      (ti_on_agent_killed_or_wounded, 0, 0, [],
+       [
+        (store_trigger_param_1, ":dead_agent_no"),
+        #(store_trigger_param_2, ":killer_agent_no"),
+        (store_trigger_param_3, ":is_wounded"),
+
+        (try_begin),
+          (ge, ":dead_agent_no", 0),
+          (neg|agent_is_ally, ":dead_agent_no"),
+          (agent_is_human, ":dead_agent_no"),
+          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+##          (str_store_troop_name, s6, ":dead_agent_troop_id"),
+##          (assign, reg0, ":dead_agent_no"),
+##          (assign, reg1, ":killer_agent_no"),
+##          (assign, reg2, ":is_wounded"),
+##          (agent_get_team, reg3, ":dead_agent_no"),
+          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
+          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+          (eq, ":is_wounded", 1),
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
+        (try_end),
+
+        #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
+       ]),
+
       common_battle_tab_press,
 
       (ti_question_answered, 0, 0, [],
@@ -27794,6 +27969,32 @@ mission_templates = [
 			(try_end)]),
 
       common_battle_inventory,
+
+      (1, 0, ti_once, [],
+       [
+            (try_for_agents, ":agent"),
+                (agent_get_troop_id, ":agent_troop", ":agent"),
+                (try_begin),
+                (eq, ":agent_troop", "trp_moiraine_common_garb"),
+                    (assign, ":moiraine", ":agent"),
+                (else_try),
+                (eq, ":agent_troop", "trp_lan_unarmored"),
+                    (assign, ":lan", ":agent"),
+                (try_end),
+            (try_end),
+
+            # set lan as moiraine's warder for certain events
+            (agent_set_slot, ":moiraine", slot_agent_has_warders_spawned, 1),
+            (agent_set_slot, ":lan", slot_agent_is_warder_for_agent, 1),
+            (agent_set_slot, ":lan", slot_agent_warder_bond_holder, ":moiraine"),
+            (agent_set_slot, ":moiraine", slot_agent_aes_sedai_warder_1, ":lan"),
+            (agent_set_slot, ":moiraine", slot_agent_aes_sedai_warder_2, -1),
+            (agent_set_slot, ":moiraine", slot_agent_aes_sedai_warder_3, -1),
+            (agent_set_slot, ":moiraine", slot_agent_aes_sedai_warder_4, -1),
+            (agent_set_slot, ":lan", slot_agent_warder_is_leader, 1),
+            (agent_set_slot, ":moiraine", slot_agent_warders_incapacitated, 0),
+
+         ]),
 
       #TGS
       common_wot_initialize_timeline_event_change_side_for_antagonists,

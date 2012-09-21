@@ -1,4 +1,4 @@
-1359
+1358
 qstr_No_active_weaves_to_ No_active_weaves_to_unravel...
 qstr_Too_many_active_seek Too_many_active_seekers!!
 qstr_You_are_no_longer_sh You_are_no_longer_shielded_from_the_One_Power!!
@@ -765,7 +765,6 @@ qstr_Error!!_Target_has_m Error!!_Target_has_more_than_one_active_seeker!!
 qstr_All_seeker_slots_are All_seeker_slots_are_full!!
 qstr_All_live_enemies_hav All_live_enemies_have_active_seekers!!
 qstr_Error!!_Target_has_mo Error!!_Target_has_more_than_one_active_seekers!!
-qstr_Rand_and_Tam_al_Thor Rand_and_Tam_al'Thor_narrowly_escape_death_in_a_trolloc_raid_on_their_farmstead...
 qstr_ranks ranks
 qstr_shield_wall shield_wall
 qstr_wedge wedge

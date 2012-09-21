@@ -6865,7 +6865,7 @@ troops = [
    knight_attrib_5,wp_two_handed(325)|wp(300),knight_skills_5|knows_trainer_4, 0x0000000da704414724d38e371c6dc8e500000000001e58eb0000000000000000],
 
     ["moiraine_common_garb", "Moiraine", "Moiraine", tf_hero|tf_female, 0, reserved,  fac_kingdom_21,
-   [itm_lady_dress_blue, itm_veteran_aes_sedai_blue_shoes, itm_power_player, itm_power_ammo],
+   [itm_lady_dress_blue, itm_leather_boots, itm_power_player, itm_power_ammo],
    knight_attrib_3,wp_firearm(250)|wp_one_handed(175)|wp(130),knight_skills_3|knows_trainer_4|knows_power_draw_8|knows_fire_8|knows_earth_8|knows_spirit_9|knows_water_8|knows_air_8, 0x000000017f04200443156d12dea536e200000000001dc11a0000000000000000],
 
     ["bran_al_vere_book_1", "Brandelwyn al'Vere", "Bran", tf_hero, 0, reserved,  fac_kingdom_3,

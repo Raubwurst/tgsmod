@@ -1699,6 +1699,10 @@ merchant_quest_1a
 merchant_quest_1b
 merchant_quest_1c
 merchant_quest_1d
+narg_speaks
+narg_response
+narg_speaks_2
+tgs_generic_speaks
 free
 view_char_requested
 threaten_1

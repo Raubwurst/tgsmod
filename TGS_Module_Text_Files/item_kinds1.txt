@@ -1,5 +1,5 @@
 itemsfile version 3
-962
+963
  itm_no_item INVALID_ITEM INVALID_ITEM 1  invalid_item 0  12582914 9223388529554358287 3 0 1.500000 100 0 0 0 0 16384 103 0 90 0 522 528
  0
 0
@@ -384,7 +384,7 @@ itemsfile version 3
  0
 0
 
- itm_book_surgery_reference Mending_Men_of_the_Aiel_War Mending_Men_of_the_Aiel_War 1  book_c 0  20 0 3500 0 2.000000 100 0 0 0 0 0 0 0 0 0 0 0
+ itm_book_surgery_reference Mending_the_Men_of_the_Aiel_War Mending_the_Men_of_the_Aiel_War 1  book_c 0  20 0 3500 0 2.000000 100 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
@@ -600,7 +600,7 @@ itemsfile version 3
  0
 0
 
- itm_steppe_horse Steppe_Horse Steppe_Horse 1  steppe_horse 0  65537 0 192 41876193280 0.000000 80 0 10 0 2 120 51 40 98 0 8 0
+ itm_steppe_horse Mountain_Horse Mountain_Horse 1  steppe_horse 0  65537 0 192 41876193280 0.000000 80 0 10 0 2 120 51 40 98 0 8 0
  2
  38 39
 0
@@ -614,7 +614,7 @@ itemsfile version 3
  0
 0
 
- itm_arabian_horse_b Sarranid_Horse Sarranid_Horse 1  arabian_horse_b 0  65537 0 700 110595670016 0.000000 80 0 10 0 3 120 54 43 100 0 16 0
+ itm_arabian_horse_b Cairhienen_Desert_Horse Cairhienen_Desert_Horse 1  arabian_horse_b 0  65537 0 700 110595670016 0.000000 80 0 10 0 3 120 54 43 100 0 16 0
  1
  42
 0
@@ -636,7 +636,7 @@ itemsfile version 3
  0
 0
 
- itm_khergit_arrows Khergit_Arrows Khergit_Arrows 3  arrow_b 0  flying_missile 2305843009213693952  quiver_b 3458764513820540928  65541 1610612736 410 4398046511112 3.500000 30 0 0 0 0 0 0 0 95 30 259 0
+ itm_khergit_arrows Broadhead_Arrows Broadhead_Arrows 3  arrow_b 0  flying_missile 2305843009213693952  quiver_b 3458764513820540928  65541 1610612736 410 4398046511112 3.500000 30 0 0 0 0 0 0 0 95 30 259 0
  0
 0
 
@@ -744,15 +744,15 @@ itemsfile version 3
  0
 0
 
- itm_khergit_leather_boots Khergit_Leather_Boots Khergit_Leather_Boots 1  khergit_leather_boots 0  536940302 0 120 123731968 1.000000 100 0 0 18 0 0 0 0 0 0 0 0
+ itm_khergit_leather_boots Dark_Leather_Boots Dark_Leather_Boots 1  khergit_leather_boots 0  536940302 0 120 123731968 1.000000 100 0 0 18 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_boots_a Sarranid_Shoes Sarranid_Shoes 1  sarranid_shoes 0  536874766 0 30 123731968 1.000000 100 0 0 8 0 0 0 0 0 0 0 0
+ itm_sarranid_boots_a Peaked_Shoes Peaked_Shoes 1  sarranid_shoes 0  536874766 0 30 123731968 1.000000 100 0 0 8 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_boots_b Sarranid_Leather_Boots Sarranid_Leather_Boots 1  sarranid_boots 0  536940302 0 120 123731968 2.000000 100 0 0 16 0 0 0 0 0 0 0 0
+ itm_sarranid_boots_b Peaked_Leather_Boots Peaked_Leather_Boots 1  sarranid_boots 0  536940302 0 120 123731968 2.000000 100 0 0 16 0 0 0 0 0 0 0 0
  0
 0
 
@@ -760,7 +760,7 @@ itemsfile version 3
  0
 0
 
- itm_sarranid_boots_d Sarranid_Mail_Boots Sarranid_Mail_Boots 1  sarranid_mail_chausses 0  536940302 0 920 704643236 3.000000 100 0 0 30 0 0 0 0 0 0 0 0
+ itm_sarranid_boots_d Peaked_Boots_and_Mail Peaked_Boots_and_Mail 1  sarranid_mail_chausses 0  536940302 0 920 704643236 3.000000 100 0 0 30 0 0 0 0 0 0 0 0
  0
 0
 
@@ -804,27 +804,27 @@ itemsfile version 3
  0
 0
 
- itm_khergit_lady_dress Khergit_Lady_Dress Khergit_Lady_Dress 1  khergit_lady_dress 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
+ itm_khergit_lady_dress Blue_Lady_Dress Blue_Lady_Dress 1  khergit_lady_dress 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
  0
 0
 
- itm_khergit_lady_dress_b Khergit_Leather_Lady_Dress Khergit_Leather_Lady_Dress 1  khergit_lady_dress_b 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
+ itm_khergit_lady_dress_b Leather_Lady_Dress Leather_Lady_Dress 1  khergit_lady_dress_b 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_lady_dress Sarranid_Lady_Dress Sarranid_Lady_Dress 1  sarranid_lady_dress 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
+ itm_sarranid_lady_dress Violet_Lady_Dress Violet_Lady_Dress 1  sarranid_lady_dress 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_lady_dress_b Sarranid_Lady_Dress Sarranid_Lady_Dress 1  sarranid_lady_dress_b 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
+ itm_sarranid_lady_dress_b Brown_Lady_Dress Brown_Lady_Dress 1  sarranid_lady_dress_b 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_common_dress Sarranid_Dress Sarranid_Dress 1  sarranid_common_dress 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
+ itm_sarranid_common_dress Simple_Dress Simple_Dress 1  sarranid_common_dress 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_common_dress_b Sarranid_Dress Sarranid_Dress 1  sarranid_common_dress_b 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
+ itm_sarranid_common_dress_b Brown_Simple_Dress Brown_Simple_Dress 1  sarranid_common_dress_b 0  553648141 0 500 123731968 3.000000 100 0 10 10 0 0 0 0 0 0 0 0
  0
 0
 
@@ -836,11 +836,11 @@ itemsfile version 3
  0
 0
 
- itm_nomad_armor Nomad_Armor Nomad_Armor 1  nomad_armor_new 0  16842765 0 25 123731968 2.000000 100 0 24 0 0 0 0 0 0 0 0 0
+ itm_nomad_armor Fur_Armor Fur_Armor 1  nomad_armor_new 0  16842765 0 25 123731968 2.000000 100 0 24 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_khergit_armor Khergit_Armor Khergit_Armor 1  khergit_armor_new 0  16842765 0 38 123731968 2.000000 100 0 24 0 0 0 0 0 0 0 0 0
+ itm_khergit_armor Reinforced_Fur_Armor Reinforced_Fur_Armor 1  khergit_armor_new 0  16842765 0 38 123731968 2.000000 100 0 24 0 0 0 0 0 0 0 0 0
  0
 0
 
@@ -904,7 +904,7 @@ itemsfile version 3
  0
 0
 
- itm_steppe_outfit Steppe_Outfit Steppe_Outfit 1  nobleman_outf 0  553648141 0 348 123731968 4.000000 100 0 14 10 0 0 0 0 0 0 0 0
+ itm_steppe_outfit Padded_Cloth_Outfit Padded_Cloth_Outfit 1  nobleman_outf 0  553648141 0 348 123731968 4.000000 100 0 14 10 0 0 0 0 0 0 0 0
  0
 0
 
@@ -1004,7 +1004,7 @@ itemsfile version 3
  0
 0
 
- itm_steppe_armor Steppe_Armor Steppe_Armor 1  lamellar_leather 0  16842765 0 195 123731968 5.000000 100 0 16 8 0 0 0 0 0 0 0 0
+ itm_steppe_armor Light_Padded_Armor Light_Padded_Armor 1  lamellar_leather 0  16842765 0 195 123731968 5.000000 100 0 16 8 0 0 0 0 0 0 0 0
  0
 0
 
@@ -1032,7 +1032,7 @@ itemsfile version 3
  0
 0
 
- itm_nomad_vest Nomad_Vest Nomad_Vest 1  nomad_vest_new 0  553713677 0 360 123731968 7.000000 50 0 22 8 0 0 0 0 0 0 0 0
+ itm_nomad_vest Fur_Vest Fur_Vest 1  nomad_vest_new 0  553713677 0 360 123731968 7.000000 50 0 22 8 0 0 0 0 0 0 0 0
  0
 0
 
@@ -1044,11 +1044,11 @@ itemsfile version 3
  0
 0
 
- itm_tribal_warrior_outfit Tribal_Warrior_Outfit Tribal_Warrior_Outfit 1  tribal_warrior_outfit_a_new 0  553713677 0 520 123731968 14.000000 100 0 30 10 0 0 0 0 0 0 0 0
+ itm_tribal_warrior_outfit Fur_and_Leather_Armor Fur_and_Leather_Armor 1  tribal_warrior_outfit_a_new 0  553713677 0 520 123731968 14.000000 100 0 30 10 0 0 0 0 0 0 0 0
  0
 0
 
- itm_nomad_robe Nomad_Robe Nomad_Robe 1  nomad_robe_a 0  553713677 0 610 123731968 15.000000 100 0 32 10 0 0 0 0 0 0 0 0
+ itm_nomad_robe Padded_Robe Padded_Robe 1  nomad_robe_a 0  553713677 0 610 123731968 15.000000 100 0 32 10 0 0 0 0 0 0 0 0
  0
 0
 
@@ -1064,11 +1064,11 @@ itemsfile version 3
  0
 0
 
- itm_lamellar_vest Lamellar_Vest Lamellar_Vest 1  lamellar_vest_a 0  553713677 0 970 123731968 18.000000 100 0 40 8 7 0 0 0 0 0 0 0
+ itm_lamellar_vest White_Lamellar_Vest White_Lamellar_Vest 1  lamellar_vest_a 0  553713677 0 970 123731968 18.000000 100 0 40 8 7 0 0 0 0 0 0 0
  0
 0
 
- itm_lamellar_vest_khergit Khergit_Lamellar_Vest Khergit_Lamellar_Vest 1  lamellar_vest_b 0  553713677 0 970 123731968 18.000000 100 0 40 8 7 0 0 0 0 0 0 0
+ itm_lamellar_vest_khergit Brown_Lamellar_Vest Brown_Lamellar_Vest 1  lamellar_vest_b 0  553713677 0 970 123731968 18.000000 100 0 40 8 7 0 0 0 0 0 0 0
  0
 0
 
@@ -1128,15 +1128,15 @@ itemsfile version 3
  0
 0
 
- itm_khergit_elite_armor Khergit_Elite_Armor Khergit_Elite_Armor 1  lamellar_armor_d 0  16842765 0 3828 704643236 25.000000 100 0 52 16 8 0 0 0 0 0 0 0
+ itm_khergit_elite_armor Light_Studded_Armor Light_Studded_Armor 1  lamellar_armor_d 0  16842765 0 3828 704643236 25.000000 100 0 52 16 8 0 0 0 0 0 0 0
  0
 0
 
- itm_vaegir_elite_armor Vaegir_Elite_Armor Vaegir_Elite_Armor 1  lamellar_armor_c 0  553713677 0 3828 704643236 25.000000 100 0 52 16 8 0 0 0 0 0 0 0
+ itm_vaegir_elite_armor Light_Plated_Armor Light_Plated_Armor 1  lamellar_armor_c 0  553713677 0 3828 704643236 25.000000 100 0 52 16 8 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_elite_armor Sarranid_Elite_Armor Sarranid_Elite_Armor 1  tunic_armor_a 0  553713677 0 3828 704643236 25.000000 100 0 52 16 8 0 0 0 0 0 0 0
+ itm_sarranid_elite_armor Light_Reinforced_Armor Light_Reinforced_Armor 1  tunic_armor_a 0  553713677 0 3828 704643236 25.000000 100 0 52 16 8 0 0 0 0 0 0 0
  0
 0
 
@@ -1164,19 +1164,19 @@ itemsfile version 3
  0
 0
 
- itm_sarranid_leather_armor Sarranid_Leather_Armor Sarranid_Leather_Armor 1  sarranid_leather_armor 0  16842765 0 650 704643236 9.000000 100 0 32 12 0 0 0 0 0 0 0 0
+ itm_sarranid_leather_armor Padded_Leather_Robe Padded_Leather_Robe 1  sarranid_leather_armor 0  16842765 0 650 704643236 9.000000 100 0 32 12 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_cavalry_robe Cavalry_Robe Cavalry_Robe 1  arabian_armor_a 0  553713677 0 990 704643236 15.000000 100 0 36 8 0 0 0 0 0 0 0 0
+ itm_sarranid_cavalry_robe Lord's_Hunting_Robe Lord's_Hunting_Robe 1  arabian_armor_a 0  553713677 0 990 704643236 15.000000 100 0 36 8 0 0 0 0 0 0 0 0
  0
 0
 
- itm_arabian_armor_b Sarranid_Guard_Armor Sarranid_Guard_Armor 1  arabian_armor_b 0  16842765 0 1200 704643236 19.000000 100 0 38 8 0 0 0 0 0 0 0 0
+ itm_arabian_armor_b Plated_Light_Chestplate Plated_Light_Chestplate 1  arabian_armor_b 0  16842765 0 1200 704643236 19.000000 100 0 38 8 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_mail_shirt Sarranid_Mail_Shirt Sarranid_Mail_Shirt 1  sarranian_mail_shirt 0  553713677 0 1400 704643236 19.000000 100 0 40 14 7 0 0 0 0 0 0 0
+ itm_sarranid_mail_shirt Lord's_Mail_Shirt Lord's_Mail_Shirt 1  sarranian_mail_shirt 0  553713677 0 1400 704643236 19.000000 100 0 40 14 7 0 0 0 0 0 0 0
  0
 0
 
@@ -1272,15 +1272,15 @@ itemsfile version 3
  0
 0
 
- itm_nomad_cap Nomad_Cap Nomad_Cap 1  nomad_cap_a_new 0  536936460 0 6 123731968 0.750000 100 10 0 0 0 0 0 0 0 0 0 0
+ itm_nomad_cap Spiked_Fur_Cap Spiked_Fur_Cap 1  nomad_cap_a_new 0  536936460 0 6 123731968 0.750000 100 10 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_nomad_cap_b Nomad_Cap Nomad_Cap 1  nomad_cap_b_new 0  536936460 0 6 123731968 0.750000 100 13 0 0 0 0 0 0 0 0 0 0
+ itm_nomad_cap_b Light_Leather_Cap Light_Leather_Cap 1  nomad_cap_b_new 0  536936460 0 6 123731968 0.750000 100 13 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_steppe_cap Steppe_Cap Steppe_Cap 1  steppe_cap_a_new 0  536936460 0 14 123731968 1.000000 100 16 0 0 0 0 0 0 0 0 0 0
+ itm_steppe_cap Fur-and-Leather_Cap Fur-and-Leather_Cap 1  steppe_cap_a_new 0  536936460 0 14 123731968 1.000000 100 16 0 0 0 0 0 0 0 0 0 0
  0
 0
 
@@ -1308,19 +1308,19 @@ itemsfile version 3
  0
 0
 
- itm_leather_steppe_cap_a Steppe_Cap Steppe_Cap 1  leather_steppe_cap_a_new 0  65548 0 24 123731968 1.000000 100 12 0 0 0 0 0 0 0 0 0 0
+ itm_leather_steppe_cap_a Fur_Cap Fur_Cap 1  leather_steppe_cap_a_new 0  65548 0 24 123731968 1.000000 100 12 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_leather_steppe_cap_b Steppe_Cap_ Steppe_Cap_ 1  tattered_steppe_cap_b_new 0  65548 0 36 123731968 1.000000 100 14 0 0 0 0 0 0 0 0 0 0
+ itm_leather_steppe_cap_b Banded_Leather_Cap_ Banded_Leather_Cap_ 1  tattered_steppe_cap_b_new 0  65548 0 36 123731968 1.000000 100 14 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_leather_steppe_cap_c Steppe_Cap Steppe_Cap 1  steppe_cap_a_new 0  65548 0 51 123731968 1.000000 100 16 0 0 0 0 0 0 0 0 0 0
+ itm_leather_steppe_cap_c Fur-and-Leather_Cap Fur-and-Leather_Cap 1  steppe_cap_a_new 0  65548 0 51 123731968 1.000000 100 16 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_leather_warrior_cap Leather_Warrior_Cap Leather_Warrior_Cap 1  skull_cap_new_b 0  536936460 0 14 123731968 1.000000 100 18 0 0 0 0 0 0 0 0 0 0
+ itm_leather_warrior_cap Stiff_Leather_Cap Stiff_Leather_Cap 1  skull_cap_new_b 0  536936460 0 14 123731968 1.000000 100 18 0 0 0 0 0 0 0 0 0 0
  0
 0
 
@@ -1364,19 +1364,19 @@ itemsfile version 3
  0
 0
 
- itm_nordic_helmet Nordic_Helmet Nordic_Helmet 1  helmet_w_eyeguard_new 0  65548 0 340 704643238 2.000000 100 40 0 0 7 0 0 0 0 0 0 0
+ itm_nordic_helmet Spiked_Helmet_with_Visor Spiked_Helmet_with_Visor 1  helmet_w_eyeguard_new 0  65548 0 340 704643238 2.000000 100 40 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_khergit_lady_hat Khergit_Lady_Hat Khergit_Lady_Hat 1  khergit_lady_hat 0  1627389964 0 1 123731968 0.500000 100 4 0 0 0 0 0 0 0 0 0 0
+ itm_khergit_lady_hat Lady's_Blue_Beaded_Cap Lady's_Blue_Beaded_Cap 1  khergit_lady_hat 0  1627389964 0 1 123731968 0.500000 100 4 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_khergit_lady_hat_b Khergit_Lady_Leather_Hat Khergit_Lady_Leather_Hat 1  khergit_lady_hat_b 0  1627389964 0 1 123731968 0.500000 100 4 0 0 0 0 0 0 0 0 0 0
+ itm_khergit_lady_hat_b Lady's_Leather_Beaded_Cap Lady's_Leather_Beaded_Cap 1  khergit_lady_hat_b 0  1627389964 0 1 123731968 0.500000 100 4 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_felt_hat Sarranid_Felt_Hat Sarranid_Felt_Hat 1  sar_helmet3 0  65548 0 16 123731968 2.000000 100 5 0 0 7 0 0 0 0 0 0 0
+ itm_sarranid_felt_hat Felt_Hat Felt_Hat 1  sar_helmet3 0  65548 0 16 123731968 2.000000 100 5 0 0 7 0 0 0 0 0 0 0
  0
 0
 
@@ -1388,47 +1388,47 @@ itemsfile version 3
  0
 0
 
- itm_sarranid_warrior_cap Sarranid_Warrior_Cap Sarranid_Warrior_Cap 1  tuareg_helmet 0  68719542284 0 90 704643238 2.000000 100 19 0 0 7 0 0 0 0 0 0 0
+ itm_sarranid_warrior_cap Iron_Cap_and_Turban Iron_Cap_and_Turban 1  tuareg_helmet 0  68719542284 0 90 704643238 2.000000 100 19 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_horseman_helmet Horseman_Helmet Horseman_Helmet 1  sar_helmet2 0  65548 0 180 704643238 2.750000 100 25 0 0 7 0 0 0 0 0 0 0
+ itm_sarranid_horseman_helmet Iron_Cap_and_Mail Iron_Cap_and_Mail 1  sar_helmet2 0  65548 0 180 704643238 2.750000 100 25 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_helmet1 Sarranid_Keffiyeh_Helmet Sarranid_Keffiyeh_Helmet 1  sar_helmet1 0  65548 0 290 704643238 2.500000 100 35 0 0 7 0 0 0 0 0 0 0
+ itm_sarranid_helmet1 Spiked_Desert_Cap Spiked_Desert_Cap 1  sar_helmet1 0  65548 0 290 704643238 2.500000 100 35 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_mail_coif Sarranid_Mail_Coif Sarranid_Mail_Coif 1  tuareg_helmet2 0  65548 0 430 704643238 3.000000 100 41 0 0 7 0 0 0 0 0 0 0
+ itm_sarranid_mail_coif Iron_Cap_and_Mail_Coif Iron_Cap_and_Mail_Coif 1  tuareg_helmet2 0  65548 0 430 704643238 3.000000 100 41 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_sarranid_veiled_helmet Sarranid_Veiled_Helmet Sarranid_Veiled_Helmet 1  sar_helmet4 0  68719542284 0 810 704643238 3.500000 100 47 0 0 7 0 0 0 0 0 0 0
+ itm_sarranid_veiled_helmet Mail_Veiled_Desert_cap Mail_Veiled_Desert_cap 1  sar_helmet4 0  68719542284 0 810 704643238 3.500000 100 47 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_nordic_archer_helmet Nordic_Leather_Helmet Nordic_Leather_Helmet 1  Helmet_A_vs2 0  65548 0 40 704643238 1.250000 100 14 0 0 7 0 0 0 0 0 0 0
+ itm_nordic_archer_helmet Banded_Leather_Helmet Banded_Leather_Helmet 1  Helmet_A_vs2 0  65548 0 40 704643238 1.250000 100 14 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_nordic_veteran_archer_helmet Nordic_Leather_Helmet Nordic_Leather_Helmet 1  Helmet_A 0  65548 0 70 704643238 1.500000 100 20 0 0 7 0 0 0 0 0 0 0
+ itm_nordic_veteran_archer_helmet Reinforced_Banded_Leather_Helmet Reinforced_Banded_Leather_Helmet 1  Helmet_A 0  65548 0 70 704643238 1.500000 100 20 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_nordic_footman_helmet Nordic_Footman_Helmet Nordic_Footman_Helmet 1  Helmet_B_vs2 0  1073807372 0 150 704643238 1.750000 100 30 0 0 7 0 0 0 0 0 0 0
+ itm_nordic_footman_helmet Segmented_Cap Segmented_Cap 1  Helmet_B_vs2 0  1073807372 0 150 704643238 1.750000 100 30 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_nordic_fighter_helmet Nordic_Fighter_Helmet Nordic_Fighter_Helmet 1  Helmet_B 0  1073807372 0 240 704643238 2.000000 100 34 0 0 7 0 0 0 0 0 0 0
+ itm_nordic_fighter_helmet Reinforced_Segmented_Cap Reinforced_Segmented_Cap 1  Helmet_B 0  1073807372 0 240 704643238 2.000000 100 34 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_nordic_huscarl_helmet Nordic_Huscarl's_Helmet Nordic_Huscarl's_Helmet 1  Helmet_C_vs2 0  65548 0 390 704643238 2.000000 100 40 0 0 7 0 0 0 0 0 0 0
+ itm_nordic_huscarl_helmet Segmented_Cap_with_Visor Segmented_Cap_with_Visor 1  Helmet_C_vs2 0  65548 0 390 704643238 2.000000 100 40 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_nordic_warlord_helmet Nordic_Warlord_Helmet Nordic_Warlord_Helmet 1  Helmet_C 0  65548 0 880 704643238 2.250000 100 48 0 0 7 0 0 0 0 0 0 0
+ itm_nordic_warlord_helmet Reinforced_Segmented_Cap_with_Visor Reinforced_Segmented_Cap_with_Visor 1  Helmet_C 0  65548 0 880 704643238 2.250000 100 48 0 0 7 0 0 0 0 0 0 0
  0
 0
 
@@ -1436,7 +1436,7 @@ itemsfile version 3
  0
 0
 
- itm_vaegir_fur_helmet Vaegir_Helmet Vaegir_Helmet 1  vaeg_helmet2 0  65548 0 110 704643238 2.000000 100 21 0 0 7 0 0 0 0 0 0 0
+ itm_vaegir_fur_helmet Reinforced_Cap_with_Fur Reinforced_Cap_with_Fur 1  vaeg_helmet2 0  65548 0 110 704643238 2.000000 100 21 0 0 7 0 0 0 0 0 0 0
  0
 0
 
@@ -1448,15 +1448,15 @@ itemsfile version 3
  0
 0
 
- itm_vaegir_noble_helmet Vaegir_Nobleman_Helmet Vaegir_Nobleman_Helmet 1  vaeg_helmet7 0  65548 0 710 704643238 2.750000 100 45 0 0 7 0 0 0 0 0 0 0
+ itm_vaegir_noble_helmet Coif_and_Round_Cap Coif_and_Round_Cap 1  vaeg_helmet7 0  65548 0 710 704643238 2.750000 100 45 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_vaegir_war_helmet Vaegir_War_Helmet Vaegir_War_Helmet 1  vaeg_helmet6 0  65548 0 820 704643238 3.000000 100 47 0 0 7 0 0 0 0 0 0 0
+ itm_vaegir_war_helmet Veiled_Round_Cap Veiled_Round_Cap 1  vaeg_helmet6 0  65548 0 820 704643238 3.000000 100 47 0 0 7 0 0 0 0 0 0 0
  0
 0
 
- itm_vaegir_mask Vaegir_War_Mask Vaegir_War_Mask 1  vaeg_helmet9 0  68719542284 0 950 704643238 3.500000 100 52 0 0 7 0 0 0 0 0 0 0
+ itm_vaegir_mask Round_Cap_with_Mask Round_Cap_with_Mask 1  vaeg_helmet9 0  68719542284 0 950 704643238 3.500000 100 52 0 0 7 0 0 0 0 0 0 0
  0
 0
 
@@ -1584,19 +1584,19 @@ itemsfile version 3
  0
 0
 
- itm_arabian_sword_a Sarranid_Sword Sarranid_Sword 2  arabian_sword_a 0  scab_arabian_sword_a 3458764513820540928  4259842 9223388564182532111 108 155668 1.500000 100 0 0 0 0 26624 99 0 97 0 275 26
+ itm_arabian_sword_a Arafellin_Sword Arafellin_Sword 2  arabian_sword_a 0  scab_arabian_sword_a 3458764513820540928  4259842 9223388564182532111 108 155668 1.500000 100 0 0 0 0 26624 99 0 97 0 275 26
  0
 0
 
- itm_arabian_sword_b Sarranid_Arming_Sword Sarranid_Arming_Sword 2  arabian_sword_b 0  scab_arabian_sword_b 3458764513820540928  4259842 9223388564182532111 218 155668 1.500000 100 0 0 0 0 28672 99 0 97 0 275 28
+ itm_arabian_sword_b Arafellin_Arming_Sword Arafellin_Arming_Sword 2  arabian_sword_b 0  scab_arabian_sword_b 3458764513820540928  4259842 9223388564182532111 218 155668 1.500000 100 0 0 0 0 28672 99 0 97 0 275 28
  0
 0
 
- itm_sarranid_cavalry_sword Sarranid_Cavalry_Sword Sarranid_Cavalry_Sword 2  arabian_sword_c 0  scab_arabian_sword_c 3458764513820540928  4259842 9223388564182532111 310 155668 1.500000 100 0 0 0 0 28672 98 0 105 0 275 28
+ itm_sarranid_cavalry_sword Arafellin_Cavalry_Sword Arafellin_Cavalry_Sword 2  arabian_sword_c 0  scab_arabian_sword_c 3458764513820540928  4259842 9223388564182532111 310 155668 1.500000 100 0 0 0 0 28672 98 0 105 0 275 28
  0
 0
 
- itm_arabian_sword_d Sarranid_Guard_Sword Sarranid_Guard_Sword 2  arabian_sword_d 0  scab_arabian_sword_d 3458764513820540928  4259842 9223388564182532111 420 155668 1.500000 100 0 0 0 0 30720 99 0 97 0 276 30
+ itm_arabian_sword_d Arafellin_Guard_Sword Arafellin_Guard_Sword 2  arabian_sword_d 0  scab_arabian_sword_d 3458764513820540928  4259842 9223388564182532111 420 155668 1.500000 100 0 0 0 0 30720 99 0 97 0 276 30
  0
 0
 
@@ -1796,27 +1796,27 @@ itemsfile version 3
  0
 0
 
- itm_sword_viking_1 Nordic_Sword Nordic_Sword 2  sword_viking_c 0  sword_viking_c_scabbard  3458764513820540928  4259842 9223388564182532111 147 155668 1.500000 100 0 0 0 0 28672 99 0 94 0 276 28
+ itm_sword_viking_1 Illian_Sword Illian_Sword 2  sword_viking_c 0  sword_viking_c_scabbard  3458764513820540928  4259842 9223388564182532111 147 155668 1.500000 100 0 0 0 0 28672 99 0 94 0 276 28
  0
 0
 
- itm_sword_viking_2 Nordic_Sword Nordic_Sword 2  sword_viking_b 0  sword_viking_b_scabbard 3458764513820540928  4259842 9223388564182532111 276 155668 1.500000 100 0 0 0 0 29696 99 0 95 0 277 29
+ itm_sword_viking_2 Illian_Sword Illian_Sword 2  sword_viking_b 0  sword_viking_b_scabbard 3458764513820540928  4259842 9223388564182532111 276 155668 1.500000 100 0 0 0 0 29696 99 0 95 0 277 29
  0
 0
 
- itm_sword_viking_2_small Nordic_Short_Sword Nordic_Short_Sword 2  sword_viking_b_small 0  sword_viking_b_small_scabbard 3458764513820540928  4259842 9223388564182532111 162 155668 1.250000 100 0 0 0 0 28672 103 0 85 0 277 28
+ itm_sword_viking_2_small Illian_Short_Sword Illian_Short_Sword 2  sword_viking_b_small 0  sword_viking_b_small_scabbard 3458764513820540928  4259842 9223388564182532111 162 155668 1.250000 100 0 0 0 0 28672 103 0 85 0 277 28
  0
 0
 
- itm_sword_viking_3 Nordic_War_Sword Nordic_War_Sword 2  sword_viking_a 0  sword_viking_a_scabbard 3458764513820540928  4259842 9223388564182532111 394 155668 1.500000 100 0 0 0 0 30720 99 0 95 0 277 30
+ itm_sword_viking_3 Illian_War_Sword Illian_War_Sword 2  sword_viking_a 0  sword_viking_a_scabbard 3458764513820540928  4259842 9223388564182532111 394 155668 1.500000 100 0 0 0 0 30720 99 0 95 0 277 30
  0
 0
 
- itm_sword_viking_3_small Nordic_Short_War_Sword Nordic_Short_War_Sword 2  sword_viking_a_small 0  sword_viking_a_small_scabbard 3458764513820540928  4259842 9223388564182532111 280 155668 1.250000 100 0 0 0 0 29696 103 0 86 0 277 29
+ itm_sword_viking_3_small Illian_Short_War_Sword Illian_Short_War_Sword 2  sword_viking_a_small 0  sword_viking_a_small_scabbard 3458764513820540928  4259842 9223388564182532111 280 155668 1.250000 100 0 0 0 0 29696 103 0 86 0 277 29
  0
 0
 
- itm_sword_khergit_1 Nomad_Sabre Nomad_Sabre 2  khergit_sword_b 0  khergit_sword_b_scabbard 3458764513820540928  4259842 9223388564182532110 105 155668 1.250000 100 0 0 0 0 29696 100 0 97 0 0 29
+ itm_sword_khergit_1 Light_Sabre Light_Sabre 2  khergit_sword_b 0  khergit_sword_b_scabbard 3458764513820540928  4259842 9223388564182532110 105 155668 1.250000 100 0 0 0 0 29696 100 0 97 0 0 29
  0
 0
 
@@ -1880,11 +1880,11 @@ itemsfile version 3
  0
 0
 
- itm_sarranid_two_handed_axe_a Sarranid_Battle_Axe Sarranid_Battle_Axe 1  two_handed_battle_axe_g 0  34433138691 9223635923965575392 350 262164 3.000000 100 0 0 0 10 50176 89 0 95 0 256 49
+ itm_sarranid_two_handed_axe_a Battle_Axe Battle_Axe 1  two_handed_battle_axe_g 0  34433138691 9223635923965575392 350 262164 3.000000 100 0 0 0 10 50176 89 0 95 0 256 49
  0
 0
 
- itm_sarranid_two_handed_axe_b Sarranid_War_Axe Sarranid_War_Axe 1  two_handed_battle_axe_h 0  34433138691 9223635923965575392 280 262164 2.500000 100 0 0 0 10 47104 90 0 90 0 256 46
+ itm_sarranid_two_handed_axe_b War_Axe War_Axe 1  two_handed_battle_axe_h 0  34433138691 9223635923965575392 280 262164 2.500000 100 0 0 0 10 47104 90 0 90 0 256 46
  0
 0
 
@@ -1948,7 +1948,7 @@ itemsfile version 3
  0
 0
 
- itm_bamboo_spear Bamboo_Spear Bamboo_Spear 1  arabian_spear_a_3m 0  1212481540 4222131026005760 80 8202 2.000000 100 0 0 0 0 15360 88 0 200 0 276 527
+ itm_bamboo_spear Long_Spear Long_Spear 1  arabian_spear_a_3m 0  1212481540 4222131026005760 80 8202 2.000000 100 0 0 0 0 15360 88 0 200 0 276 527
  0
 0
 
@@ -2080,7 +2080,7 @@ itemsfile version 3
 1
 -50.000000  3 2071 1 1224979098644774912 2072 1 1224979098644774913 1 4 936748722493063584 1729382256910270469 1224979098644774912 1224979098644774913 
 
- itm_tab_shield_round_e Huscarl's_Round_Shield Huscarl's_Round_Shield 1  tableau_shield_round_4 0  65543 5100273664 430 167772194 4.500000 100 0 19 0 0 410 81 0 50 0 0 0
+ itm_tab_shield_round_e Cavalry_Round_Shield Cavalry_Round_Shield 1  tableau_shield_round_4 0  65543 5100273664 430 167772194 4.500000 100 0 19 0 0 410 81 0 50 0 0 0
  0
 1
 -50.000000  3 2071 1 1224979098644774912 2072 1 1224979098644774913 1 4 936748722493063584 1729382256910270472 1224979098644774912 1224979098644774913 
@@ -2110,7 +2110,7 @@ itemsfile version 3
 1
 -50.000000  3 2071 1 1224979098644774912 2072 1 1224979098644774913 1 4 936748722493063584 1729382256910270480 1224979098644774912 1224979098644774913 
 
- itm_tab_shield_kite_cav_b Knightly_Kite_Shield Knightly_Kite_Shield 1  tableau_shield_kite_4 0  65543 4831838208 360 167772194 2.500000 100 0 23 0 0 225 100 50 30 0 0 0
+ itm_tab_shield_kite_cav_b Reinforced_Kite_Shield Reinforced_Kite_Shield 1  tableau_shield_kite_4 0  65543 4831838208 360 167772194 2.500000 100 0 23 0 0 225 100 50 30 0 0 0
  0
 1
 -50.000000  3 2071 1 1224979098644774912 2072 1 1224979098644774913 1 4 936748722493063584 1729382256910270480 1224979098644774912 1224979098644774913 
@@ -2140,7 +2140,7 @@ itemsfile version 3
 1
 -50.000000  3 2071 1 1224979098644774912 2072 1 1224979098644774913 1 4 936748722493063584 1729382256910270482 1224979098644774912 1224979098644774913 
 
- itm_tab_shield_heater_cav_b Knightly_Heater_Shield Knightly_Heater_Shield 1  tableau_shield_heater_2 0  327687 4831838208 390 167772194 2.500000 100 0 23 0 0 220 100 50 30 0 0 0
+ itm_tab_shield_heater_cav_b Reinforced_Heater_Shield Reinforced_Heater_Shield 1  tableau_shield_heater_2 0  327687 4831838208 390 167772194 2.500000 100 0 23 0 0 220 100 50 30 0 0 0
  0
 1
 -50.000000  3 2071 1 1224979098644774912 2072 1 1224979098644774913 1 4 936748722493063584 1729382256910270482 1224979098644774912 1224979098644774913 
@@ -2175,7 +2175,7 @@ itemsfile version 3
 1
 -50.000000  3 2071 1 1224979098644774912 2072 1 1224979098644774913 1 4 936748722493063584 1729382256910270474 1224979098644774912 1224979098644774913 
 
- itm_tab_shield_small_round_c Elite_Cavalry_Shield Elite_Cavalry_Shield 1  tableau_shield_small_round_2 0  65543 5100273664 370 167772194 3.000000 100 0 22 0 0 250 100 0 40 0 0 0
+ itm_tab_shield_small_round_c Reinforced_Cavalry_Shield Reinforced_Cavalry_Shield 1  tableau_shield_small_round_2 0  65543 5100273664 370 167772194 3.000000 100 0 22 0 0 250 100 0 40 0 0 0
  0
 1
 -50.000000  3 2071 1 1224979098644774912 2072 1 1224979098644774913 1 4 936748722493063584 1729382256910270475 1224979098644774912 1224979098644774913 
@@ -2256,7 +2256,7 @@ itemsfile version 3
  0
 0
 
- itm_nomad_bow Nomad_Bow Nomad_Bow 2  nomad_bow 0  nomad_bow_case 3458764513820540928  6357000 37312532480 164 655370 1.250000 100 0 0 0 2 0 94 56 0 0 276 0
+ itm_nomad_bow Recurve_Bow Recurve_Bow 2  nomad_bow 0  nomad_bow_case 3458764513820540928  6357000 37312532480 164 655370 1.250000 100 0 0 0 2 0 94 56 0 0 276 0
  0
 0
 
@@ -2264,7 +2264,7 @@ itemsfile version 3
  0
 0
 
- itm_khergit_bow Khergit_Bow Khergit_Bow 2  khergit_bow 0  khergit_bow_case 3458764513820540928  6357000 37312532480 269 655370 1.250000 100 0 0 0 3 0 90 57 0 0 277 0
+ itm_khergit_bow Composite_Bow Composite_Bow 2  khergit_bow 0  khergit_bow_case 3458764513820540928  6357000 37312532480 269 655370 1.250000 100 0 0 0 3 0 90 57 0 0 277 0
  0
 0
 
@@ -2346,31 +2346,31 @@ itemsfile version 3
  0
 0
 
- itm_khergit_guard_armor Khergit_Guard_Armor Khergit_Guard_Armor 1  lamellar_armor_a 0  16777229 0 3048 704643236 25.000000 100 0 50 18 0 0 0 0 0 0 0 0
+ itm_khergit_guard_armor Lamellar_Robe Lamellar_Robe 1  lamellar_armor_a 0  16777229 0 3048 704643236 25.000000 100 0 50 18 0 0 0 0 0 0 0 0
  0
 0
 
- itm_felt_steppe_cap Felt_Steppe_Cap Felt_Steppe_Cap 1  felt_steppe_cap 0  12 0 237 123731968 2.000000 100 16 0 0 0 0 0 0 0 0 0 0
+ itm_felt_steppe_cap Reinforced_Felt_Cap Reinforced_Felt_Cap 1  felt_steppe_cap 0  12 0 237 123731968 2.000000 100 16 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_khergit_war_helmet Khergit_War_Helmet Khergit_War_Helmet 1  tattered_steppe_cap_a_new 0  65548 0 200 123731968 2.000000 100 31 0 0 0 0 0 0 0 0 0 0
+ itm_khergit_war_helmet Round_Helmet_and_Mail Round_Helmet_and_Mail 1  tattered_steppe_cap_a_new 0  65548 0 200 123731968 2.000000 100 31 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_khergit_helmet Khergit_Helmet Khergit_Helmet 1  khergit_guard_helmet 0  12 0 361 123731968 2.000000 100 33 0 0 0 0 0 0 0 0 0 0
+ itm_khergit_helmet Round_Helmet Round_Helmet 1  khergit_guard_helmet 0  12 0 361 123731968 2.000000 100 33 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_khergit_guard_boots Khergit_Guard_Boots Khergit_Guard_Boots 1  lamellar_boots_a 0  3854 0 254 123731968 1.000000 100 0 0 20 0 0 0 0 0 0 0 0
+ itm_khergit_guard_boots Lamellar_Plated_Boots Lamellar_Plated_Boots 1  lamellar_boots_a 0  3854 0 254 123731968 1.000000 100 0 0 20 0 0 0 0 0 0 0 0
  0
 0
 
- itm_khergit_guard_helmet Khergit_Guard_Helmet Khergit_Guard_Helmet 1  lamellar_helmet_a 0  65548 0 433 123731968 2.000000 100 40 0 0 0 0 0 0 0 0 0 0
+ itm_khergit_guard_helmet Plumed_Round_Helmet Plumed_Round_Helmet 1  lamellar_helmet_a 0  65548 0 433 123731968 2.000000 100 40 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_khergit_cavalry_helmet Khergit_Cavalry_Helmet Khergit_Cavalry_Helmet 1  lamellar_helmet_b 0  65548 0 333 123731968 2.000000 100 36 0 0 0 0 0 0 0 0 0 0
+ itm_khergit_cavalry_helmet Plumed_Round_Helmet Plumed_Round_Helmet 1  lamellar_helmet_b 0  65548 0 333 123731968 2.000000 100 36 0 0 0 0 0 0 0 0 0 0
  0
 0
 
@@ -2394,19 +2394,19 @@ itemsfile version 3
  0
 0
 
- itm_byzantion_helmet_a Byzantion_Helmet Byzantion_Helmet 1  byzantion_helmet_a 0  12 0 278 123731968 2.000000 100 20 0 0 0 0 0 0 0 0 0 0
+ itm_byzantion_helmet_a Reinforced_Kettle_Helmet Reinforced_Kettle_Helmet 1  byzantion_helmet_a 0  12 0 278 123731968 2.000000 100 20 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_magyar_helmet_a Magyar_Helmet Magyar_Helmet 1  magyar_helmet_a 0  12 0 278 123731968 2.000000 100 20 0 0 0 0 0 0 0 0 0 0
+ itm_magyar_helmet_a Segmented_Helmet Segmented_Helmet 1  magyar_helmet_a 0  12 0 278 123731968 2.000000 100 20 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_rus_helmet_a Rus_Helmet Rus_Helmet 1  rus_helmet_a 0  12 0 278 123731968 2.000000 100 20 0 0 0 0 0 0 0 0 0 0
+ itm_rus_helmet_a Silklined_Spangenhelm Silklined_Spangenhelm 1  rus_helmet_a 0  12 0 278 123731968 2.000000 100 20 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_sipahi_helmet_a Sipahi_Helmet Sipahi_Helmet 1  sipahi_helmet_a 0  12 0 278 123731968 2.000000 100 20 0 0 0 0 0 0 0 0 0 0
+ itm_sipahi_helmet_a Iron_Cap_and_Mail Iron_Cap_and_Mail 1  sipahi_helmet_a 0  12 0 278 123731968 2.000000 100 20 0 0 0 0 0 0 0 0 0 0
  0
 0
 
@@ -2459,17 +2459,17 @@ itemsfile version 3
  0
 0
 
- itm_warhorse_sarranid Sarranian_War_Horse Sarranian_War_Horse 1  warhorse_sarranid 0  65537 0 1811 110595670016 0.000000 40 0 58 0 4 165 44 40 112 0 32 0
+ itm_warhorse_sarranid War_Horse War_Horse 1  warhorse_sarranid 0  65537 0 1811 110595670016 0.000000 40 0 58 0 4 165 44 40 112 0 32 0
  1
  42
 0
 
- itm_warhorse_steppe Steppe_Charger Steppe_Charger 1  warhorse_steppe 0  65537 0 1400 110595670016 0.000000 45 0 40 0 4 150 50 40 112 0 28 0
+ itm_warhorse_steppe Armored_Charger Armored_Charger 1  warhorse_steppe 0  65537 0 1400 110595670016 0.000000 45 0 40 0 4 150 50 40 112 0 28 0
  2
  39 38
 0
 
- itm_dplmc_coat_of_plates_red_constable Constable_Coat_of_Plates Constable_Coat_of_Plates 1  coat_of_plates_red 0  553652237 0 3828 704643236 25.000000 100 0 52 16 0 0 0 0 0 0 0 0
+ itm_dplmc_coat_of_plates_red_constable Captain's_Coat_of_Plates Captain's_Coat_of_Plates 1  coat_of_plates_red 0  553652237 0 3828 704643236 25.000000 100 0 52 16 0 0 0 0 0 0 0 0
  0
 
 0
@@ -3895,6 +3895,10 @@ itemsfile version 3
 0
 
  itm_ashandarei Ashandarei Ashandarei 1  ashandarei_ravens 0  1080299524 4222131051171584 0 8202 3.500000 100 0 0 0 5 56320 100 0 150 0 286 55
+ 0
+0
+
+ itm_lan_light_armor Light_Armor Light_Armor 1  lamellar_leather 0  16781325 0 195 123731968 3.000000 100 30 50 30 5 0 0 0 0 0 0 0
  0
 0
 
