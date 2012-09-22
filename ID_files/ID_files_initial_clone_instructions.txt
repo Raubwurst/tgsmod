@@ -1,0 +1,1 @@
+If you just cloned the TGS git-repository for the first time, you will be missing the ID files.  Just go to the ID_files folder and copy the files there into the base TGS folder.  You will then need to compile twice to fully update your local version of the ID files.
