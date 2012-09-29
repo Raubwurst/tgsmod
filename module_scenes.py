@@ -1786,6 +1786,8 @@ scenes = [
     [],[],"outer_terrain_desert"),
   ("multi_al_thor_farm",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000003004d69d0003a0e7000069f90000001200003be9",
     [],[],"outer_terrain_plain"),
+  ("multi_taren_ferry",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000003004d69d00060984000069f90000001200003be9",
+    [],[],"outer_terrain_plain"),
 
 ## blank scenes end
 

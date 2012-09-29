@@ -1,5 +1,5 @@
 stringsfile version 1
-3984
+3986
 str_no_string NO_STRING!
 str_empty_string _
 str_yes Yes.
@@ -1850,6 +1850,7 @@ str_multi_blank_steppe_large Blank_Steppe_Large
 str_multi_blank_steppe_huge Blank_Steppe_Huge
 str_multi_taien Taien
 str_multi_al_thor_farm the_Al'Thor_Farm
+str_multi_taren_ferry Taren_Ferry
 str_multi_scene_end multi_scene_end
 str_multi_game_type_1 Deathmatch
 str_multi_game_type_2 Team_Deathmatch
@@ -1983,6 +1984,7 @@ str_open_door Open_Door
 str_close_door Close_Door
 str_raise_ladder Raise_Ladder
 str_drop_ladder Drop_Ladder
+str_use_ferry Use_Ferry
 str_back Back
 str_start_map Start_Map
 str_choose_an_option Choose_an_option:

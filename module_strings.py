@@ -2688,6 +2688,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 # others
 ("multi_taien", "Taien"),
 ("multi_al_thor_farm", "the Al'Thor Farm"),
+("multi_taren_ferry", "Taren Ferry"),
 # end
 #("multi_town_6_walls", "Town 6 Walls"),
 #("multi_town_7_walls", "Town 7 Walls"),
@@ -2841,6 +2842,9 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ("close_door", "Close Door"),
 ("raise_ladder", "Raise Ladder"),
 ("drop_ladder", "Drop Ladder"),
+## Added for TGS
+("use_ferry", "Use Ferry"),
+## End added for TGS
 
 ("back", "Back"),
 ("start_map", "Start Map"),

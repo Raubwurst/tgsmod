@@ -3253,6 +3253,39 @@ scene_props = [
 ## TGS: mat: Timeline Event waypoints
 
 
+  # Added for Taren Ferry
+  ("taren_ferry",sokf_moveable|spr_use_time(2),"taren_ferry","bo_taren_ferry", [
+#    (ti_on_scene_prop_use,
+    (ti_on_scene_prop_hit,
+    [
+      #(store_trigger_param_1, ":agent_id"),
+      (store_trigger_param_2, ":instance_id"), # ferry
+	  (scene_prop_get_instance, ":instance_id", "spr_taren_ferry", 0),
+	  (scene_prop_get_instance, ":waypoint_1", "spr_TGS_timeline_waypoint_1", 0),
+	  (scene_prop_get_instance, ":waypoint_2", "spr_TGS_timeline_waypoint_2", 0),
+	  
+	  (prop_instance_get_position, pos1, ":instance_id"),
+	  (prop_instance_get_position, pos2, ":waypoint_1"),
+	  (prop_instance_get_position, pos3, ":waypoint_2"),
+	  
+	  (get_distance_between_positions, ":dist_1", pos1, pos2),
+	  (get_distance_between_positions, ":dist_2", pos1, pos3),
+	  
+	  (try_begin),
+	  (le, ":dist_1", ":dist_2"), # ferry at pos2
+		(prop_instance_animate_to_position, ":instance_id", pos3, 2000),
+	  (else_try), # ferry at pos3
+		(prop_instance_animate_to_position, ":instance_id", pos2, 2000),
+	  (try_end),
+    ]),
+  ]),
+  
+  
+  ("taren_ferry_post",0,"taren_ferry_post","bo_taren_ferry_post", []),
+  
+  # End added for Taren Ferry
+
+
 ## TGS
 #ROCK AND MOUNTAIN PACK V3#
 
