@@ -13121,7 +13121,10 @@ mission_templates = [
         [
             (try_begin),
             (eq, "$current_town", "p_castle_12"), # Malden
-                (call_script, "script_tgs_initialize_additional_walkers", 40, 20),
+                (call_script, "script_tgs_initialize_additional_walkers", 50, 25),
+			(else_try),
+			(eq, "$current_town", "p_castle_10"), # Taren Ferry
+				(call_script, "script_tgs_initialize_additional_walkers", 30, 15),
             (try_end),
       ]),
 
@@ -27170,6 +27173,10 @@ mission_templates = [
           (eq, ":is_wounded", 1),
           (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
         (try_end),
+		
+		# TGS
+		(get_player_agent_kill_count, "$g_tgs_number_agents_killed_by_player", 0),
+		# TGS
 
         #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
        ]),
@@ -27184,7 +27191,7 @@ mission_templates = [
         (call_script, "script_simulate_retreat", 10, 20, 1),
         (call_script, "script_count_mission_casualties_from_agents"),
         ## TGS
-        (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 0),
+        (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, RETREAT), # RETREAT
         (call_script, "script_tgs_timeline_event_location_name"),
         ## TGS
         (finish_mission,0),]),
@@ -27219,7 +27226,7 @@ mission_templates = [
        [
          (call_script, "script_count_mission_casualties_from_agents"),
          ## TGS
-         (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 1),
+         (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL), # SUCCESSFUL
          (call_script, "script_tgs_timeline_event_location_name"),
          ## TGS
          (finish_mission, 1),
@@ -27260,7 +27267,7 @@ mission_templates = [
               (set_mission_result,-1),
               (call_script, "script_count_mission_casualties_from_agents"),
               ## TGS
-              (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 2),
+              (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL_KO), # SUCCESSFUL_KO
               (call_script, "script_tgs_timeline_event_location_name"),
               ## TGS
               (finish_mission,0),
@@ -27508,6 +27515,10 @@ mission_templates = [
           (eq, ":is_wounded", 1),
           (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
         (try_end),
+		
+		# TGS
+		(get_player_agent_kill_count, "$g_tgs_number_agents_killed_by_player", 0),
+		# TGS
 
         #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
        ]),
@@ -27522,7 +27533,7 @@ mission_templates = [
         (call_script, "script_simulate_retreat", 10, 20, 1),
         (call_script, "script_count_mission_casualties_from_agents"),
         ## TGS
-        (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 0),
+        (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, RETREAT), # RETREAT
         (call_script, "script_tgs_timeline_event_location_name"),
         ## TGS
         (finish_mission,0),]),
@@ -27557,7 +27568,7 @@ mission_templates = [
        [
          (call_script, "script_count_mission_casualties_from_agents"),
          ## TGS
-         (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 1),
+         (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL), # SUCCESSFUL
          (call_script, "script_tgs_timeline_event_location_name"),
          ## TGS
          (finish_mission, 1),
@@ -27598,7 +27609,7 @@ mission_templates = [
               (set_mission_result,-1),
               (call_script, "script_count_mission_casualties_from_agents"),
               ## TGS
-              (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 2),
+              (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL_KO), # SUCCESSFUL_KO
               (call_script, "script_tgs_timeline_event_location_name"),
               ## TGS
               (finish_mission,0),
@@ -27872,6 +27883,10 @@ mission_templates = [
           (eq, ":is_wounded", 1),
           (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
         (try_end),
+		
+		# TGS
+		(get_player_agent_kill_count, "$g_tgs_number_agents_killed_by_player", 0),
+		# TGS
 
         #(call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
        ]),
@@ -27886,7 +27901,7 @@ mission_templates = [
         (call_script, "script_simulate_retreat", 10, 20, 1),
         (call_script, "script_count_mission_casualties_from_agents"),
         ## TGS
-        (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 0),
+        (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, RETREAT), # RETREAT
         (call_script, "script_tgs_timeline_event_location_name"),
         ## TGS
         (finish_mission,0),]),
@@ -27921,7 +27936,7 @@ mission_templates = [
        [
          (call_script, "script_count_mission_casualties_from_agents"),
          ## TGS
-         (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 1),
+         (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL), # SUCCESSFUL
          (call_script, "script_tgs_timeline_event_location_name"),
          ## TGS
          (finish_mission, 1),
@@ -27962,7 +27977,7 @@ mission_templates = [
               (set_mission_result,-1),
               (call_script, "script_count_mission_casualties_from_agents"),
               ## TGS
-              (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, 2),
+              (troop_set_slot, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL_KO), # SUCCESSFUL_KO
               (call_script, "script_tgs_timeline_event_location_name"),
               ## TGS
               (finish_mission,0),

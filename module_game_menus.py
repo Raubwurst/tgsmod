@@ -21159,8 +21159,6 @@ They give you directions to the nearest town and you take your leave.",
                                         ],"{s2}",
 			[
 
-                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-
                 (try_begin),
                 (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL),
                     (try_begin),
@@ -21170,12 +21168,16 @@ They give you directions to the nearest town and you take your leave.",
                         (add_xp_to_troop, 100, "trp_player"),
                         (party_add_xp, "p_main_party", 200),
                         (troop_add_item, "trp_player", "itm_black_mail_gauntlets"),
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_3", 2),	# Two Rivers
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_24", -2),	# Shadowspawn
                     (else_try),
                         # Reward Antagonist Full
                         (troop_add_gold, "trp_player", 100),
                         (add_xp_to_troop, 100, "trp_player"),
                         (party_add_xp, "p_main_party", 200),
                         (troop_add_item, "trp_player", "itm_red_arm_club"),
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_3", -2),	# Two Rivers
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_24", 2),	# Shadowspawn
                     (try_end),
                 (else_try),
                 (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL_KO),
@@ -21185,13 +21187,19 @@ They give you directions to the nearest town and you take your leave.",
                         (troop_add_gold, "trp_player", 50),
                         (add_xp_to_troop, 50, "trp_player"),
                         (party_add_xp, "p_main_party", 100),
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_3", 1),	# Two Rivers
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_24", -1),	# Shadowspawn
                     (else_try),
                         # Reward Antagonist Half
                         (troop_add_gold, "trp_player", 50),
                         (add_xp_to_troop, 50, "trp_player"),
                         (party_add_xp, "p_main_party", 100),
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_3", -1),	# Two Rivers
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_24", 1),	# Shadowspawn
                     (try_end),
                 (try_end),
+				
+                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
 
                 (change_screen_map),
 			]
@@ -21436,41 +21444,69 @@ They give you directions to the nearest town and you take your leave.",
                                         ],"{s2}",
 			[
 
-                (call_script, "script_tgs_timeline_duration_countdown_checker", 1),
-
                 (try_begin),
                 (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL),
                     (try_begin),
                     (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
                         # Reward Protagonist Full
-                        (troop_add_gold, "trp_player", 500),
+						(store_mul, ":gold_bonus", "$g_tgs_number_agents_killed_by_player", 10),
+						(val_add, ":gold_bonus", 500),
+                        (troop_add_gold, "trp_player", ":gold_bonus"),
                         (add_xp_to_troop, 400, "trp_player"),
                         (party_add_xp, "p_main_party", 1000),
                         (troop_add_item, "trp_player", "itm_two_handed_axe"),
                         (troop_add_item, "trp_player", "itm_wool"),
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_3", 2),	# Two Rivers
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_24", -2),	# Shadowspawn
+						(party_get_slot, ":relation", "p_village_99", slot_center_player_relation),			# Emonds Field
+						(val_add, ":relation", 4),
+						(party_set_slot, "p_village_99", slot_center_player_relation, ":relation"),			# Emonds Field
                     (else_try),
                         # Reward Antagonist Full
-                        (troop_add_gold, "trp_player", 500),
+                        (store_mul, ":gold_bonus", "$g_tgs_number_agents_killed_by_player", 10),
+						(val_add, ":gold_bonus", 500),
+                        (troop_add_gold, "trp_player", ":gold_bonus"),
                         (add_xp_to_troop, 400, "trp_player"),
                         (party_add_xp, "p_main_party", 1000),
                         (troop_add_item, "trp_player", "itm_wool"),
                         (troop_add_item, "trp_player", "itm_wool"),
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_3", -2),	# Two Rivers
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_24", 2),	# Shadowspawn
+						(party_get_slot, ":relation", "p_village_99", slot_center_player_relation),			# Emonds Field
+						(val_sub, ":relation", 4),
+						(party_set_slot, "p_village_99", slot_center_player_relation, ":relation"),			# Emonds Field
                     (try_end),
                 (else_try),
                 (troop_slot_eq, "trp_player", slot_troop_timeline_event_successful, SUCCESSFUL_KO),
                     (try_begin),
                     (troop_slot_eq, "trp_player", slot_troop_timeline_aid_protagonists, 1),
                         # Reward Protagonist Half
-                        (troop_add_gold, "trp_player", 250),
+                        (store_mul, ":gold_bonus", "$g_tgs_number_agents_killed_by_player", 10),
+						(val_add, ":gold_bonus", 250),
+                        (troop_add_gold, "trp_player", ":gold_bonus"),
                         (add_xp_to_troop, 200, "trp_player"),
                         (party_add_xp, "p_main_party", 500),
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_3", 1),	# Two Rivers
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_24", -1),	# Shadowspawn
+						(party_get_slot, ":relation", "p_village_99", slot_center_player_relation),			# Emonds Field
+						(val_add, ":relation", 2),
+						(party_set_slot, "p_village_99", slot_center_player_relation, ":relation"),			# Emonds Field
                     (else_try),
                         # Reward Antagonist Half
-                        (troop_add_gold, "trp_player", 250),
+                        (store_mul, ":gold_bonus", "$g_tgs_number_agents_killed_by_player", 10),
+						(val_add, ":gold_bonus", 250),
+                        (troop_add_gold, "trp_player", ":gold_bonus"),
                         (add_xp_to_troop, 200, "trp_player"),
                         (party_add_xp, "p_main_party", 500),
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_3", -1),	# Two Rivers
+						(call_script, "script_change_player_relation_with_faction", "fac_kingdom_24", 1),	# Shadowspawn
+						(party_get_slot, ":relation", "p_village_99", slot_center_player_relation),			# Emonds Field
+						(val_sub, ":relation", 2),
+						(party_set_slot, "p_village_99", slot_center_player_relation, ":relation"),			# Emonds Field
                     (try_end),
                 (try_end),
+				
+				(call_script, "script_tgs_timeline_duration_countdown_checker", 1),
 
                 (change_screen_map),
 			]

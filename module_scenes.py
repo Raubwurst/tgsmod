@@ -909,8 +909,11 @@ scenes = [
   ("castle_9_prison",sf_indoors,"interior_prison_d", "bo_interior_prison_d", (-100,-100),(100,100),-100,"0",
     [],[]),
 #       10 Steppe
-  ("castle_10_exterior",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000023007b23200049d2a00003c37000040ef000037cd",
-    [],[],"outer_terrain_castle_9"),
+  ## TGS: Taren Ferry
+  #("castle_10_exterior",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000023007b23200049d2a00003c37000040ef000037cd",
+  #  [],[],"outer_terrain_castle_9"),
+  ("castle_10_exterior",sf_generate,"none", "none", (0,0),(100,100),-100,"0x000000003004d69d00060984000069f90000001200003be9",
+    [],[],"outer_terrain_plain"),
   ("castle_10_interior",sf_indoors, "interior_castle_j", "bo_interior_castle_j", (-100,-100),(100,100),-100,"0",
     ["exit"],["castle_10_seneschal"]),
   ("castle_10_prison",sf_indoors,"interior_prison_l", "bo_interior_prison_l", (-100,-100),(100,100),-100,"0",
