@@ -2844,6 +2844,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 ("drop_ladder", "Drop Ladder"),
 ## Added for TGS
 ("use_ferry", "Use Ferry"),
+("call_ferry", "Call Ferry"),
+("wait_ferry", "Wait"),
 ## End added for TGS
 
 ("back", "Back"),

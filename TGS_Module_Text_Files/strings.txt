@@ -1,5 +1,5 @@
 stringsfile version 1
-3986
+3988
 str_no_string NO_STRING!
 str_empty_string _
 str_yes Yes.
@@ -1985,6 +1985,8 @@ str_close_door Close_Door
 str_raise_ladder Raise_Ladder
 str_drop_ladder Drop_Ladder
 str_use_ferry Use_Ferry
+str_call_ferry Call_Ferry
+str_wait_ferry Wait
 str_back Back
 str_start_map Start_Map
 str_choose_an_option Choose_an_option:

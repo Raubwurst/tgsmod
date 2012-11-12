@@ -1052,7 +1052,7 @@ scene_props = [
       (try_end),
     ]),
   ]),
-
+  
   ("castle_f_stairs_a",sokf_type_ladder,"castle_f_stairs_a","bo_castle_f_stairs_a", []),
   ("castle_f_tower_a",sokf_type_ladder,"castle_f_tower_a","bo_castle_f_tower_a", []),
   ("castle_f_wall_stairs_a",sokf_type_ladder,"castle_f_wall_stairs_a","bo_castle_f_wall_stairs_a", []),
@@ -3254,34 +3254,52 @@ scene_props = [
 
 
   # Added for Taren Ferry
-  ("taren_ferry",sokf_moveable|spr_use_time(2),"taren_ferry","bo_taren_ferry", [
-#    (ti_on_scene_prop_use,
-    (ti_on_scene_prop_hit,
+  ("TGS_use_ferry_sign",spr_use_time(2),"merchant_sign","bo_tavern_sign", [
+    (ti_on_scene_prop_use,
     [
-      #(store_trigger_param_1, ":agent_id"),
-      (store_trigger_param_2, ":instance_id"), # ferry
-	  (scene_prop_get_instance, ":instance_id", "spr_taren_ferry", 0),
-	  (scene_prop_get_instance, ":waypoint_1", "spr_TGS_timeline_waypoint_1", 0),
-	  (scene_prop_get_instance, ":waypoint_2", "spr_TGS_timeline_waypoint_2", 0),
-	  
-	  (prop_instance_get_position, pos1, ":instance_id"),
-	  (prop_instance_get_position, pos2, ":waypoint_1"),
-	  (prop_instance_get_position, pos3, ":waypoint_2"),
-	  
-	  (get_distance_between_positions, ":dist_1", pos1, pos2),
-	  (get_distance_between_positions, ":dist_2", pos1, pos3),
-	  
-	  (try_begin),
-	  (le, ":dist_1", ":dist_2"), # ferry at pos2
-		(prop_instance_animate_to_position, ":instance_id", pos3, 2000),
-	  (else_try), # ferry at pos3
-		(prop_instance_animate_to_position, ":instance_id", pos2, 2000),
-	  (try_end),
+      (store_trigger_param_1, ":agent_id"),
+      (store_trigger_param_2, ":instance_id"),
+
+      #for only server itself-----------------------------------------------------------------------------------------------
+      (call_script, "script_use_item", ":instance_id", ":agent_id"),
+      #for only server itself-----------------------------------------------------------------------------------------------
+      (get_max_players, ":num_players"),                               
+      (try_for_range, ":player_no", 1, ":num_players"), #0 is server so starting from 1
+        (player_is_active, ":player_no"),
+        (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_use_item, ":instance_id", ":agent_id"),
+      (try_end),
     ]),
   ]),
   
+  ("taren_ferry",sokf_moveable,"taren_ferry","bo_taren_ferry", []),
   
   ("taren_ferry_post",0,"taren_ferry_post","bo_taren_ferry_post", []),
+  
+#  ("taren_ferry",sokf_moveable|spr_use_time(0),"taren_ferry","bo_taren_ferry", [
+##    (ti_on_scene_prop_use,
+#    (ti_on_scene_prop_hit,
+#    [
+#      #(store_trigger_param_1, ":agent_id"),
+#      (store_trigger_param_2, ":instance_id"), # ferry
+#	  (scene_prop_get_instance, ":instance_id", "spr_taren_ferry", 0),
+#	  (scene_prop_get_instance, ":waypoint_1", "spr_TGS_timeline_waypoint_1", 0),
+#	  (scene_prop_get_instance, ":waypoint_2", "spr_TGS_timeline_waypoint_2", 0),
+	  
+#	  (prop_instance_get_position, pos1, ":instance_id"),
+#	  (prop_instance_get_position, pos2, ":waypoint_1"),
+#	  (prop_instance_get_position, pos3, ":waypoint_2"),
+	  
+#	  (get_distance_between_positions, ":dist_1", pos1, pos2),
+#	  (get_distance_between_positions, ":dist_2", pos1, pos3),
+	  
+#	  (try_begin),
+#	  (le, ":dist_1", ":dist_2"), # ferry at pos2
+#		(prop_instance_animate_to_position, ":instance_id", pos3, 2000),
+#	  (else_try), # ferry at pos3
+#		(prop_instance_animate_to_position, ":instance_id", pos2, 2000),
+#	  (try_end),
+#    ]),
+#  ]),
   
   # End added for Taren Ferry
 

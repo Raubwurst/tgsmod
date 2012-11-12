@@ -69,6 +69,7 @@ party_can_join_as_prisoner      = 104 # (party_can_join_as_prisoner),
 troops_can_join                 = 105 # (troops_can_join,<value>),
 troops_can_join_as_prisoner     = 106 # (troops_can_join_as_prisoner,<value>),
 party_can_join_party            = 107 # (party_can_join_party, <joiner_party_id>, <host_party_id>,[flip_prisoners]),
+party_end_battle                = 108 # (party_end_battle,<party_no>),
 main_party_has_troop            = 110 # (main_party_has_troop,<troop_id>),
 party_is_in_town                = 130 # (party_is_in_town,<party_id_1>,<party_id_2>),
 party_is_in_any_town            = 131 # (party_is_in_any_town,<party_id>),
@@ -86,6 +87,18 @@ check_quest_failed              = 203 # (check_quest_failed,<quest_id>),
 check_quest_concluded           = 204 # (check_quest_concluded,<quest_id>),
 
 is_trial_version                = 250 # (is_trial_version),
+is_edit_mode_enabled            = 255 # (is_edit_mode_enabled),
+
+options_get_damage_to_player    = 260 # (options_get_damage_to_player, <destination>), #0 = 1/4, 1 = 1/2, 2 = 1/1
+options_set_damage_to_player    = 261 # (options_set_damage_to_player, <value>), #0 = 1/4, 1 = 1/2, 2 = 1/1
+options_get_damage_to_friends   = 262 # (options_get_damage_to_friends, <destination>), #0 = 1/2, 1 = 3/4, 2 = 1/1
+options_set_damage_to_friends   = 263 # (options_set_damage_to_friends, <value>), #0 = 1/2, 1 = 3/4, 2 = 1/1
+options_get_combat_ai           = 264 # (options_get_combat_ai, <destination>), #0 = good, 1 = average, 2 = poor
+options_set_combat_ai           = 265 # (options_set_combat_ai, <value>), #0 = good, 1 = average, 2 = poor
+options_get_campaign_ai         = 266 # (options_get_campaign_ai, <destination>), #0 = good, 1 = average, 2 = poor
+options_set_campaign_ai         = 267 # (options_set_campaign_ai, <value>), #0 = good, 1 = average, 2 = poor
+options_get_combat_speed        = 268 # (options_get_combat_speed, <destination>), #0 = slowest, 1 = slower, 2 = normal, 3 = faster, 4 = fastest
+options_set_combat_speed        = 269 # (options_set_combat_speed, <value>), #0 = slowest, 1 = slower, 2 = normal, 3 = faster, 4 = fastest
 
 profile_get_banner_id                = 350 # (profile_get_banner_id, <destination>),
 profile_set_banner_id                = 351 # (profile_set_banner_id, <value>),
@@ -118,7 +131,7 @@ player_set_troop_id                  = 405 # (player_get_troop_id, <destination>
 player_get_agent_id                  = 406 # (player_get_agent_id, <destination>, <player_id>),
 player_get_gold                      = 407 # (player_get_gold, <destination>, <player_id>),
 player_set_gold                      = 408 # (player_set_gold, <player_id>, <value>, <max_value>), #set max_value to 0 if no limit is wanted
-player_spawn_new_agent               = 409 # (player_spawn_new_agent, <player_id>),
+player_spawn_new_agent               = 409 # (player_spawn_new_agent, <player_id>, <entry_point>),
 player_add_spawn_item                = 410 # (player_add_spawn_item, <player_id>, <item_slot_no>, <item_id>),
 multiplayer_get_my_team              = 411 # (multiplayer_get_my_team, <destination>),
 multiplayer_get_my_troop             = 412 # (multiplayer_get_my_troop, <destination>),
@@ -133,7 +146,7 @@ multiplayer_make_everyone_enemy      = 420 # (multiplayer_make_everyone_enemy),
 player_control_agent                 = 421 # (player_control_agent, <player_id>, <agent_id>),
 player_get_item_id                   = 422 # (player_get_item_id, <destination>, <player_id>, <item_slot_no>) #only for server
 player_get_banner_id                 = 423 # (player_get_banner_id, <destination>, <player_id>),
-game_get_reduce_campaign_ai          = 424 # (game_get_reduce_campaign_ai, <destination>),
+game_get_reduce_campaign_ai          = 424 # (game_get_reduce_campaign_ai, <destination>), #depreciated, use options_get_campaign_ai instead
 multiplayer_find_spawn_point         = 425 # (multiplayer_find_spawn_point, <destination>, <team_no>, <examine_all_spawn_points>, <is_horseman>), 
 set_spawn_effector_scene_prop_kind   = 426 # (set_spawn_effector_scene_prop_kind <team_no> <scene_prop_kind_no>)
 set_spawn_effector_scene_prop_id     = 427 # (set_spawn_effector_scene_prop_id <scene_prop_id>)
@@ -260,7 +273,9 @@ play_track                      = 601 # (play_track,<track_id>, [options]), # 0 
 play_cue_track                  = 602 # (play_cue_track,<track_id>), #starts immediately
 music_set_situation             = 603 # (music_set_situation, <situation_type>),
 music_set_culture               = 604 # (music_set_culture, <culture_type>),
-stop_all_sounds                 = 609 # (stop_all_sounds, [options]), # 0 = default, 1 = fade out current track, 2 = stop current track
+stop_all_sounds                 = 609 # (stop_all_sounds, [options]), # 0 = stop only looping sounds, 1 = stop all sounds
+store_last_sound_channel        = 615 # (store_last_sound_channel, <destination>),
+stop_sound_channel              = 616 # (stop_sound_channel, <sound_channel_no>),
 
 copy_position                   = 700 # copies position_no_2 to position_no_1
 				      # (copy_position,<position_no_1>,<position_no_2>),
@@ -288,7 +303,7 @@ position_move_z                 = 722 # (position_move_z,<position_no>,<movement
 
 position_rotate_x               = 723 # (position_rotate_x,<position_no>,<angle>),
 position_rotate_y               = 724 # (position_rotate_y,<position_no>,<angle>),
-position_rotate_z               = 725 # (position_rotate_z,<position_no>,<angle>),
+position_rotate_z               = 725 # (position_rotate_z,<position_no>,<angle>,[use_global_z_axis]), # set use_global_z_axis as 1 if needed, otherwise you don't have to give that.
 
 position_get_x                  = 726 # (position_get_x,<destination_fixed_point>,<position_no>), #x position in meters * fixed point multiplier is returned
 position_get_y                  = 727 # (position_get_y,<destination_fixed_point>,<position_no>), #y position in meters * fixed point multiplier is returned
@@ -310,8 +325,8 @@ position_normalize_origin       = 741 # (position_normalize_origin,<destination_
                                                                       # destination = convert_to_fixed_point(length(position.origin))
                                                                       # position.origin *= 1/length(position.origin) #so it normalizes the origin vector
 
-position_get_rotation_around_x  = 742 # (position_get_rotation_around_x,<destination>,<position_no>), #rotation around x axis is returned as angle
-position_get_rotation_around_y  = 743 # (position_get_rotation_around_y,<destination>,<position_no>), #rotation around y axis is returned as angle
+position_get_rotation_around_x  = 742 # (position_get_rotation_around_x, <destination>, <position_no>), #rotation around x axis is returned as angle
+position_get_rotation_around_y  = 743 # (position_get_rotation_around_y, <destination>, <position_no>), #rotation around y axis is returned as angle
 
 position_set_scale_x            = 744 # (position_set_scale_x, <position_no>, <value_fixed_point>), #x scale in meters / fixed point multiplier is set
 position_set_scale_y            = 745 # (position_set_scale_y, <position_no>, <value_fixed_point>), #y scale in meters / fixed point multiplier is set
@@ -321,7 +336,7 @@ position_get_screen_projection  = 750 # (position_get_screen_projection, <positi
 
 position_set_z_to_ground_level  = 791 # (position_set_z_to_ground_level, <position_no>), #only works during a mission
 position_get_distance_to_terrain= 792 # (position_get_distance_to_terrain, <destination>, <position_no>), #only works during a mission
-position_get_distance_to_ground_level = 793 # (position_get_distance_to_ground_level, <position_no>), #only works during a mission
+position_get_distance_to_ground_level = 793 # (position_get_distance_to_ground_level, <destination>, <position_no>), #only works during a mission
 
 start_presentation		                      = 900 # (start_presentation, <presentation_id>),
 start_background_presentation	            = 901 # (start_background_presentation, <presentation_id>), #can only be used in game menus
@@ -371,11 +386,14 @@ create_combo_label_overlay                = 948 # (create_combo_label_overlay, <
 overlay_obtain_focus                      = 949 # (overlay_obtain_focus, <overlay_id>), #works for textboxes only
 
 overlay_set_tooltip                       = 950 # (overlay_set_tooltip, <overlay_id>, <string_id>),
+overlay_set_container_overlay            	= 951 # (overlay_set_container_overlay, <overlay_id>, <container_overlay_id>) # -1 to reset
+overlay_set_additional_render_height	  = 952 # (overlay_set_additional_render_height, <overlay_id>, <height_adder>),
 
 show_object_details_overlay               = 960 # (show_object_details_overlay, <value>), #0 = hide, 1 = show
 
 show_item_details      = 970 # (show_item_details, <item_id>, <position_no>, <show_default_text_or_not>) #show_default_text_or_not should be 1 for showing "default" for default item costs
 close_item_details     = 971 # (close_item_details)
+show_item_details_with_modifier           = 972 # (show_item_details_with_modifier, <item_id>, <item_modifier>, <position_no>, <show_default_text_or_not>) #show_default_text_or_not should be 1 for showing "default" for default item costs
 
 context_menu_add_item       = 980 # (right_mouse_menu_add_item, <string_id>, <value>), #must be called only inside script_game_right_mouse_menu_get_buttons
 
@@ -459,7 +477,7 @@ add_info_page_note_from_sreg    = 1092 # (add_info_page_note_from_sreg,<info_pag
 tutorial_box                    = 1120 # (tutorial_box,<string_id>,<string_id>), #deprecated use dialog_box instead.
 dialog_box                      = 1120 # (tutorial_box,<text_string_id>,<title_string_id>),
 question_box                    = 1121 # (question_box,<string_id>, [<yes_string_id>], [<no_string_id>]),
-tutorial_message                = 1122 # (tutorial_message,<string_id>, <color>), #set string_id = -1 for hiding the message
+tutorial_message                = 1122 # (tutorial_message,<string_id>, <color>, <auto_close_time>), #set string_id = -1 for hiding the message
 tutorial_message_set_position   = 1123 # (tutorial_message_set_position, <position_x>, <position_y>), 
 tutorial_message_set_size       = 1124 # (tutorial_message_set_size, <size_x>, <size_y>), 
 tutorial_message_set_center_justify = 1125 # (tutorial_message_set_center_justify, <val>), #set not 0 for center justify, 0 for not center justify
@@ -689,6 +707,7 @@ party_clear_particle_systems           = 1679   # (party_clear_particle_systems,
 
 party_get_battle_opponent              = 1680   # (party_get_battle_opponent, <destination>, <party_id>)
 party_get_icon                         = 1681   # (party_get_icon, <destination>, <party_id>),
+party_set_extra_icon                   = 1682   # (party_set_extra_icon, <party_id>, <map_icon_id>, <up_down_distance_fixed_point>, <up_down_frequency_fixed_point>, <rotate_frequency_fixed_point>, <fade_in_out_frequency_fixed_point>), #frequencies are in number of revolutions per second
 
 party_get_skill_level                  = 1685   # (party_get_skill_level, <destination>, <party_id>, <skill_no>),
 agent_get_speed                        = 1689   # (agent_get_speed, <position_no>, <agent_id>), #will return speed in x and y
@@ -738,12 +757,13 @@ store_agent_hit_points                 = 1720	# set absolute to 1 to retrieve ac
 						# (store_agent_hit_points,<destination>,<agent_id>,[absolute]),
 agent_set_hit_points                   = 1721	# set absolute to 1 if value is absolute, otherwise value will be treated as relative number in range [0..100]
 						# (agent_set_hit_points,<agent_id>,<value>,[absolute]),
-agent_deliver_damage_to_agent          = 1722	# (agent_deliver_damage_to_agent,<agent_id_deliverer>,<agent_id>,<value>), #if value <= 0, then damage will be calculated using the weapon item
+agent_deliver_damage_to_agent          = 1722	# (agent_deliver_damage_to_agent, <agent_id_deliverer>, <agent_id>, <value>, [item_id]), #if value <= 0, then damage will be calculated using the weapon item. # item_id is the item that the damage is delivered. can be ignored.
 agent_get_kill_count                   = 1723   # (agent_get_kill_count,<destination>,<agent_id>,[get_wounded]), #Set second value to non-zero to get wounded count
 agent_get_player_id                    = 1724   # (agent_get_player_id,<destination>,<agent_id>),
 agent_set_invulnerable_shield          = 1725 # (agent_set_invulnerable_shield, <agent_id>),
 agent_get_wielded_item                 = 1726	# (agent_get_wielded_item,<destination>,<agent_id>,<hand_no>),
 agent_get_ammo                         = 1727	# (agent_get_ammo,<destination>,<agent_id>, <value>), #value = 1 gets ammo for wielded item, value = 0 gets ammo for all items
+#agent_get_ammo_for_slot                = 1825	# (agent_get_ammo_for_slot, <destination>, <agent_id>, <slot_no>), #slot no can be between 0-3
 agent_refill_ammo                      = 1728	# (agent_refill_ammo,<agent_id>),
 #agent_refill_wielded_shield_hit_points = 1692   # (agent_refill_wielded_shield_hit_points, <agent_id>),
 agent_has_item_equipped                = 1729	# (agent_has_item_equipped,<agent_id>,<item_id>),
@@ -764,13 +784,13 @@ agent_set_stand_animation              = 1741   # (agent_set_stand_action, <agen
 agent_set_walk_forward_animation       = 1742   # (agent_set_walk_forward_action, <agent_id>, <anim_id>),
 agent_set_animation_progress           = 1743   # (agent_set_animation_progress, <agent_id>, <value_fixed_point>), #value should be between 0-1 (as fixed point)
 agent_set_look_target_position         = 1744   # (agent_set_look_target_position, <agent_id>, <position_no>),
-agent_set_attack_action                = 1745   # (agent_set_attack_action, <agent_id>, <value>, <value>), #value: 0 = thrust, 1 = slashright, 2 = slashleft, 3 = overswing - second value 0 = ready and release, 1 = ready and hold
-agent_set_defend_action                = 1746   # (agent_set_defend_action, <agent_id>, <value>, <duration-in-1/1000-seconds>), #value_1: 0 = defend_down, 1 = defend_right, 2 = defend_left, 3 = defend_up
+agent_set_attack_action                = 1745   # (agent_set_attack_action, <agent_id>, <value>, <value>), #value: -2 = clear any attack action, 0 = thrust, 1 = slashright, 2 = slashleft, 3 = overswing - second value 0 = ready and release, 1 = ready and hold
+agent_set_defend_action                = 1746   # (agent_set_defend_action, <agent_id>, <value>, <duration-in-1/1000-seconds>), #value_1: -2 = clear any defend action, 0 = defend_down, 1 = defend_right, 2 = defend_left, 3 = defend_up
 agent_set_wielded_item                 = 1747   # (agent_set_wielded_item, <agent_id>, <item_id>),
 agent_set_scripted_destination_no_attack = 1748	# (agent_set_scripted_destination_no_attack,<agent_id>,<position_no>,<auto_set_z_to_ground_level>), #auto_set_z_to_ground_level can be 0 (false) or 1 (true)
 agent_fade_out                         = 1749   # (agent_fade_out, <agent_id>),
 agent_play_sound                       = 1750   # (agent_play_sound, <agent_id>, <sound_id>),
-agent_start_running_away               = 1751   # (agent_start_running_away, <agent_id>),
+agent_start_running_away               = 1751   # (agent_start_running_away, <agent_id>, [position_no]), # if position no is entered, agent will run away to that location. pos0 is not allowed (will be ignored).
 agent_stop_running_away                = 1752   # (agent_stop_run_away, <agent_id>),
 agent_ai_set_aggressiveness            = 1753   # (agent_ai_set_aggressiveness, <agent_id>, <value>), #100 is the default aggressiveness. higher the value, less likely to run back
 agent_set_kick_allowed                 = 1754   # (agent_set_kick_allowed, <agent_id>, <value>), #0 for disable, 1 for allow
@@ -803,7 +823,7 @@ agent_set_team                         = 1771   # (agent_set_team  , <agent_id>,
 
 agent_get_class                        = 1772   # (agent_get_class ,<destination>, <agent_id>),
 agent_get_division                     = 1773   # (agent_get_division ,<destination>, <agent_id>),
-agent_unequip_item                     = 1774	  # (agent_unequip_item,<agent_id>,<item_id>),
+agent_unequip_item                     = 1774	  # (agent_unequip_item, <agent_id>, <item_id>, [weapon_slot_no]), #weapon_slot_no is optional, and can be between 1-4 (used only for weapons, not armor). in either case, item_id has to be set correctly.
 
 class_is_listening_order               = 1775   # (class_is_listening_order, <team_no>, <sub_class>),
 agent_set_ammo                         = 1776   # (agent_set_ammo,<agent_id>,<item_id>,<value>), #value = a number between 0 and maximum ammo
@@ -811,7 +831,7 @@ agent_set_ammo                         = 1776   # (agent_set_ammo,<agent_id>,<it
 agent_add_offer_with_timeout           = 1777   # (agent_add_offer_with_timeout, <agent_id>, <agent_id>, <duration-in-1/1000-seconds>), #second agent_id is offerer, 0 value for duration is an infinite offer
 agent_check_offer_from_agent           = 1778   # (agent_check_offer_from_agent, <agent_id>, <agent_id>), #second agent_id is offerer
 
-agent_equip_item                       = 1779	  # (agent_equip_item,<agent_id>,<item_id>), #for weapons, agent needs to have an empty weapon slot
+agent_equip_item                       = 1779	  # (agent_equip_item, <agent_id>, <item_id>, [weapon_slot_no]), #for weapons, agent needs to have an empty weapon slot. weapon_slot_no is optional, and can be between 1-4 (used only for weapons, not armor).
 
 entry_point_get_position               = 1780   # (entry_point_get_position, <position_no>, <entry_no>),
 entry_point_set_position               = 1781   # (entry_point_set_position, <entry_no>, <position_no>),
@@ -859,6 +879,19 @@ scene_prop_get_hit_points              = 1815   # (scene_prop_get_hit_points, <d
 scene_prop_get_max_hit_points          = 1816   # (scene_prop_get_max_hit_points, <destination>, <scene_prop_id>),
 scene_prop_get_team                    = 1817   # (scene_prop_get_team, <value>, <scene_prop_id>),
 scene_prop_set_team                    = 1818   # (scene_prop_set_team, <scene_prop_id>, <value>),
+scene_prop_set_prune_time              = 1819   # (scene_prop_set_prune_time, <scene_prop_id>, <value>), # prune time can only be set to objects that are already on the prune queue. static objects are not affected by this operation.
+scene_prop_set_cur_hit_points          = 1820   # (scene_prop_set_cur_hit_points, <scene_prop_id>, <value>),
+
+scene_prop_fade_out                    = 1822   # (scene_prop_fade_out, <scene_prop_id>, <fade_out_time>)
+scene_prop_fade_in                     = 1823   # (scene_prop_fade_in, <scene_prop_id>, <fade_in_time>)
+
+agent_get_ammo_for_slot                = 1825	# (agent_get_ammo_for_slot, <destination>, <agent_id>, <slot_no>), #slot no can be between 0-3
+agent_is_in_line_of_sight              = 1826 # (agent_is_in_line_of_sight, <agent_id>, <position_no>), # rotation of the position register is not used.
+agent_deliver_damage_to_agent_advanced = 1827	# (agent_deliver_damage_to_agent_advanced, <destination>, <agent_id_deliverer>, <agent_id>, <value>, [item_id]), #if value <= 0, then damage will be calculated using the weapon item. # item_id is the item that the damage is delivered. can be ignored.
+#this advanced mode of agent_deliver_damage_to_agent has 2 differences. 1- the delivered damage is returned. 2- the damage delivery is done after checking the relationship between agents. this might cause no damage, or even damage to the shooter agent because of a friendly fire.
+team_get_gap_distance				   = 1828   # (team_get_gap_distance, <destination>, <team_no>, <sub_class>),
+
+add_missile                            = 1829	# (add_missile, <agent_id>, <starting_position>, <starting_speed_fixed_point>, <weapon_item_id>, <weapon_item_modifier>, <missile_item_id>, <missile_item_modifier>), # starting position also contains the direction of the arrow
 
 scene_item_get_num_instances           = 1830	# (scene_item_get_num_instances, <destination>, <item_id>),
 scene_item_get_instance                = 1831	# (scene_item_get_instance, <destination>, <item_id>, <instance_no>),
@@ -899,6 +932,14 @@ prop_instance_receive_damage           = 1877 # (prop_instance_receive_damage, <
 prop_instance_intersects_with_prop_instance = 1880 # (prop_instance_intersects_with_prop_instance, <scene_prop_id>, <scene_prop_id>), #give second scene_prop_id as -1 to check all scene props.
 #cannot check polygon-to-polygon physics models, but can check any other combinations between sphere, capsule and polygon physics models.
 
+prop_instance_play_sound               = 1881 # (prop_instance_play_sound, <scene_prop_id>, <sound_id>, [flags]), # sound flags can be given
+prop_instance_stop_sound               = 1882 # (prop_instance_stop_sound, <scene_prop_id>),
+
+prop_instance_clear_attached_missiles  = 1885 # (prop_instance_clear_attached_missiles, <scene_prop_id>), # Works only with dynamic scene props (non-retrievable missiles)
+
+prop_instance_add_particle_system      = 1886 # (prop_instance_add_particle_system, <scene_prop_id>, <par_sys_id>, <position_no>), # position is local, not global.
+prop_instance_stop_all_particle_systems= 1887 # (prop_instance_stop_all_particle_systems, <scene_prop_id>),
+
 
 replace_prop_instance                  = 1889   # (replace_prop_instance, <scene_prop_id>, <new_scene_prop_id>),
 replace_scene_props                    = 1890   # (replace_scene_props, <old_scene_prop_id>,<new_scene_prop_id>),
@@ -908,7 +949,7 @@ replace_scene_items_with_scene_props   = 1891   # (replace_scene_items_with_scen
 #---------------------------
 
 set_mission_result                     = 1906	# (set_mission_result,<value>),
-finish_mission                         = 1907	# (finish_mission),
+finish_mission                         = 1907	# (finish_mission, <delay_in_seconds>),
 jump_to_scene                          = 1910	# (jump_to_scene,<scene_id>,<entry_no>),
 set_jump_mission                       = 1911	# (set_jump_mission,<mission_template_id>),
 set_jump_entry                         = 1912	# (set_jump_entry,<entry_no>),
@@ -937,6 +978,12 @@ spawn_item                             = 1971   # (spawn_item, <item_kind_id>, <
 spawn_agent                            = 1972	# (spawn_agent,<troop_id>), (stores agent_id in reg0)
 spawn_horse                            = 1973	# (spawn_horse,<item_kind_id>, <item_modifier>)  (stores agent_id in reg0)
 spawn_scene_prop                       = 1974   # (spawn_scene_prop, <scene_prop_id>)  (stores prop_instance_id in reg0) not yet.
+
+particle_system_burst_no_sync		   = 1975	# (particle_system_burst_without_sync,<par_sys_id>,<position_no>,[percentage_burst_strength]),
+
+spawn_item_without_refill              = 1976   # (spawn_item_without_refill, <item_kind_id>, <item_modifier>, [seconds_before_pruning]) #if seconds_before_pruning = 0 then item never gets pruned
+agent_get_item_cur_ammo                = 1977	# (agent_get_item_cur_ammo, <destination>, <agent_id>, <slot_no>)
+
 cur_tableau_add_tableau_mesh           = 1980   # (cur_tableau_add_tableau_mesh, <tableau_material_id>, <value>, <position_register_no>), #value is passed to tableau_material
 cur_item_set_tableau_material          = 1981   # (cur_item_set_tableu_material, <tableau_material_id>, <instance_code>), #only call inside ti_on_init_item in module_items
 cur_scene_prop_set_tableau_material    = 1982   # (cur_scene_prop_set_tableau_material, <tableau_material_id>, <instance_code>), #only call inside ti_on_init_scene_prop in module_scene_props
@@ -998,14 +1045,14 @@ set_game_menu_tableau_mesh             = 2032   # (set_game_menu_tableau_mesh, <
 #change_window types.
 change_screen_return                   = 2040	# (change_screen_return),
 change_screen_loot                     = 2041	# (change_screen_loot, <troop_id>),
-change_screen_trade                    = 2042	# (change_screen_trade),
+change_screen_trade                    = 2042	# (change_screen_trade, <troop_id>),
 change_screen_exchange_members         = 2043 # (change_screen_exchange_members, [0,1 = exchange_leader], [party_id]), #if party id is not given, current party will be used
 change_screen_trade_prisoners          = 2044	# (change_screen_trade_prisoners),
 change_screen_buy_mercenaries          = 2045	# (change_screen_buy_mercenaries),
 change_screen_view_character           = 2046	# (change_screen_view_character),
 change_screen_training                 = 2047	# (change_screen_training),
 change_screen_mission                  = 2048	# (change_screen_mission),
-change_screen_map_conversation         = 2049   # (change_screen_map_conversation),
+change_screen_map_conversation         = 2049   # (change_screen_map_conversation, <troop_id>),
 change_screen_exchange_with_party      = 2050   # (change_screen_exchange_with_party, <party_id>),
 change_screen_equip_other              = 2051	# (change_screen_equip_other, <troop_id>),
 change_screen_map                      = 2052
@@ -1019,10 +1066,30 @@ change_screen_options                  = 2058   # (change_screen_options),
 jump_to_menu                           = 2060	# (jump_to_menu,<menu_id>),
 disable_menu_option                    = 2061   # (disable_menu_option),
 
+store_trigger_param    = 2070  # (store_trigger_param, <destination>, <trigger_param_no>),
 store_trigger_param_1  = 2071  # (store_trigger_param_1,<destination>),
 store_trigger_param_2  = 2072  # (store_trigger_param_2,<destination>),
 store_trigger_param_3  = 2073  # (store_trigger_param_3,<destination>),
 set_trigger_result     = 2075  # (set_trigger_result, <value>),
+
+agent_ai_get_look_target               = 2080 # (agent_ai_get_look_target, <destination>, <agent_id>),
+agent_ai_get_move_target               = 2081 # (agent_ai_get_move_target, <destination>, <agent_id>),
+agent_ai_get_behavior_target           = 2082 # (agent_ai_get_behavior_target, <destination>, <agent_id>),
+agent_ai_set_can_crouch                = 2083 # (agent_ai_set_can_crouch, <agent_id>, <value>), # 0 for false, 1 for true.
+
+agent_set_max_hit_points               = 2090	# set absolute to 1 if value is absolute, otherwise value will be treated as relative number in range [0..100]
+						# (agent_set_max_hit_points,<agent_id>,<value>,[absolute]),
+agent_set_damage_modifier              = 2091   # (agent_set_damage_modifier, <agent_id>, <value>), # value is in percentage, 100 is default
+agent_set_accuracy_modifier            = 2092   # (agent_set_accuracy_modifier, <agent_id>, <value>), # value is in percentage, 100 is default, value can be between [0..1000]
+agent_set_speed_modifier               = 2093   # (agent_set_speed_modifier, <agent_id>, <value>), # value is in percentage, 100 is default, value can be between [0..1000]
+agent_set_reload_speed_modifier        = 2094   # (agent_set_reload_speed_modifier, <agent_id>, <value>), # value is in percentage, 100 is default, value can be between [0..1000]
+agent_set_use_speed_modifier           = 2095   # (agent_set_use_speed_modifier, <agent_id>, <value>), # value is in percentage, 100 is default, value can be between [0..1000]
+agent_set_visibility                   = 2096   # (agent_set_visibility, <agent_id>, <value>), # 0 for invisible, 1 for visible.
+agent_get_crouch_mode                  = 2097   # (agent_ai_get_crouch_mode, <destination>, <agent_id>),
+agent_set_crouch_mode                  = 2098   # (agent_ai_set_crouch_mode, <agent_id>, <value>), # 0-1
+
+val_lshift             = 2100 # (val_lshift, <destination>, <value>), # shifts the bits of destination to left by value amount.
+val_rshift             = 2101 # (val_rshift, <destination>, <value>), # shifts the bits of destination to right by value amount.
 
 val_add                = 2105	#dest, operand ::       dest = dest + operand
 				# (val_add,<destination>,<value>),
@@ -1125,13 +1192,17 @@ store_conversation_troop        = 2200 # (store_conversation_troop,<destination>
 store_partner_faction           = 2201 # (store_partner_faction,<destination>),
 store_encountered_party         = 2202 # (store_encountered_party,<destination>),
 store_encountered_party2        = 2203 # (store_encountered_party2,<destination>),
-store_faction_of_party          = 2204 # (store_faction_of_party,<destination>),
+store_faction_of_party          = 2204 # (store_faction_of_party, <destination>, <party_id>),
 set_encountered_party           = 2205 # (set_encountered_party,<destination>),
 
 
 #store_current_town              = 2210 # deprecated, use store_current_scene instead
 #store_current_site              = 2211 # deprecated, use store_current_scene instead
 store_current_scene             = 2211 # (store_current_scene,<destination>),
+
+store_zoom_amount               = 2220 # (store_zoom_amount, <destination_fixed_point>),
+set_zoom_amount                 = 2221 # (set_zoom_amount, <value_fixed_point>),
+is_zoom_disabled                = 2222 # (is_zoom_disabled),
 
 store_item_value                = 2230 # (store_item_value,<destination>,<item_id>),
 store_troop_value               = 2231 # (store_troop_value,<destination>,<troop_id>),
@@ -1218,6 +1289,8 @@ reset_mission_timer_a = 2375	# (reset_mission_timer_a),
 reset_mission_timer_b = 2376	# (reset_mission_timer_b),
 reset_mission_timer_c = 2377	# (reset_mission_timer_c),
 
+set_cheer_at_no_enemy = 2379    # (set_cheer_at_no_enemy, <value>), # values:0->do not cheer (do as commander says), 1->cheer
+
 store_enemy_count     = 2380 # (store_enemy_count,<destination>),
 store_friend_count    = 2381 # (store_friend_count,<destination>),
 store_ally_count      = 2382 # (store_ally_count,<destination>),
@@ -1227,6 +1300,17 @@ store_normalized_team_count = 2385 #(store_normalized_team_count,<destination>, 
                                                                                             # and normalizes the result regarding battle_size and advantage.
 set_postfx            = 2386
 set_river_shader_to_mud = 2387 #changes river material for muddy env
+show_troop_details          = 2388 #(show_troop_details, <troop_id>, <position>, <troop_price>)
+set_skybox                  = 2389 #(set_skybox, <non_hdr_skybox_index>, <hdr_skybox_index>)	#forces selected skybox for a scene, use -1 to disable 
+set_startup_sun_light       = 2390 #(set_startup_sun_light, <r>, <g>, <b>)	#changes the sun light color
+set_startup_ambient_light   = 2391 #(set_startup_ambient_light, <r>, <g>, <b>)	#changes the ambient light color
+set_startup_ground_ambient_light = 2392 #(set_startup_ground_ambient_light, <r>, <g>, <b>)	#changes the ground ambient light color
+rebuild_shadow_map			= 2393 #(rebuild_shadow_map),
+
+set_shader_param_int			= 2400 # (set_shader_param_int, <parameter_name>, <value>),	#Sets the int shader parameter <parameter_name> to <value>
+set_shader_param_float			= 2401 # (set_shader_param_float, <parameter_name>, <value>),	#Sets the float shader parameter <parameter_name> to <value>
+set_shader_param_float4			= 2402 # (set_shader_param_float4, <parameter_name>, <valuex>, <valuey>, <valuez>, <valuew>),	#Sets the float4 shader parameter <parameter_name> to <valuex/y/z/w>
+set_shader_param_float4x4		= 2403 # (set_shader_param_float4x4, <parameter_name>, [0][0], [0][1], [0][2], [1][0], [1][1], [1][2], [2][0], [2][1], [2][2], [3][0], [3][1], [3][2]),	#Sets the float4x4 shader parameter <parameter_name> to the given values .w components are 0001 by default
 
 #-------------------------------------------
 
@@ -1241,6 +1325,11 @@ lhs_operations = [try_for_range,
                   store_repeat_object,
                   get_global_cloud_amount,
                   get_global_haze_amount,
+                  options_get_damage_to_player,
+                  options_get_damage_to_friends,
+                  options_get_combat_ai,
+                  options_get_campaign_ai,
+                  options_get_combat_speed,
                   profile_get_banner_id,
                   get_achievement_stat,
                   get_max_players,
@@ -1292,6 +1381,7 @@ lhs_operations = [try_for_range,
                   player_get_slot,
                   team_get_slot,
                   scene_prop_get_slot,
+                  store_last_sound_channel,
                   get_angle_between_positions,
                   get_distance_between_positions,
                   get_distance_between_positions_in_meters,
@@ -1354,6 +1444,7 @@ lhs_operations = [try_for_range,
                   party_count_prisoners_of_type,
                   party_get_free_companions_capacity,
                   party_get_free_prisoners_capacity,
+                  party_get_helpfulness,
                   party_get_ai_initiative,
                   party_get_num_companion_stacks,
                   party_get_num_prisoner_stacks,
@@ -1412,6 +1503,10 @@ lhs_operations = [try_for_range,
                   scene_prop_get_hit_points,
                   scene_prop_get_max_hit_points,
                   scene_prop_get_team,
+                  agent_get_ammo_for_slot,
+                  agent_deliver_damage_to_agent_advanced,
+                  team_get_gap_distance,
+                  add_missile,
                   scene_item_get_num_instances,
                   scene_item_get_instance,
                   scene_spawned_item_get_num_instances,
@@ -1424,9 +1519,17 @@ lhs_operations = [try_for_range,
                   prop_instance_get_scene_prop_kind,
                   prop_instance_is_animating,
                   prop_instance_get_animation_target_position,
+                  agent_get_item_cur_ammo,
+                  mission_get_time_speed,
+                  mission_cam_get_aperture,
+                  store_trigger_param,
                   store_trigger_param_1,
                   store_trigger_param_2,
                   store_trigger_param_3,
+                  agent_ai_get_look_target,
+                  agent_ai_get_move_target,
+                  agent_ai_get_behavior_target,
+                  agent_get_crouch_mode,
                   store_or,
                   store_and,
                   store_mod,
@@ -1471,6 +1574,7 @@ lhs_operations = [try_for_range,
                   store_encountered_party2,
                   store_faction_of_party,
                   store_current_scene,
+                  store_zoom_amount,
                   store_item_value,
                   store_troop_value,
                   store_partner_quest,
@@ -1511,7 +1615,9 @@ lhs_operations = [try_for_range,
                   store_attacker_count,
                   store_normalized_team_count,
                   ]
-global_lhs_operations = [val_add,
+global_lhs_operations = [val_lshift,
+                         val_rshift,
+                         val_add,
                          val_sub,
                          val_mul,
                          val_div,
@@ -1564,6 +1670,7 @@ can_fail_operations = [ge,
                        check_quest_failed,
                        check_quest_concluded,
                        is_trial_version,
+                       is_edit_mode_enabled,
                        troop_slot_eq,
                        party_slot_eq,
                        faction_slot_eq,
@@ -1612,6 +1719,7 @@ can_fail_operations = [ge,
                        entry_point_is_auto_generated,
                        scene_prop_has_agent_on_it,
                        agent_is_alarmed,
+                       agent_is_in_line_of_sight,
                        scene_prop_get_instance,
                        scene_item_get_instance,
                        scene_allows_mounted_units,
@@ -1620,6 +1728,7 @@ can_fail_operations = [ge,
                        agent_has_item_equipped,
                        map_get_land_position_around_position,
                        map_get_water_position_around_position,
+                       is_zoom_disabled,
                        is_currently_night,
                        store_random_party_of_template,
                        str_is_empty
