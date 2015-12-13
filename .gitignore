@@ -1,1 +1,9 @@
-/ID_*.py
+ID_*.py
+*.dds
+*.bmp
+*.sco
+*.db
+*.wav
+*.au
+*.psd
+*.png
