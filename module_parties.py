@@ -375,7 +375,8 @@ parties = [
   ("village_130","Ko'bal Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(32.32, 138.48),[], 170),#Uslum
   ("village_131","Ghob'hlin Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(60.79, 180.29),[], 100),#Bazeck
   ("village_132","Al'ghol Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(142.78, 161.37),[], 110),#Shulus
-
+#More below! Raubwurst
+  
   ("village_133","Sharain",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(262.24, 46.55),[], 120),#Ilvia
   ("village_134","Mosantile",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(270.00, 16.42),[], 130),#Ruldi
   ("village_135","Warunzef",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(244.07, -13.04),[], 170),#Dashbigha
@@ -399,6 +400,14 @@ parties = [
 
   ("village_151","Zalmar",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-139.27, -34.45),[], 100),#Dugan
 
+ #more here
+  ("village_152","Ahf'frait Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(34.7286,163.943),[], 170),#new
+  ("village_153","Ghar'gheal Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(115.937,172.657),[], 170),#new
+  ("village_154","Darkfriends Encampment",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(86.6049,173.816),[], 170),#new
+  ("village_155","Dhjin'nen Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(23.0945,176.998),[], 170),#new
+  ("village_156","Gho'hlem Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(152.605,176.989),[], 170),#new
+  ("village_157","Ghraem'lan Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-242.02,176.894),[], 170),#new
+  ("village_158","Kno'mon Camp",  icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-5.11921,163.624),[], 170),#new
 # end edited for TGS
 
 # Waygates (added for TGS)
