@@ -41,30 +41,30 @@ party_templates = [
 ##  ("swadian_nobleman","Swadian Nobleman",icon_gray_knight|carries_goods(10)|pf_quest_party,0,fac_commoners,merchant_personality,[(trp_nobleman,1,1),(trp_swadian_knight,2,6),(trp_swadian_man_at_arms,4,12)]),
 # Ryan BEGIN
 # edited for TGS
-("looters","Bandit Rabble",icon_axeman|carries_goods(8),0,fac_outlaws,bandit_personality,[(trp_looter,15,125), (trp_arad_doman_rabble, 5, 30), (trp_tarabon_rabble, 5, 50), (trp_forest_bandit, 5, 25)]), 
+ ("looters", "Bandit Rabble", icon_axeman|carries_goods(8), 0, fac_outlaws, bandit_personality, [(trp_looter,20,150),(trp_arad_doman_rabble,10,40),(trp_tarabon_rabble,10,60),(trp_forest_bandit,10,50)] ),
 # Ryan END
- ("manhunters", "Children of the Light", icon_gray_knight, 0, fac_manhunters, soldier_personality, [(trp_whitecloak_swordsman,5,40),(trp_whitecloak_bowman,5,40),(trp_whitecloak_lancer,6,30)] ),
+ ("manhunters", "Children of the Light", icon_gray_knight, 0, fac_manhunters, soldier_personality, [(trp_whitecloak_swordsman,10,50),(trp_whitecloak_bowman,10,50),(trp_whitecloak_lancer,10,40),(trp_whitecloak_crossbowman,10,30),(trp_whitecloak_man_at_arms,10,20)] ),
 ##  ("peasant","Peasant",icon_peasant,0,fac_commoners,merchant_personality,[(trp_farmer,1,6),(trp_peasant_woman,0,7)]),
 
 #  ("black_khergit_raiders","Black Khergit Raiders",icon_khergit_horseman_b|carries_goods(2),0,fac_black_khergits,bandit_personality,[(trp_black_khergit_guard,1,10),(trp_black_khergit_horseman,5,5)]),
- ("steppe_bandits", "Dragonsworn Bandits", icon_khergit|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_arad_doman_rabble_bandit,5,100),(trp_tarabon_rabble,5,100),(trp_forest_bandit,5,50),(trp_tarabon_scout,5,40),(trp_mountain_bandit,5,30),(trp_caravan_guard,10,40)] ),
- ("taiga_bandits", "Dragonsworn Bandits", icon_khergit|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_arad_doman_rabble_bandit,5,100),(trp_tarabon_rabble,5,100),(trp_forest_bandit,5,50),(trp_tarabon_scout,5,40),(trp_mountain_bandit,5,50),(trp_caravan_guard,10,40)] ),
- ("desert_bandits", "Aiel Renegades", icon_axeman|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_aiel_raider_bandit,5,50),(trp_aiel_runner,5,50),(trp_dawn_runner,3,20),(trp_maiden_of_the_spear,3,20),(trp_aiel_brute,5,20)] ),
- ("forest_bandits", "Forest Raiders", icon_axeman|carries_goods(2), 0, fac_forest_bandits, wot_bandit_personality, [(trp_forest_bandit,5,90),(trp_murandy_bowman,5,45),(trp_illian_scout,3,30),(trp_shienar_spearman,3,20),(trp_ghealdan_militia,5,30)] ),
-("mountain_bandits","Bandits",icon_axeman|carries_goods(2),0,fac_mountain_bandits,wot_bandit_personality,[(trp_mountain_bandit,10,75), (trp_saldaea_skirmisher, 10, 25), (trp_sedai_recruit_soldier, 10, 25), (trp_murandy_maceman, 10, 25), (trp_andor_bowman, 10, 25), (trp_cairhien_light_cavalry, 10, 25)]),
-("sea_raiders","Coastal Raiders",icon_axeman|carries_goods(2),0,fac_outlaws,wot_bandit_personality,[(trp_sea_raider,10,50), (trp_tear_recruit,10,25),(trp_altara_dueler,10,25), (trp_altara_knife_thrower, 10, 25), (trp_tarabon_bowman, 10, 25), (trp_illian_militia, 10, 25)]),
+ ("steppe_bandits", "Dragonsworn Bandits", icon_khergit|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_arad_doman_rabble_bandit,10,120),(trp_tarabon_rabble,10,120),(trp_forest_bandit,10,60),(trp_veteran_fighter,10,40),(trp_regular_fighter,10,50),(trp_mercenary_horseman,20,50)] ),
+ ("taiga_bandits", "Dragonsworn Bandits", icon_khergit|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_arad_doman_rabble_bandit,10,120),(trp_tarabon_rabble,10,120),(trp_sword_sister,10,60),(trp_tarabon_scout,10,50),(trp_mountain_bandit,10,60),(trp_mercenary_horseman,15,50)] ),
+ ("desert_bandits", "Aiel Renegades", icon_axeman|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_aiel_raider_bandit,10,60),(trp_aiel_runner,10,60),(trp_dawn_runner,5,30),(trp_maiden_of_the_spear,5,30),(trp_aiel_brute,10,30)] ),
+ ("forest_bandits", "Forest Raiders", icon_axeman|carries_goods(2), 0, fac_forest_bandits, wot_bandit_personality, [(trp_forest_bandit,10,120),(trp_murandy_bowman,10,60),(trp_illian_scout,5,40),(trp_shienar_spearman,5,30),(trp_ghealdan_militia,10,35),(trp_altara_dueler,5,20)] ),
+ ("mountain_bandits", "Bandits", icon_axeman|carries_goods(2), 0, fac_mountain_bandits, wot_bandit_personality, [(trp_mountain_bandit,15,90),(trp_saldaea_skirmisher,15,35),(trp_sedai_recruit_soldier,15,35),(trp_murandy_maceman,15,35),(trp_andor_bowman,15,35),(trp_cairhien_light_cavalry,15,35)] ),
+ ("sea_raiders", "Coastal Raiders", icon_axeman|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_sea_raider,15,60),(trp_tear_recruit,15,30),(trp_altara_dueler,15,30),(trp_altara_knife_thrower,15,30),(trp_tarabon_bowman,15,30),(trp_illian_militia,15,30)] ),
 
- ("trollocs", "Marauding Trollocs", icon_axeman|carries_goods(2), 0, fac_trollocs, wot_trolloc_personality, [(trp_trolloc_grunt_bandit,20,100),(trp_trolloc_hewer,15,50),(trp_trolloc_stalker,15,50),(trp_myrddraal,1,5)] ),
+ ("trollocs", "Marauding Trollocs", icon_axeman|carries_goods(2), 0, fac_trollocs, wot_trolloc_personality, [(trp_trolloc_grunt_bandit,20,120),(trp_trolloc_hewer,15,60),(trp_trolloc_stalker,15,60),(trp_myrddraal,1,10)] ),
 # end edited for TGS
 
 ("deserters","Deserters",icon_vaegir_knight|carries_goods(3),0,fac_deserters,bandit_personality,[]),
 
- ("merchant_caravan", "Merchant Caravan", icon_gray_knight|carries_goods(20)|pf_auto_remove_in_town|pf_quest_party, 0, fac_commoners, escorted_merchant_personality, [(trp_caravan_master,1,1),(trp_caravan_guard,5,50)] ),
-("troublesome_bandits","Troublesome Bandits",icon_axeman|carries_goods(9)|pf_quest_party,0,fac_outlaws,bandit_personality,[(trp_bandit,14,55)]),
+ ("merchant_caravan", "Merchant Caravan", icon_gray_knight|carries_goods(20)|pf_auto_remove_in_town|pf_quest_party, 0, fac_commoners, escorted_merchant_personality, [(trp_caravan_master,1,1),(trp_caravan_guard,5,55)] ),
+ ("troublesome_bandits", "Troublesome Bandits", icon_axeman|carries_goods(9)|pf_quest_party, 0, fac_outlaws, bandit_personality, [(trp_bandit,14,55)] ),
 ("bandits_awaiting_ransom","Bandits Awaiting Ransom",icon_axeman|carries_goods(9)|pf_auto_remove_in_town|pf_quest_party,0,fac_neutral,bandit_personality,[(trp_bandit,24,58),(trp_kidnapped_girl,1,1,pmf_is_prisoner)]),
 ("kidnapped_girl","Kidnapped Girl",icon_woman|pf_quest_party,0,fac_neutral,merchant_personality,[(trp_kidnapped_girl,1,1)]),
 
- ("village_farmers", "Village Farmers", icon_peasant|pf_civilian, 0, fac_innocents, merchant_personality, [(trp_farmer,2,25),(trp_peasant_woman,1,16)] ),
+("village_farmers", "Village Farmers", icon_peasant|pf_civilian, 0, fac_innocents, merchant_personality, [(trp_farmer,2,25),(trp_peasant_woman,1,16)] ),
 
 ("spy_partners", "Unremarkable Travellers", icon_gray_knight|carries_goods(10)|pf_default_behavior|pf_quest_party,0,fac_neutral,merchant_personality,[(trp_spy_partner,1,1),(trp_caravan_guard,5,11)]),
 ("runaway_serfs","Runaway Serfs",icon_peasant|carries_goods(8)|pf_default_behavior|pf_quest_party,0,fac_neutral,merchant_personality,[(trp_farmer,6,7), (trp_peasant_woman,3,3)]),
@@ -82,8 +82,8 @@ party_templates = [
 ("messenger_party","Messenger",icon_gray_knight|pf_show_faction,0,fac_commoners,merchant_personality,[]),
 ("raider_party","Raiders",icon_gray_knight|carries_goods(16)|pf_quest_party,0,fac_commoners,bandit_personality,[]),
 ("raider_captives","Raider Captives",0,0,fac_commoners,0,[(trp_peasant_woman,6,30,pmf_is_prisoner)]),
- ("kingdom_caravan_party", "Caravan", icon_mule|carries_goods(25)|pf_show_faction, 0, fac_commoners, merchant_personality, [(trp_caravan_master,1,1),(trp_caravan_guard,10,60)] ),
-("prisoner_train_party","Prisoner Train",icon_gray_knight|carries_goods(5)|pf_show_faction,0,fac_commoners,merchant_personality,[]),
+ ("kingdom_caravan_party", "Caravan", icon_mule|carries_goods(25)|pf_show_faction, 0, fac_commoners, merchant_personality, [(trp_caravan_master,1,1),(trp_caravan_guard,10,65)] ),
+ ("prisoner_train_party", "Prisoner Train", icon_gray_knight|carries_goods(5)|pf_show_faction, 0, fac_commoners, merchant_personality, [(trp_watchman,15,30),(trp_caravan_guard,30,40)] ),
 ("default_prisoners","Default Prisoners",0,0,fac_commoners,0,[(trp_bandit,5,10,pmf_is_prisoner)]),
 
 ("routed_warriors","Routed Enemies",icon_vaegir_knight,0,fac_commoners,soldier_personality,[]),
@@ -107,7 +107,7 @@ party_templates = [
 ("kingdom_1_reinforcements_c", "{!}kingdom_1_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_ashaman_soldier,3,6),(trp_ashaman_dedicated,2,4),(trp_ashaman,2,3),(trp_ashaman_veteran,1,2)]),
 ("kingdom_1_reinforcements_d", "{!}kingdom_1_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_legion_recruit_army,5,10),(trp_legion_infantry,5,10),(trp_legion_heavy_crossbowman,4,8),(trp_legion_lancer,4,8),(trp_legion_bannerman,2,4),(trp_legion_captain,2,4)]),
 ("kingdom_1_reinforcements_e", "{!}kingdom_1_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_mayene_man_at_arms,3,6),(trp_mayene_lancer,2,4),(trp_mayene_royal_guard,2,4)]),
-("kingdom_1_reinforcements_f", "{!}kingdom_1_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_legion_andor_ally,3,6),(trp_andor_swordsman,3,6),(trp_andor_blademaster,2,4),(trp_andor_man_at_arms,2,4)]), 
+("kingdom_1_reinforcements_f", "{!}kingdom_1_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_legion_andor_ally,3,6),(trp_andor_swordsman,3,6),(trp_andor_blademaster,2,4),(trp_andor_man_at_arms,2,4)]),
 ("kingdom_1_reinforcements_g", "{!}kingdom_1_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_legion_tear_ally,3,6),(trp_tear_bowman,2,4),(trp_tear_lancer,3,6),(trp_tear_heavy_lancer,2,4),(trp_legion_cairhien_ally,3,6),(trp_cairhien_pikeman,2,4)]),
 ("kingdom_1_reinforcements_h", "{!}kingdom_1_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_legion_illian_ally,3,6),(trp_illian_crossbowman,2,4),(trp_illian_marksman,3,6),(trp_illian_man_at_arms,2,4),(trp_cairhien_lancer,2,4)]),
 
@@ -304,70 +304,70 @@ party_templates = [
 # white tower
 ("kingdom_21_reinforcements_a", "{!}kingdom_21_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_sedai_recruit_soldier,10,15),(trp_tar_valon_street_patrol,8,12),(trp_tower_guard_infantry,5,10),(trp_tower_guard_captain,2,4),(trp_tower_guard_crossbowman,5,10)]),
 ("kingdom_21_reinforcements_b", "{!}kingdom_21_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_sedai_recruit_soldier,10,15),(trp_tar_valon_street_patrol,8,12),(trp_tower_guard_infantry,5,10),(trp_tower_guard_captain,2,4),(trp_tower_guard_crossbowman,5,10)]),
-("kingdom_21_reinforcements_c", "{!}kingdom_21_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_sedai_recruit_soldier,10,15),(trp_tar_valon_street_patrol,8,12),(trp_tower_guard_infantry,5,10),(trp_tower_guard_captain,2,4),(trp_tower_guard_crossbowman,5,10)]), 
+("kingdom_21_reinforcements_c", "{!}kingdom_21_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_sedai_recruit_soldier,10,15),(trp_tar_valon_street_patrol,8,12),(trp_tower_guard_infantry,5,10),(trp_tower_guard_captain,2,4),(trp_tower_guard_crossbowman,5,10)]),
 ("kingdom_21_reinforcements_d", "{!}kingdom_21_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_warder_trainee,4,8),(trp_youngling_infantry,3,6),(trp_youngling_cavalry,3,6)]),
 ("kingdom_21_reinforcements_e", "{!}kingdom_21_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_novice_social,1,2),(trp_accepted_medical,2,3),(trp_aes_sedai_yellow,2,3),(trp_aes_sedai_yellow_veteran,1,2)]),
-("kingdom_21_reinforcements_f", "{!}kingdom_21_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_novice_social,1,2),(trp_accepted_academic,2,3),(trp_aes_sedai_brown,2,3),(trp_aes_sedai_brown_veteran,1,2),(trp_aes_sedai_white,2,3),(trp_aes_sedai_white_veteran,1,2)]), 
+("kingdom_21_reinforcements_f", "{!}kingdom_21_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_novice_social,1,2),(trp_accepted_academic,2,3),(trp_aes_sedai_brown,2,3),(trp_aes_sedai_brown_veteran,1,2),(trp_aes_sedai_white,2,3),(trp_aes_sedai_white_veteran,1,2)]),
 ("kingdom_21_reinforcements_g", "{!}kingdom_21_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_novice_civil,1,2),(trp_accepted_political,2,3),(trp_aes_sedai_blue,2,3),(trp_aes_sedai_blue_veteran,1,2),(trp_aes_sedai_grey,2,3),(trp_aes_sedai_grey_veteran,1,2)]),
 ("kingdom_21_reinforcements_h", "{!}kingdom_21_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_novice_civil,1,2),(trp_accepted_military,2,3),(trp_aes_sedai_red,2,3),(trp_aes_sedai_red_veteran,1,2),(trp_aes_sedai_green,2,3),(trp_aes_sedai_green_veteran,1,2)]),
 
 # aiel
 ("kingdom_22_reinforcements_a", "{!}kingdom_22_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_wise_one_apprentice,2,4),(trp_wise_one,3,5),(trp_wise_one_dream_walker,2,3)]),
 ("kingdom_22_reinforcements_b", "{!}kingdom_22_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_wise_one_apprentice,2,4),(trp_wise_one,3,5),(trp_wise_one_dream_walker,2,3)]),
-("kingdom_22_reinforcements_c", "{!}kingdom_22_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_lithe,10,15),(trp_aiel_raider,5,10),(trp_knife_hand,3,6),(trp_night_spear,3,6)]), 
+("kingdom_22_reinforcements_c", "{!}kingdom_22_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_lithe,10,15),(trp_aiel_raider,5,10),(trp_knife_hand,3,6),(trp_night_spear,3,6)]),
 ("kingdom_22_reinforcements_d", "{!}kingdom_22_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_athletic,10,15),(trp_aiel_runner,5,10),(trp_dawn_runner,3,6),(trp_mountain_dancer,3,6)]),
 ("kingdom_22_reinforcements_e", "{!}kingdom_22_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_athletic,10,15),(trp_aiel_scout,5,10),(trp_maiden_of_the_spear,3,6),(trp_water_seeker,3,6)]),
-("kingdom_22_reinforcements_f", "{!}kingdom_22_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_bulky,10,15),(trp_aiel_enforcer,5,10),(trp_stone_dog,3,6),(trp_red_shield,3,6)]), 
+("kingdom_22_reinforcements_f", "{!}kingdom_22_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_bulky,10,15),(trp_aiel_enforcer,5,10),(trp_stone_dog,3,6),(trp_red_shield,3,6)]),
 ("kingdom_22_reinforcements_g", "{!}kingdom_22_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_warrior,10,15),(trp_aiel_brute,5,10),(trp_brother_of_the_eagle,3,6),(trp_brotherless,3,6)]),
 ("kingdom_22_reinforcements_h", "{!}kingdom_22_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_aiel_recruit_warrior,10,15),(trp_aiel_grappler,5,10),(trp_black_eye,3,6),(trp_true_blood,3,6)]),
 
 # seanchan
 ("kingdom_23_reinforcements_a", "{!}kingdom_23_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_suldam,3,5),(trp_der_suldam,2,4)]),
 ("kingdom_23_reinforcements_b", "{!}kingdom_23_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_seanchan_armsman,15,20),(trp_seanchan_swordsman,5,10),(trp_seanchan_deathwatch_guard,2,4),(trp_seanchan_marksman,4,8),(trp_seanchan_scout,4,8),(trp_seanchan_lancer,3,6)]),
-("kingdom_23_reinforcements_c", "{!}kingdom_23_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_seanchan_footman,10,15),(trp_seanchan_blademaster,4,8),(trp_seanchan_pikeman,8,4),(trp_seanchan_halberdier,2,4),(trp_seanchan_bowman,5,10),(trp_seanchan_crossbowman,4,8)]), 
+("kingdom_23_reinforcements_c", "{!}kingdom_23_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_seanchan_footman,10,15),(trp_seanchan_blademaster,4,8),(trp_seanchan_pikeman,8,4),(trp_seanchan_halberdier,2,4),(trp_seanchan_bowman,5,10),(trp_seanchan_crossbowman,4,8)]),
 ("kingdom_23_reinforcements_d", "{!}kingdom_23_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_seanchan_scout,4,8),(trp_seanchan_man_at_arms,5,10),(trp_seanchan_lancer,3,6),(trp_seanchan_captain,2,4),(trp_seanchan_skirmisher,4,8)]),
 ("kingdom_23_reinforcements_e", "{!}kingdom_23_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_seanchan_armsman,10,15),(trp_seanchan_swordsman,4,8),(trp_seanchan_deathwatch_guard,2,4),(trp_seanchan_marksman,4,8),(trp_seanchan_scout,4,8),(trp_seanchan_lancer,2,4)]),
-("kingdom_23_reinforcements_f", "{!}kingdom_23_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_seanchan_tarabon_ally,4,8),(trp_tarabon_bowman,4,8),(trp_tarabon_marksman,2,4),(trp_tarabon_scout,3,6),(trp_tarabon_lancer,3,6),(trp_tarabon_skirmisher,2,4)]), 
+("kingdom_23_reinforcements_f", "{!}kingdom_23_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_seanchan_tarabon_ally,4,8),(trp_tarabon_bowman,4,8),(trp_tarabon_marksman,2,4),(trp_tarabon_scout,3,6),(trp_tarabon_lancer,3,6),(trp_tarabon_skirmisher,2,4)]),
 ("kingdom_23_reinforcements_g", "{!}kingdom_23_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_seanchan_amadicia_ally,4,8),(trp_amadicia_pikeman,4,8),(trp_amadicia_captain,2,4),(trp_whitecloak_man_at_arms,3,6),(trp_whitecloak_lancer,3,6)]),
 ("kingdom_23_reinforcements_h", "{!}kingdom_23_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_seanchan_altara_ally,4,8),(trp_altara_swordsman,4,8),(trp_altara_royal_guard,3,6),(trp_altara_knife_thrower,2,4)]),
 
 # shadowspawn
 ("kingdom_24_reinforcements_a", "{!}kingdom_24_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_shadowspawn_recruit_creature,20,30),(trp_trolloc_grunt,10,20),(trp_trolloc_hewer,8,16),(trp_trolloc_berserker,4,12),(trp_trolloc_clan_chief,4,8),(trp_myrddraal,2,4)]),
 ("kingdom_24_reinforcements_b", "{!}kingdom_24_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_shadowspawn_recruit_creature,20,30),(trp_trolloc_grunt,10,20),(trp_trolloc_hewer,8,16),(trp_trolloc_berserker,4,12),(trp_trolloc_clan_chief,4,8),(trp_myrddraal,2,4)]),
-("kingdom_24_reinforcements_c", "{!}kingdom_24_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_shadowspawn_recruit_creature,20,30),(trp_trolloc_grunt,10,20),(trp_trolloc_hewer,8,16),(trp_trolloc_berserker,4,12),(trp_trolloc_clan_chief,4,8),(trp_myrddraal,2,4)]), 
+("kingdom_24_reinforcements_c", "{!}kingdom_24_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_shadowspawn_recruit_creature,20,30),(trp_trolloc_grunt,10,20),(trp_trolloc_hewer,8,16),(trp_trolloc_berserker,4,12),(trp_trolloc_clan_chief,4,8),(trp_myrddraal,2,4)]),
 ("kingdom_24_reinforcements_d", "{!}kingdom_24_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_trolloc_archer,8,16),(trp_trolloc_stalker,8,16),(trp_draghkar,2,4)]),
 ("kingdom_24_reinforcements_e", "{!}kingdom_24_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_trolloc_archer,8,16),(trp_trolloc_stalker,8,16),(trp_draghkar,2,4)]),
-("kingdom_24_reinforcements_f", "{!}kingdom_24_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_darkfriend_channeler,4,6),(trp_darkfriend_channeler_female,4,6),(trp_darkfriend_wilder,3,6),(trp_aes_sedai_black,3,6),(trp_dreadlord,2,4)]), 
+("kingdom_24_reinforcements_f", "{!}kingdom_24_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_darkfriend_channeler,4,6),(trp_darkfriend_channeler_female,4,6),(trp_darkfriend_wilder,3,6),(trp_aes_sedai_black,3,6),(trp_dreadlord,2,4)]),
 ("kingdom_24_reinforcements_g", "{!}kingdom_24_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_darkfriend_initiate,15,25),(trp_darkfriend_murderer,6,10),(trp_darkfriend_assassin,4,8),(trp_darkfriend_ambusher,6,10),(trp_darkfriend_leader,4,8),(trp_darkfriend_marksman,8,14)]),
 ("kingdom_24_reinforcements_h", "{!}kingdom_24_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_darkfriend_initiate,15,25),(trp_darkfriend_murderer,6,10),(trp_darkfriend_assassin,4,8),(trp_darkfriend_ambusher,6,10),(trp_darkfriend_leader,4,8),(trp_darkfriend_marksman,8,14)]),
 
 # shara
 ("kingdom_25_reinforcements_a", "{!}kingdom_25_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_ayyad_villager,2,4),(trp_ayyad_village_leader,3,5),(trp_ayyad_counsel_member,2,3)]),
 ("kingdom_25_reinforcements_b", "{!}kingdom_25_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_ayyad_villager,2,4),(trp_ayyad_village_leader,3,5),(trp_ayyad_counsel_member,2,3)]),
-("kingdom_25_reinforcements_c", "{!}kingdom_25_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_shara_recruit,5,10),(trp_shara_armsman,4,8),(trp_shara_town_guard,3,6),(trp_shara_border_guard,2,4),(trp_shara_defender,1,2)]), 
+("kingdom_25_reinforcements_c", "{!}kingdom_25_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_shara_recruit,5,10),(trp_shara_armsman,4,8),(trp_shara_town_guard,3,6),(trp_shara_border_guard,2,4),(trp_shara_defender,1,2)]),
 ("kingdom_25_reinforcements_d", "{!}kingdom_25_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_shara_swordsman,2,4),(trp_shara_captain,1,2),(trp_shara_bowman,3,6),(trp_shara_marksman,2,4),(trp_shara_crossbowman,2,4)]),
 ("kingdom_25_reinforcements_e", "{!}kingdom_25_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_shara_scout,4,8),(trp_shara_man_at_arms,3,6),(trp_shara_shbo_guardsman,2,4),(trp_shara_skirmisher,3,6)]),
-("kingdom_25_reinforcements_f", "{!}kingdom_25_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_shara_recruit,5,10),(trp_shara_armsman,4,8),(trp_shara_town_guard,3,6),(trp_shara_border_guard,2,4),(trp_shara_defender,1,2)]), 
+("kingdom_25_reinforcements_f", "{!}kingdom_25_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_shara_recruit,5,10),(trp_shara_armsman,4,8),(trp_shara_town_guard,3,6),(trp_shara_border_guard,2,4),(trp_shara_defender,1,2)]),
 ("kingdom_25_reinforcements_g", "{!}kingdom_25_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_shara_swordsman,2,4),(trp_shara_captain,1,2),(trp_shara_bowman,3,6),(trp_shara_marksman,2,4),(trp_shara_crossbowman,2,4)]),
 ("kingdom_25_reinforcements_h", "{!}kingdom_25_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_shara_scout,4,8),(trp_shara_man_at_arms,3,6),(trp_shara_shbo_guardsman,2,4),(trp_shara_skirmisher,3,6)]),
 
 # sea folk
 ("kingdom_26_reinforcements_a", "{!}kingdom_26_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit_channeler,2,4),(trp_sea_folk_pupil,3,5),(trp_sea_folk_windfinder,2,3)]),
 ("kingdom_26_reinforcements_b", "{!}kingdom_26_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit_channeler,2,4),(trp_sea_folk_pupil,3,5),(trp_sea_folk_windfinder,2,3)]),
-("kingdom_26_reinforcements_c", "{!}kingdom_26_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit,5,10),(trp_sea_folk_bilge_hand,4,8),(trp_sea_folk_deck_hand,3,6),(trp_sea_folk_boatswain,2,4),(trp_sea_folk_cargomaster,1,2)]), 
+("kingdom_26_reinforcements_c", "{!}kingdom_26_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit,5,10),(trp_sea_folk_bilge_hand,4,8),(trp_sea_folk_deck_hand,3,6),(trp_sea_folk_boatswain,2,4),(trp_sea_folk_cargomaster,1,2)]),
 ("kingdom_26_reinforcements_d", "{!}kingdom_26_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_sea_folk_dogwatcher,3,6),(trp_sea_folk_deck_defender,2,4),(trp_sea_folk_weatherly,4,8),(trp_sea_folk_quarterling,3,6),(trp_sea_folk_sailmistress,2,4),(trp_sea_folk_wavemistress,1,2)]),
-("kingdom_26_reinforcements_e", "{!}kingdom_26_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit,5,10),(trp_sea_folk_bilge_hand,4,8),(trp_sea_folk_deck_hand,3,6),(trp_sea_folk_boatswain,2,4),(trp_sea_folk_cargomaster,1,2)]), 
+("kingdom_26_reinforcements_e", "{!}kingdom_26_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit,5,10),(trp_sea_folk_bilge_hand,4,8),(trp_sea_folk_deck_hand,3,6),(trp_sea_folk_boatswain,2,4),(trp_sea_folk_cargomaster,1,2)]),
 ("kingdom_26_reinforcements_f", "{!}kingdom_26_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_sea_folk_dogwatcher,3,6),(trp_sea_folk_deck_defender,2,4),(trp_sea_folk_weatherly,4,8),(trp_sea_folk_quarterling,3,6),(trp_sea_folk_sailmistress,2,4),(trp_sea_folk_wavemistress,1,2)]),
-("kingdom_26_reinforcements_g", "{!}kingdom_26_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit,5,10),(trp_sea_folk_bilge_hand,4,8),(trp_sea_folk_deck_hand,3,6),(trp_sea_folk_boatswain,2,4),(trp_sea_folk_cargomaster,1,2)]), 
+("kingdom_26_reinforcements_g", "{!}kingdom_26_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_sea_folk_recruit,5,10),(trp_sea_folk_bilge_hand,4,8),(trp_sea_folk_deck_hand,3,6),(trp_sea_folk_boatswain,2,4),(trp_sea_folk_cargomaster,1,2)]),
 ("kingdom_26_reinforcements_h", "{!}kingdom_26_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_sea_folk_dogwatcher,3,6),(trp_sea_folk_deck_defender,2,4),(trp_sea_folk_weatherly,4,8),(trp_sea_folk_quarterling,3,6),(trp_sea_folk_sailmistress,2,4),(trp_sea_folk_wavemistress,1,2)]),
 
 # madmen
 ("kingdom_27_reinforcements_a", "{!}kingdom_27_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_madmen_air_shifter,2,4),(trp_madmen_fire_tamer,3,5),(trp_madmen_storm_caller,2,3)]),
 ("kingdom_27_reinforcements_b", "{!}kingdom_27_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_madmen_air_shifter,2,4),(trp_madmen_fire_tamer,3,5),(trp_madmen_storm_caller,2,3)]),
-("kingdom_27_reinforcements_c", "{!}kingdom_27_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_madmen_recruit,5,10),(trp_madmen_wanderer,4,8),(trp_madmen_villager,3,6),(trp_madmen_clansman,2,4),(trp_madmen_chieftan,1,2)]), 
+("kingdom_27_reinforcements_c", "{!}kingdom_27_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_madmen_recruit,5,10),(trp_madmen_wanderer,4,8),(trp_madmen_villager,3,6),(trp_madmen_clansman,2,4),(trp_madmen_chieftan,1,2)]),
 ("kingdom_27_reinforcements_d", "{!}kingdom_27_reinforcements_d", 0, 0, fac_commoners, 0, [(trp_madmen_looter,2,4),(trp_madmen_pillager,1,2),(trp_madmen_hunter,3,6),(trp_madmen_ambusher,2,4),(trp_madmen_assassin,1,2)]),
 ("kingdom_27_reinforcements_e", "{!}kingdom_27_reinforcements_e", 0, 0, fac_commoners, 0, [(trp_madmen_horse_tamer,4,8),(trp_madmen_slave_catcher,3,6),(trp_madmen_thunderhoof,2,4),(trp_madmen_plains_rider,3,6)]),
-("kingdom_27_reinforcements_f", "{!}kingdom_27_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_madmen_recruit,5,10),(trp_madmen_wanderer,4,8),(trp_madmen_villager,3,6),(trp_madmen_clansman,2,4),(trp_madmen_chieftan,1,2)]), 
+("kingdom_27_reinforcements_f", "{!}kingdom_27_reinforcements_f", 0, 0, fac_commoners, 0, [(trp_madmen_recruit,5,10),(trp_madmen_wanderer,4,8),(trp_madmen_villager,3,6),(trp_madmen_clansman,2,4),(trp_madmen_chieftan,1,2)]),
 ("kingdom_27_reinforcements_g", "{!}kingdom_27_reinforcements_g", 0, 0, fac_commoners, 0, [(trp_madmen_looter,2,4),(trp_madmen_pillager,1,2),(trp_madmen_hunter,3,6),(trp_madmen_ambusher,2,4),(trp_madmen_assassin,1,2)]),
 ("kingdom_27_reinforcements_h", "{!}kingdom_27_reinforcements_h", 0, 0, fac_commoners, 0, [(trp_madmen_horse_tamer,4,8),(trp_madmen_slave_catcher,3,6),(trp_madmen_thunderhoof,2,4),(trp_madmen_plains_rider,3,6)]),
 
