@@ -528,6 +528,10 @@ seanchan_2_woman_face_middle   = 0x00000009c4004003495d69d525774ca200000000001e2
 seanchan_2_woman_face_old      = 0x0000000d84004003495d69d525774ca200000000001e249d0000000000000000
 seanchan_2_woman_face_older    = 0x0000000f44004003495d69d525774ca200000000001e249d0000000000000000
 
+#Raubwurst
+#dragonsworn
+masema_face = 0x000000074000000036c36c36dbcdb75b00000000001cdb1b0000000000000000
+
 # end added for TGS
 
 man_face_younger_1 = 0x0000000000000001124000000020000000000000001c00800000000000000000
@@ -3301,7 +3305,13 @@ troops = [
   ["trolloc_grunt_bandit","Trolloc Grunt","Trolloc Grunts",tf_trolloc|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_8,
    [itm_military_fork,itm_trolloc_hawk_helmet, itm_trolloc_weak_armor, itm_black_mail_gauntlets, itm_black_leather_boots],
     def_attrib_wot_super_infantry_2 ,wp_polearm(110)|wp(70),knows_wot_super_infantry_2,man_face_young_1, man_face_old_2],
-  ### end added for TGS
+#Raubwurst 
+  ["dragonsworn_masema","Prophet of the Dragon Masema","Prophet of the Dragon Masema",tf_guarantee_all_wo_ranged,0,0,fac_kingdom_2,
+   [itm_great_sword, itm_plate_armor, itm_steel_greaves_wot, itm_gauntlets, itm_great_helmet],
+   def_attrib_wot_infantry_5 ,wp_two_handed(190)|wp(150),knows_wot_infantry_5, masema_face, masema_face],
+ 
+#Raubwurst End
+	### end added for TGS
 
   ["black_khergit_horseman","Black Khergit Horseman","Black Khergit Horsemen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse,0,0,fac_black_khergits,
    [itm_arrows,itm_sword_khergit_2,itm_scimitar,itm_scimitar,itm_winged_mace,itm_spear,itm_lance,itm_khergit_bow,itm_khergit_bow,itm_nomad_bow,itm_nomad_bow,itm_steppe_cap,itm_nomad_cap,itm_khergit_war_helmet,itm_khergit_war_helmet,itm_mail_hauberk,itm_lamellar_armor,itm_hide_boots,itm_plate_covered_round_shield,itm_plate_covered_round_shield,itm_saddle_horse,itm_steppe_horse],
@@ -4066,7 +4076,7 @@ troops = [
   ["kingdom_21_lord",  "Amyrlin Seat Egwene al'Vere",  "Egwene",  tf_hero|tf_female, 0,reserved,  fac_kingdom_21,[itm_hunter, itm_lady_dress_green, itm_woolen_hose, itm_novice_accepted_damane_shoes, itm_red_dress, itm_power_player, itm_power_ammo], knight_attrib_4,wp_firearm(275)|wp_one_handed(225)|wp(220),knight_skills_4|knows_trainer_5|knows_power_draw_8|knows_fire_7|knows_earth_8|knows_spirit_9|knows_water_8|knows_air_8, 0x000000002308200344da719494adc89a00000000001d33130000000000000000],
   ["kingdom_22_lord",  "Clan Chief Rhuarc",  "Rhuarc",  tf_hero, 0,reserved,  fac_kingdom_22,[itm_cadinsor, itm_cadinsor_boots, itm_shoufa, itm_aiel_spear, itm_hide_buckler_strong], knight_attrib_5,wp_polearm(325)|wp(300),knight_skills_5|knows_trainer_5, 0x0000000db304100536d38db6e46dcae500000000001e492b0000000000000000],
   ["kingdom_23_lord",  "Empress Fortuona Athaem Devi Paendrig",  "Fortuona",  tf_hero|tf_female, 0,reserved,  fac_kingdom_23,[itm_lord_warhorse_7, itm_sarranid_lady_dress, itm_novice_accepted_damane_shoes, itm_seanchan_sword], knight_attrib_4,wp_two_handed(260)|wp(250),knight_skills_4|knows_trainer_5, 0x00000000050c40003325c5331dc8b5a300000000001e44a40000000000000000],
-   ["kingdom_24_lord", "Shaidar Haran", "Shaidar Haran", tf_hero, no_scene, reserved, fac_kingdom_24, [itm_myrddraal_horse,itm_myrddraal_armor,itm_black_leather_boots,itm_myrddraal_hood_helmet,itm_black_mail_gauntlets,itm_myrddraal_blade], knight_attrib_5, wp_two_handed(325), knight_skills_8|knows_trainer_8|knows_leadership_8|knows_spotting_6|knows_pathfinding_6|knows_tactics_4|knows_tracking_8|knows_athletics_9|knows_shield_9|knows_weapon_master_10|knows_power_strike_9|knows_ironflesh_10, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000 ],
+  ["kingdom_24_lord", "Shaidar Haran", "Shaidar Haran", tf_hero, no_scene, reserved, fac_kingdom_24, [itm_myrddraal_horse,itm_myrddraal_armor,itm_black_leather_boots,itm_myrddraal_hood_helmet,itm_black_mail_gauntlets,itm_myrddraal_blade], str_30|agi_30|int_15|cha_30, wp_two_handed(325), knows_trainer_8|knows_leadership_8|knows_spotting_6|knows_pathfinding_6|knows_tactics_4|knows_tracking_8|knows_athletics_9|knows_shield_9|knows_weapon_master_10|knows_power_strike_9|knows_ironflesh_10, 0x000000033604400933a5d2329c72461600000000001cc7230000000000000000 ],
   ["kingdom_25_lord",  "Sh'botay Shaofan",  "Shofan",  tf_hero, 0,reserved,  fac_kingdom_25,[itm_lord_warhorse_8, itm_khergit_sword_two_handed_b, itm_shara_shbo_guardsman_armor, itm_lamellar_gauntlets, itm_brass_boots, itm_brass_veil_helm], knight_attrib_5,wp_two_handed(300)|wp(300),knight_skills_5|knows_trainer_5, seanchan_2_man_face_middle],
   ["kingdom_26_lord",  "Mistress of the Ships Zaida din Parede Blackwing",  "Zaida",  tf_hero|tf_female, 0,reserved,  fac_kingdom_26,[itm_scimitar_b, itm_sea_folk_female_armor, itm_leather_covered_round_shield, itm_leather_gloves], knight_attrib_5,wp_one_handed(275)|wp(300),knight_skills_5|knows_trainer_5, seanchan_2_woman_face_middle],
   ["kingdom_27_lord",  "High Chief Pergath",  "Pergath",  tf_hero, 0,reserved,  fac_kingdom_27,[itm_hunter, itm_great_long_bardiche, itm_hammer, itm_lamellar_vest_khergit, itm_leather_boots, itm_leather_gloves, itm_khergit_war_helmet], knight_attrib_5,wp_polearm(325)|wp(300),knight_skills_5|knows_trainer_5, kandor_man_face_older],

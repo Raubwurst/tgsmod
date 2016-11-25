@@ -47,8 +47,11 @@ party_templates = [
 ##  ("peasant","Peasant",icon_peasant,0,fac_commoners,merchant_personality,[(trp_farmer,1,6),(trp_peasant_woman,0,7)]),
 
 #  ("black_khergit_raiders","Black Khergit Raiders",icon_khergit_horseman_b|carries_goods(2),0,fac_black_khergits,bandit_personality,[(trp_black_khergit_guard,1,10),(trp_black_khergit_horseman,5,5)]),
- ("steppe_bandits", "Dragonsworn Bandits", icon_khergit|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_arad_doman_rabble_bandit,10,120),(trp_tarabon_rabble,10,120),(trp_forest_bandit,10,60),(trp_veteran_fighter,10,40),(trp_regular_fighter,10,50),(trp_mercenary_horseman,20,50)] ),
+ ("steppe_bandits", "Dragonsworn Bandits", icon_khergit|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_arad_doman_rabble_bandit,10,120),(trp_tarabon_rabble,10,120),(trp_forest_bandit,10,60),(trp_hired_blade,5,20),(trp_farmer,10,50),(trp_mercenary_horseman,20,50)] ),
  ("taiga_bandits", "Dragonsworn Bandits", icon_khergit|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_arad_doman_rabble_bandit,10,120),(trp_tarabon_rabble,10,120),(trp_sword_sister,10,60),(trp_tarabon_scout,10,50),(trp_mountain_bandit,10,60),(trp_mercenary_horseman,15,50)] ),
+ #Raubwurst add
+ ("masema_bandits", "Prophet of the Dragon", icon_khergit|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_dragonsworn_masema,1,1),(trp_arad_doman_rabble_bandit,50,200),(trp_tarabon_rabble,50,200),(trp_sword_sister,30,150),(trp_mountain_bandit,10,160),(trp_mercenary_horseman,15,150)] ),
+ #Raubwurst End
  ("desert_bandits", "Aiel Renegades", icon_axeman|carries_goods(2), 0, fac_outlaws, wot_bandit_personality, [(trp_aiel_raider_bandit,10,60),(trp_aiel_runner,10,60),(trp_dawn_runner,5,30),(trp_maiden_of_the_spear,5,30),(trp_aiel_brute,10,30)] ),
  ("forest_bandits", "Forest Raiders", icon_axeman|carries_goods(2), 0, fac_forest_bandits, wot_bandit_personality, [(trp_forest_bandit,10,120),(trp_murandy_bowman,10,60),(trp_illian_scout,5,40),(trp_shienar_spearman,5,30),(trp_ghealdan_militia,10,35),(trp_altara_dueler,5,20)] ),
  ("mountain_bandits", "Bandits", icon_axeman|carries_goods(2), 0, fac_mountain_bandits, wot_bandit_personality, [(trp_mountain_bandit,15,90),(trp_saldaea_skirmisher,15,35),(trp_sedai_recruit_soldier,15,35),(trp_murandy_maceman,15,35),(trp_andor_bowman,15,35),(trp_cairhien_light_cavalry,15,35)] ),

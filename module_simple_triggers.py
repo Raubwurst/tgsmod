@@ -4638,6 +4638,7 @@ simple_triggers = [
 
    #this to correct string errors in games started in 1.104 or before
    (party_set_name, "p_steppe_bandit_spawn_point", "str_the_steppes"),
+   (party_set_name, "p_masema_spawn_point", "str_the_steppes"),
    (party_set_name, "p_taiga_bandit_spawn_point", "str_the_tundra"),
    (party_set_name, "p_forest_bandit_spawn_point", "str_the_forests"),
    (party_set_name, "p_mountain_bandit_spawn_point", "str_the_highlands"),
